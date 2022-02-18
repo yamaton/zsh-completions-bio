@@ -1,0 +1,38 @@
+#compdef _masurca masurca
+
+# Auto-generated with h2o
+
+
+function _masurca {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-v,--version}'[Report version]' \
+        {-o,--output}'[Assembly script (assemble.sh)]' \
+        {-g,--generate}'[Generate example configuration file]' \
+        {-p,--path}'[Prepend to PATH in assembly script]' \
+        {-l,--ld-library-path}'[Prepend to LD_LIBRARY_PATH in assembly script]' \
+        '--skip-checking[Skip checking availability of other executables]' \
+        {-h,--help}'[This message]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

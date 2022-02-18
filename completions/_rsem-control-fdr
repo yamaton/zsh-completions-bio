@@ -1,0 +1,34 @@
+#compdef _rsem-control-fdr rsem-control-fdr
+
+# Auto-generated with h2o
+
+
+function _rsem-control-fdr {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--hard-threshold[Use hard threshold method to control FDR. If this option is set, only those genes/transcripts with their PPDE >= 1 - fdr_rate are called as DE. (Default: on)]' \
+        '--soft-threshold[Use soft threshold method to control FDR. If this option is set, this program will try to report as many genes/transcripts as possible, as long as their average PPDE >= 1 - fdr_rate. This option is equivalent to use EBSeq'\''s '\''crit_fun'\'' for FDR control. (Default: off)]' \
+        {-h,--help}'[Show help information.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

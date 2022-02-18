@@ -1,0 +1,35 @@
+#compdef _rsem-gff3-to-gtf rsem-gff3-to-gtf
+
+# Auto-generated with h2o
+
+
+function _rsem-gff3-to-gtf {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        '--make-genes-as-transcripts[GFF3 file does not contain transcripts, make each gene as a transcript. (default: False)]' \
+        '--RNA-patterns[Types of RNAs to be extracted, e.g. mRNA,rRNA (default: None)]' \
+        '--extract-sequences[If GFF3 file contains reference sequences, extract them to the specified file (default: None)]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

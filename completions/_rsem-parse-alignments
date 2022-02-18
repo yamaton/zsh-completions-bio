@@ -1,0 +1,34 @@
+#compdef _rsem-parse-alignments rsem-parse-alignments
+
+# Auto-generated with h2o
+
+
+function _rsem-parse-alignments {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-t[fai_file]':file:_files \
+        '-tag[tagName]' \
+        '-q[set it quiet]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

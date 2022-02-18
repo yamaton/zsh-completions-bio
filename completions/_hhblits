@@ -1,0 +1,127 @@
+#compdef _hhblits hhblits
+
+# Auto-generated with h2o
+
+
+function _hhblits {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-i[input/query: single sequence or multiple sequence alignment (MSA) in a3m, a2m, or FASTA format, or HMM in hhm format <file> may be '\''stdin'\'' or '\''stdout'\'' throughout.]':file:_files \
+        '-d[Multiple databases may be specified with '\''-d <db1> -d <db2> ...'\'']' \
+        '-n[number of iterations (default=2)]' \
+        '-e[E-value cutoff for inclusion in result alignment (def=0.001)]' \
+        '-M[use A2M/A3M (default): upper case = Match; lower case = Insert; '\'' -'\'' = Delete; '\''.'\'' = gaps aligned to inserts (may be omitted)]' \
+        '-M[use FASTA: columns with residue in 1st sequence are match states]' \
+        '-M[use FASTA: columns with fewer than X% gaps are match states]' \
+        {-tags,-notags}'[do NOT / do neutralize His-, C-myc-, FLAG-tags, and trypsin recognition sequence to background distribution (def=-notags)]' \
+        '-o[write results in standard format to file (default=<infile.hhr>)]':file:_files \
+        '-oa3m[write result MSA with significant matches in a3m format]':file:_files \
+        '-opsi[write result MSA of significant matches in PSI-BLAST format]':file:_files \
+        '-ohhm[write HHM file for result MSA of significant matches]':file:_files \
+        '-oalis[write MSAs in A3M format after each iteration]' \
+        '-blasttab[write result in tabular BLAST format (compatible to -m 8 or -outfmt 6 output)]' \
+        '-add_cons[generate consensus sequence as master sequence of query MSA (default=don'\''t)]' \
+        '-hide_cons[don'\''t show consensus sequence in alignments (default=show)]' \
+        '-hide_pred[don'\''t show predicted 2ndary structure in alignments (default=show)]' \
+        '-hide_dssp[don'\''t show DSSP 2ndary structure in alignments (default=show)]' \
+        '-show_ssconf[show confidences for predicted 2ndary structure in alignments]' \
+        '-Ofas[write pairwise alignments in FASTA xor A2M (-Oa2m) xor A3M (-Oa3m) format]':file:_files \
+        '-seq[max. number of query/template sequences displayed (default=1)]' \
+        '-aliw[number of columns per line in alignment list (default=80)]' \
+        '-p[minimum probability in summary and alignment list (default=20)]' \
+        '-E[maximum E-value in summary and alignment list (default=1E+06)]' \
+        '-Z[maximum number of lines in summary hit list (default=500)]' \
+        '-z[minimum number of lines in summary hit list (default=10)]' \
+        '-B[maximum number of alignments in alignment list (default=500)]' \
+        '-b[minimum number of alignments in alignment list (default=10)]' \
+        '-noprefilt[disable all filter steps]' \
+        '-noaddfilter[disable all filter steps (except for fast prefiltering)]' \
+        '-maxfilt[max number of hits allowed to pass 2nd prefilter (default=20000)]' \
+        '-min_prefilter_hits[min number of hits to pass prefilter (default=100)]' \
+        '-prepre_smax_thresh[min score threshold of ungapped prefilter (default=10)]' \
+        '-pre_evalue_thresh[max E-value threshold of Smith-Waterman prefilter score (default=1000.0)]' \
+        '-pre_bitfactor[prefilter scores are in units of 1 bit / pre_bitfactor (default=4)]' \
+        '-pre_gap_open[gap open penalty in prefilter Smith-Waterman alignment (default=20)]' \
+        '-pre_gap_extend[gap extend penalty in prefilter Smith-Waterman alignment (default=4)]' \
+        '-pre_score_offset[offset on sequence profile scores in prefilter S-W alignment (default=50)]' \
+        '-all[show all sequences in result MSA; do not filter result MSA]' \
+        '-interim_filter[filter sequences of query MSA during merging to avoid early stop (default: FULL) NONE: disables the intermediate filter FULL: if an early stop occurs compare filter seqs in an all vs. all comparison]' \
+        '-id[maximum pairwise sequence identity (def=90)]' \
+        '-cov[minimum coverage with master sequence (%) (def=0)]' \
+        '-qid[minimum sequence identity with master sequence (%) (def=0)]' \
+        '-qsc[minimum score per column with master sequence (default=-20.0)]' \
+        '-neff[target diversity of multiple sequence alignment (default=off)]' \
+        '-mark[do not filter out sequences marked by ">@"in their name line]' \
+        '-norealign[do NOT realign displayed hits with MAC algorithm (def=realign)]' \
+        '-realign_old_hits[realign hits from previous iterations]' \
+        '-mact[posterior prob threshold for MAC realignment controlling greediness at alignment ends: 0:global >0.1:local (default=0.35)]' \
+        {-glob,-loc}'[use global/local alignment mode for searching/ranking (def=local)]' \
+        '-realign[realign displayed hits with max. accuracy (MAC) algorithm]' \
+        '-realign_max[realign max. <int> hits (default=500)]' \
+        '-ovlp[banded alignment: forbid <ovlp> largest diagonals |i-j| of DP matrix (def=0)]' \
+        '-alt[show up to this many alternative alignments with raw score > smin(def=4)]' \
+        '-premerge[hits to query MSA before aligning remaining hits (def=3)]' \
+        '-smin[minimum raw score for alternative alignments (def=20.0)]' \
+        '-shift[profile-profile score offset (def=-0.03)]' \
+        '-corr[weight of term for pair correlations (def=0.10)]' \
+        '-sc[amino acid score (tja: template HMM at column j) (def=1)]' \
+        '-ssm[0: no ss scoring. 1,2: ss scoring after or during alignment \[default=2\] 3,4: ss scoring after or during alignment, predicted vs. predicted]' \
+        '-ssw[weight of ss score (def=0.11)]' \
+        '-ssa[ss confusion matrix = (1-ssa)*I + ssa*psipred-confusion-matrix \[def=1.00)]' \
+        '-wg[use global sequence weighting for realignment!]' \
+        '-gapb[Transition pseudocount admixture (def=1.00)]' \
+        '-gapd[Transition pseudocount admixture for open gap (default=0.15)]' \
+        '-gape[Transition pseudocount admixture for extend gap (def=1.00)]' \
+        '-egq[penalty (bits) for end gaps aligned to query residues (def=0.00)]' \
+        '-egt[penalty (bits) for end gaps aligned to template residues (def=0.00)]' \
+        '-pc_hhm_contxt_mode[position dependence of pc admixture '\''tau'\'' (pc mode, default=2)]' \
+        '-pc_hhm_contxt_a[overall pseudocount admixture (def=0.9)]' \
+        '-pc_hhm_contxt_b[Neff threshold value for mode 2 (def=4.0)]' \
+        '-pc_hhm_contxt_c[extinction exponent c for mode 2 (def=1.0)]' \
+        '-pc_hhm_nocontxt_mode[position dependence of pc admixture '\''tau'\'' (pc mode, default=2)]' \
+        '-pc_hhm_nocontxt_a[overall pseudocount admixture (def=1.0)]' \
+        '-pc_hhm_nocontxt_b[Neff threshold value for mode 2 (def=1.5)]' \
+        '-pc_hhm_nocontxt_c[extinction exponent c for mode 2 (def=1.0)]' \
+        '-pc_prefilter_contxt_mode[position dependence of pc admixture '\''tau'\'' (pc mode, default=3)]' \
+        '-pc_prefilter_contxt_a[overall pseudocount admixture (def=0.8)]' \
+        '-pc_prefilter_contxt_b[Neff threshold value for mode 2 (def=2.0)]' \
+        '-pc_prefilter_contxt_c[extinction exponent c for mode 2 (def=1.0)]' \
+        '-pc_prefilter_nocontxt_mode[position dependence of pc admixture '\''tau'\'' (pc mode, default=2)]' \
+        '-pc_prefilter_nocontxt_a[overall pseudocount admixture (def=1.0)]' \
+        '-pc_prefilter_nocontxt_b[Neff threshold value for mode 2 (def=1.5)]' \
+        '-pc_prefilter_nocontxt_c[extinction exponent c for mode 2 (def=1.0)]' \
+        '-nocontxt[use substitution-matrix instead of context-specific pseudocounts]' \
+        '-contxt[context file for computing context-specific pseudocounts (default=)]':file:_files \
+        '-csw[weight of central position in cs pseudocount mode (def=1.6)]' \
+        '-csb[weight decay parameter for positions in cs pc mode (def=0.9)]' \
+        '-v[verbose mode: 0:no screen output 1:only warings 2: verbose (def=2)]' \
+        '-cpu[number of CPUs to use (for shared memory SMPs) (default=2)]' \
+        '-scores[write scores for all pairwise comparisons to file]':file:_files \
+        '-filter_matrices[filter matrices for similarity to output at most 100 matrices]' \
+        '-atab[write all alignments in tabular layout to file]':file:_files \
+        '-maxseq[max number of input rows (def=65535)]' \
+        '-maxres[max number of HMM columns (def=20001)]' \
+        '-maxmem[limit memory for realignment (in GB) (def=3.0)]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

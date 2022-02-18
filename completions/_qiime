@@ -1,0 +1,58 @@
+#compdef _qiime qiime
+
+# Auto-generated with h2o
+
+    function _qiime_tools {
+        _arguments \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_dev {
+        _arguments \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+
+function _qiime {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'tools:Tools for working with QIIME 2 files.'
+            'dev:Utilities for developers and advanced users.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--version[Show the version and exit.]' \
+        '--help[Show this message and exit.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (tools)
+            _qiime_tools
+            ;;
+
+        (dev)
+            _qiime_dev
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

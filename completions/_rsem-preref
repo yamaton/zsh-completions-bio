@@ -1,0 +1,34 @@
+#compdef _rsem-preref rsem-preref
+
+# Auto-generated with h2o
+
+
+function _rsem-preref {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-l[polyALen: specify the length of polyA tail you want to pad. Default is 100]' \
+        '-f[exceptionF: file contains a list of exception reference ids. IDs starts from 1. Must set if polyAChoice = 2]' \
+        '-q[quiet]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

@@ -1,0 +1,37 @@
+#compdef _rsem-plot-transcript-wiggles rsem-plot-transcript-wiggles
+
+# Auto-generated with h2o
+
+
+function _rsem-plot-transcript-wiggles {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--gene-list[The input-list is a list of gene ids. (Default: off)]' \
+        '--transcript-list[The input-list is a list of transcript ids. This option can only be turned on if allele-specific expression is calculated. (Default: off)]' \
+        '--show-unique[Show the wiggle plots as stacked bar plots. See description section for details. (Default: off)]' \
+        {-p,--num-threads}'[Set the number of threads we can use. (Default: 1)]' \
+        '--memory-per-thread[Set the maximum allowable memory per thread. <string> represents the memory and accepts suffices '\''K/M/G'\''. (Default: 1G)]' \
+        {-h,--help}'[Show help information.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

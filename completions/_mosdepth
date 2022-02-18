@@ -1,0 +1,45 @@
+#compdef _mosdepth mosdepth
+
+# Auto-generated with h2o
+
+
+function _mosdepth {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-t,--threads}'[number of BAM decompression threads \[default: 0\]]' \
+        {-c,--chrom}'[chromosome to restrict depth calculation.]' \
+        {-b,--by}'[optional BED file or (integer) window-sizes.]' \
+        {-n,--no-per-base}'[dont output per-base depth. skipping this output will speed execution substantially. prefer quantized or thresholded values if possible.]' \
+        {-f,--fasta}'[fasta file for use with CRAM files \[default: \].]' \
+        {-F,--flag}'[exclude reads with any of the bits in FLAG set \[default: 1796\]]' \
+        {-i,--include-flag}'[only include reads with any of the bits in FLAG set. default is unset. \[default: 0\]]' \
+        {-x,--fast-mode}'[dont look at internal cigar operations or correct mate overlaps (recommended for most use-cases).]' \
+        {-q,--quantize}'[write quantized output see docs for description.]' \
+        {-Q,--mapq}'[mapping quality threshold. reads with a quality less than this value are ignored \[default: 0\]]' \
+        {-T,--thresholds}'[for each interval in --by, write number of bases covered by at least threshold bases. Specify multiple integer values separated by '\'','\''.]' \
+        {-m,--use-median}'[output median of each region (in --by) instead of mean.]' \
+        {-R,--read-groups}'[only calculate depth for these comma-separated read groups IDs.]' \
+        {-h,--help}'[show help]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

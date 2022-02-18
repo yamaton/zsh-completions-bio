@@ -1,0 +1,46 @@
+#compdef _subsample_bam subsample_bam
+
+# Auto-generated with h2o
+
+
+function _subsample_bam {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        {-o,--output_prefix}'[Output prefix (default: sub_sampled)]' \
+        {-p,--profile}'[Stride in genomic coordinates for depth profile. (default: 1000)]':file:_files \
+        {-O,--orientation}'[Sample only forward or reverse reads. (default: None)]' \
+        {-t,--threads}'[Number of threads to use. (default: -1)]' \
+        {-q,--quality}'[Filter reads by mean qscore. (default: None)]' \
+        {-a,--accuracy}'[Filter reads by accuracy. (default: None)]' \
+        {-c,--coverage}'[Filter reads by coverage (what fraction of the read aligns). (default: None)]' \
+        {-l,--length}'[Filter reads by read length. (default: None)]' \
+        '--any_fail[Exit with an error if any region has insufficient coverage. (default: False)]' \
+        '--all_fail[Exit with an error if all regions have insufficient coverage. (default: False)]' \
+        {-x,--patience}'[Maximum iterations with no change in median coverage before aborting. (default: 5)]' \
+        {-s,--stride}'[Stride in genomic coordinates when searching for new reads. Smaller can lead to more compact pileup. (default: 1000)]' \
+        {-P,--proportional}'[Activate proportional sampling, thus keeping depth variations of the pileup. (default: False)]' \
+        {-S,--seed}'[Random seed for proportional downsampling of reads. (default: None)]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

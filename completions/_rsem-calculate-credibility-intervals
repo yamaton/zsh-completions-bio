@@ -1,0 +1,35 @@
+#compdef _rsem-calculate-credibility-intervals rsem-calculate-credibility-intervals
+
+# Auto-generated with h2o
+
+
+function _rsem-calculate-credibility-intervals {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-p[number of threads which user wants to use. (default: 1)]' \
+        '--seed[Set seed for the random number generator used in simulation. The seed should be a 32-bit unsigned integer.]' \
+        '--pseudo-count[Set pseudo count]' \
+        '-q[Set it quiet.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

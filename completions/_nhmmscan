@@ -1,0 +1,32 @@
+#compdef _nhmmscan nhmmscan
+
+# Auto-generated with h2o
+
+
+function _nhmmscan {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-h[show brief help on version and usage]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+
