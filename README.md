@@ -4,14 +4,14 @@ This repository contains zsh shell completion scripts for bioinformatics tools.
 ![zsh-completions-no-window](https://user-images.githubusercontent.com/256288/154776190-a4991546-1af7-4c50-95d5-8f6872464992.svg)
 
 ## Install
-\[⚠️Attention⚠️: I assume you are NOT using zsh frameworks like antigen and oh-my-zsh.\]
+\[⚠️Attention⚠️\] This instuction assumes you are NOT using zsh frameworks like antigen and oh-my-zsh.
 
-1. Add following to `.zshrc`. Following script sets the directory to store scripts as `~/.zsh/completions`.
+1. Add following to `.zshrc`. Following script adds `~/.zsh/zsh-completions-bio` as zsh path.
 
 ```shell
 ## --------------------------------------------------------------------------
 ##   zsh-completions-bio
-fpath=( ~/.zsh/completions "${fpath[@]}" )
+fpath=( ~/.zsh/zsh-completions-bio "${fpath[@]}" )
 autoload -Uz compinit; compinit
 
 zstyle ':completion:*' use-cache on
@@ -41,5 +41,5 @@ zstyle ':completion:*' list-colors '=(#b)*(--)( *)=37=1;38;5;103=1;38;5;142' '=*
 
 ```
 
-2. Save the fish scripts to `~/.zsh/completions`.
+2. Save the fish scripts to `~/.zsh/zsh-completions-bio`.
 
