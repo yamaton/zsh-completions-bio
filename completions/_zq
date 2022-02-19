@@ -1,0 +1,50 @@
+#compdef _zq zq
+
+# Auto-generated with h2o
+
+
+function _zq {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--raw[Expert Mode - Since zindex is a sqlite3 database under the covers, this flag lets you run a custom query for use cases not supported by command line args. example: (--raw "select a.line from index_default a , index_secondary b where a.line == b.line and a.key == '\''2'\'' and b.key == '\''KEY_2'\'';")]' \
+        {-i,--index}'[Use specified index for searching]' \
+        '--index-file[Use index from <index-file> (default <file>.zindex)]' \
+        {-S,--separator}'[Print SEPARATOR between non-overlapping contexts (if -A, -B or -C specified)]' \
+        '--no-separator[Don'\''t print a separator between non-overlapping contexts]' \
+        {-C,--context}'[Print NUM lines of context around each match]' \
+        {-B,--before-context}'[Print NUM lines of context before each match]' \
+        {-A,--after-context}'[Print NUM lines of context after each match]' \
+        {-w,--warnings}'[Log warnings at info level]' \
+        {-n,--line-number}'[Prefix each line of output with its line number]' \
+        '--force[Load index even if it appears inconsistent with the index]' \
+        '--color[Use color even on non-TTY]' \
+        '--colour[Use colour even on non-TTY]' \
+        '--debug[Be even more verbose]' \
+        {-v,--verbose}'[Be more verbose]' \
+        {-l,--line}'[Treat query as a series of line numbers to print]' \
+        {--,--ignore_rest}'[Ignores the rest of the labeled arguments following this flag.]' \
+        '--version[Displays version information and exits.]' \
+        {-h,--help}'[Displays usage information and exits.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

@@ -1,0 +1,35 @@
+#compdef _plotHaps plotHaps
+
+# Auto-generated with h2o
+
+
+function _plotHaps {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-t,--target}'[a zero base comma separated list of target individuals corrisponding to VCF column s]' \
+        {-r,--region}'[a tabix compliant genomic range "seqid:start-end" or "seqid"]' \
+        {-f,--file}'[proper formatted phased VCF file]':file:_files \
+        {-y,--type}'[genotype likelihood format: PL,GP,GP]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

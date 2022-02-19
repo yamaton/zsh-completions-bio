@@ -1,0 +1,44 @@
+#compdef _show-tiling show-tiling
+
+# Auto-generated with h2o
+
+
+function _show-tiling {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-a[Describe the tiling path by printing the tab-delimited alignment region coordinates to stdout]' \
+        '-c[Assume the reference sequences are circular, and allow tiled contigs to span the origin]' \
+        '-h[Display help information]' \
+        '-g[Set maximum gap between clustered alignments \[-1, INT_MAX\] A value of -1 will represent infinity (nucmer default = 1000) (promer default = -1)]' \
+        '-i[Set minimum percent identity to tile \[0.0, 100.0\] (nucmer default = 90.0) (promer default = 55.0)]' \
+        '-l[Set minimum length contig to report \[-1, INT_MAX\] A value of -1 will represent infinity (common default = 1)]' \
+        '-p[Output a pseudo molecule of the query contigs to '\''file'\'']':file:_files \
+        '-R[Deal with repetitive contigs by randomly placing them in one of their copy locations (implies -V 0)]' \
+        '-t[Output a TIGR style contig list of each query sequence that sufficiently matches the reference (non-circular)]':file:_files \
+        '-u[Output the tab-delimited alignment region coordinates of the unusable contigs to '\''file'\'']':file:_files \
+        '-v[Set minimum contig coverage to tile \[0.0, 100.0\] (nucmer default = 95.0) sum of individual alignments (promer default = 50.0) extent of syntenic region]' \
+        '-V[Set minimum contig coverage difference \[0.0, 100.0\] i.e. the difference needed to determine one alignment is '\''better'\'' than another alignment (nucmer default = 10.0) sum of individual alignments (promer default = 30.0) extent of syntenic region]' \
+        '-x[Describe the tiling path by printing the XML contig linking information to stdout]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

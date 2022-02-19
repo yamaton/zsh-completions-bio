@@ -1,0 +1,33 @@
+#compdef _vcfglbound vcfglbound
+
+# Auto-generated with h2o
+
+
+function _vcfglbound {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-b,--bound}'[Bound GLs to this limit.]' \
+        {-x,--exclude-broken}'[If GLs are > 0, remove site.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

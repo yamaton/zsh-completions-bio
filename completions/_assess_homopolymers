@@ -1,0 +1,61 @@
+#compdef _assess_homopolymers assess_homopolymers
+
+# Auto-generated with h2o
+
+    function _assess_homopolymers_count {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-o,--output_dir}'[Output directory (will be created). (default: homopolymers)]':file:_files \
+            {-l,--homo_len}'[Minimum homopolymer length, default 3 (default: 3)]' \
+            {-b,--bed}'[Bed file to limit search. (default: None)]' \
+            "*: :_files"
+
+    }
+
+    function _assess_homopolymers_analyse {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-o,--output_dir}'[Output directory (will be created). (default: homopolymers)]':file:_files \
+            "*: :_files"
+
+    }
+
+
+function _assess_homopolymers {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'count:Count homopolymers starting from a bam.'
+            'analyse:Analyse existing counts, optionally merging multiple counters.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (count)
+            _assess_homopolymers_count
+            ;;
+
+        (analyse)
+            _assess_homopolymers_analyse
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

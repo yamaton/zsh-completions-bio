@@ -1,0 +1,39 @@
+#compdef _vcfstats vcfstats
+
+# Auto-generated with h2o
+
+
+function _vcfstats {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-r,--region}'[specify a region on which to target the stats, requires a BGZF]' \
+        {-a,--add-info}'[add the statistics intermediate information to the VCF file,]' \
+        {-t,--add-type}'[only add the type= field to the info (faster than -a)]' \
+        {-l,--no-length-frequency}'[don'\''t out the indel and mnp length-frequency spectra]' \
+        {-m,--match-score}'[match score for SW algorithm]' \
+        {-x,--mismatch-score}'[mismatch score for SW algorithm]' \
+        {-o,--gap-open-penalty}'[gap open penalty for SW algorithm]' \
+        {-e,--gap-extend-penalty}'[gap extension penalty for SW algorithm]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

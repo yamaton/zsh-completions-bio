@@ -1,0 +1,34 @@
+#compdef _vcfstreamsort vcfstreamsort
+
+# Auto-generated with h2o
+
+
+function _vcfstreamsort {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[this dialog]' \
+        {-w,--window}'[number of sites to sort (default 10000)]' \
+        {-a,--all}'[load all sites and then sort in memory]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

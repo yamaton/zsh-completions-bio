@@ -1,0 +1,34 @@
+#compdef _permuteGPAT++ permuteGPAT++
+
+# Auto-generated with h2o
+
+
+function _permuteGPAT++ {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {--file,-f}'[the input file]':file:_files \
+        {--number,-n}'[the number of permutations to run for each value \[1000\]]' \
+        {--success,-s}'[stop permutations after '\''s'\'' successes \[1\]]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

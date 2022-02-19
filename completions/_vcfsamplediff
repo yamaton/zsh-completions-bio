@@ -1,0 +1,32 @@
+#compdef _vcfsamplediff vcfsamplediff
+
+# Auto-generated with h2o
+
+
+function _vcfsamplediff {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-s,--strict}'[Require that no observations in the germline support the somatic alternate.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

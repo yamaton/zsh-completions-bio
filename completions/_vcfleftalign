@@ -1,0 +1,33 @@
+#compdef _vcfleftalign vcfleftalign
+
+# Auto-generated with h2o
+
+
+function _vcfleftalign {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-r,--reference}'[Use this reference as a basis for realignment.]':file:_files \
+        {-w,--window}'[Use a window of this many bp when left aligning (150).]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

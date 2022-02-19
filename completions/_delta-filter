@@ -1,0 +1,41 @@
+#compdef _delta-filter delta-filter
+
+# Auto-generated with h2o
+
+
+function _delta-filter {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-1[1-to-1 alignment allowing for rearrangements (intersection of -r and -q alignments)]' \
+        '-g[1-to-1 global alignment not allowing rearrangements]' \
+        '-h[Display help information]' \
+        '-i[Set the minimum alignment identity \[0, 100\], default 0]' \
+        '-l[Set the minimum alignment length, default 0]' \
+        '-m[Many-to-many alignment allowing for rearrangements (union of -r and -q alignments)]' \
+        '-q[Maps each position of each query to its best hit in the reference, allowing for reference overlaps]' \
+        '-r[Maps each position of each reference to its best hit in the query, allowing for query overlaps]' \
+        '-u[Set the minimum alignment uniqueness, i.e. percent of the alignment matching to unique reference AND query sequence \[0, 100\], default 0]' \
+        '-o[Set the maximum alignment overlap for -r and -q options as a percent of the alignment length \[0, 100\], default 100]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

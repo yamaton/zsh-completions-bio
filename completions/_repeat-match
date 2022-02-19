@@ -1,0 +1,36 @@
+#compdef _repeat-match repeat-match
+
+# Auto-generated with h2o
+
+
+function _repeat-match {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-E[Use exhaustive (slow) search to find matches]' \
+        '-f[Forward strand only, don'\''t use reverse complement]' \
+        '-n[Set minimum exact match length to #]' \
+        '-t[Only output tandem repeats]' \
+        '-V[Set level of verbose (debugging) printing to #]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

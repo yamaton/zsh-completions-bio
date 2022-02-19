@@ -1,0 +1,33 @@
+#compdef _vcfentropy vcfentropy
+
+# Auto-generated with h2o
+
+
+function _vcfentropy {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-f,--fasta-reference}'[FASTA reference file to use to obtain flanking sequences]' \
+        {-w,--window-size}'[Size of the window over which to calculate entropy]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

@@ -1,0 +1,35 @@
+#compdef _vcfroc vcfroc
+
+# Auto-generated with h2o
+
+
+function _vcfroc {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-t,--truth-vcf}'[use this VCF as ground truth for ROC generation]':file:_files \
+        {-w,--window-size}'[compare records up to this many bp away (default 30)]' \
+        {-c,--complex}'[directly compare complex alleles, don'\''t parse into primitives]' \
+        {-r,--reference}'[FASTA reference file]':file:_files \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

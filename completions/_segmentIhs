@@ -1,0 +1,33 @@
+#compdef _segmentIhs segmentIhs
+
+# Auto-generated with h2o
+
+
+function _segmentIhs {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-f[Output from normalizeIHS]':file:_files \
+        '-s[High absolute iHS cutoff \[2\]]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

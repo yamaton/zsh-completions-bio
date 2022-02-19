@@ -1,0 +1,37 @@
+#compdef _permuteSmooth permuteSmooth
+
+# Auto-generated with h2o
+
+
+function _permuteSmooth {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-f[original wcFst data]':file:_files \
+        '-s[smoothed wcFst data]':file:_files \
+        '-y[format \[swcFst, segwcFst\]]' \
+        '-n[the number of permutations to run for each value \[1000\]]' \
+        '-u[stop permutations after '\''s'\'' successes \[1\]]' \
+        '-x[number of threads \[1\]]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

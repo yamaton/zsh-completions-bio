@@ -1,0 +1,41 @@
+#compdef _vcfremap vcfremap
+
+# Auto-generated with h2o
+
+
+function _vcfremap {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-w,--ref-window-size}'[align using this many bases flanking each side of the reference allele]' \
+        {-s,--alt-window-size}'[align using this many flanking bases from the reference around each alternate allele]' \
+        {-r,--reference}'[FASTA reference file, required with -i and -u]':file:_files \
+        {-m,--match-score}'[match score for SW algorithm]' \
+        {-x,--mismatch-score}'[mismatch score for SW algorithm]' \
+        {-o,--gap-open-penalty}'[gap open penalty for SW algorithm]' \
+        {-e,--gap-extend-penalty}'[gap extension penalty for SW algorithm]' \
+        {-z,--entropy-gap-open}'[use entropy scaling for the gap open penalty]' \
+        {-R,--repeat-gap-extend}'[penalize non-repeat-unit gaps in repeat sequence]' \
+        {-a,--adjust-vcf}'[supply a new cigar as TAG in the output VCF]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

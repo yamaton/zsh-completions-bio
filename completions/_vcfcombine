@@ -1,0 +1,34 @@
+#compdef _vcfcombine vcfcombine
+
+# Auto-generated with h2o
+
+
+function _vcfcombine {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[This text.]' \
+        {-v,--version}'[Print version.]' \
+        {-r,--region}'[A region specifier of the form chrN:x-y to bound the merge]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

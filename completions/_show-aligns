@@ -1,0 +1,36 @@
+#compdef _show-aligns show-aligns
+
+# Auto-generated with h2o
+
+
+function _show-aligns {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-h[Display help information]' \
+        '-q[Sort alignments by the query start coordinate]' \
+        '-r[Sort alignments by the reference start coordinate]' \
+        '-w[Set the screen width - default is 60]' \
+        '-x[Set the matrix type - default is 2 (BLOSUM 62), other options include 1 (BLOSUM 45) and 3 (BLOSUM 80) note: only has effect on amino acid alignments]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

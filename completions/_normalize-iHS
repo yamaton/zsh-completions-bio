@@ -1,0 +1,33 @@
+#compdef _normalize-iHS normalize-iHS
+
+# Auto-generated with h2o
+
+
+function _normalize-iHS {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-f[Output from iHS or XPEHH]' \
+        '-s[Max AF diff for window \[0.01\]]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

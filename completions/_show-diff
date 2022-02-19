@@ -1,0 +1,36 @@
+#compdef _show-diff show-diff
+
+# Auto-generated with h2o
+
+
+function _show-diff {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-f[Output diff information as AMOS features]' \
+        '-h[Display help information]' \
+        '-H[Do not show header]' \
+        '-q[Show diff information for queries]' \
+        '-r[Show diff information for references (default)]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

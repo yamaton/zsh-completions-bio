@@ -1,0 +1,35 @@
+#compdef _popStats popStats
+
+# Auto-generated with h2o
+
+
+function _popStats {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-t,--target}'[a zero based comma separated list of target individuals corresponding to VCF columns]' \
+        {-f,--file}'[proper formatted VCF]':file:_files \
+        {-y,--type}'[genotype likelihood format; genotype : GL,PL,GP]' \
+        {-r,--region}'[a tabix compliant region : chr1:1-1000 or chr1]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

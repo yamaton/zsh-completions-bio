@@ -1,0 +1,48 @@
+#compdef _csvclean csvclean
+
+# Auto-generated with h2o
+
+
+function _csvclean {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        {-d,--delimiter}'[Delimiting character of the input CSV file.]' \
+        {-t,--tabs}'[Specify that the input CSV file is delimited with tabs. Overrides "-d".]' \
+        {-q,--quotechar}'[Character used to quote strings in the input CSV file.]' \
+        {-u,--quoting}'[Quoting style used in the input CSV file. 0 = Quote Minimal, 1 = Quote All, 2 = Quote Non-numeric, 3 = Quote None.]' \
+        {-b,--no-doublequote}'[Whether or not double quotes are doubled in the input CSV file.]' \
+        {-p,--escapechar}'[Character used to escape the delimiter if --quoting 3 ("Quote None") is specified and to escape the QUOTECHAR if --no-doublequote is specified.]' \
+        {-z,--maxfieldsize}'[Maximum length of a single field in the input CSV file.]' \
+        {-e,--encoding}'[Specify the encoding of the input CSV file.]' \
+        {-S,--skipinitialspace}'[Ignore whitespace immediately following the delimiter.]' \
+        {-H,--no-header-row}'[Specify that the input CSV file has no header row. Will create default headers (a,b,c,...).]' \
+        {-K,--skip-lines}'[Specify the number of initial lines to skip before the header row (e.g. comments, copyright notices, empty rows).]' \
+        {-v,--verbose}'[Print detailed tracebacks when errors occur.]' \
+        {-l,--linenumbers}'[Insert a column of line numbers at the front of the output. Useful when piping to grep or as a simple primary key.]' \
+        '--zero[When interpreting or displaying column numbers, use zero-based numbering instead of the default 1-based numbering.]' \
+        {-V,--version}'[Display version information and exit.]' \
+        {-n,--dry-run}'[Do not create output files. Information about what would have been done will be printed to STDERR.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

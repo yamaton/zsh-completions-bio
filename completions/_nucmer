@@ -1,0 +1,58 @@
+#compdef _nucmer nucmer
+
+# Auto-generated with h2o
+
+
+function _nucmer {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--mum[Use anchor matches that are unique in both the reference and query]' \
+        '--mumcand[Same as --mumreference]' \
+        '--mumreference[Use anchor matches that are unique in in the reference but not necessarily unique in the query (default behavior)]' \
+        '--maxmatch[Use all anchor matches regardless of their uniqueness]' \
+        '-b[Set the distance an alignment extension will attempt to extend poor scoring regions before giving up (default 200)]' \
+        '--banded[Enforce absolute banding of dynamic programming matrix based on diagdiff parameter EXPERIMENTAL (default no)]' \
+        '--nobanded[Enforce absolute banding of dynamic programming matrix based on diagdiff parameter EXPERIMENTAL (default no)]' \
+        '-c[Sets the minimum length of a cluster of matches (default 65)]' \
+        '--delta[Toggle the creation of the delta file (default --delta)]' \
+        '--nodelta[Toggle the creation of the delta file (default --delta)]' \
+        '--depend[Print the dependency information and exit]' \
+        '-D[Set the maximum diagonal difference between two adjacent anchors in a cluster (default 5)]' \
+        '-d[Set the maximum diagonal difference between two adjacent anchors in a cluster as a differential fraction of the gap length (default 0.12)]' \
+        '--extend[Toggle the cluster extension step (default --extend)]' \
+        '--noextend[Toggle the cluster extension step (default --extend)]' \
+        {-f,--forward}'[Use only the forward strand of the Query sequences]' \
+        '-g[Set the maximum gap between two adjacent matches in a cluster (default 90)]' \
+        {-h,--help}'[Display help information and exit]' \
+        '-l[Set the minimum length of a single match (default 20)]' \
+        {-o,--coords}'[Automatically generate the original NUCmer1.1 coords output file using the '\''show-coords'\'' program]' \
+        '--optimize[Toggle alignment score optimization, i.e. if an alignment extension reaches the end of a sequence, it will backtrack to optimize the alignment score instead of terminating the alignment at the end of the sequence (default --optimize)]' \
+        '--nooptimize[Toggle alignment score optimization, i.e. if an alignment extension reaches the end of a sequence, it will backtrack to optimize the alignment score instead of terminating the alignment at the end of the sequence (default --optimize)]' \
+        '-p[Set the prefix of the output files (default "out")]' \
+        {-r,--reverse}'[Use only the reverse complement of the Query sequences]' \
+        '--simplify[Simplify alignments by removing shadowed clusters. Turn this option off if aligning a sequence to itself to look for repeats (default --simplify)]' \
+        '--nosimplify[Simplify alignments by removing shadowed clusters. Turn this option off if aligning a sequence to itself to look for repeats (default --simplify)]' \
+        {-V,--version}'[Display the version information and exit]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

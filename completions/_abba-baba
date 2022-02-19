@@ -1,0 +1,34 @@
+#compdef _abba-baba abba-baba
+
+# Auto-generated with h2o
+
+
+function _abba-baba {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-t,--tree}'[a zero based comma separated list of target individuals corrisponding to VCF columns]' \
+        {-f,--file}'[a properly formatted VCF.]':file:_files \
+        {-y,--type}'[genotype likelihood format ; genotypes: GP,GL or PL;]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

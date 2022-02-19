@@ -1,0 +1,52 @@
+#compdef _zindex zindex
+
+# Auto-generated with h2o
+
+
+function _zindex {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--index-file[Store index in <index-file> (default <file>.zindex)]':file:_files \
+        {-p,--pipe}'[Create indices by piping output through <CMD> which should output a single line for each input line. Multiple keys should be separated by the --delimiter character (which defaults to a space). The CMD should be unbuffered (man stdbuf(1) for one way of doing this).]' \
+        '--tab-delimiter[Use a tab character as the field delimiter]' \
+        {-d,--delimiter}'[Use <delim> as the field delimiter]' \
+        {-c,--config}'[Create indexes using json config file <file>]' \
+        {-f,--field}'[Create an index using field <num> (delimited by -d/--delimiter, 1-based)]' \
+        '--skip-first[Skip the first <num> lines]' \
+        '--capture[Determines which capture group in an regex to use]' \
+        '--regex[Create an index using <regex>]' \
+        '--checkpoint-every[Create a compression checkpoint every <bytes>]' \
+        {-w,--warnings}'[Log warnings at info level]' \
+        {-s,--sparse}'[Sparse - only save line offsets for rows that have ids. Merges all rows that have no id to the most recentid. Useful if your file is one id row followed by n data rows.]' \
+        {-u,--unique}'[Assume each line'\''s index is unique]' \
+        {-n,--numeric}'[Assume the index is numeric]' \
+        '--color[Use color even on non-TTY]' \
+        '--colour[Use colour even on non-TTY]' \
+        '--debug[Be even more verbose]' \
+        {-v,--verbose}'[Be more verbose]' \
+        {--,--ignore_rest}'[Ignores the rest of the labeled arguments following this flag.]' \
+        '--version[Displays version information and exits.]' \
+        {-h,--help}'[Displays usage information and exits.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

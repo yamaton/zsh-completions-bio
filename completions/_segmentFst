@@ -1,0 +1,33 @@
+#compdef _segmentFst segmentFst
+
+# Auto-generated with h2o
+
+
+function _segmentFst {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-f[Output from wcFst]':file:_files \
+        '-s[High Fst cutoff \[0.8\]]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

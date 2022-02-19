@@ -1,0 +1,42 @@
+#compdef _vcffilter vcffilter
+
+# Auto-generated with h2o
+
+
+function _vcffilter {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-f,--info-filter}'[specifies a filter to apply to the info fields of records, removes alleles which do not pass the filter]' \
+        {-g,--genotype-filter}'[specifies a filter to apply to the genotype fields of records]' \
+        {-k,--keep-info}'[used in conjunction with '\''-g'\'', keeps variant info, but removes genotype]' \
+        {-s,--filter-sites}'[filter entire records, not just alleles]' \
+        {-t,--tag-pass}'[tag vcf records as positively filtered with this tag, print all records]' \
+        {-F,--tag-fail}'[tag vcf records as negatively filtered with this tag, print all records]' \
+        {-A,--append-filter}'[append the existing filter tag, don'\''t just replace it]' \
+        {-a,--allele-tag}'[apply -t on a per-allele basis. adds or sets the corresponding INFO field tag]' \
+        {-v,--invert}'[inverts the filter, e.g. grep -v]' \
+        {-o,--or}'[use logical OR instead of AND to combine filters]' \
+        {-r,--region}'[specify a region on which to target the filtering, requires a BGZF compressed file which has been indexed with tabix. any number of regions may be specified.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

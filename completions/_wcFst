@@ -1,0 +1,37 @@
+#compdef _wcFst wcFst
+
+# Auto-generated with h2o
+
+
+function _wcFst {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-t,--target}'[a zero based comma separated list of target individuals corrisponding to VCF columns]' \
+        {-b,--background}'[a zero based comma separated list of background individuals corrisponding to VCF columns]' \
+        {-f,--file}'[proper formatted VCF]':file:_files \
+        {-y,--type}'[genotype likelihood format; genotype GT,GL,PL,GP]' \
+        {-r,--region}'[a tabix compliant genomic range: seqid or seqid:start-end]' \
+        {-d,--deltaaf}'[skip sites where the difference in allele frequencies is less than deltaaf, default is zero]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

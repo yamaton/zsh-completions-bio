@@ -1,0 +1,42 @@
+#compdef _combineMUMs combineMUMs
+
+# Auto-generated with h2o
+
+
+function _combineMUMs {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-D[Only output to stdout the difference positions and characters]' \
+        '-n[Allow matches only between nucleotides, i.e., ACGTs]' \
+        '-N[Break matches at <num> or more consecutive non-ACGTs]' \
+        '-q[Used to label query match]' \
+        '-r[Used to label reference match]' \
+        '-S[Output all differences in strings]' \
+        '-t[Label query matches with query fasta header]' \
+        '-v[Set verbose level for extra output]' \
+        '-W[Reset the default output filename witherrors.gaps]':file:_files \
+        '-x[Don'\''t output .cover files]' \
+        '-e[Set error-rate cutoff to e (e.g. 0.02 is two percent)]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

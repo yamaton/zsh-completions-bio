@@ -1,0 +1,35 @@
+#compdef _dnadiff dnadiff
+
+# Auto-generated with h2o
+
+
+function _dnadiff {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-d[Provide precomputed delta file for analysis]' \
+        '-h[--help Display help information and exit]' \
+        '-p[Set the prefix of the output files (default "out")]' \
+        '-V[--version Display the version information and exit]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

@@ -1,0 +1,46 @@
+#compdef _show-coords show-coords
+
+# Auto-generated with h2o
+
+
+function _show-coords {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-b[Merges overlapping alignments regardless of match dir or frame and does not display any idenitity information.]' \
+        '-B[Switch output to btab format]' \
+        '-c[Include percent coverage information in the output]' \
+        '-d[Display the alignment direction in the additional FRM columns (default for promer)]' \
+        '-g[Deprecated option. Please use '\''delta-filter'\'' instead]' \
+        '-h[Display help information]' \
+        '-H[Do not print the output header]' \
+        '-I[Set minimum percent identity to display]' \
+        '-k[Knockout (do not display) alignments that overlap another alignment in a different frame by more than 50% of their length, AND have a smaller percent similarity or are less than 75% of the size of the other alignment (promer only)]' \
+        '-l[Include the sequence length information in the output]' \
+        '-L[Set minimum alignment length to display]' \
+        '-o[Annotate maximal alignments between two sequences, i.e. overlaps between reference and query sequences]' \
+        '-q[Sort output lines by query IDs and coordinates]' \
+        '-r[Sort output lines by reference IDs and coordinates]' \
+        '-T[Switch output to tab-delimited format]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+
