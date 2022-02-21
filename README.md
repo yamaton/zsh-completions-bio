@@ -4,20 +4,18 @@ This repository contains zsh shell completion scripts for bioinformatics tools.
 ![zsh-completions-no-window](https://user-images.githubusercontent.com/256288/154776190-a4991546-1af7-4c50-95d5-8f6872464992.svg)
 
 ## Install
-\[⚠️Attention⚠️\] This instuction assumes you are NOT using zsh frameworks like antigen and oh-my-zsh.
-
-1. Add following to `.zshrc`. Following script adds `~/.zsh/zsh-completions-bio` as zsh path.
+1. Add following lines to `.zshrc`. This script adds `~/.zsh/zsh-completions-bio/completion` to zsh's search paths, and sets the color of completion suggestions.
 
 ```shell
 ## --------------------------------------------------------------------------
 ##   zsh-completions-bio
-fpath=( ~/.zsh/zsh-completions-bio "${fpath[@]}" )
+fpath=( ~/.zsh/zsh-completions-bio/completions "${fpath[@]}" )
 autoload -Uz compinit; compinit
 
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path ~/.zsh/cache
 
-## Colors on completion suggestions
+## Colors of completion suggestions
 ## https://stackoverflow.com/questions/23152157/how-does-the-zsh-list-colors-syntax-work
 ##
 ## 256 color palette
@@ -41,5 +39,10 @@ zstyle ':completion:*' list-colors '=(#b)*(--)( *)=37=1;38;5;103=1;38;5;142' '=*
 
 ```
 
-2. Save the fish scripts to `~/.zsh/zsh-completions-bio`.
+2. Clone this repository under `~/.zsh`:
 
+```shell
+mkdir -p ~/.zsh
+cd ~/.zsh
+git clone https://github.com/yamaton/zsh-completions-bio.git
+```
