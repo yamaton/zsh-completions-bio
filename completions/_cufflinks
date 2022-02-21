@@ -1,0 +1,74 @@
+#compdef _cufflinks cufflinks
+
+# Auto-generated with h2o
+
+
+function _cufflinks {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-o,--output-dir}'[write all output files to this directory \[ default: ./ \]]' \
+        {-p,--num-threads}'[number of threads used during analysis \[ default: 1 \]]' \
+        '--seed[value of random number generator seed \[ default: 0 \]]' \
+        {-G,--GTF}'[quantitate against reference transcript annotations]' \
+        {-g,--GTF-guide}'[use reference transcript annotation to guide assembly]' \
+        {-M,--mask-file}'[ignore all alignment within transcripts in this file]' \
+        {-b,--frag-bias-correct}'[use bias correction - reference fasta required \[ default: NULL \]]' \
+        {-u,--multi-read-correct}'[use '\''rescue method'\'' for multi-reads (more accurate) \[ default: FALSE \]]' \
+        '--library-type[library prep used for input reads \[ default: below \]]' \
+        '--library-norm-method[Method used to normalize library sizes \[ default: below \]]' \
+        {-m,--frag-len-mean}'[average fragment length (unpaired reads only) \[ default: 200 \]]' \
+        {-s,--frag-len-std-dev}'[fragment length std deviation (unpaired reads only) \[ default: 80 \]]' \
+        '--max-mle-iterations[maximum iterations allowed for MLE calculation \[ default: 5000 \]]' \
+        '--compatible-hits-norm[count hits compatible with reference RNAs only \[ default: FALSE \]]' \
+        '--total-hits-norm[count all hits for normalization \[ default: TRUE \]]' \
+        '--num-frag-count-draws[Number of fragment generation samples \[ default: 100 \]]' \
+        '--num-frag-assign-draws[Number of fragment assignment samples per generation \[ default: 50 \]]' \
+        '--max-frag-multihits[Maximum number of alignments allowed per fragment \[ default: unlim \]]' \
+        '--no-effective-length-correction[No effective length correction \[ default: FALSE \]]' \
+        '--no-length-correction[No length correction \[ default: FALSE \]]' \
+        {-N,--upper-quartile-norm}'[Deprecated, use --library-norm-method \[ DEPRECATED \]]' \
+        '--raw-mapped-norm[Deprecated, use --library-norm-method \[ DEPRECATED \]]' \
+        {-L,--label}'[assembled transcripts have this ID prefix \[ default: CUFF \]]' \
+        {-F,--min-isoform-fraction}'[suppress transcripts below this abundance level \[ default: 0.10 \]]' \
+        {-j,--pre-mrna-fraction}'[suppress intra-intronic transcripts below this level \[ default: 0.15 \]]' \
+        {-I,--max-intron-length}'[ignore alignments with gaps longer than this \[ default: 300000 \]]' \
+        {-a,--junc-alpha}'[alpha for junction binomial test filter \[ default: 0.001 \]]' \
+        {-A,--small-anchor-fraction}'[percent read overhang taken as '\''suspiciously small'\'' \[ default: 0.09 \]]' \
+        '--min-frags-per-transfrag[minimum number of fragments needed for new transfrags \[ default: 10 \]]' \
+        '--overhang-tolerance[number of terminal exon bp to tolerate in introns \[ default: 8 \]]' \
+        '--max-bundle-length[maximum genomic length allowed for a given bundle \[ default:3500000 \]]' \
+        '--max-bundle-frags[maximum fragments allowed in a bundle before skipping \[ default: 500000 \]]' \
+        '--min-intron-length[minimum intron size allowed in genome \[ default: 50 \]]' \
+        '--trim-3-avgcov-thresh[minimum avg coverage required to attempt 3'\'' trimming \[ default: 10 \]]' \
+        '--trim-3-dropoff-frac[fraction of avg coverage below which to trim 3'\'' end \[ default: 0.1 \]]' \
+        '--max-multiread-fraction[maximum fraction of allowed multireads per transcript \[ default: 0.75 \]]' \
+        '--overlap-radius[maximum gap size to fill between transfrags (in bp) \[ default: 50 \]]' \
+        '--no-faux-reads[disable tiling by faux reads \[ default: FALSE \]]' \
+        '--3-overhang-tolerance[overhang allowed on 3'\'' end when merging with reference\[ default: 600 \]]' \
+        '--intron-overhang-tolerance[overhang allowed inside reference intron when merging \[ default: 30 \]]' \
+        {-v,--verbose}'[log-friendly verbose processing (no progress bar) \[ default: FALSE \]]' \
+        {-q,--quiet}'[log-friendly quiet processing (no progress bar) \[ default: FALSE \]]' \
+        '--no-update-check[do not contact server to check for update availability\[ default: FALSE \]]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

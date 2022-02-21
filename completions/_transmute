@@ -1,0 +1,33 @@
+#compdef _transmute transmute
+
+# Auto-generated with h2o
+
+
+function _transmute {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-j2x,-json2xml}'[Convert JSON to XML.]' \
+        {-x2j,-xml2json}'[Convert XML to JSON.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

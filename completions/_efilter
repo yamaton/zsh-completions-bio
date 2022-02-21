@@ -1,0 +1,57 @@
+#compdef _efilter efilter
+
+# Auto-generated with h2o
+
+
+function _efilter {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-q[Limit results to those matching the given query string.]' \
+        '-query[Limit results to those matching the given query string.]' \
+        '-sort[Sort results by the given field.]' \
+        '-days[Keep only results from the past N days.]' \
+        '-datetype[Which date field (in abbreviated form) to consider.]' \
+        '-mindate[Start of date range.]' \
+        '-maxdate[End of date range.]' \
+        '-field[Query words individually in field.]' \
+        '-pairs[Query overlapping word pairs.]' \
+        '-spell[Correct misspellings in query.]' \
+        '-pub[abstract, clinical, english, free, historical, journal, preprint, review, structured.]' \
+        '-journal[pnas, "j bacteriol", ...]' \
+        '-released[last_week, last_month, last_year, prev_years.]' \
+        '-country[usa:minnesota, united_kingdom, "pacific ocean", ...]' \
+        '-feature[gene, mrna, cds, mat_peptide, ...]' \
+        '-location[mitochondrion, chloroplast, plasmid, plastid.]' \
+        '-molecule[genomic, mrna, trna, rrna, ncrna.]' \
+        '-organism[animals, archaea, bacteria, eukaryotes, fungi, human, insects, mammals, plants, prokaryotes, protists, rodents, viruses, ...]' \
+        '-source[genbank, insd, pdb, pir, refseq, swissprot, tpa]' \
+        '-status[alive]' \
+        '-type[coding, pseudo.]' \
+        '-class[acceptor, donor, frameshift, indel, intron, missense, nonsense, synonymous.]' \
+        '-kind[athway]' \
+        '-pathway[reactome, wikipathways.]':file:_files \
+        '-help[Print usage information.]' \
+        '-label[Alias for query step.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

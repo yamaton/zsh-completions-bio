@@ -1,0 +1,39 @@
+#compdef _duphold duphold
+
+# Auto-generated with h2o
+
+
+function _duphold {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-v,--vcf}'[path to sorted SV VCF/BCF]':file:_files \
+        {-b,--bam}'[path to indexed BAM/CRAM]':file:_files \
+        {-f,--fasta}'[indexed fasta reference.]':file:_files \
+        {-s,--snp}'[optional path to snp/indel VCF/BCF with which to annotate SVs. BCF is highly recommended as it'\''s much faster to parse.]':file:_files \
+        {-t,--threads}'[number of decompression threads. \[default: 4\]]' \
+        {-o,--output}'[output VCF/BCF (default is VCF to stdout) \[default: -\]]' \
+        {-d,--drop}'[drop all samples from a multi-sample --vcf *except* the sample in --bam. useful for parallelization by sample followed by merge.]' \
+        {-h,--help}'[show help]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

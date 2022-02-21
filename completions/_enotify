@@ -1,0 +1,34 @@
+#compdef _enotify enotify
+
+# Auto-generated with h2o
+
+
+function _enotify {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-help[Print a summary of available options.]' \
+        '-email[Use the given e-mail address.]' \
+        '-tool[Identify to Entrez with the given client name.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

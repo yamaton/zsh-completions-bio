@@ -1,0 +1,53 @@
+#compdef _efetch efetch
+
+# Auto-generated with h2o
+
+
+function _efetch {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-format[Format of record or report]' \
+        '-mode[text, xml, asn.1, json]' \
+        '-style[master, conwithfeat]' \
+        '-db[Database name]' \
+        '-id[Unique identifier or accession number]' \
+        '-input[Read identifier(s) from file instead of stdin]' \
+        '-seq_start[First sequence position to retrieve]' \
+        '-seq_stop[Last sequence position to retrieve]' \
+        '-strand[1 = forward DNA strand, 2 = reverse complement (otherwise strand minus is set if start > stop)]' \
+        '-forward[Force strand 1]' \
+        '-revcomp[Force strand 2]' \
+        '-chr_start[Sequence range from 0-based coordinates]' \
+        '-chr_stop[in gene docsum GenomicInfoType object]' \
+        '-complexity[0 = default, 1 = bioseq, 3 = nuc-prot set]' \
+        '-extend[Extend sequence retrieval in both directions]' \
+        '-extrafeat[Bit flag specifying extra features]' \
+        '-showgaps[Propagate component gaps]' \
+        '-start[First record to fetch]' \
+        '-stop[Last record to fetch]' \
+        '-raw[Skip database-specific XML modifications]' \
+        '-express[Direct sequence retrieval in groups of 5]' \
+        '-immediate[Express mode on a single record at a time]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

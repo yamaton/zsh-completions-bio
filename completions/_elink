@@ -1,0 +1,42 @@
+#compdef _elink elink
+
+# Auto-generated with h2o
+
+
+function _elink {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-related[Look up neighbors in the same database.]' \
+        '-target[Follow links to another database.]' \
+        '-name[Follow an explicit link name such as pubmed_protein_refseq, pubmed_pubmed_citedin, or pubmed_pubmed_refs.]' \
+        '-db[Entrez database name for immediate lookups.]' \
+        '-id[Unique identifier(s) for immediate lookups.]' \
+        '-cmd[Command type (returns eLinkResult XML)]' \
+        '-mode[Use LinkOut provider'\''s web site.]' \
+        '-holding[Name of LinkOut provider.]' \
+        '-batch[Bypass Entrez history mechanism.]' \
+        '-help[Print usage information.]' \
+        '-label[Alias for query step.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

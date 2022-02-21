@@ -1,0 +1,34 @@
+#compdef _econtact econtact
+
+# Auto-generated with h2o
+
+
+function _econtact {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-help[Print usage information.]' \
+        '-email[Send the given e-mail address.]' \
+        '-tool[Send the given client name.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

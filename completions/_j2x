@@ -1,0 +1,38 @@
+#compdef _j2x j2x
+
+# Auto-generated with h2o
+
+
+function _j2x {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-input[Read JSON from filename instead of standard input.]':file:_files \
+        '-output[Write XML to filename instead of standard output.]':file:_files \
+        '-set[Replace set wrapper tag.]' \
+        '-rec[Replace record wrapper tag.]' \
+        '-nest[Nested array naming policy.]' \
+        '-timer[Report processing duration and rate.]' \
+        '-help[Print usage information, complete with an example pipeline.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

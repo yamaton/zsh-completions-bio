@@ -1,0 +1,41 @@
+#compdef _download-ncbi-data download-ncbi-data
+
+# Auto-generated with h2o
+
+
+function _download-ncbi-data {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-pmc-oa[Download PubMed Central open-access archives in traditional format, unless already present.]' \
+        '-pmc-bioc[Download PubMed Central open-access archives in BioConcepts format, unless already present.]' \
+        '-bioconcepts[Download the BioConcepts/PubTatorCentral mapping bioconcepts2pubtatorcentral.gz, unless already present.]' \
+        '-meshtree[Download MeSH data and extract some summaries.]' \
+        '-carotene[Download and unzip sample XML for carotene.]' \
+        'pmc-oa[Download PubMed Central open-access archives in traditional format, unless already present.]' \
+        'pmc-bioc[Download PubMed Central open-access archives in BioConcepts format, unless already present.]' \
+        'bioconcepts[Download the BioConcepts/PubTatorCentral mapping bioconcepts2pubtatorcentral.gz, unless already present.]' \
+        'meshtree[Download MeSH data and extract some summaries.]' \
+        'carotene[Download and unzip sample XML for carotene.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

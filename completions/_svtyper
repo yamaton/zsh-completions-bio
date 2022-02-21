@@ -1,0 +1,44 @@
+#compdef _svtyper svtyper
+
+# Auto-generated with h2o
+
+
+function _svtyper {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        {-i,--input_vcf}'[VCF input (default: stdin)]':file:_files \
+        {-o,--output_vcf}'[output VCF to write (default: stdout)]':file:_files \
+        {-B,--bam}'[BAM or CRAM file(s), comma-separated if genotyping multiple samples]':file:_files \
+        {-T,--ref_fasta}'[Indexed reference FASTA file (recommended for reading CRAM files)]':file:_files \
+        {-l,--lib_info}'[create/read JSON file of library information]':file:_files \
+        {-m,--min_aligned}'[minimum number of aligned bases to consider read as evidence \[20\]]' \
+        '-n[number of reads to sample from BAM file for building insert size distribution \[1000000\]]' \
+        {-q,--sum_quals}'[add genotyping quality to existing QUAL (default: overwrite QUAL field)]' \
+        '--max_reads[maximum number of reads to assess at any variant (reduces processing time in high-depth regions, default: unlimited)]' \
+        '--split_weight[weight for split reads \[1\]]' \
+        '--disc_weight[weight for discordant paired-end reads \[1\]]' \
+        {-w,--write_alignment}'[write relevant reads to BAM file]':file:_files \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

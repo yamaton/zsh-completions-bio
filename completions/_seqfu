@@ -1,0 +1,378 @@
+#compdef _seqfu seqfu
+
+# Auto-generated with h2o
+
+    function _seqfu_count {
+        _arguments \
+            {-a,--abs-path}'[Print absolute paths]' \
+            {-b,--basename}'[Print only filenames]' \
+            {-u,--unpair}'[Print separate records for paired end files]' \
+            {-f,--for-tag}'[Forward tag \[default: auto\]]' \
+            {-r,--rev-tag}'[Reverse tag \[default: auto\]]' \
+            {-t,--threads}'[Working threads \[default: 4\]]' \
+            {-v,--verbose}'[Verbose output]' \
+            {-h,--help}'[Show this help]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_deinterleave {
+        _arguments \
+            {-o,--output-basename}'[save output to output_R1.fq and output_R2.fq]' \
+            {-f,--for-ext}'[extension for R1 file \[default: _R1.fq\]]' \
+            {-r,--rev-ext}'[extension for R2 file \[default: _R2.fq\]]' \
+            {-c,--check}'[enable careful mode (check sequence names and numbers)]' \
+            {-v,--verbose}'[print verbose output]' \
+            {-s,--strip-comments}'[skip comments]' \
+            {-p,--prefix}'[rename sequences (append a progressive number)]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_derep {
+        _arguments \
+            {-k,--keep-name}'[Do not rename sequence (see -p), but use the first sequence name]' \
+            {-i,--ignore-size}'[Do not count '\''size=INT;'\'' annotations (they will be stripped in any case)]' \
+            {-m,--min-size}'[Print clusters with size equal or bigger than INT sequences \[default: 0\]]' \
+            {-p,--prefix}'[Sequence name prefix \[default: seq\]]' \
+            {-5,--md5}'[Use MD5 as sequence name (overrides other parameters)]' \
+            {-j,--json}'[Save dereplication metadata to JSON file]':file:_files \
+            {-s,--separator}'[Sequence name separator \[default: .\]]' \
+            {-w,--line-width}'[FASTA line width (0: unlimited) \[default: 0\]]' \
+            {-l,--min-length}'[Discard sequences shorter than MIN_LEN \[default: 0\]]' \
+            {-x,--max-length}'[Discard sequences longer than MAX_LEN \[default: 0\]]' \
+            {-c,--size-as-comment}'[Print cluster size as comment, not in sequence name]' \
+            '--add-len[Add length to sequence]' \
+            {-v,--verbose}'[Print verbose messages]' \
+            {-h,--help}'[Show this help]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_interleave {
+        _arguments \
+            {-f,--for-tag}'[string identifying forward files \[default: auto\]]' \
+            {-r,--rev-tag}'[string identifying reverse files \[default: auto\]]' \
+            {-o,--output}'[save file to <out-file> instead of STDOUT]':file:_files \
+            {-c,--check}'[enable careful mode (check sequence names and numbers)]' \
+            {-v,--verbose}'[print verbose output]' \
+            {-s,--strip-comments}'[skip comments]' \
+            {-p,--prefix}'[rename sequences (append a progressive number)]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_lanes {
+        _arguments \
+            {-o,--outdir}'[Output directory]':file:_files \
+            {-e,--extension}'[File extension \[default: .fastq\]]' \
+            {-s,--file-separator}'[Field separator in filenames \[default: _\]]' \
+            '--comment-separator[String separating sequence name and its comment \[default: TAB\]]' \
+            {-v,--verbose}'[Verbose output]' \
+            {-h,--help}'[Show this help]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_list {
+        _arguments \
+            {-c,--with-comments}'[Include comments in the list file]' \
+            {-p,--partial-match}'[Allow partial matches (UNSUPPORTED)]' \
+            {-m,--min-len}'[Skip entries smaller than INT \[default: 1\]]' \
+            {-v,--verbose}'[Verbose output]' \
+            {-r,--report}'[Print report of found sequences]' \
+            '--help[Show this help]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_metadata {
+        _arguments \
+            {-1,--for-tag}'[String found in filename of forward reads \[default: _R1\]]' \
+            {-2,--rev-tag}'[String found in filename of forward reads \[default: _R2\]]' \
+            {-s,--split}'[Separator used in filename to identify the sample ID \[default: _\]]' \
+            {-f,--format}'[Output format: dadaist, manifest, qiime1, qiime2, irida \[default: manifest\]]' \
+            {-P,--project}'[Project ID (only for irida)]' \
+            '--pos[Which part of the filename is the Sample ID \[default: 1\]]' \
+            '--pe[Enforce paired-end reads (not supported)]' \
+            {-p,--add-path}'[Add the reads absolute path as column]' \
+            {-c,--counts}'[Add the number of reads as a property column]' \
+            {-t,--threads}'[Number of simultaneously opened files \[default: 2\]]' \
+            {-v,--verbose}'[Verbose output]' \
+            {-h,--help}'[Show this help]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_rotate {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _seqfu_sort {
+        _arguments \
+            {-p,--prefix}'[Sequence prefix]' \
+            {-s,--strip-comments}'[Remove sequence comments]' \
+            '--asc[Ascending order]' \
+            {-v,--verbose}'[Verbose output]' \
+            {-h,--help}'[Show this help]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_stats {
+        _arguments \
+            {-a,--abs-path}'[Print absolute paths]' \
+            {-b,--basename}'[Print only filenames]' \
+            {-n,--nice}'[Print nice terminal table]' \
+            '--csv[Separate with commas (default: tabs)]' \
+            '--multiqc[Saves a MultiQC report to FILE (suggested: name_mqc.txt)]':file:_files \
+            {-v,--verbose}'[Verbose output]' \
+            {-h,--help}'[Show this help]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_cat {
+        _arguments \
+            {-k,--skip}'[Print one sequence every SKIP \[default: 0\]]' \
+            {-p,--prefix}'[Rename sequences with prefix + incremental number]' \
+            {-z,--strip-name}'[Remove the original sequence name]' \
+            {-a,--append}'[Append this string to the sequence name \[default: \]]' \
+            '--sep[Sequence name fields separator \[default: _\]]' \
+            {-b,--basename}'[Prepend file basename to the sequence name (before prefix)]' \
+            '--split[Split basename at this char \[default: .\]]' \
+            '--part[After splitting the basename, take this part \[default: 1\]]' \
+            '--basename-sep[Separate basename from the rest with this \[default: _\]]' \
+            {-s,--strip-comments}'[Remove original sequence comments]' \
+            '--comment-sep[Comment separator \[default: \]]' \
+            '--add-len[Add '\''len=LENGTH'\'' to the comments]' \
+            '--add-initial-len[Add '\''original_len=LENGTH'\'' to the comments]' \
+            '--add-gc[Add '\''gc=%GC'\'' to the comments]' \
+            '--add-initial-gc[Add '\''original_gc=%GC'\'' to the comments]' \
+            '--add-name[Add '\''original_name=INITIAL_NAME'\'' to the comments]' \
+            '--add-ee[Add '\''ee=EXPECTED_ERROR'\'' to the comments]' \
+            '--add-initial-ee[Add '\''original_ee=EXPECTED_ERROR'\'' to the comments]' \
+            {-n,--max-ns}'[Discard sequences with more than INT Ns \[default: -1\]]' \
+            {-m,--min-len}'[Discard sequences shorter than INT \[default: 1\]]' \
+            {-x,--max-len}'[Discard sequences longer than INT, 0 to ignore \[default: 0\]]' \
+            '--max-ee[Discard sequences with higher than FLOAT expected error \[default: -1.0\]]' \
+            '--trim-front[Trim INT base from the start of the sequence \[default: 0\]]' \
+            '--trim-tail[Trim INT base from the end of the sequence \[default: 0\]]' \
+            '--truncate[Keep only the first INT bases, 0 to ignore \[default: 0\] Negative values to print the last INT bases]' \
+            '--fasta[Force FASTA output]' \
+            '--fastq[Force FASTQ output]' \
+            '--list[Output a list of sequence names]' \
+            {-q,--fastq-qual}'[FASTQ default quality \[default: 33\]]' \
+            {-v,--verbose}'[Verbose output]' \
+            {-h,--help}'[Show this help]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_grep {
+        _arguments \
+            {-n,--name}'[String required in the sequence name]' \
+            {-r,--regex}'[Pattern to be matched in sequence name]' \
+            {-c,--comment}'[Also search -n and -r in the comment]' \
+            {-f,--full}'[The string or pattern covers the whole name (mainly used without -c)]' \
+            {-w,--word}'[The string or pattern is a whole word (only effective with -c, as names do not contain spaces)]' \
+            {-i,--ignore-case}'[Ignore case when matching names (is already enabled with regexes)]' \
+            {-o,--oligo}'[Oligonucleotide required in the sequence, using ambiguous bases and reverse complement]' \
+            {-A,--append-pos}'[Append matching positions to the sequence comment]' \
+            '--max-mismatches[Maximum mismatches allowed \[default: 0\]]' \
+            '--min-matches[Minimum number of matches \[default: oligo-length\]]' \
+            {-v,--verbose}'[Verbose output]' \
+            '--help[Show this help]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_head {
+        _arguments \
+            {-n,--num}'[Print the first NUM sequences \[default: 10\]]' \
+            {-k,--skip}'[Print one sequence every SKIP \[default: 0\]]' \
+            {-p,--prefix}'[Rename sequences with prefix + incremental number]' \
+            {-s,--strip-comments}'[Remove comments]' \
+            {-b,--basename}'[prepend basename to sequence name]' \
+            {-v,--verbose}'[Verbose output]' \
+            '--quiet[Don'\''t print warnings]' \
+            '--help[Show this help]' \
+            '--fasta[Force FASTA output]' \
+            '--fastq[Force FASTQ output]' \
+            '--sep[Sequence name fields separator \[default: _\]]' \
+            {-q,--fastq-qual}'[FASTQ default quality \[default: 33\]]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_rc {
+        _arguments \
+            {-s,--seq-name}'[Sequence name if coming as string \[default: dna\]]' \
+            {-r,--only-rev}'[Reverse, do not complement]' \
+            '--strip-comments[Remove sequence comments]' \
+            {-v,--verbose}'[Verbose output]' \
+            '--help[Show this help]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_tab {
+        _arguments \
+            {-i,--interleaved}'[Input is interleaved (paired-end)]' \
+            {-d,--detabulate}'[Convert TSV to FASTQ (if reading from file is autodetected)]' \
+            {-c,--comment-sep}'[Separator between name and comment (default: tab)]' \
+            {-s,--field-sep}'[Field separator (default: tab)]' \
+            {-v,--verbose}'[Verbose output]' \
+            {-h,--help}'[Show this help]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_tail {
+        _arguments \
+            {-n,--num}'[Print the first NUM sequences \[default: 10\]]' \
+            {-k,--skip}'[Print one sequence every SKIP \[default: 0\]]' \
+            {-p,--prefix}'[Rename sequences with prefix + incremental number]' \
+            {-s,--strip-comments}'[Remove comments]' \
+            {-b,--basename}'[prepend basename to sequence name]' \
+            '--fasta[Force FASTA output]' \
+            '--fastq[Force FASTQ output]' \
+            '--sep[Sequence name fields separator \[default: _\],-q, --fastq-qual INT   FASTQ default quality \[default: 33\]]' \
+            {-v,--verbose}'[Verbose output]' \
+            {-h,--help}'[Show this help]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_view {
+        _arguments \
+            {-o,--oligo1}'[Match oligo, with ambiguous IUPAC chars allowed (rev. compl. search is performed), color blue]' \
+            {-r,--oligo2}'[Second oligo to be scanned for, color red]' \
+            {-q,--qual-scale}'[Quality thresholds, seven values separated by columns \[default: 3:15:25:28:30:35:40\]]' \
+            '--match-ths[Oligo matching threshold \[default: 0.75\]]' \
+            '--min-matches[Oligo minimum matches \[default: 5\]]' \
+            '--max-mismatches[Oligo maxmimum mismataches \[default: 2\]]' \
+            '--ascii[Encode the quality as ASCII chars (when UNICODE is not available)]' \
+            {-Q,--qual-chars}'[Show quality characters instead of bars]' \
+            {-n,--nocolor}'[Disable colored output]' \
+            '--verbose[Show extra information]' \
+            {-h,--help}'[Show this help]' \
+            "*: :_files"
+
+    }
+
+
+function _seqfu {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'count:count FASTA/FASTQ reads, pair-end aware'
+            'deinterleave:deinterleave FASTQ'
+            'derep:feature-rich dereplication of FASTA/FASTQ files'
+            'interleave:interleave FASTQ pair ends'
+            'lanes:merge Illumina lanes'
+            'list:print sequences from a list of names'
+            'metadata:print a table of FASTQ reads (mapping files)'
+            'rotate:rotate a sequence with a new start position'
+            'sort:sort sequences by size (uniques)'
+            'stats:statistics on sequence lengths'
+            'cat:concatenate FASTA/FASTQ files'
+            'grep:select sequences with patterns'
+            'head:print first sequences'
+            'rc:reverse complement strings or files'
+            'tab:tabulate reads to TSV (and viceversa)'
+            'tail:view last sequences'
+            'view:view sequences with colored quality and oligo matches'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (count)
+            _seqfu_count
+            ;;
+
+        (deinterleave)
+            _seqfu_deinterleave
+            ;;
+
+        (derep)
+            _seqfu_derep
+            ;;
+
+        (interleave)
+            _seqfu_interleave
+            ;;
+
+        (lanes)
+            _seqfu_lanes
+            ;;
+
+        (list)
+            _seqfu_list
+            ;;
+
+        (metadata)
+            _seqfu_metadata
+            ;;
+
+        (rotate)
+            _seqfu_rotate
+            ;;
+
+        (sort)
+            _seqfu_sort
+            ;;
+
+        (stats)
+            _seqfu_stats
+            ;;
+
+        (cat)
+            _seqfu_cat
+            ;;
+
+        (grep)
+            _seqfu_grep
+            ;;
+
+        (head)
+            _seqfu_head
+            ;;
+
+        (rc)
+            _seqfu_rc
+            ;;
+
+        (tab)
+            _seqfu_tab
+            ;;
+
+        (tail)
+            _seqfu_tail
+            ;;
+
+        (view)
+            _seqfu_view
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

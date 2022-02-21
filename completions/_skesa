@@ -1,0 +1,59 @@
+#compdef _skesa skesa
+
+# Auto-generated with h2o
+
+
+function _skesa {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-h[Produce help message]' \
+        '-v[Print version]' \
+        '--cores[Number of cores to use (default all) \[integer\]]' \
+        '--memory[Memory available (GB, only for sorted counter) \[integer\]]' \
+        '--hash_count[Use hash counter \[flag\]]' \
+        '--estimated_kmers[Estimated number of unique kmers for bloom filter (M, only for hash counter) \[integer\]]' \
+        '--skip_bloom_filter[Don'\''t do bloom filter; use --estimated_kmers as the hash table size (only for hash counter) \[flag\]]' \
+        '--fasta[Input fasta file(s) (could be used multiple times for different runs) \[string\]]' \
+        '--fastq[Input fastq file(s) (could be used multiple times for different runs) \[string\]]' \
+        '--gz[Input fasta/fastq files are gzipped \[flag\]]' \
+        '--sra_run[Input sra run accession (could be used multiple times for different runs) \[string\]]' \
+        '--seeds[Input file with seeds \[string\]]' \
+        '--contigs_out[Output file for contigs (stdout if not specified) \[string\]]' \
+        '--kmer[Minimal kmer length for assembly \[integer\]]' \
+        '--min_count[Minimal count for kmers retained for comparing alternate choices \[integer\]]' \
+        '--max_kmer_count[Minimum acceptable average count for estimating the maximal kmer length in reads \[integer\]]' \
+        '--vector_percent[Count for vectors as a fraction of the read number \[float \[0,1)\]]' \
+        '--use_paired_ends[Use pairing information from paired reads in input \[flag\]]' \
+        '--insert_size[Expected insert size for paired reads (if not provided, it will be estimated) \[integer\]]' \
+        '--steps[Number of assembly iterations from minimal to maximal kmer length in reads \[integer\]]' \
+        '--fraction[Maximum noise to signal ratio acceptable for extension \[float \[0,1)\]]' \
+        '--max_snp_len[Maximal snp length \[integer\]]' \
+        '--min_contig[Minimal contig length reported in output \[integer\]]' \
+        '--allow_snps[Allow additional step for snp discovery \[flag\]]' \
+        '--all[Output fasta for each iteration \[string\]]' \
+        '--dbg_out[Output kmer file \[string\]]' \
+        '--hist[File for histogram \[string\]]' \
+        '--connected_reads[File for connected paired reads \[string\]]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

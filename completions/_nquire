@@ -1,0 +1,39 @@
+#compdef _nquire nquire
+
+# Auto-generated with h2o
+
+
+function _nquire {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-help[Print usage information, complete with a few examples, some additionally illustrating the use of xtract(1).]' \
+        '-ftp[Use FTP instead of HTTP.]':file:_files \
+        '-get[Use HTTP(S) GET instead of POST.]' \
+        '-url[Base URL for external search.]' \
+        '-eutils[Shorthand for -url https://eutils.ncbi.nlm.nih.gov/entrez/eutils.]' \
+        '-tag[Add &tag=value,... to the base URL. (Must follow any simple components.)]' \
+        '-examples[Examples of advanced queries.]' \
+        '-version[Print version number. SH SEE ALSO edirect(1), nquire(1), xtract(1).]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

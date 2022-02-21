@@ -1,0 +1,34 @@
+#compdef _eproxy eproxy
+
+# Auto-generated with h2o
+
+
+function _eproxy {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-help[Print usage information.]' \
+        '-alias[File of aliases.]':file:_files \
+        '-pipe[Read aliases from standard input.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

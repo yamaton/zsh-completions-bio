@@ -1,0 +1,44 @@
+#compdef _esearch esearch
+
+# Auto-generated with h2o
+
+
+function _esearch {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-db[Entrez database name.]' \
+        '-query[Query string.]' \
+        '-q[Query string.]' \
+        '-sort[Sort results by the given field.]' \
+        '-days[Return only results from the past N days.]' \
+        '-datetype[Which date field (in abbreviated form) to consider.]' \
+        '-mindate[Start of date range.]' \
+        '-maxdate[End of date range.]' \
+        '-field[Query words individually in field.]' \
+        '-pairs[Query overlapping word pairs.]' \
+        '-spell[Correct misspellings in query.]' \
+        '-help[Print usage information.]' \
+        '-label[Alias for query step.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

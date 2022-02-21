@@ -1,0 +1,37 @@
+#compdef _ecitmatch ecitmatch
+
+# Auto-generated with h2o
+
+
+function _ecitmatch {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-help[Print a summary of available options.]' \
+        '-journal[Match only articles whose journal has the given title (which may be specified as a standard abbreviation).]' \
+        '-year[Match only articles published in the given year.]' \
+        '-volume[Match only articles with the given volume number.]' \
+        '-page[Match only articles starting on the given page number.]' \
+        '-author[Match only articles with the given author name (may be partial; may not be repeated).]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

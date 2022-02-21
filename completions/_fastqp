@@ -1,0 +1,47 @@
+#compdef _fastqp fastqp
+
+# Auto-generated with h2o
+
+
+function _fastqp {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[do not print any messages (default: False)]' \
+        {-s,--binsize}'[number of reads to bin for sampling (default: auto)]' \
+        {-a,--name}'[sample name identifier for text and graphics output (default: input file name)]' \
+        {-n,--nreads}'[number of reads sample from input (default: 2000000)]' \
+        {-p,--base-probs}'[probabilites for observing A,T,C,G,N in reads (default: 0.25,0.25,0.25,0.25,0.1)]' \
+        {-k,--kmer}'[length of kmer for over-repesented kmer counts (default: 5)]' \
+        {-o,--output}'[base name for output figures (default: fastqp_figures)]' \
+        {-e,--text}'[file name for text output (default: -)]' \
+        {-t,--type}'[file type (default: auto)]' \
+        {-ll,--leftlimit}'[leftmost cycle limit (default: 1)]' \
+        {-rl,--rightlimit}'[rightmost cycle limit (-1 for none) (default: -1)]' \
+        {-mq,--median-qual}'[median quality threshold for failing QC (default: 30)]' \
+        '--aligned-only[only aligned reads (default: False)]' \
+        '--unaligned-only[only unaligned reads (default: False)]' \
+        {-d,--count-duplicates}'[calculate sequence duplication rate (default: False)]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+
