@@ -9,11 +9,11 @@ This repository contains zsh shell completion scripts for bioinformatics tools.
 ```shell
 ## --------------------------------------------------------------------------
 ##   zsh-completions-bio
-fpath=( ~/.zsh/zsh-completions-bio/completions "${fpath[@]}" )
+fpath=( ~/.config/zsh/zsh-completions-bio/completions "${fpath[@]}" )
 autoload -Uz compinit; compinit
 
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path ~/.zsh/cache
+zstyle ':completion:*' cache-path ~/.config/zsh/cache
 
 ## Colors of completion suggestions
 ## https://stackoverflow.com/questions/23152157/how-does-the-zsh-list-colors-syntax-work
@@ -39,10 +39,10 @@ zstyle ':completion:*' list-colors '=(#b)*(--)( *)=37=1;38;5;103=1;38;5;142' '=*
 
 ```
 
-2. Clone this repository under `~/.zsh`:
+2. Clone this repository under `~/.config/zsh`:
 
 ```shell
-mkdir -p ~/.zsh
-cd ~/.zsh
+mkdir -p ~/.config/zsh
+cd ~/.config/zsh
 git clone https://github.com/yamaton/zsh-completions-bio.git
 ```
