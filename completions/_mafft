@@ -1,0 +1,71 @@
+#compdef _mafft mafft
+
+# Auto-generated with h2o
+
+
+function _mafft {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--auto[Automatically selects an appropriate strategy from L-INS-i, FFT-NS-i and FFT-NS-2, according to data size. Default: off (always FFT-NS-2)]' \
+        '--6merpair[Distance is calculated based on the number of shared 6mers. Default: on]' \
+        '--globalpair[All pairwise alignments are computed with the Needleman-Wunsch algorithm. More accurate but slower than --6merpair. Suitable for a set of globally alignable sequences. Applicable to up to ~200 sequences. A combination with --maxiterate 1000 is recommended (G-INS-i). Default: off (6mer distance is used)]' \
+        '--localpair[All pairwise alignments are computed with the Smith-Waterman algorithm. More accurate but slower than --6merpair. Suitable for a set of locally alignable sequences. Applicable to up to ~200 sequences. A combination with --maxiterate 1000 is recommended (L-INS-i). Default: off (6mer distance is used)]' \
+        '--genafpair[All pairwise alignments are computed with a local algorithm with the generalized affine gap cost (Altschul 1998). More accurate but slower than --6merpair. Suitable when large internal gaps are expected. Applicable to up to ~200 sequences. A combination with --maxiterate 1000 is recommended (E-INS-i). Default: off (6mer distance is used)]' \
+        '--fastapair[All pairwise alignments are computed with FASTA (Pearson and Lipman 1988). FASTA is required. Default: off (6mer distance is used)]' \
+        '--weighti[Weighting factor for the consistency term calculated from pairwise alignments. Valid when either of --globalpair, --localpair, --genafpair, --fastapair or --blastpair is selected. Default: 2.7]' \
+        '--retree[Guide tree is built number times in the progressive stage. Valid with 6mer distance. Default: 2]' \
+        '--maxiterate[number cycles of iterative refinement are performed. Default: 0]' \
+        '--fft[Use FFT approximation in group-to-group alignment. Default: on]' \
+        '--nofft[Do not use FFT approximation in group-to-group alignment. Default: off]' \
+        '--noscore[Alignment score is not checked in the iterative refinement stage. Default: off (score is checked)]' \
+        '--memsave[Use the Myers-Miller (1988) algorithm. Default: automatically turned on when the alignment length exceeds 10,000 (aa/nt).]' \
+        '--parttree[Use a fast tree-building method (PartTree, Katoh and Toh 2007) with the 6mer distance. Recommended for a large number (> ~10,000) of sequences are input. Default: off]' \
+        '--dpparttree[The PartTree algorithm is used with distances based on DP. Slightly more accurate and slower than --parttree. Recommended for a large number (> ~10,000) of sequences are input. Default: off]' \
+        '--fastaparttree[The PartTree algorithm is used with distances based on FASTA. Slightly more accurate and slower than --parttree. Recommended for a large number (> ~10,000) of sequences are input. FASTA is required. Default: off]' \
+        '--partsize[The number of partitions in the PartTree algorithm. Default: 50]' \
+        '--groupsize[Do not make alignment larger than number sequences. Valid only with the --*parttree options. Default: the number of input sequences]' \
+        '--op[Gap opening penalty at group-to-group alignment. Default: 1.53]' \
+        '--ep[Offset value, which works like gap extension penalty, for group-to-group alignment. Default: 0.123]' \
+        '--lop[Gap opening penalty at local pairwise alignment. Valid when the --localpair or --genafpair option is selected. Default: -2.00]' \
+        '--lep[Offset value at local pairwise alignment. Valid when the --localpair or --genafpair option is selected. Default: 0.1]' \
+        '--lexp[Gap extension penalty at local pairwise alignment. Valid when the --localpair or --genafpair option is selected. Default: -0.1]' \
+        '--LOP[Gap opening penalty to skip the alignment. Valid when the --genafpair option is selected. Default: -6.00]' \
+        '--LEXP[Gap extension penalty to skip the alignment. Valid when the --genafpair option is selected. Default: 0.00]' \
+        '--bl[BLOSUM number matrix (Henikoff and Henikoff 1992) is used. number=30, 45, 62 or 80. Default: 62]' \
+        '--jtt[JTT PAM number (Jones et al. 1992) matrix is used. number>0. Default: BLOSUM62]' \
+        '--tm[Transmembrane PAM number (Jones et al. 1994) matrix is used. number>0. Default: BLOSUM62]' \
+        '--aamatrix[Use a user-defined AA scoring matrix. The format of matrixfile is the same to that of BLAST. Ignored when nucleotide sequences are input. Default: BLOSUM62]':file:_files \
+        '--fmodel[Incorporate the AA/nuc composition information into the scoring matrix. Default: off]' \
+        '--clustalout[Output format: clustal format. Default: off (fasta format)]' \
+        '--inputorder[Output order: same as input. Default: on]' \
+        '--reorder[Output order: aligned. Default: off (inputorder)]' \
+        '--treeout[Guide tree is output to the input.tree file. Default: off]' \
+        '--quiet[Do not report progress. Default: off]' \
+        '--nuc[Assume the sequences are nucleotide. Default: auto]' \
+        '--amino[Assume the sequences are amino acid. Default: auto]' \
+        '--seed[Seed alignments given in alignment_n (fasta format) are aligned with sequences in input. The alignment within every seed is preserved.]' \
+        '--thread[Number of threads (if unsure, --thread -1)]' \
+        '--dash[Add structural information (Rozewicki et al, submitted)]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

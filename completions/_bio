@@ -1,0 +1,252 @@
+#compdef _bio bio
+
+# Auto-generated with h2o
+
+    function _bio_search {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-a,--all}'[get all possible fields]' \
+            {-c,--csv}'[produce comma separated output]' \
+            {-t,--tab}'[produce tab separated output]' \
+            {-H,--header}'[show headers]' \
+            {-s,--species}'[species]' \
+            {-S,--scopes}'[mbol scopes]' \
+            {-u,--update}'[download the latest assebmly summary]' \
+            {-l,--limit}'[download limit]' \
+            {-f,--fields}'[fseq fields]' \
+            "*: :_files"
+
+    }
+
+    function _bio_fetch {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-d,--db}'[database]' \
+            {-t,--type}'[get CDS/CDNA (Ensembl only)]' \
+            {-f,--format}'[return format]' \
+            {-l,--limit}'[limit results]' \
+            "*: :_files"
+
+    }
+
+    function _bio_fasta {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-s,--start}'[start coordinate]' \
+            {-e,--end}'[end coordinate]' \
+            {-t,--type}'[filter for a feature type]' \
+            {-i,--id}'[exact match on a sequence id]' \
+            {-m,--match}'[regexp match on a sequence id]' \
+            {-g,--gene}'[filter for a gene name]' \
+            {-r,--rename}'[rename sequence ids]' \
+            {-p,--protein}'[operate on the protein sequences]' \
+            {-T,--translate}'[translate DNA]' \
+            {-R,--revcomp}'[reverse complement DNA]' \
+            {-G,--features}'[extract the fasta for the features]' \
+            {-A,--trim}'[trim polyA tails (and leading/trailing Ns)]' \
+            {-o,--olap}'[overlap with coordinate]' \
+            {-F,--frame}'[reading frame]' \
+            "*: :_files"
+
+    }
+
+    function _bio_gff {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-s,--start}'[start coordinate]' \
+            {-e,--end}'[end coordinate]' \
+            {-t,--type}'[filter for a feature type]' \
+            {-i,--id}'[exact match on a sequence id]' \
+            {-m,--match}'[regexp match on a sequence id]' \
+            {-g,--gene}'[filter for a gene name]' \
+            {-o,--olap}'[overlap with coordinate]' \
+            {-r,--rename}'[rename sequence ids]' \
+            "*: :_files"
+
+    }
+
+    function _bio_table {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-s,--start}'[start coordinate]' \
+            {-e,--end}'[end coordinate]' \
+            {-t,--type}'[filter for a feature type]' \
+            {-i,--id}'[exact match on a sequence id]' \
+            {-m,--match}'[regexp match on a sequence id]' \
+            {-g,--gene}'[filter for a gene name]' \
+            {-r,--rename}'[rename sequence ids]' \
+            {-o,--olap}'[overlap with coordinate]' \
+            {-f,--fields}'[table fields (default: id,size)]' \
+            "*: :_files"
+
+    }
+
+    function _bio_align {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-o,--open}'[gap open penalty]' \
+            {-x,--extend}'[gap extend penalty]' \
+            {-M,--matrix}'[matrix default: NUC4.4. or BLOSUM62)]' \
+            {-L,--local}'[local alignment]' \
+            {-G,--global}'[local alignment]' \
+            {-m,--match}'[alignment match (DNA only)]' \
+            {-i,--mismatch}'[alignment mismatch (DNA only)]' \
+            {-S,--semiglobal}'[local alignment]' \
+            {-V,--vcf}'[output vcf file]' \
+            {-T,--table}'[output in tabular format]' \
+            {-d,--diff}'[output mutations]' \
+            {-p,--pile}'[output pileup]' \
+            {-F,--fasta}'[output variant columns]' \
+            {-A,--all}'[show all alignments]' \
+            "*: :_files"
+
+    }
+
+    function _bio_format {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-s,--start}'[start coordinate]' \
+            {-e,--end}'[end coordinate]' \
+            {-d,--diff}'[output differences]' \
+            {-v,--vcf}'[output vcf]' \
+            {-T,--table}'[output in tabular format]' \
+            {-p,--paired}'[fasta input is pairwise]' \
+            "*: :_files"
+
+    }
+
+    function _bio_taxon {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-L,--lineage}'[show the lineage for a taxon term]' \
+            {-b,--build}'[updates and builds a local database]' \
+            {-a,--accessions}'[Print the accessions number for each]' \
+            {-K,--keep}'[clade to keep]' \
+            {-R,--remove}'[clade to remove]' \
+            {-f,--field}'[which column to read when filtering]' \
+            {-l,--list}'[lists database content]' \
+            {-d,--depth}'[how deep to visit a clade]' \
+            {-p,--preload}'[loads entire database in memory]' \
+            {-i,--indent}'[the indentation depth (set to zero for flat)]' \
+            {-v,--verbose}'[verbose mode, prints more messages]' \
+            "*: :_files"
+
+    }
+
+    function _bio_explain {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-b,--build}'[build a database of all gene and sequence ontology terms.]' \
+            {-P,--preload}'[loads entire database in memory]' \
+            {-s,--so}'[Filter query for sequence ontology terms.]' \
+            {-g,--go}'[Filter query for gene ontology terms.]' \
+            {-l,--lineage}'[show the ontological lineage]' \
+            {-p,--plot}'[Plot the network graph of the given GO term into the given file name.]' \
+            {-v,--verbose}'[verbose mode, prints more messages]' \
+            "*: :_files"
+
+    }
+
+    function _bio_meta {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-H,--header}'[print header]' \
+            {-L,--limit}'[download limit]' \
+            "*: :_files"
+
+    }
+
+    function _bio_mygene {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-l,--limit}'[download limit]' \
+            {-s,--species}'[species]' \
+            {-f,--fields}'[fields]' \
+            {-S,--scopes}'[mbol scopes]' \
+            "*: :_files"
+
+    }
+
+
+function _bio {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'search:search for information'
+            'fetch:download GenBank/ENSEMBL data'
+            'fasta:convert to FASTA'
+            'gff:convert to GFF'
+            'table:convert to table'
+            'align:align sequences'
+            'format:reformat aligned fasta'
+            'taxon:operate on NCBI taxonomies'
+            'explain:explain biological terms'
+            'meta:download metadata by taxonomy ID'
+            'mygene:connect to mygene interface'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (search)
+            _bio_search
+            ;;
+
+        (fetch)
+            _bio_fetch
+            ;;
+
+        (fasta)
+            _bio_fasta
+            ;;
+
+        (gff)
+            _bio_gff
+            ;;
+
+        (table)
+            _bio_table
+            ;;
+
+        (align)
+            _bio_align
+            ;;
+
+        (format)
+            _bio_format
+            ;;
+
+        (taxon)
+            _bio_taxon
+            ;;
+
+        (explain)
+            _bio_explain
+            ;;
+
+        (meta)
+            _bio_meta
+            ;;
+
+        (mygene)
+            _bio_mygene
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

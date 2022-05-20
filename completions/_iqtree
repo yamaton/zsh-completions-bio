@@ -33,6 +33,7 @@ function _iqtree {
         '--epsilon[Likelihood epsilon for parameter estimate (default 0.01)]' \
         '-T[No. cores/threads or AUTO-detect (default: 1)]' \
         '--threads-max[Max number of threads for -T AUTO (default: all cores)]' \
+        '--export-alisim-cmd[Export a command-line from the inferred tree and model params to simulate new MSAs with AliSim]' \
         '--redo[Redo both ModelFinder and tree search]' \
         '--redo-tree[Restore ModelFinder and only redo tree search]' \
         '--undo[Revoke finished run, used when changing some options]' \
@@ -90,7 +91,7 @@ function _iqtree {
         '-m[Additionally test Lie Markov models with WS symmetry]' \
         '-m[Additionally test Lie Markov models with MK symmetry]' \
         '-m[Additionally test strand-symmetric models]' \
-        '--mset[Restrict search to models supported by other programs (raxml, phyml or mrbayes)]' \
+        '--mset[Restrict search to models supported by other programs (raxml, phyml, mrbayes, beast1 or beast2)]' \
         '--mset[Comma-separated model list (e.g. -mset WAG,LG,JTT)]' \
         '--msub[Amino-acid model source (nuclear, mitochondrial, chloroplast or viral)]' \
         '--mfreq[List of state frequencies]' \
@@ -171,6 +172,20 @@ function _iqtree {
         '-p[Partition file or directory for --scf]':file:_files \
         '--cf-verbose[Write CF per tree/locus to cf.stat_tree/_loci]' \
         '--cf-quartet[Write sCF for all resampled quartets to .cf.quartet]' \
+        '--gentrius[File must contain either a single species-tree or a set of subtrees.]':file:_files \
+        '-pr_ab_matrix[Presence-absence matrix of loci coverage.]':file:_files \
+        '-s[PHYLIP/FASTA/NEXUS/CLUSTAL/MSF alignment file(s)]':file:_files \
+        '-p[NEXUS/RAxML partition file]':file:_files \
+        '-g_stop_t[Stop after NUM species-trees were generated, or use 0 to turn off this stopping rule. Default: 1MLN trees.]' \
+        '-g_stop_i[Stop after NUM intermediate trees were visited, or use 0 to turn off this stopping rule. Default: 10MLN trees.]' \
+        '-g_stop_h[Stop after NUM hours (CPU time), or use 0 to turn off this stopping rule. Default: 7 days.]' \
+        '-g_non_stop[Turn off all stopping rules.]' \
+        '-g_query[Species-trees to test for identical set of subtrees.]':file:_files \
+        '-g_print[Write all generated species-trees. WARNING: there might be millions of trees!]' \
+        '-g_print_lim[Limit on the number of species-trees to be written.]' \
+        '-g_print_induced[Write induced partition subtrees.]' \
+        '-g_print_m[Write presence-absence matrix.]' \
+        '-g_rm_leaves[Invoke reverse analysis for complex datasets.]' \
         '--date[File containing dates of tips or ancestral nodes]':file:_files \
         '--date[Extract dates from taxon names after last '\''|'\'']' \
         '--date-tip[Tip dates as a real number or YYYY-MM-DD]' \
