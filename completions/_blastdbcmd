@@ -1,0 +1,61 @@
+#compdef _blastdbcmd blastdbcmd
+
+# Auto-generated with h2o
+
+
+function _blastdbcmd {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-h[Print USAGE and DESCRIPTION; ignore all other parameters]' \
+        '-help[Print USAGE, DESCRIPTION and ARGUMENTS; ignore all other parameters]' \
+        '-version[Print version number; ignore other arguments]' \
+        '-db[BLAST database name]' \
+        '-dbtype[Molecule type stored in BLAST database]' \
+        '-entry[Comma-delimited search string(s) of sequence identifiers:]' \
+        '-entry_batch[Input file for batch processing (Format: one entry per line, seq id]':file:_files \
+        '-ipg[IPG to retrieve]' \
+        '-ipg_batch[Input file for batch processing (Format: one entry per line, IPG]':file:_files \
+        '-taxids[Comma-delimited taxonomy identifiers]' \
+        '-taxidlist[Input file for taxonomy identifiers]':file:_files \
+        '-info[Print BLAST database information]' \
+        '-tax_info[Print taxonomic information contained in this BLAST database.]' \
+        '-range[Range of sequence to extract in 1-based offsets (Format: start-stop, for]' \
+        '-strand[Strand of nucleotide sequence to extract]' \
+        '-mask_sequence_with[Produce lower-case masked FASTA using the algorithm ID specified]' \
+        '-out[Output file name]':file:_files \
+        '-outfmt[Output format, where the available format specifiers are:]' \
+        '-target_only[Definition line should contain target entry only]' \
+        '-get_dups[Retrieve duplicate accessions]' \
+        '-line_length[Line length for output]' \
+        '-ctrl_a[Use Ctrl-A as the non-redundant defline separator]' \
+        '-show_blastdb_search_path[Displays the default BLAST database search paths]' \
+        '-list[List BLAST databases in the specified directory]' \
+        '-remove_redundant_dbs[Remove the databases that are referenced by another alias file in the]' \
+        '-recursive[Recursively traverse the directory structure to list available BLAST]' \
+        '-list_outfmt[Output format for the list option, where the available format specifiers]' \
+        '-exact_length[Get exact length for db info]' \
+        '-long_seqids[Use long seq id for fasta deflines]' \
+        '-logfile[File to which the program log should be redirected]':file:_files \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+
