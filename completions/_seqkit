@@ -11,19 +11,21 @@
             {-I,--immediate-output}'[print output immediately, do not use write buffer]' \
             {-m,--max-mismatch}'[max mismatch when matching primers, no degenerate bases allowed]' \
             {-P,--only-positive-strand}'[only search on positive strand]' \
+            {-M,--output-mismatches}'[append the total mismatches and mismatches of 5'\'' end and 3'\'' end]' \
             {-p,--primer-file}'[3- or 2-column tabular primer file, with first column as primer name]' \
             {-r,--region}'[specify region to return. type "seqkit amplicon -h" for detail]' \
             {-R,--reverse}'[reverse primer (5'\''-primer-3'\''), degenerate bases allowed]' \
+            {-u,--save-unmatched}'[also save records that do not match any primer]' \
             {-s,--strict-mode}'[strict mode, i.e., discarding seqs not fully matching (shorter) given region range]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
@@ -60,41 +62,53 @@
             {-T,--tool}'[invoke toolbox in YAML format (see documentation)]' \
             {-@,--top-bam}'[save the top -? records to this bam file]' \
             {-?,--top-size}'[size of the top-mode buffer (default 100)]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_common {
         _arguments \
-            {-n,--by-name}'[match by full name    instead of just id]' \
+            {-n,--by-name}'[match by full name instead of just id]' \
+            {-s,--by-seq}'[match by sequence]' \
+            {-h,--help}'[help for common]' \
+            {-i,--ignore-case}'[ignore case]' \
+            {-P,--only-positive-strand}'[only considering positive strand when comparing by sequence]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
-            {-s,--by-seq}'[match by sequence]' \
-            {-h,--help}'[help for common]' \
-            {-i,--ignore-case}'[ignore case]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_concat {
         _arguments \
+            {-f,--full}'[keep all sequences, like full/outter join]' \
+            {-h,--help}'[help for concat]' \
+            {-s,--separator}'[separator for descriptions of records with the same ID (default "|")]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
-            {-h,--help}'[help for concat]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
@@ -106,51 +120,74 @@
             '--from[source quality encoding. if not given, we'\''ll guess it]' \
             {-h,--help}'[help for convert]' \
             {-n,--nrecords}'[number of records for guessing quality encoding (default 1000)]' \
-            {-N,--thresh-B-in-n-most-common}'[threshold of '\''B'\'' in top N most common quality for guessing Illumina 1.5. (default 4)]' \
+            {-N,--thresh-B-in-n-most-common}'[threshold of '\''B'\'' in top N most common quality for guessing Illumina 1.5. (default 2)]' \
             {-F,--thresh-illumina1.5-frac}'[threshold of faction of Illumina 1.5 in the leading N records (default 0.1)]' \
             '--to[target quality encoding (default "Sanger")]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_duplicate {
         _arguments \
-            {-h,--help}'[help for duplicate,-n, --times int   duplication number (   default 1)]' \
+            {-h,--help}'[help for duplicate]' \
+            {-n,--times}'[duplication number (default 1)]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
+            "*: :_files"
+
+    }
+
+    function _seqkit_fa2fq {
+        _arguments \
+            {-f,--fasta-file}'[FASTA file)]' \
+            {-h,--help}'[help for fa2fq]' \
+            {-P,--only-positive-strand}'[only search on positive strand]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_faidx {
         _arguments \
-            {-f,--full-head}'[print full header   line instead of just ID. New fasta index file ending with .seqkit.fai will be created]' \
-            {-h,--help}'[help for faidx,-i, --ignore-case   ignore case,-r, --use-regexp    IDs are regular ex   pression. But subseq region is not suppored here.]' \
+            {-f,--full-head}'[print full header line instead of just ID. New fasta index file ending with .seqkit.fai will be created]' \
+            {-h,--help}'[help for faidx]' \
+            {-i,--ignore-case}'[ignore case]' \
+            {-I,--immediate-output}'[print output immediately, do not use write buffer]' \
+            {-l,--region-file}'[file containing a list of regions]' \
+            {-r,--use-regexp}'[IDs are regular expression. But subseq region is not supported here.]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
@@ -172,23 +209,31 @@
             {-s,--stranded}'[search + strand only]' \
             {-v,--validate-seq}'[validate bases according to the alphabet]' \
             {-V,--validate-seq-length}'[length of sequence to validate (0 for whole seq) (default 10000)]' \
-            '--alphabet-guess-seq-length[int   length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_fq2fa {
         _arguments \
+            {-h,--help}'[help for fq2fa]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
-            {-h,--help}'[help for fq2fa]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
@@ -199,33 +244,44 @@
             {-q,--avg-qual}'[print average quality of a read]' \
             {-B,--base-content}'[print base content. (case ignored, multiple values supported) e.g. -B AT -B N]' \
             {-C,--base-count}'[print base count. (case ignored, multiple values supported) e.g. -C AT -C N]' \
-            {-I,--case-sensitive}'[calculate case sensitive base content]' \
+            {-I,--case-sensitive}'[calculate case sensitive base content/sequence hash]' \
             {-g,--gc}'[print GC content]' \
             {-G,--gc-skew}'[print GC-Skew]' \
             {-H,--header-line}'[print header line]' \
             {-h,--help}'[help for fx2tab]' \
             {-l,--length}'[print sequence length]' \
             {-n,--name}'[only print names (no sequences and qualities)]' \
+            {-Q,--no-qual}'[only output two column even for FASTQ file]' \
             {-i,--only-id}'[print ID instead of full head]' \
             {-b,--qual-ascii-base}'[ASCII BASE, 33 for Phred+33 (default 33)]' \
-            {-s,--seq-hash}'[print hash of sequence (case sensitive)]' \
+            {-s,--seq-hash}'[print hash (MD5) of sequence]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_genautocomplete {
         _arguments \
-            '--file[autocompletion fi   le (default "/home/vierbein/.bash_completion.d/seqkit.sh")]' \
-            {-h,--help}'[help for genautocomplete,--shell string   autocompletion ty   pe (bash|zsh|fish|powershell) (default "bash")]' \
+            '--file[autocompletion file (default "/home/vierbein/.bash_completion.d/seqkit.sh")]' \
+            {-h,--help}'[help for genautocomplete]' \
+            '--shell[autocompletion type (bash|zsh|fish|powershell) (default "bash")]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
@@ -235,6 +291,7 @@
             {-n,--by-name}'[match by full name instead of just ID]' \
             {-s,--by-seq}'[search subseq on seq, both positive and negative strand are searched, and mismatch allowed using flag -m/--max-mismatch]' \
             {-c,--circular}'[circular genome]' \
+            {-C,--count}'[just print a count of matching records. with the -v/--invert-match flag, count non-matching records]' \
             {-d,--degenerate}'[pattern/motif contains degenerate base]' \
             '--delete-matched[delete a pattern right after being matched, this keeps the firstly matched data and speedups when using regular expressions]' \
             {-h,--help}'[help for grep]' \
@@ -247,39 +304,49 @@
             {-f,--pattern-file}'[pattern file (one record per line)]' \
             {-R,--region}'[specify sequence region for searching. e.g 1:12 for first 12 bases, -12:-1 for last 12 bases]' \
             {-r,--use-regexp}'[patterns are regular expression]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_head {
         _arguments \
+            {-h,--help}'[help for head]' \
+            {-n,--number}'[print first N FASTA/Q records (default 10)]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
-            {-h,--help}'[help for head]' \
-            {-n,--number}'[print first N FASTA/Q records (default 10)]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
-    function _seqkit_help {
+    function _seqkit_head-genome {
         _arguments \
+            {-h,--help}'[help for head-genome]' \
+            {-m,--mini-common-words}'[minimal shared prefix words (default 1)]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
-            {-h,--help}'[help for help]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
@@ -302,7 +369,15 @@
             {-F,--use-fmi}'[use FM-index for much faster search of lots of sequence patterns]' \
             {-r,--use-regexp}'[patterns/motifs are regular expression]' \
             {-V,--validate-seq-length}'[length of sequence to validate (0 for whole seq) (default 10000)]' \
-            '--alphabet-guess-seq-length[int   length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
@@ -319,59 +394,73 @@
             {-f,--pattern-file}'[\[match seqs to mutate\] pattern file (one record per line)]' \
             {-p,--point}'[point mutation: changing base at given position. e.g., -p 2:C for setting 2nd base as C, -p -1:A for change last base as A]' \
             {-r,--use-regexp}'[\[match seqs to mutate\] search patterns are regular expression]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_pair {
         _arguments \
-            {-f,--force}'[overwrite outpu   t directory]' \
-            {-h,--help}'[help for pair,-O, --out-dir string   output directory,-1, --read1 string     (gzipped) read1    file]' \
-            {-2,--read2}'[(gzipped) read2    file]' \
-            {-u,--save-unpaired}'[save unpaired r   eads if there are]' \
+            {-f,--force}'[overwrite output directory]' \
+            {-h,--help}'[help for pair]' \
+            {-O,--out-dir}'[output directory]' \
+            {-1,--read1}'[(gzipped) read1 file]' \
+            {-2,--read2}'[(gzipped) read2 file]' \
+            {-u,--save-unpaired}'[save unpaired reads if there are]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_range {
         _arguments \
-            {-h,--help}'[help for range,-r, --range string   range. e.g., 1:12    for first 12 records (head -n 12), -12:-1 for last 12 records (tail -n 12)]' \
+            {-h,--help}'[help for range]' \
+            {-r,--range}'[range. e.g., 1:12 for first 12 records (head -n 12), -12:-1 for last 12 records (tail -n 12)]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_rename {
         _arguments \
-            {-n,--by-name}'[check duplication by full name instead of just id,-f, --force               overwrite ou   tput directory]' \
-            {-h,--help}'[help for rename,-m, --multiple-outfiles   write result   s into separated files for multiple input files]' \
+            {-n,--by-name}'[check duplication by full name instead of just id]' \
+            {-f,--force}'[overwrite output directory]' \
+            {-h,--help}'[help for rename]' \
+            {-m,--multiple-outfiles}'[write results into separated files for multiple input files]' \
+            {-O,--out-dir}'[output directory (default "renamed")]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
-            {-O,--out-dir}'[output directory (default "renamed")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
@@ -386,81 +475,98 @@
             {-I,--key-capt-idx}'[capture variable index of key (1-based) (default 1)]' \
             {-m,--key-miss-repl}'[replacement for key with no corresponding value]' \
             {-k,--kv-file}'[tab-delimited key-value file for replacing key with value when using "{kv}" in -r (--replacement) (only for sequence name)]' \
-            '--nr-width[minimum width for {nr} in flag -r/--replacement. e.g., formating "1" to "001" by --nr-width 3 (default 1)]' \
+            '--nr-width[minimum width for {nr} in flag -r/--replacement. e.g., formatting "1" to "001" by --nr-width 3 (default 1)]' \
             {-p,--pattern}'[search regular expression]' \
-            {-r,--replacement}'[replacement. supporting capture variables.  e.g. $1 represents the text of the first submatch. ATTENTION: for *nix OS, use SINGLE quote NOT double quotes or use the \ escape character. Record number is also supported by "{nr}".use ${1} instead of $1 when {kv} given!]' \
+            {-r,--replacement}'[replacement. supporting capture variables. e.g. $1 represents the text of the first submatch. ATTENTION: for *nix OS, use SINGLE quote NOT double quotes or use the \ escape character. Record number is also supported by "{nr}".use ${1} instead of $1 when {kv} given!]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_restart {
         _arguments \
+            {-h,--help}'[help for restart]' \
+            {-i,--new-start}'[new start position (1-base, supporting negative value counting from the end) (default 1)]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
-            {-h,--help}'[help for restart]' \
-            {-i,--new-start}'[new start position (1-base, supporting negative value counting from the end) (default 1)]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_rmdup {
         _arguments \
-            {-n,--by-name}'[by full n   ame instead of just id]' \
-            {-s,--by-seq}'[by seq,-D, --dup-num-file string    file to s   ave number and list of duplicated seqs]' \
-            {-d,--dup-seqs-file}'[file to s   ave duplicated seqs]' \
-            {-h,--help}'[help for   rmdup]' \
-            {-i,--ignore-case}'[ignore ca   se]' \
+            {-n,--by-name}'[by full name instead of just id]' \
+            {-s,--by-seq}'[by seq]' \
+            {-D,--dup-num-file}'[file to save number and list of duplicated seqs]' \
+            {-d,--dup-seqs-file}'[file to save duplicated seqs]' \
+            {-h,--help}'[help for rmdup]' \
+            {-i,--ignore-case}'[ignore case]' \
+            {-P,--only-positive-strand}'[only considering positive strand when comparing by sequence]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_sample {
         _arguments \
-            {-h,--help}'[help for sample,-n, --number int         sample by number (result may not exactly match), DO NOT use on large FASTQ files.,-p, --proportion float   sample by proportion,-s, --rand-seed int      rand seed (default 11),-2, --two-pass           2-pass mode r   ead files twice to lower memory usage. Not allowed when reading from stdin]' \
+            {-h,--help}'[help for sample]' \
+            {-n,--number}'[sample by number (result may not exactly match), DO NOT use on large FASTQ files.]' \
+            {-p,--proportion}'[sample by proportion]' \
+            {-s,--rand-seed}'[rand seed (default 11)]' \
+            {-2,--two-pass}'[2-pass mode read files twice to lower memory usage. Not allowed when reading from stdin]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_sana {
         _arguments \
-            {-A,--allow-gaps}'[allow gap   character (-) in sequences]' \
-            {-i,--format}'[input and   output format: fastq or fasta (default "fastq")]' \
-            {-h,--help}'[help for s   ana]' \
-            {-I,--in-format}'[input format: fastq or fasta,-O, --out-format string     output format: fastq or fasta,-b, --qual-ascii-base int   ASCII BASE   , 33 for Phred+33 (default 33)]' \
+            {-A,--allow-gaps}'[allow gap character (-) in sequences]' \
+            {-i,--format}'[input and output format: fastq or fasta (default "fastq")]' \
+            {-h,--help}'[help for sana]' \
+            {-I,--in-format}'[input format: fastq or fasta]' \
+            {-O,--out-format}'[output format: fastq or fasta]' \
+            {-b,--qual-ascii-base}'[ASCII BASE, 33 for Phred+33 (default 33)]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
@@ -470,7 +576,7 @@
             {-A,--allow-gaps}'[allow gap character (-) in sequences]' \
             {-d,--delta}'[minimum size increase in kilobytes to trigger parsing (default 5)]' \
             {-D,--drop-time}'[Notification drop interval (default "500ms")]' \
-            {-f,--find-only}'[concatenate exisiting files and quit]' \
+            {-f,--find-only}'[concatenate existing files and quit]' \
             {-i,--format}'[input and output format: fastq or fasta (fastq) (default "fastq")]' \
             {-g,--gz-only}'[only look for gzipped files (.gz suffix)]' \
             {-h,--help}'[help for scat]' \
@@ -480,6 +586,15 @@
             {-r,--regexp}'[regexp for watched files, by default guessed from the input format]' \
             {-T,--time-limit}'[quit after inactive for this time period]' \
             {-p,--wait-pid}'[after process with this PID exited (default -1)]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
@@ -507,62 +622,82 @@
             {-u,--upper-case}'[print sequences in upper case]' \
             {-v,--validate-seq}'[validate bases according to the alphabet]' \
             {-V,--validate-seq-length}'[length of sequence to validate (0 for whole seq) (default 10000)]' \
-            '--alphabet-guess-seq-length[int   length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_shuffle {
         _arguments \
-            {-h,--help}'[help for shuffle,-k, --keep-temp       keep tempory FASTA and .fai file when using 2-pass mode,-s, --rand-seed int   rand seed for sh   uffle (default 23)]' \
-            {-2,--two-pass}'[two-pass mode re   ad files twice to lower memory usage. (only for FASTA format)]' \
+            {-h,--help}'[help for shuffle]' \
+            {-k,--keep-temp}'[keep temporary FASTA and .fai file when using 2-pass mode]' \
+            {-s,--rand-seed}'[rand seed for shuffle (default 23)]' \
+            {-2,--two-pass}'[two-pass mode read files twice to lower memory usage. (only for FASTA format)]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_sliding {
         _arguments \
-            {-c,--circular}'[circular genom   e (same to -C/--circular-genome)]' \
-            {-C,--circular-genome}'[circular genom   e (same to -c/--circular)]' \
-            {-g,--greedy}'[greedy mode, i   .e., exporting last subsequences even shorter than windows size]' \
+            {-c,--circular}'[circular genome (same to -C/--circular-genome)]' \
+            {-C,--circular-genome}'[circular genome (same to -c/--circular)]' \
+            {-g,--greedy}'[greedy mode, i.e., exporting last subsequences even shorter than windows size]' \
+            {-h,--help}'[help for sliding]' \
+            {-s,--step}'[step size]' \
+            {-W,--window}'[window size]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
-            {-h,--help}'[help for sliding]' \
-            {-s,--step}'[step size]' \
-            {-W,--window}'[window size]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_sort {
         _arguments \
+            {-b,--by-bases}'[by non-gap bases]' \
             {-l,--by-length}'[by sequence length]' \
             {-n,--by-name}'[by full name instead of just id]' \
             {-s,--by-seq}'[by sequence]' \
+            {-G,--gap-letters}'[gap letters (default "- \t.")]' \
             {-h,--help}'[help for sort]' \
             {-i,--ignore-case}'[ignore case]' \
-            {-k,--keep-temp}'[keep tempory FASTA and .fai file when using 2-pass mode]' \
+            {-k,--keep-temp}'[keep temporary FASTA and .fai file when using 2-pass mode]' \
             {-N,--natural-order}'[sort in natural order, when sorting by IDs/full name]' \
             {-r,--reverse}'[reverse the result]' \
             {-L,--seq-prefix-length}'[length of sequence prefix on which seqkit sorts by sequences (0 for whole sequence) (default 10000)]' \
             {-2,--two-pass}'[two-pass mode read files twice to lower memory usage. (only for FASTA format)]' \
-            '--alphabet-guess-seq-lengt[h int   length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
@@ -576,53 +711,65 @@
             {-d,--dry-run}'[dry run, just print message and no files will be created.]' \
             {-f,--force}'[overwrite output directory]' \
             {-h,--help}'[help for split]' \
-            {-k,--keep-temp}'[keep tempory FASTA and .fai file when using 2-pass mode]' \
+            {-k,--keep-temp}'[keep temporary FASTA and .fai file when using 2-pass mode]' \
             {-O,--out-dir}'[output directory (default value is $infile.split)]' \
             {-2,--two-pass}'[two-pass mode read files twice to lower memory usage. (only for FASTA format)]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_split2 {
         _arguments \
-            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
-            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
-            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
-            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
-            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
-            '--quiet[be quiet and do not show extra information]' \
-            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
             {-l,--by-length}'[split sequences into chunks of >=N bases, supports K/M/G suffix]' \
             {-p,--by-part}'[split sequences into N parts]' \
             {-s,--by-size}'[split sequences into multi parts with N sequences]' \
+            {-e,--extension}'[set output file extension, e.g., ".gz", ".xz", or ".zst"]' \
             {-f,--force}'[overwrite output directory]' \
             {-h,--help}'[help for split2]' \
             {-O,--out-dir}'[output directory (default value is $infile.split)]' \
             {-1,--read1}'[(gzipped) read1 file]' \
             {-2,--read2}'[(gzipped) read2 file]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_stats {
         _arguments \
-            {-a,--all}'[all statistics, including quartiles of seq length, sum_gap, N50,-b, --basename             only output    basename of files]' \
-            {-E,--fq-encoding}'[fastq quality encoding. available values: '\''sanger'\'', '\''solexa'\'', '\''illumina-1.3+'\'', '\''illumina-1.5+'\'', '\''illumina-1.8+'\''. (default "sanger"),-G, --gap-letters string   gap letters    (default "- .")]' \
-            {-h,--help}'[help for st   ats]' \
-            {-e,--skip-err}'[skip error,    only show warning message]' \
-            {-i,--stdin-label}'[label for r   eplacing default "-" for stdin (default "-")]' \
-            {-T,--tabular}'[output in m   achine-friendly tabular format]' \
+            {-a,--all}'[all statistics, including quartiles of seq length, sum_gap, N50]' \
+            {-b,--basename}'[only output basename of files]' \
+            {-E,--fq-encoding}'[fastq quality encoding. available values: '\''sanger'\'', '\''solexa'\'', '\''illumina-1.3+'\'', '\''illumina-1.5+'\'', '\''illumina-1.8+'\''. (default "sanger")]' \
+            {-G,--gap-letters}'[gap letters (default "- .")]' \
+            {-h,--help}'[help for stats]' \
+            {-e,--skip-err}'[skip error, only show warning message]' \
+            {-i,--stdin-label}'[label for replacing default "-" for stdin (default "-")]' \
+            {-T,--tabular}'[output in machine-friendly tabular format]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
@@ -639,23 +786,59 @@
             {-f,--only-flank}'[only return up/down stream sequence]' \
             {-r,--region}'[by region. e.g 1:12 for first 12 bases, -12:-1 for last 12 bases, 13:-1 for cutting first 12 bases. type "seqkit subseq -h" for more examples]' \
             {-u,--up-stream}'[up stream length]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
+            "*: :_files"
+
+    }
+
+    function _seqkit_sum {
+        _arguments \
+            '-[For single-stranded genomes like ssRNA genomes, use -s/--single-strand.]' \
+            '-[The message digest would change with different values of k-mer size.]' \
+            {-a,--all}'[show all information, including the sequences length and the number of sequences]' \
+            {-b,--basename}'[only output basename of files]' \
+            {-c,--circular}'[the file contains a single cicular genome sequence]' \
+            {-G,--gap-letters}'[gap letters (default "- \t.*")]' \
+            {-h,--help}'[help for sum]' \
+            {-k,--kmer-size}'[k-mer size for processing circular genomes (default 1000)]' \
+            {-g,--remove-gaps}'[remove gaps]' \
+            '--rna2dna[convert RNA to DNA]' \
+            {-s,--single-strand}'[only consider the positive strand of a circular genome, e.g., ssRNA virus genomes]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_tab2fx {
         _arguments \
-            {-p,--comment-line-prefix}'[co   mment line prefix (default \[#,//\])]' \
-            {-h,--help}'[he   lp for tab2fx]' \
+            {-b,--buffer-size}'[size of buffer, supported unit: K, M, G. You need increase the value when "bufio.Scanner: token too long" error reported (default "1G")]' \
+            {-p,--comment-line-prefix}'[comment line prefix (default \[#,//\])]' \
+            {-h,--help}'[help for tab2fx]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
@@ -669,34 +852,35 @@
             {-h,--help}'[help for translate]' \
             {-M,--init-codon-as-M}'[translate initial codon at beginning to '\''M'\'']' \
             {-l,--list-transl-table}'[show details of translate table N, 0 for all (default -1)]' \
-            {-L,--list-transl-table-with-amb-codons}'[show details of translate table N (including ambigugous codons), 0 for all.  (default -1)]' \
+            {-L,--list-transl-table-with-amb-codons}'[show details of translate table N (including ambigugous codons), 0 for all. (default -1)]' \
             {-T,--transl-table}'[translate table/genetic code, type '\''seqkit translate --help'\'' for more details (default 1)]' \
             '--trim[remove all '\''X'\'' and '\''*'\'' characters from the right end of the translation]' \
-            '--alphabet-guess-seq-length[length o   f sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
-            '--id-ncbi[FASTA he   ad is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
-            '--id-regexp[regular   expression for parsing ID (default "^(\\S+)\\s?")]' \
-            '--infile-list[file of   input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60),-o, --out-file string                 out file    ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
-            '--quiet[be quiet    and do not show extra information]' \
-            {-t,--seq-type}'[sequence    type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number o   f CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
 
     function _seqkit_version {
         _arguments \
+            {-u,--check-update}'[check update]' \
+            {-h,--help}'[help for version]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
             '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
             '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
             '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
             {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
             '--quiet[be quiet and do not show extra information]' \
             {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-            {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
-            {-u,--check-update}'[check update]' \
-            {-h,--help}'[help for version]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
@@ -718,7 +902,15 @@
             {-R,--reset}'[reset histogram after every report]' \
             {-v,--validate-seq}'[validate bases according to the alphabet]' \
             {-V,--validate-seq-length}'[length of sequence to validate (0 for whole seq) (default 10000)]' \
-            '--alphabet-guess-seq-length[int   length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+            '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
+            '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            '--quiet[be quiet and do not show extra information]' \
+            {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
+            {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
             "*: :_files"
 
     }
@@ -730,20 +922,21 @@ function _seqkit {
     function _commands {
         local -a commands
         commands=(
-            'amplicon:retrieve amplicon (or specific region around it) via primer(s)'
+            'amplicon:extract amplicon (or specific region around it) via primer(s)'
             'bam:monitoring and online histograms of BAM record features'
             'common:find common sequences of multiple files by id/name/sequence'
-            'concat:concatenate sequences with same ID from multiple files'
+            'concat:concatenate sequences with the same ID from multiple files'
             'convert:convert FASTQ quality encoding between Sanger, Solexa and Illumina'
             'duplicate:duplicate sequences N times'
+            'fa2fq:retrieve corresponding FASTQ records by a FASTA file'
             'faidx:create FASTA index file and extract subsequence'
             'fish:look for short sequences in larger sequences using local alignment'
             'fq2fa:convert FASTQ to FASTA'
-            'fx2tab:convert FASTA/Q to tabular format (with length/GC content/GC skew)'
+            'fx2tab:convert FASTA/Q to tabular format (and length, GC content, average quality...)'
             'genautocomplete:generate shell autocompletion script (bash|zsh|fish|powershell)'
             'grep:search sequences by ID/name/sequence/sequence motifs, mismatch allowed'
             'head:print first N FASTA/Q records'
-            'help:Help about any command'
+            'head-genome:print sequences of the first genome with common prefixes in name'
             'locate:locate subsequences/motifs, mismatch allowed'
             'mutate:edit sequence (point mutation, insertion, deletion)'
             'pair:match up paired-end reads from two fastq files'
@@ -751,18 +944,19 @@ function _seqkit {
             'rename:rename duplicated IDs'
             'replace:replace name/sequence by regular expression'
             'restart:reset start position for circular genome'
-            'rmdup:remove duplicated sequences by id/name/sequence'
+            'rmdup:remove duplicated sequences by ID/name/sequence'
             'sample:sample sequences by number or proportion'
-            'sana:sanitize broken single line fastq files'
+            'sana:sanitize broken single line FASTQ files'
             'scat:real time recursive concatenation and streaming of fastx files'
-            'seq:transform sequences (revserse, complement, extract ID...)'
+            'seq:transform sequences (extract ID, filter by length, remove gaps...)'
             'shuffle:shuffle sequences'
-            'sliding:sliding sequences, circular genome supported'
+            'sliding:extract subsequences in sliding windows'
             'sort:sort sequences by id/name/sequence/length'
             'split:split sequences into files by id/seq region/size/parts (mainly for FASTA)'
             'split2:split sequences into files by size/parts (FASTA, PE/SE FASTQ)'
             'stats:simple statistics of FASTA/Q files'
             'subseq:get subsequences by region/gtf/bed, including flanking sequences'
+            'sum:compute message digest for all sequences in FASTA/Q files'
             'tab2fx:convert tabular format to FASTA/Q format'
             'translate:translate DNA/RNA to protein sequence (supporting ambiguous bases)'
             'version:print version information and check for update'
@@ -778,11 +972,11 @@ function _seqkit {
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-        {-w,--line-width}'[line width when outputing FASTA format (0 for no wrap) (default 60)]' \
+        {-w,--line-width}'[line width when outputting FASTA format (0 for no wrap) (default 60)]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         '--quiet[be quiet and do not show extra information]' \
         {-t,--seq-type}'[sequence type (dna|rna|protein|unlimit|auto) (for auto, it automatically detect by the first sequence) (default "auto")]' \
-        {-j,--threads}'[number of CPUs. (default value: 1 for single-CPU PC, 2 for others. can also set with environment variable SEQKIT_THREADS) (default 2)]' \
+        {-j,--threads}'[number of CPUs. can also set with environment variable SEQKIT_THREADS) (default 4)]' \
         ': :->cmd' \
         '*:: :->subcmd'
 
@@ -816,6 +1010,10 @@ function _seqkit {
             _seqkit_duplicate
             ;;
 
+        (fa2fq)
+            _seqkit_fa2fq
+            ;;
+
         (faidx)
             _seqkit_faidx
             ;;
@@ -844,8 +1042,8 @@ function _seqkit {
             _seqkit_head
             ;;
 
-        (help)
-            _seqkit_help
+        (head-genome)
+            _seqkit_head-genome
             ;;
 
         (locate)
@@ -922,6 +1120,10 @@ function _seqkit {
 
         (subseq)
             _seqkit_subseq
+            ;;
+
+        (sum)
+            _seqkit_sum
             ;;
 
         (tab2fx)
