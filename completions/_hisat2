@@ -15,6 +15,11 @@ function _hisat2 {
  
 
     _arguments -C \
+        '-x[Index filename prefix (minus trailing .X.ht2).]':file:_files \
+        '-1[Files with #1 mates, paired with files in <m2>. Could be gzip'\''ed (extension: .gz) or bzip2'\''ed (extension: .bz2).]':file:_files \
+        '-2[Files with #2 mates, paired with files in <m1>. Could be gzip'\''ed (extension: .gz) or bzip2'\''ed (extension: .bz2).]':file:_files \
+        '-U[Files with unpaired reads. Could be gzip'\''ed (extension: .gz) or bzip2'\''ed (extension: .bz2).]':file:_files \
+        '-S[File for SAM output (default: stdout)]':file:_files \
         '-q[query input files are FASTQ .fq/.fastq (default)]' \
         '--qseq[query input files are in Illumina'\''s qseq format]' \
         '-f[query input files are (multi-)FASTA .fa/.mfa]' \

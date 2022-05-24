@@ -2,6 +2,34 @@
 
 # Auto-generated with h2o
 
+    function _salmon_index {
+        _arguments \
+            {-v,--version}'[print version string]' \
+            {-h,--help}'[produce help message]' \
+            {-t,--transcripts}'[Transcript fasta file.]' \
+            {-k,--kmerLen}'[The size of k-mers that should be used for the quasi index. (Default: 31)]' \
+            {-i,--index}'[salmon index.]' \
+            '--gencode[This flag will expect the input transcript fasta to be in GENCODE format, and will split the transcript name at the first '\''|'\'' character. These reduced names will be used in the output and when looking for these transcripts in a gene to transcript GTF.]' \
+            '--features[This flag will expect the input reference to be in the tsv file format, and will split the feature name at the first '\''tab'\'' character. These reduced names will be used in the output and when looking for the sequence of the features.GTF.]' \
+            '--keepDuplicates[This flag will disable the default indexing behavior of discarding sequence-identical duplicate transcripts. If this flag is passed, then duplicate transcripts that appear in the input will be retained and quantified separately.]' \
+            {-p,--threads}'[Number of threads to use during indexing. (Default: 2)]' \
+            '--keepFixedFasta[Retain the fixed fasta file (without short transcripts and duplicates, clipped, etc.) generated during indexing]' \
+            {-f,--filterSize}'[The size of the Bloom filter that will be used by TwoPaCo during indexing. The filter will be of size 2^{filterSize}. The default value of -1 means that the filter size will be automatically set based on the number of distinct k-mers in the input, as estimated by nthll. (Default: -1)]' \
+            '--tmpdir[The directory location that will be used for TwoPaCo temporary files; it will be created if need be and be removed prior to indexing completion. The default value will cause a (temporary) subdirectory of the salmon index directory to be used for this purpose.]' \
+            '--sparse[Build the index using a sparse sampling of k-mer positions This will require less memory (especially during quantification), but will take longer to construct and can slow down mapping / alignment]' \
+            {-d,--decoys}'[Treat these sequences ids from the reference as the decoys that may have sequence homologous to some known transcript. for example in case of the genome, provide a list of chromosome name --- one per line]' \
+            {-n,--no-clip}'[Don'\''t clip poly-A tails from the ends of target sequences]' \
+            '--type[The type of index to build; the only option is "puff" in this version of salmon.]' \
+            "*: :_files"
+
+    }
+
+    function _salmon_quant {
+        _arguments \
+            "*: :_files"
+
+    }
+
     function _salmon_alevin {
         _arguments \
             {-l,--libType}'[Format string describing the library type]' \
@@ -24,7 +52,10 @@
             '--citeseq[Use CITESeq Single Cell protocol for the library, 16 CB, 12 UMI and features.]' \
             '--celseq[Use CEL-Seq Single Cell protocol for the library.]' \
             '--celseq2[Use CEL-Seq2 Single Cell protocol for the library.]' \
+            '--splitseqV1[Use Split-SeqV1 Single Cell protocol for the library.]' \
+            '--splitseqV2[Use Split-SeqV2 Single Cell protocol for the library.]' \
             '--quartzseq2[Use Quartz-Seq2 v3.2 Single Cell protocol for the library assumes 15 length barcode and 8 length UMI.]' \
+            '--sciseq3[Use sci-RNA-seq3 protocol for the library.]' \
             '--whitelist[File containing white-list barcodes]' \
             '--featureStart[This flag should be used with citeseq and specifies the starting index of the feature barcode on Read2.]' \
             '--featureLength[This flag should be used with citeseq and specifies the length of the feature barcode.]' \
@@ -58,62 +89,21 @@
 
     }
 
-    function _salmon_index {
+    function _salmon_swim {
         _arguments \
-            '-v[print version string]' \
-            '-h[produce help message]' \
-            '-t[arg   Transcript fasta file.]' \
-            {-t,--transcripts}'[arg   Transcript fasta file.]' \
-            '-t[Transcript fasta file.]' \
-            {-t,--transcripts}'[Transcript fasta file.]' \
-            '-k[arg (=31)   The size of k-mers that should be used for the quasi index.]' \
-            {-k,--kmerLen}'[arg (=31)   The size of k-mers that should be used for the quasi index.]' \
-            '-k[The size of k-mers that should be used for the quasi index.]' \
-            {-k,--kmerLen}'[The size of k-mers that should be used for the quasi index.]' \
-            '-i[arg   salmon index.]' \
-            {-i,--index}'[arg   salmon index.]' \
-            '-i[salmon index.]' \
-            {-i,--index}'[salmon index.]' \
-            '--gencode[This flag will expect the input transcript fasta to be in GENCODE format, and will split the transcript name at the first '\''|'\'' character. These reduced names will be used in the output and when looking for these transcripts in a gene to transcript GTF.]' \
-            '--features[This flag will expect the input reference to be in the tsv file format, and will split the feature name at the first '\''tab'\'' character. These reduced names will be used in the output and when looking for the sequence of the features.GTF.]' \
-            '--keepDuplicates[This flag will disable the default indexing behavior of discarding sequence-identical duplicate transcripts.  If this flag is passed, then duplicate transcripts that appear in the input will be retained and quantified separately.]' \
-            '-p[arg (=2)   Number of threads to use during indexing.]' \
-            {-p,--threads}'[arg (=2)   Number of threads to use during indexing.]' \
-            '-p[Number of threads to use during indexing.]' \
-            {-p,--threads}'[Number of threads to use during indexing.]' \
-            '--keepFixedFasta[Retain the fixed fasta file (without short transcripts and duplicates, clipped, etc.) generated during indexing]' \
-            '-f[arg (=-1)   The size of the Bloom filter that will be used by TwoPaCo during indexing. The filter will be of size 2^{filterSize}. The default value of -1 means that the filter size will be automatically set based on the number of distinct k-mers in the input, as estimated by nthll.]' \
-            {-f,--filterSize}'[arg (=-1)   The size of the Bloom filter that will be used by TwoPaCo during indexing. The filter will be of size 2^{filterSize}. The default value of -1 means that the filter size will be automatically set based on the number of distinct k-mers in the input, as estimated by nthll.]' \
-            '-f[The size of the Bloom filter that will be used by TwoPaCo during indexing. The filter will be of size 2^{filterSize}. The default value of -1 means that the filter size will be automatically set based on the number of distinct k-mers in the input, as estimated by nthll.]' \
-            {-f,--filterSize}'[The size of the Bloom filter that will be used by TwoPaCo during indexing. The filter will be of size 2^{filterSize}. The default value of -1 means that the filter size will be automatically set based on the number of distinct k-mers in the input, as estimated by nthll.]' \
-            '--tmpdir[The directory location that will be used for TwoPaCo temporary files; it will be created if need be and be removed prior to indexing completion. The default value will cause a (temporary) subdirectory of the salmon index directory to be used for this purpose.]' \
-            '--sparse[Build the index using a sparse sampling of k-mer positions This will require less memory (especially during quantification), but will take longer to construct and can slow down mapping / alignment]' \
-            '-d[arg   Treat these sequences ids from the reference as the decoys that may have sequence homologous to some known transcript. for example in case of the genome, provide a list of chromosome name --- one per line]' \
-            {-d,--decoys}'[arg   Treat these sequences ids from the reference as the decoys that may have sequence homologous to some known transcript. for example in case of the genome, provide a list of chromosome name --- one per line]' \
-            '-d[Treat these sequences ids from the reference as the decoys that may have sequence homologous to some known transcript. for example in case of the genome, provide a list of chromosome name --- one per line]' \
-            {-d,--decoys}'[Treat these sequences ids from the reference as the decoys that may have sequence homologous to some known transcript. for example in case of the genome, provide a list of chromosome name --- one per line]' \
-            '--type[The type of index to build; the only option is "puff" in this version of salmon.]' \
-            "*: :_files"
-
-    }
-
-    function _salmon_quant {
-        _arguments \
-            '--help-reads[view the help for salmon'\''s selective-alignment-based mode]' \
-            '--help-alignment[view the help for salmon'\''s alignment-based mode]' \
             "*: :_files"
 
     }
 
     function _salmon_quantmerge {
         _arguments \
-            {-v,--version}'[print version string]' \
-            {-h,--help}'[produce help message]' \
+            '-v[print version string]' \
+            '-h[produce help message]' \
             '--quants[List of quantification directories.]' \
             '--names[Optional list of names to give to the samples.]' \
-            {-c,--column}'[The name of the column that will be merged together into the output files. The options are {len, elen, tpm, numreads}]' \
+            {-c,--column}'[The name of the column that will be merged together into the output files. The options are {len, elen, tpm, numreads} (default: tpm)]' \
             '--genes[Use gene quantification instead of transcript.]' \
-            '--missing[The value of missing values.]' \
+            '--missing[The value of missing values. (default: NA)]' \
             {-o,--output}'[Output quantification file.]' \
             "*: :_files"
 
@@ -126,9 +116,10 @@ function _salmon {
     function _commands {
         local -a commands
         commands=(
-            'alevin:single cell analysis'
             'index:create a salmon index'
             'quant:quantify a sample'
+            'alevin:single cell analysis'
+            'swim:perform super-secret operation'
             'quantmerge:merge multiple quantifications into a single file'
         )
         _describe 'command' commands
@@ -145,16 +136,20 @@ function _salmon {
         ;;
     (subcmd)
         case $line[1] in
-        (alevin)
-            _salmon_alevin
-            ;;
-
         (index)
             _salmon_index
             ;;
 
         (quant)
             _salmon_quant
+            ;;
+
+        (alevin)
+            _salmon_alevin
+            ;;
+
+        (swim)
+            _salmon_swim
             ;;
 
         (quantmerge)
