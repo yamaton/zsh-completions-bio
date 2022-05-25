@@ -28,6 +28,7 @@ function _STAR {
         '--genomeChainFiles[chain files for genomic liftover. Only used with --runMode liftOver .]':file:_files \
         '--genomeFileSizes[genome files exact sizes in bytes. Typically, this should not be defined by the user. (default: 0)]' \
         '--genomeTransformOutput[which output to transform back to original genome (default: None)]' \
+        '--genomeChrSetMitochondrial[names of the mitochondrial chromosomes. Presently only used for STARsolo statisics output/ (default: chrM M MT)]' \
         '--genomeChrBinNbits[where chrBin is the size of the bins for genome storage: each chromosome will occupy an integer number of bins. For a genome with large number of contigs, it is recommended to scale this parameter as min(18, log2\[max(GenomeLength/NumberOfReferences,ReadLength)\]). (default: 18)]' \
         '--genomeSAindexNbases[length (bases) of the SA pre-indexing string. Typically between 10 and 15. Longer strings will use much more memory, but allow faster searches. For small genomes, the parameter --genomeSAindexNbases must be scaled down to min(14, log2(GenomeLength)/2 - 1). (default: 14)]' \
         '--genomeSAsparseD[suffux array sparsity, i.e. distance between indices: use bigger numbers to decrease needed RAM at the cost of mapping speed reduction (default: 1)]' \
@@ -210,6 +211,7 @@ function _STAR {
         '--soloOutFileNames[file names for STARsolo output. (default: Solo.out/ features.tsv barcodes.tsv matrix.mtx) file_name_prefix gene_names barcode_sequences cell_feature_count_matrix]' \
         '--soloCellFilter[cell filtering type and parameters (default: CellRanger2.2 3000 0.99 10)]' \
         '--soloOutFormatFeaturesGeneField3[field 3 in the Gene features.tsv file. If "-", then no 3rd field is output. (default: "Gene Expression")]' \
+        '--soloCellReadStats[Output reads statistics for each CB. Standard ... standard output (default: None)]' \
         '*: :_files'
 
     case $state in
