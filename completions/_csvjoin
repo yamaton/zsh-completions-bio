@@ -39,7 +39,7 @@ function _csvjoin {
         '--outer[Perform a full outer join, rather than the default inner join.]' \
         '--left[Perform a left outer join, rather than the default inner join. If more than two files are provided this will be executed as a sequence of left outer joins, starting at the left.]' \
         '--right[Perform a right outer join, rather than the default inner join. If more than two files are provided this will be executed as a sequence of right outer joins, starting at the right.]' \
-        {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing.]' \
+        {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing entirely, or "-1" to sniff the entire file.]' \
         {-I,--no-inference}'[Disable type inference when parsing CSV input.]' \
         '*: :_files'
 

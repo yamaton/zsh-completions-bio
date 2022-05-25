@@ -38,7 +38,7 @@ function _csvlook {
         '--max-rows[The maximum number of rows to display before truncating the data.]' \
         '--max-columns[The maximum number of columns to display before truncating the data.]' \
         '--max-column-width[Truncate all columns to at most this width. The remainder will be replaced with ellipsis.]' \
-        {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing.]' \
+        {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing entirely, or "-1" to sniff the entire file.]' \
         {-I,--no-inference}'[Disable type inference when parsing the input.]' \
         '*: :_files'
 

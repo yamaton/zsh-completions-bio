@@ -49,7 +49,7 @@ function _csvsql {
         '--create-if-not-exists[Create the table if it does not exist, otherwise keep going. Requires --insert.]' \
         '--overwrite[Drop the table if it already exists. Requires --insert. Cannot be used with --no-create.]' \
         '--db-schema[Optional name of database schema to create table(s) in.]' \
-        {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing.]' \
+        {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing entirely, or "-1" to sniff the entire file.]' \
         {-I,--no-inference}'[Disable type inference when parsing the input.]' \
         '--chunk-size[Chunk size for batch insert into the table. Requires --insert.]' \
         '*: :_files'

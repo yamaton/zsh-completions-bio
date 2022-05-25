@@ -44,7 +44,7 @@ function _csvjson {
         '--crs[A coordinate reference system string to be included with GeoJSON output. Requires --lat and --lon.]' \
         '--no-bbox[Disable the calculation of a bounding box.]' \
         '--stream[Output JSON as a stream of newline-separated objects, rather than an as an array.]' \
-        {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing.]' \
+        {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing entirely, or "-1" to sniff the entire file.]' \
         {-I,--no-inference}'[Disable type inference (and --locale, --date-format, --datetime-format) when parsing CSV input.]' \
         '*: :_files'
 

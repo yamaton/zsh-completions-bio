@@ -38,7 +38,7 @@ function _csvsort {
         {-n,--names}'[Display column names and indices from the input CSV and exit.]' \
         {-c,--columns}'[A comma-separated list of column indices, names or ranges to sort by, e.g. "1,id,3-5". Defaults to all columns.]' \
         {-r,--reverse}'[Sort in descending order.]' \
-        {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing.]' \
+        {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing entirely, or "-1" to sniff the entire file.]' \
         {-I,--no-inference}'[Disable type inference when parsing the input.]' \
         '*: :_files'
 

@@ -47,7 +47,7 @@ function _csvstat {
         '--freq[Only output lists of frequent values.]' \
         '--freq-count[The maximum number of frequent values to display.]' \
         '--count[Only output total row count.]' \
-        {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing.]' \
+        {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing entirely, or "-1" to sniff the entire file.]' \
         '*: :_files'
 
     case $state in
