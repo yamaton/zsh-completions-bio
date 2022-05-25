@@ -20,7 +20,7 @@ function _prokka {
         '--citation[Print citation for referencing Prokka]' \
         '--quiet[No screen output (default OFF)]' \
         '--debug[Debug mode: keep all temporary files (default OFF)]' \
-        '--dbdir[Prokka database root folders (default '\''/home/vierbein/miniconda3/envs/prokka/db'\'')]' \
+        '--dbdir[Prokka database root folders (default '\''~/miniconda3/envs/prokka/db'\'')]' \
         '--listdb[List all configured databases]' \
         '--setupdb[Index all installed databases]' \
         '--cleandb[Remove all database indices]' \

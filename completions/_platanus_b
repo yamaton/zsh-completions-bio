@@ -33,7 +33,7 @@
             '-ont[Oxford Nanopore long-read file (fasta or fastq)]':file:_files \
             '-t[number of threads (default 1)]' \
             '-tmp[directory for temporary files (default .)]':file:_files \
-            '-sub_bin[directory for binary files which platanus_b use internally (e.g. minimap2) (default /home/vierbein/repos/Platanus_B/sub_bin)]':file:_files \
+            '-sub_bin[directory for binary files which platanus_b use internally (e.g. minimap2) (default ~/repos/Platanus_B/sub_bin)]':file:_files \
             '-no_gap_close[not close gaps by guiding contigs (default, false)]' \
             '-keep_file[keep intermediate files (default, off)]' \
             "*: :_files"
@@ -57,7 +57,7 @@
             '-t[number of threads (default 1)]' \
             '-m[memory limit for making kmer distribution (GB, >=1, default 1)]' \
             '-tmp[directory for temporary files (default .)]':file:_files \
-            '-sub_bin[directory for binary files which platanus_b use internally (e.g. minimap2) (default /home/vierbein/repos/Platanus_B/sub_bin)]':file:_files \
+            '-sub_bin[directory for binary files which platanus_b use internally (e.g. minimap2) (default ~/repos/Platanus_B/sub_bin)]':file:_files \
             '-keep_file[keep intermediate files (default, off)]' \
             '-trim_overlap[trim overlapping edges of scaffolds (default, off)]' \
             "*: :_files"

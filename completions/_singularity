@@ -82,7 +82,7 @@
             {-f,--fakeroot}'[run container in new user namespace as uid 0]' \
             '--fusemount[A FUSE filesystem mount specification of the form '\''<type>:<fuse command> <mountpoint>'\'' - where <type> is '\''container'\'' or '\''host'\'', specifying where the mount will be performed ('\''container-daemon'\'' or '\''host-daemon'\'' will run the FUSE process detached). <fuse command> is the path to the FUSE executable, plus options for the mount. <mountpoint> is the location in the container to which the FUSE mount will be attached. E.g. '\''container:sshfs 10.0.0.1:/ /sshfs'\''. Implies --pid.]' \
             {-h,--help}'[help for exec]' \
-            {-H,--home}'[a home directory specification. spec can either be a src path or src:dest pair. src is the source path of the home directory outside the container and dest overrides the home directory within the container. (default "/home/vierbein")]' \
+            {-H,--home}'[a home directory specification. spec can either be a src path or src:dest pair. src is the source path of the home directory outside the container and dest overrides the home directory within the container. (default "~")]' \
             '--hostname[set container hostname]' \
             {-i,--ipc}'[run container in a new IPC namespace]' \
             '--keep-privs[let root user keep privileges in container (root only)]' \
@@ -206,7 +206,7 @@
 
     function _singularity_remote {
         _arguments \
-            {-c,--config}'[path to the file holding remote endpoint configurations (default "/home/vierbein/.singularity/remote.yaml")]' \
+            {-c,--config}'[path to the file holding remote endpoint configurations (default "~/.singularity/remote.yaml")]' \
             {-h,--help}'[help for remote]' \
             "*: :_files"
 
@@ -231,7 +231,7 @@
             {-f,--fakeroot}'[run container in new user namespace as uid 0]' \
             '--fusemount[A FUSE filesystem mount specification of the form '\''<type>:<fuse command> <mountpoint>'\'' - where <type> is '\''container'\'' or '\''host'\'', specifying where the mount will be performed ('\''container-daemon'\'' or '\''host-daemon'\'' will run the FUSE process detached). <fuse command> is the path to the FUSE executable, plus options for the mount. <mountpoint> is the location in the container to which the FUSE mount will be attached. E.g. '\''container:sshfs 10.0.0.1:/ /sshfs'\''. Implies --pid.]' \
             {-h,--help}'[help for run]' \
-            {-H,--home}'[a home directory specification. spec can either be a src path or src:dest pair. src is the source path of the home directory outside the container and dest overrides the home directory within the container. (default "/home/vierbein")]' \
+            {-H,--home}'[a home directory specification. spec can either be a src path or src:dest pair. src is the source path of the home directory outside the container and dest overrides the home directory within the container. (default "~")]' \
             '--hostname[set container hostname]' \
             {-i,--ipc}'[run container in a new IPC namespace]' \
             '--keep-privs[let root user keep privileges in container (root only)]' \
@@ -305,7 +305,7 @@
             {-f,--fakeroot}'[run container in new user namespace as uid 0]' \
             '--fusemount[A FUSE filesystem mount specification of the form '\''<type>:<fuse command> <mountpoint>'\'' - where <type> is '\''container'\'' or '\''host'\'', specifying where the mount will be performed ('\''container-daemon'\'' or '\''host-daemon'\'' will run the FUSE process detached). <fuse command> is the path to the FUSE executable, plus options for the mount. <mountpoint> is the location in the container to which the FUSE mount will be attached. E.g. '\''container:sshfs 10.0.0.1:/ /sshfs'\''. Implies --pid.]' \
             {-h,--help}'[help for shell]' \
-            {-H,--home}'[a home directory specification. spec can either be a src path or src:dest pair. src is the source path of the home directory outside the container and dest overrides the home directory within the container. (default "/home/vierbein")]' \
+            {-H,--home}'[a home directory specification. spec can either be a src path or src:dest pair. src is the source path of the home directory outside the container and dest overrides the home directory within the container. (default "~")]' \
             '--hostname[set container hostname]' \
             {-i,--ipc}'[run container in a new IPC namespace]' \
             '--keep-privs[let root user keep privileges in container (root only)]' \
@@ -380,7 +380,7 @@
             {-f,--fakeroot}'[run container in new user namespace as uid 0]' \
             '--fusemount[A FUSE filesystem mount specification of the form '\''<type>:<fuse command> <mountpoint>'\'' - where <type> is '\''container'\'' or '\''host'\'', specifying where the mount will be performed ('\''container-daemon'\'' or '\''host-daemon'\'' will run the FUSE process detached). <fuse command> is the path to the FUSE executable, plus options for the mount. <mountpoint> is the location in the container to which the FUSE mount will be attached. E.g. '\''container:sshfs 10.0.0.1:/ /sshfs'\''. Implies --pid.]' \
             {-h,--help}'[help for test]' \
-            {-H,--home}'[a home directory specification. spec can either be a src path or src:dest pair. src is the source path of the home directory outside the container and dest overrides the home directory within the container. (default "/home/vierbein")]' \
+            {-H,--home}'[a home directory specification. spec can either be a src path or src:dest pair. src is the source path of the home directory outside the container and dest overrides the home directory within the container. (default "~")]' \
             '--hostname[set container hostname]' \
             {-i,--ipc}'[run container in a new IPC namespace]' \
             '--keep-privs[let root user keep privileges in container (root only)]' \
