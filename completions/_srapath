@@ -1,0 +1,51 @@
+#compdef _srapath srapath
+
+# Auto-generated with h2o
+
+
+function _srapath {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-f,--function}'[function to perform (resolve, names, search) default=resolve or names if protocol is specified]' \
+        {-t,--timeout}'[timeout-value for request]' \
+        {-a,--protocol}'[protocol (fasp; http; https; fasp,http; ..) default=https]' \
+        {-e,--vers}'[version-string for cgi-calls]' \
+        {-u,--url}'[url to be used for cgi-calls]' \
+        {-p,--param}'[param to be added to cgi-call (tic=XXXXX): raw-only]' \
+        {-r,--raw}'[print the raw reply (instead of parsing it)]' \
+        {-j,--json}'[print the reply in JSON]' \
+        {-d,--project}'[use numeric \[dbGaP\] project-id in names-cgi-call]' \
+        {-c,--cache}'[resolve cache location along with remote when performing names function]' \
+        {-P,--path}'[print path of object: names function-only]' \
+        '--ngc[<path> to ngc file]':file:_files \
+        '--perm[<path> to permission file]':file:_files \
+        '--location[location in cloud]' \
+        '--cart[<path> to cart file]':file:_files \
+        {-V,--version}'[Display the version of the program]' \
+        {-v,--verbose}'[Increase the verbosity of the program status messages. Use multiple times for more verbosity.]' \
+        {-L,--log-level}'[Logging level as number or enum string. One of (fatal|sys|int|err|warn|info|debug) or (0-6) Current/default is warn]' \
+        '--option-file[Read more options and parameters from the file.]':file:_files \
+        {-h,--help}'[print this message]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

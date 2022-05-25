@@ -1,0 +1,49 @@
+#compdef _sra-stat sra-stat
+
+# Auto-generated with h2o
+
+
+function _sra-stat {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-x,--xml}'[output as XML, default is text]' \
+        {-b,--start}'[starting spot id, default is 1]' \
+        {-e,--stop}'[ending spot id, default is max]' \
+        {-m,--meta}'[print load metadata]' \
+        {-q,--quick}'[quick mode: get statistics from metadata; do not scan the table]' \
+        '--member-stats[print member stats, default is on]' \
+        '--archive-info[output archive info, default is off]' \
+        {-s,--statistics}'[calculate READ_LEN average and standard deviation]' \
+        {-a,--alignment}'[print alignment info, default is on]' \
+        {-p,--show_progress}'[show the percentage of completion]' \
+        '--ngc[path to ngc file]':file:_files \
+        {-z,--xml-log}'[produce XML-formatted log file]':file:_files \
+        {-h,--help}'[Output brief explanation for the program.]' \
+        {-V,--version}'[Display the version of the program then quit.]' \
+        {-L,--log-level}'[Logging level as number or enum string. One of (fatal|sys|int|err|warn|info|debug) or (0-6) Current/default is warn]' \
+        {-v,--verbose}'[Increase the verbosity of the program status messages. Use multiple times for more verbosity. Negates quiet.]' \
+        {-q,--quiet}'[Turn off all status messages for the program. Negated by verbose.]' \
+        '--option-file[Read more options and parameters from the file.]':file:_files \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+
