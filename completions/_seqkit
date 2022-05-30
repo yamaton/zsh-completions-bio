@@ -270,7 +270,7 @@
 
     function _seqkit_genautocomplete {
         _arguments \
-            '--file[autocompletion file (default "/home/vierbein/.bash_completion.d/seqkit.sh")]' \
+            '--file[autocompletion file (default "~/.bash_completion.d/seqkit.sh")]' \
             {-h,--help}'[help for genautocomplete]' \
             '--shell[autocompletion type (bash|zsh|fish|powershell) (default "bash")]' \
             '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
