@@ -1,0 +1,82 @@
+#compdef _magicblast magicblast
+
+# Auto-generated with h2o
+
+
+function _magicblast {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-h[Print USAGE and DESCRIPTION; ignore all other parameters]' \
+        '-help[Print USAGE, DESCRIPTION and ARGUMENTS; ignore all other parameters]' \
+        '-version[Print version number; ignore other arguments]' \
+        '-query[Input file name Default = `-'\'']':file:_files \
+        '-infmt[Input format for sequences Default = `fasta'\'']' \
+        '-paired[Input query sequences are paired]' \
+        '-query_mate[FASTA file with mates for query sequences (if given in another file)]':file:_files \
+        '-sra[Comma-separated SRA accessions]' \
+        '-sra_batch[File with a list of SRA accessions, one per line]':file:_files \
+        '-db[BLAST database name]' \
+        '-out[Output file name Default = `-'\'']':file:_files \
+        '-gzo[Output will be compressed]' \
+        '-out_unaligned[Report unaligned reads to this file]':file:_files \
+        '-word_size[Minimum number of consecutive bases matching exactly Default = `18'\'']' \
+        '-gapopen[Cost to open a gap Default = `0'\'']' \
+        '-gapextend[Cost to extend a gap Default = `4'\'']' \
+        '-penalty[Penalty for a nucleotide mismatch. Default = `-4'\'']' \
+        '-max_intron_length[Maximum allowed intron length Default = `500000'\'']' \
+        '-subject[Subject sequence(s) to search]':file:_files \
+        '-subject_loc[Location on the subject sequence in 1-based offsets (Format: start-stop)]' \
+        '-outfmt[alignment view options: sam = SAM format, tabular = Tabular format, asn = text ASN.1 Default = sam]' \
+        '-unaligned_fmt[format for reporting unaligned reads: sam = SAM format, tabular = Tabular format, fasta = sequences in FASTA format Default = same as outfmt]' \
+        '-md_tag[Include MD tag in SAM report]' \
+        '-no_query_id_trim[Do not trim '\''.1'\'', '\''/1'\'', '\''.2'\'', or '\''/2'\'' at the end of read ids for SAM format andpaired runs]' \
+        '-no_unaligned[Do not report unaligned reads]' \
+        '-no_discordant[Suppress discordant alignments for paired reads]' \
+        '-lcase_masking[Use lower case filtering in subject sequence(s)?]' \
+        '-validate_seqs[Reject low quality sequences Default = `true'\'']' \
+        '-limit_lookup[Remove word seeds with high frequency in the searched database Default = `true'\'']' \
+        '-max_db_word_count[Words that appear more than this number of times in the database will be masked in the lookup table Default = `30'\'']' \
+        '-lookup_stride[Number of words to skip after collecting one while creating a lookup table Default = `0'\'']' \
+        '-gilist[Restrict search of database to list of GIs]' \
+        '-seqidlist[Restrict search of database to list of SeqIDs]' \
+        '-negative_gilist[Restrict search of database to everything except the specified GIs]' \
+        '-negative_seqidlist[Restrict search of database to everything except the specified SeqIDs]' \
+        '-taxids[Restrict search of database to include only the specified taxonomy IDs (multiple IDs delimited by '\'','\'')]' \
+        '-negative_taxids[Restrict search of database to everything except the specified taxonomy IDs (multiple IDs delimited by '\'','\'')]' \
+        '-taxidlist[Restrict search of database to include only the specified taxonomy IDs]' \
+        '-negative_taxidlist[Restrict search of database to everything except the specified taxonomy IDs]' \
+        '-db_soft_mask[Filtering algorithm ID to apply to the BLAST database as soft masking]' \
+        '-db_hard_mask[Filtering algorithm ID to apply to the BLAST database as hard masking]' \
+        '-perc_identity[Percent identity cutoff for alignments Default = `0.0'\'']' \
+        '-fr[Strand specific reads forward/reverse]' \
+        '-rf[Strand specific reads reverse/forward]' \
+        '-parse_deflines[Should the query and subject defline(s) be parsed? Default = `true'\'']' \
+        '-sra_cache[Enable SRA caching in local files]' \
+        '-num_threads[Number of threads (CPUs) to use in the BLAST search Default = `1'\'']' \
+        '-score[Cutoff score for accepting alignments. Can be expressed as a number or a function of read length: L,b,a for a * length + b. Zero means that the cutoff score will be equal to: read length, if read length <= 20, 20, if read length <= 30, read length - 10, if read length <= 50, 40, otherwise. Default = `0'\'']' \
+        '-max_edit_dist[Cutoff edit distance for accepting an alignment Default = unlimited]' \
+        '-splice[Search for spliced alignments Default = `true'\'']' \
+        '-reftype[Type of the reference: genome or transcriptome Default = `genome'\'']' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+
