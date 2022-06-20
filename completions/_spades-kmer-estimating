@@ -1,0 +1,35 @@
+#compdef _spades-kmer-estimating spades-kmer-estimating
+
+# Auto-generated with h2o
+
+
+function _spades-kmer-estimating {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-k,--kmer}'[K-mer length]' \
+        {-d,--dataset}'[Dataset description (in YAML)]':file:_files \
+        {-t,--threads}'[# of threads to use]' \
+        {-h,--help}'[Show help]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

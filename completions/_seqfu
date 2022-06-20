@@ -91,13 +91,16 @@
             {-1,--for-tag}'[String found in filename of forward reads \[default: _R1\]]' \
             {-2,--rev-tag}'[String found in filename of forward reads \[default: _R2\]]' \
             {-s,--split}'[Separator used in filename to identify the sample ID \[default: _\]]' \
-            {-f,--format}'[Output format: dadaist, manifest, qiime1, qiime2, irida \[default: manifest\]]' \
-            {-P,--project}'[Project ID (only for irida)]' \
             '--pos[Which part of the filename is the Sample ID \[default: 1\]]' \
+            {-f,--format}'[Output format: dadaist, irida, manifest, metaphage, qiime1, qiime2 \[default: manifest\]]' \
             '--pe[Enforce paired-end reads (not supported)]' \
             {-p,--add-path}'[Add the reads absolute path as column]' \
             {-c,--counts}'[Add the number of reads as a property column]' \
             {-t,--threads}'[Number of simultaneously opened files \[default: 2\]]' \
+            {-P,--project}'[Project ID (only for irida)]' \
+            '--meta-split[Separator in the SampleID to extract metadata, used in MetaPhage \[default: _\]]' \
+            '--meta-part[Which part of the SampleID to extract metadata, used in MetaPhage \[default: 1\]]' \
+            '--meta-default[Default value for metadata, used in MetaPhage \[default: Cond\]]' \
             {-v,--verbose}'[Verbose output]' \
             {-h,--help}'[Show this help]' \
             "*: :_files"
@@ -106,6 +109,12 @@
 
     function _seqfu_rotate {
         _arguments \
+            {-i,--start-pos}'[Restart from base POS, where 1 is the first base \[default: 1\]]' \
+            {-m,--motif}'[Rotate sequences using motif STR as the new start, where STR is a string of bases]' \
+            {-s,--skip-unmached}'[If a motif is provided, skip sequences that do not match the motif]' \
+            {-r,--revcomp}'[Also scan for reverse complemented motif]' \
+            {-v,--verbose}'[Verbose output]' \
+            {-h,--help}'[Show this help]' \
             "*: :_files"
 
     }
@@ -126,8 +135,14 @@
             {-a,--abs-path}'[Print absolute paths]' \
             {-b,--basename}'[Print only filenames]' \
             {-n,--nice}'[Print nice terminal table]' \
-            '--csv[Separate with commas (default: tabs)]' \
+            {-j,--json}'[Print json (experimental)]' \
+            {-s,--sort-by}'[Sort by KEY from: filename, counts, n50, tot, avg, min, max descending for values, ascending for filenames \[default: none\]]' \
+            {-r,--reverse}'[Reverse sort order]' \
+            {-t,--thousands}'[Add thousands separator]' \
+            '--csv[Separate output by commas instead of tabs]' \
+            '--gc[Also print %GC]' \
             '--multiqc[Saves a MultiQC report to FILE (suggested: name_mqc.txt)]':file:_files \
+            '--precision[Number of decimal places to round to \[default: 2\]]' \
             {-v,--verbose}'[Verbose output]' \
             {-h,--help}'[Show this help]' \
             "*: :_files"

@@ -1,0 +1,250 @@
+#compdef _diamond diamond
+
+# Auto-generated with h2o
+
+    function _diamond_makedb {
+        _arguments \
+            '--in[input reference file in FASTA format]' \
+            '--taxonmap[protein accession to taxid mapping file]' \
+            '--taxonnodes[taxonomy nodes.dmp from NCBI]' \
+            '--taxonnames[taxonomy names.dmp from NCBI]' \
+            "*: :_files"
+
+    }
+
+    function _diamond_prepdb {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _diamond_blastp {
+        _arguments \
+            {--query,-q}'[input query file]' \
+            '--strand[query strands to search (both/minus/plus)]' \
+            '--un[file for unaligned queries]' \
+            '--al[file or aligned queries]' \
+            '--unfmt[format of unaligned query file (fasta/fastq)]' \
+            '--alfmt[format of aligned query file (fasta/fastq)]' \
+            '--unal[report unaligned queries (0=no, 1=yes)]' \
+            {--max-target-seqs,-k}'[maximum number of target sequences to report alignments for (default=25)]' \
+            '--top[report alignments within this percentage range of top alignment score (overrides --max-target-seqs)]' \
+            '--max-hsps[maximum number of HSPs per target sequence to report for each query (default=1)]' \
+            '--range-culling[restrict hit culling to overlapping query ranges]' \
+            '--compress[compression for output files (0=none, 1=gzip, zstd)]' \
+            {--evalue,-e}'[maximum e-value to report alignments (default=0.001)]' \
+            '--min-score[minimum bit score to report alignments (overrides e-value setting)]' \
+            '--id[minimum identity% to report an alignment]' \
+            '--query-cover[minimum query cover% to report an alignment]' \
+            '--subject-cover[minimum subject cover% to report an alignment]' \
+            '--fast[enable fast mode]' \
+            '--mid-sensitive[enable mid-sensitive mode]' \
+            '--sensitive[enable sensitive mode)]' \
+            '--more-sensitive[enable more sensitive mode]' \
+            '--very-sensitive[enable very sensitive mode]' \
+            '--ultra-sensitive[enable ultra sensitive mode]' \
+            '--iterate[iterated search with increasing sensitivity]' \
+            {--global-ranking,-g}'[number of targets for global ranking]' \
+            {--block-size,-b}'[sequence block size in billions of letters (default=2.0)]' \
+            {--index-chunks,-c}'[number of chunks for index processing (default=4)]' \
+            {--tmpdir,-t}'[directory for temporary files]' \
+            '--parallel-tmpdir[directory for temporary files used by multiprocessing]' \
+            '--gapopen[gap open penalty]' \
+            '--gapextend[gap extension penalty]' \
+            {--frameshift,-F}'[frame shift penalty (default=disabled)]' \
+            '--long-reads[short for --range-culling --top 10 -F 15]' \
+            '--matrix[score matrix for protein alignment (default=BLOSUM62)]' \
+            '--custom-matrix[file containing custom scoring matrix]' \
+            '--comp-based-stats[composition based statistics mode (0-4)]' \
+            '--masking[masking algorithm (none, seg, tantan=default)]' \
+            '--query-gencode[genetic code to use to translate query (see user manual)]' \
+            '--salltitles[include full subject titles in DAA file]' \
+            '--sallseqid[include all subject ids in DAA file]' \
+            '--no-self-hits[suppress reporting of identical self hits]' \
+            '--taxonlist[restrict search to list of taxon ids (comma-separated)]' \
+            '--taxon-exclude[exclude list of taxon ids (comma-separated)]' \
+            '--seqidlist[filter the database by list of accessions]' \
+            '--skip-missing-seqids[ignore accessions missing in the database]' \
+            "*: :_files"
+
+    }
+
+    function _diamond_blastx {
+        _arguments \
+            {--query,-q}'[input query file]' \
+            '--strand[query strands to search (both/minus/plus)]' \
+            '--un[file for unaligned queries]' \
+            '--al[file or aligned queries]' \
+            '--unfmt[format of unaligned query file (fasta/fastq)]' \
+            '--alfmt[format of aligned query file (fasta/fastq)]' \
+            '--unal[report unaligned queries (0=no, 1=yes)]' \
+            {--max-target-seqs,-k}'[maximum number of target sequences to report alignments for (default=25)]' \
+            '--top[report alignments within this percentage range of top alignment score (overrides --max-target-seqs)]' \
+            '--max-hsps[maximum number of HSPs per target sequence to report for each query (default=1)]' \
+            '--range-culling[restrict hit culling to overlapping query ranges]' \
+            '--compress[compression for output files (0=none, 1=gzip, zstd)]' \
+            {--evalue,-e}'[maximum e-value to report alignments (default=0.001)]' \
+            '--min-score[minimum bit score to report alignments (overrides e-value setting)]' \
+            '--id[minimum identity% to report an alignment]' \
+            '--query-cover[minimum query cover% to report an alignment]' \
+            '--subject-cover[minimum subject cover% to report an alignment]' \
+            '--fast[enable fast mode]' \
+            '--mid-sensitive[enable mid-sensitive mode]' \
+            '--sensitive[enable sensitive mode)]' \
+            '--more-sensitive[enable more sensitive mode]' \
+            '--very-sensitive[enable very sensitive mode]' \
+            '--ultra-sensitive[enable ultra sensitive mode]' \
+            '--iterate[iterated search with increasing sensitivity]' \
+            {--global-ranking,-g}'[number of targets for global ranking]' \
+            {--block-size,-b}'[sequence block size in billions of letters (default=2.0)]' \
+            {--index-chunks,-c}'[number of chunks for index processing (default=4)]' \
+            {--tmpdir,-t}'[directory for temporary files]' \
+            '--parallel-tmpdir[directory for temporary files used by multiprocessing]' \
+            '--gapopen[gap open penalty]' \
+            '--gapextend[gap extension penalty]' \
+            {--frameshift,-F}'[frame shift penalty (default=disabled)]' \
+            '--long-reads[short for --range-culling --top 10 -F 15]' \
+            '--matrix[score matrix for protein alignment (default=BLOSUM62)]' \
+            '--custom-matrix[file containing custom scoring matrix]' \
+            '--comp-based-stats[composition based statistics mode (0-4)]' \
+            '--masking[masking algorithm (none, seg, tantan=default)]' \
+            '--query-gencode[genetic code to use to translate query (see user manual)]' \
+            '--salltitles[include full subject titles in DAA file]' \
+            '--sallseqid[include all subject ids in DAA file]' \
+            '--no-self-hits[suppress reporting of identical self hits]' \
+            '--taxonlist[restrict search to list of taxon ids (comma-separated)]' \
+            '--taxon-exclude[exclude list of taxon ids (comma-separated)]' \
+            '--seqidlist[filter the database by list of accessions]' \
+            '--skip-missing-seqids[ignore accessions missing in the database]' \
+            "*: :_files"
+
+    }
+
+    function _diamond_view {
+        _arguments \
+            {--daa,-a}'[DIAMOND alignment archive (DAA) file]' \
+            '--forwardonly[only show alignments of forward strand]' \
+            "*: :_files"
+
+    }
+
+    function _diamond_help {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _diamond_version {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _diamond_getseq {
+        _arguments \
+            '--seq[Space-separated list of sequence numbers to display.ond version 2.0.13]' \
+            "*: :_files"
+
+    }
+
+    function _diamond_dbinfo {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _diamond_test {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _diamond_makeidx {
+        _arguments \
+            "*: :_files"
+
+    }
+
+
+function _diamond {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'makedb:Build DIAMOND database from a FASTA file'
+            'prepdb:Prepare BLAST database for use with Diamond'
+            'blastp:Align amino acid query sequences against a protein reference database'
+            'blastx:Align DNA query sequences against a protein reference database'
+            'view:View DIAMOND alignment archive (DAA) formatted file'
+            'help:Produce help message'
+            'version:Display version information'
+            'getseq:Retrieve sequences from a DIAMOND database file'
+            'dbinfo:Print information about a DIAMOND database file'
+            'test:Run regression tests'
+            'makeidx:Make database index'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (makedb)
+            _diamond_makedb
+            ;;
+
+        (prepdb)
+            _diamond_prepdb
+            ;;
+
+        (blastp)
+            _diamond_blastp
+            ;;
+
+        (blastx)
+            _diamond_blastx
+            ;;
+
+        (view)
+            _diamond_view
+            ;;
+
+        (help)
+            _diamond_help
+            ;;
+
+        (version)
+            _diamond_version
+            ;;
+
+        (getseq)
+            _diamond_getseq
+            ;;
+
+        (dbinfo)
+            _diamond_dbinfo
+            ;;
+
+        (test)
+            _diamond_test
+            ;;
+
+        (makeidx)
+            _diamond_makeidx
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

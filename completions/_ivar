@@ -1,0 +1,143 @@
+#compdef _ivar ivar
+
+# Auto-generated with h2o
+
+    function _ivar_trim {
+        _arguments \
+            '-i[(Required) Sorted bam file, with aligned reads, to trim primers and quality]' \
+            '-b[BED file with primer sequences and positions. If no BED file is specified, only quality trimming will be done.]' \
+            '-f[\[EXPERIMENTAL\] Primer pair information file containing left and right primer names for the same amplicon separated by a tab If provided, reads that do not fall within atleat one amplicon will be ignored prior to primer trimming.]' \
+            '-x[Primer position offset (Default: 0). Reads that occur at the specified offset positions relative to primer positions will also be trimmed.]' \
+            '-m[Minimum length of read to retain after trimming (Default: 30)]' \
+            '-q[Minimum quality threshold for sliding window to pass (Default: 20)]' \
+            '-s[Width of sliding window (Default: 4)]' \
+            '-e[Include reads with no primers. By default, reads with no primers are excluded]' \
+            '-k[Keep reads to allow for reanalysis: keep reads which would be dropped by alignment length filter or primer requirements, but mark them QCFAIL]' \
+            '-p[(Required) Prefix for the output BAM file]' \
+            "*: :_files"
+
+    }
+
+    function _ivar_variants {
+        _arguments \
+            '-q[Minimum quality score threshold to count base (Default: 20)]' \
+            '-t[Minimum frequency threshold(0 - 1) to call variants (Default: 0.03)]' \
+            '-m[Minimum read depth to call variants (Default: 0)]' \
+            '-r[Reference file used for alignment. This is used to translate the nucleotide sequences and identify intra host single nucleotide variants]' \
+            '-g[A GFF file in the GFF3 format can be supplied to specify coordinates of open reading frames (ORFs). In absence of GFF file, amino acid translation will not be done.]' \
+            '-p[(Required) Prefix for the output tsv variant file]' \
+            "*: :_files"
+
+    }
+
+    function _ivar_filtervariants {
+        _arguments \
+            '-t[Minimum fration of files required to contain the same variant. Specify value within \[0,1\]. (Default: 1)]' \
+            '-f[A text file with one variant file per line.]' \
+            '-p[(Required) Prefix for the output filtered tsv file]' \
+            "*: :_files"
+
+    }
+
+    function _ivar_consensus {
+        _arguments \
+            '-q[Minimum quality score threshold to count base (Default: 20)]' \
+            '-t[Minimum frequency threshold(0 - 1) to call consensus. (Default: 0)]' \
+            '-m[Minimum depth to call consensus(Default: 10)]' \
+            '-k[If '\''-k'\'' flag is added, regions with depth less than minimum depth will not be added to the consensus sequence. Using '\''-k'\'' will override any option specified using -n]' \
+            '-n[(N/-) Character to print in regions with less than minimum coverage(Default: N)]' \
+            '-p[(Required) Prefix for the output fasta file and quality file]' \
+            '-i[(Optional) Name of fasta header. By default, the prefix is used to create the fasta header in the following format, Consensus_<prefix>_threshold_<frequency-threshold>_quality_<minimum-quality>]' \
+            "*: :_files"
+
+    }
+
+    function _ivar_getmasked {
+        _arguments \
+            '-i[(Required) Input filtered variants tsv generated from `ivar filtervariants`]' \
+            '-b[(Required) BED file with primer sequences and positions]' \
+            '-f[(Required) Primer pair information file containing left and right primer names for the same amplicon separated by a tab]' \
+            '-p[(Required) Prefix for the output text file]' \
+            "*: :_files"
+
+    }
+
+    function _ivar_removereads {
+        _arguments \
+            '-i[(Required) Input BAM file trimmed with ‘ivar trim’. Must be sorted which can be done using `samtools sort`.]' \
+            '-t[(Required) Text file with primer indices separated by spaces. This is the output of `getmasked` command.]' \
+            '-b[(Required) BED file with primer sequences and positions.]' \
+            '-p[(Required) Prefix for the output filtered BAM file]' \
+            "*: :_files"
+
+    }
+
+    function _ivar_version {
+        _arguments \
+            "*: :_files"
+
+    }
+
+
+function _ivar {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'trim:Trim reads in aligned BAM file'
+            'variants:Call variants from aligned BAM file'
+            'filtervariants:Filter variants across replicates or samples'
+            'consensus:Call consensus from aligned BAM file'
+            'getmasked:Detect primer mismatches and get primer indices for the amplicon to be masked'
+            'removereads:Remove reads from trimmed BAM file'
+            'version:Show version information'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (trim)
+            _ivar_trim
+            ;;
+
+        (variants)
+            _ivar_variants
+            ;;
+
+        (filtervariants)
+            _ivar_filtervariants
+            ;;
+
+        (consensus)
+            _ivar_consensus
+            ;;
+
+        (getmasked)
+            _ivar_getmasked
+            ;;
+
+        (removereads)
+            _ivar_removereads
+            ;;
+
+        (version)
+            _ivar_version
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

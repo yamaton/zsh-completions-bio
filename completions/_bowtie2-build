@@ -1,0 +1,52 @@
+#compdef _bowtie2-build bowtie2-build
+
+# Auto-generated with h2o
+
+
+function _bowtie2-build {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-f[reference files are Fasta (default)]' \
+        '-c[reference sequences given on cmd line (as <reference_in>)]' \
+        '--large-index[force generated index to be '\''large'\'', even if ref has fewer than 4 billion nucleotides]' \
+        '--debug[use the debug binary; slower, assertions enabled]' \
+        '--sanitized[use sanitized binary; slower, uses ASan and/or UBSan]' \
+        '--verbose[log the issued command]' \
+        {-a,--noauto}'[disable automatic -p/--bmax/--dcv memory-fitting]' \
+        {-p,--packed}'[use packed strings internally; slower, less memory]' \
+        '--bmax[max bucket sz for blockwise suffix-array builder]' \
+        '--bmaxdivn[max bucket sz as divisor of ref len (default: 4)]' \
+        '--dcv[diff-cover period for blockwise (default: 1024)]' \
+        '--nodc[disable diff-cover (algorithm becomes quadratic)]' \
+        {-r,--noref}'[don'\''t build .3/.4 index files]' \
+        {-3,--justref}'[just build .3/.4 index files]' \
+        {-o,--offrate}'[SA is sampled every 2^<int> BWT chars (default: 5)]' \
+        {-t,--ftabchars}'[# of chars consumed in initial lookup (default: 10)]' \
+        '--threads[# of threads]' \
+        '--seed[seed for random number generator]' \
+        {-q,--quiet}'[verbose output (for debugging)]' \
+        {--h,--help}'[print this message and quit]' \
+        '--version[print version information and quit]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

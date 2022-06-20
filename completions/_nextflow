@@ -76,11 +76,15 @@
             '-ansi-log[Enable/disable ANSI console logging]' \
             '-bucket-dir[Remote bucket where intermediate result files are stored]' \
             '-cache[Enable/disable processes caching]' \
+            '-disable-jobs-cancellation[Prevent the cancellation of child jobs on execution termination]' \
+            '-dsl1[Execute the workflow using DSL1 syntax Default: false]' \
             '-dsl2[Execute the workflow using DSL2 syntax Default: false]' \
             '-dump-channels[Dump channels for debugging purpose]' \
             '-dump-hashes[Dump task hash keys for debugging purpose Default: false]' \
             '-e.[Add the specified variable to execution environment Syntax: -e.key=value Default: {}]' \
             '-entry[Entry workflow name to be executed]' \
+            '-head-cpus[Specify number of CPUs requested for the Nextflow pod Default: 0]' \
+            '-head-memory[Specify amount of memory requested for the Nextflow pod]' \
             {-h,-help}'[Print the command usage Default: false]' \
             '-hub[Service hub where the project is hosted]' \
             '-latest[Pull latest changes before run Default: false]' \
@@ -95,6 +99,7 @@
             '-process.[Set process options Syntax: -process.key=value Default: {}]' \
             '-profile[Choose a configuration profile]' \
             {-qs,-queue-size}'[Max number of processes that can be executed in parallel by each executor]' \
+            '-remoteProfile[Choose a configuration profile in the remoteConfig]' \
             '-resume[Execute the script using the cached results, useful to continue executions that was stopped by an error]' \
             {-r,-revision}'[Revision of the project to run (either a git branch, tag or commit SHA number)]' \
             {-stub-run,-stub}'[Execute the workflow replacing process scripts with command stubs Default: false]' \
@@ -160,6 +165,8 @@
             '-ansi-log[Enable/disable ANSI console logging]' \
             '-bucket-dir[Remote bucket where intermediate result files are stored]' \
             '-cache[Enable/disable processes caching]' \
+            '-disable-jobs-cancellation[Prevent the cancellation of child jobs on execution termination]' \
+            '-dsl1[Execute the workflow using DSL1 syntax Default: false]' \
             '-dsl2[Execute the workflow using DSL2 syntax Default: false]' \
             '-dump-channels[Dump channels for debugging purpose]' \
             '-dump-hashes[Dump task hash keys for debugging purpose Default: false]' \

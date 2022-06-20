@@ -15,6 +15,13 @@ function _bowtie2 {
  
 
     _arguments -C \
+        '-x[Index filename prefix (minus trailing .X.bt2).]':file:_files \
+        '-1[Files with #1 mates, paired with files in <m2>.]':file:_files \
+        '-2[Files with #2 mates, paired with files in <m1>.]':file:_files \
+        '-U[Files with unpaired reads.]':file:_files \
+        '--interleaved[Files with interleaved paired-end FASTQ/FASTA reads.]':file:_files \
+        '-b[Files are unaligned BAM sorted by read name.]':file:_files \
+        '-S[File for SAM output (default: stdout).]':file:_files \
         '-q[query input files are FASTQ .fq/.fastq (default)]' \
         '--tab5[query input files are TAB5 .tab5]' \
         '--tab6[query input files are TAB6 .tab6]' \
@@ -27,7 +34,7 @@ function _bowtie2 {
         {-u,--upto}'[stop after first <int> reads/pairs (no limit)]' \
         {-5,--trim5}'[trim <int> bases from 5'\''/left end of reads (0)]' \
         {-3,--trim3}'[trim <int> bases from 3'\''/right end of reads (0)]' \
-        '--trim-to[If the read end is not specified then it defaults to 3 (0)]' \
+        '--trim-to[trim reads exceeding <int> bases from either 3'\'' or 5'\'' end   If the read end is not specified then it defaults to 3 (0)]' \
         '--phred33[qualities are Phred+33 (default)]' \
         '--phred64[qualities are Phred+64]' \
         '--int-quals[qualities encoded as space-delimited integers]' \

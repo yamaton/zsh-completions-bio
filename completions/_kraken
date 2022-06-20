@@ -1,0 +1,50 @@
+#compdef _kraken kraken
+
+# Auto-generated with h2o
+
+
+function _kraken {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--db[Name for Kraken DB   (default: none)]' \
+        '--threads[Number of threads (default: 1)]' \
+        '--fasta-input[Input is FASTA format]' \
+        '--fastq-input[Input is FASTQ format]' \
+        '--fastq-output[Output in FASTQ format]' \
+        '--gzip-compressed[Input is gzip compressed]' \
+        '--bzip2-compressed[Input is bzip2 compressed]' \
+        '--quick[Quick operation (use first hit or hits)]' \
+        '--min-hits[In quick op., number of hits req'\''d for classification NOTE: this is ignored if --quick is not specified]' \
+        '--unclassified-out[Print unclassified sequences to filename]':file:_files \
+        '--classified-out[Print classified sequences to filename]':file:_files \
+        '--out-fmt[Format for \[un\]classified sequence output. supported options are: {legacy, paired, interleaved}]' \
+        '--output[Print output to filename (default: stdout); "-" will suppress normal output]':file:_files \
+        '--only-classified-output[Print no Kraken output for unclassified sequences]' \
+        '--preload[Loads DB into memory before classification]' \
+        '--paired[The two filenames provided are paired-end reads]' \
+        '--check-names[Ensure each pair of reads have names that agree with each other; ignored if --paired is not specified]' \
+        '--help[Print this message]' \
+        '--version[Print version information]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

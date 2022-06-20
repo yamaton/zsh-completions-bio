@@ -1,0 +1,54 @@
+#compdef _kmc kmc
+
+# Auto-generated with h2o
+
+
+function _kmc {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-v[verbose mode (shows all parameter settings); default: false]' \
+        '-k[k-mer length (k from 1 to 256; default: 25)]' \
+        '-m[max amount of RAM in GB (from 1 to 1024); default: 12]' \
+        '-sm[use strict memory mode (memory limit from -m<n> switch will not be exceeded)]' \
+        '-hc[count homopolymer compressed k-mers (approximate and experimental)]' \
+        '-p[signature length (5, 6, 7, 8, 9, 10, 11); default: 9]' \
+        '-f[input in FASTA format (-fa), FASTQ format (-fq), multi FASTA (-fm) or BAM (-fbam) or KMC(-fkmc); default: FASTQ]' \
+        '-ci[exclude k-mers occurring less than <value> times (default: 2)]' \
+        '-cs[maximal value of a counter (default: 255)]' \
+        '-cx[exclude k-mers occurring more of than <value> times (default: 1e9)]' \
+        '-b[turn off transformation of k-mers into canonical form]' \
+        '-r[turn on RAM-only mode]' \
+        '-n[number of bins]' \
+        '-t[total number of threads (default: no. of CPU cores)]' \
+        '-sf[number of FASTQ reading threads]' \
+        '-sp[number of splitting threads]' \
+        '-sr[number of threads for 2nd stage]' \
+        '-j[file name with execution summary in JSON format]':file:_files \
+        '-w[without output]' \
+        '-o[output in KMC of KFF format; default: KMC]' \
+        '-hp[hide percentage progress (default: false)]' \
+        '-e[only estimate histogram of k-mers occurrences instead of exact k-mer counting]' \
+        '--opt-out-size[optimize output database size (may increase running time)]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

@@ -167,6 +167,40 @@
 
     }
 
+    function _bio_gtf {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-T,--type}'[GTF type filter]' \
+            {-s,--source}'[source attribute]' \
+            {-t,--target}'[target attribute]' \
+            {-l,--limit}'[how many lines to parse]' \
+            "*: :_files"
+
+    }
+
+    function _bio_comm {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-1,--uniq1}'[prints elements unique to file 1]' \
+            {-2,--uniq2}'[prints elements unique to file 2]' \
+            {-3,--union}'[prints elements present in both files]' \
+            {-t,--tab}'[tab delimited (default is csv)]' \
+            {-x,--col1}'[column index for file 1 \[default=1\]]' \
+            {-y,--col2}'[column index for file 2 \[default=1\]]' \
+            "*: :_files"
+
+    }
+
+    function _bio_uniq {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-f,--field}'[field index (1 by default)]' \
+            {-c,--count}'[produce counts]' \
+            {-t,--tab}'[tab delimited (default is csv)]' \
+            "*: :_files"
+
+    }
+
 
 function _bio {
     local line state
@@ -185,6 +219,9 @@ function _bio {
             'explain:explain biological terms'
             'meta:download metadata by taxonomy ID'
             'mygene:connect to mygene interface'
+            'gtf:parse GTF to create mappings'
+            'comm:find common elements'
+            'uniq:find unique elements'
         )
         _describe 'command' commands
     }
@@ -242,6 +279,18 @@ function _bio {
 
         (mygene)
             _bio_mygene
+            ;;
+
+        (gtf)
+            _bio_gtf
+            ;;
+
+        (comm)
+            _bio_comm
+            ;;
+
+        (uniq)
+            _bio_uniq
             ;;
 
         esac

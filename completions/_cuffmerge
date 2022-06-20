@@ -1,0 +1,50 @@
+#compdef _cuffmerge cuffmerge
+
+# Auto-generated with h2o
+
+    function _cuffmerge_cuffmerge {
+        _arguments \
+            "*: :_files"
+
+    }
+
+
+function _cuffmerge {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'cuffmerge:\[Options\] <assembly_GTF_list.txt>'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[Prints the help message and exits]' \
+        '-o[<output_dir> Directory where merged assembly will be written \[ default: ./merged_asm \]]' \
+        {-g,--ref-gtf}'[An optional "reference" annotation GTF.]' \
+        {-s,--ref-sequence}'[<seq_dir>/<seq_fasta> Genomic DNA sequences for the reference.]' \
+        '--min-isoform-fraction[Discard isoforms with abundance below this \[ default: 0.05 \]]' \
+        {-p,--num-threads}'[<int> Use this many threads to merge assemblies. \[ default: 1 \]]' \
+        '--keep-tmp[Keep all intermediate files during merge]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (cuffmerge)
+            _cuffmerge_cuffmerge
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

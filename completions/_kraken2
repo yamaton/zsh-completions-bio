@@ -1,0 +1,51 @@
+#compdef _kraken2 kraken2
+
+# Auto-generated with h2o
+
+
+function _kraken2 {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--db[Name for Kraken 2 DB   (default: none)]' \
+        '--threads[Number of threads (default: 1)]' \
+        '--quick[Quick operation (use first hit or hits)]' \
+        '--unclassified-out[Print unclassified sequences to filename]':file:_files \
+        '--classified-out[Print classified sequences to filename]':file:_files \
+        '--output[Print output to filename (default: stdout); "-" will suppress normal output]':file:_files \
+        '--confidence[Confidence score threshold (default: 0.0); must be in \[0, 1\].]' \
+        '--minimum-base-quality[Minimum base quality used in classification (def: 0, only effective with FASTQ input).]' \
+        '--report[Print a report with aggregrate counts/clade to file]':file:_files \
+        '--use-mpa-style[With --report, format report output like Kraken 1'\''s kraken-mpa-report]' \
+        '--report-zero-counts[With --report, report counts for ALL taxa, even if counts are zero]' \
+        '--report-minimizer-data[With --report, report minimizer and distinct minimizer count information in addition to normal Kraken report]' \
+        '--memory-mapping[Avoids loading database into RAM]' \
+        '--paired[The filenames provided have paired-end reads]' \
+        '--use-names[Print scientific names instead of just taxids]' \
+        '--gzip-compressed[Input files are compressed with gzip]' \
+        '--bzip2-compressed[Input files are compressed with bzip2]' \
+        '--minimum-hit-groups[Minimum number of hit groups (overlapping k-mers sharing the same minimizer) needed to make a call (default: 2)]' \
+        '--help[Print this message]' \
+        '--version[Print version information]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

@@ -1,0 +1,46 @@
+#compdef _cuffcompare cuffcompare
+
+# Auto-generated with h2o
+
+
+function _cuffcompare {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-i[provide a text file with a list of Cufflinks GTF files to process instead of expecting them as command line arguments (useful when a large number of GTF files should be processed)]' \
+        '-r[a set of known mRNAs to use as a reference for assessing the accuracy of mRNAs or gene models given in <input.gtf>]' \
+        '-R[for -r option, consider only the reference transcripts that overlap any of the input transfrags (Sn correction)]' \
+        '-Q[for -r option, consider only the input transcripts that overlap any of the reference transcripts (Sp correction); (Warning: this will discard all "novel" loci!)]' \
+        '-M[discard (ignore) single-exon transfrags and reference transcripts]' \
+        '-N[discard (ignore) single-exon reference transcripts]' \
+        '-s[<seq_path> can be a multi-fasta file with all the genomic sequences or a directory containing multiple single-fasta files (one file per contig); lower case bases will be used to classify input transcripts as repeats]' \
+        '-e[max. distance (range) allowed from free ends of terminal exons of reference transcripts when assessing exon accuracy (100)]' \
+        '-d[max. distance (range) for grouping transcript start sites (100)]' \
+        '-p[the name prefix to use for consensus transcripts in the <outprefix>.combined.gtf file (default: '\''TCONS'\'')]' \
+        '-C[include the "contained" transcripts in the .combined.gtf file]' \
+        '-F[do not discard intron-redundant transfrags if they share the 5'\'' end (if they differ only at the 3'\'' end))]' \
+        '-G[generic GFF input file(s): do not assume Cufflinks GTF, do not discard any intron-redundant transfrags)]' \
+        '-T[do not generate .tmap and .refmap files for each input file]' \
+        '-V[verbose processing mode (showing all GFF parsing warnings)]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

@@ -1,0 +1,64 @@
+#compdef _fasterq-dump fasterq-dump
+
+# Auto-generated with h2o
+
+
+function _fasterq-dump {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-o,--outfile}'[full path of outputfile (overrides usage]':file:_files \
+        {-O,--outdir}'[path for outputfile (overrides usage of]':file:_files \
+        {-b,--bufsize}'[size of file-buffer (dflt=1MB, takes]' \
+        {-c,--curcache}'[size of cursor-cache (dflt=10MB, takes]' \
+        {-m,--mem}'[memory limit for sorting (dflt=100MB,]' \
+        {-t,--temp}'[path to directory for temp. files]':file:_files \
+        {-e,--threads}'[how many threads to use (dflt=6)]' \
+        {-p,--progress}'[show progress (not possible if stdout used)]' \
+        {-x,--details}'[print details of all options selected]' \
+        {-s,--split-spot}'[split spots into reads]' \
+        {-S,--split-files}'[write reads into different files]' \
+        {-3,--split-3}'[writes single reads into special file]' \
+        '--concatenate-reads[writes whole spots into one file]' \
+        {-Z,--stdout}'[print output to stdout]' \
+        {-f,--force}'[force overwrite of existing file(s)]' \
+        {-N,--rowid-as-name}'[use rowid as name (avoids using the name]' \
+        '--skip-technical[skip technical reads]' \
+        '--include-technical[explicitly include technical reads]' \
+        {-P,--print-read-nr}'[include read-number in defline]' \
+        {-M,--min-read-len}'[filter by sequence-lenght]' \
+        '--table[which seq-table to use in case of pacbio]' \
+        '--strict[terminate on invalid read]' \
+        {-B,--bases}'[filter output by matching against given]' \
+        {-A,--append}'[append to output-file, instead of]' \
+        '--ngc[<path> to ngc file]':file:_files \
+        '--perm[<path> to permission file]':file:_files \
+        '--location[location in cloud]' \
+        '--cart[<path> to cart file]':file:_files \
+        {-V,--version}'[Display the version of the program]' \
+        {-v,--verbose}'[Increase the verbosity of the program]' \
+        {-L,--log-level}'[Logging level as number or enum string.]' \
+        '--option-file[Read more options and parameters from the]':file:_files \
+        {-h,--help}'[print this message]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

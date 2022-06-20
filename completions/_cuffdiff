@@ -1,0 +1,72 @@
+#compdef _cuffdiff cuffdiff
+
+# Auto-generated with h2o
+
+
+function _cuffdiff {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-o,--output-dir}'[write all output files to this directory \[ default: ./ \]]' \
+        {-L,--labels}'[comma-separated list of condition labels]' \
+        '--FDR[False discovery rate used in testing \[ default: 0.05 \]]' \
+        {-M,--mask-file}'[ignore all alignment within transcripts in this file \[ default: NULL \]]' \
+        {-C,--contrast-file}'[Perform the constrasts specified in this file \[ default: NULL \]]' \
+        {-b,--frag-bias-correct}'[use bias correction - reference fasta required \[ default: NULL \]]' \
+        {-u,--multi-read-correct}'[use '\''rescue method'\'' for multi-reads \[ default: FALSE \]]' \
+        {-p,--num-threads}'[number of threads used during quantification \[ default: 1 \]]' \
+        '--no-diff[Don'\''t generate differential analysis files \[ default: FALSE \]]' \
+        '--no-js-tests[Don'\''t perform isoform switching tests \[ default: FALSE \]]' \
+        {-T,--time-series}'[treat samples as a time-series \[ default: FALSE \]]' \
+        '--library-type[Library prep used for input reads \[ default: below \]]' \
+        '--dispersion-method[Method used to estimate dispersion models \[ default: below \]]' \
+        '--library-norm-method[Method used to normalize library sizes \[ default: below \]]' \
+        {-m,--frag-len-mean}'[average fragment length (unpaired reads only) \[ default: 200 \]]' \
+        {-s,--frag-len-std-dev}'[fragment length std deviation (unpaired reads only) \[ default: 80 \]]' \
+        {-c,--min-alignment-count}'[minimum number of alignments in a locus for testing \[ default: 10 \]]' \
+        '--max-mle-iterations[maximum iterations allowed for MLE calculation \[ default: 5000 \]]' \
+        '--compatible-hits-norm[count hits compatible with reference RNAs only \[ default: TRUE \]]' \
+        '--total-hits-norm[count all hits for normalization \[ default: FALSE \]]' \
+        {-v,--verbose}'[log-friendly verbose processing (no progress bar) \[ default: FALSE \]]' \
+        {-q,--quiet}'[log-friendly quiet processing (no progress bar) \[ default: FALSE \]]' \
+        '--seed[value of random number generator seed \[ default: 0 \]]' \
+        '--no-update-check[do not contact server to check for update availability\[ default: FALSE \]]' \
+        '--emit-count-tables[print count tables used to fit overdispersion \[ DEPRECATED \]]' \
+        '--max-bundle-frags[maximum fragments allowed in a bundle before skipping \[ default: 500000 \]]' \
+        '--num-frag-count-draws[Number of fragment generation samples \[ default: 100 \]]' \
+        '--num-frag-assign-draws[Number of fragment assignment samples per generation \[ default: 50 \]]' \
+        '--max-frag-multihits[Maximum number of alignments allowed per fragment \[ default: unlim \]]' \
+        '--min-outlier-p[Min replicate p value to admit for testing \[ DEPRECATED \]]' \
+        '--min-reps-for-js-test[Replicates needed for relative isoform shift testing \[ default: 3 \]]' \
+        '--no-effective-length-correction[No effective length correction \[ default: FALSE \]]' \
+        '--no-length-correction[No length correction \[ default: FALSE \]]' \
+        {-N,--upper-quartile-norm}'[Deprecated, use --library-norm-method \[ DEPRECATED \]]' \
+        '--geometric-norm[Deprecated, use --library-norm-method \[ DEPRECATED \]]' \
+        '--raw-mapped-norm[Deprecated, use --library-norm-method \[ DEPRECATED \]]' \
+        '--poisson-dispersion[Deprecated, use --dispersion-method \[ DEPRECATED \]]' \
+        '--read-skip-fraction[Skip a random subset of reads this size \[ default: 0.0 \]]' \
+        '--no-read-pairs[Break all read pairs \[ default: FALSE \]]' \
+        '--trim-read-length[Trim reads to be this long (keep 5'\'' end) \[ default: none \]]' \
+        '--no-scv-correction[Disable SCV correction \[ default: FALSE \]]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

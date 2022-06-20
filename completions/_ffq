@@ -1,0 +1,40 @@
+#compdef _ffq ffq
+
+# Auto-generated with h2o
+
+
+function _ffq {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[Show this help message and exit]' \
+        '-o[Path to write metadata (default: standard out)]' \
+        '-l[Max depth to fetch data within accession tree]' \
+        '--ftp[Return FTP links]' \
+        '--aws[Return AWS links]' \
+        '--gcp[Return GCP links]' \
+        '--ncbi[Return NCBI links]' \
+        '--split[Split output into separate files by accession (`-o` is a directory)]' \
+        '--verbose[Print debugging information]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

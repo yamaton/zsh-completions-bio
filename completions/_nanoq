@@ -1,0 +1,48 @@
+#compdef _nanoq nanoq
+
+# Auto-generated with h2o
+
+
+function _nanoq {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-f,--fast}'[Ignore quality values if present]' \
+        {-h,--help}'[Prints help information]' \
+        {-H,--header}'[Header for summary output]' \
+        {-j,--json}'[Summary report in JSON format]' \
+        {-s,--stats}'[Summary report only \[stdout\]]' \
+        {-V,--version}'[Prints version information]' \
+        {-v,--verbose}'[Verbose output statistics \[multiple, up to -vvv\]]' \
+        {-c,--compress-level}'[Compression level to use if compressing output \[default: 6\]]' \
+        {-i,--input}'[Fast{a,q}.{gz,xz,bz}, stdin if not present]' \
+        {-m,--max-len}'[Maximum read length filter (bp) \[default: 0\]]' \
+        {-w,--max-qual}'[Maximum average read quality filter (Q) \[default: 0\]]' \
+        {-l,--min-len}'[Minimum read length filter (bp) \[default: 0\]]' \
+        {-q,--min-qual}'[Minimum average read quality filter (Q) \[default: 0\]]' \
+        {-o,--output}'[Output filepath, stdout if not present]' \
+        {-O,--output-type}'[u: uncompressed; b: Bzip2; g: Gzip; l: Lzma]' \
+        {-r,--report}'[Summary report output file]' \
+        {-t,--top}'[Number of top reads in verbose summary \[default: 5\]]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

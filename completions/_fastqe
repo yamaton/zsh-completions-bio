@@ -1,0 +1,45 @@
+#compdef _fastqe fastqe
+
+# Auto-generated with h2o
+
+
+function _fastqe {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        '--minlen[Minimum length sequence to include in stats (default 0)]' \
+        '--scale[show relevant scale in output]' \
+        '--version[show program'\''s version number and exit]' \
+        '--mean[show mean quality per position (DEFAULT)]' \
+        '--custom[use a mapping of custom emoji to quality in CUSTOM_DICT (🐍🌴)]' \
+        '--bin[use binned scores (🚫💀💩⚠️ 😄😆😎😍)]' \
+        '--noemoji[use mapping without emoji (▁▂▃▄▅▆▇█)]' \
+        '--noheader[Hide the header before sample output]' \
+        '--min[show minimum quality per position]' \
+        '--max[show maximum quality per position]' \
+        '--output[write output to OUTPUT_FILE instead of stdout]':file:_files \
+        '--long[enable long reads up to READ_LENGTH bp long]' \
+        '--log[record program progress in LOG_FILE]':file:_files \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

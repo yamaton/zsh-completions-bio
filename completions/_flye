@@ -16,23 +16,27 @@ function _flye {
 
     _arguments -C \
         {-h,--help}'[show this help message and exit]' \
-        '--pacbio-raw[PacBio raw reads]':file:_files \
-        '--pacbio-corr[PacBio corrected reads]':file:_files \
-        '--pacbio-hifi[PacBio HiFi reads]':file:_files \
-        '--nano-raw[ONT raw reads]':file:_files \
-        '--nano-corr[ONT corrected reads]':file:_files \
-        '--subassemblies[high-quality contigs input]':file:_files \
+        '--pacbio-raw[PacBio regular CLR reads (<20% error)]':file:_files \
+        '--pacbio-corr[PacBio reads that were corrected with other methods (<3% error)]':file:_files \
+        '--pacbio-hifi[PacBio HiFi reads (<1% error)]':file:_files \
+        '--nano-raw[ONT regular reads, pre-Guppy5 (<20% error)]':file:_files \
+        '--nano-corr[ONT reads that were corrected with other methods (<3% error)]':file:_files \
+        '--nano-hq[ONT high-quality reads: Guppy5+ or Q20 (<5% error)]':file:_files \
+        '--subassemblies[\[deprecated\] high-quality contigs input]':file:_files \
         {-g,--genome-size}'[estimated genome size (for example, 5m or 2.6g)]' \
         {-o,--out-dir}'[Output directory]':file:_files \
         {-t,--threads}'[number of parallel threads \[1\]]' \
         {-i,--iterations}'[number of polishing iterations \[1\]]' \
         {-m,--min-overlap}'[minimum overlap between reads \[auto\]]' \
         '--asm-coverage[reduced coverage for initial disjointig assembly \[not set\]]' \
-        '--hifi-error[expected HiFi reads error rate (e.g. 0.01 or 0.001) \[0.01\]]' \
-        '--plasmids[rescue short unassembled plasmids]' \
+        '--hifi-error[\[deprecated\] same as --read-error]' \
+        '--read-error[adjust parameters for given read error rate (as fraction e.g. 0.03)]' \
+        '--extra-params[extra configuration parameters list (comma-separated)]' \
+        '--plasmids[unused (retained for backward compatibility)]' \
         '--meta[metagenome / uneven coverage mode]' \
         '--keep-haplotypes[do not collapse alternative haplotypes]' \
-        '--trestle[enable Trestle \[disabled\]]' \
+        '--scaffold[enable scaffolding using graph \[disabled by default\]]' \
+        '--trestle[\[deprecated\] enable Trestle \[disabled by default\]]' \
         '--polish-target[run polisher on the target sequence]':file:_files \
         '--resume[resume from the last completed stage]' \
         '--resume-from[resume from a custom stage]' \
