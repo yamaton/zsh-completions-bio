@@ -15,11 +15,12 @@ function _bioawk {
  
 
     _arguments -C \
-        '-t[Equivalent to -F'\''\t'\'' -v OFS="\t"]' \
-        '-c[Specify input format (hdr|header|sam|vcf|bed|gff|fastx)]' \
+        '-t[Set tabs as the separators: Equivalent to -F'\''\t'\'' -v OFS="\t"]' \
+        '-c[Specify input format]' \
         '-f[Program file as input.]':file:_files \
         '-v[Assign value to variable `var` before program is executed]' \
         '-F[Define input field separator as regular expression]' \
+        '-H[Extract with header]' \
         '*: :_files'
 
     case $state in

@@ -16,13 +16,15 @@ function _mini_align {
 
     _arguments -C \
         '-h[show this help text.]' \
-        '-r[reference, should be a fasta file. If correspondng minimap indices do not exist they will be created. (required).]' \
-        '-i[fastq/a input reads (required).]' \
+        '-r[reference, should be a fasta file. If correspondng minimap indices do not exist they will be created. (required).]':file:_files \
+        '-i[fastq/a input reads (required).]':file:_files \
         '-I[split index every ~NUM input bases (default: 16G, this is larger than the usual minimap2 default).]' \
+        '-d[set the minimap2 preset, e.g. map-ont, asm5, asm10, asm20 \[default: map-ont\]]' \
         '-f[force recreation of index file.]' \
         '-a[aggressively extend gaps (sets -A1 -B2 -O2 -E1 for minimap2).]' \
         '-P[filter to only primary alignments (i.e. run samtools view -F 2308). Deprecated: this filter is now default and can be disabled with -A.]' \
-        '-A[do not filter alignments to primary alignments, output all.]' \
+        '-y[filter to primary and supplementary alignments (i.e. run samtools view -F 260)]' \
+        '-A[do not filter alignments, output all.]' \
         '-n[sort bam by read name.]' \
         '-c[chunk size. Input reads/contigs will be broken into chunks prior to alignment.]' \
         '-t[alignment threads (default: 1).]' \
@@ -33,7 +35,7 @@ function _mini_align {
         '-x[log all commands before running.]' \
         '-M[match score]' \
         '-S[mismatch score]' \
-        '-O[open gat penalty]' \
+        '-O[open gap penalty]' \
         '-E[extend gap penalty.]' \
         '*: :_files'
 

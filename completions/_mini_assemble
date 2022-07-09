@@ -16,8 +16,8 @@ function _mini_assemble {
 
     _arguments -C \
         '-h[show this help text.]' \
-        '-i[fastx input reads (required).]' \
-        '-r[reference fasta for reference-guided consensus (instead of de novo assembly)]' \
+        '-i[fastx input reads (required).]':file:_files \
+        '-r[reference fasta for reference-guided consensus (instead of de novo assembly)]':file:_files \
         '-o[output folder (default: assm).]':file:_files \
         '-p[output file prefix (default: reads).]' \
         '-t[number of minimap and racon threads (default: 1).]' \
@@ -28,7 +28,7 @@ function _mini_assemble {
         '-K[minimap'\''s -K option (default: 500M).]' \
         '-c[trim adapters from reads prior to everything else.]' \
         '-e[error correct longest e% of reads prior to assembly, or an estimated coverage (e.g. 2x). For an estimated coverage, the -l option must be a fastx or a length (e.g. 4.8mb).]' \
-        '-l[Reference length, either as a number (e.g. 4.8mb) or fastx from which length will be calculated.]' \
+        '-l[Reference length, either as a number (e.g. 4.8mb) or fastx from which length will be calculated.]':file:_files \
         '-x[log all commands before running.]' \
         '*: :_files'
 

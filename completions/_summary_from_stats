@@ -1,0 +1,36 @@
+#compdef _summary_from_stats summary_from_stats
+
+# Auto-generated with h2o
+
+
+function _summary_from_stats {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        {-i,--input,-o,--output}'[Output summary to file instead of stderr. (default: <_io.TextIOWrapper name='\''<stderr>'\'' mode='\''w'\'' encoding='\''utf-8'\''>)]':file:_files \
+        {-p,--percentiles}'[Percentiles for summary. (default: (10, 50, 90))]' \
+        {-pr,--per_reference}'[Also output a summary for each reference. (default: False)]' \
+        {-a,--accumulate}'[Accumulate chunks in the summary. (default: 1)]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

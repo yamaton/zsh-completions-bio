@@ -18,15 +18,17 @@ function _assess_assembly {
         '-h[show this help text.]' \
         '-r[reference, should be a fasta file. If correspondng minimap2 indices do not exist they will be created. (required).]' \
         '-i[fastq/a input assembly (required).]':file:_files \
+        '-d[set the minimap2 preset, e.g. map-ont, asm5, asm10, asm20 \[default: map-ont\].]' \
         '-c[chunk size. Input reads/contigs will be broken into chunks prior to alignment, 0 will not chunk (default 100000).]' \
         '-C[catalogue errors.]' \
         '-H[count homopolymers.]' \
         '-t[alignment threads (default: 1).]' \
         '-p[output file prefix (default: assm).]' \
-        '-T[trim consensus to primary alignments of truth to assembly.]' \
         '-b[.bed file of reference regions to assess.]' \
         '-l[list all indels at least this long (default: 0, set to 0 to skip searching for indels).]' \
         '-e[use with -l option to create a .bed file to exclude indels. If the -b option is used, the two bed files will be combined.]' \
+        '-y[include supplementary alignments.]' \
+        '-a[accumulate the stats over a number of chunks, can include multiple values separated by comma, one summary file will be generated for each value \[default: 10,100\].]' \
         '*: :_files'
 
     case $state in

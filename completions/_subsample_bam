@@ -17,6 +17,7 @@ function _subsample_bam {
     _arguments -C \
         {-h,--help}'[show this help message and exit]' \
         {-o,--output_prefix}'[Output prefix (default: sub_sampled)]' \
+        {-r,--regions}'[Only process given regions. (default: None)]' \
         {-p,--profile}'[Stride in genomic coordinates for depth profile. (default: 1000)]':file:_files \
         {-O,--orientation}'[Sample only forward or reverse reads. (default: None)]' \
         {-t,--threads}'[Number of threads to use. (default: -1)]' \

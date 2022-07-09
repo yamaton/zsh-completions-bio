@@ -1,34 +1,33 @@
-#compdef _assess_homopolymers assess_homopolymers
+#compdef _catalogue_errors catalogue_errors
 
 # Auto-generated with h2o
 
-    function _assess_homopolymers_count {
+    function _catalogue_errors_count {
         _arguments \
             {-h,--help}'[show this help message and exit]' \
-            {-o,--output_dir}'[Output directory (will be created). (default: homopolymers)]':file:_files \
+            '--bed[.bed file of reference regions to include. (default: None)]' \
             {-t,--threads}'[Number of threads for parallel execution. (default: 1)]' \
-            {-l,--homo_len}'[Minimum homopolymer length, default 3 (default: 3)]' \
-            {-b,--bed}'[Bed file to limit search. (default: None)]' \
+            {-o,--outdir}'[Output directory. (default: error_catalogue)]':file:_files \
             "*: :_files"
 
     }
 
-    function _assess_homopolymers_analyse {
+    function _catalogue_errors_analyse {
         _arguments \
             {-h,--help}'[show this help message and exit]' \
-            {-o,--output_dir}'[Output directory (will be created). (default: homopolymers)]':file:_files \
+            {-o,--outdir}'[Output directory (will be created). (default: error_catalogue)]':file:_files \
             "*: :_files"
 
     }
 
 
-function _assess_homopolymers {
+function _catalogue_errors {
     local line state
 
     function _commands {
         local -a commands
         commands=(
-            'count:Count homopolymers starting from a bam.'
+            'count:Count query errors in a bam.'
             'analyse:Analyse existing counts, optionally merging multiple counters.'
         )
         _describe 'command' commands
@@ -47,11 +46,11 @@ function _assess_homopolymers {
     (subcmd)
         case $line[1] in
         (count)
-            _assess_homopolymers_count
+            _catalogue_errors_count
             ;;
 
         (analyse)
-            _assess_homopolymers_analyse
+            _catalogue_errors_analyse
             ;;
 
         esac

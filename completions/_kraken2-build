@@ -1,0 +1,52 @@
+#compdef _kraken2-build kraken2-build
+
+# Auto-generated with h2o
+
+
+function _kraken2-build {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--download-taxonomy[Download NCBI taxonomic information]' \
+        '--download-library[Download partial library (TYPE = one of "archaea", "bacteria", "plasmid", "viral", "human", "fungi", "plant", "protozoa", "nr", "nt", "UniVec", "UniVec_Core")]' \
+        '--special[Download and build a special database (TYPE = one of "greengenes", "silva", "rdp")]' \
+        '--add-to-library[Add FILE to library]':file:_files \
+        '--build[(requires taxonomy d/l'\''ed and at least one file in library)]' \
+        '--clean[Remove unneeded files from a built database]' \
+        '--standard[Download and build default database]' \
+        '--help[Print this message]' \
+        '--version[Print version information]' \
+        '--db[Kraken 2 DB name (mandatory except for --help/--version)]' \
+        '--threads[Number of threads (def: 1)]' \
+        '--kmer-len[K-mer length in bp/aa (build task only; def: 35 nt, 15 aa)]' \
+        '--minimizer-len[Minimizer length in bp/aa (build task only; def: 31 nt, 12 aa)]' \
+        '--minimizer-spaces[Number of characters in minimizer that are ignored in comparisons (build task only; def: 7 nt, 0 aa)]' \
+        '--protein[Build a protein database for translated search]' \
+        '--no-masking[Used with --standard/--download-library/ --add-to-library to avoid masking low-complexity sequences prior to building; masking requires dustmasker or segmasker to be installed in PATH, which some users might not have.]' \
+        '--max-db-size[Maximum number of bytes for Kraken 2 hash table; if the estimator determines more would normally be needed, the reference library will be downsampled to fit. (Used with --build/--standard/--special)]' \
+        '--use-ftp[Use FTP for downloading instead of RSYNC; used with --download-library/--download-taxonomy/--standard.]' \
+        '--skip-maps[Avoids downloading accession number to taxid maps, used with --download-taxonomy.]' \
+        '--load-factor[Proportion of the hash table to be populated (build task only; def: 0.7, must be between 0 and 1).]' \
+        '--fast-build[Do not require database to be deterministically built when using multiple threads. This is faster, but does introduce variability in minimizer/LCA pairs. Used with --build and --standard options.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

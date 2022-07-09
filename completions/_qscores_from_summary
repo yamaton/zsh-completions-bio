@@ -1,0 +1,34 @@
+#compdef _qscores_from_summary qscores_from_summary
+
+# Auto-generated with h2o
+
+
+function _qscores_from_summary {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        '--median[Use median. If false, use mean. (default: False)]' \
+        '--ref[process single ref, rather than overall result (default: None)]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

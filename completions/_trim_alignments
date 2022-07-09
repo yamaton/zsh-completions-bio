@@ -1,0 +1,35 @@
+#compdef _trim_alignments trim_alignments
+
+# Auto-generated with h2o
+
+
+function _trim_alignments {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        {-r,--ref_name}'[Reference to process, only needed if bams contain multiple references. (default: None)]' \
+        {-o,--output_prefix}'[Prefix for outputs. (default: trimmed)]' \
+        {-f,--reference_fasta}'[Reference fasta to trim to alignment window. (default: None)]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+
