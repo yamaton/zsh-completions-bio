@@ -1,0 +1,77 @@
+#compdef _dfast dfast
+
+# Auto-generated with h2o
+
+
+function _dfast {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-g,--genome}'[Genomic FASTA file]':file:_files \
+        {-o,--out}'[Output directory (default:OUT)]':file:_files \
+        {-c,--config}'[Configuration file (default config will be used if not specified)]':file:_files \
+        '--organism[Organism name]' \
+        '--strain[Strain name]' \
+        '--complete[Treat the query as a complete genome. Not required unless you need INSDC submission files. \[t|f(=default)\]]' \
+        '--use_original_name[Use original sequence names in a query FASTA file \[t|f(=default)\]]' \
+        '--sort_sequence[Sort sequences by length \[t(=default)|f\]]' \
+        '--minimum_length[Minimum sequence length (default:200)]' \
+        '--fix_origin[Rotate/flip the chromosome so that the dnaA gene comes first. (ONLY FOR A FINISHED GENOME)]' \
+        '--offset[Offset from the start codon of the dnaA gene. (for --fix_origin option, default=0)]' \
+        '--locus_tag_prefix[Locus tag prefix (defaut:LOCUS)]' \
+        '--step[Increment step of locus tag (default:10)]' \
+        '--use_separate_tags[Use separate tags according to feature types \[t(=default)|f\]]' \
+        '--threshold[Thresholds for default database search (format: "pident,q_cov,s_cov,e_value", default: "0,75,75,1e-6")]' \
+        '--database[Additional reference database to be searched against prior to the default database. (format: db_path\[,db_name\[,pident,q_cov,s_cov,e_value\]\])]':file:_files \
+        '--references[Reference file(s) for OrthoSearch. Use semicolons for multiple files, e.g. '\''genome1.faa;genome2.gbk'\'']':file:_files \
+        '--aligner[Aligner to use \[ghostx(=default)|blastp|diamond\]]' \
+        '--use_prodigal[Use Prodigal to predict CDS instead of MGA]' \
+        '--use_genemarks2[Use GeneMarkS2 to predict CDS instead of MGA. \[auto|bact|arch\]]' \
+        '--use_trnascan[Use tRNAscan-SE to predict tRNA instead of Aragorn. \[bact|arch\]]' \
+        '--use_rnammer[Use RNAmmer to predict rRNA instead of Barrnap. \[bact|arch\]]' \
+        '--gcode[Genetic code \[11(=default),4(=Mycoplasma)\]]' \
+        '--no_func_anno[Disable all functional annotation steps]' \
+        '--no_hmm[Disable HMMscan]' \
+        '--no_cdd[Disable CDDsearch]' \
+        '--no_cds[Disable CDS prediction]' \
+        '--no_rrna[Disable rRNA prediction]' \
+        '--no_trna[Disable tRNA prediction]' \
+        '--no_crispr[Disable CRISPR prediction]' \
+        '--metagenome[Set options of MGA/Prodigal for metagenome contigs]' \
+        '--gff[\[Preliminary implementation\] Read GFF to import structural annotation. Ignores --use_original_name, --sort_sequence, --fix_origin.]' \
+        '--seq_names[Sequence names for each sequence (for complete genome)]' \
+        '--seq_types[Sequence types for each sequence (chromosome/plasmid, for complete genome)]' \
+        '--seq_topologies[Sequence topologies for each sequence (linear/circular, for complete genome)]' \
+        '--additional_modifiers[Additional modifiers for source features]' \
+        '--metadata_file[Path to a metadata file (optional for DDBJ submission file)]':file:_files \
+        '--center_name[Genome center name (optional for GenBank submission file)]' \
+        '--cpu[Number of CPUs to use]' \
+        '--use_locustag_as_gene_id[Use locustag as gene ID for FASTA and GFF. (Useful when providing DFAST results to other tools such as Roary)]' \
+        '--dbroot[DB root directory (default:APP_ROOT/db]':file:_files \
+        '--force[Force overwriting output]' \
+        '--debug[Run in debug mode (Extra logging and retaining temporary files)]' \
+        '--show_config[Show pipeline configuration and exit]' \
+        '--version[Show program version]' \
+        {-h,--help}'[Show this help message]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

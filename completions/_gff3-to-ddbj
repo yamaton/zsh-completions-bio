@@ -1,0 +1,42 @@
+#compdef _gff3-to-ddbj gff3-to-ddbj
+
+# Auto-generated with h2o
+
+
+function _gff3-to-ddbj {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        {--gff3,--gff}'[Input GFF3 file]':file:_files \
+        '--fasta[Input FASTA file]':file:_files \
+        '--metadata[Input metadata in TOML describing COMMON and other entires]':file:_files \
+        {-p,--prefix,--locus_tag_prefix}'[Prefix of locus_tag. See https://www.ddbj.nig.ac.jp/ddbj/locus_tag-e.html]' \
+        '--transl_table[Genetic Code ID. 1 by default, and 11 for bacteria. See https://www.ncbi.nlm.nih.gov/Taxonomy/Utils/wprintgc.cgi]' \
+        '--config_rename[Rename setting for features and qualifiers]':file:_files \
+        '--config_filter[A set of Feature-Qualifier pairs allowed in the output. See https://www.ddbj.nig.ac.jp/assets/files/pdf/ddbj/fq-e.pdf]':file:_files \
+        {-o,--out,--output}'[Specify annotation file name as output]':file:_files \
+        {-v,--version}'[Show version]' \
+        '--log[\[debug\] Choose log level from (DEBUG, INFO, WARNING, ERROR) (default: INFO).]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

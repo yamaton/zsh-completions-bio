@@ -1,0 +1,41 @@
+#compdef _medaka_haploid_variant medaka_haploid_variant
+
+# Auto-generated with h2o
+
+
+function _medaka_haploid_variant {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-h[show this help text.]' \
+        '-i[fastx input basecalls (required).]':file:_files \
+        '-r[fasta reference sequence (required).]':file:_files \
+        '-o[output folder (default: medaka).]':file:_files \
+        '-m[medaka model, (default: r941_min_hac_variant_g507). Choices: r103_fast_variant_g507 r103_hac_variant_g507 r103_prom_variant_g3210 r103_sup_variant_g507 r1041_e82_400bps_fast_variant_g615 r1041_e82_400bps_hac_variant_g615 r1041_e82_400bps_sup_variant_g615 r104_e81_fast_variant_g5015 r104_e81_hac_variant_g5015 r104_e81_sup_variant_g610 r941_e81_fast_variant_g514 r941_e81_hac_variant_g514 r941_e81_sup_variant_g514 r941_min_fast_variant_g507 r941_min_hac_variant_g507 r941_min_sup_variant_g507 r941_prom_fast_variant_g507 r941_prom_hac_variant_g507 r941_prom_sup_variant_g507 r941_prom_variant_g303 r941_prom_variant_g322 r941_prom_variant_g360 r941_sup_plant_variant_g61.]' \
+        '-s[Perform read realignment when annotating variants.]' \
+        '-f[Force overwrite of outputs (default will reuse existing outputs).]' \
+        '-x[Force recreation of alignment index.]' \
+        '-t[number of threads with which to create features (default: 1).]' \
+        '-b[batchsize, controls memory use (default: 100).]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

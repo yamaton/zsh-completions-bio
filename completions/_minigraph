@@ -1,0 +1,57 @@
+#compdef _minigraph minigraph
+
+# Auto-generated with h2o
+
+
+function _minigraph {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-k[k-mer size (no larger than 28) \[17\]]' \
+        '-w[minizer window size \[11\]]' \
+        '-c[perform base alignment; RECOMMENDED]' \
+        '-f[ignore top FLOAT fraction of repetitive minimizers \[0.0002\]]' \
+        '-U[choose the minimizer occurrence threshold within this interval \[50,250\]]' \
+        '-j[expected sequence divergence \[0.1\]]' \
+        '-g[stop chain enlongation if there are no minimizers in INT-bp \[5000\]]' \
+        '-F[max fragment length (effective with -xsr or in the fragment mode) \[0\]]' \
+        '-r[bandwidth for the two rounds of chaining \[500,20000\]]' \
+        '-n[minimal number of minimizers on a graph/linear chain \[5,5\]]' \
+        '-m[minimal graph/linear chaining score \[50,40\]]' \
+        '-p[min secondary-to-primary score ratio \[0.8\]]' \
+        '-N[retain at most INT secondary mappings \[5\]]' \
+        '-D[skip self diagonal matches]' \
+        '--ggen[perform incremental graph generation]' \
+        '-q[min mapping quality \[5\]]' \
+        '-l[min alignment length \[100000\]]' \
+        '-d[min alignment length for depth calculation \[20000\]]' \
+        '-L[min variant length \[50\]]' \
+        '--call[call the graph path in each bubble and output BED]' \
+        '-t[number of threads \[4\]]' \
+        '-o[output mappings to FILE \[stdout\]]':file:_files \
+        '-K[minibatch size for mapping \[500M\]]' \
+        '-S[output linear chains in * sName sLen nMz div sStart sEnd qStart qEnd]' \
+        '--vc[output in the vertex coordinate]' \
+        '-x[lr: noisy long read mapping (the default) - asm: asm-to-ref mapping - sr: short reads - ggs: incremental graph generation]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+
