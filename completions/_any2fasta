@@ -1,0 +1,49 @@
+#compdef _any2fasta any2fasta
+
+# Auto-generated with h2o
+
+    function _any2fasta_any2fasta {
+        _arguments \
+            "*: :_files"
+
+    }
+
+
+function _any2fasta {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'any2fasta:\[options\] file.{gb,fa,fq,gff,gfa,clw,sth}\[.gz,bz2,zip\] > output.fasta'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-h[Print this help]' \
+        '-v[Print version and exit]' \
+        '-q[No output while running, only errors]' \
+        '-n[Replace ambiguous IUPAC letters with '\''N'\'']' \
+        '-l[Lowercase the sequence]' \
+        '-u[Uppercase the sequence]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (any2fasta)
+            _any2fasta_any2fasta
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

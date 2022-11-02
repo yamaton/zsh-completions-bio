@@ -1,0 +1,70 @@
+#compdef _treetime treetime
+
+# Auto-generated with h2o
+
+
+function _treetime {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        '--tree[Name of file containing the tree in newick, nexus, or phylip format, the branch length of the tree should be in units of average number of nucleotide or protein substitutions per site. If no file is provided, treetime will attempt to build a tree from the alignment using fasttree, iqtree, or raxml (assuming they are installed).]' \
+        '--sequence-length[length of the sequence, used to calculate expected variation in branch length. Not required if alignment is provided.]' \
+        '--aln[alignment file (fasta)]' \
+        '--vcf-reference[only for vcf input: fasta file of the sequence the VCF was mapped to.]' \
+        '--dates[csv file with dates for nodes with '\''node_name, date'\'' where date is float (as in 2012.15)]' \
+        '--name-column[label of the column to be used as taxon name]' \
+        '--date-column[label of the column to be used as sampling date]' \
+        '--clock-rate[if specified, the rate of the molecular clock won'\''t be optimized.]' \
+        '--clock-std-dev[standard deviation of the provided clock rate estimate]' \
+        '--branch-length-mode[If set to '\''input'\'', the provided branch length will be used without modification. Note that branch lengths optimized by treetime are only accurate at short evolutionary distances.]' \
+        '--confidence[estimate confidence intervals of divergence times using the marginal posterior distribution, if `--time-marginal` is False (default) inferred divergence times will still be calculated using the jointly most likely tree configuration.]' \
+        '--time-marginal[For '\''false'\'' or '\''never'\'', TreeTime uses the jointly most likely values for the divergence times. For '\''true'\'' and '\''always'\'', it uses the marginal inference mode at every round of optimization, for '\''only-final'\'' (or '\''assign'\'' for compatibility with previous versions) only uses the marginal distribution in the final round.]' \
+        '--keep-polytomies[Don'\''t resolve polytomies using temporal information.]' \
+        '--relax[use an autocorrelated molecular clock. Strength of the gaussian priors on branch specific rate deviation and the coupling of parent and offspring rates can be specified e.g. as --relax 1.0 0.5. Values around 1.0 correspond to weak priors, larger values constrain rate deviations more strongly. Coupling 0 (--relax 1.0 0) corresponds to an un-correlated clock.]' \
+        '--max-iter[maximal number of iterations the inference cycle is run. Note that for polytomy resolution and coalescence models max_iter should be at least 2]' \
+        '--coalescent[coalescent time scale -- sensible values are on the order of the average hamming distance of contemporaneous sequences. In addition, '\''opt'\'' '\''skyline'\'' are valid options and estimate a constant coalescent rate or a piecewise linear coalescent rate history]' \
+        '--n-skyline[number of grid points in skyline coalescent model]' \
+        '--n-branches-posterior[add posterior LH to coalescent model: use the posterior probability distributions of divergence times for estimating the number of branches when calculating the coalescent mergerrate or use inferred time before present (default).]' \
+        '--plot-tree[filename to save the plot to. Suffix will determine format (choices pdf, png, svg, default=pdf)]' \
+        '--plot-rtt[filename to save the plot to. Suffix will determine format (choices pdf, png, svg, default=pdf)]' \
+        '--tip-labels[add tip labels (default for small trees with <30 leaves)]' \
+        '--no-tip-labels[don'\''t show tip labels (default for small trees with >=30 leaves)]' \
+        '--clock-filter[ignore tips that don'\''t follow a loose clock, '\''clock-filter=number of interquartile ranges from regression'\''. Default=3.0, set to 0 to switch off.]' \
+        '--reroot[Reroot the tree using root-to-tip regression. Valid choices are '\''min_dev'\'', '\''least-squares'\'', and '\''oldest'\''. '\''least-squares'\'' adjusts the root to minimize residuals of the root-to-tip vs sampling time regression, '\''min_dev'\'' minimizes variance of root-to-tip distances. '\''least-squares'\'' can be combined with --covariation to account for shared ancestry. Alternatively, you can specify a node name or a list of node names to be used as outgroup or use '\''oldest'\'' to reroot to the oldest node. By default, TreeTime will reroot using '\''least-squares'\''. Use --keep-root to keep the current root.]' \
+        '--keep-root[don'\''t reroot the tree. Otherwise, reroot to minimize the the residual of the regression of root-to-tip distance and sampling time]' \
+        '--tip-slack[excess variance associated with terminal nodes accounting for overdispersion of the molecular clock]' \
+        '--covariation[Account for covariation when estimating rates or rerooting using root-to-tip regression, default False.]' \
+        '--gtr[GTR model to use. '\''--gtr infer'\'' will infer a model from the data. Alternatively, specify the model type. If the specified model requires additional options, use '\''--gtr-params'\'' to specify those.]' \
+        '--gtr-params[GTR parameters for the model specified by the --gtr argument. The parameters should be feed as '\''key=value'\'' list of parameters. Example: '\''--gtr K80 --gtr-params kappa=0.2 pis=0.25,0.25,0.25,0.25'\''. See the exact definitions of the parameters in the GTR creation methods in treetime/nuc_models.py or treetime/aa_models.py]' \
+        '--aa[use aminoacid alphabet]' \
+        '--keep-overhangs[do not fill terminal gaps]' \
+        '--zero-based[zero based mutation indexing]' \
+        '--reconstruct-tip-states[overwrite ambiguous states on tips with the most likely inferred state]' \
+        '--report-ambiguous[include transitions involving ambiguous states]' \
+        '--method-anc[method used for reconstructing ancestral sequences, default is '\''probabilistic'\'']' \
+        '--verbose[verbosity of output 0-6]' \
+        '--outdir[directory to write the output to]':file:_files \
+        '--version[show program'\''s version number and exit]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

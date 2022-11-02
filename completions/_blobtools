@@ -1,0 +1,252 @@
+#compdef _blobtools blobtools
+
+# Auto-generated with h2o
+
+    function _blobtools_create {
+        _arguments \
+            {-h,--help}'[show this]' \
+            {-i,--infile}'[FASTA file of assembly. Headers are split at whitespaces.]' \
+            {-y,--type}'[Assembly program used to create FASTA. If specified, coverage will be parsed from FASTA header. (Parsing supported for '\''spades'\'', '\''velvet'\'', '\''platanus'\'')]' \
+            {-t,--hitsfile}'[Hits file in format (qseqid\ttaxid\tbitscore)   (e.g. BLAST output "--outfmt '\''6 qseqid staxids bitscore'\''") Can be specified multiple times]' \
+            {-x,--taxrule}'[Taxrule determines how taxonomy of blobs   is computed (by default both are calculated) "bestsum" : sum bitscore across all]' \
+            {-m,--min_score}'[Minimal score necessary to be considered for taxonomy calculaton, otherwise set to '\''no-hit'\'' \[default: 0.0\]]' \
+            {-d,--min_diff}'[Minimal score difference between highest scoring taxonomies (otherwise "unresolved") \[default: 0.0\]]' \
+            '--tax_collision_random[Random allocation of taxonomy if highest scoring taxonomies have equal scores (otherwise "unresolved") \[default: False\]]' \
+            '--nodes[NCBI nodes.dmp file. Not required if '\''--db'\'']' \
+            '--names[NCBI names.dmp file. Not required if '\''--db'\'']' \
+            '--db[NodesDB file (default: $BLOBTOOLS/data/nodesDB.txt). If --nodes, --names and --db are all given and NODESDB does not exist, create it from NODES and NAMES.]' \
+            {-b,--bam}'[BAM file(s), can be specified multiple times]' \
+            {-a,--cas}'[CAS file(s) (requires clc_mapping_info in $PATH), can be specified multiple times]' \
+            {-c,--cov}'[COV file(s), can be specified multiple times]' \
+            {-C,--calculate_cov}'[Legacy coverage when getting coverage from BAM (does not apply to COV parsing).]' \
+            {-o,--out}'[BlobDB output prefix]' \
+            '--title[Title of BlobDB \[default: output prefix)]' \
+            "*: :_files"
+
+    }
+
+    function _blobtools_view {
+        _arguments \
+            {--h,--help}'[show this]' \
+            {-i,--input}'[BlobDB file (created with "blobtools create")]' \
+            {-o,--out}'[Output prefix]' \
+            {-l,--list}'[List of sequence names (file).]' \
+            {-x,--taxrule}'[Taxrule used for computing taxonomy (supported: "bestsum", "bestsumorder") \[default: bestsum\]]' \
+            {-r,--rank}'[Taxonomic rank(s) at which output will be written. (supported: '\''species'\'', '\''genus'\'', '\''family'\'', '\''order'\'', '\''phylum'\'', '\''superkingdom'\'', '\''all'\'') \[default: phylum\]]' \
+            {-b,--hits}'[Displays taxonomic hits from tax files that contributed to the taxonomy.]' \
+            '--concoct[Generate concoct files \[default: False\]]' \
+            '--cov[Generate cov files \[default: False\]]' \
+            '--experimental[Experimental output \[default: False\]]' \
+            {-n,--notable}'[Do not generate table view \[default: False\]]' \
+            "*: :_files"
+
+    }
+
+    function _blobtools_plot {
+        _arguments \
+            {-h,--help}'[show this]' \
+            {-i,--infile}'[BlobDB file (created with "blobtools create")]' \
+            '--lib[Plot only certain covlib(s). Separated by ","]' \
+            '--notitle[Do not add filename as title to plot]' \
+            '--filelabel[Label axis based on filenames]' \
+            {-p,--plotgroups}'[Number of (taxonomic) groups to plot, remaining]' \
+            {-l,--length}'[Minimum sequence length considered for plotting \[default: 100\]]' \
+            '--cindex[Colour blobs by '\''c index'\'' \[default: False\]]' \
+            {-n,--nohit}'[Hide sequences without taxonomic annotation \[default: False\]]' \
+            {-s,--noscale}'[Do not scale sequences by length \[default: False\]]' \
+            '--legend[Plot legend of blobplot in separate figure]' \
+            {-m,--multiplot}'[Multi-plot. Print blobplot for each (taxonomic) group separately]' \
+            '--cumulative[Print plot after addition of each (taxonomic) group]' \
+            '--sort[Sort order for plotting \[default: span\]]' \
+            '--sort_first[Labels that should always be plotted first, regardless of sort order]' \
+            '--hist[Data for histograms \[default: span\]]' \
+            {-r,--rank}'[Taxonomic rank used for colouring of blobs \[default: phylum\]]' \
+            {-x,--taxrule}'[Taxrule which has been used for computing taxonomy]' \
+            '--format[Figure format for plot (png, pdf, eps, jpeg,]' \
+            '--noblobs[Omit blobplot \[default: False\]]' \
+            '--noreads[Omit plot of reads mapping \[default: False\]]' \
+            {-o,--out}'[Output prefix]' \
+            '--label[Relabel (taxonomic) groups, can be used several times.]' \
+            '--colours[File containing colours for (taxonomic) groups. This allows having more than 9 colours.]':file:_files \
+            '--exclude[Exclude these (taxonomic) groups (also works for '\''other'\'')]' \
+            '--refcov[File containing number of "total" and "mapped" reads]':file:_files \
+            '--catcolour[Colour plot based on categories from FILE]':file:_files \
+            "*: :_files"
+
+    }
+
+    function _blobtools_covplot {
+        _arguments \
+            {-h,--help}'[show this]' \
+            {-i,--infile}'[BlobDB file]' \
+            {-c,--cov}'[COV file to be used in y-axis]' \
+            '--xlabel[Label for x-axis]' \
+            '--ylabel[Label for y-axis]' \
+            '--max[Maximum values for x/y-axis \[default: 1e10\]]' \
+            '--lib[Plot only certain covlib(s). Separated by ","]' \
+            '--notitle[Do not add filename as title to plot]' \
+            {-p,--plotgroups}'[Number of (taxonomic) groups to plot, remaining]' \
+            {-l,--length}'[Minimum sequence length considered for plotting \[default: 100\]]' \
+            '--cindex[Colour blobs by '\''c index'\'' \[default: False\]]' \
+            {-n,--nohit}'[Hide sequences without taxonomic annotation \[default: False\]]' \
+            {-s,--noscale}'[Do not scale sequences by length \[default: False\]]' \
+            '--legend[Plot legend of blobplot in separate figure]' \
+            {-m,--multiplot}'[Multi-plot. Print blobplot for each (taxonomic) group separately]' \
+            '--cumulative[Print plot after addition of each (taxonomic) group]' \
+            '--sort[Sort order for plotting \[default: span\]]' \
+            '--sort_first[Labels that should always be plotted first, regardless of sort order]' \
+            '--hist[Data for histograms \[default: span\]]' \
+            {-r,--rank}'[Taxonomic rank used for colouring of blobs \[default: phylum\]]' \
+            {-x,--taxrule}'[Taxrule which has been used for computing taxonomy]' \
+            '--format[Figure format for plot (png, pdf, eps, jpeg,]' \
+            '--noblobs[Omit blobplot \[default: False\]]' \
+            '--noreads[Omit plot of reads mapping \[default: False\]]' \
+            {-o,--out}'[Output prefix]' \
+            '--label[Relabel (taxonomic) groups, can be used several times.]' \
+            '--colours[File containing colours for (taxonomic) groups]':file:_files \
+            '--exclude[Exclude these (taxonomic) groups (also works for '\''other'\'')]' \
+            '--refcov[File containing number of "total" and "mapped" reads]':file:_files \
+            '--catcolour[Colour plot based on categories from FILE]':file:_files \
+            "*: :_files"
+
+    }
+
+    function _blobtools_map2cov {
+        _arguments \
+            {-h,--help}'[show this]' \
+            {-i,--infile}'[FASTA file of assembly. Headers are split at whitespaces.]' \
+            {-b,--bam}'[BAM file (requires pysam)]' \
+            {-a,--cas}'[CAS file (requires clc_mapping_info in $PATH)]' \
+            {-o,--output}'[Output prefix]' \
+            {-c,--calculate_cov}'[Legacy coverage, slower. New default is to estimate coverages]' \
+            "*: :_files"
+
+    }
+
+    function _blobtools_taxify {
+        _arguments \
+            {-h,--help}'[show this]' \
+            {-f,--hit_file}'[BLAST/Diamond similarity search result (TSV format).]':file:_files \
+            {-a,--hit_column_qseqid}'[Zero-based column of qseqid in similarity search result \[default: 0\]]' \
+            {-b,--hit_column_sseqid}'[Zero-based column of sseqid in similarity search result \[default: 1\]]' \
+            {-c,--hit_column_score}'[Zero-based column of (bit)score in similarity search result \[default: 11\]]' \
+            {-m,--taxid_mapping_file}'[TaxID mapping file (contains seqid and taxid)]':file:_files \
+            {-s,--map_col_sseqid}'[Zero-based column of sseqid in TaxID mapping file (it will search for sseqid in this column)]' \
+            {-t,--map_col_taxid}'[Zero-based Column of taxid in TaxID mapping file (it will extract for taxid from this column)]' \
+            {-i,--custom}'[File containing list of sequence IDs]':file:_files \
+            {-x,--custom_taxid}'[TaxID to assign to all sequence IDs in list]' \
+            {-v,--custom_score}'[Score to assign to all sequence IDs in list]' \
+            {-o,--out}'[Output prefix]' \
+            "*: :_files"
+
+    }
+
+    function _blobtools_bamfilter {
+        _arguments \
+            {-h,--help}'[show this]' \
+            {-b,--bam}'[BAM file (sorted by name)]':file:_files \
+            {-i,--include}'[List of contigs whose reads are included - writes FASTAs of pairs where at least]':file:_files \
+            {-e,--exclude}'[List of contigs whose reads are excluded (outputs reads that do not map to sequences in list) - writes FASTAs of pairs where at least]':file:_files \
+            {-U,--exclude_unmapped}'[Include pairs where both reads are unmapped]' \
+            {-n,--noninterleaved}'[Use if fw and rev reads should be in separate files]' \
+            {-f,--read_format}'[FASTQ = fq, FASTA = fa \[default: fa\]]' \
+            {-o,--out}'[Output prefix]' \
+            "*: :_files"
+
+    }
+
+    function _blobtools_seqfilter {
+        _arguments \
+            {-h,--help}'[show this]' \
+            {-i,--infile}'[FASTA file of sequences (Headers are split at whitespaces)]' \
+            {-l,--list}'[TXT file containing headers of sequences to keep]' \
+            {-o,--out}'[Output prefix]' \
+            {-v,--invert}'[Invert filtering (Sequences w/ headers NOT in list)]' \
+            "*: :_files"
+
+    }
+
+    function _blobtools_nodesdb {
+        _arguments \
+            {-h,--help}'[show this]' \
+            '--nodes[NCBI nodes.dmp file.]' \
+            '--names[NCBI names.dmp file.]' \
+            "*: :_files"
+
+    }
+
+
+function _blobtools {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'create:create a BlobDB'
+            'view:generate tabular view, CONCOCT input or COV files from BlobDB'
+            'plot:generate a BlobPlot from a BlobDB'
+            'covplot:generate a CovPlot from a BlobDB and a COV file'
+            'map2cov:generate a COV file from BAM file'
+            'taxify:generate a BlobTools compatible HITS file (TSV)'
+            'bamfilter:subset paired-end reads from a BAM file'
+            'seqfilter:subset sequences in FASTA file based sequence IDs in list'
+            'nodesdb:create nodesdb based on NCBI Taxdump'\''s names.dmp and nodes.dmp'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this]' \
+        {-v,--version}'[show version number]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (create)
+            _blobtools_create
+            ;;
+
+        (view)
+            _blobtools_view
+            ;;
+
+        (plot)
+            _blobtools_plot
+            ;;
+
+        (covplot)
+            _blobtools_covplot
+            ;;
+
+        (map2cov)
+            _blobtools_map2cov
+            ;;
+
+        (taxify)
+            _blobtools_taxify
+            ;;
+
+        (bamfilter)
+            _blobtools_bamfilter
+            ;;
+
+        (seqfilter)
+            _blobtools_seqfilter
+            ;;
+
+        (nodesdb)
+            _blobtools_nodesdb
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

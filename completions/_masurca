@@ -15,11 +15,14 @@ function _masurca {
  
 
     _arguments -C \
+        {-t,--threads}'[ONLY to use with -i option, number of threads]' \
+        {-i,--illumina}'[Run assembly without creating configuration file, argument can be <illumina_paired_end_forward_reads> or <illumina_paired_end_forward_reads,illumina_paired_end_reverse_reads> if you only have single-end Illumina data. Reads file(s) could be fasta or fastq, can be gzip]' \
+        {-r,--reads}'[ONLY to use with -i option, single long reads file for hybrid assembly, can be Nanopore or PacBio, fasta or fastq, can be gzipped]':file:_files \
         {-v,--version}'[Report version]' \
-        {-o,--output}'[Assembly script (assemble.sh)]' \
+        {-o,--output}'[Assembly script (assemble.sh)]':file:_files \
         {-g,--generate}'[Generate example configuration file]' \
-        {-p,--path}'[Prepend to PATH in assembly script]' \
-        {-l,--ld-library-path}'[Prepend to LD_LIBRARY_PATH in assembly script]' \
+        {-p,--path}'[Prepend to PATH in assembly script]':file:_files \
+        {-l,--ld-library-path}'[Prepend to LD_LIBRARY_PATH in assembly script]':file:_files \
         '--skip-checking[Skip checking availability of other executables]' \
         {-h,--help}'[This message]' \
         '*: :_files'

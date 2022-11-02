@@ -2,6 +2,35 @@
 
 # Auto-generated with h2o
 
+    function _seqfu_bases {
+        _arguments \
+            {-c,--raw-counts}'[Print counts and not ratios]' \
+            {-t,--thousands}'[Print thousands separator]' \
+            {-a,--abspath}'[Print absolute path]' \
+            {-b,--basename}'[Print the basename of the file]' \
+            {-n,--nice}'[Print terminal table]' \
+            {-d,--digits}'[Number of digits to print \[default: 2\]]' \
+            {-H,--header}'[Print header]' \
+            {-v,--verbose}'[Verbose output]' \
+            '--debug[Debug output]' \
+            '--help[Show this help]' \
+            "*: :_files"
+
+    }
+
+    function _seqfu_check {
+        _arguments \
+            {-n,--no-paired}'[Disable autodetection of second pair]' \
+            {-s,--safe-exit}'[Exit with 0 even if errors are found]' \
+            {-q,--quiet}'[Do not print infos, just exit status]' \
+            {-v,--verbose}'[Verbose output]' \
+            {-t,--thousands}'[Print numbers with thousands separator]' \
+            '--debug[Debug output]' \
+            {-h,--help}'[Show this help]' \
+            "*: :_files"
+
+    }
+
     function _seqfu_count {
         _arguments \
             {-a,--abs-path}'[Print absolute paths]' \
@@ -135,10 +164,10 @@
             {-a,--abs-path}'[Print absolute paths]' \
             {-b,--basename}'[Print only filenames]' \
             {-n,--nice}'[Print nice terminal table]' \
-            {-j,--json}'[Print json (experimental)]' \
+            {-j,--json}'[Print json (EXPERIMENTAL)]' \
             {-s,--sort-by}'[Sort by KEY from: filename, counts, n50, tot, avg, min, max descending for values, ascending for filenames \[default: none\]]' \
             {-r,--reverse}'[Reverse sort order]' \
-            {-t,--thousands}'[Add thousands separator]' \
+            {-t,--thousands}'[Add thousands separator (only tabbed/nice output)]' \
             '--csv[Separate output by commas instead of tabs]' \
             '--gc[Also print %GC]' \
             '--multiqc[Saves a MultiQC report to FILE (suggested: name_mqc.txt)]':file:_files \
@@ -151,7 +180,10 @@
 
     function _seqfu_cat {
         _arguments \
-            {-k,--skip}'[Print one sequence every SKIP \[default: 0\]]' \
+            {-k,--skip}'[Print one sequence every STEP \[default: 0\]]' \
+            '--skip-first[Skip the first INT records \[default: -1\]]' \
+            '--jump-to[Start from the record after the one named STR (overrides --skip-first)]' \
+            '--print-last[Print the name of the last sequence to STDERR (Last:NAME)]' \
             {-p,--prefix}'[Rename sequences with prefix + incremental number]' \
             {-z,--strip-name}'[Remove the original sequence name]' \
             {-a,--append}'[Append this string to the sequence name \[default: \]]' \
@@ -176,11 +208,13 @@
             '--trim-front[Trim INT base from the start of the sequence \[default: 0\]]' \
             '--trim-tail[Trim INT base from the end of the sequence \[default: 0\]]' \
             '--truncate[Keep only the first INT bases, 0 to ignore \[default: 0\] Negative values to print the last INT bases]' \
+            '--max-bp[Stop printing after INT bases \[default: 0\]]' \
             '--fasta[Force FASTA output]' \
             '--fastq[Force FASTQ output]' \
             '--list[Output a list of sequence names]' \
             {-q,--fastq-qual}'[FASTQ default quality \[default: 33\]]' \
             {-v,--verbose}'[Verbose output]' \
+            '--debug[Debug output]' \
             {-h,--help}'[Show this help]' \
             "*: :_files"
 
@@ -188,7 +222,7 @@
 
     function _seqfu_grep {
         _arguments \
-            {-n,--name}'[String required in the sequence name]' \
+            {-n,--name}'[String required inside the sequence name (see -f)]' \
             {-r,--regex}'[Pattern to be matched in sequence name]' \
             {-c,--comment}'[Also search -n and -r in the comment]' \
             {-f,--full}'[The string or pattern covers the whole name (mainly used without -c)]' \
@@ -198,7 +232,8 @@
             {-A,--append-pos}'[Append matching positions to the sequence comment]' \
             '--max-mismatches[Maximum mismatches allowed \[default: 0\]]' \
             '--min-matches[Minimum number of matches \[default: oligo-length\]]' \
-            {-v,--verbose}'[Verbose output]' \
+            {-v,--invert-match}'[Invert match (print sequences that do not match)]' \
+            '--verbose[Verbose output]' \
             '--help[Show this help]' \
             "*: :_files"
 
@@ -212,6 +247,8 @@
             {-s,--strip-comments}'[Remove comments]' \
             {-b,--basename}'[prepend basename to sequence name]' \
             {-v,--verbose}'[Verbose output]' \
+            '--print-last[Print the name of the last sequence to STDERR (Last:NAME)]' \
+            '--fatal[Exit with error if less than NUM sequences are found]' \
             '--quiet[Don'\''t print warnings]' \
             '--help[Show this help]' \
             '--fasta[Force FASTA output]' \
@@ -238,7 +275,7 @@
             {-i,--interleaved}'[Input is interleaved (paired-end)]' \
             {-d,--detabulate}'[Convert TSV to FASTQ (if reading from file is autodetected)]' \
             {-c,--comment-sep}'[Separator between name and comment (default: tab)]' \
-            {-s,--field-sep}'[Field separator (default: tab)]' \
+            {-s,--field-sep}'[Field separator when deinterleaving (default: tab)]' \
             {-v,--verbose}'[Verbose output]' \
             {-h,--help}'[Show this help]' \
             "*: :_files"
@@ -254,7 +291,8 @@
             {-b,--basename}'[prepend basename to sequence name]' \
             '--fasta[Force FASTA output]' \
             '--fastq[Force FASTQ output]' \
-            '--sep[Sequence name fields separator \[default: _\],-q, --fastq-qual INT   FASTQ default quality \[default: 33\]]' \
+            '--sep[Sequence name fields separator \[default: _\]]' \
+            {-q,--fastq-qual}'[FASTQ default quality \[default: 33\]]' \
             {-v,--verbose}'[Verbose output]' \
             {-h,--help}'[Show this help]' \
             "*: :_files"
@@ -285,6 +323,8 @@ function _seqfu {
     function _commands {
         local -a commands
         commands=(
+            'bases:count bases in FASTA/FASTQ files'
+            'check:check FASTQ file for errors'
             'count:count FASTA/FASTQ reads, pair-end aware'
             'deinterleave:deinterleave FASTQ'
             'derep:feature-rich dereplication of FASTA/FASTQ files'
@@ -317,6 +357,14 @@ function _seqfu {
         ;;
     (subcmd)
         case $line[1] in
+        (bases)
+            _seqfu_bases
+            ;;
+
+        (check)
+            _seqfu_check
+            ;;
+
         (count)
             _seqfu_count
             ;;

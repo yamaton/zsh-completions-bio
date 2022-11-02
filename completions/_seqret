@@ -1,0 +1,74 @@
+#compdef _seqret seqret
+
+# Auto-generated with h2o
+
+
+function _seqret {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-sequence[(Gapped) sequence(s) filename and optional format, or reference (input USA)]' \
+        '-outseq[\[<sequence>.<format>\] Sequence set(s) filename and optional format (output USA)]' \
+        '-feature[Use feature information]' \
+        '-firstonly[\[N\] Read one sequence and stop]' \
+        '-sbegin1[Start of each sequence to be used]' \
+        '-send1[End of each sequence to be used]' \
+        '-sreverse1[Reverse (if DNA)]' \
+        '-sask1[Ask for begin/end/reverse]' \
+        '-snucleotide1[Sequence is nucleotide]' \
+        '-sprotein1[Sequence is protein]' \
+        '-slower1[Make lower case]' \
+        '-supper1[Make upper case]' \
+        '-scircular1[Sequence is circular]' \
+        '-squick1[Read id and sequence only]' \
+        '-sformat1[Input sequence format]' \
+        '-iquery1[Input query fields or ID list]' \
+        '-ioffset1[Input start position offset]' \
+        '-sdbname1[Database name]' \
+        {-sid1,-ufo1}'[UFO features]' \
+        '-fformat1[Features format]' \
+        '-fopenfile1[Features file name]' \
+        '-osformat2[Output seq format]' \
+        '-osextension2[File name extension]' \
+        '-osname2[Base file name]' \
+        '-osdirectory2[Output directory]' \
+        '-osdbname2[Database name to add]' \
+        '-ossingle2[Separate file for each entry]' \
+        '-oufo2[UFO features]' \
+        '-offormat2[Features format]' \
+        '-ofname2[Features file name]' \
+        '-ofdirectory2[Output directory]' \
+        '-auto[Turn off prompts]' \
+        '-stdout[Write first file to standard output]' \
+        '-filter[Read first file from standard input, write first file to standard output]' \
+        '-options[Prompt for standard and additional values]' \
+        '-debug[Write debug output to program.dbg]' \
+        '-verbose[Report some/full command line options]' \
+        '-help[Report command line options and exit. More information on associated and general qualifiers can be found with -help -verbose]' \
+        '-warning[Report warnings]' \
+        '-error[Report errors]' \
+        '-fatal[Report fatal errors]' \
+        '-die[Report dying program messages]' \
+        '-version[Report version number and exit]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

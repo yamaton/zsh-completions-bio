@@ -34,10 +34,18 @@ function _bowtie2 {
         {-u,--upto}'[stop after first <int> reads/pairs (no limit)]' \
         {-5,--trim5}'[trim <int> bases from 5'\''/left end of reads (0)]' \
         {-3,--trim3}'[trim <int> bases from 3'\''/right end of reads (0)]' \
-        '--trim-to[trim reads exceeding <int> bases from either 3'\'' or 5'\'' end   If the read end is not specified then it defaults to 3 (0)]' \
+        '--trim-to[trim reads exceeding <int> bases from either 3'\'' or 5'\'' end If the read end is not specified then it defaults to 3 (0)]' \
         '--phred33[qualities are Phred+33 (default)]' \
         '--phred64[qualities are Phred+64]' \
         '--int-quals[qualities encoded as space-delimited integers]' \
+        '--very-fast[(For --end-to-end) Same as -D 5 -R 1 -N 0 -L 22 -i S,0,2.50]' \
+        '--fast[(For --end-to-end) Same as -D 10 -R 2 -N 0 -L 22 -i S,0,2.50]' \
+        '--sensitive[(For --end-to-end) Same as -D 15 -R 2 -N 0 -L 22 -i S,1,1.15 (default)]' \
+        '--very-sensitive[(For --end-to-end) Same as -D 20 -R 3 -N 0 -L 20 -i S,1,0.50]' \
+        '--very-fast-local[(For --local) Same as -D 5 -R 1 -N 0 -L 25 -i S,1,2.00]' \
+        '--fast-local[(For --local) Same as -D 10 -R 2 -N 0 -L 22 -i S,1,1.75]' \
+        '--sensitive-local[(For --local) Same as -D 15 -R 2 -N 0 -L 20 -i S,1,0.75 (default)]' \
+        '--very-sensitive-local[(For --local) Same as -D 20 -R 3 -N 0 -L 20 -i S,1,0.50]' \
         '-N[max # mismatches in seed alignment; can be 0 or 1 (0)]' \
         '-L[length of seed substrings; must be >3, <32 (22)]' \
         '-i[interval between seed substrings w/r/t read len (S,1,1.15)]' \

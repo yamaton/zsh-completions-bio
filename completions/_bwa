@@ -4,110 +4,183 @@
 
     function _bwa_index {
         _arguments \
-            '-p[Prefix of the output database \[same as db filename\]]' \
-            '-a[Algorithm for constructing BWT index. BWA implements three algorithms for BWT construction: is, bwtsw and]' \
+            '-p[prefix of the index \[same as fasta name\]]' \
+            '-b[block size for the bwtsw algorithm (effective with -a bwtsw) \[10000000\]]' \
+            '-6[index files named as <in.fasta>.64.* instead of <in.fasta>.*]' \
             "*: :_files"
 
     }
 
     function _bwa_mem {
         _arguments \
-            '-t[Number of threads \[1\]]' \
-            '-k[Minimum seed length. Matches shorter than INT will be missed. The alignment speed is usually insensitive to this value unless it significantly deviates from 20. \[19\]]' \
-            '-w[Band width. Essentially, gaps longer than INT will not be found. Note that the maximum gap length is also affected by the scoring matrix and the hit length, not solely determined by this option. \[100\]]' \
-            '-d[Off-diagonal X-dropoff (Z-dropoff). Stop extension when the difference between the best and the current extension score is above |i-j|*A+INT, where i and j are the current positions of the query and reference, respectively, and A is the matching score. Z-dropoff is similar to BLAST'\''s X-dropoff except that it doesn'\''t penalize gaps in one of the sequences in the alignment. Z-dropoff not only avoids unnecessary extension, but also reduces poor alignments inside a long good alignment. \[100\]]' \
-            '-r[Trigger re-seeding for a MEM longer than minSeedLen*FLOAT. This is a key heuristic parameter for tuning the performance. Larger value yields fewer seeds, which leads to faster alignment speed but lower accuracy. \[1.5\]]' \
-            '-c[Discard a MEM if it has more than INT occurence in the genome. This is an insensitive parameter. \[500\]]' \
-            '-D[Drop chains shorter than FLOAT fraction of the longest overlapping chain \[0.5\]]' \
-            '-m[Perform at most INT rounds of mate-SW \[50\]]' \
-            '-W[Drop a chain if the number of bases in seeds is smaller than INT. This option is primarily used for longer contigs/reads. When positive, it also affects seed filtering. \[0\]]' \
-            '-P[In the paired-end mode, perform SW to rescue missing hits only but do not try to find hits that fit a proper pair.]' \
-            '-A[Matching score. \[1\]]' \
-            '-B[Mismatch penalty. The sequence error rate is approximately: {.75 * exp\[-log(4) * B/A\]}. \[4\]]' \
-            '-O[Gap open penalty. If two numbers are specified, the first is the penalty of openning a deletion and the second for openning an insertion. \[6\]]' \
-            '-E[Gap extension penalty. If two numbers are specified, the first is the penalty of extending a deletion and second for extending an insertion. A gap of length k costs O + k*E (i.e. -O is for opening a zero-length gap). \[1\]]' \
-            '-L[Clipping penalty. When performing SW extension, BWA-MEM keeps track of the best score reaching the end of query. If this score is larger than the best SW score minus the clipping penalty, clipping will not be applied. Note that in this case, the SAM AS tag reports the best SW score; clipping penalty is not deduced. If two numbers are provided, the first is for 5'\''-end clipping and second for 3'\''-end clipping. \[5\]]' \
-            '-U[Penalty for an unpaired read pair. BWA-MEM scores an unpaired read pair as scoreRead1+scoreRead2-INT and scores a paired as scoreRead1+scoreRead2-insertPenalty. It compares these two scores to determine whether we should force pairing. A larger value leads to more aggressive read pair. \[17\]]' \
-            '-x[Read type. Changes multiple parameters unless overriden \[null\]]' \
-            '-p[Smart pairing. If two adjacent reads have the same name, they are considered to form a read pair. This way, paired-end and single-end reads can be mixed in a single FASTA/Q stream.]' \
-            '-R[Complete read group header line. '\''\t'\'' can be used in STR and will be converted to a TAB in the output SAM. The read group ID will be attached to every read in the output. An example is '\''@RG\tID:foo\tSM:bar'\''. \[null\]]' \
-            '-H[If ARG starts with @, it is interpreted as a string and gets inserted into the output SAM header; otherwise, ARG is interpreted as a file with all lines starting with @ in the file inserted into the SAM header. \[null\]]' \
-            '-o[Write the output SAM file to FILE. For compatibility with other BWA commands, this option may also be given as -f FILE. \[standard ouptut\]]':file:_files \
-            '-5[For split alignment, mark the segment with the smallest coordinate as the primary. It automatically applies option -q as well. This option may help some Hi-C pipelines. By default, BWA-MEM marks highest scoring segment as primary.]' \
-            '-K[Process INT input bases in each batch regardless of the number of threads in use \[10000000*nThreads\]. By default, the batch size is proportional to the number of threads in use. Because the inferred insert size distribution slightly depends on the batch size, using different number of threads may produce different output. Specifying this option helps reproducibility.]' \
-            '-T[Don'\''t output alignment with score lower than INT. This option affects output and occasionally SAM flag 2. \[30\]]' \
-            '-j[Treat ALT contigs as part of the primary assembly (i.e. ignore the db.prefix.alt file).]' \
-            '-h[If a query has not more than INT hits with score higher than 80% of the best hit, output them all in the XA tag. If INT2 is specified, BWA-MEM outputs up to INT2 hits if the list contains a hit to an ALT contig. \[5,200\]]' \
-            '-a[Output all found alignments for single-end or unpaired paired-end reads. These alignments will be flagged as secondary alignments.]' \
-            '-C[Append FASTA/Q comment to SAM output. This option can be used to transfer read meta information (e.g. barcode) to the SAM output. Note that the FASTA/Q comment (the string after a space in the header line) must conform the SAM spec (e.g. BC:Z:CGTAC). Malformated comments lead to incorrect SAM output.]' \
-            '-Y[Use soft clipping CIGAR operation for supplementary alignments. By default, BWA-MEM uses soft clipping for the primary alignment and hard clipping for supplementary alignments.]' \
-            '-M[Mark shorter split hits as secondary (for Picard compatibility).]' \
-            '-v[Control the verbosity level of the output. This option has not been fully supported throughout BWA. Ideally, a value 0 for disabling all the output to stderr; 1 for outputting errors only; 2 for warnings and errors; 3 for all normal messages; 4 or higher for debugging. When this option takes value 4, the output is not SAM. \[3\]]' \
-            '-I[Specify the mean, standard deviation (10% of the mean if absent), max (4 sigma from the mean if absent) and min (4 sigma if absent) of the insert size distribution. Only applicable to the FR orientation. By default, BWA-MEM infers these numbers and the pair orientations given enough reads. \[inferred\]]' \
+            '-t[number of threads \[1\]]' \
+            '-k[minimum seed length \[19\]]' \
+            '-w[band width for banded alignment \[100\]]' \
+            '-d[off-diagonal X-dropoff \[100\]]' \
+            '-r[look for internal seeds inside a seed longer than {-k} * FLOAT \[1.5\]]' \
+            '-y[seed occurrence for the 3rd round seeding \[20\]]' \
+            '-c[skip seeds with more than INT occurrences \[500\]]' \
+            '-D[drop chains shorter than FLOAT fraction of the longest overlapping chain \[0.50\]]' \
+            '-W[discard a chain if seeded bases shorter than INT \[0\]]' \
+            '-m[perform at most INT rounds of mate rescues for each read \[50\]]' \
+            '-S[skip mate rescue]' \
+            '-P[skip pairing; mate rescue performed unless -S also in use]' \
+            '-A[score for a sequence match, which scales options -TdBOELU unless overridden \[1\]]' \
+            '-B[penalty for a mismatch \[4\]]' \
+            '-O[gap open penalties for deletions and insertions \[6,6\]]' \
+            '-E[gap extension penalty; a gap of size k cost '\''{-O} + {-E}*k'\'' \[1,1\]]' \
+            '-L[penalty for 5'\''- and 3'\''-end clipping \[5,5\]]' \
+            '-U[penalty for an unpaired read pair \[17\]]' \
+            '-x[read type. Setting -x changes multiple parameters unless overridden \[null\] pacbio: -k17 -W40 -r10 -A1 -B1 -O1 -E1 -L0 (PacBio reads to ref) ont2d: -k14 -W20 -r10 -A1 -B1 -O1 -E1 -L0 (Oxford Nanopore 2D-reads to ref) intractg: -B9 -O16 -L5 (intra-species contigs to ref)]' \
+            '-p[smart pairing (ignoring in2.fq)]' \
+            '-R[read group header line such as '\''@RG\tID:foo\tSM:bar'\'' \[null\]]' \
+            '-H[insert STR to header if it starts with @; or insert lines in FILE \[null\]]':file:_files \
+            '-o[sam file to output results to \[stdout\]]':file:_files \
+            '-j[treat ALT contigs as part of the primary assembly (i.e. ignore <idxbase>.alt file)]' \
+            '-5[for split alignment, take the alignment with the smallest coordinate as primary]' \
+            '-q[don'\''t modify mapQ of supplementary alignments]' \
+            '-K[process INT input bases in each batch regardless of nThreads (for reproducibility) \[\]]' \
+            '-v[verbosity level: 1=error, 2=warning, 3=message, 4+=debugging \[3\]]' \
+            '-T[minimum score to output \[30\]]' \
+            '-h[if there are <INT hits with score >80% of the max score, output all in XA \[0,0\]]' \
+            '-a[output all alignments for SE or unpaired PE]' \
+            '-C[append FASTA/FASTQ comment to SAM output]' \
+            '-V[output the reference FASTA header in the XR tag]' \
+            '-Y[use soft clipping for supplementary alignments]' \
+            '-M[mark shorter split hits as secondary]' \
+            '-I[specify the mean, standard deviation (10% of the mean if absent), max (4 sigma from the mean if absent) and min of the insert size distribution. FR orientation only. \[inferred\]]' \
+            "*: :_files"
+
+    }
+
+    function _bwa_fastmap {
+        _arguments \
+            '-w[max interval size to find coordiantes \[20\]]' \
+            '-i[min SMEM interval size \[1\]]' \
+            '-L[max MEM length \[2147483647\]]' \
+            '-I[stop if MEM is longer than -l with a size less than INT \[0\]]' \
+            "*: :_files"
+
+    }
+
+    function _bwa_pemerge {
+        _arguments \
+            '-u[output unmerged reads only]' \
+            '-t[number of threads \[1\]]' \
+            '-T[minimum end overlap \[10\]]' \
+            '-Q[max sum of errors \[70\]]' \
             "*: :_files"
 
     }
 
     function _bwa_aln {
         _arguments \
-            '-n[Maximum edit distance if the value is INT, or the fraction of missing alignments given 2% uniform base error rate if FLOAT. In the latter case, the maximum edit distance is automatically chosen for different read lengths. \[0.04\]]' \
-            '-o[Maximum number of gap opens \[1\]]' \
-            '-e[Maximum number of gap extensions, -1 for k-difference mode (disallowing long gaps) \[-1\]]' \
-            '-d[Disallow a long deletion within INT bp towards the 3'\''-end \[16\]]' \
-            '-i[Disallow an indel within INT bp towards the ends \[5\]]' \
-            '-l[Take the first INT subsequence as seed. If INT is larger than the query sequence, seeding will be disabled. For long reads, this option is typically ranged from 25 to 35 for `-k 2'\''. \[inf\]]' \
-            '-k[Maximum edit distance in the seed \[2\]]' \
-            '-t[Number of threads (multi-threading mode) \[1\]]' \
-            '-M[Mismatch penalty. BWA will not search for suboptimal hits with a score lower than (bestScore-misMsc). \[3\]]' \
-            '-O[Gap open penalty \[11\]]' \
-            '-E[Gap extension penalty \[4\]]' \
-            '-R[Proceed with suboptimal alignments if there are no more than INT equally best hits. This option only affects paired-end mapping. Increasing this threshold helps to improve the pairing accuracy at the cost of speed, especially for short reads (~32bp).]' \
-            '-c[Reverse query but not complement it, which is required for alignment in the color space. (Disabled since 0.6.x)]' \
-            '-N[Disable iterative search. All hits with no more than maxDiff differences will be found. This mode is much slower than the default.]' \
-            '-q[Parameter for read trimming. BWA trims a read down to argmax_x{\sum_{i=x+1}^l(INT-q_i)} if q_l<INT where l is the original read length. \[0\]]' \
-            '-I[The input is in the Illumina 1.3+ read format (quality equals ASCII-64).]' \
-            '-B[Length of barcode starting from the 5'\''-end. When INT is positive, the barcode of each read will be trimmed before mapping and will be written at the BC SAM tag. For paired-end reads, the barcode from both ends are concatenated. \[0\]]' \
-            '-b[Specify the input read sequence file is the BAM format. For paired-end data, two ends in a pair must be grouped together and options -1 or -2 are usually applied to specify which end should be mapped. Typical command lines for mapping pair-end data in the BAM format are:]' \
-            '-0[When -b is specified, only use single-end reads in mapping.]' \
-            '-1[When -b is specified, only use the first read in a read pair in mapping (skip single-end reads and the second reads).]' \
-            '-2[When -b is specified, only use the second read in a read pair in mapping.]' \
+            '-o[maximum number or fraction of gap opens \[1\]]' \
+            '-e[maximum number of gap extensions, -1 for disabling long gaps \[-1\]]' \
+            '-i[do not put an indel within INT bp towards the ends \[5\]]' \
+            '-d[maximum occurrences for extending a long deletion \[10\]]' \
+            '-l[seed length \[32\]]' \
+            '-k[maximum differences in the seed \[2\]]' \
+            '-m[maximum entries in the queue \[2000000\]]' \
+            '-t[number of threads \[1\]]' \
+            '-M[mismatch penalty \[3\]]' \
+            '-O[gap open penalty \[11\]]' \
+            '-E[gap extension penalty \[4\]]' \
+            '-R[stop searching when there are >INT equally best hits \[30\]]' \
+            '-q[quality threshold for read trimming down to 35bp \[0\]]' \
+            '-f[file to write output to instead of stdout]':file:_files \
+            '-B[length of barcode]' \
+            '-L[log-scaled gap penalty for long deletions]' \
+            '-N[non-iterative mode: search for all n-difference hits (slooow)]' \
+            '-I[the input is in the Illumina 1.3+ FASTQ-like format]' \
+            '-b[the input read file is in the BAM format]' \
+            '-0[use single-end reads only (effective with -b)]' \
+            '-1[use the 1st read in a pair (effective with -b)]' \
+            '-2[use the 2nd read in a pair (effective with -b)]' \
+            '-Y[filter Casava-filtered sequences]' \
             "*: :_files"
 
     }
 
     function _bwa_samse {
         _arguments \
-            '-n[Maximum number of alignments to output in the XA tag for reads paired properly. If a read has more than INT hits, the XA tag will not be written. \[3\]]' \
-            '-r[Specify the read group in a format like `@RG\tID:foo\tSM:bar'\''. \[null\]]' \
             "*: :_files"
 
     }
 
     function _bwa_sampe {
         _arguments \
-            '-a[Maximum insert size for a read pair to be considered being mapped properly. Since 0.4.5, this option is only used when there are not enough good alignment to infer the distribution of insert sizes. \[500\]]' \
-            '-o[Maximum occurrences of a read for pairing. A read with more occurrneces will be treated as a single-end read. Reducing this parameter helps faster pairing. \[100000\]]' \
-            '-P[Load the entire FM-index into memory to reduce disk operations (base-space reads only). With this option, at least 1.25N bytes of memory are required, where N is the length of the genome.]' \
-            '-n[Maximum number of alignments to output in the XA tag for reads paired properly. If a read has more than INT hits, the XA tag will not be written. \[3\]]' \
-            '-N[Maximum number of alignments to output in the XA tag for disconcordant read pairs (excluding singletons). If a read has more than INT hits, the XA tag will not be written. \[10\]]' \
-            '-r[Specify the read group in a format like `@RG\tID:foo\tSM:bar'\''. \[null\]]' \
+            '-o[maximum occurrences for one end \[100000\]]' \
+            '-n[maximum hits to output for paired reads \[3\]]' \
+            '-N[maximum hits to output for discordant pairs \[10\]]' \
+            '-c[prior of chimeric rate (lower bound) \[1.0e-05\]]' \
+            '-f[sam file to output results to \[stdout\]]':file:_files \
+            '-r[read group header line such as `@RG\tID:foo\tSM:bar'\'' \[null\]]' \
+            '-P[preload index into memory (for base-space reads only)]' \
+            '-s[disable Smith-Waterman for the unmapped mate]' \
+            '-A[disable insert size estimate (force -s)]' \
             "*: :_files"
 
     }
 
     function _bwa_bwasw {
         _arguments \
-            '-a[Score of a match \[1\]]' \
-            '-b[Mismatch penalty \[3\]]' \
-            '-q[Gap open penalty \[5\]]' \
-            '-r[Gap extension penalty. The penalty for a contiguous gap of size k is q+k*r. \[2\]]' \
-            '-t[Number of threads in the multi-threading mode \[1\]]' \
-            '-w[Band width in the banded alignment \[33\]]' \
-            '-T[Minimum score threshold divided by a \[37\]]' \
-            '-c[Coefficient for threshold adjustment according to query length. Given an l-long query, the threshold for a hit to be retained is a*max{T,c*log(l)}. \[5.5\]]' \
-            '-z[Z-best heuristics. Higher -z increases accuracy at the cost of speed. \[1\]]' \
-            '-s[Maximum SA interval size for initiating a seed. Higher -s increases accuracy at the cost of speed. \[3\]]' \
-            '-N[Minimum number of seeds supporting the resultant alignment to skip reverse alignment. \[5\]]' \
+            '-b[mismatch penalty \[3\]]' \
+            '-q[gap open penalty \[5\]]' \
+            '-r[gap extension penalty \[2\]]' \
+            '-w[band width \[50\]]' \
+            '-m[mask level \[0.50\]]' \
+            '-t[number of threads \[1\]]' \
+            '-f[file to output results to instead of stdout]':file:_files \
+            '-H[in SAM output, use hard clipping instead of soft clipping]' \
+            '-C[copy FASTA/Q comment to SAM output]' \
+            '-M[mark multi-part alignments as secondary]' \
+            '-S[skip Smith-Waterman read pairing]' \
+            '-I[ignore pairs with insert >=INT for inferring the size distr \[20000\]]' \
+            '-T[score threshold divided by a \[30\]]' \
+            '-c[coefficient of length-threshold adjustment \[5.5\]]' \
+            '-z[Z-best \[1\]]' \
+            '-s[maximum seeding interval size \[3\]]' \
+            '-N[# seeds to trigger rev aln; 2*INT is also the chaining threshold \[5\]]' \
+            '-G[maximum gap size during chaining \[10000\]]' \
+            "*: :_files"
+
+    }
+
+    function _bwa_shm {
+        _arguments \
+            '-l[list names of indices in shared memory]' \
+            '-f[temporary file to reduce peak memory]':file:_files \
+            "*: :_files"
+
+    }
+
+    function _bwa_fa2pac {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _bwa_pac2bwt {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _bwa_pac2bwtgen {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _bwa_bwtupdate {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _bwa_bwt2sa {
+        _arguments \
             "*: :_files"
 
     }
@@ -119,12 +192,20 @@ function _bwa {
     function _commands {
         local -a commands
         commands=(
-            'index:Index database sequences in the FASTA format'
-            'mem:Align 70bp-1Mbp query sequences with the BWA-MEM algorithm'
-            'aln:Find the SA coordinates of the input reads'
-            'samse:Generate alignments in the SAM format given single-end reads'
-            'sampe:Generate alignments in the SAM format given paired-end reads'
-            'bwasw:Align query sequences in the in.fq file'
+            'index:index sequences in the FASTA format'
+            'mem:BWA-MEM algorithm'
+            'fastmap:identify super-maximal exact matches'
+            'pemerge:merge overlapping paired ends (EXPERIMENTAL)'
+            'aln:gapped/ungapped alignment'
+            'samse:generate alignment (single ended)'
+            'sampe:generate alignment (paired ended)'
+            'bwasw:BWA-SW for long queries'
+            'shm:manage indices in shared memory'
+            'fa2pac:convert FASTA to PAC format'
+            'pac2bwt:generate BWT from PAC'
+            'pac2bwtgen:alternative algorithm for generating BWT'
+            'bwtupdate:update .bwt to the new format'
+            'bwt2sa:generate SA from BWT and Occ'
         )
         _describe 'command' commands
     }
@@ -148,6 +229,14 @@ function _bwa {
             _bwa_mem
             ;;
 
+        (fastmap)
+            _bwa_fastmap
+            ;;
+
+        (pemerge)
+            _bwa_pemerge
+            ;;
+
         (aln)
             _bwa_aln
             ;;
@@ -162,6 +251,30 @@ function _bwa {
 
         (bwasw)
             _bwa_bwasw
+            ;;
+
+        (shm)
+            _bwa_shm
+            ;;
+
+        (fa2pac)
+            _bwa_fa2pac
+            ;;
+
+        (pac2bwt)
+            _bwa_pac2bwt
+            ;;
+
+        (pac2bwtgen)
+            _bwa_pac2bwtgen
+            ;;
+
+        (bwtupdate)
+            _bwa_bwtupdate
+            ;;
+
+        (bwt2sa)
+            _bwa_bwt2sa
             ;;
 
         esac

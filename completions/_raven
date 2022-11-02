@@ -15,7 +15,9 @@ function _raven {
  
 
     _arguments -C \
-        '--weaken[use larger (k, w) when assembling highly accurate sequences]' \
+        {-k,--kmer-len}'[length of minimizers used to find overlaps \[default: 15\]]' \
+        {-w,--window-len}'[length of sliding window from which minimizers are sampled \[default: 5\]]' \
+        {-f,--frequency}'[threshold for ignoring most frequent minimizers \[default: 0.001\]]' \
         {-p,--polishing-rounds}'[number of times racon is invoked \[default: 2\]]' \
         {-m,--match}'[score for matching bases \[default: 3\]]' \
         {-n,--mismatch}'[score for mismatching bases \[default: -5\]]' \

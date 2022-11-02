@@ -1,0 +1,47 @@
+#compdef _dwgsim_eval dwgsim_eval
+
+# Auto-generated with h2o
+
+
+function _dwgsim_eval {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-a[INT split by \[0\]:]' \
+        '-b[alignments are from BWA (SOLiD only) \[False\]]' \
+        '-c[color space alignments \[False\]]' \
+        '-d[INT divide quality/alignment score by this factor \[1\]]' \
+        '-g[gap "wiggle" \[5\]]' \
+        '-m[consecutive alignments with the same name (and end for multi-ends) should be treated as multi-mapped reads \[False\]]' \
+        '-n[INT number of raw input paired-end reads (otherwise, inferred from all SAM records present) \[0\]]' \
+        '-q[INT consider only alignments with this mapping quality or greater \[0\]]' \
+        '-z[input contains only single end reads \[False\]]' \
+        '-S[input is SAM \[False\]]' \
+        '-p[print incorrect alignments \[False\]]' \
+        '-s[INT consider only alignments with the number of specified SNPs \[-1\]]' \
+        '-e[INT consider only alignments with the number of specified errors \[-1\]]' \
+        '-i[consider only alignments with indels \[False\]]' \
+        '-P[STRING a read prefix that was prepended to each read name \[not using\]]' \
+        '-h[print this help message]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

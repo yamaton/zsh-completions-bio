@@ -1,0 +1,36 @@
+#compdef _htsfile htsfile
+
+# Auto-generated with h2o
+
+
+function _htsfile {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-c,--view}'[Write textual form of FILEs to standard output]' \
+        {-C,--copy}'[Copy the exact contents of FILE to DESTFILE]' \
+        {-h,--header-only}'[Display only headers in view mode, not records]' \
+        {-H,--no-header}'[Suppress header display in view mode]' \
+        {-v,--verbose}'[Increase verbosity of warnings and diagnostics]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

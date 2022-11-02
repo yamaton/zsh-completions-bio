@@ -1,0 +1,38 @@
+#compdef _union union
+
+# Auto-generated with h2o
+
+
+function _union {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-sequence[(Gapped) sequence(s) filename and optional format, or reference (input USA)]' \
+        '-outseq[\[<sequence>.<format>\] Sequence filename and optional format (output USA)]' \
+        '-overlapfile[\[*.union\] Sequence overlaps output file (optional)]':file:_files \
+        '-feature[\[N\] Use feature information]' \
+        '-source[\[N\] Create source features]' \
+        '-findoverlap[\[N\] Look for overlaps when joining]' \
+        '-help[Report command line options and exit. More information on associated and general qualifiers can be found with -help -verbose]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

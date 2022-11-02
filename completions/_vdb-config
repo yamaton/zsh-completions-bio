@@ -1,0 +1,105 @@
+#compdef _vdb-config vdb-config
+
+# Auto-generated with h2o
+
+    function _vdb-config_vdb-config {
+        _arguments \
+            {-a,--all}'[Print all information \[default\].]' \
+            {-p,--cfg}'[Print current configuration.]' \
+            {-f,--files}'[Print loaded files.]' \
+            {-d,--load-path}'[Print load path.]' \
+            {-e,--env}'[Print shell variables.]' \
+            {-m,--modules}'[Print external modules.]' \
+            {-s,--set}'[Set configuration node value.]' \
+            {-i,--interactive}'[Create/update configuration.]' \
+            '--interactive-mode[Interactive mode: '\''textual'\'' or '\''graphical'\'' (default).]' \
+            '--restore-defaults[Create default or update existing user configuration.]' \
+            '--ignore-protected-repositories[Stop printing warning message when protected repository is found.]' \
+            {-o,--output}'[Output type: one of (x n), where '\''x'\'' is xml (default), '\''n'\'' is native.]' \
+            {-C,--cloud-info}'[Display cloud-releated information.]' \
+            '--accept-aws-charges[Agree to accept charges for AWS usage.]' \
+            '--set-aws-credentials[Select file with AWS credentials.]':file:_files \
+            '--set-aws-profile[Set AWS profile.]':file:_files \
+            '--accept-gcp-charges[Agree to accept charges for GCP usage.]' \
+            '--set-gcp-credentials[Select file with GCP credentials.]':file:_files \
+            '--prefetch-to-cwd[Prefetch downloads to current directory when public user repository is set (default: false).]' \
+            '--prefetch-to-user-repo[Prefetch downloads to public user repository when it is set (default).]' \
+            '--proxy[Set HTTP proxy server configuration.]' \
+            '--proxy-disable[Enable/disable using HTTP proxy.]' \
+            '--cfg-dir[Set directory to load configuration.]':file:_files \
+            '--root[Enforce configuration update while being run by superuser.]' \
+            {-h,--help}'[Output brief explanation for the program.]' \
+            {-V,--version}'[Display the version of the program then quit.]' \
+            {-L,--log-level}'[Logging level as number or enum string. One of (fatal|sys|int|err|warn|info|debug) or (0-6) Current/default is warn]' \
+            {-v,--verbose}'[Increase the verbosity of the program status messages. Use multiple times for more verbosity. Negates quiet.]' \
+            {-q,--quiet}'[Turn off all status messages for the program. Negated by verbose.]' \
+            '--option-file[Read more options and parameters from the file.]':file:_files \
+            "*: :_files"
+
+    }
+
+
+function _vdb-config {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'vdb-config:\[options\] \[<query> ...\]'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-a,--all}'[Print all information \[default\].]' \
+        {-p,--cfg}'[Print current configuration.]' \
+        {-f,--files}'[Print loaded files.]' \
+        {-d,--load-path}'[Print load path.]' \
+        {-e,--env}'[Print shell variables.]' \
+        {-m,--modules}'[Print external modules.]' \
+        {-s,--set}'[Set configuration node value.]' \
+        {-i,--interactive}'[Create/update configuration.]' \
+        '--interactive-mode[Interactive mode: '\''textual'\'' or '\''graphical'\'' (default).]' \
+        '--restore-defaults[Create default or update existing user configuration.]' \
+        '--ignore-protected-repositories[Stop printing warning message when protected repository is found.]' \
+        {-o,--output}'[Output type: one of (x n), where '\''x'\'' is xml (default), '\''n'\'' is native.]' \
+        {-Q,--simplified-quality-scores}'[yes: Prefer SRA Lite files with simplified base quality scores if available. no: Prefer SRA Normalized Format files with full base quality scores if available. Default: no.]' \
+        {-C,--cloud-info}'[Display cloud-releated information.]' \
+        '--report-cloud-identity[Give permission to report cloud instance identity.]' \
+        '--accept-aws-charges[Agree to accept charges for AWS usage.]' \
+        '--set-aws-credentials[Select file with AWS credentials.]':file:_files \
+        '--set-aws-profile[Set AWS profile.]':file:_files \
+        '--accept-gcp-charges[Agree to accept charges for GCP usage.]' \
+        '--set-gcp-credentials[Select file with GCP credentials.]':file:_files \
+        '--prefetch-to-cwd[Prefetch downloads to current directory when public user repository is set (default: false).]' \
+        '--prefetch-to-user-repo[Prefetch downloads to public user repository when it is set (default).]' \
+        '--proxy[Set HTTP proxy server configuration.]' \
+        '--proxy-disable[Enable/disable using HTTP proxy.]' \
+        '--cfg-dir[Set directory to load configuration.]':file:_files \
+        '--root[Enforce configuration update while being run by superuser.]' \
+        {-h,--help}'[Output brief explanation for the program.]' \
+        {-V,--version}'[Display the version of the program then quit.]' \
+        {-L,--log-level}'[Logging level as number or enum string. One of (fatal|sys|int|err|warn|info|debug) or (0-6) Current/default is warn]' \
+        {-v,--verbose}'[Increase the verbosity of the program status messages. Use multiple times for more verbosity. Negates quiet.]' \
+        {-q,--quiet}'[Turn off all status messages for the program. Negated by verbose.]' \
+        '--option-file[Read more options and parameters from the file.]':file:_files \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (vdb-config)
+            _vdb-config_vdb-config
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

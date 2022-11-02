@@ -1,0 +1,65 @@
+#compdef _fasttree fasttree
+
+# Auto-generated with h2o
+
+
+function _fasttree {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-n[read in multiple alignments in. This only works with phylip interleaved format. For example, you can use it with the output from phylip'\''s seqboot. If you use -n, FastTree will write 1 tree per line to standard output.]' \
+        '-intree[read the starting tree in from newickfile. Any branch lengths in the starting trees are ignored. -intree with -n will read a separate starting tree for each alignment.]':file:_files \
+        '-intree1[read the same starting tree for each alignment]':file:_files \
+        '-quiet[do not write to standard error during normal operation (no progress indicator, no options summary, no likelihood values, etc.)]' \
+        '-nopr[do not write the progress indicator to stderr]' \
+        '-log[save intermediate trees so you can extract the trees and restart long-running jobs if they crash -log also reports the per-site rates (1 means slowest category)]':file:_files \
+        '-quote[quote sequence names in the output and allow spaces, commas, parentheses, and colons in them but not '\'' characters (fasta files only)]' \
+        '-pseudo[Use pseudocounts to estimate distances between sequences with little or no overlap. (Off by default.) Recommended if analyzing the alignment has sequences with little or no overlap. If the weight is not specified, it is 1.0]' \
+        '-nni[set the number of rounds of min. evo. NNIs, and -spr to set the rounds of SPRs.]' \
+        '-noml[turn off both min-evo NNIs and SPRs (useful if refining an approximately maximum-likelihood tree with further NNIs)]' \
+        '-sprlength[set the maximum length of a SPR move (default 10)]' \
+        '-mlnni[set the number of rounds of maximum-likelihood NNIs]' \
+        '-mlacc[-mlacc 2 or -mlacc 3 to always optimize all 5 branches at each NNI, and to optimize all 5 branches in 2 or 3 rounds]' \
+        '-mllen[optimize branch lengths without ML NNIs]' \
+        '-slownni[turn off heuristics to avoid constant subtrees (affects both ML and ME NNIs)]' \
+        '-lg[Le-Gascuel 2008 model instead of (default) Jones-Taylor-Thorton 1992 model (a.a. only)]' \
+        '-wag[Whelan-And-Goldman 2001 model instead of (default) Jones-Taylor-Thorton 1992 model (a.a. only)]' \
+        '-gtr[generalized time-reversible instead of (default) Jukes-Cantor (nt only)]' \
+        '-cat[specify the number of rate categories of sites (default 20)]' \
+        '-nocat[no CAT model (just 1 category)]' \
+        '-gamma[after the final round of optimizing branch lengths with the CAT model, report the likelihood under the discrete gamma model with the same number of categories. FastTree uses the same branch lengths but optimizes the gamma shape parameter and the scale of the lengths. The final tree will have rescaled lengths. Used with -log, this also generates per-site likelihoods for use with CONSEL, see GammaLogToPaup.pl and documentation on the FastTree web site.]' \
+        '-nosupport[turn off support values or -boot 100 to just 100 resamples]' \
+        '-seed[initialize the random number generator]' \
+        '-slow[exhaustive search (like NJ or BIONJ, but different gap handling)]' \
+        '-notop[to turn this feature off and compare all leaves to each other, and all new joined nodes to each other]' \
+        '-topm[set the top-hit list size to parameter*sqrt(N) FastTree estimates the top m hits of a leaf from the top 2*m hits of a '\''close'\'' neighbor, where close is defined as d(seed,close) < 0.75 * d(seed, hit of rank 2*m), and updates the top-hits as joins proceed]' \
+        '-close[modify the close heuristic, lower is more conservative]' \
+        '-refresh[compare a joined node to all other nodes if its top-hit list is less than 80% of the desired length, or if the age of the top-hit list is log2(m) or greater]' \
+        '-2nd[turn 2nd-level top hits heuristic on]' \
+        '-no2nd[turn 2nd-level top hits heuristic off]' \
+        '-nj[regular (unweighted) neighbor-joining (default)]' \
+        '-bionj[weighted joins as in BIONJ FastTree will also weight joins during NNIs]' \
+        '-constraints[an alignment with values of 0, 1, and - Not all sequences need be present. A column of 0s and 1s defines a constrained split. Some constraints may be violated (see '\''violating constraints:'\'' in standard error).]':file:_files \
+        '-constraintWeight[how strongly to weight the constraints. A value of 1 means a penalty of 1 in tree length for violating a constraint Default: 100.0]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

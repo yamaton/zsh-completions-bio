@@ -1,0 +1,84 @@
+#compdef _sortmerna sortmerna
+
+# Auto-generated with h2o
+
+
+function _sortmerna {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--ref[Reference file (FASTA) absolute or relative path.]':file:_files \
+        '--reads[Raw reads file (FASTA/FASTQ/FASTA.GZ/FASTQ.GZ).]':file:_files \
+        '--workdir[Workspace directory USRDIR/sortmerna/run/]':file:_files \
+        '--kvdb[Directory for Key-value database WORKDIR/kvdb]':file:_files \
+        '--idx-dir[Directory for storing Reference index. WORKDIR/idx]':file:_files \
+        '--readb[Storage for pre-processed reads WORKDIR/readb/]':file:_files \
+        '--fastx[Output aligned reads into FASTA/FASTQ file]' \
+        '--sam[Output SAM alignment for aligned reads.]' \
+        '--SQ[Add SQ tags to the SAM file]' \
+        '--blast[output alignments in various Blast-like formats]' \
+        '--aligned[Aligned reads file prefix \[dir/\]\[pfx\] WORKDIR/out/aligned]' \
+        '--other[Non-aligned reads file prefix \[dir/\]\[pfx\] WORKDIR/out/other]' \
+        '--num_alignments[Positive integer (INT >=0).]' \
+        '--no-best[Disable best alignments search False]' \
+        '--min_lis[Search only alignments that have the LIS 2]' \
+        '--print_all_reads[Output null alignment strings for non-aligned reads False]' \
+        '--paired[Flags paired reads False]' \
+        '--paired_in[Flags the paired-end reads as Aligned, False]' \
+        '--paired_out[Flags the paired-end reads as Non-aligned, False]' \
+        '--out2[Output paired reads into separate files. False]' \
+        '--sout[Separate paired and singleton aligned reads. False]' \
+        '--zip-out[Controls the output compression '\''-1'\'']' \
+        '--match[SW score (positive integer) for a match. 2]' \
+        '--mismatch[SW penalty (negative integer) for a mismatch. -3]' \
+        '--gap_open[SW penalty (positive integer) for introducing a gap. 5]' \
+        '--gap_ext[SW penalty (positive integer) for extending a gap. 2]' \
+        '-e[E-value threshold. 1]' \
+        '-F[Search only the forward strand. False]' \
+        '-N[SW penalty for ambiguous letters (N'\''s) scored]' \
+        '-R[Search only the reverse-complementary strand. False]' \
+        '--id[%%id similarity threshold (the alignment 0.97]' \
+        '--coverage[%%query coverage threshold (the alignment must 0.97]' \
+        '--de_novo_otu[Output FASTA file with '\''de novo'\'' reads False]' \
+        '--otu_map[Output OTU map (input to QIIME'\''s make_otu_table.py). False]' \
+        '--passes[Three intervals at which to place the seed on L,L/2,3]' \
+        '--edges[Number (or percent if INT followed by %% sign) of 4]' \
+        '--num_seeds[Number of seeds matched before searching 2]' \
+        '--full_search[Search for all 0-error and 1-error seed False]' \
+        '--pid[Add pid to output file names. False]' \
+        '-a[DEPRECATED in favour of '\''-threads'\''. Number of numCores]' \
+        '--threads[Number of Processing threads to use 2]' \
+        '--index[Build reference database index 2]' \
+        '-L[Indexing: seed length. 18]' \
+        '-m[Indexing: the amount of memory (in Mbytes) for 3072]' \
+        '-v[Produce verbose output when building the index True]' \
+        '--interval[Indexing: Positive integer: index every Nth L-mer in 1]' \
+        '--max_pos[Indexing: maximum (integer) number of positions to 1000]' \
+        '-h[Print help information]' \
+        '--version[Print SortMeRNA version number]' \
+        '--dbg_put_db[Debug]' \
+        '--cmd[Launch an interactive session (command prompt) False]' \
+        '--task[Processing Task 4]' \
+        '--dbg-level[Optional Debug level 0]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

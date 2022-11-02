@@ -2,6 +2,66 @@
 
 # Auto-generated with h2o
 
+    function _download-ncbi-data_pmc-oa {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _download-ncbi-data_pmc-bioc {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _download-ncbi-data_bioconcepts {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _download-ncbi-data_generif {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _download-ncbi-data_meshtree {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _download-ncbi-data_taxnames {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _download-ncbi-data_journals {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _download-ncbi-data_oa-list {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _download-ncbi-data_oa-book {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _download-ncbi-data_carotene {
+        _arguments \
+            "*: :_files"
+
+    }
+
 
 function _download-ncbi-data {
     local line state
@@ -9,23 +69,24 @@ function _download-ncbi-data {
     function _commands {
         local -a commands
         commands=(
+            'pmc-oa:Download PubMed Central open-access archives in traditional format, unless already present.'
+            'pmc-bioc:Download PubMed Central open-access archives in BioConcepts format, unless already present.'
+            'bioconcepts:Download the BioConcepts/PubTatorCentral mapping bioconcepts2pubtatorcentral.gz, unless already present.'
+            'generif:Download the generif'
+            'meshtree:Download MeSH data and extract some summaries.'
+            'taxnames:Download taxnames'
+            'journals:Download journals'
+            'oa-list:Download PubMed Central open-access archives in traditional format, unless already present.'
+            'oa-book:Download PubMed Central open-access archives in BioConcepts format, unless already present.'
+            'carotene:Download and unzip sample XML for carotene.'
         )
         _describe 'command' commands
     }
  
 
     _arguments -C \
-        '-pmc-oa[Download PubMed Central open-access archives in traditional format, unless already present.]' \
-        '-pmc-bioc[Download PubMed Central open-access archives in BioConcepts format, unless already present.]' \
-        '-bioconcepts[Download the BioConcepts/PubTatorCentral mapping bioconcepts2pubtatorcentral.gz, unless already present.]' \
-        '-meshtree[Download MeSH data and extract some summaries.]' \
-        '-carotene[Download and unzip sample XML for carotene.]' \
-        'pmc-oa[Download PubMed Central open-access archives in traditional format, unless already present.]' \
-        'pmc-bioc[Download PubMed Central open-access archives in BioConcepts format, unless already present.]' \
-        'bioconcepts[Download the BioConcepts/PubTatorCentral mapping bioconcepts2pubtatorcentral.gz, unless already present.]' \
-        'meshtree[Download MeSH data and extract some summaries.]' \
-        'carotene[Download and unzip sample XML for carotene.]' \
-        '*: :_files'
+        ': :->cmd' \
+        '*:: :->subcmd'
 
     case $state in
     (cmd)
@@ -33,6 +94,46 @@ function _download-ncbi-data {
         ;;
     (subcmd)
         case $line[1] in
+        (pmc-oa)
+            _download-ncbi-data_pmc-oa
+            ;;
+
+        (pmc-bioc)
+            _download-ncbi-data_pmc-bioc
+            ;;
+
+        (bioconcepts)
+            _download-ncbi-data_bioconcepts
+            ;;
+
+        (generif)
+            _download-ncbi-data_generif
+            ;;
+
+        (meshtree)
+            _download-ncbi-data_meshtree
+            ;;
+
+        (taxnames)
+            _download-ncbi-data_taxnames
+            ;;
+
+        (journals)
+            _download-ncbi-data_journals
+            ;;
+
+        (oa-list)
+            _download-ncbi-data_oa-list
+            ;;
+
+        (oa-book)
+            _download-ncbi-data_oa-book
+            ;;
+
+        (carotene)
+            _download-ncbi-data_carotene
+            ;;
+
         esac
         ;;
      esac

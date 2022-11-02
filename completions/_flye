@@ -21,7 +21,7 @@ function _flye {
         '--pacbio-hifi[PacBio HiFi reads (<1% error)]':file:_files \
         '--nano-raw[ONT regular reads, pre-Guppy5 (<20% error)]':file:_files \
         '--nano-corr[ONT reads that were corrected with other methods (<3% error)]':file:_files \
-        '--nano-hq[ONT high-quality reads: Guppy5+ or Q20 (<5% error)]':file:_files \
+        '--nano-hq[ONT high-quality reads: Guppy5+ SUP or Q20 (<5% error)]':file:_files \
         '--subassemblies[\[deprecated\] high-quality contigs input]':file:_files \
         {-g,--genome-size}'[estimated genome size (for example, 5m or 2.6g)]' \
         {-o,--out-dir}'[Output directory]':file:_files \
@@ -35,6 +35,7 @@ function _flye {
         '--plasmids[unused (retained for backward compatibility)]' \
         '--meta[metagenome / uneven coverage mode]' \
         '--keep-haplotypes[do not collapse alternative haplotypes]' \
+        '--no-alt-contigs[do not output contigs representing alternative haplotypes]' \
         '--scaffold[enable scaffolding using graph \[disabled by default\]]' \
         '--trestle[\[deprecated\] enable Trestle \[disabled by default\]]' \
         '--polish-target[run polisher on the target sequence]':file:_files \

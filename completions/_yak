@@ -1,0 +1,119 @@
+#compdef _yak yak
+
+# Auto-generated with h2o
+
+    function _yak_count {
+        _arguments \
+            '-k[k-mer size \[31\]]' \
+            '-p[prefix length \[10\]]' \
+            '-b[set Bloom filter size to 2**INT bits; 0 to disable \[0\]]' \
+            '-H[use INT hash functions for Bloom filter \[4\]]' \
+            '-t[number of worker threads \[4\]]' \
+            '-o[dump the count hash table to FILE \[\]]':file:_files \
+            '-K[chunk size \[100m\]]' \
+            "*: :_files"
+
+    }
+
+    function _yak_qv {
+        _arguments \
+            '-l[min sequence length \[0\]]' \
+            '-f[min k-mer fraction \[0.5\]]' \
+            '-e[false positive rate \[4e-05\]]' \
+            '-p[print QV for each sequence]' \
+            '-t[number of threads \[4\]]' \
+            '-K[batch size \[1g\]]' \
+            "*: :_files"
+
+    }
+
+    function _yak_triobin {
+        _arguments \
+            '-c[min occurrence \[2\]]' \
+            '-d[mid occurrence \[5\]]' \
+            '-t[number of threads \[8\]]' \
+            "*: :_files"
+
+    }
+
+    function _yak_trioeval {
+        _arguments \
+            '-c[min occurrence \[2\]]' \
+            '-d[mid occurrence \[5\]]' \
+            '-n[min streak \[2\]]' \
+            '-t[number of threads \[8\]]' \
+            "*: :_files"
+
+    }
+
+    function _yak_inspect {
+        _arguments \
+            '-m[max count (effective with in2.yak) \[20\]]' \
+            "*: :_files"
+
+    }
+
+    function _yak_version {
+        _arguments \
+            "*: :_files"
+
+    }
+
+
+function _yak {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'count:count k-mers'
+            'qv:evaluate quality values'
+            'triobin:trio binning'
+            'trioeval:evaluate phasing accuracy with trio'
+            'inspect:k-mer hash tables'
+            'version:print version number'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (count)
+            _yak_count
+            ;;
+
+        (qv)
+            _yak_qv
+            ;;
+
+        (triobin)
+            _yak_triobin
+            ;;
+
+        (trioeval)
+            _yak_trioeval
+            ;;
+
+        (inspect)
+            _yak_inspect
+            ;;
+
+        (version)
+            _yak_version
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

@@ -1,0 +1,103 @@
+#compdef _datasets datasets
+
+# Auto-generated with h2o
+
+    function _datasets_summary {
+        _arguments \
+            '--api-key[Specify an NCBI API key]' \
+            '--debug[Emit debugging info]' \
+            '--help[Print detailed help about a datasets command]' \
+            '--version[Print version of datasets]' \
+            "*: :_files"
+
+    }
+
+    function _datasets_download {
+        _arguments \
+            '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
+            '--no-progressbar[Hide progress bar]' \
+            '--api-key[Specify an NCBI API key]' \
+            '--debug[Emit debugging info]' \
+            '--help[Print detailed help about a datasets command]' \
+            '--version[Print version of datasets]' \
+            "*: :_files"
+
+    }
+
+    function _datasets_rehydrate {
+        _arguments \
+            '--directory[Specify the directory containing the unzipped dehydrated bag]' \
+            '--gzip[rehydrate files to gzip format]' \
+            '--list[List files that would be downloaded during rehydration]' \
+            '--match[Specify substring that matches files for rehydration]' \
+            '--max-workers[Limit the maximum number of concurrent download workers (allowed range is 1-30) (default 10)]' \
+            '--api-key[Specify an NCBI API key]' \
+            '--debug[Emit debugging info]' \
+            '--help[Print detailed help about a datasets command]' \
+            '--version[Print version of datasets]' \
+            "*: :_files"
+
+    }
+
+    function _datasets_completion {
+        _arguments \
+            '--api-key[Specify an NCBI API key]' \
+            '--debug[Emit debugging info]' \
+            '--help[Print detailed help about a datasets command]' \
+            '--version[Print version of datasets]' \
+            "*: :_files"
+
+    }
+
+
+function _datasets {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'summary:Print a data report containing gene, genome or virus metadata'
+            'download:Download a gene, genome or virus dataset as a zip file'
+            'rehydrate:Rehydrate a downloaded, dehydrated dataset'
+            'completion:Generate autocompletion scripts'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--api-key[Specify an NCBI API key]' \
+        '--debug[Emit debugging info]' \
+        '--help[Print detailed help about a datasets command]' \
+        '--version[Print version of datasets]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (summary)
+            _datasets_summary
+            ;;
+
+        (download)
+            _datasets_download
+            ;;
+
+        (rehydrate)
+            _datasets_rehydrate
+            ;;
+
+        (completion)
+            _datasets_completion
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

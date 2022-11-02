@@ -15,12 +15,12 @@ function _fasterq-dump {
  
 
     _arguments -C \
-        {-o,--outfile}'[full path of outputfile (overrides usage]':file:_files \
-        {-O,--outdir}'[path for outputfile (overrides usage of]':file:_files \
-        {-b,--bufsize}'[size of file-buffer (dflt=1MB, takes]' \
-        {-c,--curcache}'[size of cursor-cache (dflt=10MB, takes]' \
-        {-m,--mem}'[memory limit for sorting (dflt=100MB,]' \
-        {-t,--temp}'[path to directory for temp. files]':file:_files \
+        {-o,--outfile}'[full path of outputfile (overrides usage of current directory and given accession)]':file:_files \
+        {-O,--outdir}'[path for outputfile (overrides usage of current directory, but uses given accession)]':file:_files \
+        {-b,--bufsize}'[size of file-buffer (dflt=1MB, takes number or number and unit where unit is one of (K|M|G) case-insensitive)]' \
+        {-c,--curcache}'[size of cursor-cache (dflt=10MB, takes number or number and unit where unit is one of (K|M|G) case-insensitive)]' \
+        {-m,--mem}'[memory limit for sorting (dflt=100MB, takes number or number and unit where unit is one of (K|M|G) case-insensitive)]' \
+        {-t,--temp}'[path to directory for temp. files (dflt=current dir.)]':file:_files \
         {-e,--threads}'[how many threads to use (dflt=6)]' \
         {-p,--progress}'[show progress (not possible if stdout used)]' \
         {-x,--details}'[print details of all options selected]' \
@@ -30,23 +30,32 @@ function _fasterq-dump {
         '--concatenate-reads[writes whole spots into one file]' \
         {-Z,--stdout}'[print output to stdout]' \
         {-f,--force}'[force overwrite of existing file(s)]' \
-        {-N,--rowid-as-name}'[use rowid as name (avoids using the name]' \
+        {-N,--rowid-as-name}'[use rowid as name (avoids using the name column)]' \
         '--skip-technical[skip technical reads]' \
         '--include-technical[explicitly include technical reads]' \
         {-P,--print-read-nr}'[include read-number in defline]' \
         {-M,--min-read-len}'[filter by sequence-lenght]' \
         '--table[which seq-table to use in case of pacbio]' \
         '--strict[terminate on invalid read]' \
-        {-B,--bases}'[filter output by matching against given]' \
-        {-A,--append}'[append to output-file, instead of]' \
+        {-B,--bases}'[filter output by matching against given bases]' \
+        {-A,--append}'[append to output-file, instead of overwriting it]' \
+        '--fasta[produce FASTA output]' \
+        '--fasta-unsorted[produce FASTA output, unsorted]' \
+        '--seq-defline[custom defline for sequence: $ac=accession, $sn=spot-name, $sg=spot-group, $si=spot-id, $ri=read-id, $rl=read-length]' \
+        '--qual-defline[custom defline for qualities (see seq-defline)]' \
+        {-U,--only-unaligned}'[process only unaligned reads]' \
+        {-a,--only-aligned}'[process only aligned reads]' \
+        '--size-check[switch to control: on=perform size-check (default), off=do not perform size-check, only=perform size-check only]' \
+        '--disk-limit[explicitly set disk limit]' \
+        '--disk-limit-tmp[explicitly set disk limit for temp. files]' \
         '--ngc[<path> to ngc file]':file:_files \
         '--perm[<path> to permission file]':file:_files \
         '--location[location in cloud]' \
         '--cart[<path> to cart file]':file:_files \
         {-V,--version}'[Display the version of the program]' \
-        {-v,--verbose}'[Increase the verbosity of the program]' \
-        {-L,--log-level}'[Logging level as number or enum string.]' \
-        '--option-file[Read more options and parameters from the]':file:_files \
+        {-v,--verbose}'[Increase the verbosity of the program status messages. Use multiple times for more verbosity.]' \
+        {-L,--log-level}'[Logging level as number or enum string. One of (fatal|sys|int|err|warn|info|debug) or (0-6) Current/default is warn]' \
+        '--option-file[Read more options and parameters from the file.]':file:_files \
         {-h,--help}'[print this message]' \
         '*: :_files'
 

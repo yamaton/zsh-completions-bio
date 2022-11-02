@@ -10,10 +10,10 @@
             {-t,--tab}'[produce tab separated output]' \
             {-H,--header}'[show headers]' \
             {-s,--species}'[species]' \
-            {-S,--scopes}'[mbol scopes]' \
+            {-S,--scopes}'[scopes]' \
             {-u,--update}'[download the latest assebmly summary]' \
             {-l,--limit}'[download limit]' \
-            {-f,--fields}'[fseq fields]' \
+            {-f,--fields}'[fields]' \
             "*: :_files"
 
     }
@@ -56,8 +56,8 @@
             {-s,--start}'[start coordinate]' \
             {-e,--end}'[end coordinate]' \
             {-t,--type}'[filter for a feature type]' \
-            {-i,--id}'[exact match on a sequence id]' \
-            {-m,--match}'[regexp match on a sequence id]' \
+            {-i,--id}'[filter for a sequence id]' \
+            {-m,--match}'[regexp match on a name]' \
             {-g,--gene}'[filter for a gene name]' \
             {-o,--olap}'[overlap with coordinate]' \
             {-r,--rename}'[rename sequence ids]' \
@@ -162,7 +162,7 @@
             {-l,--limit}'[download limit]' \
             {-s,--species}'[species]' \
             {-f,--fields}'[fields]' \
-            {-S,--scopes}'[mbol scopes]' \
+            {-S,--scopes}'[scopes]' \
             "*: :_files"
 
     }

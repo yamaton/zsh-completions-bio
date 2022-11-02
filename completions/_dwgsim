@@ -1,0 +1,64 @@
+#compdef _dwgsim dwgsim
+
+# Auto-generated with h2o
+
+
+function _dwgsim {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-e[per base/color/flow error rate of the first read \[from 0.020 to 0.020 by 0.000\]]' \
+        '-E[per base/color/flow error rate of the second read \[from 0.020 to 0.020 by 0.000\]]' \
+        '-i[use the inner distance instead of the outer distance for pairs \[False\]]' \
+        '-d[outer distance between the two ends for pairs \[500\]]' \
+        '-s[standard deviation of the distance for pairs \[50.000\]]' \
+        '-N[number of read pairs (-1 to disable) \[-1\]]' \
+        '-C[mean coverage across available positions (-1 to disable) \[100.00\]]' \
+        '-1[length of the first read \[70\]]' \
+        '-2[length of the second read \[70\]]' \
+        '-r[rate of mutations \[0.0010\]]' \
+        '-F[frequency of given mutation to simulate low fequency somatic mutations \[0.5000\]]' \
+        '-R[fraction of mutations that are indels \[0.10\]]' \
+        '-X[probability an indel is extended \[0.30\]]' \
+        '-I[the minimum length indel \[1\]]' \
+        '-y[probability of a random DNA read \[0.05\]]' \
+        '-n[maximum number of Ns allowed in a given read \[0\]]' \
+        '-c[generate reads for: 0: Illumina, 1: SOLiD, 2: Ion Torrent \[0\]]' \
+        '-S[generate paired end reads with orientation \[0\]:]' \
+        '-A[generate paired end reads with read one \[0\]:]' \
+        '-f[the flow order for Ion Torrent data \[(null)\]]' \
+        '-B[use a per-base error rate for Ion Torrent data \[False\]]' \
+        '-H[haploid mode \[False\]]' \
+        '-z[random seed (-1 uses the current time) \[-1\]]' \
+        '-M[generate a mutations file only \[False\]]' \
+        '-m[the mutations txt file to re-create \[not using\]]':file:_files \
+        '-b[the bed-like file set of candidate mutations \[(null)\]]':file:_files \
+        '-v[the vcf file set of candidate mutations (use pl tag for strand) \[(null)\]]':file:_files \
+        '-x[the bed of regions to cover \[not using\]]':file:_files \
+        '-P[a read prefix to prepend to each read name \[not using\]]' \
+        '-q[a fixed base quality to apply (single character) \[not using\]]' \
+        '-Q[standard deviation of the base quality scores \[2.00\]]' \
+        '-o[output type for the FASTQ files \[0\]:]' \
+        '-h[print this message]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

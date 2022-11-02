@@ -172,6 +172,35 @@ function _iqtree {
         '-p[Partition file or directory for --scf]':file:_files \
         '--cf-verbose[Write CF per tree/locus to cf.stat_tree/_loci]' \
         '--cf-quartet[Write sCF for all resampled quartets to .cf.quartet]' \
+        '--alisim[Activate AliSim and specify the output alignment filename]' \
+        '-t[Set the input tree file name]':file:_files \
+        '--length[Set the length of the root sequence]' \
+        '--num-alignments[Set the number of output datasets]' \
+        '--seqtype[BIN, DNA, AA, CODON, MORPH{NUM_STATES} (default: auto-detect) For morphological data, 0<NUM_STATES<=32]' \
+        '--m[Specify the evolutionary model. See Manual for more detail]' \
+        '--mdef[Name of a NEXUS model file to define new models (see Manual)]':file:_files \
+        '--fundi[Specify a list of taxa, and Rho (Fundi weight) for FunDi model]' \
+        '--indel[Set the insertion and deletion rate of the indel model, relative to the substitution rate]' \
+        '--indel-size[Set the insertion and deletion size distributions]' \
+        '--sub-level-mixture[Enable the feature to simulate substitution-level mixture model]' \
+        '--no-unaligned[Disable outputing a file of unaligned sequences when using indel models]' \
+        '--root-seq[Specify the root sequence from an alignment]':file:_files \
+        '-s[Specify the input sequence alignment]':file:_files \
+        '--no-copy-gaps[Disable copying gaps from input alignment (default: false)]' \
+        '--site-freq[Specify the option (MEAN (default), or SAMPLING, or MODEL) to mimic the site-frequencies for mixture models from the input alignment (see Manual)]' \
+        '--site-rate[Specify the option (MEAN (default), or SAMPLING, or MODEL) to mimic the discrete rate heterogeneity from the input alignment (see Manual)]' \
+        '-t[Specify the model and the number of taxa to generate a random tree]' \
+        '-rlen[Specify three numbers: minimum, mean and maximum branch lengths when generating a random tree]' \
+        '-q[Like -p but edge-linked equal partition model]':file:_files \
+        '-Q[Like -p but edge-unlinked partition model]':file:_files \
+        '--distribution[Supply a definition file of distributions, which could be used to generate random model parameters]':file:_files \
+        '--branch-distribution[Specify a distribution, from which branch lengths of the input trees are randomly generated and overridden.]' \
+        '--branch-scale[Specify a value to scale all branch lengths]' \
+        '--single-output[Output all alignments into a single file]' \
+        '--write-all[Enable outputting internal sequences]' \
+        '--seed[Random seed number (default: CPU clock) Be careful to make the AliSim reproducible, users should specify the seed number]' \
+        '-gz[Enable output compression but taking longer running time]' \
+        '-af[Set the output format (default: phylip)]' \
         '--gentrius[File must contain either a single species-tree or a set of subtrees.]':file:_files \
         '-pr_ab_matrix[Presence-absence matrix of loci coverage.]':file:_files \
         '-s[PHYLIP/FASTA/NEXUS/CLUSTAL/MSF alignment file(s)]':file:_files \

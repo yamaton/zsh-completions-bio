@@ -1,0 +1,57 @@
+#compdef _miniprot miniprot
+
+# Auto-generated with h2o
+
+
+function _miniprot {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-k[k-mer size \[6\]]' \
+        '-s[submer size (density: 1/(2*(k-s)+1)) \[4\]]' \
+        '-b[bits per block \[8\]]' \
+        '-d[save index to FILE \[\]]':file:_files \
+        '-S[no splicing (applying -G1k -J1k -e1k)]' \
+        '-c[max k-mer occurrence \[50000\]]' \
+        '-G[max intron size \[200k\]]' \
+        '-w[weight of log gap penalty \[0.75\]]' \
+        '-n[minimum number of syncmers in a chain \[5\]]' \
+        '-m[min chaining score \[0\]]' \
+        '-l[k-mer size for the second round of chaining \[5\]]' \
+        '-e[max extension for 2nd round of chaining and alignment \[10000\]]' \
+        '-p[min secondary-to-primary score ratio \[0.7\]]' \
+        '-N[consider at most INT secondary alignments \[30\]]' \
+        '-O[gap open penalty \[11\]]' \
+        '-E[gap extension (a k-long gap costs O+k*E) \[1\]]' \
+        '-J[intron open penalty \[29\]]' \
+        '-F[penalty for frameshifts or in-frame stop codons \[17\]]' \
+        '-C[weight of splice penalty; 0 to ignore splice signals \[1\]]' \
+        '-B[bonus score for alignment reaching query ends \[5\]]' \
+        '-t[number of threads \[4\]]' \
+        '--gff[output in the GFF3 format]' \
+        '-P[prefix for IDs in GFF3 \[MP\]]' \
+        '-u[print unmapped query proteins in PAF]' \
+        '--outn[output up to min{NUM,-N} alignments per query \[1000\]]' \
+        '-K[query batch size \[2M\]]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+
