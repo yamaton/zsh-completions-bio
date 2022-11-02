@@ -7,6 +7,7 @@
             {-a,--assembly}'[Specify the assembly for the AS tag.]' \
             {-A,--alias,--alternative-name}'[Add an AN tag with the same value as the SN tag, except that a “chr” prefix is removed if SN has one or added if it does not. For mitochondria (i.e., when SN is “M” or “MT”, with or without a “chr” prefix), also adds the remaining combinations of “chr/M/MT” to the AN tag.]' \
             {-H,--no-header}'[Do not print the @HD header line.]' \
+            {-l,--alt}'[Add an AH tag to each sequence listed in the specified bwa(1)-style .alt file. These files use SAM records to represent alternate locus sequences (as named in the QNAME field) and their mappings to the primary assembly.]':file:_files \
             {-o,--output}'[Output to FILE \[stdout\].]':file:_files \
             {-s,--species}'[Specify the species for the SP tag.]' \
             {-u,--uri}'[Specify the URI for the UR tag. Defaults to the absolute path of ref.fasta unless reading from stdin.]' \
@@ -17,7 +18,7 @@
     function _samtools_faidx {
         _arguments \
             {-o,--output}'[Write FASTA to file rather than to stdout.]':file:_files \
-            {-n,--length}'[Length of FASTA sequence line. \[60\]]' \
+            {-n,--length}'[Length for FASTA sequence line wrapping. If zero, this means do not line wrap. Defaults to the line length in the input file.]' \
             {-c,--continue}'[Continue working if a non-existent region is requested.]' \
             {-r,--region-file}'[Read regions from a file. Format is chr:from-to, one per line.]':file:_files \
             {-f,--fastq}'[Read FASTQ files and output extracted sequences in FASTQ format. Same as using samtools fqidx.]' \
@@ -33,7 +34,7 @@
     function _samtools_fqidx {
         _arguments \
             {-o,--output}'[Write FASTQ to file rather than to stdout.]':file:_files \
-            {-n,--length}'[Length of FASTQ sequence line. \[60\]]' \
+            {-n,--length}'[Length for FASTQ sequence line wrapping. If zero, this means do not line wrap. Defaults to the line length in the input file.]' \
             {-c,--continue}'[Continue working if a non-existent region is requested.]' \
             {-r,--region-file}'[Read regions from a file. Format is chr:from-to, one per line.]':file:_files \
             {-i,--reverse-complement}'[Output the sequence as the reverse complement. When this option is used, “/rc” will be appended to the sequence names. To turn this off or change the string appended, use the --mark-strand option.]' \
@@ -50,6 +51,8 @@
             '-b[Create a BAI index. This is currently the default when no format options are used.]' \
             '-c[Create a CSI index. By default, the minimum interval size for the index is 2^14, which is the same as the fixed value used by the BAI format.]' \
             '-m[Create a CSI index, with a minimum interval size of 2^INT.]' \
+            '-M[Interpret all filename arguments as alignment files to be indexed individually. (Without -M, filename arguments are interpreted solely as per the second synopsis.)]' \
+            '-o[Write the output index to FILE. (Currently may only be used when exactly one alignment file is being indexed.)]':file:_files \
             {-@,--threads}'[Number of input/output compression threads to use in addition to main thread \[0\].]' \
             "*: :_files"
 
@@ -80,6 +83,7 @@
             '-O[Write the final output as sam, bam, or cram.]' \
             '--no-PG[Do not add a @PG line to the header of the output file.]' \
             {-@,--threads}'[Number of input/output compression threads to use in addition to main thread \[0\].]' \
+            {-z,--sanitize}'[Perform basic sanitizing of records. FLAGs is a comma-separated list of keywords, defined in the samtools-view(1) man page. By default all FLAGs are enabled. Use -z off to disable this.]' \
             "*: :_files"
 
     }
@@ -123,10 +127,11 @@
         _arguments \
             '-l[Expected maximum read length of INT bases. \[300\]]' \
             '-r[Remove duplicate reads.]' \
-            '-s[Print some basic stats. See STATISTICS.]' \
             '-T[Write temporary files to PREFIX.samtools.nnnn.mmmm.tmp]' \
             '-S[Mark supplementary reads of duplicates as duplicates.]' \
+            '-s[Print some basic stats. See STATISTICS.]' \
             '-f[Write stats to named file.]':file:_files \
+            '--json[Output stats in JSON format.]' \
             '-d[The optical duplicate distance. Suggested settings of 100 for HiSeq style platforms or about 2500 for NovaSeq ones. Default is 0 to not look for optical duplicates. When set, duplicate reads are tagged with dt:Z:SQ for optical duplicates and dt:Z:LB otherwise. Calculation of distance depends on coordinate data embedded in the read names produced by the Illumina sequencing machines. Optical duplicate detection will not work on non standard names without the use of --read-coords.]' \
             '-c[Clear previous duplicate settings and tags.]' \
             '-t[Mark duplicates with the name of the original in a do tag.]' \
@@ -136,10 +141,14 @@
             '--no-multi-dup[Stop checking duplicates of duplicates for correctness. While still marking reads as duplicates further checks to make sure all optical duplicates are found are not carried out. Also operates on -t tagging where reads may tagged with a better quality read but not necessarily the best one. Using this option can speed up duplicate marking when there are a great many duplicates for each original read.]' \
             '--read-coords[This takes a POSIX regular expression for at least x and y to be used in optical duplicate marking It can also include another part of the read name to test for equality, eg lane:tile elements. Elements wanted are captured with parentheses. Examples below.]' \
             '--coords-order[The order of the elements captured in the regular expression. Default is txy where t is a part of the read name selected for string comparison and x/y the coordinates used for optical duplicate detection. Valid orders are: txy, tyx, xyt, yxt, xty, ytx, xy and yx.]' \
+            '--barcode-tag[Duplicates must now also match the barcode tag.]' \
+            '--barcode-name[Use the UMI/barcode embedded in the read name (eigth colon delimited part).]' \
+            '--barcode-rgx[Regex for barcode in the readname (alternative to --barcode-name).]' \
+            '--use-read-groups[The @RG tags must now also match to be a duplicate.]' \
             '--no-PG[Do not add a PG line to the output file.]' \
             {-@,--threads}'[Number of input/output compression threads to use in addition to main thread \[0\].]' \
             '--coords-order[To match only the coordinates of x:y:randomstuff use:]' \
-            '--coords-order[It is possible that complex regular expressions may slow the running of the program. It would be best to keep them simple.]' \
+            '--coords-order[To use a barcode from the read name matching the Illumina example of NDX550136:7:H2MTNBDXX:1:13302:3141:10799:AAGGATG+TCGGAGA use:]' \
             "*: :_files"
 
     }
@@ -205,13 +214,14 @@
             {--rf,--incl-flags}'[Only include reads with at least one FLAG bit set. Defaults to zero, which filters no reads.]' \
             {--ff,--excl-flags}'[Exclude reads with any FLAG bit set. Defaults to "UNMAP,SECONDARY,QCFAIL,DUP".]' \
             '--min-MQ[Filters out reads with a mapping quality below INT. This defaults to zero.]' \
+            '--min-BQ[Filters out bases with a base quality below INT. This defaults to zero.]' \
             '--show-del[Whether to show deletions as "*" (no) or to omit from the output (yes). Defaults to no.]' \
             '--show-ins[Whether to show insertions in the consensus. Defaults to yes.]' \
             {-A,--ambig}'[Enables IUPAC ambiguity codes in the consensus output. Without this the output will be limited to A, C, G, T, N and *.]' \
             {-q,--use-qual}'[For the simple consensus algorithm, this enables use of base quality values. Instead of summing 1 per base called, it sums the base quality instead. These sums are also used in the --call-fract and --het-fract parameters too. Quality values are always used for the "Gap5" consensus method and this option has no affect. Note currently quality values only affect SNPs and not inserted sequences, which still get scores with a fixed +1 per base type occurrence.]' \
-            {-d,--min-depth}'[The minimum depth required to make a call. Defaults to 1. Failing this depth check will produce consensus "N", or absent if it is an insertion.]' \
+            {-d,--min-depth}'[The minimum depth required to make a call. Defaults to 1. Failing this depth check will produce consensus "N", or absent if it is an insertion. Note this check is performed after filtering by flags and mapping/base quality.]' \
             {-H,--het-fract}'[For consensus columns containing multiple base types, if the second most frequent type is at least H fraction of the most common type then a heterozygous base type will be reported in the consensus. Otherwise the most common base is used, provided it meets the --call-fract parameter (otherwise "N"). The fractions computed may be modified by the use of quality values if the -q option is enabled. Note although IUPAC has ambiguity codes for A,C,G,T vs any other A,C,G,T it does not have codes for A,C,G,T vs gap (such as in a heterozygous deletion). Given the lack of any official code, we use lower-case letter to symbolise a half-present base type.]' \
-            {-c,--call-fract}'[Only used for the simple consensus algorithm. Require at least C fraction of bases agreeing with the most likely consensus call to omit that base type. This defaults to 0.75. Failing this check will output "N".]' \
+            {-c,--call-fract}'[Only used for the simple consensus algorithm. Require at least C fraction of bases agreeing with the most likely consensus call to emit that base type. This defaults to 0.75. Failing this check will output "N".]' \
             '-5[Enable Bayesian consensus algorithm.]' \
             {-C,--cutoff}'[Only used for the Gap5 consensus mode, which produces a Phred style score for the final consensus quality. If this is below C then the consensus is called as "N".]' \
             {--use-MQ,--no-use-MQ}'[Enable or disable the use of mapping qualities. Defaults to on.]' \
@@ -220,6 +230,7 @@
             {--low-MQ,--high-MQ}'[Specifies a minimum and maximum value of the mapping quality. These are not filters and instead simply put upper and lower caps on the values. The defaults are 0 and 60.]' \
             '--scale-MQ[This is a general multiplicative mapping quality scaling factor. The effect is to globally raise or lower the quality values used in the consensus algorithm. Defaults to 1.0, which leaves the values unchanged.]' \
             '--P-het[Controls the likelihood of any position being a heterozygous site. Defaults to 1e-4. Smaller numbers makes the algorithm more likely to call a pure base type. Note the algorithm will always compute the probability of the base being homozygous vs heterozygous, irrespective of whether the output is reported as ambiguous (it will be "N" if deemed to be heterozygous without --ambig mode enabled).]' \
+            {-p,--homopoly-fix}'[Some technologies that call runs of the same base type together always put the lowest quality calls at one end. This can cause problems when reverse complementing and comparing alignments with indels. This option averages the qualities at both ends to avoid orientation biases. Recommended for old 454 or PacBio HiFi data sets.]' \
             '-[Create a FASTQ file for the contigs with aligned data, including insertions.]' \
             "*: :_files"
 
@@ -265,7 +276,7 @@
             {-R,--ignore-RG}'[Ignore RG tags. Treat all reads in one BAM as one sample.]' \
             {--rf,--incl-flags}'[Required flags: include reads with any of the mask bits set \[null\]]' \
             {--ff,--excl-flags}'[Filter flags: skip reads with any of the mask bits set \[UNMAP,SECONDARY,QCFAIL,DUP\]]' \
-            {-x,--ignore-overlaps}'[Disable read-pair overlap detection.]' \
+            {-x,--ignore-overlaps-removal,--disable-overlap-removal}'[Overlap detection and removal is enabled by default. This option turns it off.]' \
             '-X[Include customized index file as a part of arguments. See EXAMPLES section for sample of usage.]' \
             {-o,--output}'[Write pileup output to FILE, rather than the default of standard output.]':file:_files \
             {-O,--output-BP}'[Output base positions on reads in orientation listed in the SAM file (left to right).]' \
@@ -301,6 +312,7 @@
             '-T[Write temporary files to PREFIX.nnnn.bam, or if the specified PREFIX is an existing directory, to PREFIX/samtools.mmm.mmm.tmp.nnnn.bam, where mmm is unique to this invocation of the sort command.]' \
             '-@[Set number of sorting and compression threads. By default, operation is single-threaded.]' \
             '--no-PG[Do not add a @PG line to the header of the output file.]' \
+            '--template-coordinate[Sorts by template-coordinate, whereby the sort order (@HD SO) is unsorted, the group order (GO) is query, and the sub-sort (SS) is template-coordinate.]' \
             "*: :_files"
 
     }
@@ -333,7 +345,7 @@
             '-O[Use quality values from OQ tags in preference to standard quality string if available.]' \
             '-s[Write singleton reads to FILE.]':file:_files \
             '-t[Copy RG, BC and QT tags to the FASTQ header line, if they exist.]' \
-            '-T[Specify a comma-separated list of tags to copy to the FASTQ header line, if they exist.]' \
+            '-T[Specify a comma-separated list of tags to copy to the FASTQ header line, if they exist. TAGLIST can be blank or * to indicate all tags should be copied to the output. If using *, be careful to quote it to avoid unwanted shell expansion.]' \
             '-1[Write reads with the READ1 FLAG set (and READ2 not set) to FILE instead of outputting them. If the -s option is used, only paired reads will be written to this file.]':file:_files \
             '-2[Write reads with the READ2 FLAG set (and READ1 not set) to FILE instead of outputting them. If the -s option is used, only paired reads will be written to this file.]':file:_files \
             '-o[Write reads with either READ1 FLAG or READ2 flag set to FILE instead of outputting them to stdout. This is equivalent to -1 FILE -2 FILE.]':file:_files \
@@ -360,7 +372,7 @@
             '-O[Use quality values from OQ tags in preference to standard quality string if available.]' \
             '-s[Write singleton reads to FILE.]':file:_files \
             '-t[Copy RG, BC and QT tags to the FASTQ header line, if they exist.]' \
-            '-T[Specify a comma-separated list of tags to copy to the FASTQ header line, if they exist.]' \
+            '-T[Specify a comma-separated list of tags to copy to the FASTQ header line, if they exist. TAGLIST can be blank or * to indicate all tags should be copied to the output. If using *, be careful to quote it to avoid unwanted shell expansion.]' \
             '-1[Write reads with the READ1 FLAG set (and READ2 not set) to FILE instead of outputting them. If the -s option is used, only paired reads will be written to this file.]':file:_files \
             '-2[Write reads with the READ2 FLAG set (and READ1 not set) to FILE instead of outputting them. If the -s option is used, only paired reads will be written to this file.]':file:_files \
             '-o[Write reads with either READ1 FLAG or READ2 flag set to FILE instead of outputting them to stdout. This is equivalent to -1 FILE -2 FILE.]':file:_files \
@@ -400,6 +412,17 @@
 
     }
 
+    function _samtools_reference {
+        _arguments \
+            '-e[Enable CRAM embedded reference mode.]' \
+            '-q[Enables quiet mode and will produce no output. By default a line per reference is reporting describing the percentage with non-N bases.]' \
+            '-r[Specifies a single region to produce the reference from. If specified, an index file must be present.]' \
+            '-o[Write the FASTA records to FILE. By default this is sent to stdout.]':file:_files \
+            '-@[The number of BAM/CRAM decompression threads to use in addition to the main thread \[0\].]' \
+            "*: :_files"
+
+    }
+
     function _samtools_bedcov {
         _arguments \
             {-Q,--min-MQ}'[Only count reads with mapping quality greater than or equal to INT]' \
@@ -407,6 +430,7 @@
             '-G[Discard any read that has any of the flags specified by FLAGS set. FLAGS are specified as for the -g option. \[UNMAP,SECONDARY,QCFAIL,DUP\]]' \
             '-j[Do not include deletions (D) and ref skips (N) in bedcov computation.]' \
             '-d[Print an additional column, for each file, containing the number of bases having a depth above and including the given threshold. If the option is not used, the extra column is not displayed. The option value must be an integer >= 0.]' \
+            '-c[Print an additional column with the read count for this region. This will be +1 for every read covering the region, not just starting within in. The whole read filtering options -Q, -g and -G options will also have an affect on this count, but -d will not.]' \
             '-X[If this option is set, it will allows user to specify customized index file location(s) if the data folder does not contain any index file. Example usage: samtools bedcov \[options\] -X <in.bed> </data_folder/in1.bam> \[...\] </index_folder/index1.bai> \[...\]]' \
             "*: :_files"
 
@@ -447,7 +471,9 @@
             '-r[Only report depth in specified region.]' \
             '-X[If this option is set, it will allow the user to specify customized index file location(s) if the data folder does not contain any index file. Example usage: samtools depth \[options\] -X /data_folder/in1.bam \[/data_folder/in2.bam \[...\]\] /index_folder/index1.bai \[/index_folder/index2.bai \[...\]\]]' \
             '-g[By default, reads that have any of the flags UNMAP, SECONDARY, QCFAIL, or DUP set are skipped. To include these reads back in the analysis, use this option together with the desired flag or flag combination. FLAGS can be specified in hex by beginning with `0x'\'' (i.e. /^0x\[0-9A-F\]+/), in octal by beginning with `0'\'' (i.e. /^0\[0-7\]+/), as a decimal number not beginning with '\''0'\'' or as a comma-separated list of flag names. \[0\]]' \
-            '-G[Discard any read that has any of the flags specified by FLAGS set. FLAGS are specified as for the -g option. \[UNMAP,SECONDARY,QCFAIL,DUP\]]' \
+            {-G,--excl-flags}'[Discard reads that have any of the flags specified by FLAGS set. FLAGS are specified as for the -g option. \[UNMAP,SECONDARY,QCFAIL,DUP\]]' \
+            '--incl-flags[Only include reads with at least one bit set in FLAGS present in the FLAG field. FLAGS are specified as for the -g option. \[0\]]' \
+            '--require-flags[Only include reads with all bits set in FLAGS present in the FLAG field. FLAGS are specified as for the -g option. \[0\]]' \
             '-J[Include reads with deletions in depth computation.]' \
             '-s[For the overlapping section of a read pair, count only the bases of the first read. Note this algorithm changed in 1.13 so the results may differ slightly to older releases.]' \
             "*: :_files"
@@ -457,7 +483,6 @@
     function _samtools_flagstat {
         _arguments \
             '-@[Set number of additional threads to use when reading the file.]' \
-            '-O[Set the output format. FORMAT can be set to `default'\'', `json'\'' or `tsv'\'' to select the default, JSON or tab-separated values output format. If this option is not used, the default format will be selected.]' \
             "*: :_files"
 
     }
@@ -560,7 +585,7 @@
             {-h,--with-header}'[Include the header in the output.]' \
             {-H,--header-only}'[Output the header only.]' \
             '--no-header[When producing SAM format, output alignment records but not headers. This is the default; the option can be used to reset the effect of -h/-H.]' \
-            {-c,--count}'[Instead of printing the alignments, only count them and print the total number. All filter options, such as -f, -F, and -q, are taken into account.]' \
+            {-c,--count}'[Instead of printing the alignments, only count them and print the total number. All filter options, such as -f, -F, and -q, are taken into account. The -p option is ignored in this mode.]' \
             {-?,--help}'[Output long help and exit immediately.]' \
             {-o,--output}'[Output to FILE \[stdout\].]':file:_files \
             {-U,--unoutput,--output-unselected}'[Write alignments that are not selected by the various filter options to FILE. When this option is used, all alignments (or all alignments intersecting the regions specified) are written to either the output file or this file, but never both.]':file:_files \
@@ -595,6 +620,7 @@
             {-P,--fetch-pairs}'[Retrieve pairs even when the mate is outside of the requested region. Enabling this option also turns on the multi-region iterator (-M). A region to search must be specified, either on the command-line, or using the -L option. The input file must be an indexed regular file.]' \
             '-S[Ignored for compatibility with previous samtools versions. Previously this option was required if input was in SAM format, but now the correct format is automatically detected by examining the first few characters of input.]' \
             {-X,--customized-index}'[Include customized index file as a part of arguments. See EXAMPLES section for sample of usage.]' \
+            {-z,--sanitize}'[Perform some sanity checks on the state of SAM record fields, fixing up common mistakes made by aligners. These include soft-clipping alignments when they extend beyond the end of the reference, marking records as unmapped when they have reference * or position 0, and ensuring unmapped alignments have no CIGAR or mapping quality for unmapped alignments and no MD, NM, CG or SM tags.]' \
             '--no-PG[Do not add a @PG line to the header of the output file.]' \
             "*: :_files"
 
@@ -655,6 +681,7 @@ function _samtools {
             'fastq:converts a BAM to a FASTQ'
             'fasta:converts a BAM to a FASTA'
             'import:Converts FASTA or FASTQ files to SAM/BAM/CRAM'
+            'reference:Generates a reference from aligned data'
             'bedcov:read depth per BED region'
             'coverage:alignment depth and percent coverage'
             'depth:compute the depth'
@@ -770,6 +797,10 @@ function _samtools {
 
         (import)
             _samtools_import
+            ;;
+
+        (reference)
+            _samtools_reference
             ;;
 
         (bedcov)
