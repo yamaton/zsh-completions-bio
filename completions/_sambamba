@@ -1,0 +1,211 @@
+#compdef _sambamba sambamba
+
+# Auto-generated with h2o
+
+    function _sambamba_view {
+        _arguments \
+            '--num-filter[filter flag bits; '\''i1/i2'\'' corresponds to -f i1 -F i2 samtools arguments; either of the numbers can be omitted]' \
+            {-f,--format}'[specify which format to use for output (default is SAM); unpack streams unpacked BAM]' \
+            {-h,--with-header}'[print header before reads (always done for BAM output)]' \
+            {-H,--header}'[output only header to stdout (if format=bam, the header is printed as SAM)]' \
+            {-I,--reference-info}'[output to stdout only reference names and lengths in JSON]' \
+            {-L,--regions}'[output only reads overlapping one of regions from the BED file]':file:_files \
+            {-c,--count}'[output to stdout only count of matching records, hHI are ignored]' \
+            {-v,--valid}'[output only valid alignments]' \
+            {-S,--sam-input}'[specify that input is in SAM format]' \
+            {-T,--ref-filename}'[specify reference for writing (NA)]' \
+            {-p,--show-progress}'[show progressbar in STDERR (works only for BAM files with no regions specified)]' \
+            {-l,--compression-level}'[specify compression level (from 0 to 9, works only for BAM output)]' \
+            {-o,--output-filename}'[specify output filename]' \
+            {-t,--nthreads}'[maximum number of threads to use]' \
+            {-s,--subsample}'[subsample reads (read pairs)]' \
+            '--subsampling-seed[set seed for subsampling]' \
+            "*: :_files"
+
+    }
+
+    function _sambamba_index {
+        _arguments \
+            {-p,--show-progress}'[show progress bar in STDERR]' \
+            {-c,--check-bins}'[check that bins are set correctly]' \
+            {-F,--fasta-input}'[specify that input is in FASTA format]' \
+            "*: :_files"
+
+    }
+
+    function _sambamba_merge {
+        _arguments \
+            {-l,--compression-level}'[level of compression for merged BAM file, number from 0 to 9]' \
+            {-H,--header}'[output merged header to stdout in SAM format, other options are ignored; mainly for debug purposes]' \
+            {-p,--show-progress}'[show progress bar in STDERR]' \
+            {-F,--filter}'[keep only reads that satisfy FILTER]' \
+            "*: :_files"
+
+    }
+
+    function _sambamba_sort {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _sambamba_slice {
+        _arguments \
+            {-F,--fasta-input}'[specify that input is in FASTA format]' \
+            {-L,--regions}'[output only reads overlapping one of regions from the BED file]':file:_files \
+            "*: :_files"
+
+    }
+
+    function _sambamba_markdup {
+        _arguments \
+            {-t,--nthreads}'[number of threads to use]' \
+            {-l,--compression-level}'[specify compression level of the resulting file (from 0 to 9)]' \
+            {-p,--show-progress}'[show progressbar in STDERR]' \
+            '--tmpdir[specify directory for temporary files]':file:_files \
+            '--hash-table-size[size of hash table for finding read pairs (default is 262144 reads); will be rounded down to the nearest power of two; should be > (average coverage) * (insert size) for good performance]' \
+            '--overflow-list-size[size of the overflow list where reads, thrown from the hash table, get a second chance to meet their pairs (default is 200000 reads); increasing the size reduces the number of temporary files created]' \
+            '--sort-buffer-size[total amount of memory (in *megabytes*) used for sorting purposes; the default is 2048, increasing it will reduce the number of created temporary files and the time spent in the main thread]' \
+            '--io-buffer-size[two buffers of BUFFER_SIZE *megabytes* each are used for reading and writing BAM during the second pass (default is 128)]' \
+            "*: :_files"
+
+    }
+
+    function _sambamba_subsample {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _sambamba_flagstat {
+        _arguments \
+            {-p,--show-progress}'[show progressbar in STDERR]' \
+            {-b,--tabular}'[output in csv format]' \
+            "*: :_files"
+
+    }
+
+    function _sambamba_depth {
+        _arguments \
+            {-F,--filter}'[set custom filter for alignments; the default value is '\''mapping_quality > 0 and not duplicate and not failed_quality_control'\'']' \
+            {-o,--output-file}'[output filename (by default /dev/stdout)]':file:_files \
+            {-t,--nthreads}'[maximum number of threads to use]' \
+            {-c,--min-coverage}'[minimum mean coverage for output (default: 0 for region/window, 1 for base)]' \
+            {-C,--max-coverage}'[maximum mean coverage for output]' \
+            {-q,--min-base-quality}'[don'\''t count bases with lower base quality]' \
+            '--combined[output combined statistics for all samples]' \
+            {-a,--annotate}'[add additional column of y/n instead of skipping records not satisfying the criteria]' \
+            {-m,--fix-mate-overlaps}'[detect overlaps of mate reads and handle them on per-base basis]' \
+            {-L,--regions}'[list or regions of interest or a single region in form chr:beg-end (optional)]':file:_files \
+            {-z,--report-zero-coverage}'[don'\''t skip zero coverage bases]' \
+            {-L,--regions}'[list or regions of interest or a single region in form chr:beg-end (required)]':file:_files \
+            {-T,--cov-threshold}'[multiple thresholds can be provided, for each one an extra column will be added, the percentage of bases in the region where coverage is more than this value]' \
+            {-w,--window-size}'[breadth of the window, in bp (required)]' \
+            '--overlap[overlap of successive windows, in bp (default is 0)]' \
+            {-T,--cov-threshold}'[same meaning as in '\''region'\'' subcommand]' \
+            "*: :_files"
+
+    }
+
+    function _sambamba_validate {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _sambamba_mpileup {
+        _arguments \
+            {-L,--regions}'[provide BED file with regions (no need to duplicate it in samtools args); all input files must be indexed]':file:_files \
+            {-o,--output-filename}'[specify output filename]' \
+            '--tmpdir[directory for temporary files]':file:_files \
+            {-t,--nthreads}'[maximum number of threads to use]' \
+            {-b,--buffer-size}'[chunk size (in bytes)]' \
+            {-B,--output-buffer-size}'[output buffer size (in bytes)]' \
+            "*: :_files"
+
+    }
+
+
+function _sambamba {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'view:view contents and convert from one format'
+            'index:build index (BAI)'
+            'merge:merge files (BAM)'
+            'sort:sort file (BAM)'
+            'slice:slice file (BAM using BED)'
+            'markdup:mark or remove duplicates (BAM)'
+            'subsample:subsample (BAM)'
+            'flagstat:output statistics (BAM)'
+            'depth:output statistics (BAM)'
+            'validate:simple validator (BAM)'
+            'mpileup:parallel execution of samtools (BAM)'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-q[quiet mode (do not show banner)]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (view)
+            _sambamba_view
+            ;;
+
+        (index)
+            _sambamba_index
+            ;;
+
+        (merge)
+            _sambamba_merge
+            ;;
+
+        (sort)
+            _sambamba_sort
+            ;;
+
+        (slice)
+            _sambamba_slice
+            ;;
+
+        (markdup)
+            _sambamba_markdup
+            ;;
+
+        (subsample)
+            _sambamba_subsample
+            ;;
+
+        (flagstat)
+            _sambamba_flagstat
+            ;;
+
+        (depth)
+            _sambamba_depth
+            ;;
+
+        (validate)
+            _sambamba_validate
+            ;;
+
+        (mpileup)
+            _sambamba_mpileup
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
