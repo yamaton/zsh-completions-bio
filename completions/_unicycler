@@ -18,18 +18,42 @@ function _unicycler {
         {-h,--help}'[Show this help message and exit]' \
         '--help_all[Show a help message with all program options]' \
         '--version[Show Unicycler'\''s version number]' \
-        {-1,--short1}'[FASTQ file of first short reads in each pair (required)]' \
-        {-2,--short2}'[FASTQ file of second short reads in each pair (required)]' \
-        {-s,--unpaired}'[FASTQ file of unpaired short reads (optional)]' \
-        {-l,--long}'[FASTQ or FASTA file of long reads (optional)]' \
-        {-o,--out}'[Output directory (required)]' \
-        '--verbosity[Level of stdout and log file information (default: 1)   0 = no stdout, 1 = basic progress indicators,   2 = extra info, 3 = debugging info]' \
+        {-1,--short1}'[FASTQ file of first short reads in each pair]' \
+        {-2,--short2}'[FASTQ file of second short reads in each pair]' \
+        {-s,--unpaired}'[FASTQ file of unpaired short reads]' \
+        {-l,--long}'[FASTQ or FASTA file of long reads]' \
+        {-o,--out}'[Output directory (required),--verbosity VERBOSITY   Level of stdout and log file information (default: 1)   0 = no stdout, 1 = basic progress indicators, 2 = extra info, 3 = debugging info]' \
+        '--keep[Level of file retention (default: 1)   0 = only keep final files: assembly (FASTA, GFA and log), 1 = also save graphs at main checkpoints, 2 = also keep SAM (enables fast rerun in different mode), 3 = keep all temp files and save all graphs (for debugging)]' \
         '--min_fasta_length[Exclude contigs from the FASTA file which are shorter than this length (default: 100)]' \
-        '--keep[Level of file retention (default: 1)   0 = only keep final files: assembly (FASTA,   GFA and log),   1 = also save graphs at main checkpoints,   2 = also keep SAM (enables fast rerun in different mode),   3 = keep all temp files and save all graphs (for debugging)]' \
-        '--vcf[Produce a VCF by mapping the short reads to the final assembly (experimental, default: do not produce a vcf file)]' \
-        {-t,--threads}'[Number of threads used (default: 4)]' \
-        '--mode[Bridging mode (default: normal)   conservative = smaller contigs, lowest misassembly                  rate   normal = moderate contig size and misassembly rate   bold = longest contigs, higher misassembly rate]' \
+        {-t,--threads}'[Number of threads used (default: 8)]' \
+        '--mode[Bridging mode (default: normal)]' \
+        '--min_bridge_qual[Do not apply bridges with a quality below this value]' \
         '--linear_seqs[The expected number of linear (i.e. non-circular) sequences in the underlying sequence (default: 0)]' \
+        '--min_anchor_seg_len[If set, Unicycler will not use segments shorter than this as scaffolding anchors (default: automatic threshold)]' \
+        '--spades_path[Path to the SPAdes executable (default: spades.py)]':file:_files \
+        '--min_kmer_frac[Lowest k-mer size for SPAdes assembly, expressed as a fraction of the read length (default: 0.2)]' \
+        '--max_kmer_frac[Highest k-mer size for SPAdes assembly, expressed as a fraction of the read length (default: 0.95)]' \
+        '--kmers[Exact k-mers to use for SPAdes assembly, commaseparated (example: 21,51,71, default: automatic)]' \
+        '--kmer_count[Number of k-mer steps to use in SPAdes assembly (default: 8)]' \
+        '--depth_filter[Filter out contigs lower than this fraction of the chromosomal depth, if doing so does not result in graph dead ends (default: 0.25)]' \
+        '--largest_component[Only keep the largest connected component of the assembly graph (default: keep all connected components)]' \
+        '--spades_options[Additional options to be given to SPAdes (example: " --phred-offset 33", default: no additional options)]' \
+        '--no_miniasm[Skip miniasm+Racon bridging (default: use miniasm and Racon to produce long-read bridges)]' \
+        '--racon_path[Path to the Racon executable (default: racon)]':file:_files \
+        '--existing_long_read_assembly[A pre-prepared long-read assembly for the sample in GFA or FASTA format. If this option is used, Unicycler will skip the miniasm/Racon steps and instead use the given assembly (default: perform long-read assembly using miniasm/Racon)]' \
+        '--no_simple_bridges[Skip simple long-read bridging (default: use simple long-read bridging)]' \
+        '--no_long_read_alignment[Skip long-read-alignment-based bridging (default: use long-read alignments to produce bridges)]' \
+        '--contamination[FASTA file of known contamination in long reads]' \
+        '--scores[Comma-delimited string of alignment scores: match, mismatch, gap open, gap extend (default: 3,-6,-5,-2)]' \
+        '--low_score[Score threshold - alignments below this are considered poor (default: set threshold automatically)]' \
+        '--min_component_size[Graph components smaller than this size (bp) will be removed from the final graph (default: 1000)]' \
+        '--min_dead_end_size[Graph dead ends smaller than this size (bp) will be removed from the final graph (default: 1000)]' \
+        '--no_rotate[Do not rotate completed replicons to start at a standard gene (default: completed replicons are rotated)]' \
+        '--start_genes[FASTA file of genes for start point of rotated replicons (default: start_genes.fasta)]' \
+        '--start_gene_id[The minimum required BLAST percent identity for a start gene search (default: 90.0)]' \
+        '--start_gene_cov[The minimum required BLAST percent coverage for a start gene search (default: 95.0)]' \
+        '--makeblastdb_path[Path to the makeblastdb executable (default: makeblastdb)]':file:_files \
+        '--tblastn_path[Path to the tblastn executable (default: tblastn)]':file:_files \
         '*: :_files'
 
     case $state in
