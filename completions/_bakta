@@ -40,11 +40,13 @@ function _bakta {
         '--skip-ncrna-region[Skip ncRNA region detection & annotation]' \
         '--skip-crispr[Skip CRISPR array detection & annotation]' \
         '--skip-cds[Skip CDS detection & annotation]' \
+        '--skip-pseudo[Skip pseudogene detection & annotation]' \
         '--skip-sorf[Skip sORF detection & annotation]' \
         '--skip-gap[Skip gap detection & annotation]' \
         '--skip-ori[Skip oriC/oriT detection & annotation]' \
         {--help,-h}'[Show this help message and exit]' \
         {--verbose,-v}'[Print verbose information]' \
+        '--debug[Run Bakta in debug mode. Temp data will not be removed.]' \
         {--threads,-t}'[Number of threads to use (default = number of available CPUs)]' \
         '--tmp-dir[Location for temporary files (default = system dependent auto detection)]':file:_files \
         '--version[show program'\''s version number and exit]' \

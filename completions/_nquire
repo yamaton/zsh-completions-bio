@@ -16,13 +16,15 @@ function _nquire {
 
     _arguments -C \
         '-help[Print usage information, complete with a few examples, some additionally illustrating the use of xtract(1).]' \
-        '-ftp[Use FTP instead of HTTP.]':file:_files \
+        '-ftp[Use FTP instead of HTTP. The shell implementation accepts a filename on the command line only when invoked from a (pseudo)terminal, and otherwise reads filenames from standard input.]':file:_files \
         '-get[Use HTTP(S) GET instead of POST.]' \
         '-url[Base URL for external search.]' \
-        '-eutils[Shorthand for -url https://eutils.ncbi.nlm.nih.gov/entrez/eutils.]' \
+        '-lst[Lists contents of FTP site.]':file:_files \
+        '-dwn[Like -ftp, but saves contents to correspondingly named files in the current directory.]':file:_files \
+        '-asp[Like -dwn, but uses Aspera'\''s proprietary client if installed.]':file:_files \
         '-tag[Add &tag=value,... to the base URL. (Must follow any simple components.)]' \
         '-examples[Examples of advanced queries.]' \
-        '-version[Print version number. SH SEE ALSO edirect(1), nquire(1), xtract(1).]' \
+        '-version[Print version number.]' \
         '*: :_files'
 
     case $state in

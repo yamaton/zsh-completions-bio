@@ -27,6 +27,7 @@ function _busco {
         '--auto-lineage-prok[Run auto-lineage just on non-eukaryote trees to find optimum lineage path]' \
         {-c,--cpu}'[Specify the number (N=integer) of threads/cores to use.]' \
         '--config[Provide a config file]':file:_files \
+        '--contig_break[Number of contiguous Ns to signify a break between contigs. Default is n=10.]' \
         '--datasets_version[Specify the version of BUSCO datasets, e.g. odb10]' \
         '--download[Download dataset. Possible values are a specific dataset name, "all", "prokaryota", "eukaryota", or "virus". If used together with other command line arguments, make sure to place this last.]' \
         '--download_base_url[Set the url to the remote BUSCO dataset location]' \
@@ -43,6 +44,7 @@ function _busco {
         '--out_path[Optional location for results folder, excluding results folder name. Default is current working directory.]':file:_files \
         {-q,--quiet}'[Disable the info logs, displays only errors]' \
         {-r,--restart}'[Continue a run that had already partially completed.]' \
+        '--scaffold_composition[Writes ACGTN content per scaffold to a file scaffold_composition.txt]' \
         '--tar[Compress some subdirectories with many files to save space]' \
         '--update-data[Download and replace with last versions all lineages datasets and files necessary to their automated selection]' \
         {-v,--version}'[Show this version and exit]' \

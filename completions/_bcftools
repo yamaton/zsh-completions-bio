@@ -10,6 +10,7 @@
             {-o,--output}'[optional output index file name]':file:_files \
             {-t,--tbi}'[generate TBI-format index for VCF files]' \
             '--threads[use multithreading with INT worker threads \[0\]]' \
+            {-a,--all}'[with --stats, print stats for all contigs even when zero]' \
             {-n,--nrecords}'[print number of records based on existing index file]' \
             {-s,--stats}'[print per contig stats based on existing index file]' \
             "*: :_files"
@@ -19,20 +20,22 @@
     function _bcftools_annotate {
         _arguments \
             {-a,--annotations}'[VCF file or tabix-indexed FILE with annotations: CHR\tPOS\[\tVALUE\]+]':file:_files \
-            '--collapse[Matching records by <snps|indels|both|all|some|none>, see man page for details \[some\]]' \
             {-c,--columns}'[List of columns in the annotation file, e.g. CHROM,POS,REF,ALT,-,INFO/TAG. See man page for details]' \
             {-C,--columns-file}'[Read -c columns from FILE, one name per row, with optional --merge-logic TYPE: NAME\[ TYPE\]]':file:_files \
             {-e,--exclude}'[Exclude sites for which the expression is true (see man page for details)]' \
             '--force[Continue despite parsing error (at your own risk!)]' \
+            {-H,--header-line}'[Header line which should be appended to the VCF header, can be given multiple times]' \
             {-h,--header-lines}'[Lines which should be appended to the VCF header]':file:_files \
             {-I,--set-id}'[Set ID column using a `bcftools query`-like expression, see man page for details]' \
             {-i,--include}'[Select sites for which the expression is true (see man page for details)]' \
             {-k,--keep-sites}'[Leave -i/-e sites unchanged instead of discarding them]' \
             {-l,--merge-logic}'[Merge logic for multiple overlapping regions (see man page for details), EXPERIMENTAL]' \
             {-m,--mark-sites}'[Add INFO/TAG flag to sites which are ("+") or are not ("-") listed in the -a file]' \
+            '--min-overlap[Required overlap as a fraction of variant in the -a file (ANN), the VCF (:VCF), or reciprocal (ANN:VCF)]' \
             '--no-version[Do not append version and command line to the header]' \
             {-o,--output}'[Write output to a file \[standard output\]]':file:_files \
             {-O,--output-type}'[u/b: un/compressed BCF, v/z: un/compressed VCF, 0-9: compression level \[v\]]' \
+            '--pair-logic[Matching records by <snps|indels|both|all|some|exact>, see man page for details \[some\]]' \
             {-r,--regions}'[Restrict to comma-separated list of regions]' \
             {-R,--regions-file}'[Restrict to regions listed in FILE]':file:_files \
             '--regions-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[1\]]' \
@@ -90,6 +93,7 @@
             '--threads[Use multithreading with INT worker threads \[0\]]' \
             {-G,--gensample2vcf}'[<PREFIX>|<GEN-FILE>,<SAMPLE-FILE>]' \
             {-g,--gensample}'[<PREFIX>|<GEN-FILE>,<SAMPLE-FILE>]' \
+            '--3N6[Use 3*N+6 column format instead of the old 3*N+5 column format]' \
             '--tag[Tag to take values for .gen file: GT,PL,GL,GP \[GT\]]' \
             '--chrom[Output chromosome in first column instead of CHROM:POS_REF_ALT]' \
             '--keep-duplicates[Keep duplicate positions]' \
@@ -147,7 +151,7 @@
             {-i,--info-rules}'[Rules for merging INFO fields (method is one of sum,avg,min,max,join) or "-" to turn off the default \[DP:sum,DP4:sum\]]' \
             {-l,--file-list}'[Read file names from the file]':file:_files \
             {-L,--local-alleles}'[EXPERIMENTAL: if more than <int> ALT alleles are encountered, drop FMT/PL and output LAA+LPL instead; 0=unlimited \[0\]]' \
-            {-m,--merge}'[Allow multiallelic records for <snps|indels|both|all|none|id>, see man page for details \[both\]]' \
+            {-m,--merge}'[Allow multiallelic records for <snps|indels|both|snp-ins-del|all|none|id>, see man page for details \[both\]]' \
             '--no-index[Merge unindexed files, the same chromosomal order is required and -r/-R are not allowed]' \
             '--no-version[Do not append version and command line to the header]' \
             {-o,--output}'[Write output to a file \[standard output\]]':file:_files \
@@ -202,7 +206,6 @@
             '--no-version[Do not append version and command line to the header]' \
             {-o,--output}'[Write output to a file \[standard output\]]':file:_files \
             {-O,--output-type}'[u/b: un/compressed BCF, v/z: un/compressed VCF, 0-9: compression level \[v\]]' \
-            {-O,--output-type}'[u/b: un/compressed BCF, v/z: un/compressed VCF, 0-9: compression level \[v\]]' \
             '--threads[Use multithreading with <int> worker threads \[0\]]' \
             {-h,--help}'[List plugin'\''s options]' \
             {-l,--list-plugins}'[List available plugins. See BCFTOOLS_PLUGINS environment variable and man page for details]' \
@@ -215,6 +218,7 @@
     function _bcftools_query {
         _arguments \
             {-e,--exclude}'[Exclude sites for which the expression is true (see man page for details)]' \
+            '--force-samples[Only warn about unknown subset samples]' \
             {-f,--format}'[See man page for details]' \
             {-H,--print-header}'[Print header]' \
             {-i,--include}'[Select sites for which the expression is true (see man page for details)]' \
@@ -406,6 +410,9 @@
             {-g,--SnpGap}'[Filter SNPs within <int> base pairs of an indel (the default) or any combination of indel,mnp,bnd,other,overlap]' \
             {-G,--IndelGap}'[Filter clusters of indels separated by <int> or fewer base pairs allowing only one to pass]' \
             {-i,--include}'[Include only sites for which the expression is true (see man page for details]' \
+            '--mask[Soft filter regions, "^" to negate]' \
+            {-M,--mask-file}'[Soft filter regions listed in a file, "^" to negate]':file:_files \
+            '--mask-overlap[Mask if POS in the region (0), record overlaps (1), variant overlaps (2) \[1\]]' \
             {-m,--mode}'["+": do not replace but add to existing FILTER; "x": reset filters at sites which pass]' \
             '--no-version[Do not append version and command line to the header]' \
             {-o,--output}'[Write output to a file \[standard output\]]':file:_files \
@@ -467,15 +474,17 @@
             {-r,--regions}'[Comma separated list of regions in which pileup is generated]' \
             {-R,--regions-file}'[Restrict to regions listed in a file]':file:_files \
             '--ignore-RG[Ignore RG tags (one BAM = one sample)]' \
-            {--rf,--incl-flags}'[Required flags: skip reads with mask bits unset \[\]]' \
-            {--ff,--excl-flags}'[Filter flags: skip reads with mask bits set \[UNMAP,SECONDARY,QCFAIL,DUP\]]' \
-            {-s,--samples}'[comma separated list of samples to include]' \
+            {--ls,--skip-all-set}'[Skip reads with all of the bits set \[\]]' \
+            {--ns,--skip-any-set}'[Skip reads with any of the bits set \[UNMAP,SECONDARY,QCFAIL,DUP\]]' \
+            {--lu,--skip-all-unset}'[Skip reads with all of the bits unset \[\]]' \
+            {--nu,--skip-any-unset}'[Skip reads with any of the bits unset \[\]]' \
+            {-s,--samples}'[Comma separated list of samples to include]' \
             {-S,--samples-file}'[File of samples to include]':file:_files \
             {-t,--targets}'[Similar to -r but streams rather than index-jumps]' \
             {-T,--targets-file}'[Similar to -R but streams rather than index-jumps]':file:_files \
             {-x,--ignore-overlaps}'[Disable read-pair overlap detection]' \
             '--seed[Random number seed used for sampling deep regions \[0\]]' \
-            {-a,--annotate}'[Optional tags to output; '\''?'\'' to list available tags \[\]]' \
+            {-a,--annotate}'[Optional tags to output; '\''\?'\'' to list available tags \[\]]' \
             {-g,--gvcf}'[Group non-variant sites into gVCF blocks according To minimum per-sample DP]' \
             '--no-version[Do not append version and command line to the header]' \
             {-o,--output}'[Write output to FILE \[standard output\]]':file:_files \
@@ -502,7 +511,8 @@
 
     function _bcftools_polysomy {
         _arguments \
-            {-o,--output-dir}'[-r, --regions REGION Restrict to comma-separated list of regions]':file:_files \
+            {-o,--output-dir}'[Output directory]':file:_files \
+            {-r,--regions}'[Restrict to comma-separated list of regions]' \
             {-R,--regions-file}'[Restrict to regions listed in a file]':file:_files \
             '--regions-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[1\]]' \
             {-s,--sample}'[Sample to analyze]' \
@@ -525,14 +535,14 @@
             '--AF-tag[use TAG for allele frequency]' \
             '--AF-file[read allele frequencies from file (CHR\tPOS\tREF,ALT\tAF)]':file:_files \
             {-b,--buffer-size}'[buffer size and the number of overlapping sites, 0 for unlimited \[0\]]' \
-            {-e,--estimate-AF}'[estimate AF from FORMAT/TAG (GT or PL) of all samples ("-") or samples listed]':file:_files \
+            {-e,--estimate-AF}'[estimate AF from FORMAT/TAG (GT or PL) of all samples ("-") or samples listed in <file>.]':file:_files \
             '--exclude[exclude sites for which the expression is true]' \
             {-G,--GTs-only}'[use GTs and ignore PLs, instead using <float> for PL of the two least likely genotypes.]' \
             '--include[select sites for which the expression is true]' \
             {-i,--ignore-homref}'[skip hom-ref genotypes (0/0)]' \
             '--include-noalt[include sites with no ALT allele (ignored by default)]' \
             {-I,--skip-indels}'[skip indels as their genotypes are enriched for errors]' \
-            {-m,--genetic-map}'[genetic map in IMPUTE2 format, single file or mask, where string "{CHROM}"]':file:_files \
+            {-m,--genetic-map}'[genetic map in IMPUTE2 format, single file or mask, where string "{CHROM}" is replaced with chromosome name]':file:_files \
             {-M,--rec-rate}'[constant recombination rate per bp]' \
             {-o,--output}'[write output to a file \[standard output\]]':file:_files \
             {-O,--output-type}'[output s:per-site, r:regions, z:compressed \[sr\]]' \

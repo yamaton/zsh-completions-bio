@@ -42,7 +42,7 @@ function _in2csv {
         '--sheet[The name of the Excel sheet to operate on.]' \
         '--write-sheets[The names of the Excel sheets to write to files, or "-" to write all sheets.]' \
         '--encoding-xls[Specify the encoding of the input XLS file.]' \
-        {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing.]' \
+        {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing entirely, or "-1" to sniff the entire file.]' \
         {-I,--no-inference}'[Disable type inference (and --locale, --date-format, --datetime-format) when parsing CSV input.]' \
         '*: :_files'
 

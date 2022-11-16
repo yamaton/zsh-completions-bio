@@ -1,9 +1,9 @@
-#compdef _quast.py quast.py
+#compdef _quast quast
 
 # Auto-generated with h2o
 
 
-function _quast.py {
+function _quast {
     local line state
 
     function _commands {
@@ -25,7 +25,7 @@ function _quast.py {
         '-L[Take assembly names from their parent directory names]' \
         {-e,--eukaryote}'[Genome is eukaryotic (primarily affects gene prediction)]' \
         '--fungus[Genome is fungal (primarily affects gene prediction)]' \
-        '--large[Use optimal parameters for evaluation of large genomes In particular, imposes '\''-e -m 3000 -i 500 -x 7000'\'' (can be overridden manually)]' \
+        '--large[Use optimal parameters for evaluation of large genomes   In particular, imposes '\''-e -m 3000 -i 500 -x 7000'\'' (can be overridden manually)]' \
         {-k,--k-mer-stats}'[Compute k-mer-based quality metrics (recommended for large genomes) This may significantly increase memory and time consumption on large genomes]' \
         '--k-mer-size[Size of k used in --k-mer-stats \[default: 101\]]' \
         '--circos[Draw Circos plot]' \
@@ -38,6 +38,7 @@ function _quast.py {
         '--operons[File with operon coordinates in the reference (GFF, BED, NCBI or TXT)]':file:_files \
         '--est-ref-size[Estimated reference size (for computing NGx metrics without a reference)]' \
         '--contig-thresholds[Comma-separated list of contig length thresholds \[default: 0,1000,5000,10000,25000,50000\]]' \
+        '--x-for-Nx[Value of '\''x'\'' for Nx, Lx, etc metrics reported in addition to N50, L50, etc (0, 100) \[default: 90\]]' \
         {-u,--use-all-alignments}'[Compute genome fraction, # genes, # operons in QUAST v1.* style. By default, QUAST filters Minimap'\''s alignments to keep only best ones]' \
         {-i,--min-alignment}'[The minimum alignment length \[default: 65\]]' \
         '--min-identity[The minimum alignment identity (80.0, 100.0) \[default: 95.0\]]' \
@@ -45,14 +46,16 @@ function _quast.py {
         '--ambiguity-score[Score S for defining equally good alignments of a single contig. All alignments are sorted by decreasing LEN * IDY% value. All alignments with LEN * IDY% < S * best(LEN * IDY%) are discarded. S should be between 0.8 and 1.0 \[default: 0.99\]]' \
         '--strict-NA[Break contigs in any misassembly event when compute NAx and NGAx. By default, QUAST breaks contigs only by extensive misassemblies (not local ones)]' \
         {-x,--extensive-mis-size}'[Lower threshold for extensive misassembly size. All relocations with inconsistency less than extensive-mis-size are counted as local misassemblies \[default: 1000\]]' \
+        '--local-mis-size[Lower threshold on local misassembly size. Local misassemblies with inconsistency less than local-mis-size are counted as (long) indels \[default: 200\]]' \
         '--scaffold-gap-max-size[Max allowed scaffold gap length difference. All relocations with inconsistency less than scaffold-gap-size are counted as scaffold gap misassemblies \[default: 10000\]]' \
         '--unaligned-part-size[Lower threshold for detecting partially unaligned contigs. Such contig should have at least one unaligned fragment >= the threshold \[default: 500\]]' \
         '--skip-unaligned-mis-contigs[Do not distinguish contigs with >= 50% unaligned bases as a separate group By default, QUAST does not count misassemblies in them]' \
         '--fragmented[Reference genome may be fragmented into small pieces (e.g. scaffolded reference)]' \
-        '--fragmented-max-indent[Mark translocation as fake if both alignments are located no further than N bases from the ends of the reference fragments \[default: 85\] Requires --fragmented option]' \
+        '--fragmented-max-indent[Mark translocation as fake if both alignments are located no further than N bases from the ends of the reference fragments \[default: 200\] Requires --fragmented option]' \
         '--upper-bound-assembly[Simulate upper bound assembly based on the reference genome and reads]' \
         '--upper-bound-min-con[Minimal number of '\''connecting reads'\'' needed for joining upper bound contigs into a scaffold \[default: 2 for mate-pairs and 1 for long reads\]]' \
         '--est-insert-size[Use provided insert size in upper bound assembly simulation \[default: auto detect from reads or 255\]]' \
+        '--report-all-metrics[Keep all quality metrics in the main report even if their values are '\''-'\'' for all assemblies or if they are not applicable (e.g., reference-based metrics in the no-reference mode)]' \
         '--plots-format[Save plots in specified format \[default: pdf\]. Supported formats: emf, eps, pdf, png, ps, raw, rgba, svg, svgz]' \
         '--memory-efficient[Run everything using one thread, separately per each assembly. This may significantly reduce memory consumption on large genomes]' \
         '--space-efficient[Create only reports and plots files. Aux files including .stdout, .stderr, .coords will not be created. This may significantly reduce space consumption on large genomes. Icarus viewers also will not be built]' \
@@ -77,8 +80,7 @@ function _quast.py {
         '--no-snps[Do not report SNPs (may significantly reduce memory consumption on large genomes)]' \
         '--no-gc[Do not compute GC% and GC-distribution]' \
         '--no-sv[Do not run structural variation detection (make sense only if reads are specified)]' \
-        '--no-gzip[Do not compress large output files]' \
-        '--no-read-stats[Do not align reads to assemblies Reads will be aligned to reference and used for coverage analysis, upper bound assembly simulation, and structural variation detection. Use this option if you do not need read statistics for assemblies.]' \
+        '--no-read-stats[Do not align reads to assemblies   Reads will be aligned to reference and used for coverage analysis, upper bound assembly simulation, and structural variation detection. Use this option if you do not need read statistics for assemblies.]' \
         '--fast[A combination of all speedup options except --no-check]' \
         '--silent[Do not print detailed information about each step to stdout (log file is not affected)]' \
         '--test[Run QUAST on the data from the test_data folder, output to quast_test_output]' \

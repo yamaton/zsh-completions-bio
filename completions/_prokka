@@ -15,12 +15,7 @@ function _prokka {
  
 
     _arguments -C \
-        '--help[This help]' \
-        '--version[Print version and exit]' \
-        '--citation[Print citation for referencing Prokka]' \
-        '--quiet[No screen output (default OFF)]' \
-        '--debug[Debug mode: keep all temporary files (default OFF)]' \
-        '--dbdir[Prokka database root folders (default '\''~/miniconda3/envs/prokka/db'\'')]' \
+        '--dbdir[Prokka database root folders (default '\''~/.local/share/condax/envs/prokka/db'\'')]' \
         '--listdb[List all configured databases]' \
         '--setupdb[Index all installed databases]' \
         '--cleandb[Remove all database indices]' \
@@ -60,6 +55,11 @@ function _prokka {
         '--norrna[Don'\''t run rRNA search (default OFF)]' \
         '--notrna[Don'\''t run tRNA search (default OFF)]' \
         '--rnammer[Prefer RNAmmer over Barrnap for rRNA prediction (default OFF)]' \
+        '--help[This help]' \
+        '--version[Print version and exit]' \
+        '--citation[Print citation for referencing Prokka]' \
+        '--quiet[No screen output (default OFF)]' \
+        '--debug[Debug mode: keep all temporary files (default OFF)]' \
         '*: :_files'
 
     case $state in

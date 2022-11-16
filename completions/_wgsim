@@ -24,7 +24,7 @@ function _wgsim {
         '-r[rate of mutations \[0.0010\]]' \
         '-R[fraction of indels \[0.15\]]' \
         '-X[probability an indel is extended \[0.30\]]' \
-        '-S[seed for random generator \[-1\]]' \
+        '-S[seed for random generator \[0, use the current time\]]' \
         '-A[discard if the fraction of ambiguous bases higher than FLOAT \[0.05\]]' \
         '-h[haplotype mode]' \
         '*: :_files'

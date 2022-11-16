@@ -21,16 +21,22 @@ function _hifiasm {
         '--version[Show version number.]' \
         '-k[K-mer length \[51\]. This option must be less than 64.]' \
         '-w[Minimizer window size \[51\].]' \
-        '-f[Number of bits for bloom filter; 0 to disable \[37\]. This bloom filter is used to filter out singleton k-mers when counting all k-mers. It takes 2^(INT-3) bytes of memory. A proper setting saves memory. 37 is recommended for human assembly.]' \
-        '-r[Rounds of haplotype-aware error corrections \[3\]. This option affects all outputs of hifiasm.]' \
-        '--min-hist-cnt[When analyzing the k-mer spectrum, ignore counts below INT.]' \
-        '-a[Rounds of assembly graph cleaning \[4\]. This option is used with -x and -y. Note that unlike -r, this option does not affect error corrected reads and all-to-all overlaps.]' \
+        '-f[Number of bits for bloom filter; 0 to disable \[37\]. This bloom filter is used to filter out singleton k-mers when counting all kmers. It takes 2^(INT-3) bytes of memory. A proper setting saves memory. -f37 is recommended for human assembly. For small genomes, use -f0 to disable the initial bloom filter which takes 16GB memory at the beginning. For genomes much larger than human, applying -f38 or even -f39 is preferred to save memory on k-mer counting.]' \
+        '-D[Drop k-mers occurring >FLOAT*coverage times \[5.0\]. Hifiasm discards these high-frequency k-mers during error correction to reduce running time. The coverage is determined automatically by hifiasm based on k-mer plot, representing homozygous read coverage. Raising this option may improve the resolution of repetitive regions but takes longer time.]' \
+        '-N[Consider up to max(-D*coverage,-N) overlaps for each oriented read \[100\]. The coverage is determined automatically by hifiasm based on k-mer plot, representing homozygous read coverage. Raising this option may improve the resolution of repetitive regions but takes longer time.]' \
+        '-r[Rounds of haplotype-aware error corrections \[3\]. This option affects all outputs of hifiasm. Odd rounds of correction are preferred in practice.]' \
         '-z[Length of adapters that should be removed \[0\]. This option remove INT bases from both ends of each read. Some old Hifi reads may consist of short adapters (e.g., 20bp adapter at one end). For such data, trimming short adapters would significantly improve the assembly quality.]' \
+        '--max-kocc[Employ k-mers occurring < INT times to rescue repetitive overlaps \[2000\]. This option may improve the resolution of repeats.]' \
+        '--hg-size[Estimated haploid genome size used for inferring read coverage \[auto\]. This option is used to get accurate homozygous read coverage during error correction. Common suffices are required, for example, 100m or 3g.]' \
+        '--min-hist-cnt[When analyzing the k-mer spectrum, ignore counts below INT \[5\]. For very low coverage of HiFi data, set smaller value for this option.]' \
+        '-a[Rounds of assembly graph cleaning \[4\]. This option is used with -x and -y. Note that unlike -r, this option does not affect error corrected reads and all-to-all overlaps.]' \
         '-m[Maximal probing distance for bubble popping when generating primary/alternate contig graphs \[10000000\]. Bubbles longer than INT bases will not be popped. For detailed description of these graphs, please see the OUTPUTS section of this man-page.]' \
-        '-p[Maximal probing distance for bubble popping when generating haplotype-resolved processed unitig graph without small bubbles \[100000\]. Bubbles longer than INT bases will not be popped. Small bubbles might be caused by somatic mutations or noise in data, which are not the real haplotype information. For detailed description of this graph, please see the OUTPUTS section of this man-page.]' \
+        '-p[Maximal probing distance for bubble popping when generating haplotype-resolved processed unitig graph without small bubbles \[0\]. Bubbles longer than INT bases will not be popped. Small bubbles might be caused by somatic mutations or noise in data. Please note that hifiasm automatically pops small bubbles based on coverage, which can be tweaked by --hom-cov. For detailed description of this graph, please see the OUTPUTS section of this man-page.]' \
         '-n[A unitig is considered small if it is composed of less than INT reads \[3\]. Hifiasm may try to remove small unitigs at various steps.]' \
-        {-x,-y}'[Max and min overlap drop ratio \[0.8, 0.2\]. This option is used with -r. Given a node N in the assembly graph, let max(N) be the length of the largest overlap of N. Hifiasm iteratively drops overlaps of N if their length / max(N) are below a threshold controlled by -x and -y. Hifiasm applies -r rounds of short overlap removal with an increasing threshold between -x and -y.]' \
-        '-i[Ignore error corrected reads and overlaps saved in prefix.*.bin files. Apart from assembly graphs, hifiasm also outputs three binary files that save all overlap information during assembly step. With these files, hifiasm can avoid the time-consuming all-to-all overlap calculation step, and do the assembly directly and quickly. This might be helpful when users want to get an optimized assembly by multiple rounds of experiments with different parameters.]' \
+        {-x,-y}'[Max and min overlap drop ratio \[0.8, 0.2\]. This option is used with -a. Given a node N in the assembly graph, let max(N) be the length of the longest overlap of N. Hifiasm iteratively drops overlaps of N if their length / max(N) are below a threshold controlled by -x and -y. Hifiasm applies -a rounds of short overlap removal with an increasing threshold between FLOAT1 and FLOAT2.]' \
+        '-i[Ignore error corrected reads and overlaps saved in prefix.*.bin files so that hifiasm will start again from scratch. Apart from assembly graphs, hifiasm also outputs three binary files that save all overlap information during assembly step. With these files, hifiasm can avoid the time-consuming all-to-all overlap calculation step, and do the assembly directly and quickly. This might be helpful when users want to get an optimized assembly by multiple rounds of experiments with different parameters.]' \
+        '-u[Disable post-join step for contigs which may improve N50. The post-join step of hifiasm improves contig N50 but may introduce misassemblies.]' \
+        '--hom-cov[Homozygous read coverage inferred automatically in default. This option affects different types of outputs, including Hi-C phased assembly and HiFi-only assembly.]' \
         '--pri-range[Min and max coverage cutoff of primary contigs. Keep contigs with coverage in this range at p_ctg.gfa. Inferred automatically in default. If INT2 is not specified, it is set to infinity. Set -1 to disable.]' \
         '--lowQ[Output contig regions with >=INT% inconsistency to the bed file with suffix lowQ.bed \[70\]. Set 0 to disable.]' \
         '--b-cov[Break contigs at potential misassemblies with <INT-fold coverage \[0\]. Work with --m-rate. Set 0 to disable.]' \
@@ -43,17 +49,18 @@ function _hifiasm {
         '-4[List of maternal/haplotype2 read names \[\]]':file:_files \
         '-c[Lower bound of the binned k-mer'\''s frequency \[2\]. When doing trio binning, a k-mer is said to be differentiating if it occurs >= -d times in one sample but occurs < -c times in the other sample.]' \
         '-d[Upper bound of the binned k-mer'\''s frequency \[5\]. When doing trio binning, a k-mer is said to be differentiating if it occurs >= -d times in one sample but occurs < -c times in the other sample.]' \
-        '-l[Level of purge-dup. 0 to disable purge-dup, 1 to only purge contained haplotigs, 2 to purge all types of haplotigs, 3 to purge all types of haplotigs in most aggressive way for high heterozygosity sample. In default, \[3\] for nontrio assembly, \[0\] for trio assembly. For trio assembly, only level 0 and level 1 are allowed.]' \
+        '--t-occ[Forcedly remove unitig including > INT unexpected haplotype-specific reads without considering graph topology \[60\].]' \
+        '-l[Level of purge-dup. 0 to disable purge-dup, 1 to only purge contained haplotigs, 2 to purge all types of haplotigs, 3 to purge all types of haplotigs in most aggressive way. In default, \[3\] for non-trio assembly, \[0\] for trio assembly. For trio assembly, only level 0 and level 1 are allowed.]' \
         '-s[Similarity threshold for duplicate haplotigs that should be purged \[0.75 for -l1/-l2, 0.55 for -l3\].]' \
         '-O[Min number of overlapped reads for duplicate haplotigs that should be purged \[1\].]' \
-        '--purge-cov[Coverage upper bound of Purge-dups, which is inferred automatically in default. If the coverage of a contig is higher than this bound, don'\''t apply Purge-dups.]' \
-        '--n-hap[Assumption of haplotype number.]' \
-        '--dbg-gfa[Write additional files to speed up the debugging of graph cleaning.]' \
+        '--purge-max[Coverage upper bound of Purge-dups, which is inferred automatically in default. If the coverage of a contig is higher than this bound, don'\''t apply Purge-dups. Larger value makes assembly more contiguous but may collapse repeats or segmental duplications.]' \
+        '--n-hap[Assumption of haplotype number. If it is set to >2, the quality of primary assembly for polyploid genomes might be improved.]' \
         '--h1[File names of input Hi-C R1 \[r1_1.fq,r1_2.fq,...\].]':file:_files \
         '--h2[File names of input Hi-C R2 \[r2_1.fq,r2_2.fq,...\].]':file:_files \
         '--n-weight[Rounds of reweighting Hi-C links \[3\]. Increasing this may improves phasing results but takes longer time.]' \
         '--n-perturb[Rounds of perturbation \[10000\]. Increasing this may improves phasing results but takes longer time.]' \
         '--f-perturb[Fraction to flip for perturbation \[0.1\]. Increasing this may improves phasing results but takes longer time.]' \
+        '--l-msjoin[Detect misjoined unitigs of >= INT in size; 0 to disable \[500000\].]' \
         '--seed[RNG seed \[11\].]' \
         '*: :_files'
 

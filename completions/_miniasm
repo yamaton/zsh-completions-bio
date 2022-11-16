@@ -21,7 +21,7 @@ function _miniasm {
         '-s[min span \[2000\]]' \
         '-c[min coverage \[3\]]' \
         '-o[min overlap \[same as -s\]]' \
-        '-h[max over hang length \[0\]]' \
+        '-h[max over hang length \[1000\]]' \
         '-I[min end-to-end match ratio \[0.8\]]' \
         '-g[max gap differences between reads for trans-reduction \[1000\]]' \
         '-d[max distance for bubble popping \[50000\]]' \
