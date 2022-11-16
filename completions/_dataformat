@@ -1,0 +1,116 @@
+#compdef _dataformat dataformat
+
+# Auto-generated with h2o
+
+    function _dataformat_tsv {
+        _arguments \
+            '--elide-header[Do not output header]' \
+            {-h,--help}'[help for tsv]' \
+            '--force[Force dataformat to run without type check prompt]' \
+            "*: :_files"
+
+    }
+
+    function _dataformat_excel {
+        _arguments \
+            {-h,--help}'[help for excel]' \
+            '--outputfile[Excel workbook file]' \
+            '--force[Force dataformat to run without type check prompt]' \
+            "*: :_files"
+
+    }
+
+    function _dataformat_catalog {
+        _arguments \
+            {-h,--help}'[help for catalog]' \
+            '--inputfile[Input file]' \
+            '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+            '--force[Force dataformat to run without type check prompt]' \
+            "*: :_files"
+
+    }
+
+    function _dataformat_completion {
+        _arguments \
+            {-h,--help}'[help for completion]' \
+            '--force[Force dataformat to run without type check prompt]' \
+            "*: :_files"
+
+    }
+
+    function _dataformat_version {
+        _arguments \
+            {-h,--help}'[help for version]' \
+            '--force[Force dataformat to run without type check prompt]' \
+            "*: :_files"
+
+    }
+
+    function _dataformat_help {
+        _arguments \
+            {-h,--help}'[help for help]' \
+            '--force[Force dataformat to run without type check prompt]' \
+            "*: :_files"
+
+    }
+
+
+function _dataformat {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'tsv:Convert data into TSV format'
+            'excel:Convert data into an Excel workbook'
+            'catalog:Print the package catalog'
+            'completion:Generate autocompletion scripts'
+            'version:Print the version of this client and exit'
+            'help:Help about any command'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--force[Force dataformat to run without type check prompt]' \
+        {-h,--help}'[help for dataformat]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (tsv)
+            _dataformat_tsv
+            ;;
+
+        (excel)
+            _dataformat_excel
+            ;;
+
+        (catalog)
+            _dataformat_catalog
+            ;;
+
+        (completion)
+            _dataformat_completion
+            ;;
+
+        (version)
+            _dataformat_version
+            ;;
+
+        (help)
+            _dataformat_help
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
