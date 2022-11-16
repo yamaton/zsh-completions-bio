@@ -5,32 +5,32 @@
     function _bedtools_intersect {
         _arguments \
             '-wa[Write the original entry in A for each overlap.]' \
-            '-wb[Write the original entry in B for each overlap.]' \
-            '-loj[Perform a "left outer join". That is, for each feature in A]' \
-            '-wo[Write the original A and B entries plus the number of base]' \
-            '-wao[Write the original A and B entries plus the number of base]' \
-            '-u[Write the original A entry _once_ if _any_ overlaps found in B.]' \
-            '-c[For each entry in A, report the number of overlaps with B.]' \
-            '-C[For each entry in A, separately report the number of]' \
-            '-v[Only report those entries in A that have _no overlaps_ with B.]' \
+            '-wb[Write the original entry in B for each overlap. - Useful for knowing _what_ A overlaps. Restricted by -f and -r.]' \
+            '-loj[Perform a "left outer join". That is, for each feature in A report each overlap with B. If no overlaps are found, report a NULL feature for B.]' \
+            '-wo[Write the original A and B entries plus the number of base pairs of overlap between the two features. - Overlaps restricted by -f and -r.]' \
+            '-wao[Write the original A and B entries plus the number of base pairs of overlap between the two features. - Overlapping features restricted by -f and -r.]' \
+            '-u[Write the original A entry _once_ if _any_ overlaps found in B. - In other words, just report the fact >=1 hit was found. - Overlaps restricted by -f and -r.]' \
+            '-c[For each entry in A, report the number of overlaps with B. - Reports 0 for A entries that have no overlap with B. - Overlaps restricted by -f, -F, -r, and -s.]' \
+            '-C[For each entry in A, separately report the number of - overlaps with each B file on a distinct line. - Reports 0 for A entries that have no overlap with B. - Overlaps restricted by -f, -F, -r, and -s.]' \
+            '-v[Only report those entries in A that have _no overlaps_ with B. - Similar to "grep -v" (an homage).]' \
             '-ubam[Write uncompressed BAM output. Default writes compressed BAM.]' \
-            '-s[Require same strandedness. That is, only report hits in B]' \
-            '-S[Require different strandedness. That is, only report hits in B]' \
-            '-f[Minimum overlap required as a fraction of A.]' \
-            '-F[Minimum overlap required as a fraction of B.]' \
-            '-r[Require that the fraction overlap be reciprocal for A AND B.]' \
-            '-e[Require that the minimum fraction be satisfied for A OR B.]' \
+            '-s[Require same strandedness. That is, only report hits in B that overlap A on the _same_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-S[Require different strandedness. That is, only report hits in B that overlap A on the _opposite_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-f[Minimum overlap required as a fraction of A. - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-F[Minimum overlap required as a fraction of B. - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-r[Require that the fraction overlap be reciprocal for A AND B. - In other words, if -f is 0.90 and -r is used, this requires]' \
+            '-e[Require that the minimum fraction be satisfied for A OR B. - In other words, if -e is used with -f 0.90 and -F 0.10 this requires]' \
             '-split[Treat "split" BAM or BED12 entries as distinct BED intervals.]' \
-            '-g[Provide a genome file to enforce consistent chromosome sort order]' \
+            '-g[Provide a genome file to enforce consistent chromosome sort order across input files. Only applies when used with -sorted option.]' \
             '-nonamecheck[For sorted data, don'\''t throw an error if the file has different naming conventions]' \
             '-sorted[Use the "chromsweep" algorithm for sorted (-k1,1 -k2,2n) input.]' \
-            '-names[When using multiple databases, provide an alias for each that]' \
-            '-filenames[When using multiple databases, show each complete filename]' \
-            '-sortout[When using multiple databases, sort the output DB hits]' \
+            '-names[When using multiple databases, provide an alias for each that will appear instead of a fileId when also printing the DB record.]' \
+            '-filenames[When using multiple databases, show each complete filename instead of a fileId when also printing the DB record.]' \
+            '-sortout[When using multiple databases, sort the output DB hits for each record.]' \
             '-bed[If using BAM input, write output as BED.]' \
             '-header[Print the header from the A file prior to results.]' \
-            '-nobuf[Disable buffered output. Using this option will cause each line]' \
-            '-iobuf[Specify amount of memory to use for input buffer.]' \
+            '-nobuf[Disable buffered output. Using this option will cause each line of output to be printed as it is generated, rather than saved in a buffer. This will make printing large output files noticeably slower, but can be useful in conjunction with other software tools and scripts that need to process one line of bedtools output at a time.]' \
+            '-iobuf[Specify amount of memory to use for input buffer. Takes an integer argument. Optional suffixes K/M/G supported. Note: currently has no effect with compressed files.]' \
             "*: :_files"
 
     }
@@ -56,121 +56,120 @@
 
     function _bedtools_closest {
         _arguments \
-            '-d[In addition to the closest feature in B,]' \
-            '-D[Like -d, report the closest feature in B, and its distance to A]' \
-            '-io[Ignore features in B that overlap A. That is, we want close,]' \
-            '-iu[Ignore features in B that are upstream of features in A.]' \
-            '-id[Ignore features in B that are downstream of features in A.]' \
-            '-fu[Choose first from features in B that are upstream of features in A.]' \
-            '-fd[Choose first from features in B that are downstream of features in A.]' \
-            '-t[How ties for closest feature are handled. This occurs when two]' \
-            '-mdb[How multiple databases are resolved.]' \
-            '-k[Report the k closest hits. Default is 1. If tieMode = "all",]' \
-            '-N[Require that the query and the closest hit have different names.]' \
-            '-s[Require same strandedness. That is, only report hits in B]' \
-            '-S[Require different strandedness. That is, only report hits in B]' \
-            '-f[Minimum overlap required as a fraction of A.]' \
-            '-F[Minimum overlap required as a fraction of B.]' \
-            '-r[Require that the fraction overlap be reciprocal for A AND B.]' \
-            '-e[Require that the minimum fraction be satisfied for A OR B.]' \
+            '-d[In addition to the closest feature in B, report its distance to A as an extra column. - The reported distance for overlapping features will be 0.]' \
+            '-D[Like -d, report the closest feature in B, and its distance to A as an extra column. Unlike -d, use negative distances to report upstream features. The options for defining which orientation is "upstream" are: - "ref" Report distance with respect to the reference genome.]' \
+            '-io[Ignore features in B that overlap A. That is, we want close, yet not touching features only.]' \
+            '-iu[Ignore features in B that are upstream of features in A. This option requires -D and follows its orientation rules for determining what is "upstream".]' \
+            '-id[Ignore features in B that are downstream of features in A. This option requires -D and follows its orientation rules for determining what is "downstream".]' \
+            '-fu[Choose first from features in B that are upstream of features in A. This option requires -D and follows its orientation rules for determining what is "upstream".]' \
+            '-fd[Choose first from features in B that are downstream of features in A. This option requires -D and follows its orientation rules for determining what is "downstream".]' \
+            '-t[How ties for closest feature are handled. This occurs when two features in B have exactly the same "closeness" with A. By default, all such features in B are reported. Here are all the options: - "all" Report all ties (default). - "first" Report the first tie that occurred in the B file. - "last" Report the last tie that occurred in the B file.]' \
+            '-mdb[How multiple databases are resolved.   - "each" Report closest records for each database (default). - "all" Report closest records among all databases.]' \
+            '-k[Report the k closest hits. Default is 1. If tieMode = "all", - all ties will still be reported.]' \
+            '-N[Require that the query and the closest hit have different names. For BED, the 4th column is compared.]' \
+            '-s[Require same strandedness. That is, only report hits in B that overlap A on the _same_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-S[Require different strandedness. That is, only report hits in B that overlap A on the _opposite_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-f[Minimum overlap required as a fraction of A. - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-F[Minimum overlap required as a fraction of B. - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-r[Require that the fraction overlap be reciprocal for A AND B. - In other words, if -f is 0.90 and -r is used, this requires]' \
+            '-e[Require that the minimum fraction be satisfied for A OR B. - In other words, if -e is used with -f 0.90 and -F 0.10 this requires]' \
             '-split[Treat "split" BAM or BED12 entries as distinct BED intervals.]' \
-            '-g[Provide a genome file to enforce consistent chromosome sort order]' \
-            '-nonamecheck[For sorted data, don'\''t throw an error if the file has different naming conventions]' \
-            '-names[When using multiple databases, provide an alias for each that]' \
-            '-filenames[When using multiple databases, show each complete filename]' \
-            '-sortout[When using multiple databases, sort the output DB hits]' \
+            '-g[Provide a genome file to enforce consistent chromosome sort order across input files. Only applies when used with -sorted option.]' \
+            '-nonamecheck[For sorted data, don'\''t throw an error if the file has different naming conventions for the same chromosome. ex. "chr1" vs "chr01".]' \
+            '-names[When using multiple databases, provide an alias for each that will appear instead of a fileId when also printing the DB record.]' \
+            '-filenames[When using multiple databases, show each complete filename instead of a fileId when also printing the DB record.]' \
+            '-sortout[When using multiple databases, sort the output DB hits for each record.]' \
             '-bed[If using BAM input, write output as BED.]' \
             '-header[Print the header from the A file prior to results.]' \
-            '-nobuf[Disable buffered output. Using this option will cause each line]' \
-            '-iobuf[Specify amount of memory to use for input buffer.]' \
+            '-nobuf[Disable buffered output. Using this option will cause each line of output to be printed as it is generated, rather than saved in a buffer. This will make printing large output files noticeably slower, but can be useful in conjunction with other software tools and scripts that need to process one line of bedtools output at a time.]' \
+            '-iobuf[Specify amount of memory to use for input buffer. Takes an integer argument. Optional suffixes K/M/G supported. Note: currently has no effect with compressed files.]' \
             "*: :_files"
 
     }
 
     function _bedtools_coverage {
         _arguments \
-            '-hist[Report a histogram of coverage for each feature in A]' \
-            '-d[Report the depth at each position in each A feature.]' \
+            '-hist[Report a histogram of coverage for each feature in A as well as a summary histogram for _all_ features in A.]' \
+            '-d[Report the depth at each position in each A feature. Positions reported are one based. Each position and depth follow the complete A feature.]' \
             '-counts[Only report the count of overlaps, don'\''t compute fraction, etc.]' \
             '-mean[Report the mean depth of all positions in each A feature.]' \
-            '-s[Require same strandedness. That is, only report hits in B]' \
-            '-S[Require different strandedness. That is, only report hits in B]' \
-            '-f[Minimum overlap required as a fraction of A.]' \
-            '-F[Minimum overlap required as a fraction of B.]' \
-            '-r[Require that the fraction overlap be reciprocal for A AND B.]' \
-            '-e[Require that the minimum fraction be satisfied for A OR B.]' \
+            '-s[Require same strandedness. That is, only report hits in B that overlap A on the _same_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-S[Require different strandedness. That is, only report hits in B that overlap A on the _opposite_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-f[Minimum overlap required as a fraction of A. - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-F[Minimum overlap required as a fraction of B. - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-r[Require that the fraction overlap be reciprocal for A AND B. - In other words, if -f is 0.90 and -r is used, this requires]' \
+            '-e[Require that the minimum fraction be satisfied for A OR B. - In other words, if -e is used with -f 0.90 and -F 0.10 this requires]' \
             '-split[Treat "split" BAM or BED12 entries as distinct BED intervals.]' \
-            '-g[Provide a genome file to enforce consistent chromosome sort order]' \
-            '-nonamecheck[For sorted data, don'\''t throw an error if the file has different naming conventions]' \
+            '-g[Provide a genome file to enforce consistent chromosome sort order across input files. Only applies when used with -sorted option.]' \
+            '-nonamecheck[For sorted data, don'\''t throw an error if the file has different naming conventions for the same chromosome. ex. "chr1" vs "chr01".]' \
             '-sorted[Use the "chromsweep" algorithm for sorted (-k1,1 -k2,2n) input.]' \
             '-bed[If using BAM input, write output as BED.]' \
             '-header[Print the header from the A file prior to results.]' \
-            '-nobuf[Disable buffered output. Using this option will cause each line]' \
-            '-iobuf[Specify amount of memory to use for input buffer.]' \
+            '-nobuf[Disable buffered output. Using this option will cause each line of output to be printed as it is generated, rather than saved in a buffer. This will make printing large output files noticeably slower, but can be useful in conjunction with other software tools and scripts that need to process one line of bedtools output at a time.]' \
+            '-iobuf[Specify amount of memory to use for input buffer. Takes an integer argument. Optional suffixes K/M/G supported. Note: currently has no effect with compressed files.]' \
             "*: :_files"
 
     }
 
     function _bedtools_map {
         _arguments \
-            '-c[Specify columns from the B file to map onto intervals in A.]' \
-            '-o[Specify the operation that should be applied to -c.]' \
-            '-delim[Specify a custom delimiter for the collapse operations.]' \
+            '-c[Specify columns from the B file to map onto intervals in A. Default: 5. Multiple columns can be specified in a comma-delimited list.]' \
+            '-o[Specify the operation that should be applied to -c. Valid operations:]' \
+            '-delim[Specify a custom delimiter for the collapse operations. - Example: -delim "|" - Default: ",".]' \
             '-prec[Sets the decimal precision for output (Default: 5)]' \
-            '-s[Require same strandedness. That is, only report hits in B]' \
-            '-S[Require different strandedness. That is, only report hits in B]' \
-            '-f[Minimum overlap required as a fraction of A.]' \
-            '-F[Minimum overlap required as a fraction of B.]' \
-            '-r[Require that the fraction overlap be reciprocal for A AND B.]' \
-            '-e[Require that the minimum fraction be satisfied for A OR B.]' \
+            '-s[Require same strandedness. That is, only report hits in B that overlap A on the _same_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-S[Require different strandedness. That is, only report hits in B that overlap A on the _opposite_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-f[Minimum overlap required as a fraction of A.   - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-F[Minimum overlap required as a fraction of B.   - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-r[Require that the fraction overlap be reciprocal for A AND B. - In other words, if -f is 0.90 and -r is used, this requires]' \
+            '-e[Require that the minimum fraction be satisfied for A OR B. - In other words, if -e is used with -f 0.90 and -F 0.10 this requires]' \
             '-split[Treat "split" BAM or BED12 entries as distinct BED intervals.]' \
-            '-g[Provide a genome file to enforce consistent chromosome sort order]' \
-            '-nonamecheck[For sorted data, don'\''t throw an error if the file has different naming conventions]' \
+            '-g[Provide a genome file to enforce consistent chromosome sort order across input files. Only applies when used with -sorted option.]' \
+            '-nonamecheck[For sorted data, don'\''t throw an error if the file has different naming conventions for the same chromosome. ex. "chr1" vs "chr01".]' \
             '-bed[If using BAM input, write output as BED.]' \
             '-header[Print the header from the A file prior to results.]' \
-            '-nobuf[Disable buffered output. Using this option will cause each line]' \
-            '-iobuf[Specify amount of memory to use for input buffer.]' \
+            '-nobuf[Disable buffered output. Using this option will cause each line of output to be printed as it is generated, rather than saved in a buffer. This will make printing large output files noticeably slower, but can be useful in conjunction with other software tools and scripts that need to process one line of bedtools output at a time.]' \
+            '-iobuf[Specify amount of memory to use for input buffer. Takes an integer argument. Optional suffixes K/M/G supported. Note: currently has no effect with compressed files.]' \
             "*: :_files"
 
     }
 
     function _bedtools_genomecov {
         _arguments \
-            '-ibam[The input file is in BAM format.]' \
-            '-d[Report the depth at each genome position (with one-based coordinates).]' \
-            '-dz[Report the depth at each genome position (with zero-based coordinates).]' \
-            '-bg[Report depth in BedGraph format. For details, see:]' \
-            '-bga[Report depth in BedGraph format, as above (-bg).]' \
-            '-split[Treat "split" BAM or BED12 entries as distinct BED intervals.]' \
-            '-ignoreD[Ignore local deletions (CIGAR "D" operations) in BAM entries]' \
-            '-strand[Calculate coverage of intervals from a specific strand.]' \
-            '-pc[Calculate coverage of pair-end fragments.]' \
-            '-fs[Force to use provided fragment size instead of read length]' \
-            '-du[Change strand af the mate read (so both reads from the same strand) useful for strand specific]' \
+            '-ibam[The input file is in BAM format.   Note: BAM _must_ be sorted by position]' \
+            '-d[Report the depth at each genome position (with one-based coordinates). Default behavior is to report a histogram.]' \
+            '-dz[Report the depth at each genome position (with zero-based coordinates). Reports only non-zero positions. Default behavior is to report a histogram.]' \
+            '-bg[Report depth in BedGraph format. For details, see: genome.ucsc.edu/goldenPath/help/bedgraph.html]' \
+            '-bga[Report depth in BedGraph format, as above (-bg). However with this option, regions with zero coverage are also reported. This allows one to quickly extract all regions of a genome with 0 coverage by applying: "grep -w 0$" to the output.]' \
+            '-split[Treat "split" BAM or BED12 entries as distinct BED intervals. when computing coverage. For BAM files, this uses the CIGAR "N" and "D" operations to infer the blocks for computing coverage. For BED12 files, this uses the BlockCount, BlockStarts, and BlockEnds fields (i.e., columns 10,11,12).]' \
+            '-ignoreD[Ignore local deletions (CIGAR "D" operations) in BAM entries when computing coverage.]' \
+            '-strand[Calculate coverage of intervals from a specific strand. With BED files, requires at least 6 columns (strand is column 6). - (STRING): can be + or -]' \
+            '-pc[Calculate coverage of pair-end fragments.   Works for BAM files only]' \
+            '-fs[Force to use provided fragment size instead of read length Works for BAM files only]' \
+            '-du[Change strand af the mate read (so both reads from the same strand) useful for strand specific Works for BAM files only]' \
             '-5[Calculate coverage of 5" positions (instead of entire interval).]' \
             '-3[Calculate coverage of 3" positions (instead of entire interval).]' \
-            '-max[Combine all positions with a depth >= max into]' \
-            '-scale[Scale the coverage by a constant factor.]' \
-            '-trackline[Adds a UCSC/Genome-Browser track line definition in the first line of the output.]' \
+            '-max[Combine all positions with a depth >= max into a single bin in the histogram. Irrelevant for -d and -bedGraph - (INTEGER)]' \
+            '-scale[Scale the coverage by a constant factor.   Each coverage value is multiplied by this factor before being reported. Useful for normalizing coverage by, e.g., reads per million (RPM). - Default is 1.0; i.e., unscaled. - (FLOAT)]' \
+            '-trackline[Adds a UCSC/Genome-Browser track line definition in the first line of the output. - See here for more details about track line definition:]' \
             '-trackopts[Writes additional track line definition parameters in the first line.]' \
-            '-trackopts[Note the use of single-quotes if you have spaces in your parameters.]' \
             "*: :_files"
 
     }
 
     function _bedtools_merge {
         _arguments \
-            '-s[Force strandedness. That is, only merge features]' \
-            '-S[Force merge for one specific strand only.]' \
-            '-d[Maximum distance between features allowed for features]' \
-            '-c[Specify columns from the B file to map onto intervals in A.]' \
-            '-o[Specify the operation that should be applied to -c.]' \
-            '-delim[Specify a custom delimiter for the collapse operations.]' \
+            '-s[Force strandedness. That is, only merge features that are on the same strand. - By default, merging is done without respect to strand.]' \
+            '-S[Force merge for one specific strand only.   Follow with + or - to force merge from only the forward or reverse strand, respectively. - By default, merging is done without respect to strand.]' \
+            '-d[Maximum distance between features allowed for features to be merged. - Def. 0. That is, overlapping & book-ended features are merged. - (INTEGER) - Note: negative values enforce the number of b.p. required for overlap.]' \
+            '-c[Specify columns from the B file to map onto intervals in A. Default: 5. Multiple columns can be specified in a comma-delimited list.]' \
+            '-o[Specify the operation that should be applied to -c. Valid operations:]' \
+            '-delim[Specify a custom delimiter for the collapse operations. - Example: -delim "|" - Default: ",".]' \
             '-prec[Sets the decimal precision for output (Default: 5)]' \
             '-bed[If using BAM input, write output as BED.]' \
             '-header[Print the header from the A file prior to results.]' \
-            '-nobuf[Disable buffered output. Using this option will cause each line]' \
-            '-iobuf[Specify amount of memory to use for input buffer.]' \
+            '-nobuf[Disable buffered output. Using this option will cause each line of output to be printed as it is generated, rather than saved in a buffer. This will make printing large output files noticeably slower, but can be useful in conjunction with other software tools and scripts that need to process one line of bedtools output at a time.]' \
+            '-iobuf[Specify amount of memory to use for input buffer. Takes an integer argument. Optional suffixes K/M/G supported. Note: currently has no effect with compressed files.]' \
             "*: :_files"
 
     }
@@ -192,10 +191,10 @@
 
     function _bedtools_shift {
         _arguments \
-            '-s[Shift the BED/GFF/VCF entry -s base pairs.]' \
-            '-p[Shift features on the + strand by -p base pairs.]' \
-            '-m[Shift features on the - strand by -m base pairs.]' \
-            '-pct[Define -s, -m and -p as a fraction of the feature'\''s length.]' \
+            '-s[Shift the BED/GFF/VCF entry -s base pairs. - (Integer) or (Float, e.g. 0.1) if used with -pct.]' \
+            '-p[Shift features on the + strand by -p base pairs. - (Integer) or (Float, e.g. 0.1) if used with -pct.]' \
+            '-m[Shift features on the - strand by -m base pairs. - (Integer) or (Float, e.g. 0.1) if used with -pct.]' \
+            '-pct[Define -s, -m and -p as a fraction of the feature'\''s length. E.g. if used on a 1000bp feature, -s 0.50, will shift the feature 500 bp "upstream". Default = false.]' \
             '-header[Print the header from the input file prior to results.]' \
             "*: :_files"
 
@@ -203,35 +202,35 @@
 
     function _bedtools_subtract {
         _arguments \
-            '-A[Remove entire feature if any overlap. That is, by default,]' \
-            '-N[Same as -A except when used with -f, the amount is the sum]' \
-            '-wb[Write the original entry in B for each overlap.]' \
-            '-wo[Write the original A and B entries plus the number of base]' \
-            '-s[Require same strandedness. That is, only report hits in B]' \
-            '-S[Require different strandedness. That is, only report hits in B]' \
-            '-f[Minimum overlap required as a fraction of A.]' \
-            '-F[Minimum overlap required as a fraction of B.]' \
-            '-r[Require that the fraction overlap be reciprocal for A AND B.]' \
-            '-e[Require that the minimum fraction be satisfied for A OR B.]' \
+            '-A[Remove entire feature if any overlap. That is, by default, only subtract the portion of A that overlaps B. Here, if any overlap is found (or -f amount), the entire feature is removed.]' \
+            '-N[Same as -A except when used with -f, the amount is the sum of all features (not any single feature).]' \
+            '-wb[Write the original entry in B for each overlap. - Useful for knowing _what_ A overlaps. Restricted by -f and -r.]' \
+            '-wo[Write the original A and B entries plus the number of base pairs of overlap between the two features. - Overlaps restricted by -f and -r.]' \
+            '-s[Require same strandedness. That is, only report hits in B that overlap A on the _same_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-S[Require different strandedness. That is, only report hits in B that overlap A on the _opposite_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-f[Minimum overlap required as a fraction of A. - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-F[Minimum overlap required as a fraction of B. - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-r[Require that the fraction overlap be reciprocal for A AND B. - In other words, if -f is 0.90 and -r is used, this requires]' \
+            '-e[Require that the minimum fraction be satisfied for A OR B. - In other words, if -e is used with -f 0.90 and -F 0.10 this requires]' \
             '-split[Treat "split" BAM or BED12 entries as distinct BED intervals.]' \
-            '-g[Provide a genome file to enforce consistent chromosome sort order]' \
-            '-nonamecheck[For sorted data, don'\''t throw an error if the file has different naming conventions]' \
+            '-g[Provide a genome file to enforce consistent chromosome sort order across input files. Only applies when used with -sorted option.]' \
+            '-nonamecheck[For sorted data, don'\''t throw an error if the file has different naming conventions for the same chromosome. ex. "chr1" vs "chr01".]' \
             '-sorted[Use the "chromsweep" algorithm for sorted (-k1,1 -k2,2n) input.]' \
             '-bed[If using BAM input, write output as BED.]' \
             '-header[Print the header from the A file prior to results.]' \
-            '-nobuf[Disable buffered output. Using this option will cause each line]' \
-            '-iobuf[Specify amount of memory to use for input buffer.]' \
+            '-nobuf[Disable buffered output. Using this option will cause each line of output to be printed as it is generated, rather than saved in a buffer. This will make printing large output files noticeably slower, but can be useful in conjunction with other software tools and scripts that need to process one line of bedtools output at a time.]' \
+            '-iobuf[Specify amount of memory to use for input buffer. Takes an integer argument. Optional suffixes K/M/G supported. Note: currently has no effect with compressed files.]' \
             "*: :_files"
 
     }
 
     function _bedtools_slop {
         _arguments \
-            '-b[Increase the BED/GFF/VCF entry -b base pairs in each direction.]' \
-            '-l[The number of base pairs to subtract from the start coordinate.]' \
-            '-r[The number of base pairs to add to the end coordinate.]' \
-            '-s[Define -l and -r based on strand.]' \
-            '-pct[Define -l and -r as a fraction of the feature'\''s length.]' \
+            '-b[Increase the BED/GFF/VCF entry -b base pairs in each direction. - (Integer) or (Float, e.g. 0.1) if used with -pct.]' \
+            '-l[The number of base pairs to subtract from the start coordinate. - (Integer) or (Float, e.g. 0.1) if used with -pct.]' \
+            '-r[The number of base pairs to add to the end coordinate. - (Integer) or (Float, e.g. 0.1) if used with -pct.]' \
+            '-s[Define -l and -r based on strand. E.g. if used, -l 500 for a negative-stranded feature, it will add 500 bp downstream. Default = false.]' \
+            '-pct[Define -l and -r as a fraction of the feature'\''s length. E.g. if used on a 1000bp feature, -l 0.50, will add 500 bp "upstream". Default = false.]' \
             '-header[Print the header from the input file prior to results.]' \
             "*: :_files"
 
@@ -239,11 +238,11 @@
 
     function _bedtools_flank {
         _arguments \
-            '-b[Create flanking interval(s) using -b base pairs in each direction.]' \
-            '-l[The number of base pairs that a flank should start from]' \
-            '-r[The number of base pairs that a flank should end from]' \
-            '-s[Define -l and -r based on strand.]' \
-            '-pct[Define -l and -r as a fraction of the feature'\''s length.]' \
+            '-b[Create flanking interval(s) using -b base pairs in each direction. - (Integer) or (Float, e.g. 0.1) if used with -pct.]' \
+            '-l[The number of base pairs that a flank should start from orig. start coordinate. - (Integer) or (Float, e.g. 0.1) if used with -pct.]' \
+            '-r[The number of base pairs that a flank should end from orig. end coordinate. - (Integer) or (Float, e.g. 0.1) if used with -pct.]' \
+            '-s[Define -l and -r based on strand. E.g. if used, -l 500 for a negative-stranded feature, it will start the flank 500 bp downstream. Default = false.]' \
+            '-pct[Define -l and -r as a fraction of the feature'\''s length. E.g. if used on a 1000bp feature, -l 0.50, will add 500 bp "upstream". Default = false.]' \
             '-header[Print the header from the input file prior to results.]' \
             "*: :_files"
 
@@ -275,31 +274,31 @@
 
     function _bedtools_shuffle {
         _arguments \
-            '-excl[A BED/GFF/VCF file of coordinates in which features in -i]' \
-            '-incl[Instead of randomly placing features in a genome, the -incl]' \
-            '-chrom[Keep features in -i on the same chromosome.]' \
-            '-seed[Supply an integer seed for the shuffling.]' \
-            '-f[Maximum overlap (as a fraction of the -i feature) with an -excl]' \
-            '-chromFirst[Instead of choosing a position randomly among the entire]' \
+            '-excl[A BED/GFF/VCF file of coordinates in which features in -i should not be placed (e.g. gaps.bed).]' \
+            '-incl[Instead of randomly placing features in a genome, the -incl options defines a BED/GFF/VCF file of coordinates in which features in -i should be randomly placed (e.g. genes.bed). Larger -incl intervals will contain more shuffled regions. This method DISABLES -chromFirst.]' \
+            '-chrom[Keep features in -i on the same chromosome. - By default, the chrom and position are randomly chosen. - NOTE: Forces use of -chromFirst (see below).]' \
+            '-seed[Supply an integer seed for the shuffling. - By default, the seed is chosen automatically. - (INTEGER)]' \
+            '-f[Maximum overlap (as a fraction of the -i feature) with an -excl feature that is tolerated before searching for a new, randomized locus. For example, -f 0.10 allows up to 10% of a randomized feature to overlap with a given feature in the -excl file. **Cannot be used with -incl file.** - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-chromFirst[Instead of choosing a position randomly among the entire genome (the default), first choose a chrom randomly, and then choose a random start coordinate on that chrom. This leads to features being ~uniformly distributed among the chroms, as opposed to features being distribute as a function of chrom size.]' \
             '-bedpe[Indicate that the A file is in BEDPE format.]' \
-            '-maxTries[Max. number of attempts to find a home for a shuffled interval]' \
+            '-maxTries[Max. number of attempts to find a home for a shuffled interval in the presence of -incl or -excl. Default = 1000.]' \
             '-noOverlapping[Don'\''t allow shuffled intervals to overlap.]' \
-            '-allowBeyondChromEnd[Allow shuffled intervals to be relocated to a position]' \
+            '-allowBeyondChromEnd[Allow shuffled intervals to be relocated to a position in which the entire original interval cannot fit w/o exceeding the end of the chromosome. In this case, the end coordinate of the shuffled interval will be set to the chromosome'\''s length. By default, an interval'\''s original length must be fully-contained within the chromosome.]' \
             "*: :_files"
 
     }
 
     function _bedtools_sample {
         _arguments \
-            '-n[The number of records to generate.]' \
-            '-seed[Supply an integer seed for the shuffling.]' \
+            '-n[The number of records to generate.   - Default = 1,000,000. - (INTEGER)]' \
+            '-seed[Supply an integer seed for the shuffling. - By default, the seed is chosen automatically. - (INTEGER)]' \
             '-ubam[Write uncompressed BAM output. Default writes compressed BAM.]' \
-            '-s[Require same strandedness. That is, only give records]' \
+            '-s[Require same strandedness. That is, only give records that have the same strand. Use '\''-s forward'\'' or '\''-s reverse'\'' for forward or reverse strand records, respectively. - By default, records are reported without respect to strand.]' \
             '-header[Print the header from the input file prior to results.]' \
             '-bed[If using BAM input, write output as BED.]' \
             '-header[Print the header from the A file prior to results.]' \
-            '-nobuf[Disable buffered output. Using this option will cause each line]' \
-            '-iobuf[Specify amount of memory to use for input buffer.]' \
+            '-nobuf[Disable buffered output. Using this option will cause each line of output to be printed as it is generated, rather than saved in a buffer. This will make printing large output files noticeably slower, but can be useful in conjunction with other software tools and scripts that need to process one line of bedtools output at a time.]' \
+            '-iobuf[Specify amount of memory to use for input buffer. Takes an integer argument. Optional suffixes K/M/G supported. Note: currently has no effect with compressed files.]' \
             "*: :_files"
 
     }
@@ -308,44 +307,57 @@
         _arguments \
             '-bed[If using BAM input, write output as BED.]' \
             '-header[Print the header from the A file prior to results.]' \
-            '-nobuf[Disable buffered output. Using this option will cause each line]' \
-            '-iobuf[Specify amount of memory to use for input buffer.]' \
+            '-nobuf[Disable buffered output. Using this option will cause each line of output to be printed as it is generated, rather than saved in a buffer. This will make printing large output files noticeably slower, but can be useful in conjunction with other software tools and scripts that need to process one line of bedtools output at a time.]' \
+            '-iobuf[Specify amount of memory to use for input buffer. Takes an integer argument. Optional suffixes K/M/G supported. Note: currently has no effect with compressed files.]' \
             "*: :_files"
 
     }
 
     function _bedtools_annotate {
         _arguments \
-            '-names[A list of names (one / file) to describe each file in -i.]' \
-            '-counts[Report the count of features in each file that overlap -i.]' \
-            '-both[Report the counts followed by the % coverage.]' \
-            '-s[Require same strandedness. That is, only counts overlaps]' \
-            '-S[Require different strandedness. That is, only count overlaps]' \
+            '-names[A list of names (one / file) to describe each file in -i. These names will be printed as a header line.]' \
+            '-counts[Report the count of features in each file that overlap -i. - Default is to report the fraction of -i covered by each file.]' \
+            '-both[Report the counts followed by the % coverage. - Default is to report the fraction of -i covered by each file.]' \
+            '-s[Require same strandedness. That is, only counts overlaps on the _same_ strand. - By default, overlaps are counted without respect to strand.]' \
+            '-S[Require different strandedness. That is, only count overlaps on the _opposite_ strand. - By default, overlaps are counted without respect to strand.]' \
             "*: :_files"
 
     }
 
     function _bedtools_multiinter {
         _arguments \
+            '-cluster[Invoke Ryan Layers'\''s clustering algorithm.]' \
+            '-header[Print a header line. (chrom/start/end + names of each file).]' \
+            '-names[A list of names (one/file) to describe each file in -i. These names will be printed in the header line.]' \
+            '-g[Use genome file to calculate empty regions. - STRING.]' \
+            '-empty[Report empty regions (i.e., start/end intervals w/o values in all files). - Requires the '\''-g FILE'\'' parameter.]' \
+            '-filler[Use TEXT when representing intervals having no value. - Default is '\''0'\'', but you can use '\''N/A'\'' or any text.]' \
+            '-examples[Show detailed usage examples.]' \
             "*: :_files"
 
     }
 
     function _bedtools_unionbedg {
         _arguments \
+            '-header[Print a header line. (chrom/start/end + names of each file).]' \
+            '-names[A list of names (one/file) to describe each file in -i. These names will be printed in the header line.]' \
+            '-g[Use genome file to calculate empty regions. - STRING.]' \
+            '-empty[Report empty regions (i.e., start/end intervals w/o values in all files). - Requires the '\''-g FILE'\'' parameter.]' \
+            '-filler[Use TEXT when representing intervals having no value. - Default is '\''0'\'', but you can use '\''N/A'\'' or any text.]' \
+            '-examples[Show detailed usage examples.]' \
             "*: :_files"
 
     }
 
     function _bedtools_pairtobed {
         _arguments \
-            '-abam[The A input file is in BAM format. Output will be BAM as well. Replaces -a.]' \
+            '-abam[The A input file is in BAM format. Output will be BAM as well. Replaces -a. - Requires BAM to be grouped or sorted by query.]' \
             '-ubam[Write uncompressed BAM output. Default writes compressed BAM.]' \
-            '-bedpe[When using BAM input (-abam), write output as BEDPE. The default]' \
-            '-ed[Use BAM total edit distance (NM tag) for BEDPE score.]' \
-            '-f[Minimum overlap required as fraction of A (e.g. 0.05).]' \
-            '-s[Require same strandedness when finding overlaps.]' \
-            '-S[Require different strandedness when finding overlaps.]' \
+            '-bedpe[When using BAM input (-abam), write output as BEDPE. The default is to write output in BAM when using -abam.]' \
+            '-ed[Use BAM total edit distance (NM tag) for BEDPE score. - Default for BEDPE is to use the minimum of]' \
+            '-f[Minimum overlap required as fraction of A (e.g. 0.05). Default is 1E-9 (effectively 1bp).]' \
+            '-s[Require same strandedness when finding overlaps. Default is to ignore stand. Not applicable with -type inspan or -type outspan.]' \
+            '-S[Require different strandedness when finding overlaps. Default is to ignore stand. Not applicable with -type inspan or -type outspan.]' \
             '-type[Approach to reporting overlaps between BEDPE and BED.]' \
             "*: :_files"
 
@@ -366,13 +378,13 @@
     function _bedtools_bamtobed {
         _arguments \
             '-bedpe[Write BEDPE format.]' \
-            '-mate1[When writing BEDPE (-bedpe) format,]' \
+            '-mate1[When writing BEDPE (-bedpe) format, always report mate one as the first BEDPE "block".]' \
             '-bed12[Write "blocked" BED format (aka "BED12"). Forces -split.]' \
-            '-split[Report "split" BAM alignments as separate BED entries.]' \
-            '-splitD[Split alignments based on N and D CIGAR operators.]' \
-            '-ed[Use BAM edit distance (NM tag) for BED score.]' \
-            '-tag[Use other NUMERIC BAM alignment tag for BED score.]' \
-            '-color[An R,G,B string for the color used with BED12 format.]' \
+            '-split[Report "split" BAM alignments as separate BED entries. Splits only on N CIGAR operations.]' \
+            '-splitD[Split alignments based on N and D CIGAR operators. Forces -split.]' \
+            '-ed[Use BAM edit distance (NM tag) for BED score. - Default for BED is to use mapping quality. - Default for BEDPE is to use the minimum of]' \
+            '-tag[Use other NUMERIC BAM alignment tag for BED score. - Default for BED is to use mapping quality.]' \
+            '-color[An R,G,B string for the color used with BED12 format. Default is (255,0,0).]' \
             '-cigar[Add the CIGAR string to the BED entry as a 7th column.]' \
             "*: :_files"
 
@@ -380,8 +392,8 @@
 
     function _bedtools_bedtobam {
         _arguments \
-            '-mapq[Set the mappinq quality for the BAM records.]' \
-            '-bed12[The BED file is in BED12 format. The BAM CIGAR]' \
+            '-mapq[Set the mappinq quality for the BAM records. (INT) Default: 255]' \
+            '-bed12[The BED file is in BED12 format. The BAM CIGAR string will reflect BED "blocks".]' \
             '-ubam[Write uncompressed BAM output. Default writes compressed BAM.]' \
             "*: :_files"
 
@@ -389,15 +401,15 @@
 
     function _bedtools_bamtofastq {
         _arguments \
-            '-fq2[FASTQ for second end. Used if BAM contains paired-end data.]' \
-            '-tags[Create FASTQ based on the mate info]' \
+            '-fq2[FASTQ for second end. Used if BAM contains paired-end data. BAM should be sorted by query name is creating paired FASTQ.]' \
+            '-tags[Create FASTQ based on the mate info in the BAM R2 and Q2 tags.]' \
             "*: :_files"
 
     }
 
     function _bedtools_bedpetobam {
         _arguments \
-            '-mapq[Set the mappinq quality for the BAM records.]' \
+            '-mapq[Set the mappinq quality for the BAM records. (INT) Default: 255]' \
             '-ubam[Write uncompressed BAM output. Default writes compressed BAM.]' \
             "*: :_files"
 
@@ -418,10 +430,10 @@
             '-name[Use the name field and coordinates for the FASTA header]' \
             '-name+[(deprecated) Use the name field and coordinates for the FASTA header]' \
             '-nameOnly[Use the name field for the FASTA header]' \
-            '-split[Given BED12 fmt., extract and concatenate the sequences]' \
+            '-split[Given BED12 fmt., extract and concatenate the sequences from the BED "blocks" (e.g., exons)]' \
             '-tab[Write output in TAB delimited format.]' \
-            '-bedOut[Report extract sequences in a tab-delimited BED format instead of in FASTA format.]' \
-            '-s[Force strandedness. If the feature occupies the antisense,]' \
+            '-bedOut[Report extract sequences in a tab-delimited BED format instead of in FASTA format. - Default is FASTA format.]' \
+            '-s[Force strandedness. If the feature occupies the antisense, strand, the sequence will be reverse complemented. - By default, strand information is ignored.]' \
             '-fullHeader[Use full fasta header.]' \
             '-rna[The FASTA is RNA not DNA. Reverse complementation handled accordingly.]' \
             "*: :_files"
@@ -433,9 +445,9 @@
             '-fi[Input FASTA file]' \
             '-bed[BED/GFF/VCF file of ranges to mask in -fi]' \
             '-fo[Output FASTA file]' \
-            '-soft[Enforce "soft" masking.]' \
-            '-mc[Replace masking character.]' \
-            '-fullHeader[Use full fasta header.]' \
+            '-soft[Enforce "soft" masking. Mask with lower-case bases, instead of masking with Ns.]' \
+            '-mc[Replace masking character. Use another character, instead of masking with Ns.]' \
+            '-fullHeader[Use full fasta header. By default, only the word before the first space or tab is used.]' \
             "*: :_files"
 
     }
@@ -458,73 +470,72 @@
             '-bams[The bam files.]' \
             '-bed[The bed file.]' \
             '-split[Treat "split" BAM or BED12 entries as distinct BED intervals.]' \
-            '-s[Require same strandedness. That is, only report hits in B]' \
-            '-S[Require different strandedness. That is, only report hits in B]' \
-            '-f[Minimum overlap required as a fraction of each -bed record.]' \
-            '-r[Require that the fraction overlap be reciprocal for each -bed and B.]' \
+            '-s[Require same strandedness. That is, only report hits in B that overlap A on the _same_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-S[Require different strandedness. That is, only report hits in B that overlap A on the _opposite_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-f[Minimum overlap required as a fraction of each -bed record. - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-r[Require that the fraction overlap be reciprocal for each -bed and B. - In other words, if -f is 0.90 and -r is used, this requires]' \
             '-q[Minimum mapping quality allowed. Default is 0.]' \
             '-D[Include duplicate reads. Default counts non-duplicates only]' \
             '-F[Include failed-QC reads. Default counts pass-QC reads only]' \
-            '-p[Only count proper pairs. Default counts all alignments with]' \
+            '-p[Only count proper pairs. Default counts all alignments with MAPQ > -q argument, regardless of the BAM FLAG field.]' \
             "*: :_files"
 
     }
 
     function _bedtools_tag {
         _arguments \
-            '-s[Require overlaps on the same strand. That is, only tag alignments that have the same]' \
-            '-S[Require overlaps on the opposite strand. That is, only tag alignments that have the opposite]' \
-            '-f[Minimum overlap required as a fraction of the alignment.]' \
-            '-tag[Dictate what the tag should be. Default is YB.]' \
-            '-names[Use the name field from the annotation files to populate tags.]' \
-            '-scores[Use the score field from the annotation files to populate tags.]' \
-            '-intervals[Use the full interval (including name, score, and strand) to populate tags.]' \
+            '-s[Require overlaps on the same strand. That is, only tag alignments that have the same strand as a feature in the annotation file(s).]' \
+            '-S[Require overlaps on the opposite strand. That is, only tag alignments that have the opposite strand as a feature in the annotation file(s).]' \
+            '-f[Minimum overlap required as a fraction of the alignment. - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-tag[Dictate what the tag should be. Default is YB. - STRING (two characters, e.g., YK)]' \
+            '-names[Use the name field from the annotation files to populate tags. By default, the -labels values are used.]' \
+            '-scores[Use the score field from the annotation files to populate tags. By default, the -labels values are used.]' \
+            '-intervals[Use the full interval (including name, score, and strand) to populate tags. Requires the -labels option to identify from which file the interval came.]' \
             "*: :_files"
 
     }
 
     function _bedtools_jaccard {
         _arguments \
-            '-s[Require same strandedness. That is, only report hits in B]' \
-            '-S[Require different strandedness. That is, only report hits in B]' \
-            '-f[Minimum overlap required as a fraction of A.]' \
-            '-F[Minimum overlap required as a fraction of B.]' \
-            '-r[Require that the fraction overlap be reciprocal for A AND B.]' \
-            '-e[Require that the minimum fraction be satisfied for A OR B.]' \
+            '-s[Require same strandedness. That is, only report hits in B that overlap A on the _same_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-S[Require different strandedness. That is, only report hits in B that overlap A on the _opposite_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-f[Minimum overlap required as a fraction of A. - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-F[Minimum overlap required as a fraction of B. - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-r[Require that the fraction overlap be reciprocal for A AND B. - In other words, if -f is 0.90 and -r is used, this requires]' \
+            '-e[Require that the minimum fraction be satisfied for A OR B. - In other words, if -e is used with -f 0.90 and -F 0.10 this requires]' \
             '-split[Treat "split" BAM or BED12 entries as distinct BED intervals.]' \
-            '-g[Provide a genome file to enforce consistent chromosome sort order]' \
-            '-nonamecheck[For sorted data, don'\''t throw an error if the file has different naming conventions]' \
+            '-g[Provide a genome file to enforce consistent chromosome sort order across input files. Only applies when used with -sorted option.]' \
             '-bed[If using BAM input, write output as BED.]' \
             '-header[Print the header from the A file prior to results.]' \
-            '-nobuf[Disable buffered output. Using this option will cause each line]' \
-            '-iobuf[Specify amount of memory to use for input buffer.]' \
+            '-nobuf[Disable buffered output. Using this option will cause each line of output to be printed as it is generated, rather than saved in a buffer. This will make printing large output files noticeably slower, but can be useful in conjunction with other software tools and scripts that need to process one line of bedtools output at a time.]' \
+            '-iobuf[Specify amount of memory to use for input buffer. Takes an integer argument. Optional suffixes K/M/G supported. Note: currently has no effect with compressed files.]' \
+            '-nonamecheck[For sorted data, don'\''t throw an error if the file has different naming conventions for the same chromosome. ex. "chr1" vs "chr01".]' \
             "*: :_files"
 
     }
 
     function _bedtools_reldist {
         _arguments \
-            '-detail[Report the relativedistance for each interval in A]' \
             "*: :_files"
 
     }
 
     function _bedtools_fisher {
         _arguments \
-            '-m[Merge overlapping intervals before]' \
-            '-s[Require same strandedness. That is, only report hits in B]' \
-            '-S[Require different strandedness. That is, only report hits in B]' \
-            '-f[Minimum overlap required as a fraction of A.]' \
-            '-F[Minimum overlap required as a fraction of B.]' \
-            '-r[Require that the fraction overlap be reciprocal for A AND B.]' \
-            '-e[Require that the minimum fraction be satisfied for A OR B.]' \
+            '-m[Merge overlapping intervals before - looking at overlap.]' \
+            '-s[Require same strandedness. That is, only report hits in B that overlap A on the _same_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-S[Require different strandedness. That is, only report hits in B that overlap A on the _opposite_ strand. - By default, overlaps are reported without respect to strand.]' \
+            '-f[Minimum overlap required as a fraction of A. - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-F[Minimum overlap required as a fraction of B. - Default is 1E-9 (i.e., 1bp). - FLOAT (e.g. 0.50)]' \
+            '-r[Require that the fraction overlap be reciprocal for A AND B. - In other words, if -f is 0.90 and -r is used, this requires]' \
+            '-e[Require that the minimum fraction be satisfied for A OR B. - In other words, if -e is used with -f 0.90 and -F 0.10 this requires]' \
             '-split[Treat "split" BAM or BED12 entries as distinct BED intervals.]' \
-            '-g[Provide a genome file to enforce consistent chromosome sort order]' \
-            '-nonamecheck[For sorted data, don'\''t throw an error if the file has different naming conventions]' \
+            '-g[Provide a genome file to enforce consistent chromosome sort order across input files. Only applies when used with -sorted option.]' \
             '-bed[If using BAM input, write output as BED.]' \
             '-header[Print the header from the A file prior to results.]' \
-            '-nobuf[Disable buffered output. Using this option will cause each line]' \
-            '-iobuf[Specify amount of memory to use for input buffer.]' \
+            '-nobuf[Disable buffered output. Using this option will cause each line of output to be printed as it is generated, rather than saved in a buffer. This will make printing large output files noticeably slower, but can be useful in conjunction with other software tools and scripts that need to process one line of bedtools output at a time.]' \
+            '-iobuf[Specify amount of memory to use for input buffer. Takes an integer argument. Optional suffixes K/M/G supported. Note: currently has no effect with compressed files.]' \
+            '-nonamecheck[For sorted data, don'\''t throw an error if the file has different naming conventions for the same chromosome. ex. "chr1" vs "chr01".]' \
             "*: :_files"
 
     }
@@ -532,20 +543,20 @@
     function _bedtools_overlap {
         _arguments \
             '-i[Input file. Use "stdin" for pipes.]' \
-            '-cols[Specify the columns (1-based) for the starts and ends of the]' \
+            '-cols[Specify the columns (1-based) for the starts and ends of the features for which you'\''d like to compute the overlap/distance. The columns must be listed in the following order:]' \
             "*: :_files"
 
     }
 
     function _bedtools_igv {
         _arguments \
-            '-path[The full path to which the IGV snapshots should be written.]' \
-            '-sess[The full path to an existing IGV session file to be]' \
-            '-sort[The type of BAM sorting you would like to apply to each image.]' \
-            '-clps[Collapse the aligned reads prior to taking a snapshot.]' \
-            '-name[Use the "name" field (column 4) for each image'\''s filename.]' \
-            '-slop[Number of flanking base pairs on the left & right of the image.]' \
-            '-img[The type of image to be created.]' \
+            '-path[The full path to which the IGV snapshots should be written. (STRING) Default: ./]' \
+            '-sess[The full path to an existing IGV session file to be loaded prior to taking snapshots.]' \
+            '-sort[The type of BAM sorting you would like to apply to each image. Options: base, position, strand, quality, sample, and readGroup Default is to apply no sorting at all.]' \
+            '-clps[Collapse the aligned reads prior to taking a snapshot. Default is to no collapse.]' \
+            '-name[Use the "name" field (column 4) for each image'\''s filename. Default is to use the "chr:start-pos.ext".]' \
+            '-slop[Number of flanking base pairs on the left & right of the image. - (INT) Default = 0.]' \
+            '-img[The type of image to be created. Options: png, eps, svg Default is png.]' \
             "*: :_files"
 
     }
@@ -555,20 +566,19 @@
             '-base[The browser basename. Default: http://genome.ucsc.edu]' \
             '-org[The organism. Default: human]' \
             '-db[The build. Default: hg18]' \
-            '-base[-org mouse]' \
             "*: :_files"
 
     }
 
     function _bedtools_makewindows {
         _arguments \
-            '-g[Genome file size (see notes below).]' \
-            '-b[BED file (with chrom,start,end fields).]' \
-            '-w[Divide each input interval (either a chromosome or a BED interval)]' \
-            '-s[Step size: i.e., how many base pairs to step before]' \
-            '-n[Divide each input interval (either a chromosome or a BED interval)]' \
-            '-reverse[Reverse numbering of windows in the output, i.e. report]' \
-            '-i[The default output is 3 columns: chrom, start, end .]' \
+            '-g[Genome file size (see notes below). Windows will be created for each chromosome in the file.]' \
+            '-b[BED file (with chrom,start,end fields). Windows will be created for each interval in the file.]' \
+            '-w[Divide each input interval (either a chromosome or a BED interval) to fixed-sized windows (i.e. same number of nucleotide in each window). Can be combined with -s <step_size>]' \
+            '-s[Step size: i.e., how many base pairs to step before creating a new window. Used to create "sliding" windows. - Defaults to window size (non-sliding windows).]' \
+            '-n[Divide each input interval (either a chromosome or a BED interval) to fixed number of windows (i.e. same number of windows, with varying window sizes).]' \
+            '-reverse[Reverse numbering of windows in the output, i.e. report windows in decreasing order]' \
+            '-i[The default output is 3 columns: chrom, start, end . With this option, a name column will be added.]' \
             "*: :_files"
 
     }
@@ -576,16 +586,16 @@
     function _bedtools_groupby {
         _arguments \
             '-i[Input file. Assumes "stdin" if omitted.]' \
-            {-g,-grp}'[Specify the columns (1-based) for the grouping.]' \
-            {-c,-opCols}'[Specify the column (1-based) that should be summarized.]' \
-            {-o,-ops}'[Specify the operation that should be applied to opCol.]' \
-            '-full[Print all columns from input file. The first line in the group is used.]' \
+            {-g,-grp}'[Specify the columns (1-based) for the grouping. The columns must be comma separated. - Default: 1,2,3]' \
+            {-c,-opCols}'[Specify the column (1-based) that should be summarized. - Required.]' \
+            {-o,-ops}'[Specify the operation that should be applied to opCol. Valid operations:]' \
+            '-full[Print all columns from input file. The first line in the group is used. Default: print only grouped columns.]' \
             '-inheader[Input file has a header line - the first line will be ignored.]' \
-            '-outheader[Print header line in the output, detailing the column names.]' \
+            '-outheader[Print header line in the output, detailing the column names. If the input file has headers (-inheader), the output file will use the input'\''s column names. If the input file has no headers, the output file will use "col_1", "col_2", etc. as the column names.]' \
             '-header[same as '\''-inheader -outheader'\'']' \
             '-ignorecase[Group values regardless of upper/lower case.]' \
-            '-prec[Sets the decimal precision for output (Default: 5)]' \
-            '-delim[Specify a custom delimiter for the collapse operations.]' \
+            '-prec[decimal precision for output (Default: 5)]' \
+            '-delim[a custom delimiter for the collapse operations.]' \
             "*: :_files"
 
     }
@@ -593,7 +603,7 @@
     function _bedtools_expand {
         _arguments \
             '-i[Input file. Assumes "stdin" if omitted.]' \
-            '-c[Specify the column (1-based) that should be summarized.]' \
+            '-c[Specify the column (1-based) that should be summarized. - Required.]' \
             "*: :_files"
 
     }
@@ -604,7 +614,6 @@
             {-n,--number}'[Number of files to create (req'\''d).]' \
             {-p,--prefix}'[Output BED file prefix.]' \
             {-a,--algorithm}'[Algorithm used to split data.]' \
-            {-a,--algorithm}'[Algorithm used to split data.   * size (default): uses a heuristic algorithm to group the items]' \
             {-h,--help}'[Print help (this screen).]' \
             {-v,--version}'[Print version.]' \
             "*: :_files"

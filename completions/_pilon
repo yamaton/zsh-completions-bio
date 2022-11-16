@@ -26,6 +26,8 @@ function _pilon {
         '--outdir[Use this directory for all output files.]':file:_files \
         '--changes[If specified, a file listing changes in the <output>.fasta will be generated.]' \
         '--vcf[If specified, a vcf file will be generated]' \
+        '--vcfqe[If specified, the VCF will contain a QE (quality-weighted evidence) field rather than the default QP (quality-weighted percentage of evidence) field.]' \
+        '--tracks[This options will cause many track files (*.bed, *.wig) suitable for viewing in a genome browser to be written.]' \
         '--variant[Sets up heuristics for variant calling, as opposed to assembly improvement; equivalent to "--vcf --fix all,breaks".]' \
         '--chunksize[Input FASTA elements larger than this will be processed in smaller pieces not to exceed this size (default 10000000).]' \
         '--diploid[Sample is from diploid organism; will eventually affect calling of heterozygous SNPs]' \

@@ -29,7 +29,7 @@ function _megahit {
         '--merge-level[merge complex bubbles of length <= l*kmer_size and similarity >= s \[20,0.95\]]' \
         '--prune-level[strength of low depth pruning (0-3) \[2\]]' \
         '--prune-depth[remove unitigs with avg kmer depth less than this value \[2\]]' \
-        '--disconnect-ratio[disconnect unitigs if its depth is less than this ratio times the total depth of itself and its siblings \[0.1\]  ]' \
+        '--disconnect-ratio[disconnect unitigs if its depth is less than this ratio times the total depth of itself and its siblings \[0.1\]]' \
         '--low-local-ratio[remove unitigs if its depth is less than this ratio times the average depth of the neighborhoods \[0.2\]]' \
         '--max-tip-len[remove tips less than this value \[2*k\]]' \
         '--cleaning-rounds[number of rounds for graph cleanning \[5\]]' \

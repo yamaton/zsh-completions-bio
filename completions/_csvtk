@@ -230,6 +230,8 @@
 
     function _csvtk_cut {
         _arguments \
+            {-m,--allow-missing-col}'[allow missing column]' \
+            {-b,--blank-missing-col}'[blank missing column]' \
             {-f,--fields}'[select only these fields. type "csvtk cut -h" for examples]' \
             {-F,--fuzzy-fields}'[using fuzzy fields, e.g., -F -f "*name" or -F -f "id123*"]' \
             {-h,--help}'[help for cut]' \
@@ -325,6 +327,32 @@
             {-f,--filter}'[awk-like filter condition. e.g. '\''$age>12'\'' or '\''$1 > $3'\'' or '\''$name=="abc"'\'' or '\''$1 % 2 == 0'\'']' \
             {-h,--help}'[help for filter2]' \
             {-n,--line-number}'[print line number as the first column ("n")]' \
+            {-s,--numeric-as-string}'[treat even numeric fields as strings to avoid converting big numbers into scientific notation]' \
+            {-c,--chunk-size}'[chunk size of CSV reader (default 50)]' \
+            {-C,--comment-char}'[lines starting with commment-character will be ignored. if your header row starts with '\''#'\'', please assign "-C" another rare symbol, e.g. '\''$'\'' (default "#")]' \
+            {-d,--delimiter}'[delimiting character of the input CSV file (default ",")]' \
+            {-E,--ignore-empty-row}'[ignore empty rows]' \
+            {-I,--ignore-illegal-row}'[ignore illegal rows]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
+            {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
+            {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+            {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
+            {-t,--tabs}'[specifies that the input CSV file is delimited with tabs. Overrides "-d"]' \
+            "*: :_files"
+
+    }
+
+    function _csvtk_fmtdate {
+        _arguments \
+            {-f,--fields}'[select only these fields. e.g -f 1,2 or -f columnA,columnB (default "1")]' \
+            '--format[output date format in MS Excel (TM) syntax, type "csvtk fmtdate -h" for details (default "YYYY-MM-DD hh:mm:ss")]' \
+            {-F,--fuzzy-fields}'[using fuzzy fields, e.g., -F -f "*name" or -F -f "id123*"]' \
+            {-h,--help}'[help for fmtdate]' \
+            {-k,--keep-unparsed}'[keep the key as value when no value found for the key]' \
+            {-z,--time-zone}'[timezone aka "Asia/Shanghai" or "America/Los_Angeles" formatted time-zone, type "csvtk fmtdate -h" for details]' \
             {-c,--chunk-size}'[chunk size of CSV reader (default 50)]' \
             {-C,--comment-char}'[lines starting with commment-character will be ignored. if your header row starts with '\''#'\'', please assign "-C" another rare symbol, e.g. '\''$'\'' (default "#")]' \
             {-d,--delimiter}'[delimiting character of the input CSV file (default ",")]' \
@@ -400,6 +428,28 @@
             {-h,--help}'[help for gather]' \
             {-k,--key}'[name of key column to create in output]' \
             {-v,--value}'[name of value column to create in output]' \
+            {-c,--chunk-size}'[chunk size of CSV reader (default 50)]' \
+            {-C,--comment-char}'[lines starting with commment-character will be ignored. if your header row starts with '\''#'\'', please assign "-C" another rare symbol, e.g. '\''$'\'' (default "#")]' \
+            {-d,--delimiter}'[delimiting character of the input CSV file (default ",")]' \
+            {-E,--ignore-empty-row}'[ignore empty rows]' \
+            {-I,--ignore-illegal-row}'[ignore illegal rows]' \
+            '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+            {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
+            {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
+            {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+            {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
+            {-t,--tabs}'[specifies that the input CSV file is delimited with tabs. Overrides "-d"]' \
+            "*: :_files"
+
+    }
+
+    function _csvtk_genautocomplete {
+        _arguments \
+            '--file[autocompletion file (default "~/.bash_completion.d/csvtk.sh")]' \
+            {-h,--help}'[help for genautocomplete]' \
+            '--shell[autocompletion type (bash|zsh|fish|powershell) (default "bash")]' \
             {-c,--chunk-size}'[chunk size of CSV reader (default 50)]' \
             {-C,--comment-char}'[lines starting with commment-character will be ignored. if your header row starts with '\''#'\'', please assign "-C" another rare symbol, e.g. '\''$'\'' (default "#")]' \
             {-d,--delimiter}'[delimiting character of the input CSV file (default ",")]' \
@@ -520,6 +570,7 @@
             {-F,--fuzzy-fields}'[using fuzzy fields, e.g., -F -f "*name" or -F -f "id123*"]' \
             {-h,--help}'[help for join]' \
             {-i,--ignore-case}'[ignore case]' \
+            {-n,--ignore-null}'[do not match NULL values]' \
             {-k,--keep-unmatched}'[keep unmatched data of the first file (left join)]' \
             {-L,--left-join}'[left join, equals to -k/--keep-unmatched, exclusive with --outer-join]' \
             '--na[content for filling NA data]' \
@@ -569,8 +620,8 @@
 
     function _csvtk_mutate2 {
         _arguments \
-            {-L,--digits}'[number of digits after the decimal dot (default 2)]' \
-            {-e,--expression}'[artithmetic/string expressions. e.g. "'\''string'\''", '\''"abc"'\'', '\'' $a + "-" + $b '\'', '\''$1 + $2'\'', '\''$a / $b'\'', '\'' $1 > 100 ? "big" : "small" '\'']' \
+            {-w,--decimal-width}'[limit floats to N decimal points (default 2)]' \
+            {-e,--expression}'[arithmetic/string expressions. e.g. "'\''string'\''", '\''"abc"'\'', '\'' $a + "-" + $b '\'', '\''$1 + $2'\'', '\''$a / $b'\'', '\'' $1 > 100 ? "big" : "small" '\'']' \
             {-h,--help}'[help for mutate2]' \
             {-n,--name}'[new column name]' \
             {-s,--numeric-as-string}'[treat even numeric fields as strings to avoid converting big numbers into scientific notation]' \
@@ -642,6 +693,8 @@
             '--height[Figure height (default 4.5)]' \
             {-h,--help}'[help for plot]' \
             '--label-size[label font size (default 14)]' \
+            '--na-values[NA values, case ignored (default \[,NA,N/A\])]' \
+            '--skip-na[skip NA values in --na-values]' \
             '--tick-width[axis tick width (default 1.5)]' \
             '--title[Figure title]' \
             '--title-size[title font size (default 16)]' \
@@ -950,8 +1003,8 @@
 
     function _csvtk_summary {
         _arguments \
-            {-n,--decimal-width}'[limit floats to N decimal points (default 2)]' \
-            {-f,--fields}'[operations on these fields. e.g -f 1:count,1:sum or -f colA:mean. available operations: collapse, count, countn, countunique, entropy, first, last, max, mean, median, min, prod, q1, q2, q3, rand, stdev, sum, uniq, variance]' \
+            {-w,--decimal-width}'[limit floats to N decimal points (default 2)]' \
+            {-f,--fields}'[operations on these fields. e.g -f 1:count,1:sum or -f colA:mean. available operations: argmax, argmin, collapse, count, countn, countuniq, countunique, entropy, first, last, max, mean, median, min, prod, q1, q2, q3, rand, stdev, sum, uniq, unique, variance]' \
             {-g,--groups}'[group via fields. e.g -f 1,2 or -f columnA,columnB]' \
             {-h,--help}'[help for summary]' \
             {-i,--ignore-non-numbers}'[ignore non-numeric values like "NA" or "N/A"]' \
@@ -1155,17 +1208,19 @@ function _csvtk {
             'del-header:delete column names'
             'dim:dimensions of CSV file'
             'filter:filter rows by values of selected fields with arithmetic expression'
-            'filter2:filter rows by awk-like artithmetic/string expressions'
+            'filter2:filter rows by awk-like arithmetic/string expressions'
+            'fmtdate:format date of selected fields'
             'fold:fold multiple values of a field into cells of groups'
             'freq:frequencies of selected fields'
             'gather:gather columns into key-value pairs'
+            'genautocomplete:generate shell autocompletion script (bash|zsh|fish|powershell)'
             'grep:grep data by selected fields with patterns/regular expressions'
             'head:print first N records'
             'headers:print headers'
             'inter:intersection of multiple files'
             'join:join files by selected fields (inner, left and outer join)'
             'mutate:create new column from selected fields by regular expression'
-            'mutate2:create new column from selected fields by awk-like artithmetic/string expressions'
+            'mutate2:create new column from selected fields by awk-like arithmetic/string expressions'
             'ncol:print number of columns'
             'nrow:print number of records'
             'plot:plot common figures'
@@ -1277,6 +1332,10 @@ function _csvtk {
             _csvtk_filter2
             ;;
 
+        (fmtdate)
+            _csvtk_fmtdate
+            ;;
+
         (fold)
             _csvtk_fold
             ;;
@@ -1287,6 +1346,10 @@ function _csvtk {
 
         (gather)
             _csvtk_gather
+            ;;
+
+        (genautocomplete)
+            _csvtk_genautocomplete
             ;;
 
         (grep)
