@@ -167,17 +167,6 @@
 
     }
 
-    function _bio_gtf {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-T,--type}'[GTF type filter]' \
-            {-s,--source}'[source attribute]' \
-            {-t,--target}'[target attribute]' \
-            {-l,--limit}'[how many lines to parse]' \
-            "*: :_files"
-
-    }
-
     function _bio_comm {
         _arguments \
             {-h,--help}'[show this help message and exit]' \
@@ -201,6 +190,14 @@
 
     }
 
+    function _bio_code {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {-u,--update}'[update existing files]' \
+            "*: :_files"
+
+    }
+
 
 function _bio {
     local line state
@@ -219,9 +216,9 @@ function _bio {
             'explain:explain biological terms'
             'meta:download metadata by taxonomy ID'
             'mygene:connect to mygene interface'
-            'gtf:parse GTF to create mappings'
             'comm:find common elements'
             'uniq:find unique elements'
+            'code:downloads the Biostar Handbook code'
         )
         _describe 'command' commands
     }
@@ -281,16 +278,16 @@ function _bio {
             _bio_mygene
             ;;
 
-        (gtf)
-            _bio_gtf
-            ;;
-
         (comm)
             _bio_comm
             ;;
 
         (uniq)
             _bio_uniq
+            ;;
+
+        (code)
+            _bio_code
             ;;
 
         esac

@@ -15,9 +15,6 @@ function _rsem-parse-alignments {
  
 
     _arguments -C \
-        '-t[fai_file]':file:_files \
-        '-tag[tagName]' \
-        '-q[set it quiet]' \
         '*: :_files'
 
     case $state in

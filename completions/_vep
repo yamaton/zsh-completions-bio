@@ -16,12 +16,15 @@ function _vep {
 
     _arguments -C \
         '--help[Display this message and quit]' \
-        {-i,--input_file}'[Input file]' \
-        {-o,--output_file}'[Output file]' \
+        {-i,--input_file}'[Input file]':file:_files \
+        {-o,--output_file}'[Output file]':file:_files \
         '--force_overwrite[Force overwriting of output file]' \
         '--species[Species to use \[default: "human"\]]' \
         '--everything[Shortcut switch to turn on commonly used options. See web documentation for details \[default: off\]]' \
         '--fork[Use forking to improve script runtime]' \
+        '--cache[cache]' \
+        '--offline[offline]' \
+        '--database[database]' \
         '*: :_files'
 
     case $state in

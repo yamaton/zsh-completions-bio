@@ -15,33 +15,31 @@ function _nucmer {
  
 
     _arguments -C \
-        '--mum[Use anchor matches that are unique in both the reference and query]' \
-        '--mumcand[Same as --mumreference]' \
-        '--mumreference[Use anchor matches that are unique in in the reference but not necessarily unique in the query (default behavior)]' \
-        '--maxmatch[Use all anchor matches regardless of their uniqueness]' \
-        '-b[Set the distance an alignment extension will attempt to extend poor scoring regions before giving up (default 200)]' \
-        '--banded[Enforce absolute banding of dynamic programming matrix based on diagdiff parameter EXPERIMENTAL (default no)]' \
-        '--nobanded[Enforce absolute banding of dynamic programming matrix based on diagdiff parameter EXPERIMENTAL (default no)]' \
-        '-c[Sets the minimum length of a cluster of matches (default 65)]' \
-        '--delta[Toggle the creation of the delta file (default --delta)]' \
-        '--nodelta[Toggle the creation of the delta file (default --delta)]' \
-        '--depend[Print the dependency information and exit]' \
-        '-D[Set the maximum diagonal difference between two adjacent anchors in a cluster (default 5)]' \
-        '-d[Set the maximum diagonal difference between two adjacent anchors in a cluster as a differential fraction of the gap length (default 0.12)]' \
-        '--extend[Toggle the cluster extension step (default --extend)]' \
-        '--noextend[Toggle the cluster extension step (default --extend)]' \
-        {-f,--forward}'[Use only the forward strand of the Query sequences]' \
-        '-g[Set the maximum gap between two adjacent matches in a cluster (default 90)]' \
-        {-h,--help}'[Display help information and exit]' \
-        '-l[Set the minimum length of a single match (default 20)]' \
-        {-o,--coords}'[Automatically generate the original NUCmer1.1 coords output file using the '\''show-coords'\'' program]' \
-        '--optimize[Toggle alignment score optimization, i.e. if an alignment extension reaches the end of a sequence, it will backtrack to optimize the alignment score instead of terminating the alignment at the end of the sequence (default --optimize)]' \
-        '--nooptimize[Toggle alignment score optimization, i.e. if an alignment extension reaches the end of a sequence, it will backtrack to optimize the alignment score instead of terminating the alignment at the end of the sequence (default --optimize)]' \
-        '-p[Set the prefix of the output files (default "out")]' \
-        {-r,--reverse}'[Use only the reverse complement of the Query sequences]' \
-        '--simplify[Simplify alignments by removing shadowed clusters. Turn this option off if aligning a sequence to itself to look for repeats (default --simplify)]' \
-        '--nosimplify[Simplify alignments by removing shadowed clusters. Turn this option off if aligning a sequence to itself to look for repeats (default --simplify)]' \
-        {-V,--version}'[Display the version information and exit]' \
+        '--mum[Use anchor matches that are unique in both the reference and query (false)]' \
+        '--maxmatch[Use all anchor matches regardless of their uniqueness (false)]' \
+        {-b,--breaklen}'[Set the distance an alignment extension will attempt to extend poor scoring regions before giving up (200)]' \
+        {-c,--mincluster}'[Sets the minimum length of a cluster of matches (65)]' \
+        {-D,--diagdiff}'[Set the maximum diagonal difference between two adjacent anchors in a cluster (5)]' \
+        {-d,--diagfactor}'[Set the maximum diagonal difference between two adjacent anchors in a cluster as a differential fraction of the gap length (0.12)]' \
+        '--noextend[Do not perform cluster extension step (false)]' \
+        {-f,--forward}'[Use only the forward strand of the Query sequences (false)]' \
+        {-g,--maxgap}'[Set the maximum gap between two adjacent matches in a cluster (90)]' \
+        {-l,--minmatch}'[Set the minimum length of a single exact match (20)]' \
+        {-L,--minalign}'[Minimum length of an alignment, after clustering and extension (0)]' \
+        '--nooptimize[No alignment score optimization, i.e. if an alignment extension reaches the end of a sequence, it will not backtrack to optimize the alignment score and instead terminate the alignment at the end of the sequence (false)]' \
+        {-r,--reverse}'[Use only the reverse complement of the Query sequences (false)]' \
+        '--nosimplify[Don'\''t simplify alignments by removing shadowed clusters. Use this option when aligning a sequence to itself to look for repeats (false)]' \
+        {-p,--prefix}'[Write output to PREFIX.delta (out)]' \
+        '--delta[Output delta file to PATH (instead of PREFIX.delta)]':file:_files \
+        '--sam-short[Output SAM file to PATH, short format]':file:_files \
+        '--sam-long[Output SAM file to PATH, long format]':file:_files \
+        '--save[Save suffix array to files starting with PREFIX]' \
+        '--load[Load suffix array from file starting with PREFIX]' \
+        '--batch[Proceed by batch of chunks of BASES from the reference]' \
+        {-t,--threads}'[Use NUM threads (# of cores)]' \
+        {-U,--usage,-h,--help}'[This message]' \
+        '--full-help[Detailed help]' \
+        {-V,--version}'[Version]' \
         '*: :_files'
 
     case $state in

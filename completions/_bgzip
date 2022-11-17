@@ -15,11 +15,12 @@ function _bgzip {
  
 
     _arguments -C \
+        '--binary[Bgzip will attempt to ensure BGZF blocks end on a newline when the input is a text file. The exception to this is where a single line is larger than a BGZF block (64Kb). This can aid tools that use the index to perform random access on the compressed stream, as the start of a block is likely to also be the start of a text record.]' \
         {-b,--offset}'[Decompress to standard output from virtual file position (0-based uncompressed offset). Implies -c and -d.]' \
         {-c,--stdout}'[Write to standard output, keep original files unchanged.]' \
         {-d,--decompress}'[Decompress.]' \
         {-f,--force}'[Overwrite files without asking, or decompress files that don'\''t have a known compression filename extension (e.g., .gz) without asking. Use --force twice to do both without asking.]' \
-        {-g,--rebgzip}'[Try to use an existing index to create a compressed file with matching block offsets. Note that this assumes that the same compression library and level are in use as when making the original file. Don'\''t use it unless you know what you'\''re doing.]' \
+        {-g,--rebgzip}'[Try to use an existing index to create a compressed file with matching block offsets. The index must be specified using the -I file.gzi option. Note that this assumes that the same compression library and level are in use as when making the original file. Don'\''t use it unless you know what you'\''re doing.]' \
         {-h,--help}'[Displays a help message.]' \
         {-i,--index}'[Create a BGZF index while compressing. Unless the -I option is used, this will have the name of the compressed file with .gzi appended to it.]' \
         {-I,--index-name}'[Index file name.]':file:_files \

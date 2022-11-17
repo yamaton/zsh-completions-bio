@@ -27,6 +27,8 @@ function _blastdbcmd {
         '-taxids[Comma-delimited taxonomy identifiers]' \
         '-taxidlist[Input file for taxonomy identifiers]':file:_files \
         '-info[Print BLAST database information]' \
+        '-metadata[BLAST database metatdata]' \
+        '-metadata_output_prefix[Path prefix for location of database files in metadata]' \
         '-tax_info[Print taxonomic information contained in this BLAST database.]' \
         '-range[Range of sequence to extract in 1-based offsets (Format: start-stop, for]' \
         '-strand[Strand of nucleotide sequence to extract]' \

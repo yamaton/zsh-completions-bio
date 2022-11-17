@@ -16,6 +16,54 @@ function _nhmmer {
 
     _arguments -C \
         '-h[show brief help on version and usage]' \
+        '-o[direct output to file <f>, not stdout]' \
+        '-A[save multiple alignment of all hits to file <f>]' \
+        '--tblout[save parseable table of hits to file <f>]' \
+        '--dfamtblout[save table of hits to file, in Dfam format <f>]' \
+        '--aliscoresout[save scores for each position in each alignment to <f>]' \
+        '--hmmout[if input is alignment(s), write produced hmms to file <f>]' \
+        '--acc[prefer accessions over names in output]' \
+        '--noali[don'\''t output alignments, so output is smaller]' \
+        '--notextw[unlimit ASCII text output line width]' \
+        '--textw[set max width of ASCII text output lines \[120\] (n>=120)]' \
+        '--singlemx[use substitution score matrix w/ single-sequence MSA-format inputs]' \
+        '--popen[gap open probability \[0.03125\] (0<=x<0.5)]' \
+        '--pextend[gap extend probability \[0.75\] (0<=x<1)]' \
+        '--mxfile[read substitution score matrix from file <f>]' \
+        '-E[report sequences <= this E-value threshold in output \[10.0\] (x>0)]' \
+        '-T[report sequences >= this score threshold in output]' \
+        '--incE[consider sequences <= this E-value threshold as significant \[0.01\] (x>0)]' \
+        '--incT[consider sequences >= this score threshold as significant]' \
+        '--cut_ga[use profile'\''s GA gathering cutoffs to set all thresholding]' \
+        '--cut_nc[use profile'\''s NC noise cutoffs to set all thresholding]' \
+        '--cut_tc[use profile'\''s TC trusted cutoffs to set all thresholding]' \
+        '--max[Turn all heuristic filters off (less speed, more power)]' \
+        '--F1[Stage 1 (SSV) threshold: promote hits w/ P <= F1]' \
+        '--F2[Stage 2 (Vit) threshold: promote hits w/ P <= F2 \[3e-3\]]' \
+        '--F3[Stage 3 (Fwd) threshold: promote hits w/ P <= F3 \[3e-5\]]' \
+        '--nobias[turn off composition bias filter]' \
+        '--dna[input alignment is DNA sequence data]' \
+        '--rna[input alignment is RNA sequence data]' \
+        '--seed_max_depth[seed length at which bit threshold must be met \[15\]]' \
+        '--seed_sc_thresh[Default req. score for FM seed (bits) \[15\]]' \
+        '--seed_sc_density[seed must maintain this bit density from one of two ends \[0.8\]]' \
+        '--seed_drop_max_len[maximum run length with score under (max - \[fm_drop_lim\]) \[4\]]' \
+        '--seed_drop_lim[in seed, max drop in a run of length \[fm_drop_max_len\] \[0.3\]]' \
+        '--seed_req_pos[minimum number consecutive positive scores in seed \[5\]]' \
+        '--seed_consens_match[<n> consecutive matches to consensus will override score threshold \[11\]]' \
+        '--seed_ssv_length[length of window around FM seed to get full SSV diagonal \[70\]]' \
+        '--qformat[assert query is in format <s> (can be seq or msa format)]' \
+        '--qsingle_seqs[force query to be read as individual sequences, even if in an msa format]' \
+        '--tformat[assert target <seqdb> is in format <s>]' \
+        '--nonull2[turn off biased composition score corrections]' \
+        '-Z[set database size (Megabases) to <x> for E-value calculations (x>0)]' \
+        '--seed[set RNG seed to <n> (if 0: one-time arbitrary seed) \[42\] (n>=0)]' \
+        '--w_beta[tail mass at which window length is determined]' \
+        '--w_length[window length - essentially max expected hit length]' \
+        '--block_length[length of blocks read from target database (threaded) (n>=50000)]' \
+        '--watson[only search the top strand]' \
+        '--crick[only search the bottom strand]' \
+        '--cpu[number of parallel CPU workers to use for multithreads \[2\] (n>=0)]' \
         '*: :_files'
 
     case $state in

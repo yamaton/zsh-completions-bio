@@ -34,7 +34,7 @@ function _makeblastdb {
         '-max_file_sz[Maximum file size for BLAST database files (Default = `1GB'\'')]' \
         '-logfile[File to which the program log should be redirected]':file:_files \
         '-taxid[Taxonomy ID to assign to all sequences (Incompatible with: taxid_map)]' \
-        '-taxid_map[Text file mapping sequence IDs to taxonomy IDs.]':file:_files \
+        '-taxid_map[Text file mapping sequence IDs to taxonomy IDs. Format:<SequenceId> <TaxonomyId><newline>]':file:_files \
         '*: :_files'
 
     case $state in

@@ -80,7 +80,11 @@ function _rsem-calculate-expression {
         '--chipseq-bed-files-multi-targets[Comma-separated full path of BED files for multiple ChIP-seq targets. This option is used when running prior-enhanced RSEM, where prior is learned from multiple complementary data sets. It provides information of ChIP-seq signals and must have at least the first six BED columns. All files can be either ungzipped or gzipped with a suffix '\''.gz'\'' or '\''.gzip'\''. When this option is specified, the option '\''--partition-model <string>'\'' will be set to '\''cmb_lgt'\'' automatically. (Default: "")]' \
         '--cap-stacked-chipseq-reads[Keep a maximum number of ChIP-seq reads that aligned to the same genomic interval. This option is used when running prior-enhanced RSEM, where prior is learned from multiple complementary data sets. This option is only in use when either '\''--chipseq-read-files-multi-targets <string>'\'' or '\''--chipseq-bed-files-multi-targets <string>'\'' is specified. (Default: off)]' \
         '--n-max-stacked-chipseq-reads[The maximum number of stacked ChIP-seq reads to keep. This option is used when running prior-enhanced RSEM, where prior is learned from multiple complementary data sets. This option is only in use when the option '\''--cap-stacked-chipseq-reads'\'' is set. (Default: 5)]' \
-        '--partition-model[A keyword to specify the partition model used by prior-enhanced RSEM. It must be one of the following keywords (Default: '\''pk'\''). (pk, pk_lgtnopk, lm3, lm4, lm5, lm6, nopk_lm2pk, nopk_lm3pk, nopk_lm4pk, nopk_lm5pk, cmb_lgt)]' \
+        '--partition-model[A keyword to specify the partition model used by prior-enhanced RSEM. It must be one of the following keywords:]' \
+        '--sam[Inputs are alignments in SAM format. (Default: off)]' \
+        '--bam[Inputs are alignments in BAM format. (Default: off)]' \
+        '--strand-specific[Equivalent to '\''--strandedness forward'\''. (Default: off)]' \
+        '--forward-prob[Probability of generating a read from the forward strand of a transcript. Set to 1 for a strand-specific protocol where all (upstream) reads are derived from the forward strand, 0 for a strand-specific protocol where all (upstream) read are derived from the reverse strand, or 0.5 for a non-strand-specific protocol. (Default: off)]' \
         '*: :_files'
 
     case $state in

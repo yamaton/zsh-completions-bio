@@ -16,7 +16,7 @@ function _rsem-simulate-reads {
 
     _arguments -C \
         '--seed[Set seed for the random number generator used in simulation. The seed should be a 32-bit unsigned integer.]' \
-        '-q[Set it quiet.]' \
+        '-q[Set it will stop outputting intermediate information.]' \
         '*: :_files'
 
     case $state in

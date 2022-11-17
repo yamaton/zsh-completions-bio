@@ -11,13 +11,30 @@
             {-b,--bam}'[the reads aligned to the genome assembly are in bam FILE]':file:_files \
             {-g,--genome}'[the genome we are calling methylation for is in fasta FILE]':file:_files \
             {-q,--methylation}'[the type of methylation (cpg,gpc,dam,dcm)]' \
+            {-o,--modbam-output-name}'[write the results as tags in FILE (default: tsv output)]':file:_files \
+            {-s,--modbam-style}'[modbam output style either '\''reference'\'' or '\''read'\'' (default: read) when this is set to reference the SEQ field in the output will be the reference sequence spanned by the read]' \
             {-t,--threads}'[use NUM threads (default: 1)]' \
+            '--min-mapping-quality[only use reads with mapQ >= NUM (default: 20)]' \
             '--watch[watch the sequencing run directory DIR and call methylation as data is generated]':file:_files \
             '--watch-write-bam[in watch mode, write the alignments for each fastq]' \
             {-c,--watch-process-total}'[in watch mode, there are TOTAL calling processes running against this directory]' \
             {-i,--watch-process-index}'[in watch mode, the index of this process is IDX   the previous two options allow you to run multiple independent methylation calling processes against a single directory. Each process will only call files when X mod TOTAL == IDX, where X is the suffix of the fast5 file.]' \
             '--progress[print out a progress message]' \
             {-K,--batchsize}'[the batch size (default: 512)]' \
+            "*: :_files"
+
+    }
+
+    function _nanopolish_detect-polyi {
+        _arguments \
+            {-v,--verbose}'[display verbose output]' \
+            '--version[display version]' \
+            '--help[display this help and exit]' \
+            {-w,--window}'[only compute the poly-A lengths for reads in window STR (format: ctg:start_id-end_id)]' \
+            {-r,--reads}'[the 1D ONT direct RNA reads are in fasta FILE]':file:_files \
+            {-b,--bam}'[the reads aligned to the genome assembly are in bam FILE]':file:_files \
+            {-g,--genome}'[the reference genome assembly for the reads is in FILE]':file:_files \
+            {-t,--threads}'[use NUM threads (default: 1)]' \
             "*: :_files"
 
     }
@@ -29,7 +46,7 @@
             '--help[display this help and exit]' \
             '--sam[write output in SAM format]' \
             {-w,--window}'[compute the consensus for window STR (format: ctg:start_id-end_id)]' \
-            {-r,--reads}'[the 2D ONT reads are in fasta FILE]':file:_files \
+            {-r,--reads}'[the ONT reads are in fasta FILE]':file:_files \
             {-b,--bam}'[the reads aligned to the genome assembly are in bam FILE]':file:_files \
             {-g,--genome}'[the genome we are computing a consensus for is in FILE]':file:_files \
             {-t,--threads}'[use NUM threads (default: 1)]' \
@@ -45,25 +62,17 @@
 
     }
 
-    function _nanopolish_extract {
+    function _nanopolish_fast5-check {
         _arguments \
             '--help[display this help and exit]' \
             '--version[display version]' \
-            {-v,--verbose}'[display verbose output]' \
-            {-r,--recurse}'[recurse into subdirectories]' \
-            {-q,--fastq}'[extract fastq (default: fasta)]' \
-            {-t,--type}'[read type: template, complement, 2d, 2d-or-template, any]' \
-            {-b,--basecaller}'[consider only data produced by basecaller NAME,]' \
-            {-o,--output}'[write output to FILE]':file:_files \
+            {-r,--reads}'[file containing the basecalled reads]' \
             "*: :_files"
 
     }
 
-    function _nanopolish_getmodel {
+    function _nanopolish_help {
         _arguments \
-            {-v,--verbose}'[display verbose output]' \
-            '--version[display version]' \
-            '--help[display this help and exit]' \
             "*: :_files"
 
     }
@@ -73,6 +82,7 @@
             '--help[display this help and exit]' \
             '--version[display version]' \
             {-v,--verbose}'[display verbose output]' \
+            '--slow5[slow5 file]':file:_files \
             {-d,--directory}'[path to the directory containing the raw ONT signal files. This option can be given multiple times.]' \
             {-s,--sequencing-summary}'[the sequencing summary file from albacore, providing this option will make indexing much faster]' \
             {-f,--summary-fofn}'[file containing the paths to the sequencing summary files (one per line)]' \
@@ -207,9 +217,10 @@ function _nanopolish {
         local -a commands
         commands=(
             'call-methylation:Classify nucleotides as methylated or not.'
+            'detect-polyi:Detect presence of poly(I) tails and estimate length of tails in direct RNA reads'
             'eventalign:Align nanopore events to reference k-mers'
-            'extract:Extract reads in fasta format'
-            'getmodel:Write the pore models for the given read to stdout'
+            'fast5-check:Check whether the fast5 files are indexed correctly and readable by nanopolish'
+            'help:Show help'
             'index:Build an index mapping from basecalled reads to the signals measured by the sequencer'
             'methyltrain:Train a methylation model'
             'phase-reads:Output a BAM file where each record shows the combination of alleles from variants.vcf that each read supports.'
@@ -223,6 +234,8 @@ function _nanopolish {
  
 
     _arguments -C \
+        '--help[Show help]' \
+        '--version[Show version]' \
         ': :->cmd' \
         '*:: :->subcmd'
 
@@ -236,16 +249,20 @@ function _nanopolish {
             _nanopolish_call-methylation
             ;;
 
+        (detect-polyi)
+            _nanopolish_detect-polyi
+            ;;
+
         (eventalign)
             _nanopolish_eventalign
             ;;
 
-        (extract)
-            _nanopolish_extract
+        (fast5-check)
+            _nanopolish_fast5-check
             ;;
 
-        (getmodel)
-            _nanopolish_getmodel
+        (help)
+            _nanopolish_help
             ;;
 
         (index)

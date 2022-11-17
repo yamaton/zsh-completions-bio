@@ -23,7 +23,7 @@ function _hmmalign {
         '--dna[assert <seqfile>, <hmmfile> both DNA: no autodetection]' \
         '--rna[assert <seqfile>, <hmmfile> both RNA: no autodetection]' \
         '--informat[assert <seqfile> is in format <s>: no autodetection]' \
-        '--outformat[output alignment in format <s>  \[Stockholm\]]' \
+        '--outformat[output alignment in format <s> \[Stockholm\]]' \
         '*: :_files'
 
     case $state in

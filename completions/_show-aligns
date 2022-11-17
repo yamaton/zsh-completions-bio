@@ -18,8 +18,10 @@ function _show-aligns {
         '-h[Display help information]' \
         '-q[Sort alignments by the query start coordinate]' \
         '-r[Sort alignments by the reference start coordinate]' \
-        '-w[Set the screen width - default is 60]' \
-        '-x[Set the matrix type - default is 2 (BLOSUM 62), other options include 1 (BLOSUM 45) and 3 (BLOSUM 80) note: only has effect on amino acid alignments]' \
+        '-w[Set the screen width - default is terminal width]' \
+        '-c[Colorize bases on output]' \
+        '-x[Set the matrix type - default is 2 (BLOSUM 62)]' \
+        '-m[Space between markers - default is 10, disable with 0 other options include 1 (BLOSUM 45) and 3 (BLOSUM 80) note: only has effect on amino acid alignments]' \
         '*: :_files'
 
     case $state in

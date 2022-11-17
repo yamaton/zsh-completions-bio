@@ -33,7 +33,8 @@ function _wtdbg2 {
         '-A[Keep contained reads during alignment]' \
         '-s[Min similarity, calculated by kmer matched length / aligned length, \[0.05\]]' \
         '-e[Min read depth of a valid edge, \[3\]]' \
-        {-q,-v}'[Verbose (can be multiple)]' \
+        '-q[Quiet]' \
+        '-v[Verbose (can be multiple)]' \
         '-V[Print version information and then exit]' \
         '--help[Show more options]' \
         '--cpu[See -t 0, default: all cores]' \

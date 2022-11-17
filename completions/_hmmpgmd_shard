@@ -15,18 +15,18 @@ function _hmmpgmd_shard {
  
 
     _arguments -C \
-        '-h[show brief hel   p on version and usage]' \
+        '-h[show brief help on version and usage]' \
         '--master[run program as the master server]' \
         '--worker[run program as a worker with server at <s>]' \
-        '--cport[port to use for client/server communication  \[51371\]]' \
-        '--wport[port to use for server/worker communication  \[51372\]]' \
-        '--ccncts[maximum number of client side connections to accept  \[16\]]' \
-        '--wcncts[maximum number of worker side connections to accept  \[32\]]' \
+        '--cport[port to use for client/server communication \[51371\]]' \
+        '--wport[port to use for server/worker communication \[51372\]]' \
+        '--ccncts[maximum number of client side connections to accept \[16\]]' \
+        '--wcncts[maximum number of worker side connections to accept \[32\]]' \
         '--pid[file to write process id to]' \
         '--seqdb[protein database to cache for searches]' \
         '--hmmdb[hmm database to cache for searches]' \
-        '--cpu[number of parallel CPU workers to use for multithreads  \[2\]]' \
-        '--num_shards[number of worker nodes that will connect to the master  \[1\]]' \
+        '--cpu[number of parallel CPU workers to use for multithreads \[2\]]' \
+        '--num_shards[number of worker nodes that will connect to the master \[1\]]' \
         '*: :_files'
 
     case $state in

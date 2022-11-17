@@ -25,19 +25,19 @@ function _alimask {
         '--amino[input alignment is protein sequence data]' \
         '--dna[input alignment is DNA sequence data]' \
         '--rna[input alignment is RNA sequence data]' \
-        '--outformat[output alignment in format <s>  \[Stockholm\]]' \
-        '--fast[assign cols w/ >= symfrac residues as consensus  \[default\]]' \
+        '--outformat[output alignment in format <s> \[Stockholm\]]' \
+        '--fast[assign cols w/ >= symfrac residues as consensus \[default\]]' \
         '--hand[manual construction (requires reference annotation)]' \
-        '--symfrac[sets sym fraction controlling --fast construction  \[0.5\]]' \
-        '--fragthresh[if L <= x*alen, tag sequence as a fragment  \[0.5\]]' \
-        '--wpb[Henikoff position-based weights  \[default\]]' \
+        '--symfrac[sets sym fraction controlling --fast construction \[0.5\]]' \
+        '--fragthresh[if L <= x*alen, tag sequence as a fragment \[0.5\]]' \
+        '--wpb[Henikoff position-based weights \[default\]]' \
         '--wgsc[Gerstein/Sonnhammer/Chothia tree weights]' \
         '--wblosum[Henikoff simple filter weights]' \
         '--wnone[don'\''t do any relative weighting; set all to 1]' \
         '--wgiven[use weights as given in MSA file]' \
-        '--wid[for --wblosum: set identity cutoff  \[0.62\]  (0<=x<=1)]' \
+        '--wid[for --wblosum: set identity cutoff \[0.62\] (0<=x<=1)]' \
         '--informat[assert input alifile is in format <s> (no autodetect)]' \
-        '--seed[set RNG seed to <n> (if 0: one-time arbitrary seed)  \[42\]]' \
+        '--seed[set RNG seed to <n> (if 0: one-time arbitrary seed) \[42\]]' \
         '*: :_files'
 
     case $state in

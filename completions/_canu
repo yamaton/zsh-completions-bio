@@ -15,13 +15,13 @@ function _canu {
  
 
     _arguments -C \
+        '-p[Prefix of the output files name]' \
+        '-d[Directory the assembly is computed in]':file:_files \
         '-haplotype[generate haplotype-specific reads]' \
         '-correct[generate corrected reads]' \
         '-trim[generate trimmed reads]' \
         '-assemble[generate an assembly]' \
         '-trim-assemble[generate trimmed reads and then assemble them]' \
-        '-d[Directory the assembly is computed in]':file:_files \
-        '-p[Prefix of the output files name]' \
         '-s[Assembly specificatin file]':file:_files \
         '-haplotype[Specify haplotypes for TrioCanu]' \
         {-corrected,-trimmed,-untrimmed,-raw}'[Specify input data type: Choose from -trimmed, -untrimmed, -raw, -corrected.]' \

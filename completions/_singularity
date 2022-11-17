@@ -46,6 +46,13 @@
 
     }
 
+    function _singularity_completion {
+        _arguments \
+            {-h,--help}'[help for completion]' \
+            "*: :_files"
+
+    }
+
     function _singularity_config {
         _arguments \
             {-h,--help}'[help for config]' \
@@ -448,6 +455,7 @@ function _singularity {
             'build:Build a Singularity image'
             'cache:Manage the local cache'
             'capability:Manage Linux capabilities for users and groups'
+            'completion:generate the autocompletion script for the specified shell'
             'config:Manage various singularity configuration (root user only)'
             'delete:Deletes requested image from the library'
             'exec:Run a command within a container'
@@ -476,7 +484,7 @@ function _singularity {
  
 
     _arguments -C \
-        {-c,--config}'[specify a configuration file (for root or unprivileged installation only) (default "/usr/local/etc/singularity/singularity.conf")]' \
+        {-c,--config}'[specify a configuration file (for root or unprivileged installation only) (default "~/.local/share/condax/envs/singularity/etc/singularity/singularity.conf")]' \
         {-d,--debug}'[print debugging information (highest verbosity)]' \
         {-h,--help}'[help for singularity]' \
         '--nocolor[print without color output (default False)]' \
@@ -503,6 +511,10 @@ function _singularity {
 
         (capability)
             _singularity_capability
+            ;;
+
+        (completion)
+            _singularity_completion
             ;;
 
         (config)

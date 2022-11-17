@@ -2,6 +2,13 @@
 
 # Auto-generated with h2o
 
+    function _seqmagick_help {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            "*: :_files"
+
+    }
+
     function _seqmagick_convert {
         _arguments \
             {-h,--help}'[show this help message and exit]' \
@@ -13,7 +20,7 @@
             '--drop[Remove the residues at the specified indices. Same format as `--cut`.]' \
             '--dash-gap[Replace any of the characters "?.:~" with a "-" for all sequences]' \
             '--lower[Translate the sequences to lower case]' \
-            '--mask[Replace residues in 1-indexed slice with gapcharacters. If --relative-to is also specified, coordinates are relative to the sequence ID provided.]' \
+            '--mask[Replace residues in 1-indexed slice with gap-characters. If --relative-to is also specified, coordinates are relative to the sequence ID provided.]' \
             '--reverse[Reverse the order of sites in sequences]' \
             '--reverse-complement[Convert sequences into reverse complements]' \
             '--squeeze[Remove any gaps that are present in the same position across all sequences in an alignment (equivalent to --squeeze-threshold=1.0)]' \
@@ -28,7 +35,7 @@
             '--exclude-from-file[Filter sequences, removing those sequence IDs in the specified file]':file:_files \
             '--include-from-file[Filter sequences, keeping only those sequence IDs in the specified file]':file:_files \
             '--head[Trim down to top N sequences. With the leading `-'\'', print all but the last N sequences.]' \
-            '--max-length[Discard any sequences beyond the specified maximum length. This operation occurs *before* all lengthchanging options such as cut and squeeze.]' \
+            '--max-length[Discard any sequences beyond the specified maximum length. This operation occurs *before* all length-changing options such as cut and squeeze.]' \
             '--min-length[Discard any sequences less than the specified minimum length. This operation occurs *before* cut and squeeze.]' \
             '--min-ungapped-length[Discard any sequences less than the specified minimum length, excluding gaps. This operation occurs *before* cut and squeeze.]' \
             '--pattern-include[Filter the sequences by regular expression in ID or description]' \
@@ -72,7 +79,7 @@
             '--drop[Remove the residues at the specified indices. Same format as `--cut`.]' \
             '--dash-gap[Replace any of the characters "?.:~" with a "-" for all sequences]' \
             '--lower[Translate the sequences to lower case]' \
-            '--mask[Replace residues in 1-indexed slice with gapcharacters. If --relative-to is also specified, coordinates are relative to the sequence ID provided.]' \
+            '--mask[Replace residues in 1-indexed slice with gap-characters. If --relative-to is also specified, coordinates are relative to the sequence ID provided.]' \
             '--reverse[Reverse the order of sites in sequences]' \
             '--reverse-complement[Convert sequences into reverse complements]' \
             '--squeeze[Remove any gaps that are present in the same position across all sequences in an alignment (equivalent to --squeeze-threshold=1.0)]' \
@@ -87,7 +94,7 @@
             '--exclude-from-file[Filter sequences, removing those sequence IDs in the specified file]':file:_files \
             '--include-from-file[Filter sequences, keeping only those sequence IDs in the specified file]':file:_files \
             '--head[Trim down to top N sequences. With the leading `-'\'', print all but the last N sequences.]' \
-            '--max-length[Discard any sequences beyond the specified maximum length. This operation occurs *before* all lengthchanging options such as cut and squeeze.]' \
+            '--max-length[Discard any sequences beyond the specified maximum length. This operation occurs *before* all length-changing options such as cut and squeeze.]' \
             '--min-length[Discard any sequences less than the specified minimum length. This operation occurs *before* cut and squeeze.]' \
             '--min-ungapped-length[Discard any sequences less than the specified minimum length, excluding gaps. This operation occurs *before* cut and squeeze.]' \
             '--pattern-include[Filter the sequences by regular expression in ID or description]' \
@@ -135,9 +142,9 @@
             '--report-out[Output file for report \[default: stdout\]]' \
             '--details-out[Output file to report fate of each sequence]' \
             '--no-details-comment[Do not write comment lines with version and call to start --details-out]' \
-            '--quality-window-mean-qual[Minimum quality score within the window defined by --quality-window. \[default: same as --min-meanquality\]]' \
+            '--quality-window-mean-qual[Minimum quality score within the window defined by --quality-window. \[default: same as --min-mean-quality\]]' \
             '--quality-window-prop[Proportion of reads within quality window to that must pass filter. Floats are \[default: 1.0\]]' \
-            '--quality-window[Window size for truncating sequences. When set to a non-zero value, sequences are truncated where the mean mean quality within the window drops below --min-meanquality. \[default: 0\]]' \
+            '--quality-window[Window size for truncating sequences. When set to a non-zero value, sequences are truncated where the mean mean quality within the window drops below --min-mean-quality. \[default: 0\]]' \
             '--primer[IUPAC ambiguous primer to require]' \
             '--no-primer[Do not use a primer.]' \
             '--barcode-file[CSV file containing sample_id,barcode\[,primer\] in the rows. A single primer for all sequences may be specified with `--primer`, or `--no-primer` may be used to indicate barcodes should be used without a primer check.]':file:_files \
@@ -162,7 +169,7 @@
         _arguments \
             {-h,--help}'[show this help message and exit]' \
             {-o,--out-file}'[Output destination. Default: STDOUT]':file:_files \
-            {-t,--translation-table}'[Translation table to use. \[Default: standardambiguous\]]' \
+            {-t,--translation-table}'[Translation table to use. \[Default: standard-ambiguous\]]' \
             {-a,--fail-action}'[Action to take on an ambiguous codon \[default: fail\]]' \
             "*: :_files"
 
@@ -175,13 +182,14 @@ function _seqmagick {
     function _commands {
         local -a commands
         commands=(
+            'help:Detailed help for actions using help <action>'
             'convert:Convert between sequence formats'
             'info:Info action'
             'mogrify:Modify sequence file(s) in place.'
-            'primer-trim:Find a primer sequence in a gapped alignment, trim to'
+            'primer-trim:Find a primer sequence in a gapped alignment, trim to amplicon'
             'quality-filter:Filter reads based on quality scores'
             'extract-ids:Extract the sequence IDs from a file'
-            'backtrans-align:Given a protein alignment and unaligned nucleotides,'
+            'backtrans-align:Given a protein alignment and unaligned nucleotides, align the nucleotides using the protein alignment. Protein and nucleotide sequence files must contain the same number of sequences, in the same order, with the same IDs.'
         )
         _describe 'command' commands
     }
@@ -201,6 +209,10 @@ function _seqmagick {
         ;;
     (subcmd)
         case $line[1] in
+        (help)
+            _seqmagick_help
+            ;;
+
         (convert)
             _seqmagick_convert
             ;;
