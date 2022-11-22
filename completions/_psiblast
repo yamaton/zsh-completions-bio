@@ -1,0 +1,102 @@
+#compdef _psiblast psiblast
+
+# Auto-generated with h2o
+
+
+function _psiblast {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-h[Print USAGE and DESCRIPTION; ignore all other parameters]' \
+        '-help[Print USAGE, DESCRIPTION and ARGUMENTS; ignore all other parameters]' \
+        '-version[Print version number; ignore other arguments]' \
+        '-query[Input file name]':file:_files \
+        '-query_loc[Location on the query sequence in 1-based offsets (Format: start-stop)]' \
+        '-db[BLAST database name]' \
+        '-out[Output file name]':file:_files \
+        '-evalue[Expectation value (E) threshold for saving hits]' \
+        '-word_size[Word size for wordfinder algorithm]' \
+        '-gapopen[Cost to open a gap]' \
+        '-gapextend[Cost to extend a gap]' \
+        '-matrix[Scoring matrix name (normally BLOSUM62)]' \
+        '-threshold[Minimum word score such that the word is added to the BLAST lookup table]' \
+        '-comp_based_stats[Use composition-based statistics:]' \
+        '-subject[Subject sequence(s) to search]':file:_files \
+        '-subject_loc[Location on the subject sequence in 1-based offsets (Format: start-stop)]' \
+        '-outfmt[alignment view options.]' \
+        '-show_gis[Show NCBI GIs in deflines?]' \
+        '-num_descriptions[Number of database sequences to show one-line descriptions for]' \
+        '-num_alignments[Number of database sequences to show alignments for]' \
+        '-line_length[Line length for formatting alignments]' \
+        '-html[Produce HTML output?]' \
+        '-sorthits[Sorting option for hits:]' \
+        '-sorthsps[Sorting option for hps:]' \
+        '-seg[Filter query sequence with SEG (Format: '\''yes'\'', '\''window locut hicut'\'', or]' \
+        '-soft_masking[Apply filtering locations as soft masks]' \
+        '-lcase_masking[Use lower case filtering in query and subject sequence(s)?]' \
+        '-gilist[Restrict search of database to list of GIs]' \
+        '-seqidlist[Restrict search of database to list of SeqIDs]' \
+        '-negative_gilist[Restrict search of database to everything except the specified GIs]' \
+        '-negative_seqidlist[Restrict search of database to everything except the specified SeqIDs]' \
+        '-taxids[Restrict search of database to include only the specified taxonomy IDs]' \
+        '-negative_taxids[Restrict search of database to everything except the specified taxonomy IDs]' \
+        '-taxidlist[Restrict search of database to include only the specified taxonomy IDs]' \
+        '-negative_taxidlist[Restrict search of database to everything except the specified taxonomy IDs]' \
+        '-ipglist[Restrict search of database to list of IPGs]' \
+        '-negative_ipglist[Restrict search of database to everything except the specified IPGs]' \
+        '-entrez_query[Restrict search with the given Entrez query]' \
+        '-qcov_hsp_perc[Percent query coverage per hsp]' \
+        '-max_hsps[Set maximum number of HSPs per subject sequence to save for each query]' \
+        '-culling_limit[If the query range of a hit is enveloped by that of at least this many]' \
+        '-best_hit_overhang[Best Hit algorithm overhang value (recommended value: 0.1)]' \
+        '-best_hit_score_edge[Best Hit algorithm score edge value (recommended value: 0.1)]' \
+        '-subject_besthit[Turn on best hit per subject sequence]' \
+        '-max_target_seqs[Maximum number of aligned sequences to keep]' \
+        '-dbsize[Effective length of the database]' \
+        '-searchsp[Effective length of the search space]' \
+        '-sum_stats[Use sum statistics]' \
+        '-import_search_strategy[Search strategy to use]':file:_files \
+        '-export_search_strategy[File name to record the search strategy used]':file:_files \
+        '-xdrop_ungap[X-dropoff value (in bits) for ungapped extensions]' \
+        '-xdrop_gap[X-dropoff value (in bits) for preliminary gapped extensions]' \
+        '-xdrop_gap_final[X-dropoff value (in bits) for final gapped alignment]' \
+        '-window_size[Multiple hits window size, use 0 to specify 1-hit algorithm]' \
+        '-gap_trigger[Number of bits to trigger gapping]' \
+        '-parse_deflines[Should the query and subject defline(s) be parsed?]' \
+        '-num_threads[Number of threads (CPUs) to use in the BLAST search]' \
+        '-remote[Execute search remotely?]' \
+        '-use_sw_tback[Compute locally optimal Smith-Waterman alignments?]' \
+        '-num_iterations[Number of iterations to perform (0 means run until convergence)]' \
+        '-out_pssm[File name to store checkpoint file]':file:_files \
+        '-out_ascii_pssm[File name to store ASCII version of PSSM]':file:_files \
+        '-save_pssm_after_last_round[Save PSSM after the last database search]' \
+        '-save_each_pssm[Save PSSM after each iteration (file name is given in -save_pssm or -save_ascii_pssm options)]' \
+        '-in_msa[File name of multiple sequence alignment to restart PSI-BLAST]':file:_files \
+        '-msa_master_idx[Ordinal number (1-based index) of the sequence to use as a master in the]' \
+        '-ignore_msa_master[Ignore the master sequence when creating PSSM]' \
+        '-in_pssm[PSI-BLAST checkpoint file]':file:_files \
+        '-pseudocount[Pseudo-count value used when constructing PSSM]' \
+        '-inclusion_ethresh[E-value inclusion threshold for pairwise alignments]' \
+        '-phi_pattern[File name containing pattern to search]':file:_files \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

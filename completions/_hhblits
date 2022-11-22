@@ -15,8 +15,8 @@ function _hhblits {
  
 
     _arguments -C \
-        '-i[input/query: single sequence or multiple sequence alignment (MSA) in a3m, a2m, or FASTA format, or HMM in hhm format <file> may be '\''stdin'\'' or '\''stdout'\'' throughout.]':file:_files \
-        '-d[Multiple databases may be specified with '\''-d <db1> -d <db2> ...'\'']' \
+        '-i[input/query: single sequence or multiple sequence alignment (MSA) in a3m, a2m, or FASTA format, or HMM in hhm format]':file:_files \
+        '-d[database name (e.g. uniprot20_29Feb2012) Multiple databases may be specified with '\''-d <db1> -d <db2> ...'\'']' \
         '-n[number of iterations (default=2)]' \
         '-e[E-value cutoff for inclusion in result alignment (def=0.001)]' \
         '-M[use A2M/A3M (default): upper case = Match; lower case = Insert; '\'' -'\'' = Delete; '\''.'\'' = gaps aligned to inserts (may be omitted)]' \
@@ -54,8 +54,9 @@ function _hhblits {
         '-pre_gap_extend[gap extend penalty in prefilter Smith-Waterman alignment (default=4)]' \
         '-pre_score_offset[offset on sequence profile scores in prefilter S-W alignment (default=50)]' \
         '-all[show all sequences in result MSA; do not filter result MSA]' \
-        '-interim_filter[filter sequences of query MSA during merging to avoid early stop (default: FULL) NONE: disables the intermediate filter FULL: if an early stop occurs compare filter seqs in an all vs. all comparison]' \
+        '-interim_filter[filter sequences of query MSA during merging to avoid early stop (default: FULL)]' \
         '-id[maximum pairwise sequence identity (def=90)]' \
+        '-diff[filter MSAs by selecting most diverse set of sequences, keeping at least this many seqs in each MSA block of length 50 Zero and non-numerical values turn off the filtering. (def=1000)]' \
         '-cov[minimum coverage with master sequence (%) (def=0)]' \
         '-qid[minimum sequence identity with master sequence (%) (def=0)]' \
         '-qsc[minimum score per column with master sequence (default=-20.0)]' \
@@ -69,18 +70,22 @@ function _hhblits {
         '-realign_max[realign max. <int> hits (default=500)]' \
         '-ovlp[banded alignment: forbid <ovlp> largest diagonals |i-j| of DP matrix (def=0)]' \
         '-alt[show up to this many alternative alignments with raw score > smin(def=4)]' \
-        '-premerge[hits to query MSA before aligning remaining hits (def=3)]' \
+        '-premerge[merge <int> hits to query MSA before aligning remaining hits (def=3)]' \
         '-smin[minimum raw score for alternative alignments (def=20.0)]' \
         '-shift[profile-profile score offset (def=-0.03)]' \
         '-corr[weight of term for pair correlations (def=0.10)]' \
         '-sc[amino acid score (tja: template HMM at column j) (def=1)]' \
-        '-ssm[0: no ss scoring. 1,2: ss scoring after or during alignment \[default=2\] 3,4: ss scoring after or during alignment, predicted vs. predicted]' \
+        '-ssm[0: no ss scoring, 1,2: ss scoring after or during alignment 3,4: ss scoring after or during alignment, predicted vs. predicted \[default=2\]]' \
         '-ssw[weight of ss score (def=0.11)]' \
         '-ssa[ss confusion matrix = (1-ssa)*I + ssa*psipred-confusion-matrix \[def=1.00)]' \
         '-wg[use global sequence weighting for realignment!]' \
         '-gapb[Transition pseudocount admixture (def=1.00)]' \
         '-gapd[Transition pseudocount admixture for open gap (default=0.15)]' \
         '-gape[Transition pseudocount admixture for extend gap (def=1.00)]' \
+        '-gapf[factor to increase/reduce gap open penalty for deletes (def=0.60)]' \
+        '-gapg[factor to increase/reduce gap open penalty for inserts (def=0.60)]' \
+        '-gaph[factor to increase/reduce gap extend penalty for deletes(def=0.60)]' \
+        '-gapi[factor to increase/reduce gap extend penalty for inserts(def=0.60)]' \
         '-egq[penalty (bits) for end gaps aligned to query residues (def=0.00)]' \
         '-egt[penalty (bits) for end gaps aligned to template residues (def=0.00)]' \
         '-pc_hhm_contxt_mode[position dependence of pc admixture '\''tau'\'' (pc mode, default=2)]' \

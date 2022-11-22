@@ -191,6 +191,7 @@ function _iqtree {
         '--site-rate[Specify the option (MEAN (default), or SAMPLING, or MODEL) to mimic the discrete rate heterogeneity from the input alignment (see Manual)]' \
         '-t[Specify the model and the number of taxa to generate a random tree]' \
         '-rlen[Specify three numbers: minimum, mean and maximum branch lengths when generating a random tree]' \
+        '-p[NEXUS/RAxML partition file Edge-linked proportional partition model]':file:_files \
         '-q[Like -p but edge-linked equal partition model]':file:_files \
         '-Q[Like -p but edge-unlinked partition model]':file:_files \
         '--distribution[Supply a definition file of distributions, which could be used to generate random model parameters]':file:_files \

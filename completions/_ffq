@@ -24,6 +24,7 @@ function _ffq {
         '--ncbi[Return NCBI links]' \
         '--split[Split output into separate files by accession (`-o` is a directory)]' \
         '--verbose[Print debugging information]' \
+        '--version[show program'\''s version number and exit]' \
         '*: :_files'
 
     case $state in

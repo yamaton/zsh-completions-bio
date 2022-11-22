@@ -1,0 +1,83 @@
+#compdef _cromwell cromwell
+
+# Auto-generated with h2o
+
+    function _cromwell_server {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _cromwell_run {
+        _arguments \
+            '--workflow-root[Workflow root.]' \
+            {-i,--inputs}'[Workflow inputs file.]' \
+            {-o,--options}'[Workflow options file.]' \
+            {-t,--type}'[Workflow type.]' \
+            {-v,--type-version}'[Workflow type version.]' \
+            {-l,--labels}'[Workflow labels file.]' \
+            {-p,--imports}'[A zip file to search for workflow imports.]' \
+            {-m,--metadata-output}'[An optional JSON file path to output metadata.]' \
+            "*: :_files"
+
+    }
+
+    function _cromwell_submit {
+        _arguments \
+            '--workflow-root[Workflow root.]' \
+            {-i,--inputs}'[Workflow inputs file.]' \
+            {-o,--options}'[Workflow options file.]' \
+            {-t,--type}'[Workflow type.]' \
+            {-v,--type-version}'[Workflow type version.]' \
+            {-l,--labels}'[Workflow labels file.]' \
+            {-p,--imports}'[A zip file to search for workflow imports.]' \
+            {-h,--host}'[Cromwell server URL.]' \
+            "*: :_files"
+
+    }
+
+
+function _cromwell {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'server:Starts a web server on port 8000.'
+            'run:Run the workflow and print out the outputs in JSON format.'
+            'submit:Submit the workflow to a Cromwell server.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--help[Show help]' \
+        '--veresion[Show version]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (server)
+            _cromwell_server
+            ;;
+
+        (run)
+            _cromwell_run
+            ;;
+
+        (submit)
+            _cromwell_submit
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

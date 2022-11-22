@@ -149,7 +149,7 @@
             {-l,--length-sort}'[sort by sequence length]' \
             {-R,--random-sort}'[randomly sort sequences]' \
             {-k,--key}'[Key to sort on (column number or tag)]' \
-            {-t,--}'[field-separator FIELD_SEPARATOR The field separator (default: '\''|'\'')]' \
+            {-t,--field-separator}'[The field separator (default: '\''|'\'')]' \
             {-p,--pair-separator}'[The separator between a tag and value (default: '\''='\'')]' \
             "*: :_files"
 

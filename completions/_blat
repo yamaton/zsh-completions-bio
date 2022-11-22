@@ -1,0 +1,58 @@
+#compdef _blat blat
+
+# Auto-generated with h2o
+
+
+function _blat {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-t[Database type. The default is dna.]' \
+        '-q[Query type. The default is dna.]' \
+        '-prot[Synonymous with -t=prot -q=prot.]' \
+        '-ooc[Use overused tile file N.ooc. N should correspond to the tileSize.]' \
+        '-tileSize[Sets the size of match that triggers an alignment. Usually between 8 and 12. Default is 11 for DNA and 5 for protein.]' \
+        '-stepSize[Spacing between tiles. Default is tileSize.]' \
+        '-oneOff[If set to 1, this allows one mismatch in tile and still triggers an alignment. Default is 0.]' \
+        '-minMatch[Sets the number of tile matches. Usually set from 2 to 4. Default is 2 for nucleotide, 1 for protein.]' \
+        '-minScore[Sets minimum score. This is the matches minus the mismatches minus some sort of gap penalty. Default is 30.]' \
+        '-minIdentity[Sets minimum sequence identity (in percent). Default is 90 for nucleotide searches, 25 for protein or translated protein searches.]' \
+        '-maxGap[Sets the size of maximum gap between tiles in a clump. Usually set from 0 to 3. Default is 2. Only relevent for minMatch > 1.]' \
+        '-noHead[Suppresses .psl header (so it'\''s just a tab-separated file).]' \
+        '-makeOoc[Make overused tile file. Target needs to be complete genome.]' \
+        '-repMatch[Sets the number of repetitions of a tile allowed before it is marked as overused. Typically this is 256 for tileSize 12, 1024 for tile size 11, 4096 for tile size 10. Default is 1024. Typically comes into play only with makeOoc. Also affected by stepSize: when stepSize is halved, repMatch is doubled to compensate.]' \
+        '-mask[Mask out repeats. Alignments won'\''t be started in masked region but may extend through it in nucleotide searches. Masked areas are ignored entirely in protein or translated searches.]':file:_files \
+        '-qMask[Mask out repeats in query sequence. Similar to -mask above, but for query rather than target sequence.]' \
+        '-repeats[Type is same as mask types above. Repeat bases will not be masked in any way, but matches in repeat areas will be reported separately from matches in other areas in the psl output.]' \
+        '-minRepDivergence[Minimum percent divergence of repeats to allow them to be unmasked. Default is 15. Only relevant for masking using RepeatMasker .out files.]' \
+        '-dots[Output dot every N sequences to show program'\''s progress.]' \
+        '-trimT[Trim leading poly-T.]' \
+        '-noTrimA[Don'\''t trim trailing poly-A.]' \
+        '-trimHardA[Remove poly-A tail from qSize as well as alignments in psl output.]' \
+        '-fastMap[Run for fast DNA/DNA remapping - not allowing introns, requiring high %ID. Query sizes must not exceed 5000.]' \
+        '-out[Controls output file format.]' \
+        '-fine[For high-quality mRNAs, look harder for small initial and terminal exons. Not recommended for ESTs.]' \
+        '-maxIntron[Sets maximum intron size. Default is 750000.]' \
+        '-extendThroughN[Allows extension of alignment through large blocks of Ns.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

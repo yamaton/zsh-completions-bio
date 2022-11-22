@@ -25,9 +25,11 @@ function _svtyper {
         '-n[number of reads to sample from BAM file for building insert size distribution \[1000000\]]' \
         {-q,--sum_quals}'[add genotyping quality to existing QUAL (default: overwrite QUAL field)]' \
         '--max_reads[maximum number of reads to assess at any variant (reduces processing time in high-depth regions, default: unlimited)]' \
+        '--max_ci_dist[maximum size of a confidence interval before 95% CI is used intead (default: 1e10)]' \
         '--split_weight[weight for split reads \[1\]]' \
         '--disc_weight[weight for discordant paired-end reads \[1\]]' \
         {-w,--write_alignment}'[write relevant reads to BAM file]':file:_files \
+        '--verbose[Report status updates]' \
         '*: :_files'
 
     case $state in

@@ -1,0 +1,309 @@
+#compdef _toil toil
+
+# Auto-generated with h2o
+
+    function _toil_clean {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--version[show program'\''s version number and exit]' \
+            '--tempDirRoot[Path to where temporary directory containing all temp files are created, by default generates a fresh tmp dir with '\''tempfile.gettempdir()'\''. (default: /tmp)]':file:_files \
+            '--logCritical[Turn on loglevel Critical. Default: INFO. (default: INFO)]' \
+            '--logError[Turn on loglevel Error. Default: INFO. (default: INFO)]' \
+            '--logWarning[Turn on loglevel Warning. Default: INFO. (default: INFO)]' \
+            '--logDebug[Turn on loglevel Debug. Default: INFO. (default: INFO)]' \
+            '--logInfo[Turn on loglevel Info. Default: INFO. (default: INFO)]' \
+            '--logOff[Same as --logCRITICAL. (default: INFO)]' \
+            '--logLevel[Set the log level. Default: INFO. Options: \['\''Critical'\'', '\''Error'\'', '\''Warning'\'', '\''Debug'\'', '\''Info'\'', '\''critical'\'', '\''error'\'', '\''warning'\'', '\''debug'\'', '\''info'\'', '\''CRITICAL'\'', '\''ERROR'\'', '\''WARNING'\'', '\''DEBUG'\'', '\''INFO'\''\]. (default: INFO)]' \
+            '--logFile[File to log in. (default: None)]':file:_files \
+            '--rotatingLogging[Turn on rotating logging, which prevents log files from getting too big. (default: False)]' \
+            "*: :_files"
+
+    }
+
+    function _toil_debug-file {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--version[show program'\''s version number and exit]' \
+            '--tempDirRoot[Path to where temporary directory containing all temp files are created, by default generates a fresh tmp dir with '\''tempfile.gettempdir()'\''. (default: /tmp)]':file:_files \
+            '--localFilePath[Location to which to copy job store files. (default: None)]':file:_files \
+            '--fetch[List of job-store files to be copied locally.Use either explicit names (i.e. '\''data.txt'\''), or specify glob patterns (i.e. '\''*.txt'\'') (default: None)]' \
+            '--listFilesInJobStore[Prints a list of the current files in the jobStore. (default: None)]':file:_files \
+            '--fetchEntireJobStore[Copy all job store files into a local directory. (default: None)]' \
+            '--useSymlinks[Creates symlink '\''shortcuts'\'' of files in the localFilePath instead of hardlinking or copying, where possible. If this is not possible, it will copy the files (shutil.copyfile()). (default: None)]' \
+            '--logCritical[Turn on loglevel Critical. Default: INFO. (default: INFO)]' \
+            '--logError[Turn on loglevel Error. Default: INFO. (default: INFO)]' \
+            '--logWarning[Turn on loglevel Warning. Default: INFO. (default: INFO)]' \
+            '--logDebug[Turn on loglevel Debug. Default: INFO. (default: INFO)]' \
+            '--logInfo[Turn on loglevel Info. Default: INFO. (default: INFO)]' \
+            '--logOff[Same as --logCRITICAL. (default: INFO)]' \
+            '--logLevel[Set the log level. Default: INFO. Options: \['\''Critical'\'', '\''Error'\'', '\''Warning'\'', '\''Debug'\'', '\''Info'\'', '\''critical'\'', '\''error'\'', '\''warning'\'', '\''debug'\'', '\''info'\'', '\''CRITICAL'\'', '\''ERROR'\'', '\''WARNING'\'', '\''DEBUG'\'', '\''INFO'\''\]. (default: INFO)]' \
+            '--logFile[File to log in. (default: None)]':file:_files \
+            '--rotatingLogging[Turn on rotating logging, which prevents log files from getting too big. (default: False)]' \
+            "*: :_files"
+
+    }
+
+    function _toil_debug-job {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--version[show program'\''s version number and exit]' \
+            '--tempDirRoot[Path to where temporary directory containing all temp files are created, by default generates a fresh tmp dir with '\''tempfile.gettempdir()'\''. (default: /tmp)]':file:_files \
+            '--printJobInfo[Return information about this job to the user including preceding jobs, inputs, outputs, and runtime from the last known run. (default: None)]' \
+            '--logCritical[Turn on loglevel Critical. Default: INFO. (default: INFO)]' \
+            '--logError[Turn on loglevel Error. Default: INFO. (default: INFO)]' \
+            '--logWarning[Turn on loglevel Warning. Default: INFO. (default: INFO)]' \
+            '--logDebug[Turn on loglevel Debug. Default: INFO. (default: INFO)]' \
+            '--logInfo[Turn on loglevel Info. Default: INFO. (default: INFO)]' \
+            '--logOff[Same as --logCRITICAL. (default: INFO)]' \
+            '--logLevel[Set the log level. Default: INFO. Options: \['\''Critical'\'', '\''Error'\'', '\''Warning'\'', '\''Debug'\'', '\''Info'\'', '\''critical'\'', '\''error'\'', '\''warning'\'', '\''debug'\'', '\''info'\'', '\''CRITICAL'\'', '\''ERROR'\'', '\''WARNING'\'', '\''DEBUG'\'', '\''INFO'\''\]. (default: INFO)]' \
+            '--logFile[File to log in. (default: None)]':file:_files \
+            '--rotatingLogging[Turn on rotating logging, which prevents log files from getting too big. (default: False)]' \
+            "*: :_files"
+
+    }
+
+    function _toil_destroy-cluster {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--version[show program'\''s version number and exit]' \
+            '--tempDirRoot[Path to where temporary directory containing all temp files are created, by default generates a fresh tmp dir with '\''tempfile.gettempdir()'\''. (default: /tmp)]':file:_files \
+            {--provisioner,-p}'[The provisioner for cluster auto-scaling. This is the '\''--provisioner'\'' option set for Toil utils like launch-cluster and destroy-cluster, which always require a provisioner, and so this defaults to: aws. Choices: \['\''aws'\'', '\''gce'\''\].]' \
+            {-z,--zone}'[The availability zone of the leader. This parameter can also be set via the '\''TOIL_X_ZONE'\'' environment variable, where X is AWS or GCE, or by the ec2_region_name parameter in your .boto file, or derived from the instance metadata if using this utility on an existing EC2 instance. (default: None)]' \
+            '--logCritical[Turn on loglevel Critical. Default: INFO. (default: INFO)]' \
+            '--logError[Turn on loglevel Error. Default: INFO. (default: INFO)]' \
+            '--logWarning[Turn on loglevel Warning. Default: INFO. (default: INFO)]' \
+            '--logDebug[Turn on loglevel Debug. Default: INFO. (default: INFO)]' \
+            '--logInfo[Turn on loglevel Info. Default: INFO. (default: INFO)]' \
+            '--logOff[Same as --logCRITICAL. (default: INFO)]' \
+            '--logLevel[Set the log level. Default: INFO. Options: \['\''Critical'\'', '\''Error'\'', '\''Warning'\'', '\''Debug'\'', '\''Info'\'', '\''critical'\'', '\''error'\'', '\''warning'\'', '\''debug'\'', '\''info'\'', '\''CRITICAL'\'', '\''ERROR'\'', '\''WARNING'\'', '\''DEBUG'\'', '\''INFO'\''\]. (default: INFO)]' \
+            '--logFile[File to log in. (default: None)]':file:_files \
+            '--rotatingLogging[Turn on rotating logging, which prevents log files from getting too big. (default: False)]' \
+            "*: :_files"
+
+    }
+
+    function _toil_kill {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--version[show program'\''s version number and exit]' \
+            '--tempDirRoot[Path to where temporary directory containing all temp files are created, by default generates a fresh tmp dir with '\''tempfile.gettempdir()'\''. (default: /tmp)]':file:_files \
+            '--force[Send SIGKILL to the leader process if local. (default: False)]' \
+            '--logCritical[Turn on loglevel Critical. Default: INFO. (default: INFO)]' \
+            '--logError[Turn on loglevel Error. Default: INFO. (default: INFO)]' \
+            '--logWarning[Turn on loglevel Warning. Default: INFO. (default: INFO)]' \
+            '--logDebug[Turn on loglevel Debug. Default: INFO. (default: INFO)]' \
+            '--logInfo[Turn on loglevel Info. Default: INFO. (default: INFO)]' \
+            '--logOff[Same as --logCRITICAL. (default: INFO)]' \
+            '--logLevel[Set the log level. Default: INFO. Options: \['\''Critical'\'', '\''Error'\'', '\''Warning'\'', '\''Debug'\'', '\''Info'\'', '\''critical'\'', '\''error'\'', '\''warning'\'', '\''debug'\'', '\''info'\'', '\''CRITICAL'\'', '\''ERROR'\'', '\''WARNING'\'', '\''DEBUG'\'', '\''INFO'\''\]. (default: INFO)]' \
+            '--logFile[File to log in. (default: None)]':file:_files \
+            '--rotatingLogging[Turn on rotating logging, which prevents log files from getting too big. (default: False)]' \
+            "*: :_files"
+
+    }
+
+    function _toil_launch-cluster {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--version[show program'\''s version number and exit]' \
+            '--tempDirRoot[Path to where temporary directory containing all temp files are created, by default generates a fresh tmp dir with '\''tempfile.gettempdir()'\''. (default: /tmp)]':file:_files \
+            {-T,--clusterType}'[Cluster scheduler to use. (default: mesos)]' \
+            '--leaderNodeType[Non-preemptable node type to use for the cluster leader. (default: None)]' \
+            '--keyPairName[On AWS, the name of the AWS key pair to include on the instance. On Google/GCE, this is the ssh key pair. (default: None)]' \
+            '--owner[The owner tag for all instances. If not given, the value inTOIL_OWNER_TAG will be used, or else the value of --keyPairName. (default: None)]' \
+            '--boto[The path to the boto credentials directory. This is transferred to all nodes in order to access the AWS jobStore from non-AWS instances. (default: None)]':file:_files \
+            {-t,--tag}'[Tags are added to the AWS cluster for this node and all of its children. Tags are of the form: -t key1=value1 --tag key2=value2 Multiple tags are allowed and each tag needs its own flag. By default the cluster is tagged with { "Name": clusterName, "Owner": IAM username }. (default: \[\])]' \
+            '--vpcSubnet[VPC subnet ID to launch cluster leader in. Uses default subnet if not specified. This subnet needs to have auto assign IPs turned on. (default: None)]' \
+            '--nodeTypes[Specifies a list of comma-separated node types, each of which is composed of slash-separated instance types, and an optional spot bid set off by a colon, making the node type preemptable. Instance types may appear in multiple node types, and the same node type may appear as both preemptable and non-preemptable. Valid argument specifying two node types: c5.4xlarge/c5a.4xlarge:0.42,t2.large Node types: c5.4xlarge/c5a.4xlarge:0.42 and t2.large Instance types: c5.4xlarge, c5a.4xlarge, and t2.large Semantics: Bid $0.42/hour for either c5.4xlarge or c5a.4xlarge instances, treated interchangeably, while they are available at that price, and buy t2.large instances at full price Must also provide the --workers argument to specify how many workers of each node type to create. (default: None)]' \
+            {-w,--workers}'[Comma-separated list of the ranges of numbers of workers of each node type to launch, such as '\''0-2,5,1-3'\''. If a range is given, workers will automatically be launched and terminated by the cluster to auto-scale to the workload. (default: None)]' \
+            '--leaderStorage[Specify the size (in gigabytes) of the root volume for the leader instance. This is an EBS volume. (default: 50)]' \
+            '--nodeStorage[Specify the size (in gigabytes) of the root volume for any worker instances created when using the -w flag. This is an EBS volume. (default: 50)]' \
+            '--forceDockerAppliance[Disables sanity checking the existence of the docker image specified by TOIL_APPLIANCE_SELF, which Toil uses to provision mesos for autoscaling. (default: False)]' \
+            '--awsEc2ProfileArn[If provided, the specified ARN is used as the instance profile for EC2 instances.Useful for setting custom IAM profiles. If not specified, a new IAM role is created by default with sufficient access to perform basic cluster operations. (default: None)]':file:_files \
+            '--awsEc2ExtraSecurityGroupId[Any additional security groups to attach to EC2 instances. Note that a security group with its name equal to the cluster name will always be created, thus ensure that the extra security groups do not have the same name as the cluster name. (default: \[\])]' \
+            {--provisioner,-p}'[The provisioner for cluster auto-scaling. This is the '\''--provisioner'\'' option set for Toil utils like launch-cluster and destroy-cluster, which always require a provisioner, and so this defaults to: aws. Choices: \['\''aws'\'', '\''gce'\''\].]' \
+            {-z,--zone}'[The availability zone of the leader. This parameter can also be set via the '\''TOIL_X_ZONE'\'' environment variable, where X is AWS or GCE, or by the ec2_region_name parameter in your .boto file, or derived from the instance metadata if using this utility on an existing EC2 instance. (default: None)]' \
+            '--logCritical[Turn on loglevel Critical. Default: INFO. (default: INFO)]' \
+            '--logError[Turn on loglevel Error. Default: INFO. (default: INFO)]' \
+            '--logWarning[Turn on loglevel Warning. Default: INFO. (default: INFO)]' \
+            '--logDebug[Turn on loglevel Debug. Default: INFO. (default: INFO)]' \
+            '--logInfo[Turn on loglevel Info. Default: INFO. (default: INFO)]' \
+            '--logOff[Same as --logCRITICAL. (default: INFO)]' \
+            '--logLevel[Set the log level. Default: INFO. Options: \['\''Critical'\'', '\''Error'\'', '\''Warning'\'', '\''Debug'\'', '\''Info'\'', '\''critical'\'', '\''error'\'', '\''warning'\'', '\''debug'\'', '\''info'\'', '\''CRITICAL'\'', '\''ERROR'\'', '\''WARNING'\'', '\''DEBUG'\'', '\''INFO'\''\]. (default: INFO)]' \
+            '--logFile[File to log in. (default: None)]':file:_files \
+            '--rotatingLogging[Turn on rotating logging, which prevents log files from getting too big. (default: False)]' \
+            "*: :_files"
+
+    }
+
+    function _toil_rsync-cluster {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--version[show program'\''s version number and exit]' \
+            '--tempDirRoot[Path to where temporary directory containing all temp files are created, by default generates a fresh tmp dir with '\''tempfile.gettempdir()'\''. (default: /tmp)]':file:_files \
+            '--insecure[Temporarily disable strict host key checking. (default: False)]' \
+            {--provisioner,-p}'[The provisioner for cluster auto-scaling. This is the '\''--provisioner'\'' option set for Toil utils like launch-cluster and destroy-cluster, which always require a provisioner, and so this defaults to: aws. Choices: \['\''aws'\'', '\''gce'\''\].]' \
+            {-z,--zone}'[The availability zone of the leader. This parameter can also be set via the '\''TOIL_X_ZONE'\'' environment variable, where X is AWS or GCE, or by the ec2_region_name parameter in your .boto file, or derived from the instance metadata if using this utility on an existing EC2 instance. (default: None)]' \
+            '--logCritical[Turn on loglevel Critical. Default: INFO. (default: INFO)]' \
+            '--logError[Turn on loglevel Error. Default: INFO. (default: INFO)]' \
+            '--logWarning[Turn on loglevel Warning. Default: INFO. (default: INFO)]' \
+            '--logDebug[Turn on loglevel Debug. Default: INFO. (default: INFO)]' \
+            '--logInfo[Turn on loglevel Info. Default: INFO. (default: INFO)]' \
+            '--logOff[Same as --logCRITICAL. (default: INFO)]' \
+            '--logLevel[Set the log level. Default: INFO. Options: \['\''Critical'\'', '\''Error'\'', '\''Warning'\'', '\''Debug'\'', '\''Info'\'', '\''critical'\'', '\''error'\'', '\''warning'\'', '\''debug'\'', '\''info'\'', '\''CRITICAL'\'', '\''ERROR'\'', '\''WARNING'\'', '\''DEBUG'\'', '\''INFO'\''\]. (default: INFO)]' \
+            '--logFile[File to log in. (default: None)]':file:_files \
+            '--rotatingLogging[Turn on rotating logging, which prevents log files from getting too big. (default: False)]' \
+            "*: :_files"
+
+    }
+
+    function _toil_ssh-cluster {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--version[show program'\''s version number and exit]' \
+            '--tempDirRoot[Path to where temporary directory containing all temp files are created, by default generates a fresh tmp dir with '\''tempfile.gettempdir()'\''. (default: /tmp)]':file:_files \
+            '--insecure[Temporarily disable strict host key checking. (default: False)]' \
+            '--sshOption[Pass an additional option to the SSH command. (default: \[\])]' \
+            '--grafana_port[Assign a local port to be used for the Grafana dashboard. (default: 3000)]' \
+            {--provisioner,-p}'[The provisioner for cluster auto-scaling. This is the '\''--provisioner'\'' option set for Toil utils like launch-cluster and destroy-cluster, which always require a provisioner, and so this defaults to: aws. Choices: \['\''aws'\'', '\''gce'\''\].]' \
+            {-z,--zone}'[The availability zone of the leader. This parameter can also be set via the '\''TOIL_X_ZONE'\'' environment variable, where X is AWS or GCE, or by the ec2_region_name parameter in your .boto file, or derived from the instance metadata if using this utility on an existing EC2 instance. (default: None)]' \
+            '--logCritical[Turn on loglevel Critical. Default: INFO. (default: INFO)]' \
+            '--logError[Turn on loglevel Error. Default: INFO. (default: INFO)]' \
+            '--logWarning[Turn on loglevel Warning. Default: INFO. (default: INFO)]' \
+            '--logDebug[Turn on loglevel Debug. Default: INFO. (default: INFO)]' \
+            '--logInfo[Turn on loglevel Info. Default: INFO. (default: INFO)]' \
+            '--logOff[Same as --logCRITICAL. (default: INFO)]' \
+            '--logLevel[Set the log level. Default: INFO. Options: \['\''Critical'\'', '\''Error'\'', '\''Warning'\'', '\''Debug'\'', '\''Info'\'', '\''critical'\'', '\''error'\'', '\''warning'\'', '\''debug'\'', '\''info'\'', '\''CRITICAL'\'', '\''ERROR'\'', '\''WARNING'\'', '\''DEBUG'\'', '\''INFO'\''\]. (default: INFO)]' \
+            '--logFile[File to log in. (default: None)]':file:_files \
+            '--rotatingLogging[Turn on rotating logging, which prevents log files from getting too big. (default: False)]' \
+            "*: :_files"
+
+    }
+
+    function _toil_stats {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--version[show program'\''s version number and exit]' \
+            '--tempDirRoot[Path to where temporary directory containing all temp files are created, by default generates a fresh tmp dir with '\''tempfile.gettempdir()'\''. (default: /tmp)]':file:_files \
+            '--outputFile[File in which to write results. (default: None)]':file:_files \
+            '--raw[Return raw json data. (default: False)]' \
+            {--pretty,--human}'[if not raw, prettify the numbers to be human readable. (default: False)]' \
+            {--sortReverse,--reverseSort}'[Reverse sort. (default: False)]' \
+            '--categories[Comma separated list of any of the following: \['\''time'\'', '\''clock'\'', '\''wait'\'', '\''memory'\''\]. (default: time,clock,wait,memory)]' \
+            '--sortCategory[How to sort job categories. Choices: \['\''time'\'', '\''clock'\'', '\''wait'\'', '\''memory'\'', '\''alpha'\'', '\''count'\''\]. Default: time. (default: time)]' \
+            '--sortField[How to sort job fields. Choices: \['\''min'\'', '\''med'\'', '\''ave'\'', '\''max'\'', '\''total'\''\]. Default: med. (default: med)]' \
+            '--logCritical[Turn on loglevel Critical. Default: INFO. (default: INFO)]' \
+            '--logError[Turn on loglevel Error. Default: INFO. (default: INFO)]' \
+            '--logWarning[Turn on loglevel Warning. Default: INFO. (default: INFO)]' \
+            '--logDebug[Turn on loglevel Debug. Default: INFO. (default: INFO)]' \
+            '--logInfo[Turn on loglevel Info. Default: INFO. (default: INFO)]' \
+            '--logOff[Same as --logCRITICAL. (default: INFO)]' \
+            '--logLevel[Set the log level. Default: INFO. Options: \['\''Critical'\'', '\''Error'\'', '\''Warning'\'', '\''Debug'\'', '\''Info'\'', '\''critical'\'', '\''error'\'', '\''warning'\'', '\''debug'\'', '\''info'\'', '\''CRITICAL'\'', '\''ERROR'\'', '\''WARNING'\'', '\''DEBUG'\'', '\''INFO'\''\]. (default: INFO)]' \
+            '--logFile[File to log in. (default: None)]':file:_files \
+            '--rotatingLogging[Turn on rotating logging, which prevents log files from getting too big. (default: False)]' \
+            "*: :_files"
+
+    }
+
+    function _toil_status {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--version[show program'\''s version number and exit]' \
+            '--tempDirRoot[Path to where temporary directory containing all temp files are created, by default generates a fresh tmp dir with '\''tempfile.gettempdir()'\''. (default: /tmp)]':file:_files \
+            '--failIfNotComplete[Return exit value of 1 if toil jobs not all completed. default=False]' \
+            '--noAggStats[Do not print overall, aggregate status of workflow. (default: True)]' \
+            '--printDot[Print dot formatted description of the graph. If using --jobs will restrict to subgraph including only those jobs. default=False]' \
+            '--jobs[Restrict reporting to the following jobs (allows subsetting of the report). (default: None)]' \
+            '--printPerJobStats[Print info about each job. default=False]' \
+            '--printLogs[Print the log files of jobs (if they exist). default=False]' \
+            '--printChildren[Print children of each job. default=False]' \
+            '--logCritical[Turn on loglevel Critical. Default: INFO. (default: INFO)]' \
+            '--logError[Turn on loglevel Error. Default: INFO. (default: INFO)]' \
+            '--logWarning[Turn on loglevel Warning. Default: INFO. (default: INFO)]' \
+            '--logDebug[Turn on loglevel Debug. Default: INFO. (default: INFO)]' \
+            '--logInfo[Turn on loglevel Info. Default: INFO. (default: INFO)]' \
+            '--logOff[Same as --logCRITICAL. (default: INFO)]' \
+            '--logLevel[Set the log level. Default: INFO. Options: \['\''Critical'\'', '\''Error'\'', '\''Warning'\'', '\''Debug'\'', '\''Info'\'', '\''critical'\'', '\''error'\'', '\''warning'\'', '\''debug'\'', '\''info'\'', '\''CRITICAL'\'', '\''ERROR'\'', '\''WARNING'\'', '\''DEBUG'\'', '\''INFO'\''\]. (default: INFO)]' \
+            '--logFile[File to log in. (default: None)]':file:_files \
+            '--rotatingLogging[Turn on rotating logging, which prevents log files from getting too big. (default: False)]' \
+            "*: :_files"
+
+    }
+
+
+function _toil {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'clean:Delete a job store used by a previous Toil workflow invocation.'
+            'debug-file:Debug tool for copying files contained in a toil jobStore.'
+            'debug-job:Debug tool for running a toil job locally.'
+            'destroy-cluster:Terminates the specified cluster and associated resources.'
+            'kill:Kills rogue toil processes.'
+            'launch-cluster:Launches a toil leader instance with the specified provisioner.'
+            'rsync-cluster:Rsyncs into the toil appliance container running on the leader of the cluster.'
+            'ssh-cluster:SSH into the toil appliance container running on the leader of the cluster.'
+            'stats:Reports statistical data about a given Toil workflow.'
+            'status:Tool for reporting on job status.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (clean)
+            _toil_clean
+            ;;
+
+        (debug-file)
+            _toil_debug-file
+            ;;
+
+        (debug-job)
+            _toil_debug-job
+            ;;
+
+        (destroy-cluster)
+            _toil_destroy-cluster
+            ;;
+
+        (kill)
+            _toil_kill
+            ;;
+
+        (launch-cluster)
+            _toil_launch-cluster
+            ;;
+
+        (rsync-cluster)
+            _toil_rsync-cluster
+            ;;
+
+        (ssh-cluster)
+            _toil_ssh-cluster
+            ;;
+
+        (stats)
+            _toil_stats
+            ;;
+
+        (status)
+            _toil_status
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

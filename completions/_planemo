@@ -37,8 +37,10 @@
             '--docker_host[Docker host to target when executing docker commands (defaults to localhost).]' \
             '--docker_sudo_cmd[sudo command to use when --docker_sudo is enabled (defaults to sudo).]' \
             {--mulled_containers,--biocontainers}'[Test tools against mulled containers (forces --docker). Disables conda resolution unless any conda option has been set explicitly.]' \
+            '--galaxy_startup_timeout[Wait for galaxy to start before assuming Galaxy did not start. \[x>=1\]]' \
             '--job_config_file[Job configuration file for Galaxy to target.]':file:_files \
             '--tool_dependency_dir[Tool dependency dir for Galaxy to target.]':file:_files \
+            '--tool_data_path[Directory where data used by tools is located. Required if tests are run in docker and should make use of external reference data.]':file:_files \
             '--test_data[test-data directory to for specified tool(s).]':file:_files \
             '--tool_data_table[tool_data_table_conf.xml file to for specified tool(s).]':file:_files \
             '--dependency_resolvers_config_file[Dependency resolver configuration for Galaxy to target.]':file:_files \
@@ -101,6 +103,33 @@
 
     }
 
+    function _planemo_ci_setup {
+        _arguments \
+            '--galaxy_root[Root of development galaxy directory to execute command with.]':file:_files \
+            '--galaxy_python_version[Python version to start Galaxy under]' \
+            '--extra_tools[Extra tool sources to include in Galaxy'\''s tool panel (file or directory). These will not be linted/tested/etc... but they will be available to workflows and for interactive use.]':file:_files \
+            '--install_galaxy[Download and configure a disposable copy of Galaxy from github.]' \
+            '--galaxy_branch[Branch of Galaxy to target (defaults to master) if a Galaxy root isn'\''t specified.]' \
+            '--galaxy_source[Git source of Galaxy to target (defaults to the official galaxyproject github source if a Galaxy root isn'\''t specified.]' \
+            '--skip_venv[Do not create or source a virtualenv environment for Galaxy, this should be used to preserve an externally configured virtual environment or conda environment.]' \
+            '--no_cache_galaxy[Skip caching of Galaxy source and dependencies obtained with --install_galaxy. Not caching this results in faster downloads (no git) - so is better on throw away instances such with TravisCI.]' \
+            '--no_cleanup[Do not cleanup temp files created for and by Galaxy.]' \
+            '--galaxy_email[E-mail address to use when launching singleuser Galaxy server.]' \
+            {--docker,--no_docker}'[Run Galaxy tools in Docker if enabled.]' \
+            '--docker_cmd[Command used to launch docker (defaults to docker).]' \
+            {--docker_sudo,--no_docker_sudo}'[Flag to use sudo when running docker.]' \
+            '--docker_host[Docker host to target when executing docker commands (defaults to localhost).]' \
+            '--docker_sudo_cmd[sudo command to use when --docker_sudo is enabled (defaults to sudo).]' \
+            {--mulled_containers,--biocontainers}'[Test tools against mulled containers (forces --docker). Disables conda resolution unless any conda option has been set explicitly.]' \
+            '--galaxy_startup_timeout[Wait for galaxy to start before assuming Galaxy did not start. \[x>=1\]]' \
+            '--job_config_file[Job configuration file for Galaxy to target.]':file:_files \
+            '--tool_dependency_dir[Tool dependency dir for Galaxy to target.]':file:_files \
+            '--tool_data_path[Directory where data used by tools is located. Required if tests are run in docker and should make use of external reference data.]':file:_files \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
     function _planemo_clone {
         _arguments \
             {--fork,--skip_fork}'[--branch TEXT Create a named branch on result.]' \
@@ -151,14 +180,6 @@
             '--conda_use_local[Use locally built packages while building Conda environments.]' \
             '--global[Install Conda dependencies globally instead of in requirement specific environments packaged for tools. If the Conda bin directory is on your PATH, tools may still use binaries but this is more designed for interactive testing and debugging.]' \
             {--conda_auto_init,--no_conda_auto_init}'[Conda dependency resolution for Galaxy will auto install conda itself using miniconda if not availabe on conda_prefix.]' \
-            '--help[Show this message and exit.]' \
-            "*: :_files"
-
-    }
-
-    function _planemo_conda_lint {
-        _arguments \
-            {--report_level,--fail_level,-r,--recursive}'[Recursively perform command for nested conda directories.]' \
             '--help[Show this message and exit.]' \
             "*: :_files"
 
@@ -303,6 +324,7 @@
 
     function _planemo_dockstore_init {
         _arguments \
+            {--publish,--no_publish}'[Set publish attribute to true in .dockstore.yml file]' \
             '--help[Show this message and exit.]' \
             "*: :_files"
 
@@ -496,8 +518,10 @@
             '--docker_host[Docker host to target when executing docker commands (defaults to localhost).]' \
             '--docker_sudo_cmd[sudo command to use when --docker_sudo is enabled (defaults to sudo).]' \
             {--mulled_containers,--biocontainers}'[Test tools against mulled containers (forces --docker). Disables conda resolution unless any conda option has been set explicitly.]' \
+            '--galaxy_startup_timeout[Wait for galaxy to start before assuming Galaxy did not start. \[x>=1\]]' \
             '--job_config_file[Job configuration file for Galaxy to target.]':file:_files \
             '--tool_dependency_dir[Tool dependency dir for Galaxy to target.]':file:_files \
+            '--tool_data_path[Directory where data used by tools is located. Required if tests are run in docker and should make use of external reference data.]':file:_files \
             '--port[Port to serve Galaxy on (default is 9090).]' \
             '--host[Host to bind Galaxy to. Default is 127.0.0.1 that is restricted to localhost connections for security reasons set to 0.0.0.0 to bind Galaxy to all ports including potentially publicly accessible ones.]' \
             '--test_data[test-data directory to for specified tool(s).]':file:_files \
@@ -583,8 +607,10 @@
             '--docker_host[Docker host to target when executing docker commands (defaults to localhost).]' \
             '--docker_sudo_cmd[sudo command to use when --docker_sudo is enabled (defaults to sudo).]' \
             {--mulled_containers,--biocontainers}'[Test tools against mulled containers (forces --docker). Disables conda resolution unless any conda option has been set explicitly.]' \
+            '--galaxy_startup_timeout[Wait for galaxy to start before assuming Galaxy did not start. \[x>=1\]]' \
             '--job_config_file[Job configuration file for Galaxy to target.]':file:_files \
             '--tool_dependency_dir[Tool dependency dir for Galaxy to target.]':file:_files \
+            '--tool_data_path[Directory where data used by tools is located. Required if tests are run in docker and should make use of external reference data.]':file:_files \
             '--port[Port to serve Galaxy on (default is 9090).]' \
             '--host[Host to bind Galaxy to. Default is 127.0.0.1 that is restricted to localhost connections for security reasons set to 0.0.0.0 to bind Galaxy to all ports including potentially publicly accessible ones.]' \
             '--engine[Select an engine to serve artifacts such as tools and workflows. Defaults to a local Galaxy, but running Galaxy within a Docker container.]' \
@@ -664,6 +690,7 @@
 
     function _planemo_shed_diff {
         _arguments \
+            '--shed_target_source[This command will return an exit code of:]' \
             {-r,--recursive}'[Recursively perform command for nested repository directories.]' \
             '--fail_fast[If multiple repositories are specified and an error occurs stop immediately instead of processing remaining repositories.]' \
             '--owner[Tool Shed repository owner (username).]' \
@@ -755,8 +782,10 @@
             '--docker_host[Docker host to target when executing docker commands (defaults to localhost).]' \
             '--docker_sudo_cmd[sudo command to use when --docker_sudo is enabled (defaults to sudo).]' \
             {--mulled_containers,--biocontainers}'[Test tools against mulled containers (forces --docker). Disables conda resolution unless any conda option has been set explicitly.]' \
+            '--galaxy_startup_timeout[Wait for galaxy to start before assuming Galaxy did not start. \[x>=1\]]' \
             '--job_config_file[Job configuration file for Galaxy to target.]':file:_files \
             '--tool_dependency_dir[Tool dependency dir for Galaxy to target.]':file:_files \
+            '--tool_data_path[Directory where data used by tools is located. Required if tests are run in docker and should make use of external reference data.]':file:_files \
             '--port[Port to serve Galaxy on (default is 9090).]' \
             '--host[Host to bind Galaxy to. Default is 127.0.0.1 that is restricted to localhost connections for security reasons set to 0.0.0.0 to bind Galaxy to all ports including potentially publicly accessible ones.]' \
             '--engine[Select an engine to serve artifacts such as tools and workflows. Defaults to a local Galaxy, but running Galaxy within a Docker container.]' \
@@ -828,8 +857,10 @@
             '--docker_host[Docker host to target when executing docker commands (defaults to localhost).]' \
             '--docker_sudo_cmd[sudo command to use when --docker_sudo is enabled (defaults to sudo).]' \
             {--mulled_containers,--biocontainers}'[Test tools against mulled containers (forces --docker). Disables conda resolution unless any conda option has been set explicitly.]' \
+            '--galaxy_startup_timeout[Wait for galaxy to start before assuming Galaxy did not start. \[x>=1\]]' \
             '--job_config_file[Job configuration file for Galaxy to target.]':file:_files \
             '--tool_dependency_dir[Tool dependency dir for Galaxy to target.]':file:_files \
+            '--tool_data_path[Directory where data used by tools is located. Required if tests are run in docker and should make use of external reference data.]':file:_files \
             '--update_test_data[Update test-data directory with job outputs (normally written to directory --job_output_files if specified.)]' \
             {--paste_test_data_paths,--no_paste_test_data_paths}'[By default Planemo will use or not use Galaxy'\''s path paste option to load test data into a history based on the engine type it is targeting. This can override the logic to explicitly enable or disable path pasting.]' \
             '--test_output[Output test report (HTML - for humans) defaults to tool_test_output.html.]':file:_files \
@@ -918,8 +949,10 @@
             '--docker_host[Docker host to target when executing docker commands (defaults to localhost).]' \
             '--docker_sudo_cmd[sudo command to use when --docker_sudo is enabled (defaults to sudo).]' \
             {--mulled_containers,--biocontainers}'[Test tools against mulled containers (forces --docker). Disables conda resolution unless any conda option has been set explicitly.]' \
+            '--galaxy_startup_timeout[Wait for galaxy to start before assuming Galaxy did not start. \[x>=1\]]' \
             '--job_config_file[Job configuration file for Galaxy to target.]':file:_files \
             '--tool_dependency_dir[Tool dependency dir for Galaxy to target.]':file:_files \
+            '--tool_data_path[Directory where data used by tools is located. Required if tests are run in docker and should make use of external reference data.]':file:_files \
             '--test_data[test-data directory to for specified tool(s).]':file:_files \
             '--tool_data_table[tool_data_table_conf.xml file to for specified tool(s).]':file:_files \
             '--dependency_resolvers_config_file[Dependency resolver configuration for Galaxy to target.]':file:_files \
@@ -1057,8 +1090,10 @@
             '--docker_host[Docker host to target when executing docker commands (defaults to localhost).]' \
             '--docker_sudo_cmd[sudo command to use when --docker_sudo is enabled (defaults to sudo).]' \
             {--mulled_containers,--biocontainers}'[Test tools against mulled containers (forces --docker). Disables conda resolution unless any conda option has been set explicitly.]' \
+            '--galaxy_startup_timeout[Wait for galaxy to start before assuming Galaxy did not start. \[x>=1\]]' \
             '--job_config_file[Job configuration file for Galaxy to target.]':file:_files \
             '--tool_dependency_dir[Tool dependency dir for Galaxy to target.]':file:_files \
+            '--tool_data_path[Directory where data used by tools is located. Required if tests are run in docker and should make use of external reference data.]':file:_files \
             '--port[Port to serve Galaxy on (default is 9090).]' \
             '--host[Host to bind Galaxy to. Default is 127.0.0.1 that is restricted to localhost connections for security reasons set to 0.0.0.0 to bind Galaxy to all ports including potentially publicly accessible ones.]' \
             '--engine[Select an engine to serve artifacts such as tools and workflows. Defaults to a local Galaxy, but running Galaxy within a Docker container.]' \
@@ -1134,8 +1169,10 @@
             '--docker_host[Docker host to target when executing docker commands (defaults to localhost).]' \
             '--docker_sudo_cmd[sudo command to use when --docker_sudo is enabled (defaults to sudo).]' \
             {--mulled_containers,--biocontainers}'[Test tools against mulled containers (forces --docker). Disables conda resolution unless any conda option has been set explicitly.]' \
+            '--galaxy_startup_timeout[Wait for galaxy to start before assuming Galaxy did not start. \[x>=1\]]' \
             '--job_config_file[Job configuration file for Galaxy to target.]':file:_files \
             '--tool_dependency_dir[Tool dependency dir for Galaxy to target.]':file:_files \
+            '--tool_data_path[Directory where data used by tools is located. Required if tests are run in docker and should make use of external reference data.]':file:_files \
             '--port[Port to serve Galaxy on (default is 9090).]' \
             '--host[Host to bind Galaxy to. Default is 127.0.0.1 that is restricted to localhost connections for security reasons set to 0.0.0.0 to bind Galaxy to all ports including potentially publicly accessible ones.]' \
             '--engine[Select an engine to serve artifacts such as tools and workflows. Defaults to a local Galaxy, but running Galaxy within a Docker container.]' \
@@ -1197,8 +1234,10 @@
             '--docker_host[Docker host to target when executing docker commands (defaults to localhost).]' \
             '--docker_sudo_cmd[sudo command to use when --docker_sudo is enabled (defaults to sudo).]' \
             {--mulled_containers,--biocontainers}'[Test tools against mulled containers (forces --docker). Disables conda resolution unless any conda option has been set explicitly.]' \
+            '--galaxy_startup_timeout[Wait for galaxy to start before assuming Galaxy did not start. \[x>=1\]]' \
             '--job_config_file[Job configuration file for Galaxy to target.]':file:_files \
             '--tool_dependency_dir[Tool dependency dir for Galaxy to target.]':file:_files \
+            '--tool_data_path[Directory where data used by tools is located. Required if tests are run in docker and should make use of external reference data.]':file:_files \
             '--port[Port to serve Galaxy on (default is 9090).]' \
             '--host[Host to bind Galaxy to. Default is 127.0.0.1 that is restricted to localhost connections for security reasons set to 0.0.0.0 to bind Galaxy to all ports including potentially publicly accessible ones.]' \
             '--test_data[test-data directory to for specified tool(s).]':file:_files \
@@ -1253,8 +1292,10 @@
             '--docker_host[Docker host to target when executing docker commands (defaults to localhost).]' \
             '--docker_sudo_cmd[sudo command to use when --docker_sudo is enabled (defaults to sudo).]' \
             {--mulled_containers,--biocontainers}'[Test tools against mulled containers (forces --docker). Disables conda resolution unless any conda option has been set explicitly.]' \
+            '--galaxy_startup_timeout[Wait for galaxy to start before assuming Galaxy did not start. \[x>=1\]]' \
             '--job_config_file[Job configuration file for Galaxy to target.]':file:_files \
             '--tool_dependency_dir[Tool dependency dir for Galaxy to target.]':file:_files \
+            '--tool_data_path[Directory where data used by tools is located. Required if tests are run in docker and should make use of external reference data.]':file:_files \
             '--port[Port to serve Galaxy on (default is 9090).]' \
             '--host[Host to bind Galaxy to. Default is 127.0.0.1 that is restricted to localhost connections for security reasons set to 0.0.0.0 to bind Galaxy to all ports including potentially publicly accessible ones.]' \
             '--engine[Select an engine to serve artifacts such as tools and workflows. Defaults to a local Galaxy, but running Galaxy within a Docker container.]' \
@@ -1316,8 +1357,10 @@
             '--docker_host[Docker host to target when executing docker commands (defaults to localhost).]' \
             '--docker_sudo_cmd[sudo command to use when --docker_sudo is enabled (defaults to sudo).]' \
             {--mulled_containers,--biocontainers}'[Test tools against mulled containers (forces --docker). Disables conda resolution unless any conda option has been set explicitly.]' \
+            '--galaxy_startup_timeout[Wait for galaxy to start before assuming Galaxy did not start. \[x>=1\]]' \
             '--job_config_file[Job configuration file for Galaxy to target.]':file:_files \
             '--tool_dependency_dir[Tool dependency dir for Galaxy to target.]':file:_files \
+            '--tool_data_path[Directory where data used by tools is located. Required if tests are run in docker and should make use of external reference data.]':file:_files \
             '--port[Port to serve Galaxy on (default is 9090).]' \
             '--host[Host to bind Galaxy to. Default is 127.0.0.1 that is restricted to localhost connections for security reasons set to 0.0.0.0 to bind Galaxy to all ports including potentially publicly accessible ones.]' \
             '--engine[Select an engine to serve artifacts such as tools and workflows. Defaults to a local Galaxy, but running Galaxy within a Docker container.]' \
@@ -1398,6 +1441,7 @@
     function _planemo_workflow_upload {
         _arguments \
             '--namespace[Organization or username under which to create or update workflow repository. Must be a valid github username or organization]' \
+            '--github_branch[GitHub branch to use for the action. Default is main.]' \
             '--dry_run[Don'\''t execute action, show preview of action.]' \
             '--help[Show this message and exit.]' \
             "*: :_files"
@@ -1414,12 +1458,12 @@ function _planemo {
             'autoupdate:Auto-update tool requirements by checking...'
             'ci_find_repos:Find all shed repositories in one or more...'
             'ci_find_tools:Find all tools in one or more directories.'
+            'ci_setup:Launch Galaxy instance, then terminate...'
             'clone:Short-cut to quickly clone, fork, and...'
             'conda_build:Perform conda build with Planemo'\''s conda.'
             'conda_env:Activate a conda environment for tool.'
             'conda_init:Download and install conda.'
             'conda_install:Install conda packages for tool requirements.'
-            'conda_lint:Check conda recipe for common issues.'
             'conda_search:Perform conda search with Planemo'\''s conda.'
             'config_init:Initialise global configuration for Planemo.'
             'container_register:Register multi-requirement containers as...'
@@ -1462,7 +1506,7 @@ function _planemo {
             'shed_update:Update Tool Shed repository.'
             'shed_upload:Low-level command to upload tarballs.'
             'syntax:Open tool config syntax page in web browser.'
-            'test:Run specified tool'\''s tests within Galaxy.'
+            'test:Run specified tool or workflow tests within...'
             'test_reports:Generate human readable tool test reports.'
             'tool_init:Generate tool outline from given arguments.'
             'training_fill_data_library:Build training template from workflow.'
@@ -1507,6 +1551,10 @@ function _planemo {
             _planemo_ci_find_tools
             ;;
 
+        (ci_setup)
+            _planemo_ci_setup
+            ;;
+
         (clone)
             _planemo_clone
             ;;
@@ -1525,10 +1573,6 @@ function _planemo {
 
         (conda_install)
             _planemo_conda_install
-            ;;
-
-        (conda_lint)
-            _planemo_conda_lint
             ;;
 
         (conda_search)

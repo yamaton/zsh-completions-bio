@@ -1,0 +1,47 @@
+#compdef _blastdbcheck blastdbcheck
+
+# Auto-generated with h2o
+
+
+function _blastdbcheck {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-h[Print USAGE and DESCRIPTION; ignore all other parameters]' \
+        '-help[Print USAGE, DESCRIPTION and ARGUMENTS; ignore all other parameters]' \
+        '-version[Print version number; ignore other arguments]' \
+        '-db[Specify a database name.]' \
+        '-dbtype[Molecule type of database]' \
+        '-dir[Specify a directory containing one or more databases.]' \
+        '-recursive[Specify true to recurse through all dbs in directory tree.]' \
+        '-verbosity[0=Quiet, 1=Brief, 2=Summary, 3=Detailed, 4=Minutiae]' \
+        '-full[If true, test every sequence (warning: may be slow).]' \
+        '-stride[Check integrity of every Nth sequence.]' \
+        '-random[Check this many randomly selected sequences.]' \
+        '-ends[Check this many sequences at each end of the database.]' \
+        '-no_isam[Disable ISAM testing.]' \
+        '-legacy[Enable check for existence of temporary files.]' \
+        '-must_have_taxids[Require that all sequences in the database have taxid set.]' \
+        '-cdd_delta[Do aditional tests for a CDD database for DELTA-BLAST]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

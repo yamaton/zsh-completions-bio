@@ -2,7 +2,7 @@
 
 # Auto-generated with h2o
 
-    function _plass_plass-assemble {
+    function _plass_assemble {
         _arguments \
             '--add-self-matches[Artificially add entries of queries with themselves (for clustering) \[0\]]' \
             '--alph-size[Alphabet size (range 2-21) \[13\]]' \
@@ -27,7 +27,7 @@
             '--include-only-extendable[Include only extendable \[1\]]' \
             '--ignore-multi-kmer[Skip k-mers occuring multiple times (>=2) \[1\]]' \
             '--num-iterations[Number of assembly iterations \[1, inf\] \[12\]]' \
-            '--rescore-mode[0: Hamming distance 1: local alignment (score only) 2: local alignment 3: global alignment 4: longest alignment fullfilling window quality criterion \[3\]]' \
+            '--rescore-mode[Rescore diagonals with 0: Hamming distance 1: local alignment (score only) 2: local alignment 3: global alignment 4: longest alignment fullfilling window quality criterion \[3\]]' \
             '--min-length[Minimum codon number in open reading frames \[45\]]' \
             '--max-length[Maximum codon number in open reading frames \[32734\]]' \
             '--max-gaps[Maximum number of codons with gaps or unknown residues before an open reading frame is rejected \[2147483647\]]' \
@@ -62,7 +62,7 @@
 
     }
 
-    function _plass_plass-nuclassemble {
+    function _plass_nuclassemble {
         _arguments \
             '--add-self-matches[Artificially add entries of queries with themselves (for clustering) \[0\]]' \
             '--alph-size[Alphabet size (range 2-21) \[5\]]' \
@@ -118,8 +118,8 @@ function _plass {
     function _commands {
         local -a commands
         commands=(
-            'plass-assemble:plass-assemble'
-            'plass-nuclassemble:plass-nuclassemble'
+            'assemble:Assemble protein sequences by iterative greedy overlap assembly.'
+            'nuclassemble:Assemble nucleotide sequences by iterative greedy overlap assembly. (experimental)'
         )
         _describe 'command' commands
     }
@@ -135,12 +135,12 @@ function _plass {
         ;;
     (subcmd)
         case $line[1] in
-        (plass-assemble)
-            _plass_plass-assemble
+        (assemble)
+            _plass_assemble
             ;;
 
-        (plass-nuclassemble)
-            _plass_plass-nuclassemble
+        (nuclassemble)
+            _plass_nuclassemble
             ;;
 
         esac
