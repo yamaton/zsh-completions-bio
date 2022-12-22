@@ -1,0 +1,161 @@
+#compdef _muscle muscle
+
+# Auto-generated with h2o
+
+    function _muscle_-align {
+        _arguments \
+            '-perm[Specifies the guide tree permutation. PERM can be none, abc, acb and bca, default is none.]' \
+            '-stratified[Generate stratified ensemble.]' \
+            '-diversified[Generate diversified ensemble.]' \
+            '-replicates[Number of replicates, default 4 for -stratified and 100 for -diversified. With -stratified, one replicate is generated for each guide tree permutation, so the total number of replicates is 4×N.]' \
+            '-consiters[Number of consistency iterations. Default 2.]' \
+            '-refineiters[Number of refinement iterations. Default 100.]' \
+            '-nt[Input sequences use nucleotide alphabet (default auto-detect).]' \
+            '-amino[Input sequences use amino acid alphabet (default auto-detect).]' \
+            '-threads[Number of threads. Default is the number of CPU cores, or 20 if the CPU has more than 20 cores.]' \
+            "*: :_files"
+
+    }
+
+    function _muscle_-super5 {
+        _arguments \
+            '-perm[Specifies the guide tree permutation. PERM can be none, abc, acb and bca, default is none.]' \
+            '-consiters[Number of consistency iterations. Default 2.]' \
+            '-refineiters[Number of refinement iterations. Default 100.]' \
+            '-nt[Input sequences use nucleotide alphabet (default auto-detect).]' \
+            '-amino[Input sequences use amino acid alphabet (default auto-detect).]' \
+            '-threads[Number of threads. Default is the number of CPU cores, or 20 if the CPU has more than 20 cores.]' \
+            "*: :_files"
+
+    }
+
+    function _muscle_-efastats {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _muscle_-efa_explode {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _muscle_-fa2efa {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _muscle_-disperse {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _muscle_-addconfseqs {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _muscle_-letterconf {
+        _arguments \
+            '-html[specifies an HTML output file where the alignment is colored by confidence.]' \
+            '-jalview[specifies a features file for Jalview. See Jalview features for more information.]' \
+            "*: :_files"
+
+    }
+
+    function _muscle_-maxcc {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _muscle_-resample {
+        _arguments \
+            '-minconf[Mininum column confidence, value in range zero to one, default 0.5.]' \
+            '-gapfract[Maximum fraction of gapped positions in a column, value in range zero to one, default 0.5.]' \
+            "*: :_files"
+
+    }
+
+
+function _muscle {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            '-align:Align sequences using the PPP algorithm'
+            '-super5:Align large datasets using the Super5 algorithm'
+            '-efastats:Report miscellaneous information about MSAs'
+            '-efa_explode:Extract FASTA files from EFA file'
+            '-fa2efa:Combine FASTA files into one EFA file'
+            '-disperse:Calculate the dispersion of an ensemble'
+            '-addconfseqs:Calculate column confidences'
+            '-letterconf:Calculate letter confidences'
+            '-maxcc:Extract MSA with highest CC'
+            '-resample:Generate resampled ensemble'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (-align)
+            _muscle_-align
+            ;;
+
+        (-super5)
+            _muscle_-super5
+            ;;
+
+        (-efastats)
+            _muscle_-efastats
+            ;;
+
+        (-efa_explode)
+            _muscle_-efa_explode
+            ;;
+
+        (-fa2efa)
+            _muscle_-fa2efa
+            ;;
+
+        (-disperse)
+            _muscle_-disperse
+            ;;
+
+        (-addconfseqs)
+            _muscle_-addconfseqs
+            ;;
+
+        (-letterconf)
+            _muscle_-letterconf
+            ;;
+
+        (-maxcc)
+            _muscle_-maxcc
+            ;;
+
+        (-resample)
+            _muscle_-resample
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

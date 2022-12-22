@@ -2,6 +2,13 @@
 
 # Auto-generated with h2o
 
+    function _qiime_info {
+        _arguments \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
     function _qiime_tools {
         _arguments \
             '--help[Show this message and exit.]' \
@@ -16,6 +23,216 @@
 
     }
 
+    function _qiime_alignment {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_composition {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_cutadapt {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_dada2 {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_deblur {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_demux {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_diversity {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_diversity-lib {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_emperor {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_feature-classifier {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_feature-table {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_fragment-insertion {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_gneiss {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_longitudinal {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_metadata {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_phylogeny {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_quality-control {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_quality-filter {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_sample-classifier {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_taxa {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
+    function _qiime_vsearch {
+        _arguments \
+            '--version[Show the version and exit.]' \
+            '--example-data[Write example data and exit.]':file:_files \
+            '--citations[Show citations and exit.]' \
+            '--help[Show this message and exit.]' \
+            "*: :_files"
+
+    }
+
 
 function _qiime {
     local line state
@@ -23,8 +240,30 @@ function _qiime {
     function _commands {
         local -a commands
         commands=(
+            'info:Display information about current deployment.'
             'tools:Tools for working with QIIME 2 files.'
             'dev:Utilities for developers and advanced users.'
+            'alignment:Plugin for generating and manipulating alignments.'
+            'composition:Plugin for compositional data analysis.'
+            'cutadapt:Plugin for removing adapter sequences, primers, and other unwanted sequence from sequence data.'
+            'dada2:Plugin for sequence quality control with DADA2.'
+            'deblur:Plugin for sequence quality control with Deblur.'
+            'demux:Plugin for demultiplexing & viewing sequence quality.'
+            'diversity:Plugin for exploring community diversity.'
+            'diversity-lib:Plugin for computing community diversity.'
+            'emperor:Plugin for ordination plotting with Emperor.'
+            'feature-classifier:Plugin for taxonomic classification.'
+            'feature-table:Plugin for working with sample by feature tables.'
+            'fragment-insertion:Plugin for extending phylogenies.'
+            'gneiss:Plugin for building compositional models.'
+            'longitudinal:Plugin for paired sample and time series analyses.'
+            'metadata:Plugin for working with Metadata.'
+            'phylogeny:Plugin for generating and manipulating phylogenies.'
+            'quality-control:Plugin for quality control of feature and sequence data.'
+            'quality-filter:Plugin for PHRED-based filtering and trimming.'
+            'sample-classifier:Plugin for machine learning prediction of sample metadata.'
+            'taxa:Plugin for working with feature taxonomy annotations.'
+            'vsearch:Plugin for clustering and dereplicating with vsearch.'
         )
         _describe 'command' commands
     }
@@ -42,12 +281,100 @@ function _qiime {
         ;;
     (subcmd)
         case $line[1] in
+        (info)
+            _qiime_info
+            ;;
+
         (tools)
             _qiime_tools
             ;;
 
         (dev)
             _qiime_dev
+            ;;
+
+        (alignment)
+            _qiime_alignment
+            ;;
+
+        (composition)
+            _qiime_composition
+            ;;
+
+        (cutadapt)
+            _qiime_cutadapt
+            ;;
+
+        (dada2)
+            _qiime_dada2
+            ;;
+
+        (deblur)
+            _qiime_deblur
+            ;;
+
+        (demux)
+            _qiime_demux
+            ;;
+
+        (diversity)
+            _qiime_diversity
+            ;;
+
+        (diversity-lib)
+            _qiime_diversity-lib
+            ;;
+
+        (emperor)
+            _qiime_emperor
+            ;;
+
+        (feature-classifier)
+            _qiime_feature-classifier
+            ;;
+
+        (feature-table)
+            _qiime_feature-table
+            ;;
+
+        (fragment-insertion)
+            _qiime_fragment-insertion
+            ;;
+
+        (gneiss)
+            _qiime_gneiss
+            ;;
+
+        (longitudinal)
+            _qiime_longitudinal
+            ;;
+
+        (metadata)
+            _qiime_metadata
+            ;;
+
+        (phylogeny)
+            _qiime_phylogeny
+            ;;
+
+        (quality-control)
+            _qiime_quality-control
+            ;;
+
+        (quality-filter)
+            _qiime_quality-filter
+            ;;
+
+        (sample-classifier)
+            _qiime_sample-classifier
+            ;;
+
+        (taxa)
+            _qiime_taxa
+            ;;
+
+        (vsearch)
+            _qiime_vsearch
             ;;
 
         esac

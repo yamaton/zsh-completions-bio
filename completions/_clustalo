@@ -1,0 +1,72 @@
+#compdef _clustalo clustalo
+
+# Auto-generated with h2o
+
+
+function _clustalo {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-i,--in,--infile}'[Multiple sequence input file (- for stdin)]':file:_files \
+        '--hmm-in[HMM input files]':file:_files \
+        '--hmm-batch[specify HMMs for individual sequences]':file:_files \
+        '--dealign[Dealign input sequences]' \
+        {--profile1,--p1}'[Pre-aligned multiple sequence file (aligned columns will be kept fix)]':file:_files \
+        {--profile2,--p2}'[Pre-aligned multiple sequence file (aligned columns will be kept fix)]':file:_files \
+        '--is-profile[disable check if profile, force profile (default no)]' \
+        {-t,--seqtype}'[Force a sequence type (default: auto)]' \
+        '--infmt[Forced sequence input file format (default: auto)]' \
+        '--distmat-in[Pairwise distance matrix input file (skips distance computation)]':file:_files \
+        '--distmat-out[Pairwise distance matrix output file]':file:_files \
+        '--guidetree-in[Guide tree input file (skips distance computation and guide-tree clustering step)]':file:_files \
+        '--guidetree-out[Guide tree output file]':file:_files \
+        '--pileup[Sequentially align sequences]' \
+        '--full[Use full distance matrix for guide-tree calculation (might be slow; mBed is default)]' \
+        '--full-iter[Use full distance matrix for guide-tree calculation during iteration (might be slowish; mBed is default)]' \
+        '--cluster-size[soft maximum of sequences in sub-clusters]' \
+        '--clustering-out[Clustering output file]':file:_files \
+        '--trans[use transitivity (default: 0)]' \
+        '--posterior-out[Posterior probability output file]':file:_files \
+        '--use-kimura[use Kimura distance correction for aligned sequences (default no)]' \
+        '--percent-id[convert distances into percent identities (default no)]' \
+        {-o,--out,--outfile}'[Multiple sequence alignment output file (default: stdout)]':file:_files \
+        '--outfmt[MSA output file format (default: fasta)]' \
+        {--residuenumber,--resno}'[in Clustal format print residue numbers (default no)]' \
+        '--wrap[number of residues before line-wrap in output]' \
+        '--output-order[MSA output order like in input/guide-tree]' \
+        {--iterations,--iter}'[Number of (combined guide-tree/HMM) iterations]' \
+        '--max-guidetree-iterations[Maximum number of guidetree iterations]' \
+        '--max-hmm-iterations[Maximum number of HMM iterations]' \
+        '--maxnumseq[Maximum allowed number of sequences]' \
+        '--maxseqlen[Maximum allowed sequence length]' \
+        '--auto[Set options automatically (might overwrite some of your options)]' \
+        '--threads[Number of processors to use]' \
+        '--pseudo[Input file for pseudo-count parameters]':file:_files \
+        {-l,--log}'[Log all non-essential output to this file]':file:_files \
+        {-h,--help}'[Print this help and exit]' \
+        {-v,--verbose}'[Verbose output (increases if given multiple times)]' \
+        '--version[Print version information and exit]' \
+        '--long-version[Print long version information and exit]' \
+        '--force[Force file overwriting]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

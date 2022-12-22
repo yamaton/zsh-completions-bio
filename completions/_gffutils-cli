@@ -1,0 +1,169 @@
+#compdef _gffutils-cli gffutils-cli
+
+# Auto-generated with h2o
+
+    function _gffutils-cli_fetch {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gffutils-cli_children {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--limit[Feature type (string), or level (integer). No children below this level will be returned (default: -)]' \
+            '--exclude[Comma-separated list of featuretypes to filter out (like grep -v) (default: -)]' \
+            '--exclude-self[Use this to suppress reporting the IDs you'\''ve provided. (default: False)]' \
+            "*: :_files"
+
+    }
+
+    function _gffutils-cli_parents {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--limit[Feature type (string), or level (integer). No parents below this level will be returned (default: -)]' \
+            '--exclude[Comma-separated list of featuretypes to filter out (like grep -v) (default: -)]' \
+            '--exclude-self[Use this to suppress reporting the IDs you'\''ve provided. (default: False)]' \
+            "*: :_files"
+
+    }
+
+    function _gffutils-cli_region {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gffutils-cli_create {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--output[Database to create. Default is to append ".db" to the end of the input filename (default: -)]' \
+            '--force[Overwrite an existing database (default: False)]' \
+            '--quiet[Suppress the reporting of timing information when creating the database (default: False)]' \
+            '--merge[Merge strategy to be used if if duplicate IDs are found. (default: '\''merge'\'')]' \
+            '--disable-infer-genes[Disable inferring of gene extents for GTF files. Use this if your GTF file already has "gene" featuretypes (default: False)]' \
+            '--disable-infer-transcripts[Disable inferring of transcript extents for GTF files. Use this if your GTF file already has "transcript" featuretypes (default: False)]' \
+            "*: :_files"
+
+    }
+
+    function _gffutils-cli_common {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gffutils-cli_clean {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gffutils-cli_search {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--featuretype[Restrict to a particular featuretype. This can be faster than doing a grep on the output, since it restricts the search space in the database (default: -)]' \
+            "*: :_files"
+
+    }
+
+    function _gffutils-cli_sanitize {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--in-memory[Load GFF into memory for processing. (default: True)]' \
+            '--in-place[Sanitize file in-place: overwrites current file with sanitized version. (default: False)]' \
+            "*: :_files"
+
+    }
+
+    function _gffutils-cli_rmdups {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--in-place[Remove duplicates in place (overwrite current file.) (default: False)]' \
+            "*: :_files"
+
+    }
+
+
+function _gffutils-cli {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'fetch:Fetch IDs.'
+            'children:Fetch children from the database according to ID.'
+            'parents:Fetch parents from the database according to ID.'
+            'region:Returns features within provided genomic coordinates.'
+            'create:Create a database.'
+            'common:Identify child features in common (e.g., common exons across multiple isoforms)'
+            'clean:Perform various QC operations to clean a GFF or GTF file.'
+            'search:Search the attributes.'
+            'sanitize:Sanitize a GFF file. Might get merged with clean feature later. Cleans and adds useful annotations to a GFF file: - Ensures that start > end in all entries - Adds an entry id (eid) to each entry to make files grep-able Outputs result to stdout unless asked to sanitize in place.'
+            'rmdups:Remove duplicates from a GFF file.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (fetch)
+            _gffutils-cli_fetch
+            ;;
+
+        (children)
+            _gffutils-cli_children
+            ;;
+
+        (parents)
+            _gffutils-cli_parents
+            ;;
+
+        (region)
+            _gffutils-cli_region
+            ;;
+
+        (create)
+            _gffutils-cli_create
+            ;;
+
+        (common)
+            _gffutils-cli_common
+            ;;
+
+        (clean)
+            _gffutils-cli_clean
+            ;;
+
+        (search)
+            _gffutils-cli_search
+            ;;
+
+        (sanitize)
+            _gffutils-cli_sanitize
+            ;;
+
+        (rmdups)
+            _gffutils-cli_rmdups
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

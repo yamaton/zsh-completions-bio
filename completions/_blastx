@@ -35,7 +35,7 @@ function _blastx {
         '-comp_based_stats[Use composition-based statistics (Default = `2'\'')]' \
         '-subject[Subject sequence(s) to search]':file:_files \
         '-subject_loc[Location on the subject sequence in 1-based offsets (Format: start-stop)]' \
-        '-outfmt[alignment view options:]' \
+        '-outfmt[alignment view: 0 (Pairwise) or 1 (Query-anchored with identities) or ... or 18 (Organism Report)]' \
         '-show_gis[Show NCBI GIs in deflines?]' \
         '-num_descriptions[Number of database sequences to show one-line descriptions for. Not applicable for outfmt > 4. (Default = `500'\'')]' \
         '-num_alignments[Number of database sequences to show alignments for. (Default = `250'\'')]' \

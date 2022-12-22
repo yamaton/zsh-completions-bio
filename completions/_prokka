@@ -15,7 +15,7 @@ function _prokka {
  
 
     _arguments -C \
-        '--dbdir[Prokka database root folders (default '\''~/.local/share/condax/envs/prokka/db'\'')]' \
+        '--dbdir[Prokka database root folders]' \
         '--listdb[List all configured databases]' \
         '--setupdb[Index all installed databases]' \
         '--cleandb[Remove all database indices]' \

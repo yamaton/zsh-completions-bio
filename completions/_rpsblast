@@ -24,7 +24,7 @@ function _rpsblast {
         '-out[Output file name]':file:_files \
         '-evalue[Expectation value (E) threshold for saving hits]' \
         '-comp_based_stats[Use composition-based statistics:]' \
-        '-outfmt[alignment view options.]' \
+        '-outfmt[alignment view: 0 (Pairwise) or 1 (Query-anchored with identities) or ... or 18 (Organism Report)]' \
         '-show_gis[Show NCBI GIs in deflines?]' \
         '-num_descriptions[Number of database sequences to show one-line descriptions for]' \
         '-num_alignments[Number of database sequences to show alignments for]' \

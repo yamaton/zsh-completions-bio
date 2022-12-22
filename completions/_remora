@@ -1,0 +1,82 @@
+#compdef _remora remora
+
+# Auto-generated with h2o
+
+    function _remora_dataset {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            "*: :_files"
+
+    }
+
+    function _remora_model {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            "*: :_files"
+
+    }
+
+    function _remora_infer {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            "*: :_files"
+
+    }
+
+    function _remora_validate {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            "*: :_files"
+
+    }
+
+
+function _remora {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'dataset:Create or perform operations on a Remora dataset'
+            'model:Train or perform operations on Remora models'
+            'infer:Perform Remora model inference'
+            'validate:Validate modified base predictions'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        {-v,--version}'[Show Remora version and exit.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (dataset)
+            _remora_dataset
+            ;;
+
+        (model)
+            _remora_model
+            ;;
+
+        (infer)
+            _remora_infer
+            ;;
+
+        (validate)
+            _remora_validate
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

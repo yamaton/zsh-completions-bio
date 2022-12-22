@@ -1,0 +1,48 @@
+#compdef _cpgplot cpgplot
+
+# Auto-generated with h2o
+
+
+function _cpgplot {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-sequence[Nucleotide sequence(s) filename and optional format, or reference (input USA)]' \
+        '-window[\[100\] The percentage CG content and the Observed frequency of CG is calculated within a window whose size is set by this parameter. The window is moved down the sequence and these statistics are calculated at each position that the window is moved to. (Integer 1 or more)]' \
+        '-minlen[\[200\] This sets the minimum length that a CpG island has to be before it is reported. (Integer 1 or more)]' \
+        '-minoe[\[0.6\] This sets the minimum average observed to expected ratio of C plus G to CpG in a set of 10 windows that are required before a CpG island is reported. (Number from 0.000 to 10.000)]' \
+        '-minpc[\[50.\] This sets the minimum average percentage of G plus C a set of 10 windows that are required before a CpG island is reported. (Number from 0.000 to 100.000)]' \
+        '-outfile[\[*.cpgplot\] This sets the name of the file holding the report of the input sequence name, CpG island parameters and the output details of any CpG islands that are found.]':file:_files \
+        '-graph[\[$EMBOSS_GRAPHICS value, or png\] Graph type (ps, hpgl, hp7470, hp7580, meta, cps, tek, tekt, none, data, png, gif, svg)]' \
+        '-outfeat[\[unknown.gff\] File for output features]' \
+        '-plot[Plot CpG island score]' \
+        '-noplot[Plot CpG island score]' \
+        '-obsexp[If this is set to true then the graph of the observed to expected ratio of C plus G to CpG within a window is displayed.]' \
+        '-noobsexp[If this is set to true then the graph of the observed to expected ratio of C plus G to CpG within a window is displayed.]' \
+        '-cg[If this is set to true then the graph of the regions which have been determined to be CpG islands is displayed.]' \
+        '-nocg[If this is set to true then the graph of the regions which have been determined to be CpG islands is displayed.]' \
+        '-pc[If this is set to true then the graph of the percentage C plus G within a window is displayed.]' \
+        '-nopc[If this is set to true then the graph of the percentage C plus G within a window is displayed.]' \
+        '-help[Report command line options and exit. More information on associated and general qualifiers can be found with -help -verbose]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

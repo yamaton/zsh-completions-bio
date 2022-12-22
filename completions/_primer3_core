@@ -1,0 +1,39 @@
+#compdef _primer3_core primer3_core
+
+# Auto-generated with h2o
+
+
+function _primer3_core {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--default_version[n=2 is the default, and directs primer3_core to use the latest default values (the ones documented here). n=1 directs primer3_core to use defaults from version 2.2.3 and before.]' \
+        '--format_output[Generate user-oriented (rather than program-oriented) output.]' \
+        '--strict_tags[Generate a fatal error if there is any tag in the input that it does not recognize. This tag also applies to the settings file (see documentation for the --p3_settings_file argument), if any, but with limitations: lines that do not begin with PRIMER_ or P3_FILE_ID are always ignored in the settings file.]' \
+        '--p3_settings_file[Specifies a settings file, file_path. Primer3 reads the global ("PRIMER_...") parameters from this file first. Tags appearing in the settings file override default Primer3 settings. The values set in the settings files can be also overridden by tags in the input file. See Primer3 file documentation for details on the file format. WARNING: the --strict_tags flag applies only to tags beginning with the string "PRIMER_"; lines that do not begin with the string "PRIMER_" are ignored.]':file:_files \
+        '--echo_settings_file[Print the input tags specified in the given settings file. If no settings file is provided or if the --format_output option is given, this argument will have no effect.]' \
+        '--io_version[(backward compatibility) --io_version=4 is the only legal value and the default .]' \
+        '--output[Specifies the file where the output should be written. If omitted, stdout is used.]':file:_files \
+        '--error[Specifies the file where the error messages should be written. If omitted, stderr is used.]':file:_files \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

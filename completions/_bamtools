@@ -71,7 +71,7 @@
     function _bamtools_header {
         _arguments \
             '-in[the input BAM file(s) \[stdin\]]':file:_files \
-            '-list[the input BAM file list, one]':file:_files \
+            '-list[the input BAM file list, one line per file]':file:_files \
             {--help,-h}'[shows this help text]' \
             "*: :_files"
 
@@ -80,7 +80,7 @@
     function _bamtools_index {
         _arguments \
             '-in[the input BAM file \[stdin\]]':file:_files \
-            '-bti[create (non-standard) BamTools]' \
+            '-bti[create (non-standard) BamTools index file (*.bti). Default behavior is to create standard BAM index (*.bai)]' \
             {--help,-h}'[shows this help text]' \
             "*: :_files"
 
@@ -121,7 +121,7 @@
             '-makeStats[generates a fragment-length stats file from the input BAM. Data is written to file specified using the -stats option. MarkPairs Mode Settings are DISABLED.]' \
             '-markPairs[generates an output BAM with alignments marked with proper-pair status. Stats data is read from file specified using the -stats option. MakeStats Mode Settings are DISABLED]' \
             '-twoPass[combines the -makeStats & -markPairs modes into a single command. However, due to the two-pass nature of paired-end resolution, piping BAM data via stdin is DISABLED. You must supply an explicit input BAM file. Output BAM may be piped to stdout, however, if desired. All MakeStats & MarkPairs Mode Settings are available. The intermediate stats file is not necessary, but if the -stats options is used, then one will be generated. You may find this useful for documentation purposes.]' \
-            '-minMQ[minimum map quality. Used in -makeStats mode as a heuristic for determining a mate'\''s uniqueness. Used in -markPairs mode as a filter for marking candidate proper pairs.]' \
+            '-minMQ[minimum map quality. Used in]' \
             '-ci[confidence interval. Set min/max fragment lengths such that we capture this fraction of pairs]' \
             '-umt[unused model threshold. The resolve tool considers 8 possible orientation models for pairs. The top 2 are selected for later use when actually marking alignments. This value determines the cutoff for marking a read group as ambiguous. Meaning that if the ratio of the number of alignments from bottom 6 models to the top 2 is greater than this threshold, then the read group is flagged as ambiguous. By default, NO alignments from ambiguous read groups will be marked as proper pairs. You may override this behavior with the -force option in -markPairs mode]' \
             '-force[forces all read groups to be marked according to their top 2 '\''orientation models'\''. When generating stats, the 2 (out of 8 possible) models with the most observations are chosen as the top models for each read group. If the remaining 6 models account for more than some threshold (\[default=10%\], see -umt), then the read group is marked as ambiguous. The default behavior is that for an ambiguous read group, NONE of its alignments are marked as proper-pairs. By setting this option, a read group'\''s ambiguity flag will be ignored, and all of its alignments will be compared to the top 2 models.]' \

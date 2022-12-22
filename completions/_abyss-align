@@ -1,0 +1,37 @@
+#compdef _abyss-align abyss-align
+
+# Auto-generated with h2o
+
+
+function _abyss-align {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-v,--verbose}'[display verbose output]' \
+        '--help[display this help and exit]' \
+        '--version[output version information and exit]' \
+        {-D,--dialign-d}'[dialign debug level, default: 0]' \
+        {-M,--dialign-m}'[score matrix, default: dna_matrix.scr]':file:_files \
+        {-P,--dialign-p}'[diagonal length probability distribution default: dna_diag_prob_100_exp_550000]':file:_files \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

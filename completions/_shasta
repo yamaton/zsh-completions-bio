@@ -1,0 +1,165 @@
+#compdef _shasta shasta
+
+# Auto-generated with h2o
+
+
+function _shasta {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[Write a help message.]' \
+        {-v,--version}'[Identify the Shasta version.]' \
+        '--config[Configuration name. Can be the name of a built-in configuration or the name of a configuration file.]' \
+        '--input[Names of input files containing reads. Specify at least one.]' \
+        '--assemblyDirectory[Name of the output directory. If command is assemble, this directory must not exist.]' \
+        '--command[Command to run. Must be one of: assemble, saveBinaryData, cleanupBinaryData, explore, createBashCompletionScript]' \
+        '--memoryMode[Specify whether allocated memory is anonymous or backed by a filesystem. Allowed values: anonymous, filesystem.]' \
+        '--memoryBacking[Specify the type of pages used to back memory. Allowed values: disk, 4K , 2M (for best performance). All combinations (memoryMode, memoryBacking) are allowed except for (anonymous, disk). Some combinations require root privilege, which is obtained using sudo and may result in a password prompting depending on your sudo set up.]' \
+        '--threads[Number of threads, or 0 to use one thread per virtual processor.]' \
+        '--suppressStdoutLog[Suppress echoing stdout to stdout.log.]' \
+        '--exploreAccess[Specify allowed access for --command explore. Allowed values: user, local, unrestricted. DO NOT CHANGE FROM DEFAULT VALUE WITHOUT UNDERSTANDING THE SECURITY IMPLICATIONS.]' \
+        '--port[Port to be used by the http server (command --explore).]' \
+        '--alignmentsPafFile[The name of a PAF file containing alignments of reads to a reference. Only used for --command explore, for display of the alignment candidate graph. Experimental.]' \
+        '--Reads.representation[Read representation: 0 = raw sequence, 1 (default) = Run-Length Encoded (RLE) sequence. Experimental. Do not use.]' \
+        '--Reads.minReadLength[Read length cutoff. Shorter reads are discarded.]' \
+        '--Reads.desiredCoverage[Reduce coverage to desired value. If not zero, specifies desired coverage (number of bases). The read length cutoff specified via --Reads.minReadLength is increased to reduce coverage to the specified value. Power of 10 multipliers can be used, for example 120Gb to request 120 Gb of coverage.]' \
+        '--Reads.noCache[If set, skip the Linux cache when loading reads. This is done by specifying the O_DIRECT flag when opening input files containing reads.]' \
+        '--Reads.palindromicReads.skipFlagging[Skip flagging palindromic reads. Oxford Nanopore reads should be flagged for better results.]' \
+        '--Reads.palindromicReads.maxSkip[Used for palindromic read detection.]' \
+        '--Reads.palindromicReads.maxDrift[Used for palindromic read detection.]' \
+        '--Reads.palindromicReads.maxMarkerFrequency[Used for palindromic read detection.]' \
+        '--Reads.palindromicReads.alignedFractionThreshold[Used for palindromic read detection.]' \
+        '--Reads.palindromicReads.nearDiagonalFractionThreshold[Used for palindromic read detection.]' \
+        '--Reads.palindromicReads.deltaThreshold[Used for palindromic read detection.]' \
+        '--Kmers.generationMethod[Method to generate marker k-mers: 0 = random, 1 = random, excluding globally overenriched k-mers,2 = random, excluding k-mers overenriched even in a single read,3 = read from file.4 = random, excluding k-mers appearing in two copies close to each other even in a single read.]' \
+        '--Kmers.k[Length of marker k-mers (in run-length space).]' \
+        '--Kmers.probability[Fraction k-mers used as a marker.]' \
+        '--Kmers.enrichmentThreshold[Enrichment threshold for Kmers.generationMethod 1 and 2.]' \
+        '--Kmers.distanceThreshold[Distance threshold, in RLE bases, for Kmers.generationMethod 4]' \
+        '--Kmers.file[The absolute path of a file containing the k-mers to be used as markers, one per line. A relative path is not accepted. Only used if Kmers.generationMethod is 3.]' \
+        '--MinHash.version[Controls the version of the LowHash algorithm to use. Can be 0 (default) or 1.(experimental).]' \
+        '--MinHash.m[The number of consecutive markers that define a MinHash/LowHash feature.]' \
+        '--MinHash.hashFraction[Defines how low a hash has to be to be used with the LowHash algorithm.]' \
+        '--MinHash.minHashIterationCount[The number of MinHash/LowHash iterations, or 0 to let --MinHash.alignmentCandidatesPerRead control the number of iterations.]' \
+        '--MinHash.alignmentCandidatesPerRead[If --MinHash.minHashIterationCount is 0, MinHash iteration is stopped when the average number of alignment candidates that each read is involved in reaches this value. If --MinHash.minHashIterationCount is not 0, this is not used.]' \
+        '--MinHash.minBucketSize[The minimum bucket size to be used by the LowHash algorithm.]' \
+        '--MinHash.maxBucketSize[The maximum bucket size to be used by the LowHash algorithm.]' \
+        '--MinHash.minFrequency[The minimum number of times a pair of reads must be found by the MinHash/LowHash algorithm in order to be considered a candidate alignment.]' \
+        '--MinHash.allPairs[Skip the MinHash algorithm and mark all pairs of reads as alignmentcandidates with both orientation. This should only be used for experimentation on very small runs because it is very time consuming.]' \
+        '--Align.alignMethod[The alignment method to be used to create the read graph & the marker graph. 0 = old Shasta method, 1 = SeqAn (slow), 3 = banded SeqAn, 4 = new Shasta method (experimental).]' \
+        '--Align.maxSkip[The maximum number of markers that an alignment is allowed to skip.]' \
+        '--Align.maxDrift[The maximum amount of marker drift that an alignment is allowed to tolerate between successive markers.]' \
+        '--Align.maxTrim[The maximum number of unaligned markers tolerated at the beginning and end of an alignment.]' \
+        '--Align.maxMarkerFrequency[Marker frequency threshold. Markers more frequent than this value in either of two oriented reads being aligned are discarded and not used to compute the alignment.]' \
+        '--Align.minAlignedMarkerCount[The minimum number of aligned markers for an alignment to be used.]' \
+        '--Align.minAlignedFraction[The minimum fraction of aligned markers for an alignment to be used.]' \
+        '--Align.matchScore[Match score for marker alignments (only used for alignment methods 1 and 3).]' \
+        '--Align.mismatchScore[Mismatch score for marker alignments (only used for alignment methods 1 and 3).]' \
+        '--Align.gapScore[Gap score for marker alignments (only used for alignment methods 1 and 3).]' \
+        '--Align.downsamplingFactor[Downsampling factor (only used for alignment method 3).]' \
+        '--Align.bandExtend[Amount to extend the downsampled band (only used for alignment method 3).]' \
+        '--Align.maxBand[Maximum alignment band (only used for alignment method 3).]' \
+        '--Align.sameChannelReadAlignment.suppressDeltaThreshold[If not zero, alignments between reads from the same nanopore channel and close in time are suppressed. The "read" meta data fields from the FASTA or FASTQ header are checked. If their difference, in absolute value, is less than the value of this option, the alignment is suppressed. This can help avoid assembly artifact. This check is only done if the two reads have identical meta data fields "runid", "sampleid", and "ch". If any of these meta data fields are missing, this check is suppressed and this option has no effect.]' \
+        '--Align.suppressContainments[Suppress containment alignments, that is alignments in which one read is entirely contained in another read, except possibly for up to maxTrim markers at the beginning and end.]' \
+        '--Align.align4.deltaX[Only used for alignment method 4 (experimental).]' \
+        '--Align.align4.deltaY[Only used for alignment method 4 (experimental).]' \
+        '--Align.align4.minEntryCountPerCell[Only used for alignment method 4 (experimental).]' \
+        '--Align.align4.maxDistanceFromBoundary[Only used for alignment method 4 (experimental).]' \
+        '--ReadGraph.creationMethod[The method used to create the read graph (0 default, 1 or 2 experimental).]' \
+        '--ReadGraph.maxAlignmentCount[The maximum number of alignments to be kept for each read.]' \
+        '--ReadGraph.maxChimericReadDistance[Used for chimeric read detection.]' \
+        '--ReadGraph.strandSeparationMethod[Strand separation method: 0 = no strand separation, 1 = limited strand separation, 2 = strict strand separation.]' \
+        '--ReadGraph.crossStrandMaxDistance[Maximum distance (edges) for strand separation method 1.]' \
+        '--ReadGraph.removeConflicts[Remove conflicts from the read graph. Experimental - do not use.]' \
+        '--ReadGraph.markerCountPercentile[Percentile for --ReadGraph.markerCount (only used when --ReadGraph.creationMet hod is 2).]' \
+        '--ReadGraph.alignedFractionPercentile[Percentile for adaptive selection of --ReadGraph.alignedFraction (only used when --ReadGraph.creationMethod is 2).]' \
+        '--ReadGraph.maxSkipPercentile[Percentile for adaptive selection of --ReadGraph.maxSkip (only used when --ReadGraph.creationMethod is 2).]' \
+        '--ReadGraph.maxDriftPercentile[Percentile for adaptive selection of --ReadGraph.maxDrift (only used when --ReadGraph.creationMethod is 2).]' \
+        '--ReadGraph.maxTrimPercentile[Percentile for adaptive selection of --ReadGraph.maxTrim (only used when --ReadGraph.creationMethod is 2).]' \
+        '--ReadGraph.flagInconsistentAlignments[Flag inconsistent alignments. Experimental.]' \
+        '--ReadGraph.flagInconsistentAlignments.triangleErrorThreshold[Triangle error threshold, in markers, for flagging inconsistent alignments. Only used if --ReadGraph.flagInconsiste ntAlignments is set. Experimental.]' \
+        '--ReadGraph.flagInconsistentAlignments.leastSquareErrorThreshold[Least square error threshold, in markers, for flagging inconsistent alignments. Only used if --ReadGraph.flagInconsistentAlignments is set. Experimental.]' \
+        '--ReadGraph.flagInconsistentAlignments.leastSquareMaxDistance[Least square max distance for flagging inconsistent alignments. Only used if --ReadGraph.flagInconsistentAlignments is set. Experimental.]' \
+        '--MarkerGraph.minCoverage[Minimum coverage (number of supporting oriented reads) for a marker graph vertex to be created.Specifying 0 causes a suitable value of this parameter to be selected automatically.]' \
+        '--MarkerGraph.maxCoverage[Maximum coverage (number of supporting oriented reads) for a marker graph vertex.]' \
+        '--MarkerGraph.minCoveragePerStrand[Minimum coverage (number of supporting oriented reads) for each strand for a marker graph vertex.]' \
+        '--MarkerGraph.minEdgeCoverage[Minimum edge coverage (number of supporting oriented reads) for a marker graph edge to be created.Experimental. Only used with --Assembly.mode 1.]' \
+        '--MarkerGraph.minEdgeCoveragePerStrand[Minimum edge coverage (number of supporting oriented reads) on each strand for a marker graph edge to be created.Experimental. Only used with --Assembly.mode 1.]' \
+        '--MarkerGraph.allowDuplicateMarkers[Specifies whether to allow more than one marker on the same oriented read on a single marker graph vertex. Experimental.]' \
+        '--MarkerGraph.cleanupDuplicateMarkers[Specifies whether to clean up marker graph vertices with more than one marker on the same oriented read. Experimental.]' \
+        '--MarkerGraph.duplicateMarkersPattern1Threshold[Used when cleaning up marker graph vertices with more than one marker on the same oriented read. Experimental.]' \
+        '--MarkerGraph.lowCoverageThreshold[Used during approximate transitive reduction. Marker graph edges with coverage lower than this value are always marked as removed regardless of reachability.]' \
+        '--MarkerGraph.highCoverageThreshold[Used during approximate transitive reduction. Marker graph edges with coverage higher than this value are never marked as removed regardless of reachability.]' \
+        '--MarkerGraph.maxDistance[Used during approximate transitive reduction.]' \
+        '--MarkerGraph.edgeMarkerSkipThreshold[Used during approximate transitive reduction.]' \
+        '--MarkerGraph.pruneIterationCount[Number of prune iterations.]' \
+        '--MarkerGraph.simplifyMaxLength[Maximum lengths (in markers) used at each iteration of simplifyMarkerGraph.]' \
+        '--MarkerGraph.crossEdgeCoverageThreshold[Experimental. Cross edge coverage threshold. If this is not zero, assembly graph cross-edges with average edge coverage less than this value are removed, together with the corresponding marker graph edges. A cross edge is defined as an edge v0->v1 with out-degree(v0)>1, in-degree(v1)>1.]' \
+        '--MarkerGraph.reverseTransitiveReduction[Perform approximate reverse transitive reduction of the marker graph.]' \
+        '--MarkerGraph.peakFinder.minAreaFraction[Used in the automatic selection of --MarkerGraph.minCoverage when --MarkerGraph.minCoverage is set to 0.]' \
+        '--MarkerGraph.peakFinder.areaStartIndex[Used in the automatic selection of --MarkerGraph.minCoverage when --MarkerGraph.minCoverage is set to 0.]' \
+        '--MarkerGraph.secondaryEdges.maxSkip[Maximum number of markers skipped by a secondary edge (mode 2 assembly only).]' \
+        '--MarkerGraph.secondaryEdges.split.errorRateThreshold[Error rate threshold used for splitting secondary edges (mode 2 assembly only).]' \
+        '--MarkerGraph.secondaryEdges.split.minCoverage[Minimum coverage for secondary edges generated during splitting (mode 2 assembly only).]' \
+        '--Assembly.mode[Assembly mode (0=default, 1=experimental).]' \
+        '--Assembly.crossEdgeCoverageThreshold[Maximum average edge coverage for a cross edge of the assembly graph to be removed.]' \
+        '--Assembly.markerGraphEdgeLengthThresholdForConsensus[Controls assembly of long marker graph edges.]' \
+        '--Assembly.consensusCaller[Selects the consensus caller for repeat counts. See the documentation for available choices.]' \
+        '--Assembly.storeCoverageData[Used to request storing coverage data in binary format.]' \
+        '--Assembly.storeCoverageDataCsvLengthThreshold[Used to specify the minimum length of an assembled segment for which coverage data in csv format should be stored. If 0, no coverage data in csv format is stored.]' \
+        '--Assembly.writeReadsByAssembledSegment[Used to request writing the reads that contributed to assembling each segment.]' \
+        '--Assembly.pruneLength[Prune length (in markers) for pruning of the assembly graph. Assembly graph leaves shorter than this number of markers are iteratively pruned. Set to zero to suppress pruning of the assembly graph. Assembly graph pruning takes place separately and in addition to marker graph pruning.]' \
+        '--Assembly.detangleMethod[Specify the method used to detangle the assembly graph. 0 = no detangling, 1 = strict detangling, 2 = less strict detangling, controlled by Assembly.detangle.* options.]' \
+        '--Assembly.detangle.diagonalReadCountMin[Minimum number of reads on detangle matrix diagonal elements required for detangling.]' \
+        '--Assembly.detangle.offDiagonalReadCountMax[Maximum number of reads on detangle matrix off-diagonal elements allowed for detangling.]' \
+        '--Assembly.detangle.offDiagonalRatio[Maximum ratio of total off-diagonal elements over diagonal element allowed for detangling.]' \
+        '--Assembly.iterative[Used to request iterative assembly (experimental).]' \
+        '--Assembly.iterative.iterationCount[Number of iterations for iterative assembly (experimental).]' \
+        '--Assembly.iterative.pseudoPathAlignMatchScore[Pseudopath alignment match score for iterative assembly (experimental).]' \
+        '--Assembly.iterative.pseudoPathAlignMismatchScore[Pseudopath alignment mismatch score for iterative assembly (experimental).]' \
+        '--Assembly.iterative.pseudoPathAlignGapScore[Pseudopath alignment gap score for iterative assembly (experimental).]' \
+        '--Assembly.iterative.mismatchSquareFactor[Mismatch square factor for iterative assembly (experimental).]' \
+        '--Assembly.iterative.minScore[Minimum pseudo-alignment score for iterative assembly (experimental).]' \
+        '--Assembly.iterative.maxAlignmentCount[Maximum number of read graph neighbors for iterative assembly (experimental).]' \
+        '--Assembly.iterative.bridgeRemovalIterationCount[Number of read graph bridge removal iterations for iterative assembly (experimental).]' \
+        '--Assembly.iterative.bridgeRemovalMaxDistance[Maximum distance for read graph bridge removal for iterative assembly (experimental).]' \
+        '--Assembly.mode2.strongBranchThreshold[Minimum number of supporting reads required for a strong branch. Only used in Mode 2 assembly.]' \
+        '--Assembly.mode2.epsilon[Epsilon for the Bayesian model used for phasing and for bubble removal.This is the probability that a read appears on the wrong branch of a diploid bubble. Only used in Mode 2 assembly.]' \
+        '--Assembly.mode2.bubbleRemoval.minConcordantReadCount[Minimum number of concordant reads for bubble removal. Only used in Mode 2 assembly.]' \
+        '--Assembly.mode2.bubbleRemoval.maxDiscordantReadCount[Maximum number of discordant reads for bubble removal. Only used in Mode 2 assembly.]' \
+        '--Assembly.mode2.bubbleRemoval.minLogP[Minimul log(P) (in decibels) for bubble removal. Only used in Mode 2 assembly.]' \
+        '--Assembly.mode2.bubbleRemoval.componentSizeThreshold[Component size threshold for bubble removal. Only used in Mode 2 assembly.]' \
+        '--Assembly.mode2.phasing.minConcordantReadCount[Minimum number of concordant reads for phasing. Only used in Mode 2 assembly.]' \
+        '--Assembly.mode2.phasing.maxDiscordantReadCount[Maximum number of discordant reads for phasing. Only used in Mode 2 assembly.]' \
+        '--Assembly.mode2.phasing.minLogP[Minimul log(P) (in decibels) for phasing. Only used in Mode 2 assembly.]' \
+        '--Assembly.mode2.superbubble.maxSize[Maximum size (number of edges) of a superbubble to be processed. Only used in Mode 2 assembly.]' \
+        '--Assembly.mode2.superbubble.maxChunkSize[Maximum size (numbef of edges) of a superbubble chunk to be processed. Only used in Mode 2 assembly.]' \
+        '--Assembly.mode2.superbubble.maxChunkPathCount[Maximum number of paths to be processed in a superbubble chunk. Only used in Mode 2 assembly.]' \
+        '--Assembly.mode2.superbubble.edgeLengthThreshold[Edge length threshold (in markers) for superbubble removal. Only used in Mode 2 assembly.]' \
+        '--Assembly.mode2.suppressGfaOutput[Suppress all GFA output (Mode 2 assembly only).]' \
+        '--Assembly.mode2.suppressFastaOutput[Suppress all FASTA output (Mode 2 assembly only).]' \
+        '--Assembly.mode2.suppressDetailedOutput[Suppress output of detailed representation of the assembly (Mode 2 assembly only).]' \
+        '--Assembly.mode2.suppressPhasedOutput[Suppress output of phased representation of the assembly (Mode 2 assembly only).]' \
+        '--Assembly.mode2.suppressHaploidOutput[Suppress output of haploid representation of the assembly (Mode 2 assembly only).]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

@@ -1,0 +1,339 @@
+#compdef _taxonkit taxonkit
+
+# Auto-generated with h2o
+
+    function _taxonkit_cami-filter {
+        _arguments \
+            '-[No extra taxonomy data needed, so the original taxonomic information are used and not changed.]' \
+            '-[A mini taxonomic tree is built from records with abundance greater than zero, and only leaves are retained for later use. The rank of leaves may be "strain", "species", or "no rank".]' \
+            '-[Relative abundances (in percentage) are recomputed for all leaves (reference genome).]' \
+            '-[A new taxonomic tree is built from these leaves, and abundances are cumulatively added up from leaves to the root.]' \
+            '--field-percentage[field index of PERCENTAGE (default 5)]' \
+            '--field-rank[field index of taxid (default 2)]' \
+            '--field-taxid[field index of taxid (default 1)]' \
+            '--field-taxpath[field index of TAXPATH (default 3)]' \
+            '--field-taxpathsn[field index of TAXPATHSN (default 4)]' \
+            {-h,--help}'[help for cami-filter]' \
+            '--leaf-ranks[only consider leaves at these ranks (default \[species,strain,no rank\])]' \
+            '--show-rank[only show TaxIds and names of these ranks (default \[superkingdom,phylum,class,order,family,genus,species,strain\])]' \
+            '--taxid-sep[separator of taxid in TAXPATH and TAXPATHSN (default "|")]' \
+            {-t,--taxids}'[the parent taxid(s) to filter out]' \
+            {-f,--taxids-file}'[file(s) for the parent taxid(s) to filter out, one taxid per line]' \
+            '--data-dir[directory containing nodes.dmp and names.dmp (default "~/.taxonkit")]' \
+            '--line-buffered[use line buffering on output, i.e., immediately writing to stdin/file for every line of output]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            {-j,--threads}'[number of CPUs. 4 is enough (default 4)]' \
+            '--verbose[print verbose information]' \
+            "*: :_files"
+
+    }
+
+    function _taxonkit_create-taxdump {
+        _arguments \
+            {-A,--field-accession}'[field index of assembly accession (genome ID), for outputting taxid.map]' \
+            {-S,--field-accession-as-subspecies}'[treate the accession as subspecies rank]' \
+            '--field-accession-re[regular expression to extract assembly accession (default "^(.+)$")]' \
+            '--force[overwrite existed output directory]' \
+            '--gtdb[input files are GTDB taxonomy file]' \
+            '--gtdb-re-subs[regular expression to extract assembly accession as the subspecies (default "^\\w\\w_GC\[AF\]_(.+)\\.\\d+$")]' \
+            {-h,--help}'[help for create-taxdump]' \
+            '--line-chunk-size[number of lines to process for each thread, and 4 threads is fast enough. (default 5000)]' \
+            '--null[null value of taxa (default \[,NULL,NA\])]' \
+            {-x,--old-taxdump-dir}'[taxdump directory of the previous version, for generating merged.dmp and delnodes.dmp]' \
+            {-O,--out-dir}'[output directory]' \
+            {-R,--rank-names}'[names of all ranks, leave it empty to use the first row of input as rank names]' \
+            '--data-dir[directory containing nodes.dmp and names.dmp (default "~/.taxonkit")]' \
+            '--line-buffered[use line buffering on output, i.e., immediately writing to stdin/file for every line of output]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            {-j,--threads}'[number of CPUs. 4 is enough (default 4)]' \
+            '--verbose[print verbose information]' \
+            "*: :_files"
+
+    }
+
+    function _taxonkit_filter {
+        _arguments \
+            {-B,--black-list}'[black list of ranks to discard, e.g., '\''-B "no rank" -B "clade"]' \
+            {-N,--discard-noranks}'[discard all ranks without order, type "taxonkit filter --help" for details]' \
+            {-R,--discard-root}'[discard root taxid, defined by --root-taxid]' \
+            {-E,--equal-to}'[output TaxIds with rank equal to some ranks, multiple values can be separated with comma "," (e.g., -E "genus,species"), or give multiple times (e.g., -E genus -E species)]' \
+            {-h,--help}'[help for filter]' \
+            {-H,--higher-than}'[output TaxIds with rank higher than a rank, exclusive with --lower-than]' \
+            '--list-order[list user defined ranks in order, from "$HOME/.taxonkit/ranks.txt"]' \
+            '--list-ranks[list ordered ranks in taxonomy database, sorted in user defined order]' \
+            {-L,--lower-than}'[output TaxIds with rank lower than a rank, exclusive with --higher-than]' \
+            {-r,--rank-file}'[user-defined ordered taxonomic ranks, type "taxonkit filter --help" for details]' \
+            '--root-taxid[root taxid (default 1)]' \
+            {-n,--save-predictable-norank}'[do not discard some special ranks without order when using -L, where rank of the closest higher node is still lower than rank cutoff]' \
+            {-i,--taxid-field}'[field index of taxid. input data should be tab-separated (default 1)]' \
+            '--data-dir[directory containing nodes.dmp and names.dmp (default "~/.taxonkit")]' \
+            '--line-buffered[use line buffering on output, i.e., immediately writing to stdin/file for every line of output]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            {-j,--threads}'[number of CPUs. 4 is enough (default 4)]' \
+            '--verbose[print verbose information]' \
+            "*: :_files"
+
+    }
+
+    function _taxonkit_genautocomplete {
+        _arguments \
+            '--file[autocompletion file (default "~/.bash_completion.d/taxonkit.sh")]' \
+            {-h,--help}'[help for genautocomplete]' \
+            '--shell[autocompletion type (bash|zsh|fish|powershell) (default "bash")]' \
+            '--data-dir[directory containing nodes.dmp and names.dmp (default "~/.taxonkit")]' \
+            '--line-buffered[use line buffering on output, i.e., immediately writing to stdin/file for every line of output]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            {-j,--threads}'[number of CPUs. 4 is enough (default 4)]' \
+            '--verbose[print verbose information]' \
+            "*: :_files"
+
+    }
+
+    function _taxonkit_lca {
+        _arguments \
+            {-h,--help}'[help for lca]' \
+            {-s,--separater}'[separater for TaxIds (default " ")]' \
+            {-D,--skip-deleted}'[skip deleted TaxIds and compute with left ones]' \
+            {-U,--skip-unfound}'[skip unfound TaxIds and compute with left ones]' \
+            {-i,--taxids-field}'[field index of taxid. input data should be tab-separated (default 1)]' \
+            '--data-dir[directory containing nodes.dmp and names.dmp (default "~/.taxonkit")]' \
+            '--line-buffered[use line buffering on output, i.e., immediately writing to stdin/file for every line of output]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            {-j,--threads}'[number of CPUs. 4 is enough (default 4)]' \
+            '--verbose[print verbose information]' \
+            "*: :_files"
+
+    }
+
+    function _taxonkit_lineage {
+        _arguments \
+            '-[List of TaxIds, one TaxId per line.]' \
+            '-[Supporting (gzipped) file or STDIN.]' \
+            {-d,--delimiter}'[field delimiter in lineage (default ";")]' \
+            {-h,--help}'[help for lineage]' \
+            {-L,--no-lineage}'[do not show lineage, when user just want names or/and ranks]' \
+            {-R,--show-lineage-ranks}'[appending ranks of all levels]' \
+            {-t,--show-lineage-taxids}'[appending lineage consisting of taxids]' \
+            {-n,--show-name}'[appending scientific name]' \
+            {-r,--show-rank}'[appending rank of taxids]' \
+            {-c,--show-status-code}'[show status code before lineage]' \
+            {-i,--taxid-field}'[field index of taxid. input data should be tab-separated (default 1)]' \
+            '--data-dir[directory containing nodes.dmp and names.dmp (default "~/.taxonkit")]' \
+            '--line-buffered[use line buffering on output, i.e., immediately writing to stdin/file for every line of output]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            {-j,--threads}'[number of CPUs. 4 is enough (default 4)]' \
+            '--verbose[print verbose information]' \
+            "*: :_files"
+
+    }
+
+    function _taxonkit_list {
+        _arguments \
+            {-h,--help}'[help for list]' \
+            {-i,--ids}'[TaxId(s), multiple values should be separated by comma]' \
+            {-I,--indent}'[indent (default " ")]' \
+            {-J,--json}'[output in JSON format. you can save the result in file with suffix ".json" and open with modern text editor]' \
+            {-n,--show-name}'[output scientific name]' \
+            {-r,--show-rank}'[output rank]' \
+            '--data-dir[directory containing nodes.dmp and names.dmp (default "~/.taxonkit")]' \
+            '--line-buffered[use line buffering on output, i.e., immediately writing to stdin/file for every line of output]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            {-j,--threads}'[number of CPUs. 4 is enough (default 4)]' \
+            '--verbose[print verbose information]' \
+            "*: :_files"
+
+    }
+
+    function _taxonkit_name2taxid {
+        _arguments \
+            {-h,--help}'[help for name2taxid]' \
+            {-i,--name-field}'[field index of name. data should be tab-separated (default 1)]' \
+            {-s,--sci-name}'[only searching scientific names]' \
+            {-r,--show-rank}'[show rank]' \
+            '--data-dir[directory containing nodes.dmp and names.dmp (default "~/.taxonkit")]' \
+            '--line-buffered[use line buffering on output, i.e., immediately writing to stdin/file for every line of output]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            {-j,--threads}'[number of CPUs. 4 is enough (default 4)]' \
+            '--verbose[print verbose information]' \
+            "*: :_files"
+
+    }
+
+    function _taxonkit_profile2cami {
+        _arguments \
+            {-a,--abundance-field}'[field index of abundance. input data should be tab-separated (default 2)]' \
+            {-h,--help}'[help for profile2cami]' \
+            {-0,--keep-zero}'[keep taxons with abundance of zero]' \
+            {-p,--percentage}'[abundance is in percentage]' \
+            {-R,--recompute-abd}'[recompute abundance if some TaxIds are deleted in current taxonomy version]' \
+            {-s,--sample-id}'[sample ID in result file]' \
+            {-r,--show-rank}'[only show TaxIds and names of these ranks (default \[superkingdom,phylum,class,order,family,genus,species,strain\])]' \
+            {-i,--taxid-field}'[field index of taxid. input data should be tab-separated (default 1)]' \
+            {-t,--taxonomy-id}'[taxonomy ID in result file]' \
+            '--data-dir[directory containing nodes.dmp and names.dmp (default "~/.taxonkit")]' \
+            '--line-buffered[use line buffering on output, i.e., immediately writing to stdin/file for every line of output]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            {-j,--threads}'[number of CPUs. 4 is enough (default 4)]' \
+            '--verbose[print verbose information]' \
+            "*: :_files"
+
+    }
+
+    function _taxonkit_reformat {
+        _arguments \
+            '-[Supporting (gzipped) file or STDIN.]' \
+            {-P,--add-prefix}'[add prefixes for all ranks, single prefix for a rank is defined by flag --prefix-X]' \
+            {-d,--delimiter}'[field delimiter in input lineage (default ";")]' \
+            {-F,--fill-miss-rank}'[fill missing rank with lineage information of the next higher rank]' \
+            {-f,--format}'[output format, placeholders of rank are needed (default "{k};{p};{c};{o};{f};{g};{s}")]' \
+            {-h,--help}'[help for reformat]' \
+            {-i,--lineage-field}'[field index of lineage. data should be tab-separated (default 2)]' \
+            {-r,--miss-rank-repl}'[replacement string for missing rank]' \
+            {-p,--miss-rank-repl-prefix}'[prefix for estimated taxon level (default "unclassified ")]' \
+            {-R,--miss-taxid-repl}'[replacement string for missing taxid]' \
+            {-a,--output-ambiguous-result}'[output one of the ambigous result]' \
+            '--prefix-K[prefix for kingdom, used along with flag -P/--add-prefix (default "K__")]' \
+            '--prefix-S[prefix for subspecies, used along with flag -P/--add-prefix (default "S__")]' \
+            '--prefix-T[prefix for strain, used along with flag -P/--add-prefix (default "T__")]' \
+            '--prefix-c[prefix for class, used along with flag -P/--add-prefix (default "c__")]' \
+            '--prefix-f[prefix for family, used along with flag -P/--add-prefix (default "f__")]' \
+            '--prefix-g[prefix for genus, used along with flag -P/--add-prefix (default "g__")]' \
+            '--prefix-k[prefix for superkingdom, used along with flag -P/--add-prefix (default "k__")]' \
+            '--prefix-o[prefix for order, used along with flag -P/--add-prefix (default "o__")]' \
+            '--prefix-p[prefix for phylum, used along with flag -P/--add-prefix (default "p__")]' \
+            '--prefix-s[prefix for species, used along with flag -P/--add-prefix (default "s__")]' \
+            '--prefix-t[prefix for subspecies/strain, used along with flag -P/--add-prefix (default "t__")]' \
+            {-S,--pseudo-strain}'[use the node with lowest rank as strain name, only if which rank is lower than "species" and not "subpecies" nor "strain". It affects {t}, {S}, {T}. This flag needs flag -F]' \
+            {-t,--show-lineage-taxids}'[show corresponding taxids of reformated lineage]' \
+            {-I,--taxid-field}'[field index of taxid. input data should be tab-separated. it overrides -i/--lineage-field]' \
+            {-T,--trim}'[do not fill missing rank lower than current rank]' \
+            '--data-dir[directory containing nodes.dmp and names.dmp (default "~/.taxonkit")]' \
+            '--line-buffered[use line buffering on output, i.e., immediately writing to stdin/file for every line of output]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            {-j,--threads}'[number of CPUs. 4 is enough (default 4)]' \
+            '--verbose[print verbose information]' \
+            "*: :_files"
+
+    }
+
+    function _taxonkit_taxid-changelog {
+        _arguments \
+            '--immediate-output[-c -C download.rush]' \
+            {-i,--archive}'[directory containing uncompressed dumped archives]' \
+            {-h,--help}'[help for taxid-changelog]' \
+            '--data-dir[directory containing nodes.dmp and names.dmp (default "~/.taxonkit")]' \
+            '--line-buffered[use line buffering on output, i.e., immediately writing to stdin/file for every line of output]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            {-j,--threads}'[number of CPUs. 4 is enough (default 4)]' \
+            '--verbose[print verbose information]' \
+            "*: :_files"
+
+    }
+
+    function _taxonkit_version {
+        _arguments \
+            {-u,--check-update}'[check update]' \
+            {-h,--help}'[help for version]' \
+            '--data-dir[directory containing nodes.dmp and names.dmp (default "~/.taxonkit")]' \
+            '--line-buffered[use line buffering on output, i.e., immediately writing to stdin/file for every line of output]' \
+            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+            {-j,--threads}'[number of CPUs. 4 is enough (default 4)]' \
+            '--verbose[print verbose information]' \
+            "*: :_files"
+
+    }
+
+
+function _taxonkit {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'cami-filter:Remove taxa of given TaxIds and their descendants in CAMI metagenomic profile'
+            'create-taxdump:Create NCBI-style taxdump files for custom taxonomy, e.g., GTDB and ICTV'
+            'filter:Filter TaxIds by taxonomic rank range'
+            'genautocomplete:generate shell autocompletion script (bash|zsh|fish|powershell)'
+            'lca:Compute lowest common ancestor (LCA) for TaxIds'
+            'lineage:Query taxonomic lineage of given TaxIds'
+            'list:List taxonomic subtrees of given TaxIds'
+            'name2taxid:Convert scientific names to TaxIds'
+            'profile2cami:Convert metagenomic profile table to CAMI format'
+            'reformat:Reformat lineage in canonical ranks'
+            'taxid-changelog:Create TaxId changelog from dump archives'
+            'version:print version information and check for update'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--data-dir[directory containing nodes.dmp and names.dmp (default "~/.taxonkit")]' \
+        {-h,--help}'[help for taxonkit]' \
+        '--line-buffered[use line buffering on output, i.e., immediately writing to stdin/file for every line of output]' \
+        {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+        {-j,--threads}'[number of CPUs. 4 is enough (default 4)]' \
+        '--verbose[print verbose information]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (cami-filter)
+            _taxonkit_cami-filter
+            ;;
+
+        (create-taxdump)
+            _taxonkit_create-taxdump
+            ;;
+
+        (filter)
+            _taxonkit_filter
+            ;;
+
+        (genautocomplete)
+            _taxonkit_genautocomplete
+            ;;
+
+        (lca)
+            _taxonkit_lca
+            ;;
+
+        (lineage)
+            _taxonkit_lineage
+            ;;
+
+        (list)
+            _taxonkit_list
+            ;;
+
+        (name2taxid)
+            _taxonkit_name2taxid
+            ;;
+
+        (profile2cami)
+            _taxonkit_profile2cami
+            ;;
+
+        (reformat)
+            _taxonkit_reformat
+            ;;
+
+        (taxid-changelog)
+            _taxonkit_taxid-changelog
+            ;;
+
+        (version)
+            _taxonkit_version
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

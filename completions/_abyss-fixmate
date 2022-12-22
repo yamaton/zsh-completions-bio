@@ -1,0 +1,46 @@
+#compdef _abyss-fixmate abyss-fixmate
+
+# Auto-generated with h2o
+
+
+function _abyss-fixmate {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--no-qname[set the qname to * \[default\]]' \
+        '--qname[do not alter the qname]' \
+        '--all[print all alignments]' \
+        '--diff[print alignments that align to different contigs \[default\]]' \
+        {-l,--min-align}'[the minimal alignment size \[1\]]' \
+        {-s,--same}'[write properly-paired reads to this file]' \
+        {-h,--hist}'[write the fragment size histogram to FILE]':file:_files \
+        {-c,--cov}'[write the physical coverage to FILE]':file:_files \
+        {-v,--verbose}'[display verbose output]' \
+        '--help[display this help and exit]' \
+        '--version[output version information and exit]' \
+        '--db[specify path of database repository in FILE]':file:_files \
+        '--library[specify library NAME for sqlite]' \
+        '--strain[specify strain NAME for sqlite]' \
+        '--species[specify species NAME for sqlite]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

@@ -1,0 +1,104 @@
+#compdef _mview mview
+
+# Auto-generated with h2o
+
+
+function _mview {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-in[Input {blast,uvfasta,clustal,fasta,pir,msf,plain,hssp,maf,multas,mips,jnetz}.]' \
+        '-out[Output {pearson,fasta,pir,plain,clustal,msf,mview,rdb}. \[mview\]]' \
+        '-ruler[Show ruler. \[on\]]' \
+        '-alignment[Show alignment. \[on\]]' \
+        '-conservation[Show clustal conservation line. \[off\]]' \
+        '-consensus[Show consensus. \[off\]]' \
+        '-width[Paginate alignment in blocks of width {N,full}. \[full\]]' \
+        '-pcid[Compute percent identities with respect to {aligned,reference,hit}. \[aligned\]]' \
+        '-reference[Use row N or row identifier as %identity reference. \[query\]]' \
+        '-minident[Only report sequences with percent identity >= N compared to reference. \[0\]]' \
+        '-maxident[Only report sequences with percent identity <= N compared to reference. \[100\]]' \
+        '-sort[Resort output by coverage or percent identity {cov,pid,cov:pid,pid:cov,none}. \[none\]]' \
+        '-top[Report top N hits {N,all}. \[all\]]' \
+        '-show[Keep rows 1..N or identifiers.]' \
+        '-hide[Hide rows 1..N or identifiers.]' \
+        '-nops[Exclude rows 1..N or identifiers from calculations.]' \
+        '-range[Display column range M:N as numbered by ruler. \[all\]]' \
+        '-moltype[Affects coloring and format converions {aa,na,dna,rna}. \[aa\]]' \
+        '-coloring[Basic style of coloring {none,any,identity,mismatch,consensus,group}. \[none\]]' \
+        '-colormap[Name of colormap to use {see manual}. \[P1\]]' \
+        '-groupmap[Name of groupmap to use if coloring by consensus {see manual}. \[P1\]]' \
+        '-threshold[Threshold percentage for consensus coloring. \[70\]]' \
+        '-ignore[Ignore singleton or class groups {none,class,singleton}. \[none\]]' \
+        '-con_coloring[Basic style of coloring {none,any,identity}. \[none\]]' \
+        '-con_colormap[Name of colormap to use {see manual}. \[PC1\]]' \
+        '-con_groupmap[Name of groupmap to use if coloring by consensus {see manual}. \[P1\]]' \
+        '-con_threshold[Consensus line thresholds. \[100,90,80,70\]]' \
+        '-con_ignore[Ignore singleton or class groups {none,class,singleton}. \[none\]]' \
+        '-con_gaps[Count gaps during consensus computations if set to '\''on'\''. \[on\]]' \
+        '-find[Find and highlight exact string or simple regular expression or '\'':'\'' delimited set of patterns.]' \
+        '-label0[Switch off label {0= row number}. \[set\]]' \
+        '-label1[Switch off label {1= identifier}. \[set\]]' \
+        '-label2[Switch off label {2= description}. \[set\]]' \
+        '-label3[Switch off label {3= scores}. \[set\]]' \
+        '-label4[Switch off label {4= percent coverage}. \[set\]]' \
+        '-label5[Switch off label {5= percent identity}. \[set\]]' \
+        '-label6[Switch off label {6= first sequence positions: query}. \[set\]]' \
+        '-label7[Switch off label {7= second sequence positions: hit}. \[set\]]' \
+        '-label8[Switch off label {8= trailing fields}. \[set\]]' \
+        '-gap[Use this gap character. \[-\]]' \
+        '-sequences[Output sequences. \[on\]]' \
+        '-register[Output multi-pass alignments with columns in register. \[on\]]' \
+        '-html[Controls amount of HTML markup {head,body,data,full,off}. \[off\]]' \
+        '-bold[Use bold emphasis for coloring sequence symbols. \[unset\]]' \
+        '-css[Use Cascading Style Sheets {off,on,file:,http:}. \[off\]]' \
+        '-title[Page title string.]' \
+        '-pagecolor[Page backgound color. \[white\]]' \
+        '-textcolor[Page text color. \[black\]]' \
+        '-alncolor[Alignment background color. \[white\]]' \
+        '-labcolor[Alignment label color. \[black\]]' \
+        '-symcolor[Alignment symbol default color. \[#666666\]]' \
+        '-gapcolor[Alignment gap color. \[#666666\]]' \
+        '-srs[Try to use sequence database links. \[off\]]' \
+        '-linkcolor[Link color. \[blue\]]' \
+        '-alinkcolor[Active link color. \[red\]]' \
+        '-vlinkcolor[Visited link color. \[purple\]]' \
+        '-hsp[HSP tiling mode {ranked,discrete,all}. \[ranked\]]' \
+        '-maxpval[Ignore hits with p-value greater than N. \[unlimited\]]' \
+        '-minscore[Ignore hits with score less than N. \[unlimited\]]' \
+        '-strand[Report only these query strand orientations {p,m,both,*}. \[both\]]' \
+        '-keepinserts[Keep hit sequence insertions in unaligned output. \[off\]]' \
+        '-maxeval[Ignore hits with e-value greater than N. \[unlimited\]]' \
+        '-minbits[Ignore hits with bits less than N. \[unlimited\]]' \
+        '-cycle[Process the N'\''th cycle of a multipass search {1..N,first,last,all,*}. \[last\]]' \
+        '-minopt[Ignore hits with opt score less than N. \[unlimited\]]' \
+        '-chain[Report only these chain names/numbers {A..B,1..N,first,last,all,*}. \[all\]]' \
+        '-block[Report only these blocks {1..N,first,last,all,*}. \[all\]]' \
+        '-colorfile[Load more colormaps from file.]':file:_files \
+        '-groupfile[Load more groupmaps from file.]':file:_files \
+        '-help[This help.]' \
+        '-listcolors[Print listing of known colormaps.]' \
+        '-listgroups[Print listing of known consensus groups.]' \
+        '-listcss[Print style sheet.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

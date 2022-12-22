@@ -1,0 +1,65 @@
+#compdef _rename rename
+
+# Auto-generated with h2o
+
+
+function _rename {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[See a synopsis.]' \
+        '--man[Browse the manpage.]' \
+        {-0,--null}'[When reading file names from "STDIN", split on NUL bytes instead of newlines. This is useful in combination with GNU find'\''s "-print0" option, GNU grep'\''s "-Z" option, and GNU sort'\''s "-z" option, to name just a few. Only valid if no filenames have been given on the commandline.]' \
+        {-f,--force}'[Rename even when a file with the destination name already exists.]' \
+        {-g,--glob}'[Glob filename arguments. This is useful if you'\''re using a braindead shell such as cmd.exe which won'\''t expand wildcards on behalf of the user.]' \
+        {-i,--interactive}'[Ask the user to confirm every action before it is taken.]' \
+        {-k,--backwards,--reverse-order}'[Process the list of files in reverse order, last file first. This prevents conflicts when renaming files to names which are currently taken but would be freed later during the process of renaming.]' \
+        {-l,--symlink}'[Create symlinks from the new names to the existing ones, instead of renaming the files. Cannot be used in conjunction with "-L".]' \
+        {-L,--hardlink}'[Create hard links from the new names to the existing ones, instead of renaming the files. Cannot be used in conjunction with "-l".]' \
+        {-M,--use}'[Like perl'\''s own "-M" switch. Loads the named modules at the beginning of the rename, and can pass import options separated by commata after an equals sign, i.e. "Module=foo,bar" will pass the "foo" and "bar" import options to "Module".]' \
+        {-n,--dry-run,--just-print}'[Show how the files would be renamed, but don'\''t actually do anything.]' \
+        {-N,--counter-format}'[Format and set the $N counter variable according to the given template.]' \
+        {-p,--mkpath,--make-dirs}'[Create any non-existent directories in the target path. This is very handy if you want to scatter a pile of files into subdirectories based on some part of their name (eg. the first two letters or the extension): you don'\''t need to make all necessary directories beforehand, just tell "rename" to create them as necessary.]' \
+        {--stdin,--no-stdin}'[Always – or never – read the list of filenames from STDIN; do not guess based on the presence or absence of filename arguments. Filename arguments must not be present when using "--stdin".]' \
+        {-T,--transcode}'[Decode each filename before processing and encode it after processing, according to the given encoding supplied.]' \
+        {-v,--verbose}'[Print additional information about the operations (not) executed.]' \
+        {-a,--append}'[Append the string argument you supply to every filename.]' \
+        {-A,--prepend}'[Prepend the string argument you supply to every filename.]' \
+        {-c,--lower-case}'[Convert file names to all lower case.]' \
+        {-C,--upper-case}'[Convert file names to all upper case.]' \
+        {-e,--expr}'[The "code" argument to this option should be a Perl expression that assumes the filename in the $_ variable and modifies it for the filenames to be renamed. When no other "-c", "-C", "-e", "-s", or "-z" options are given, you can omit the "-e" from infront of the code.]' \
+        {-P,--pipe}'[Pass the filename to an external command on its standard input and read back the transformed filename on its standard output.]' \
+        {-s,--subst}'[Perform a simple textual substitution of "from" to "to". The "from" and "to" parameters must immediately follow the argument.]' \
+        {-S,--subst-all}'[Same as "-s", but replaces *every* instance of the "from" text by the "to" text.]' \
+        {-x,--remove-extension}'[Remove the last extension from a filename, if there is any.]' \
+        {-X,--keep-extension}'[Save and remove the last extension from a filename, if there is any. The saved extension will be appended back to the filename at the end of the rest of the operations.]' \
+        {-z,--sanitize}'[A shortcut for passing "--nows --noctrl --nometa --trim".]' \
+        '--camelcase[Capitalise every separate word within the filename.]' \
+        '--urlesc[Decode URL-escaped filenames, such as wget(1) used to produce.]' \
+        '--nows[Replace all sequences of whitespace in the filename with single underscore characters.]' \
+        '--rews[Reverse "--nows": replace each underscore in the filename with a space.]' \
+        '--noctrl[Replace all sequences of control characters in the filename with single underscore characters.]' \
+        '--nometa[Replace every shell meta-character with an underscore.]' \
+        '--trim[Remove any sequence of spaces and underscores at the left and right ends of the filename.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

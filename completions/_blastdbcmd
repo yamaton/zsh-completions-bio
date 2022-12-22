@@ -34,7 +34,7 @@ function _blastdbcmd {
         '-strand[Strand of nucleotide sequence to extract]' \
         '-mask_sequence_with[Produce lower-case masked FASTA using the algorithm ID specified]' \
         '-out[Output file name]':file:_files \
-        '-outfmt[Output format, where the available format specifiers are:]' \
+        '-outfmt[Output format: %f (FASTA), %s (sequence without defline), %a (accession), %g (gi),...]' \
         '-target_only[Definition line should contain target entry only]' \
         '-get_dups[Retrieve duplicate accessions]' \
         '-line_length[Line length for output]' \

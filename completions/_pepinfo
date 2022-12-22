@@ -1,0 +1,42 @@
+#compdef _pepinfo pepinfo
+
+# Auto-generated with h2o
+
+
+function _pepinfo {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-sequence[Protein sequence filename and optional format, or reference (input USA)]':file:_files \
+        '-graph[\[$EMBOSS_GRAPHICS value, or png\] Graph type (ps, hpgl, hp7470, hp7580, meta, cps, tek, tekt, none, data, png, gif, svg)]' \
+        '-outfile[\[*.pepinfo\] Output file name]':file:_files \
+        '-aaproperties[\[Eaa_properties.dat\] Amino acid chemical classes data file]':file:_files \
+        '-aahydropathy[\[Eaa_hydropathy.dat\] Amino acid hydropathy values data file]':file:_files \
+        '-hwindow[\[9\] Window size for hydropathy averaging (Integer 1 or more)]' \
+        '-generalplot[Plot histogram of general properties]' \
+        '-nogeneralplot[Do not plot histogram of general properties]' \
+        '-hydropathyplot[Plot graphs of hydropathy]' \
+        '-nohydropathyplot[Do not plot graphs of hydropathy]' \
+        '-help[Report command line options and exit. More information on associated and general qualifiers can be found with -help -verbose]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+
