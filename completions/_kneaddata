@@ -1,0 +1,75 @@
+#compdef _kneaddata kneaddata
+
+# Auto-generated with h2o
+
+
+function _kneaddata {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        {-v,--verbose}'[additional output is printed]' \
+        '--version[show program'\''s version number and exit]' \
+        {-i1,--input1}'[Pair 1 input FASTQ file]' \
+        {-i2,--input2}'[Pair 2 input FASTQ file]' \
+        {-un,--unpaired}'[unparied input FASTQ file]' \
+        {-o,--output}'[directory to write output files]':file:_files \
+        {-s,--scratch}'[directory to write temp files]':file:_files \
+        {-db,--reference-db}'[location of reference database (additional arguments add databases)]' \
+        '--bypass-trim[bypass the trim step]' \
+        '--output-prefix[prefix for all output files \[ DEFAULT : $SAMPLE_kneaddata \]]' \
+        {-t,--threads}'[number of threads \[ Default : 1 \]]' \
+        {-p,--processes}'[number of processes \[ Default : 1 \]]' \
+        {-q,--quality-scores}'[quality scores \[ DEFAULT : phred33 \]]' \
+        '--run-bmtagger[run BMTagger instead of Bowtie2 to identify contaminant reads]' \
+        '--bypass-trf[option to bypass the removal of tandem repeats]' \
+        '--run-trf[legacy option to run the removal of tandem repeats (now run by default)]' \
+        '--run-fastqc-start[run fastqc at the beginning of the workflow]' \
+        '--run-fastqc-end[run fastqc at the end of the workflow]' \
+        '--store-temp-output[store temp output files \[ DEFAULT : temp output files are removed \]]' \
+        '--remove-intermediate-output[remove intermediate output files \[ DEFAULT : intermediate output files are stored \]]' \
+        '--cat-final-output[concatenate all final output files \[ DEFAULT : final output is not concatenated \]]' \
+        '--log-level[level of log messages \[ DEFAULT : DEBUG \]]' \
+        '--log[log file \[ DEFAULT : $OUTPUT_DIR/$SAMPLE_kneaddata.log \]]' \
+        '--trimmomatic[path to trimmomatic \[ DEFAULT : $PATH \]]':file:_files \
+        '--run-trim-repetitive[Trim fastqc generated overrepresented sequences]' \
+        '--max-memory[max amount of memory \[ DEFAULT : 500m \]]' \
+        '--trimmomatic-options[options for trimmomatic \[ DEFAULT : MINLEN:60 ILLUMINACLIP:/-SE.fa:2:30:10 SLIDINGWINDOW:4:20 MINLEN:50 \] MINLEN is set to 50 percent of total input read length. The user can alternatively specify a length (in bases) for MINLEN.]' \
+        '--sequencer-source[options for sequencer-source \[ DEFAULT : NexteraPE\]]' \
+        '--bowtie2[path to bowtie2 \[ DEFAULT : $PATH \]]':file:_files \
+        '--bowtie2-options[options for bowtie2 \[ DEFAULT : --very-sensitive-local \]]' \
+        '--decontaminate-pairs[options for filtering of paired end reads (strict='\''remove both R1+R2 if either align'\'', lenient='\''remove only if both R1+R2 align'\'', unpaired='\''ignore pairing and remove as single end'\'') \[ DEFAULT : strict \]]' \
+        '--reorder[order the sequences in the same order as the input \[ DEFAULT : Sequences are not ordered \]]' \
+        '--serial[filter the input in serial for multiple databases so a subset of reads are processed in each database search]' \
+        '--bmtagger[path to BMTagger \[ DEFAULT : $PATH \]]':file:_files \
+        '--trf[path to TRF \[ DEFAULT : $PATH \]]':file:_files \
+        '--match[matching weight \[ DEFAULT : 2 \]]' \
+        '--mismatch[mismatching penalty \[ DEFAULT : 7 \]]' \
+        '--delta[indel penalty \[ DEFAULT : 7 \]]' \
+        '--pm[match probability \[ DEFAULT : 80 \]]' \
+        '--pi[indel probability \[ DEFAULT : 10 \]]' \
+        '--minscore[minimum alignment score to report \[ DEFAULT : 50 \]]' \
+        '--maxperiod[maximum period size to report \[ DEFAULT : 500 \]]' \
+        '--fastqc[path to fastqc \[ DEFAULT : $PATH \]]':file:_files \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

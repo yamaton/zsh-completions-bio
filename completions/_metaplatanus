@@ -1,0 +1,53 @@
+#compdef _metaplatanus metaplatanus
+
+# Auto-generated with h2o
+
+
+function _metaplatanus {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-IP[lib_id inward_pair_files (reads in 2 files, fasta or fastq; at least one library required)]' \
+        '-OP[lib_id outward_pair_files (reads in 2 files, fasta or fastq; aka mate-pairs or jumping-library)]' \
+        '-binning_IP[lib_id inward_pair_files for binning process. (reads in 2 files, fasta or fastq; the data are usually from another sample)]' \
+        '-p[PacBio long-read file (fasta or fastq)]':file:_files \
+        '-ont[Oxford Nanopore long-read file (fasta or fastq)]':file:_files \
+        '-x[barcoded_pair_files (10x Genomics) (reads in 1 file, interleaved, fasta or fastq)]' \
+        '-X[barcoded_pair_files (10x Genomics) (reads in 2 files, fasta or fastq)]' \
+        '-t[number of threads (<= 1; default, 1)]' \
+        '-m[memory limit for making kmer distribution (unit, GB; default, 64)]' \
+        '-o[prefix of output files (default "out")]' \
+        '-tmp[directory for temporary files (default, ".")]':file:_files \
+        '-sub_bin[directory for sub-executables, such as mata_plantaus and minimap2 (default, directory-of-this-script/sub_bin)]':file:_files \
+        '-min_cov_contig[k-mer coverage cutoff for contig-assembly of MetaPlatanus (default, 4 with MEGAHIT, 2 otherwise)]' \
+        '-min_map_idt_binning[minimum identity (%) in read mapping for binning (default, 97)]' \
+        '-no_megahit[do not perfom MEGAHIT assembly (default, off)]' \
+        '-no_binning[do not perfom binning (default, off)]' \
+        '-no_re_scaffold[do not perfom re-scaffolding (default, off)]' \
+        '-no_tgsgapcloser[do not use TGS-GapCloser and NextPolish (default, off)]' \
+        '-no_nextpolish[do not use NextPolish (default, off)]' \
+        '-overwrite[overwrite the previous results, not re-start (default, off)]' \
+        {-h,-help}'[display usage]' \
+        {-v,-version}'[display version]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+
