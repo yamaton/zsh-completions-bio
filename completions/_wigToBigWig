@@ -1,0 +1,37 @@
+#compdef _wigToBigWig wigToBigWig
+
+# Auto-generated with h2o
+
+
+function _wigToBigWig {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-blockSize[Number of items to bundle in r-tree. Default 256]' \
+        '-itemsPerSlot[Number of data points bundled at lowest level. Default 1024]' \
+        '-clip[If set just issue warning messages rather than dying if wig file contains items off end of chromosome or chromosomes that are not in the chrom.sizes file.]' \
+        '-unc[If set, do not use compression.]' \
+        '-fixedSummaries[If set, use a predefined sequence of summary levels.]' \
+        '-keepAllChromosomes[If set, store all chromosomes in b-tree.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+
