@@ -1,0 +1,162 @@
+#compdef _guppy_basecaller guppy_basecaller
+
+# Auto-generated with h2o
+
+
+function _guppy_basecaller {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--adapter_pt_range_scale[Set polyT/adapter range scale for setting read scaling median absolute deviation.]' \
+        '--as_cpu_threads_per_scaler[Number of CPU worker threads per adapter scaler.]' \
+        '--dmean_threshold[Threshold for coarse stall event detection]' \
+        '--dmean_win_size[Window size for coarse stall event detection]' \
+        '--as_gpu_runners_per_device[Number of runners per GPU device for adapter scaling.]' \
+        '--jump_threshold[Threshold level for rna stall detection]' \
+        '--max_search_len[Maximum number of samples to search through for the stall]' \
+        '--as_model_file[Path to JSON model file for adapter scaling.]' \
+        '--noisiest_section_scaling_max_size[Threshold read size in samples under which nosiest-section scaling will be performed.]' \
+        '--as_num_scalers[Number of parallel scalers for adapter scaling.]' \
+        '--override_scaling[Manually provide scaling parameters rather than estimating them from each read.]' \
+        '--pt_median_offset[Set polyT median offset for setting read scaling median.]' \
+        '--pt_minimum_read_start_index[Set minimum index for read start sample required to attempt polyT scaling.]' \
+        '--pt_required_adapter_drop[Set minimum required current drop from adapter max to polyT detection.]' \
+        '--pt_scaling[Enable polyT/adapter max detection for read scaling.]' \
+        '--as_reads_per_runner[Maximum reads per runner for adapter scaling.]' \
+        '--scaling_mad[Median absolute deviation to use for manual scaling.]' \
+        '--scaling_med[Median current value to use for manual scaling.]' \
+        '--trim_min_events[Adapter trimmer minimum stride intervals after stall that must be seen.]' \
+        '--trim_strategy[Trimming strategy to apply: '\''dna'\'' or '\''rna'\'' (or '\''none'\'' to disable trimming)]' \
+        '--trim_threshold[Threshold above which data will be trimmed (in standard deviations of current level distribution).]' \
+        '--use_quantile_scaling[Use quantiles to calculate scaling values when basecalling]' \
+        '--alignment_filtering[Specify whether to filter reads based on their alignment status]' \
+        '--align_type[Specify whether you want full or coarse alignment. Valid values are (auto/full/coarse).]' \
+        '--bed_file[Path to .bed file containing areas of interest in reference genome.]' \
+        {-a,--align_ref}'[Reference FASTA or index file.]' \
+        '--minimap_opt_string[Specify minimap2 options. See `guppy_basecaller --minimap_opt_string --help` for details).]' \
+        '--num_alignment_threads[Number of worker threads to use for alignment.]' \
+        '--allow_inferior_barcodes[Reads will still be classified even if both the barcodes at the front and rear (if applicable) were not the best scoring barcodes above the min_score.]' \
+        '--barcode_kits[Space separated list of barcoding kit(s) or expansion kit(s) to detect against. Must be in double quotes.]' \
+        '--detect_adapter[Detect adapter sequences at the front and rear of the read.]' \
+        '--detect_barcodes[Detect barcode sequences at the front and rear of the read.]' \
+        '--detect_mid_strand_adapter[Detect adapter sequences within reads.]' \
+        '--detect_mid_strand_barcodes[Search for barcodes through the entire length of the read.]' \
+        '--detect_primer[Detect primer sequences at the front and rear of the read.]' \
+        '--disable_trim_barcodes[Disable trimming of barcodes from the sequences in the output files. By default is false, barcodes will be trimmed.]' \
+        '--front_window_size[Window size for the beginning barcode.]' \
+        '--min_score_adapter[Minimum score for an adapter to be considered a valid alignment.]' \
+        '--min_score_adapter_mid[Minimum score for a mid-strand adapter to be considered a valid alignment.]' \
+        '--min_score_barcode_front[Minimum score to consider a front barcode to be a valid barcode alignment.]' \
+        '--min_score_barcode_mask[Minimum score for a barcode context to be considered a valid alignment.]' \
+        '--min_score_barcode_mid[Minimum score for a barcode to be detected in the middle of a read.]' \
+        '--min_score_barcode_rear[Minimum score to consider a rear barcode to be a valid alignment (and min_score_front will then be used for the front only when this is set).]' \
+        '--min_score_primer[Minimum score for a primer to be considered to be a valid alignment.]' \
+        '--num_barcoding_buffers[Number of GPU memory buffers to allocate to perform barcoding into. Controls level of parallelism on GPU for barcoding.]' \
+        '--num_barcoding_threads[Number of worker threads to use for barcoding.]' \
+        '--num_extra_bases_trim[How vigorous to be in trimming the barcode. Default is 0 i.e. the length of the detected barcode. A positive integer means extra bases will be trimmed, a negative number is how many fewer bases (less vigorous) will be trimmed.]' \
+        '--num_mid_barcoding_buffers[Number of GPU memory buffers to allocate to perform barcoding into. Controls level of parallelism on GPU for mid barcoding.]' \
+        '--num_reads_per_barcoding_buffer[The maximum number of reads to process at once in each barcoding buffer.]' \
+        '--rear_window_size[Window size for the ending barcode.]' \
+        '--require_barcodes_both_ends[Reads will only be classified if there is a barcode above the min_score at both ends of the read.]' \
+        '--trim_adapters[Trim the adapters from the sequences in the output files.]' \
+        '--trim_primers[Trim the primers from the sequences in the output files.]' \
+        '--beam_cut[Beam score cutoff for beam search decoding.]' \
+        '--beam_width[Beam width to use in beam search decode.]' \
+        '--builtin_scripts[Whether to use GPU kernels that were included at compile-time.]' \
+        '--chunk_size[Stride intervals per chunk.]' \
+        '--chunks_per_caller[Soft limit on number of chunks in each caller'\''s queue. New reads will not be queued while this is exceeded.]' \
+        '--chunks_per_runner[Maximum chunks per runner.]' \
+        '--cpu_threads_per_caller[Number of CPU worker threads per basecaller.]' \
+        '--disable_qscore_filtering[Disable filtering of reads into PASS/FAIL folders based on min qscore.]' \
+        '--duplex_window_size_max[Maximum window size to use for prefix search in duplex decoding.]' \
+        '--duplex_window_size_min[Minimum window size to use for prefix search in duplex decoding.]' \
+        '--gpu_runners_per_device[Number of runners per GPU device.]' \
+        '--high_priority_threshold[Number of high priority chunks to process for each medium priority chunk.]' \
+        '--int8_mode[Enable quantised int8 mode for kernels which support it.]' \
+        {-k,--kernel_path}'[Path to GPU kernel files location (only needed if builtin_scripts is false).]' \
+        '--log_speed_frequency[How often to print out basecalling speed.]' \
+        '--medium_priority_threshold[Number of medium priority chunks to process for each low priority chunk.]' \
+        '--min_qscore[Minimum acceptable qscore for a read to be filtered into the PASS folder.]' \
+        {-m,--model_file}'[Path to JSON model file.]' \
+        '--num_base_mod_threads[The number of threads to use for Remora modified base detection in GPU basecalling mode.]' \
+        '--num_callers[Number of parallel basecallers to create.]' \
+        '--overlap[Overlap between chunks (in stride intervals).]' \
+        '--post_out[Return full posterior matrix in output fast5 file and/or called read message from server.]' \
+        '--qscore_offset[Qscore calibration offset.]' \
+        '--qscore_scale[Qscore calibration scale factor.]' \
+        '--reverse_sequence[Reverse the called sequence (for RNA sequencing).]' \
+        '--stay_penalty[Scaling factor to apply to stay probability calculation during transducer decode.]' \
+        '--temp_bias[Temperature adjustment for bias vector in softmax layer of RNN.]' \
+        '--temp_weight[Temperature adjustment for weight matrix in softmax layer of RNN.]' \
+        '--u_substitution[Substitute '\''U'\'' for '\''T'\'' in the called sequence (for RNA sequencing).]' \
+        '--calib_detect[Enable calibration strand detection and filtering.]' \
+        '--calib_reference[Reference FASTA file containing calibration strand.]' \
+        '--additional_lamp_context_bases[Number of bases from a lamp FIP barcode context to append to the front and read of the FIP barcode before performing matching. Default is 2.]' \
+        '--lamp_kit[LAMP barcoding kit to perform LAMP detection against.]' \
+        '--min_length_lamp_context[Minimum align length for a LAMP barcode mask context to be classified.]' \
+        '--min_length_lamp_target[Minimum align length for a LAMP target to be classified.]' \
+        '--min_score_lamp[Minimum score for a LAMP barcode to be classified.]' \
+        '--min_score_lamp_mask[Minimum score for a LAMP barcode mask context to be classified.]' \
+        '--min_score_lamp_target[Minimum score for a LAMP target to be classified.]' \
+        '--max_pipeline_reads[Maximum number of reads that can be processed by the pipeline at any one time.]' \
+        '--index[Output BAM index file.]' \
+        '--bam_methylation_threshold[The value below which a predicted methylation probability will not be emitted into a BAM file, expressed as a percentage.]' \
+        '--bam_out[Output BAM files.]' \
+        '--barcode_nested_output_folder[If flagged output FastQ/BAM files will be written to a nested folder structure, based on: protocol_group/barcode_arrangement/sample/protocol/qscore_pass_fail/]' \
+        '--compress_fastq[Compress fastq output files with gzip.]' \
+        {-c,--config}'[Configuration file for application.]' \
+        {-d,--data_path}'[Path to use for loading any data files the application requires.]' \
+        {-x,--device}'[Specify GPU device: '\''auto'\'', or '\''cuda:<device_id>'\''.]' \
+        '--flowcell[Flowcell to find a configuration for.]' \
+        '--input_file_list[Optional file containing list of input fast5/pod5 files to process from the input_path.]' \
+        {-i,--input_path}'[Path to input files.]' \
+        '--kit[Kit to find a configuration for.]' \
+        '--load_scaling_info_from_read_files[If flagged, scaling information in source fast5 or pod5 files will read and used if present.]' \
+        '--moves_out[Return move table in output BAM file.]' \
+        '--nested_output_folder[If flagged output FastQ/BAM files will be written to a nested folder structure, based on: protocol_group/sample/protocol/qscore_pass_fail/barcode_arrangement/]' \
+        '--print_workflows[Output available workflows.]' \
+        '--progress_stats_frequency[Frequency in seconds in which to report progress statistics, if supplied will replace the default progress display.]' \
+        {-z,--quiet}'[Quiet mode. Nothing will be output to STDOUT if this option is set.]' \
+        '--read_batch_size[Maximum batch size, in reads, for grouping input files.]' \
+        {-l,--read_id_list}'[File containing list of read ids to filter to.]' \
+        {-q,--records_per_fastq}'[Maximum number of records per fastq file, 0 means use a single file (per run id, per batch).]' \
+        {-r,--recursive}'[Search for input file recursively.]' \
+        '--resume[Resume a previous basecall run using the same output folder.]' \
+        '--sample_sheet[Optional file containing sample sheet. Used to provide an alias for barcode results.]' \
+        {-s,--save_path}'[Path to save output files.]' \
+        {-h,--help}'[Display the application usage help.]' \
+        {-v,--version}'[Display the application version information.]' \
+        '--skip_model_versions[Skip display of model versions in output of available workflows when using --print_workflows.]' \
+        '--trace_category_logs[Enable trace logs - list of strings with the desired names.]' \
+        '--trace_domains_config[Configuration file containing list of trace domains to include in verbose logging (if enabled)]' \
+        '--verbose_logs[Enable verbose logs.]' \
+        '--do_read_splitting[Perform read splitting based on mid-strand adapter detection.]' \
+        '--max_read_split_depth[The maximum number of iterations of read splitting that should be performed.]' \
+        '--min_score_read_splitting[Minimum alignment score for the mid adapter on which to split the read.]' \
+        '--num_read_splitting_buffers[Number of GPU memory buffers to allocate to perform read splitting. Controls level of parallelism on GPU for read splitting using mid adapter detection.]' \
+        '--num_read_splitting_threads[Number of worker threads to use for read splitting.]' \
+        '--disable_pings[Disable the transmission of telemetry pings.]' \
+        '--ping_segment_duration[Duration in minutes of each ping segment.]' \
+        '--ping_url[URL to send pings to.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+
