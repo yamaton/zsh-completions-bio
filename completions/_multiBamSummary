@@ -1,0 +1,105 @@
+#compdef _multiBamSummary multiBamSummary
+
+# Auto-generated with h2o
+
+    function _multiBamSummary_bins {
+        _arguments \
+            {--bamfiles,-b}'[List of indexed bam files separated by spaces. (default: None)]':file:_files \
+            {--outFileName,-out,-o}'[File name to save the coverage matrix. This matrix can be subsequently plotted using plotCorrelation or or plotPCA. (default: None)]':file:_files \
+            {--help,-h}'[show this help message and exit]' \
+            {--labels,-l}'[User defined labels instead of default labels from file names. Multiple labels have to be separated by a space, e.g. --labels sample1 sample2 sample3 (default: None)]' \
+            '--smartLabels[Instead of manually specifying labels for the input BAM files, this causes deepTools to use the file name after removing the path and extension. (default: False)]' \
+            '--genomeChunkSize[Manually specify the size of the genome provided to each processor. The default value of None specifies that this is determined by read density of the BAM file. (default: None)]' \
+            {--binSize,-bs}'[Length in bases of the window used to sample the genome. (Default: 10000)]' \
+            {--distanceBetweenBins,-n}'[By default, multiBamSummary considers consecutive bins of the specified --binSize. However, to reduce the computation time, a larger distance between bins can by given. Larger distances result in fewer bins considered. (Default: 0)]' \
+            '--version[show program'\''s version number and exit]' \
+            {--region,-r}'[Region of the genome to limit the operation to - this is useful when testing parameters to reduce the computing time. The format is chr:start:end, for example --region chr10 or --region chr10:456700:891000. (default: None)]' \
+            {--blackListFileName,-bl}'[A BED or GTF file containing regions that should be excluded from all analyses. Currently this works by rejecting genomic chunks that happen to overlap an entry. Consequently, for BAM files, if a read partially overlaps a blacklisted region or a fragment spans over it, then the read/fragment might still be considered. Please note that you should adjust the effective genome size, if relevant. (default: None)]':file:_files \
+            {--numberOfProcessors,-p}'[Number of processors to use. Type "max/2" to use half the maximum number of processors or "max" to use all available processors. (Default: 1)]' \
+            {--verbose,-v}'[Set to see processing messages. (default: False)]' \
+            '--outRawCounts[Save the counts per region to a tab-delimited file. (default: None)]':file:_files \
+            '--scalingFactors[Compute scaling factors (in the DESeq2 manner) compatible for use with bamCoverage and write them to a file. The file has tab-separated columns "sample" and "scalingFactor". (default: None)]':file:_files \
+            {--extendReads,-e}'[This parameter allows the extension of reads to fragment size. If set, each read is extended, without exception. *NOTE*: This feature is generally NOT recommended for spliced-read data, such as RNA-seq, as it would extend reads over skipped regions. *Single-end*: Requires a user specified value for the final fragment length. Reads that already exceed this fragment length will not be extended. *Paired-end*: Reads with mates are always extended to match the fragment size defined by the two read mates. Unmated reads, mate reads that map too far apart (>4x fragment length) or even map to different chromosomes are treated like single-end reads. The input of a fragment length value is optional. If no value is specified, it is estimated from the data (mean of the fragment size of all mate reads). (default: False)]' \
+            '--ignoreDuplicates[If set, reads that have the same orientation and start position will be considered only once. If reads are paired, the mate'\''s position also has to coincide to ignore a read. (default: False)]' \
+            '--minMappingQuality[If set, only reads that have a mapping quality score of at least this are considered. (default: None)]' \
+            '--centerReads[By adding this option, reads are centered with respect to the fragment length. For paired-end data, the read is centered at the fragment length defined by the two ends of the fragment. For single-end data, the given fragment length is used. This option is useful to get a sharper signal around enriched regions. (default: False)]' \
+            '--samFlagInclude[Include reads based on the SAM flag. For example, to get only reads that are the first mate, use a flag of 64. This is useful to count properly paired reads only once, as otherwise the second mate will be also considered for the coverage. (Default: None)]' \
+            '--samFlagExclude[Exclude reads based on the SAM flag. For example, to get only reads that map to the forward strand, use --samFlagExclude 16, where 16 is the SAM flag for reads that map to the reverse strand. (Default: None)]' \
+            '--minFragmentLength[The minimum fragment length needed for read/pair inclusion. This option is primarily useful in ATACseq experiments, for filtering mono- or di-nucleosome fragments. (Default: 0)]' \
+            '--maxFragmentLength[The maximum fragment length needed for read/pair inclusion. (Default: 0)]' \
+            "*: :_files"
+
+    }
+
+    function _multiBamSummary_BED-file {
+        _arguments \
+            {--bamfiles,-b}'[List of indexed bam files separated by spaces. (default: None)]':file:_files \
+            {--outFileName,-out,-o}'[File name to save the coverage matrix. This matrix can be subsequently plotted using plotCorrelation or or plotPCA. (default: None)]':file:_files \
+            '--BED[Limits the coverage analysis to the regions specified in these files. (default: None)]':file:_files \
+            {--help,-h}'[show this help message and exit]' \
+            {--labels,-l}'[User defined labels instead of default labels from file names. Multiple labels have to be separated by a space, e.g. --labels sample1 sample2 sample3 (default: None)]' \
+            '--smartLabels[Instead of manually specifying labels for the input BAM files, this causes deepTools to use the file name after removing the path and extension. (default: False)]' \
+            '--genomeChunkSize[Manually specify the size of the genome provided to each processor. The default value of None specifies that this is determined by read density of the BAM file. (default: None)]' \
+            '--version[show program'\''s version number and exit]' \
+            {--region,-r}'[Region of the genome to limit the operation to - this is useful when testing parameters to reduce the computing time. The format is chr:start:end, for example --region chr10 or --region chr10:456700:891000. (default: None)]' \
+            {--blackListFileName,-bl}'[A BED or GTF file containing regions that should be excluded from all analyses. Currently this works by rejecting genomic chunks that happen to overlap an entry. Consequently, for BAM files, if a read partially overlaps a blacklisted region or a fragment spans over it, then the read/fragment might still be considered. Please note that you should adjust the effective genome size, if relevant. (default: None)]':file:_files \
+            {--numberOfProcessors,-p}'[Number of processors to use. Type "max/2" to use half the maximum number of processors or "max" to use all available processors. (Default: 1)]' \
+            {--verbose,-v}'[Set to see processing messages. (default: False)]' \
+            '--outRawCounts[Save the counts per region to a tab-delimited file. (default: None)]':file:_files \
+            '--scalingFactors[Compute scaling factors (in the DESeq2 manner) compatible for use with bamCoverage and write them to a file. The file has tab-separated columns "sample" and "scalingFactor". (default: None)]':file:_files \
+            {--extendReads,-e}'[This parameter allows the extension of reads to fragment size. If set, each read is extended, without exception. *NOTE*: This feature is generally NOT recommended for spliced-read data, such as RNA-seq, as it would extend reads over skipped regions. *Single-end*: Requires a user specified value for the final fragment length. Reads that already exceed this fragment length will not be extended. *Paired-end*: Reads with mates are always extended to match the fragment size defined by the two read mates. Unmated reads, mate reads that map too far apart (>4x fragment length) or even map to different chromosomes are treated like single-end reads. The input of a fragment length value is optional. If no value is specified, it is estimated from the data (mean of the fragment size of all mate reads). (default: False)]' \
+            '--ignoreDuplicates[If set, reads that have the same orientation and start position will be considered only once. If reads are paired, the mate'\''s position also has to coincide to ignore a read. (default: False)]' \
+            '--minMappingQuality[If set, only reads that have a mapping quality score of at least this are considered. (default: None)]' \
+            '--centerReads[By adding this option, reads are centered with respect to the fragment length. For paired-end data, the read is centered at the fragment length defined by the two ends of the fragment. For single-end data, the given fragment length is used. This option is useful to get a sharper signal around enriched regions. (default: False)]' \
+            '--samFlagInclude[Include reads based on the SAM flag. For example, to get only reads that are the first mate, use a flag of 64. This is useful to count properly paired reads only once, as otherwise the second mate will be also considered for the coverage. (Default: None)]' \
+            '--samFlagExclude[Exclude reads based on the SAM flag. For example, to get only reads that map to the forward strand, use --samFlagExclude 16, where 16 is the SAM flag for reads that map to the reverse strand. (Default: None)]' \
+            '--minFragmentLength[The minimum fragment length needed for read/pair inclusion. This option is primarily useful in ATACseq experiments, for filtering mono- or di-nucleosome fragments. (Default: 0)]' \
+            '--maxFragmentLength[The maximum fragment length needed for read/pair inclusion. (Default: 0)]' \
+            '--metagene[When either a BED12 or GTF file are used to provide regions, perform the computation on the merged exons, rather than using the genomic interval defined by the 5-prime and 3-prime most transcript bound (i.e., columns 2 and 3 of a BED file). If a BED3 or BED6 file is used as input, then columns 2 and 3 are used as an exon. (Default: False)]' \
+            '--transcriptID[When a GTF file is used to provide regions, only entries with this value as their feature (column 3) will be processed as transcripts. (Default: transcript)]' \
+            '--exonID[When a GTF file is used to provide regions, only entries with this value as their feature (column 3) will be processed as exons. CDS would be another common value for this. (Default: exon)]' \
+            '--transcript_id_designator[Each region has an ID (e.g., ACTB) assigned to it, which for BED files is either column 4 (if it exists) or the interval bounds. For GTF files this is instead stored in the last column as a key:value pair (e.g., as '\''transcript_id "ACTB"'\'', for a key of transcript_id and a value of ACTB). In some cases it can be convenient to use a different identifier. To do so, set this to the desired key. (Default: transcript_id)]' \
+            "*: :_files"
+
+    }
+
+
+function _multiBamSummary {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'bins:The coverage calculation is done for consecutive bins of equal size (10 kilobases by default).'
+            'BED-file:The user provides a BED file that contains all regions that should be considered for the coverage analysis.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        '--version[show program'\''s version number and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (bins)
+            _multiBamSummary_bins
+            ;;
+
+        (BED-file)
+            _multiBamSummary_BED-file
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

@@ -1,0 +1,109 @@
+#compdef _gdc-client gdc-client
+
+# Auto-generated with h2o
+
+    function _gdc-client_download {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--debug[Enable debug logging. If a failure occurs, the program will stop.]' \
+            '--log-file[Save logs to file. Amount logged affected by --debug]':file:_files \
+            '--color_off[Disable colored output]' \
+            {-t,--token-file}'[GDC API auth token file]':file:_files \
+            {-d,--dir}'[Directory to download files to. Defaults to current directory]':file:_files \
+            {-s,--server}'[The TCP server address server\[:port\]]' \
+            '--no-segment-md5sums[Do not calculate inbound segment md5sums and/or do not verify md5sums on restart]' \
+            '--no-file-md5sum[Do not verify file md5sum after download]' \
+            {-n,--n-processes}'[Number of client connections.]' \
+            {--http-chunk-size,-c}'[Size in bytes of standard HTTP block size.]' \
+            '--save-interval[The number of chunks after which to flush state file. A lower save interval will result in more frequent printout but lower performance.]' \
+            {-k,--no-verify}'[Perform insecure SSL connection and transfer]' \
+            '--no-related-files[Do not download related files.]' \
+            '--no-annotations[Do not download annotations.]' \
+            '--no-auto-retry[Ask before retrying to download a file]' \
+            '--retry-amount[Number of times to retry a download]' \
+            '--wait-time[Amount of seconds to wait before retrying]' \
+            '--latest[Download latest version of a file if it exists]' \
+            '--config[Path to INI-type config file]':file:_files \
+            {-m,--manifest}'[GDC download manifest file]' \
+            "*: :_files"
+
+    }
+
+    function _gdc-client_upload {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--debug[Enable debug logging. If a failure occurs, the program will stop.]' \
+            '--log-file[Save logs to file. Amount logged affected by --debug]':file:_files \
+            '--color_off[Disable colored output]' \
+            {-t,--token-file}'[GDC API auth token file]':file:_files \
+            {--project-id,-p}'[The project ID that owns the file]' \
+            {--path,-f}'[directory path to find file]':file:_files \
+            {--upload-id,-u}'[Multipart upload id]' \
+            {--insecure,-k}'[Allow connections to server without certs]' \
+            {--server,-s}'[GDC API server address]' \
+            '--part-size[DEPRECATED in favor of \[--upload-part-size\]]' \
+            {--upload-part-size,-c}'[Part size for multipart upload]' \
+            {-n,--n-processes}'[Number of client connections]' \
+            '--disable-multipart[Disable multipart upload]' \
+            '--abort[Abort previous multipart upload]' \
+            {--resume,-r}'[Resume previous multipart upload]' \
+            '--delete[Delete an uploaded file]' \
+            {--manifest,-m}'[Manifest which describes files to be uploaded]' \
+            '--config[Path to INI-type config file]':file:_files \
+            "*: :_files"
+
+    }
+
+    function _gdc-client_settings {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--config[Path to INI-type config file. See what settings will look like if a custom config file is used]':file:_files \
+            "*: :_files"
+
+    }
+
+
+function _gdc-client {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'download:download data from the GDC'
+            'upload:upload data to the GDC'
+            'settings:display default settings'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        '--version[show program'\''s version number and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (download)
+            _gdc-client_download
+            ;;
+
+        (upload)
+            _gdc-client_upload
+            ;;
+
+        (settings)
+            _gdc-client_settings
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

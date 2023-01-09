@@ -1,0 +1,47 @@
+#compdef _bamPEFragmentSize bamPEFragmentSize
+
+# Auto-generated with h2o
+
+
+function _bamPEFragmentSize {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        {--bamfiles,-b}'[List of BAM files to process]':file:_files \
+        {--histogram,-hist,-o}'[Save a .png file with a histogram of the fragment length distribution.]':file:_files \
+        '--plotFileFormat[Image format type. If given, this option overrides the image format based on the plotFile ending. The available options are: png, eps, pdf, svg and plotly.]':file:_files \
+        {--numberOfProcessors,-p}'[Number of processors to use. The default is to use 1. (Default: 1)]' \
+        '--samplesLabel[Labels for the samples plotted. The default is to use the file name of the sample. The sample labels should be separated by spaces and quoted if a label itselfcontains a space E.g. --samplesLabel label-1 "label 2"]' \
+        {--plotTitle,-T}'[Title of the plot, to be printed on top of the generated image. Leave blank for no title. (Default: )]' \
+        '--maxFragmentLength[The maximum fragment length in the histogram. A value of 0 (the default) indicates to use twice the mean fragment length. (Default: 0)]' \
+        '--logScale[Plot on the log scale]' \
+        {--binSize,-bs}'[Length in bases of the window used to sample the genome. (Default: 1000)]' \
+        {--distanceBetweenBins,-n}'[To reduce the computation time, not every possible genomic bin is sampled. This option allows you to set the distance between bins actually sampled from. Larger numbers are sufficient for high coverage samples, while smaller values are useful for lower coverage samples. Note that if you specify a value that results in too few (<1000) reads sampled, the value will be decreased. (Default: 1000000)]' \
+        {--blackListFileName,-bl}'[A BED file containing regions that should be excluded from all analyses. Currently this works by rejecting genomic chunks that happen to overlap an entry. Consequently, for BAM files, if a read partially overlaps a blacklisted region or a fragment spans over it, then the read/fragment might still be considered.]':file:_files \
+        '--table[In addition to printing read and fragment length metrics to the screen, write them to the given file in tabular format.]':file:_files \
+        '--outRawFragmentLengths[Save the fragment (or read if the input is single-end) length and their associated number of occurrences to a tab-separated file. Columns are length, number of occurrences, and the sample label.]':file:_files \
+        '--verbose[Set if processing data messages are wanted.]' \
+        '--version[show program'\''s version number and exit]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+
