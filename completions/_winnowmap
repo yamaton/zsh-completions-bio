@@ -1,0 +1,67 @@
+#compdef _winnowmap winnowmap
+
+# Auto-generated with h2o
+
+
+function _winnowmap {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-H[use homopolymer-compressed k-mer]' \
+        '-k[k-mer size (no larger than 28) \[15\]]' \
+        '-w[minimizer window size \[50\]]' \
+        '-W[input file containing list of high freq. k-mers \[\]]':file:_files \
+        '-I[split index for every ~NUM input bases \[4G\]]' \
+        '-d[dump index to FILE \[\]]':file:_files \
+        '-f[filter out top FLOAT (<1) fraction of repetitive minimizers \[0.0\]]' \
+        '-g[stop chain enlongation if there are no minimizers in INT-bp \[5000\]]' \
+        '-G[max intron length (effective with -xsplice; changing -r) \[200k\]]' \
+        '-F[max fragment length (effective with -xsr or in the fragment mode) \[800\]]' \
+        '-r[bandwidth used in chaining and DP-based alignment \[500\]]' \
+        '-n[minimal number of minimizers on a chain \[3\]]' \
+        '-m[minimal chaining score (matching bases minus log gap penalty) \[40\]]' \
+        '-X[skip self and dual mappings (for the all-vs-all mode)]' \
+        '-p[min secondary-to-primary score ratio \[0.8\]]' \
+        '--sv-off[turn off SV-aware mode]' \
+        '-A[matching score \[2\]]' \
+        '-B[mismatch penalty \[4\]]' \
+        '-O[gap open penalty \[4,24\]]' \
+        '-E[gap extension penalty; a k-long gap costs min{O1+k*E1,O2+k*E2} \[2,1\]]' \
+        '-z[Z-drop score and inversion Z-drop score \[400,200\]]' \
+        '-s[minimal peak DP alignment score \[80\]]' \
+        '-u[how to find GT-AG. f:transcript strand, b:both strands, n:don'\''t match GT-AG \[n\]]' \
+        '-a[output in the SAM format (PAF by default)]' \
+        '-o[output alignments to FILE \[stdout\]]':file:_files \
+        '-L[write CIGAR with >65535 ops at the CG tag]' \
+        '-R[SAM read group line in a format like '\''@RG\tID:foo\tSM:bar'\'' \[\]]' \
+        '-c[output CIGAR in PAF]' \
+        '--cs[output the cs tag; STR is '\''short'\'' (if absent) or '\''long'\'' \[none\]]' \
+        '--MD[output the MD tag]' \
+        '--eqx[write =/X CIGAR operators]' \
+        '-Y[use soft clipping for supplementary alignments]' \
+        '-t[manually set pthread count rather than automatically]' \
+        '-K[minibatch size for mapping \[1000M\]]' \
+        '--version[show version number]' \
+        '-x[preset (always applied before other options) \[\] - map-ont (ont-to-ref, uses default param) - map-pb (hifi-to-ref, all defaults but does finer read fragmentation in SV-aware mapping) - map-pb-clr (clr-to-ref, sets --sv-off) - splice/splice:hq - long-read/Pacbio-CCS spliced alignment, sets --sv-off - asm5/asm10/asm20 - asm-to-ref mapping]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

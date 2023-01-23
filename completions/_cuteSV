@@ -1,0 +1,59 @@
+#compdef _cuteSV cuteSV
+
+# Auto-generated with h2o
+
+
+function _cuteSV {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        {--version,-v}'[show program'\''s version number and exit]' \
+        {-t,--threads}'[Number of threads to use.\[16\]]' \
+        {-b,--batches}'[Batch of genome segmentation interval.\[10000000\]]' \
+        {-S,--sample}'[Sample name/id]' \
+        '--retain_work_dir[Enable to retain temporary folder and files.]' \
+        '--report_readid[Enable to report supporting read ids for each SV.]' \
+        {-p,--max_split_parts}'[Maximum number of split segments a read may be aligned before it is ignored. All split segments are considered when using -1. (Recommand -1 when applying assembly-based alignment.)\[7\]]' \
+        {-q,--min_mapq}'[Minimum mapping quality value of alignment to be taken into account.\[20\]]' \
+        {-r,--min_read_len}'[Ignores reads that only report alignments with not longer than bp.\[500\]]' \
+        {-md,--merge_del_threshold}'[Maximum distance of deletion signals to be merged. In our paper, I used -md 500 to process HG002 real human sample data.\[0\]]' \
+        {-mi,--merge_ins_threshold}'[Maximum distance of insertion signals to be merged. In our paper, I used -mi 500 to process HG002 real human sample data.\[100\]]' \
+        {-s,--min_support}'[Minimum number of reads that support a SV to be reported.\[10\]]' \
+        {-l,--min_size}'[Minimum size of SV to be reported.\[30\]]' \
+        {-L,--max_size}'[Maximum size of SV to be reported. All SVs are reported when using -1. \[100000\]]' \
+        {-sl,--min_siglength}'[Minimum length of SV signal to be extracted.\[10\]]' \
+        '--genotype[Enable to generate genotypes.]' \
+        '--gt_round[Maximum round of iteration for alignments searching if perform genotyping.\[500\]]' \
+        '-Ivcf[Optional given vcf file. Enable to perform force calling. \[NULL\]]' \
+        '--max_cluster_bias_INS[Maximum distance to cluster read together for insertion.\[100\]]' \
+        '--diff_ratio_merging_INS[Do not merge breakpoints with basepair identity more than \[0.3\] for insertion.]' \
+        '--max_cluster_bias_DEL[Maximum distance to cluster read together for deletion.\[200\]]' \
+        '--diff_ratio_merging_DEL[Do not merge breakpoints with basepair identity more than \[0.5\] for deletion.]' \
+        '--max_cluster_bias_INV[Maximum distance to cluster read together for inversion.\[500\]]' \
+        '--max_cluster_bias_DUP[Maximum distance to cluster read together for duplication.\[500\]]' \
+        '--max_cluster_bias_TRA[Maximum distance to cluster read together for translocation.\[50\]]' \
+        '--diff_ratio_filtering_TRA[Filter breakpoints with basepair identity less than \[0.6\] for translocation.]' \
+        '--remain_reads_ratio[The ratio of reads remained in cluster. Set lower when the alignment data have high quality but recommand over 0.5.\[1.0\]]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

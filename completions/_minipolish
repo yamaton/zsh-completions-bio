@@ -1,0 +1,37 @@
+#compdef _minipolish minipolish
+
+# Auto-generated with h2o
+
+
+function _minipolish {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-t,--threads}'[Number of threads to use for alignment and polishing (default: 12)]' \
+        '--rounds[Number of full Racon polishing rounds (default: 2)]' \
+        '--pacbio[Use this flag for PacBio reads to make Minipolish use the map-pb Minimap2 preset (default: assumes Nanopore reads and uses the map-ont preset)]' \
+        '--skip_initial[Skip the initial polishing round - appropriate if the input GFA does not have "a" lines (default: do the initial polishing round]' \
+        {-h,--help}'[Show this help message and exit]' \
+        '--version[Show program'\''s version number and exit]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

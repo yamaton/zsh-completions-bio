@@ -1,0 +1,91 @@
+#compdef _kmc_tools kmc_tools
+
+# Auto-generated with h2o
+
+    function _kmc_tools_transform {
+        _arguments \
+            '-t[- total number of threads (default: no. of CPU cores)]' \
+            '-v[- enable verbose mode (shows some information) (default: false)]' \
+            '-hp[- hide percentage progress (default: false)]' \
+            "*: :_files"
+
+    }
+
+    function _kmc_tools_simple {
+        _arguments \
+            '-t[- total number of threads (default: no. of CPU cores)]' \
+            '-v[- enable verbose mode (shows some information) (default: false)]' \
+            '-hp[- hide percentage progress (default: false)]' \
+            "*: :_files"
+
+    }
+
+    function _kmc_tools_complex {
+        _arguments \
+            '-t[- total number of threads (default: no. of CPU cores)]' \
+            '-v[- enable verbose mode (shows some information) (default: false)]' \
+            '-hp[- hide percentage progress (default: false)]' \
+            "*: :_files"
+
+    }
+
+    function _kmc_tools_filter {
+        _arguments \
+            '-t[- total number of threads (default: no. of CPU cores)]' \
+            '-v[- enable verbose mode (shows some information) (default: false)]' \
+            '-hp[- hide percentage progress (default: false)]' \
+            "*: :_files"
+
+    }
+
+
+function _kmc_tools {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'transform:transforms single KMC'\''s database'
+            'simple:performs set operation on two KMC'\''s databases'
+            'complex:performs set operation on multiple KMC'\''s databases'
+            'filter:filter out reads with too small number of k-mers'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-t[total number of threads (default: no. of CPU cores)]' \
+        '-v[enable verbose mode (shows some information) (default: false)]' \
+        '-hp[hide percentage progress (default: false)]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (transform)
+            _kmc_tools_transform
+            ;;
+
+        (simple)
+            _kmc_tools_simple
+            ;;
+
+        (complex)
+            _kmc_tools_complex
+            ;;
+
+        (filter)
+            _kmc_tools_filter
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

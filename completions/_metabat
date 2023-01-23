@@ -1,0 +1,53 @@
+#compdef _metabat metabat
+
+# Auto-generated with h2o
+
+
+function _metabat {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[produce help message]' \
+        {-i,--inFile}'[Contigs in (gzipped) fasta file format \[Mandatory\]]' \
+        {-o,--outFile}'[Base file name and path for each bin. The default output is fasta format. Use -l option to output only contig names \[Mandatory\].]' \
+        {-a,--abdFile}'[A file having mean and variance of base coverage depth (tab delimited; the first column should be contig names, and the first row will be considered as the header and be skipped) \[Optional\].]' \
+        {-m,--minContig}'[Minimum size of a contig for binning (should be >=1500).]' \
+        '--maxP[Percentage of '\''good'\'' contigs considered for binning decided by connection among contigs. The greater, the more sensitive.]' \
+        '--minS[Minimum score of a edge for binning (should be between 1 and 99). The greater, the more specific.]' \
+        '--maxEdges[Maximum number of edges per node. The greater, the more sensitive.]' \
+        '--pTNF[TNF probability cutoff for building TNF graph. Use it to skip the preparation step. (0: auto).]' \
+        '--noAdd[Turning off additional binning for lost or small contigs.]' \
+        '--cvExt[When a coverage file without variance (from third party tools) is used instead of abdFile from jgi_summarize_bam_contig_depths.]' \
+        {-x,--minCV}'[Minimum mean coverage of a contig in each library for binning.]' \
+        '--minCVSum[Minimum total effective mean coverage of a contig (sum of depth over minCV) for binning.]' \
+        {-s,--minClsSize}'[Minimum size of a bin as the output.]' \
+        {-t,--numThreads}'[Number of threads to use (0: use all cores).]' \
+        {-l,--onlyLabel}'[Output only sequence labels as a list in a column without sequences.]' \
+        '--saveCls[Save cluster memberships as a matrix format]' \
+        '--unbinned[Generate \[outFile\].unbinned.fa file for unbinned contigs]' \
+        '--noBinOut[No bin output. Usually combined with --saveCls to check only contig memberships]' \
+        '--seed[For exact reproducibility. (0: use random seed)]' \
+        {-d,--debug}'[Debug output]' \
+        {-v,--verbose}'[Verbose output]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

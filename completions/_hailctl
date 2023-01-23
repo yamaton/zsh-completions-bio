@@ -1,0 +1,119 @@
+#compdef _hailctl hailctl
+
+# Auto-generated with h2o
+
+    function _hailctl_dataproc {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            '--beta[Force use of `beta` in gcloud commands (default: False)]' \
+            "*: :_files"
+
+    }
+
+    function _hailctl_describe {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            {--requester-pays-project-id,-u}'[Project to be billed for GCS requests. (default: None)]' \
+            "*: :_files"
+
+    }
+
+    function _hailctl_hdinsight {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            "*: :_files"
+
+    }
+
+    function _hailctl_auth {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            "*: :_files"
+
+    }
+
+    function _hailctl_dev {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            "*: :_files"
+
+    }
+
+    function _hailctl_batch {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            "*: :_files"
+
+    }
+
+    function _hailctl_config {
+        _arguments \
+            {-h,--help}'[show this help message and exit]' \
+            "*: :_files"
+
+    }
+
+
+function _hailctl {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'dataproc:Manage Google Dataproc clusters configured for Hail.'
+            'describe:Describe Hail Matrix Table and Table files.'
+            'hdinsight:Manage Azure HDInsight clusters configured for Hail.'
+            'auth:Manage Hail credentials.'
+            'dev:Manage Hail development utilities.'
+            'batch:Manage batches running on the batch service managed by the Hail team.'
+            'config:Manage Hail configuration.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (dataproc)
+            _hailctl_dataproc
+            ;;
+
+        (describe)
+            _hailctl_describe
+            ;;
+
+        (hdinsight)
+            _hailctl_hdinsight
+            ;;
+
+        (auth)
+            _hailctl_auth
+            ;;
+
+        (dev)
+            _hailctl_dev
+            ;;
+
+        (batch)
+            _hailctl_batch
+            ;;
+
+        (config)
+            _hailctl_config
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

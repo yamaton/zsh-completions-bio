@@ -1,0 +1,38 @@
+#compdef _subread-buildindex subread-buildindex
+
+# Auto-generated with h2o
+
+
+function _subread-buildindex {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-o[base name of the index to be created]' \
+        '-F[build a full index for the reference genome. 16bp subreads will be extracted from every position of the reference genome. Size of the index is typically 3 times the size of index built from using the default setting.]' \
+        '-B[create one block of index. The built index will not be split into multiple pieces. This makes the largest amount of memory be requested when running alignments, but it enables the maximum mapping speed to be achieved. This option overrides -M when it is provided as well.]' \
+        '-M[size of requested memory(RAM) in megabytes, 8000 by default.]' \
+        '-f[specify the threshold for removing uninformative subreads (highly repetitive 16mers in the reference). 100 by default.]' \
+        '-c[build a color-space index.]' \
+        '-v[output version of the program.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+

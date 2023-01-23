@@ -113,18 +113,6 @@
 
     }
 
-    function _sambamba_mpileup {
-        _arguments \
-            {-L,--regions}'[provide BED file with regions (no need to duplicate it in samtools args); all input files must be indexed]':file:_files \
-            {-o,--output-filename}'[specify output filename]' \
-            '--tmpdir[directory for temporary files]':file:_files \
-            {-t,--nthreads}'[maximum number of threads to use]' \
-            {-b,--buffer-size}'[chunk size (in bytes)]' \
-            {-B,--output-buffer-size}'[output buffer size (in bytes)]' \
-            "*: :_files"
-
-    }
-
 
 function _sambamba {
     local line state
@@ -132,7 +120,7 @@ function _sambamba {
     function _commands {
         local -a commands
         commands=(
-            'view:view contents and convert from one format'
+            'view:view contents and convert from one format to another (SAM/BAM/JSON/UNPACK)'
             'index:build index (BAI)'
             'merge:merge files (BAM)'
             'sort:sort file (BAM)'
@@ -142,14 +130,12 @@ function _sambamba {
             'flagstat:output statistics (BAM)'
             'depth:output statistics (BAM)'
             'validate:simple validator (BAM)'
-            'mpileup:parallel execution of samtools (BAM)'
         )
         _describe 'command' commands
     }
  
 
     _arguments -C \
-        '-q[quiet mode (do not show banner)]' \
         ': :->cmd' \
         '*:: :->subcmd'
 
@@ -197,10 +183,6 @@ function _sambamba {
 
         (validate)
             _sambamba_validate
-            ;;
-
-        (mpileup)
-            _sambamba_mpileup
             ;;
 
         esac

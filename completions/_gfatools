@@ -1,0 +1,171 @@
+#compdef _gfatools gfatools
+
+# Auto-generated with h2o
+
+    function _gfatools_view {
+        _arguments \
+            '-v[verbose level \[2\]]' \
+            '-l[segment list to subset \[\]]':file:_files \
+            '-R[a region like chr1:101-200 (a 1-based closed region) \[\]]' \
+            '-r[subset radius (effective with -l) \[0\]]' \
+            '-d[delete the list of segments (requiring -l; ignoring -r)]' \
+            '-M[remove multiple edges]' \
+            '-S[don'\''t print sequences]' \
+            "*: :_files"
+
+    }
+
+    function _gfatools_stat {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _gfatools_gfa2fa {
+        _arguments \
+            '-l[line length \[60\]]' \
+            '-s[output stable sequences (rGFA only)]' \
+            '-P[skip rank-0 sequences (rGFA only; force -s)]' \
+            '-0[only output rank-0 sequences (rGFA only; force -s)]' \
+            "*: :_files"
+
+    }
+
+    function _gfatools_gfa2bed {
+        _arguments \
+            '-s[merge adjacent intervals on stable sequences]' \
+            "*: :_files"
+
+    }
+
+    function _gfatools_blacklist {
+        _arguments \
+            '-l[min region length \[100\]]' \
+            '-b[include regions involving both strands (mostly inversions)]' \
+            "*: :_files"
+
+    }
+
+    function _gfatools_bubble {
+        _arguments \
+            "*: :_files"
+
+    }
+
+    function _gfatools_asm {
+        _arguments \
+            '-r[transitive reduction (fuzzy length)]' \
+            '-t[cut tips (tip seg count, tip length \[inf\])]' \
+            '-b[pop bubbles (max radius, max deletions \[inf\])]' \
+            '-B[pop bubbles along with small tips (max radius, max del \[inf\])]' \
+            '-o[cut short overlaps (ratio to the longest overlap, overlap length \[0\])]' \
+            '-c[cut overlaps, topology aware (ratio, tip seg count \[3\], tip length \[inf\])]' \
+            '-u[generate unitigs]' \
+            '-v[verbose level \[2\]]' \
+            "*: :_files"
+
+    }
+
+    function _gfatools_sql {
+        _arguments \
+            '-s[write sequence]' \
+            "*: :_files"
+
+    }
+
+    function _gfatools_ed {
+        _arguments \
+            '-l[max lag behind the furthest wavefront; 0 to disable \[0\]]' \
+            '-n[check max lag if there are more than INT diagnoals \[1000\]]' \
+            '-w[band width \[-1\]]' \
+            '-m[max edit distance; -1 to disable \[-1\]]' \
+            '-s[starting segment name \[first\]]' \
+            '-c[report the alignment path]' \
+            "*: :_files"
+
+    }
+
+    function _gfatools_version {
+        _arguments \
+            "*: :_files"
+
+    }
+
+
+function _gfatools {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'view:read a GFA file'
+            'stat:statistics about a GFA file'
+            'gfa2fa:convert GFA to FASTA'
+            'gfa2bed:convert rGFA to BED (requiring rGFA)'
+            'blacklist:blacklist regions'
+            'bubble:print bubble-like regions (EXPERIMENTAL)'
+            'asm:miniasm-like graph transformation'
+            'sql:export rGFA to SQLite (requiring rGFA)'
+            'ed:GWFA prefix alignment (for evaluation only)'
+            'version:print version number'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (view)
+            _gfatools_view
+            ;;
+
+        (stat)
+            _gfatools_stat
+            ;;
+
+        (gfa2fa)
+            _gfatools_gfa2fa
+            ;;
+
+        (gfa2bed)
+            _gfatools_gfa2bed
+            ;;
+
+        (blacklist)
+            _gfatools_blacklist
+            ;;
+
+        (bubble)
+            _gfatools_bubble
+            ;;
+
+        (asm)
+            _gfatools_asm
+            ;;
+
+        (sql)
+            _gfatools_sql
+            ;;
+
+        (ed)
+            _gfatools_ed
+            ;;
+
+        (version)
+            _gfatools_version
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+

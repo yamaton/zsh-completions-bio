@@ -1,0 +1,69 @@
+#compdef _subread-align subread-align
+
+# Auto-generated with h2o
+
+
+function _subread-align {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-i[Base name of the index.]' \
+        '-r[Name of an input read file. If paired-end, this should be the first read file (typically containing "R1"in the file name) and the second should be provided via "-R". Acceptable formats include gzipped FASTQ, FASTQ, gzipped FASTA and FASTA. These formats are identified automatically.]' \
+        '-t[Type of input sequencing data. Its values include]' \
+        '-o[Name of an output file. By default, the output is in BAM format. Omitting this option makes the output be written to STDOUT.]' \
+        '-R[Name of the second read file in paired-end data (typically containing "R2" the file name).]' \
+        '--SAMinput[Input reads are in SAM format.]' \
+        '--BAMinput[Input reads are in BAM format.]' \
+        '--SAMoutput[Save mapping results in SAM format.]' \
+        '-P[Offset value added to the Phred quality score of each read base. '\''3'\'' for phred+33 and '\''6'\'' for phred+64. '\''3'\'' by default.]' \
+        '-n[Number of selected subreads, 10 by default.]' \
+        '-m[Consensus threshold for reporting a hit (minimal number of subreads that map in consensus) . If paired-end, this gives the consensus threshold for the anchor read (anchor read receives more votes than the other read in the same pair). 3 by default]' \
+        '-p[Consensus threshold for the non- anchor read in a pair. 1 by default.]' \
+        '-M[Maximum number of mis-matched bases allowed in each reported alignment. 3 by default. Mis-matched bases found in softclipped bases are not counted.]' \
+        '--multiMapping[Report multi-mapping reads in addition to uniquely mapped reads. Use "-B" to set the maximum number of equally-best alignments to be reported.]' \
+        '-B[Maximum number of equally-best alignments to be reported for a multi-mapping read. Equally-best alignments have the same number of mis-matched bases. 1 by default.]' \
+        '-I[Maximum length (in bp) of indels that can be detected. 5 by default. Indels of up to 200bp long can be detected.]' \
+        '--complexIndels[Detect multiple short indels that are in close proximity (they can be as close as 1bp apart from each other).]' \
+        '--trim5[Trim off <int> number of bases from 5'\'' end of each read. 0 by default.]' \
+        '--trim3[Trim off <int> number of bases from 3'\'' end of each read. 0 by default.]' \
+        '-d[Minimum fragment/insert length, 50bp by default.]' \
+        '-D[Maximum fragment/insert length, 600bp by default.]' \
+        '-S[Orientation of first and second reads, '\''fr'\'' by default ( forward/reverse).]' \
+        '-T[Number of CPU threads used, 1 by default.]' \
+        '--rg-id[Add read group ID to the output.]' \
+        '--rg[Add <tag:value> to the read group (RG) header in the output.]' \
+        '--keepReadOrder[Keep order of reads in BAM output the same as that in the input file. Reads from the same pair are always placed next to each other no matter this option is specified or not.]' \
+        '-b[Convert color-space read bases to base-space read bases in the mapping output. Note that read mapping is performed at color-space.]' \
+        '--DPGapOpen[Penalty for gap opening in short indel detection. -1 by default.]' \
+        '--DPGapExt[Penalty for gap extension in short indel detection. 0 by default.]' \
+        '--DPMismatch[Penalty for mismatches in short indel detection. 0 by default.]' \
+        '--DPMatch[Score for matched bases in short indel detection. 2 by default.]' \
+        '--sv[Detect structural variants (eg. long indel, inversion, duplication and translocation) and report breakpoints. Refer to Users Guide for breakpoint reporting.]' \
+        '-a[Name of an annotation file (gzipped file is accepted). GTF/GFF format by default. See -F option for more format information.]' \
+        '-F[Specify format of the provided annotation file. Acceptable formats include '\''GTF'\'' (or compatible GFF format) and '\''SAF'\''. '\''GTF'\'' by default. For SAF format, please refer to Users Guide.]' \
+        '-A[Provide a chromosome name alias file to match chr names in annotation with those in the reads. This should be a twocolumn comma-delimited text file. Its first column should include chr names in the annotation and its second column should include chr names in the index. Chr names are case sensitive. No column header should be included in the file.]' \
+        '--gtfFeature[Specify feature type in GTF annotation. '\''exon'\''   by default. Features used for read counting will be extracted from annotation using the provided value.]' \
+        '--gtfAttr[Specify attribute type in GTF annotation. '\''gene_id'\''   by default. Meta-features used for read counting will be extracted from annotation using the provided value.]' \
+        '-v[Output version of the program.]' \
+        '*: :_files'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        esac
+        ;;
+     esac
+
+}
+
