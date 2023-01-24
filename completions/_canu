@@ -28,6 +28,284 @@ function _canu {
         '-pacbio[Specify PacBio fasta/fastq]':file:_files \
         '-nanopore[Specify Oxford Nanopore fasta/fastq]':file:_files \
         '-pacbio-hifi[Specify PacBio HiFi fasta/fastq]':file:_files \
+        '-batMemory[Approximate maximum memory usage, in gigabytes, default is the maxMemory limit]' \
+        '-batOptions[Advanced options to bogart]' \
+        '-batStageSpace[Amount of local disk space needed to stage data for unitig construction jobs]' \
+        '-batThreads[Number of threads to use; default is the maxThreads limit]' \
+        '-cnsConcurrency[If grid not enabled, number of unitig consensus jobs to run at the same time; default is n_proc / n_threads]' \
+        '-cnsConsensus[Which consensus algorithm to use; '\''pbdagcon'\'' (fast, reliable); '\''utgcns'\'' (multialignment output); '\''quick'\'' (single read mosaic); default '\''pbdagcon'\'']' \
+        '-cnsErrorRate[Consensus expects alignments at about this error rate]' \
+        '-cnsMaxCoverage[Limit unitig consensus to at most this coverage; default '\''40'\'' = unlimited]' \
+        '-cnsMemory[Amount of memory, in gigabytes, to use for unitig consensus jobs]' \
+        '-cnsPartitions[Attempt to create this many consensus jobs; default '\''0'\'' = based on the largest tig]' \
+        '-cnsStageSpace[Amount of local disk space needed to stage data for unitig consensus jobs]' \
+        '-cnsThreads[Number of threads to use for unitig consensus jobs]' \
+        '-contigFilter[Parameters to filter out '\''unassembled'\'' unitigs. Five values: minReads minLength singleReadSpan lowCovFraction lowCovDepth]' \
+        '-corConcurrency[If grid not enabled, number of read correction jobs to run at the same time; default is n_proc / n_threads]' \
+        '-corConsensus[Which consensus algorithm to use; only '\''falcon'\'' is supported; default '\''falcon'\'']' \
+        '-corErrorRate[Only use raw alignments below this error rate to construct corrected reads]' \
+        '-corFilter[Method to filter short reads from correction; '\''quick'\'' or '\''expensive'\''; default '\''expensive'\'']' \
+        '-corMaxEvidenceCoverageGlobal[Limit reads used for correction to supporting at most this coverage; default: '\''1.0x'\'' = 1.0 * estimated coverage]' \
+        '-corMaxEvidenceCoverageLocal[Limit reads being corrected to at most this much evidence coverage; default: '\''2.0x'\'' = 2.0 * estimated coverage]' \
+        '-corMaxEvidenceErate[Limit read correction to only overlaps at or below this fraction error; default: unlimited]' \
+        '-corMemory[Amount of memory, in gigabytes, to use for read correction jobs]' \
+        '-corMhapBlockSize[Number of reads per GB of memory allowed (mhapMemory)]' \
+        '-cormhapConcurrency[If grid not enabled, number of mhap overlaps for correction jobs to run at the same time; default is n_proc / n_threads]' \
+        '-corMhapFilterThreshold[Value between 0 and 1. kmers which comprise more than this percentage of the input are downweighted]' \
+        '-corMhapFilterUnique[Expert option: True or false, supress the low-frequency k-mer distribution based on them being likely noise and not true overlaps. Threshold auto-computed based on error rate and coverage.]' \
+        '-cormhapMemory[Amount of memory, in gigabytes, to use for mhap overlaps for correction jobs]' \
+        '-corMhapMerSize[K-mer size for seeds in mhap]' \
+        '-corMhapNoTf[Expert option: True or false, do not use tf weighting, only idf of tf-idf.]' \
+        '-corMhapOptions[Expert option: free-form parameters to pass to MHAP.]' \
+        '-corMhapOrderedMerSize[K-mer size for second-stage filter in mhap]' \
+        '-corMhapPipe[Report results to a pipe instead of *large* files.]' \
+        '-corMhapSensitivity[Coarse sensitivity level: '\''low'\'', '\''normal'\'' or '\''high'\''. Set automatically based on coverage; '\''high'\'' <= 30x < '\''normal'\'' < 60x <= '\''low'\'']' \
+        '-cormhapStageSpace[Amount of local disk space needed to stage data for mhap overlaps for correction jobs]' \
+        '-cormhapThreads[Number of threads to use for mhap overlaps for correction jobs]' \
+        '-corMhapVersion[Version of the MHAP jar file to use]' \
+        '-corMinCoverage[Minimum number of bases supporting each corrected base, if less than this sequences are split; default based on input read coverage: 0 <= 30x < 4 < 60x <= 4]' \
+        '-corMinEvidenceLength[Limit read correction to only overlaps longer than this; default: unlimited]' \
+        '-corMMapBlockSize[Number of reads per 1GB; memory * blockSize = the size of block loaded into memory per job]' \
+        '-cormmapConcurrency[If grid not enabled, number of mmap overlaps for correction jobs to run at the same time; default is n_proc / n_threads]' \
+        '-cormmapMemory[Amount of memory, in gigabytes, to use for mmap overlaps for correction jobs]' \
+        '-corMMapMerSize[K-mer size for seeds in minmap]' \
+        '-cormmapStageSpace[Amount of local disk space needed to stage data for mmap overlaps for correction jobs]' \
+        '-cormmapThreads[Number of threads to use for mmap overlaps for correction jobs]' \
+        '-corOutCoverage[Only correct the longest reads up to this coverage; default 40]' \
+        '-corOverlapper[Which overlap algorithm to use for correction]' \
+        '-corovlConcurrency[If grid not enabled, number of overlaps for correction jobs to run at the same time; default is n_proc / n_threads]' \
+        '-corOvlErrorRate[Overlaps above this error rate are not computed]' \
+        '-corOvlFilter[Filter overlaps based on expected kmers vs observed kmers]' \
+        '-corOvlFrequentMers[Do not seed overlaps with these kmers]' \
+        '-corOvlHashBits[Width of the kmer hash. Width 22=1gb, 23=2gb, 24=4gb, 25=8gb. Plus 10b per corOvlHashBlockLength]' \
+        '-corOvlHashBlockLength[Amount of sequence (bp) to load into the overlap hash table]' \
+        '-corOvlHashLoad[Maximum hash table load. If set too high, table lookups are inefficent; if too low, search overhead dominates run time; default 0.75]' \
+        '-corovlMemory[Amount of memory, in gigabytes, to use for overlaps for correction jobs]' \
+        '-corOvlMerDistinct[K-mer frequency threshold; the least frequent fraction of distinct mers can seed overlaps]' \
+        '-corOvlMerSize[K-mer size for seeds in overlaps]' \
+        '-corOvlMerThreshold[K-mer frequency threshold; mers more frequent than this count are ignored]' \
+        '-corOvlRefBlockLength[Amount of sequence (bp) to search against the hash table per batch]' \
+        '-corovlStageSpace[Amount of local disk space needed to stage data for overlaps for correction jobs]' \
+        '-corovlThreads[Number of threads to use for overlaps for correction jobs]' \
+        '-corPartitionMin[Don'\''t make a read correction partition with fewer than N reads]' \
+        '-corPartitions[Partition read correction into N jobs]' \
+        '-corReAlign[Refine overlaps by computing the actual alignment: '\''true'\'' or '\''false'\''. Not useful for overlapper=ovl. Uses corOvlErrorRate]' \
+        '-correctedErrorRate[Expected fraction error in an alignment of two corrected reads]' \
+        '-corStageSpace[Amount of local disk space needed to stage data for read correction jobs]' \
+        '-corThreads[Number of threads to use for read correction jobs]' \
+        '-enableOEA[Do overlap error adjustment - comprises two steps: read error detection (RED) and overlap error adjustment (OEA); default '\''true'\'']' \
+        '-executiveMemory[Amount of memory, in GB, to reserve for the Canu exective process]' \
+        '-executiveThreads[Number of threads to reserve for the Canu exective process]' \
+        '-genomeSize[An estimate of the size of the genome]' \
+        '-gnuplot[Path to the gnuplot executable]' \
+        '-gnuplotImageFormat[Image format that gnuplot will generate. Default: based on gnuplot, '\''png'\'', '\''svg'\'' or '\''gif'\'']' \
+        '-gridEngine[Grid engine configuration, not documented]' \
+        '-gridEngineArrayMaxJobs[Grid engine configuration, not documented]' \
+        '-gridEngineArrayName[Grid engine configuration, not documented]' \
+        '-gridEngineArrayOption[Grid engine configuration, not documented]' \
+        '-gridEngineArraySubmitID[Grid engine configuration, not documented]' \
+        '-gridEngineJobID[Grid engine configuration, not documented]' \
+        '-gridEngineMemoryOption[Grid engine configuration, not documented]' \
+        '-gridEngineMemoryPerJob[Grid engine configuration, not documented]' \
+        '-gridEngineMemoryUnits[Grid engine configuration, not documented]' \
+        '-gridEngineNameOption[Grid engine configuration, not documented]' \
+        '-gridEngineNameToJobIDCommand[Grid engine configuration, not documented]' \
+        '-gridEngineNameToJobIDCommandNoArrayGrid[engine configuration, not documented]' \
+        '-gridEngineOutputOption[Grid engine configuration, not documented]' \
+        '-gridEngineResourceOption[Grid engine configuration, not documented]' \
+        '-gridEngineStageOption[Grid engine configuration, not documented]' \
+        '-gridEngineSubmitCommand[Grid engine configuration, not documented]' \
+        '-gridEngineTaskID[Grid engine configuration, not documented]' \
+        '-gridEngineThreadsOption[Grid engine configuration, not documented]' \
+        '-gridOptions[Grid engine options applied to all jobs]' \
+        '-gridOptionsbat[Grid engine options applied to unitig construction jobs]' \
+        '-gridOptionscns[Grid engine options applied to unitig consensus jobs]' \
+        '-gridOptionscor[Grid engine options applied to read correction jobs]' \
+        '-gridOptionscormhap[Grid engine options applied to mhap overlaps for correction jobs]' \
+        '-gridOptionscormmap[Grid engine options applied to mmap overlaps for correction jobs]' \
+        '-gridOptionscorovl[Grid engine options applied to overlaps for correction jobs]' \
+        '-gridOptionsExecutive[Grid engine options applied to the canu executive script]' \
+        '-gridOptionshap[Grid engine options applied to haplotype assignment jobs]' \
+        '-gridOptionsJobName[Grid jobs job-name suffix]' \
+        '-gridOptionsmeryl[Grid engine options applied to mer counting jobs]' \
+        '-gridOptionsobtmhap[Grid engine options applied to mhap overlaps for trimming jobs]' \
+        '-gridOptionsobtmmap[Grid engine options applied to mmap overlaps for trimming jobs]' \
+        '-gridOptionsobtovl[Grid engine options applied to overlaps for trimming jobs]' \
+        '-gridOptionsoea[Grid engine options applied to overlap error adjustment jobs]' \
+        '-gridOptionsovb[Grid engine options applied to overlap store bucketizing jobs]' \
+        '-gridOptionsovs[Grid engine options applied to overlap store sorting jobs]' \
+        '-gridOptionsred[Grid engine options applied to read error detection jobs]' \
+        '-gridOptionsutgmhap[Grid engine options applied to mhap overlaps for unitig construction jobs]' \
+        '-gridOptionsutgmmap[Grid engine options applied to mmap overlaps for unitig construction jobs]' \
+        '-gridOptionsutgovl[Grid engine options applied to overlaps for unitig construction jobs]' \
+        '-hapConcurrency[Unused, there is only one process]' \
+        '-hapMemory[Amount of memory, in gigabytes, to use for haplotype assignment]' \
+        '-hapStageSpace[Amount of local disk space needed to stage data for haplotype assignment jobs]' \
+        '-hapThreads[Number of threads to use for haplotype assignment]' \
+        '-hapUnknownFraction[Fraction of allowed unknown bases before they are included in the assembly, between 0-1; default 0.05]' \
+        '-homoPolyCompress[Compute everything but consensus sequences using homopolymer compressed reads]' \
+        '-java[Java interpreter to use; at least version 1.8; default '\''java'\'']' \
+        '-javaUse64Bit[Java interpreter supports the -d64 or -d32 flags; default auto]' \
+        '-maxInputCoverage[If input coverage is high, downsample to something reasonable; default 200]' \
+        '-maxMemory[Maximum memory to use by any component of the assembler]' \
+        '-maxThreads[Maximum number of compute threads to use by any component of the assembler]' \
+        '-merylConcurrency[Unused, there is only one process]' \
+        '-merylMemory[Amount of memory, in gigabytes, to use for mer counting]' \
+        '-merylStageSpace[Amount of local disk space needed to stage data for mer counting jobs]' \
+        '-merylThreads[Number of threads to use for mer counting]' \
+        '-minimap[Path to minimap2; default '\''minimap2'\'']' \
+        '-minInputCoverage[Stop if input coverage is too low; default 10]' \
+        '-minMemory[Minimum amount of memory needed to compute the assembly (do not set unless prompted!)]' \
+        '-minOverlapLength[Overlaps shorter than this length are not computed; default 500]' \
+        '-minReadLength[Reads shorter than this length are not loaded into the assembler; default 1000]' \
+        '-minThreads[Minimum number of compute threads suggested to compute the assembly]' \
+        '-objectStore[Type of object storage used; not ready for production yet]' \
+        '-objectStoreClient[Path to the command line client used to access the object storage]' \
+        '-objectStoreClientDA[Path to the command line client used to download files from object storage]' \
+        '-objectStoreClientUA[Path to the command line client used to upload files to object storage]' \
+        '-objectStoreNameSpace[Object store parameters; specific to the type of objectStore used]' \
+        '-objectStoreProject[Object store project; specific to the type of objectStore used]' \
+        '-obtErrorRate[Stringency of overlaps to use for trimming]' \
+        '-obtMhapBlockSize[Number of reads per GB of memory allowed (mhapMemory)]' \
+        '-obtmhapConcurrency[If grid not enabled, number of mhap overlaps for trimming jobs to run at the same time; default is n_proc / n_threads]' \
+        '-obtMhapFilterThreshold[Value between 0 and 1. kmers which comprise more than this percentage of the input are downweighted]' \
+        '-obtMhapFilterUnique[Expert option: True or false, supress the low-frequency k-mer distribution based on them being likely noise and not true overlaps. Threshold auto-computed based on error rate and coverage.]' \
+        '-obtmhapMemory[Amount of memory, in gigabytes, to use for mhap overlaps for trimming jobs]' \
+        '-obtMhapMerSize[K-mer size for seeds in mhap]' \
+        '-obtMhapNoTf[Expert option: True or false, do not use tf weighting, only idf of tf-idf.]' \
+        '-obtMhapOptions[Expert option: free-form parameters to pass to MHAP.]' \
+        '-obtMhapOrderedMerSize[K-mer size for second-stage filter in mhap]' \
+        '-obtMhapPipe[Report results to a pipe instead of *large* files.]' \
+        '-obtMhapSensitivity[Coarse sensitivity level: '\''low'\'', '\''normal'\'' or '\''high'\''. Set automatically based on coverage; '\''high'\'' <= 30x < '\''normal'\'' < 60x <= '\''low'\'']' \
+        '-obtmhapStageSpace[Amount of local disk space needed to stage data for mhap overlaps for trimming jobs]' \
+        '-obtmhapThreads[Number of threads to use for mhap overlaps for trimming jobs]' \
+        '-obtMhapVersion[Version of the MHAP jar file to use]' \
+        '-obtMMapBlockSize[Number of reads per 1GB; memory * blockSize = the size of block loaded into memory per job]' \
+        '-obtmmapConcurrency[If grid not enabled, number of mmap overlaps for trimming jobs to run at the same time; default is n_proc / n_threads]' \
+        '-obtmmapMemory[Amount of memory, in gigabytes, to use for mmap overlaps for trimming jobs]' \
+        '-obtMMapMerSize[K-mer size for seeds in minmap]' \
+        '-obtmmapStageSpace[Amount of local disk space needed to stage data for mmap overlaps for trimming jobs]' \
+        '-obtmmapThreads[Number of threads to use for mmap overlaps for trimming jobs]' \
+        '-obtOverlapper[Which overlap algorithm to use for overlap based trimming]' \
+        '-obtovlConcurrency[If grid not enabled, number of overlaps for trimming jobs to run at the same time; default is n_proc / n_threads]' \
+        '-obtOvlErrorRate[Overlaps at or below this error rate are used to trim reads]' \
+        '-obtOvlFilter[Filter overlaps based on expected kmers vs observed kmers]' \
+        '-obtOvlFrequentMers[Do not seed overlaps with these kmers]' \
+        '-obtOvlHashBits[Width of the kmer hash. Width 22=1gb, 23=2gb, 24=4gb, 25=8gb. Plus 10b per obtOvlHashBlockLength]' \
+        '-obtOvlHashBlockLength[Amount of sequence (bp) to load into the overlap hash table]' \
+        '-obtOvlHashLoad[Maximum hash table load. If set too high, table lookups are inefficent; if too low, search overhead dominates run time; default 0.75]' \
+        '-obtovlMemory[Amount of memory, in gigabytes, to use for overlaps for trimming jobs]' \
+        '-obtOvlMerDistinct[K-mer frequency threshold; the least frequent fraction of distinct mers can seed overlaps]' \
+        '-obtOvlMerSize[K-mer size for seeds in overlaps]' \
+        '-obtOvlMerThreshold[K-mer frequency threshold; mers more frequent than this count are ignored]' \
+        '-obtOvlRefBlockLength[Amount of sequence (bp) to search against the hash table per batch]' \
+        '-obtovlStageSpace[Amount of local disk space needed to stage data for overlaps for trimming jobs]' \
+        '-obtovlThreads[Number of threads to use for overlaps for trimming jobs]' \
+        '-obtReAlign[Refine overlaps by computing the actual alignment: '\''true'\'' or '\''false'\''. Not useful for overlapper=ovl. Uses obtOvlErrorRate]' \
+        '-oeaBatchLength[Number of bases per overlap error correction batch]' \
+        '-oeaBatchSize[Number of reads per overlap error correction batch]' \
+        '-oeaConcurrency[If grid not enabled, number of overlap error adjustment jobs to run at the same time; default is n_proc / n_threads]' \
+        '-oeaErrorRate[Only use overlaps with at most this much fraction error to find errors in reads; default utgOvlErrorRate, 0.003 for HiFi reads]' \
+        '-oeaHaploConfirm[This many or more reads will confirm a true haplotype difference; default 5]' \
+        '-oeaMaskTrivial[Mask trivial DNA in Overlap Error Adjustment; default off; on for HiFi reads]' \
+        '-oeaMemory[Amount of memory, in gigabytes, to use for overlap error adjustment jobs]' \
+        '-oeaStageSpace[Amount of local disk space needed to stage data for overlap error adjustment jobs]' \
+        '-oeaThreads[Number of threads to use for overlap error adjustment jobs]' \
+        '-onFailure[Full path to command to run on failure]' \
+        '-onSuccess[Full path to command to run on successful completion]' \
+        '-ovbConcurrency[If grid not enabled, number of overlap store bucketizing jobs to run at the same time; default is n_proc / n_threads]' \
+        '-ovbMemory[Amount of memory, in gigabytes, to use for overlap store bucketizing jobs]' \
+        '-ovbStageSpace[Amount of local disk space needed to stage data for overlap store bucketizing jobs]' \
+        '-ovbThreads[Number of threads to use for overlap store bucketizing jobs]' \
+        '-ovsConcurrency[If grid not enabled, number of overlap store sorting jobs to run at the same time; default is n_proc / n_threads]' \
+        '-ovsMemory[Amount of memory, in gigabytes, to use for overlap store sorting jobs]' \
+        '-ovsStageSpace[Amount of local disk space needed to stage data for overlap store sorting jobs]' \
+        '-ovsThreads[Number of threads to use for overlap store sorting jobs]' \
+        '-preExec[A command line to run at the start of Canu execution scripts]' \
+        '-purgeOverlaps[When to delete intermediate overlap files: never, normal (default), aggressive, dangerous]' \
+        '-rawErrorRate[Expected fraction error in an alignment of two uncorrected reads]' \
+        '-readSamplingBias[Score reads as '\''random * length^bias'\'', keep the highest scoring reads]' \
+        '-redBatchLength[Number of bases per fragment error detection batch]' \
+        '-redBatchSize[Number of reads per fragment error detection batch]' \
+        '-redConcurrency[If grid not enabled, number of read error detection jobs to run at the same time; default is n_proc / n_threads]' \
+        '-redMemory[Amount of memory, in gigabytes, to use for read error detection jobs]' \
+        '-redStageSpace[Amount of local disk space needed to stage data for read error detection jobs]' \
+        '-redThreads[Number of threads to use for read error detection jobs]' \
+        '-saveMerCounts[Save full mer counting results, sometimes useful]' \
+        '-saveOverlaps[Do not remove the overlap stores. Default: false = remove overlap stores when they'\''re no longer needed]' \
+        '-saveReadCorrections[Save intermediate read correction files, almost never a good idea]' \
+        '-saveReadHaplotypes[Save intermediate read haplotype files, almost never a good idea]' \
+        '-saveReads[Save intermediate corrected and trimmed reads to asm.correctedReads.fasta.gz and asm.trimmedReads.fasta.gz]' \
+        '-shell[Command interpreter to use; sh-compatible (e.g., bash), NOT C-shell (csh or tcsh); default '\''/bin/sh'\'']' \
+        '-showNext[Don'\''t run any commands, just report what would run]' \
+        '-stageDirectory[If set, copy heavily used data to this node-local location]' \
+        '-stopAfter[Stop after a specific algorithm step is completed]' \
+        '-stopOnLowCoverage[Stop if raw, corrected or trimmed read coverage is low]' \
+        '-trimReadsCoverage[Minimum depth of evidence to retain bases; default '\''2]' \
+        '-trimReadsOverlap[Minimum overlap between evidence to make contiguous trim; default '\''500'\'']' \
+        '-unitigger[Which unitig algorithm to use; only '\''bogart'\'' supported; default '\''bogart'\'']' \
+        '-useGrid[If '\''true'\'', enable grid-based execution; if '\''false'\'', run all jobs on the local machine; if '\''remote'\'', create jobs for grid execution but do not submit; default '\''true'\'']' \
+        '-useGridbat[If '\''true'\'', run module unitig construction under grid control; if '\''false'\'' run locally.]' \
+        '-useGridcns[If '\''true'\'', run module unitig consensus under grid control; if '\''false'\'' run locally.]' \
+        '-useGridcor[If '\''true'\'', run module read correction under grid control; if '\''false'\'' run locally.]' \
+        '-useGridcormhap[If '\''true'\'', run module mhap overlaps for correction under grid control; if '\''false'\'' run locally.]' \
+        '-useGridcormmap[If '\''true'\'', run module mmap overlaps for correction under grid control; if '\''false'\'' run locally.]' \
+        '-useGridcorovl[If '\''true'\'', run module overlaps for correction under grid control; if '\''false'\'' run locally.]' \
+        '-useGridhap[If '\''true'\'', run module haplotype assignment under grid control; if '\''false'\'' run locally.]' \
+        '-useGridmeryl[If '\''true'\'', run module mer counting under grid control; if '\''false'\'' run locally.]' \
+        '-useGridobtmhap[If '\''true'\'', run module mhap overlaps for trimming under grid control; if '\''false'\'' run locally.]' \
+        '-useGridobtmmap[If '\''true'\'', run module mmap overlaps for trimming under grid control; if '\''false'\'' run locally.]' \
+        '-useGridobtovl[If '\''true'\'', run module overlaps for trimming under grid control; if '\''false'\'' run locally.]' \
+        '-useGridoea[If '\''true'\'', run module overlap error adjustment under grid control; if '\''false'\'' run locally.]' \
+        '-useGridovb[If '\''true'\'', run module overlap store bucketizing under grid control; if '\''false'\'' run locally.]' \
+        '-useGridovs[If '\''true'\'', run module overlap store sorting under grid control; if '\''false'\'' run locally.]' \
+        '-useGridred[If '\''true'\'', run module read error detection under grid control; if '\''false'\'' run locally.]' \
+        '-useGridutgmhap[If '\''true'\'', run module mhap overlaps for unitig construction under grid control; if '\''false'\'' run locally.]' \
+        '-useGridutgmmap[If '\''true'\'', run module mmap overlaps for unitig construction under grid control; if '\''false'\'' run locally.]' \
+        '-useGridutgovl[If '\''true'\'', run module overlaps for unitig construction under grid control; if '\''false'\'' run locally.]' \
+        '-utgBubbleDeviation[Overlaps this much above mean of contig will be used to identify bubbles]' \
+        '-utgChimeraType[When to filter reads for contig construction: none, chimera (missing middle), uncovered (missing middle or ends), deadend (missing middle or end or no neighbor) (default)]' \
+        '-utgErrorRate[Overlaps at or below this error rate are used to construct contigs]' \
+        '-utgGraphDeviation[Overlaps this much above median will not be used for initial graph construction]' \
+        '-utgMhapBlockSize[Number of reads per GB of memory allowed (mhapMemory)]' \
+        '-utgmhapConcurrency[If grid not enabled, number of mhap overlaps for unitig construction jobs to run at the same time; default is n_proc / n_threads]' \
+        '-utgMhapFilterThreshold[Value between 0 and 1. kmers which comprise more than this percentage of the input are downweighted]' \
+        '-utgMhapFilterUnique[Expert option: True or false, supress the low-frequency k-mer distribution based on them being likely noise and not true overlaps. Threshold auto-computed based on error rate and coverage.]' \
+        '-utgmhapMemory[Amount of memory, in gigabytes, to use for mhap overlaps for unitig construction jobs]' \
+        '-utgMhapMerSize[K-mer size for seeds in mhap]' \
+        '-utgMhapNoTf[Expert option: True or false, do not use tf weighting, only idf of tf-idf.]' \
+        '-utgMhapOptions[Expert option: free-form parameters to pass to MHAP.]' \
+        '-utgMhapOrderedMerSize[K-mer size for second-stage filter in mhap]' \
+        '-utgMhapPipe[Report results to a pipe instead of *large* files.]' \
+        '-utgMhapSensitivity[Coarse sensitivity level: '\''low'\'', '\''normal'\'' or '\''high'\''. Set automatically based on coverage; '\''high'\'' <= 30x < '\''normal'\'' < 60x <= '\''low'\'']' \
+        '-utgmhapStageSpace[Amount of local disk space needed to stage data for mhap overlaps for unitig construction jobs]' \
+        '-utgmhapThreads[Number of threads to use for mhap overlaps for unitig construction jobs]' \
+        '-utgMhapVersion[Version of the MHAP jar file to use]' \
+        '-utgMMapBlockSize[Number of reads per 1GB; memory * blockSize = the size of block loaded into memory per job]' \
+        '-utgmmapConcurrency[If grid not enabled, number of mmap overlaps for unitig construction jobs to run at the same time; default is n_proc / n_threads]' \
+        '-utgmmapMemory[Amount of memory, in gigabytes, to use for mmap overlaps for unitig construction jobs]' \
+        '-utgMMapMerSize[K-mer size for seeds in minmap]' \
+        '-utgmmapStageSpace[Amount of local disk space needed to stage data for mmap overlaps for unitig construction jobs]' \
+        '-utgmmapThreads[Number of threads to use for mmap overlaps for unitig construction jobs]' \
+        '-utgOverlapper[Which overlap algorithm to use for unitig construction]' \
+        '-utgovlConcurrency[If grid not enabled, number of overlaps for unitig construction jobs to run at the same time; default is n_proc / n_threads]' \
+        '-utgOvlErrorRate[Overlaps at or below this error rate are used to trim reads]' \
+        '-utgOvlFilter[Filter overlaps based on expected kmers vs observed kmers]' \
+        '-utgOvlFrequentMers[Do not seed overlaps with these kmers]' \
+        '-utgOvlHashBits[Width of the kmer hash. Width 22=1gb, 23=2gb, 24=4gb, 25=8gb. Plus 10b per utgOvlHashBlockLength]' \
+        '-utgOvlHashBlockLength[Amount of sequence (bp) to load into the overlap hash table]' \
+        '-utgOvlHashLoad[Maximum hash table load. If set too high, table lookups are inefficent; if too low, search overhead dominates run time; default 0.75]' \
+        '-utgovlMemory[Amount of memory, in gigabytes, to use for overlaps for unitig construction jobs]' \
+        '-utgOvlMerDistinct[K-mer frequency threshold; the least frequent fraction of distinct mers can seed overlaps]' \
+        '-utgOvlMerSize[K-mer size for seeds in overlaps]' \
+        '-utgOvlMerThreshold[K-mer frequency threshold; mers more frequent than this count are ignored]' \
+        '-utgOvlRefBlockLength[Amount of sequence (bp) to search against the hash table per batch]' \
+        '-utgovlStageSpace[Amount of local disk space needed to stage data for overlaps for unitig construction jobs]' \
+        '-utgovlThreads[Number of threads to use for overlaps for unitig construction jobs]' \
+        '-utgReAlign[Refine overlaps by computing the actual alignment: '\''true'\'' or '\''false'\''. Not useful for overlapper=ovl. Uses utgOvlErrorRate]' \
+        '-utgRepeatConfusedBP[Repeats where the next best edge is at least this many bp shorter will not be split]' \
+        '-utgRepeatConfusedPC[Repeats where the next best edge is at least this many percent shorter will not be split]' \
+        '-utgRepeatDeviation[Overlaps this much above mean unitig error rate will not be used for repeat splitting]' \
         '*: :_files'
 
     case $state in
