@@ -1,0 +1,1696 @@
+#compdef _gt gt
+
+# Auto-generated with h2o
+
+    function _gt_bed_to_gff3 {
+        _arguments \
+            '-featuretype[Set type of parsed BED features default: BED_feature]' \
+            '-thicktype[Set type of parsed thick BED features default: BED_thick_feature]' \
+            '-blocktype[Set type of parsed BED blocks default: BED_block]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_cds {
+        _arguments \
+            '-minorflen[set the minimum length an open reading frame (ORF) must have to be added as a CDS feature (measured in amino acids) default: 64]' \
+            '-startcodon[require than an ORF must begin with a start codon default: no]' \
+            '-finalstopcodon[require that the final ORF must end with a stop codon default: no]' \
+            '-seqfile[set the sequence file from which to take the sequences default: undefined]' \
+            '-encseq[set the encoded sequence indexname from which to take the sequences default: undefined]' \
+            '-seqfiles[set the sequence files from which to extract the features use '\''--'\'' to terminate the list of sequence files]' \
+            '-matchdesc[search the sequence descriptions from the input files for the desired sequence IDs (in GFF3), reporting the first match default: no]' \
+            '-matchdescstart[exactly match the sequence descriptions from the input files for the desired sequence IDs (in GFF3) from the beginning to the first whitespace default: no]' \
+            '-usedesc[use sequence descriptions to map the sequence IDs (in GFF3) to actual sequence entries. If a description contains a sequence range (e.g., III:1000001..2000000), the first part is used as sequence ID ('\''III'\'') and the first range position as offset ('\''1000001'\'') default: no]' \
+            '-regionmapping[set file containing sequence-region to sequence file mapping default: undefined]' \
+            '-v[be verbose default: no]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_chain2dim {
+        _arguments \
+            '-[If no parameter is given, compute local chains with maximums score.]' \
+            '-local[const]' \
+            '-global[default: 1.00]' \
+            "*: :_files"
+
+    }
+
+    function _gt_chseqids {
+        _arguments \
+            '-sort[sort the GFF3 features after changing the sequence ids (memory consumption is proportional to the input file size) default: no]' \
+            '-v[be verbose default: no]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_clean {
+        _arguments \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_compreads {
+        _arguments \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_condenseq {
+        _arguments \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_congruence {
+        _arguments \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_convertseq {
+        _arguments \
+            '-v[be verbose default: no]' \
+            '-r[reverse complement sequences default: no]' \
+            '-showfilelengthvalues[show filelengths default: no]' \
+            '-noseq[do not show sequences default: no]' \
+            '-fastawidth[FASTA output line width, 0 for unlimited default: 60]' \
+            '-contractdnawc[replace stretches of DNA wildcards with a single '\''N'\'' default: no]' \
+            '-contractproteinwc[replace stretches of protein wildcards with a single '\''X'\'' default: no]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_csa {
+        _arguments \
+            '-join-length[set join length for the spliced alignment clustering default: 300]' \
+            '-v[be verbose default: no]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_dot {
+        _arguments \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_dupfeat {
+        _arguments \
+            '-dest[set destination type default: undefined]' \
+            '-source[set source type default: undefined]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_encseq {
+        _arguments \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_encseq2spm {
+        _arguments \
+            '-l[specify the minimum length default: 0]' \
+            '-parts[specify the number of parts default: 0]' \
+            '-memlimit[specify maximal amount of memory to be used during index construction (in bytes, the keywords '\''MB'\'' and '\''GB'\'' are allowed) default: undefined]' \
+            '-singlestrand[use only the forward strand of the sequence default: no]' \
+            '-spm[specify output for spms default: undefined]' \
+            '-ii[specify the input sequence default: undefined]' \
+            '-v[be verbose default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_eval {
+        _arguments \
+            '-nuc[evaluate nucleotide level (memory consumption is proportional to the input file sizes) default: yes]' \
+            '-ltr[evaluate a LTR retrotransposon prediction instead of a gene prediction (all LTR_retrotransposon elements are considered to have an undetermined strand) default: no]' \
+            '-ltrdelta[set allowed delta for LTR borders to be considered equal default: 20]' \
+            '-v[be verbose default: no]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_extractfeat {
+        _arguments \
+            '-type[set type of features to extract default: undefined]' \
+            '-join[join feature sequences in the same subgraph into a single one default: no]' \
+            '-translate[translate the features (of a DNA sequence) into protein default: no]' \
+            '-seqid[add sequence ID of extracted features to FASTA descriptions default: no]' \
+            '-target[add target ID(s) of extracted features to FASTA descriptions default: no]' \
+            '-coords[add location of extracted features to FASTA descriptions default: no]' \
+            '-retainids[use ID attributes of extracted features as FASTA descriptions default: no]' \
+            '-gcode[specify genetic code to use default: 1]' \
+            '-seqfile[set the sequence file from which to take the sequences default: undefined]' \
+            '-encseq[set the encoded sequence indexname from which to take the sequences default: undefined]' \
+            '-seqfiles[set the sequence files from which to extract the features use '\''--'\'' to terminate the list of sequence files]' \
+            '-matchdesc[search the sequence descriptions from the input files for the desired sequence IDs (in GFF3), reporting the first match default: no]' \
+            '-matchdescstart[exactly match the sequence descriptions from the input files for the desired sequence IDs (in GFF3) from the beginning to the first whitespace default: no]' \
+            '-usedesc[use sequence descriptions to map the sequence IDs (in GFF3) to actual sequence entries. If a description contains a sequence range (e.g., III:1000001..2000000), the first part is used as sequence ID ('\''III'\'') and the first range position as offset ('\''1000001'\'') default: no]' \
+            '-regionmapping[set file containing sequence-region to sequence file mapping default: undefined]' \
+            '-v[be verbose default: no]' \
+            '-width[set output width for FASTA sequence printing (0 disables formatting) default: 0]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_extractseq {
+        _arguments \
+            '-frompos[extract sequence from this position counting from 1 on default: 0]' \
+            '-topos[extract sequence up to this position counting from 1 on default: 0]' \
+            '-match[extract all sequences whose description matches the given pattern. The given pattern must be a valid extended regular expression. default: undefined]' \
+            '-keys[extract substrings for keys in specified file default: undefined]' \
+            '-width[set output width for FASTA sequence printing (0 disables formatting) default: 0]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_fastq_sample {
+        _arguments \
+            '-length[minimum number of chars to be chosen default: undefined]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_featureindex {
+        _arguments \
+            '-range[range constraint for index query default: undefined]' \
+            '-seqid[sequence region default: undefined]' \
+            '-retain[retain attributes default: yes]' \
+            '-backend[database backend to use choose from \[sqlite\] default: sqlite]' \
+            '-filename[filename for feature database (sqlite backend only) default: undefined]' \
+            '-v[be verbose default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_fingerprint {
+        _arguments \
+            '-check[compare all fingerprints contained in the given checklist file with checksums in given sequence_files(s). The comparison is successful, if all fingerprints given in checkfile can be found in the sequence_file(s) in the exact same quantity and vice versa. default: undefined]' \
+            '-duplicates[show duplicate fingerprints from given sequence_file(s). default: no]' \
+            '-extract[extract the sequence(s) with the given fingerprint from sequence file(s) and show them on stdout. default: undefined]' \
+            '-width[set output width for FASTA sequence printing (0 disables formatting) default: 0]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_genomediff {
+        _arguments \
+            '-indextype[specify type of index, one of: esa|pck|encseq. Where encseq is an encoded sequence and an enhanced suffix array will be constructed only in memory. default: encseq]' \
+            '-indexname[Basename of encseq to construct. default: undefined]' \
+            '-unitfile[specifies genomic units, see below for description. default: undefined]' \
+            '-mirrored[virtually append the reverse complement of each sequence default: no]' \
+            '-pl[specify prefix length for bucket sort recommendation: use without argument; then a reasonable prefix length is automatically determined. default: 0]' \
+            '-dc[specify difference cover value default: 0]' \
+            '-memlimit[specify maximal amount of memory to be used during index construction (in bytes, the keywords '\''MB'\'' and '\''GB'\'' are allowed) default: undefined]' \
+            '-v[be verbose default: no]' \
+            '-help[display help for basic options and exit]' \
+            '-help+[display help for all options and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_gff3 {
+        _arguments \
+            '-sort[sort the GFF3 features (memory consumption is proportional to the input file size(s)) default: no]' \
+            '-sortlines[sort the GFF3 features on a strict line basis (not sorted asdefined by GenomeTools) default: no]' \
+            '-sortnum[enable natural numeric sorting for sequence regions (not sorted as defined by GenomeTools) default: no]' \
+            '-tidy[try to tidy the GFF3 files up during parsing default: no]' \
+            '-retainids[when available, use the original IDs provided in the source file (memory consumption is proportional to the input file size(s)) default: no]' \
+            '-checkids[make sure the ID attributes are unique within the scope of each GFF3_file, as required by GFF3 specification (memory consumption is proportional to the input file size(s)). If features with the same Parent attribute are not separated by a '\''###'\'' line the GFF3 parser tries to treat them as a multi-line feature. This requires at least matching sequence IDs and types. default: no]' \
+            '-addids[add missing "##sequence-region" lines automatically default: yes]' \
+            '-fixregionboundaries[automatically adjust "##sequence-region" lines to contain all their features (memory consumption is proportional to the input file size(s)) default: no]' \
+            '-addintrons[add intron features between existing exon features default: no]' \
+            '-offset[transform all features by the given offset default: undefined]' \
+            '-offsetfile[transform all features by the offsets given in file default: undefined]' \
+            '-setsource[set the '\''source'\'' value (2nd column) of each feature default: undefined]' \
+            '-typecheck[use an ontology given in an OBO file to validate parent-child relationships. If no argument is given, the sofa.obo file from the gtdata/obo_files directory is used. If an argument is given, it is used as an OBO filename. In the case that such a file does not exist '\''.obo'\'' is added to the argument and loading the resulting filename from the gtdata/obo_files directory is attempted. default: undefined]' \
+            '-xrfcheck[check Dbxref and Ontology_term attributes for correct syntax according to a abbreviation definition file. If no argument is given, the GO.xrf_abbs file from the gtdata/xrf_abbr directory is used. If an argument is given, it is used as an specific filename for an abbreviation file. In the case that such a file does not exist, '\''.xrf_abbr'\'' is added to the argument and loading the resulting filename from the gtdata/xrf_abbr directory is attempted. default: undefined]' \
+            '-show[show GFF3 output default: yes]' \
+            '-v[be verbose default: no]' \
+            '-width[set output width for FASTA sequence printing (0 disables formatting) default: 0]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_gff3_to_gtf {
+        _arguments \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_gff3validator {
+        _arguments \
+            '-typecheck[use an ontology given in an OBO file to validate parent-child relationships. If no argument is given, the sofa.obo file from the gtdata/obo_files directory is used. If an argument is given, it is used as an OBO filename. In the case that such a file does not exist '\''.obo'\'' is added to the argument and loading the resulting filename from the gtdata/obo_files directory is attempted. default: undefined]' \
+            '-xrfcheck[check Dbxref and Ontology_term attributes for correct syntax according to a abbreviation definition file. If no argument is given, the GO.xrf_abbs file from the gtdata/xrf_abbr directory is used. If an argument is given, it is used as an specific filename for an abbreviation file. In the case that such a file does not exist, '\''.xrf_abbr'\'' is added to the argument and loading the resulting filename from the gtdata/xrf_abbr directory is attempted. default: undefined]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_gtf_to_gff3 {
+        _arguments \
+            '-tidy[try to tidy the GTF file up during parsing default: no]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_hop {
+        _arguments \
+            '-c[cognate sequence (encoded using gt encseq encode)]' \
+            '-map[mapping of reads to the cognate sequence it must be in SAM/BAM format, and sorted by coordinate (can be prepared e.g. using: samtools sort)]' \
+            '-sam[mapping file is SAM default: BAM]' \
+            '-aggressive[correct as much as possible]' \
+            '-moderate[mediate between sensitivity and precision]' \
+            '-conservative[correct only most likely errors]' \
+            '-expert[manually select correction criteria]' \
+            '-reads[uncorrected read file(s) in FastQ format; the corrected reads are output in the currect working directory in files which are named as the input files, each prepended by a prefix (see -outprefix option) -reads allows one to output the reads in the same order as in the input and is mandatory if the SAM contains more than a single primary alignment for each read (e.g. output of bwasw) see also -o option as an alternative]' \
+            '-outprefix[prefix for output filenames (corrected reads)when -reads is specified the prefix is prepended to each input filename default: hop_]' \
+            '-o[output file for corrected reads (see also -reads/-outprefix) if -o is used, reads are output in a single file in the order they are found in the SAM file (which usually differ from the original order) this will only work if the reads were aligned with a software which only includes 1 alignment for each read (e.g. bwa) default: undefined]' \
+            '-v[be verbose default: no]' \
+            '-help[display help for basic options and exit]' \
+            '-help+[display help for all options and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_id_to_md5 {
+        _arguments \
+            '-seqfile[set the sequence file from which to take the sequences default: undefined]' \
+            '-encseq[set the encoded sequence indexname from which to take the sequences default: undefined]' \
+            '-seqfiles[set the sequence files from which to extract the features use '\''--'\'' to terminate the list of sequence files]' \
+            '-matchdesc[search the sequence descriptions from the input files for the desired sequence IDs (in GFF3), reporting the first match default: no]' \
+            '-matchdescstart[exactly match the sequence descriptions from the input files for the desired sequence IDs (in GFF3) from the beginning to the first whitespace default: no]' \
+            '-usedesc[use sequence descriptions to map the sequence IDs (in GFF3) to actual sequence entries. If a description contains a sequence range (e.g., III:1000001..2000000), the first part is used as sequence ID ('\''III'\'') and the first range position as offset ('\''1000001'\'') default: no]' \
+            '-regionmapping[set file containing sequence-region to sequence file mapping default: undefined]' \
+            '-subtargetids[substitute the target IDs with MD5 sums default: yes]' \
+            '-v[be verbose default: no]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_inlineseq_add {
+        _arguments \
+            '-seqfile[set the sequence file from which to take the sequences default: undefined]' \
+            '-encseq[set the encoded sequence indexname from which to take the sequences default: undefined]' \
+            '-seqfiles[set the sequence files from which to extract the features use '\''--'\'' to terminate the list of sequence files]' \
+            '-matchdesc[search the sequence descriptions from the input files for the desired sequence IDs (in GFF3), reporting the first match default: no]' \
+            '-matchdescstart[exactly match the sequence descriptions from the input files for the desired sequence IDs (in GFF3) from the beginning to the first whitespace default: no]' \
+            '-usedesc[use sequence descriptions to map the sequence IDs (in GFF3) to actual sequence entries. If a description contains a sequence range (e.g., III:1000001..2000000), the first part is used as sequence ID ('\''III'\'') and the first range position as offset ('\''1000001'\'') default: no]' \
+            '-regionmapping[set file containing sequence-region to sequence file mapping default: undefined]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_inlineseq_split {
+        _arguments \
+            '-seqfile[output file for sequences as FASTA default: undefined]' \
+            '-gff3file[output file for annotations as GFF3 default: undefined]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_interfeat {
+        _arguments \
+            '-outside[set outside type default: exon]' \
+            '-inter[set intermediary type default: intron]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_loccheck {
+        _arguments \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_ltrclustering {
+        _arguments \
+            '-psmall[specify how many percent of the smaller sequence a match needs to cover in order to cluster the two sequences of the match. default: 0]' \
+            '-plarge[specify how many percent of the larger sequence a match needs to cover in order to cluster the two sequences of the match. default: 0]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_ltrdigest {
+        _arguments \
+            '-outfileprefix[prefix for output files (e.g. '\''foo'\'' will create files called '\''foo_*.csv'\'' and '\''foo_*.fas'\'') Omit this option for GFF3 output only.]' \
+            '-metadata[output metadata (run conditions) to separate file default: yes]' \
+            '-seqnamelen[set maximal length of sequence names in FASTA headers (e.g. for clustalw or similar tools) default: 20]' \
+            '-pptlen[required PPT length range default: 8 30]' \
+            '-uboxlen[required U-box length range default: 3 30]' \
+            '-uboxdist[allowed U-box distance range from PPT default: 0]' \
+            '-pptradius[radius around beginning of 3'\'' LTR to search for PPT default: 30]' \
+            '-trnas[tRNA library in multiple FASTA format for PBS detection Omit this option to disable PBS search.]' \
+            '-pbsalilen[required PBS/tRNA alignment length range default: 11 30]' \
+            '-pbsoffset[allowed PBS offset from LTR boundary range default: 0 5]' \
+            '-pbstrnaoffset[allowed PBS/tRNA 3'\'' end alignment offset range default: 0 5]' \
+            '-pbsmaxedist[maximal allowed PBS/tRNA alignment unit edit distance default: 1]' \
+            '-pbsradius[radius around end of 5'\'' LTR to search for PBS default: 30]' \
+            '-hmms[profile HMM models for domain detection (separate by spaces, finish with --) in HMMER3 format Omit this option to disable pHMM search.]' \
+            '-pdomcutoff[model-specific score cutoff choose from TC (trusted cutoff) | GA (gathering cutoff) | NONE (no cutoffs) default: NONE]' \
+            '-aliout[output pHMM to amino acid sequence alignments default: no]' \
+            '-aaout[output amino acid sequences for protein domain hits default: no]' \
+            '-allchains[output features from all chains and unchained features, labeled with chain numbers default: no]' \
+            '-force_recreate[force recreation of hmmpressed profiles. default: no]' \
+            '-v[be verbose default: no]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-seqfile[set the sequence file from which to take the sequences default: undefined]' \
+            '-encseq[set the encoded sequence indexname from which to take the sequences default: undefined]' \
+            '-seqfiles[set the sequence files from which to extract the features use '\''--'\'' to terminate the list of sequence files]' \
+            '-matchdesc[search the sequence descriptions from the input files for the desired sequence IDs (in GFF3), reporting the first match default: no]' \
+            '-matchdescstart[exactly match the sequence descriptions from the input files for the desired sequence IDs (in GFF3) from the beginning to the first whitespace default: no]' \
+            '-usedesc[use sequence descriptions to map the sequence IDs (in GFF3) to actual sequence entries. If a description contains a sequence range (e.g., III:1000001..2000000), the first part is used as sequence ID ('\''III'\'') and the first range position as offset ('\''1000001'\'') default: no]' \
+            '-regionmapping[set file containing sequence-region to sequence file mapping default: undefined]' \
+            '-help[display help for basic options and exit]' \
+            '-help+[display help for all options and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_ltrharvest {
+        _arguments \
+            '-index[specify the name of the enhanced suffix array index (mandatory) default: undefined]' \
+            '-range[specify range in the input sequence(s) in which LTR pairs are searched default: 0 0]' \
+            '-seed[specify minimum seed length for exact repeats default: 30]' \
+            '-minlenltr[specify minimum length for each LTR default: 100]' \
+            '-maxlenltr[specify maximum length for each LTR default: 1000]' \
+            '-mindistltr[specify minimum distance of LTR startpositions default: 1000]' \
+            '-maxdistltr[specify maximum distance of LTR startpositions default: 15000]' \
+            '-similar[specify similaritythreshold in range \[1..100%\] default: 85.00]' \
+            '-mintsd[specify minimum length for each TSD default: 4]' \
+            '-maxtsd[specify maximum length for each TSD default: 20]' \
+            '-motif[specify 2 nucleotides startmotif + 2 nucleotides endmotif: **** default: undefined]' \
+            '-motifmis[specify maximum number of mismatches in motif \[0,3\] default: 4]' \
+            '-vic[specify the number of nucleotides (to the left and to the right) that will be searched for TSDs and/or motifs around 5'\'' and 3'\'' boundary of predicted LTR retrotransposons default: 60]' \
+            '-overlaps[specify no|best|all default: best]' \
+            '-xdrop[specify xdropbelowscore for extension-alignment default: 5]' \
+            '-mat[specify matchscore for extension-alignment default: 2]' \
+            '-mis[specify mismatchscore for extension-alignment default: -2]' \
+            '-ins[specify insertionscore for extension-alignment default: -3]' \
+            '-del[specify deletionscore for extension-alignment default: -3]' \
+            '-v[verbose mode default: no]' \
+            '-tabout[show '\''old'\'' tabular output instead of GFF3 on stdout default: yes]' \
+            '-seqids[use sequence descriptions instead of sequence numbers in GFF3 output default: no]' \
+            '-md5[add MD5 hashes to seqids in GFF3 output default: no]' \
+            '-longoutput[additional motif/TSD output default: no]' \
+            '-out[specify FASTA outputfilename default: undefined]' \
+            '-outinner[specify FASTA outputfilename for inner regions default: undefined]' \
+            '-gff3[specify GFF3 outputfilename default: undefined]' \
+            '-help[display help for basic options and exit]' \
+            '-help+[display help for all options and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_matchtool {
+        _arguments \
+            '-type[choose match file format: OPENMATCH: '\''open match'\'' format, e.g. vmatch BLASTOUT : tabular BLAST output (-m 8) BLASTALLP: invoke BLASTALL with blastp BLASTALLN: invoke BLASTALL with blastn BLASTP : invoke blastp BLASTN : invoke blastn LAST : invoke LAST SW : use Smith-Waterman default: OPENMATCH]' \
+            '-matchfile[set input file name default: undefined]' \
+            '-db[set database file name default: undefined]' \
+            '-swminlen[set minimum required alignment length (for Smith-Waterman alignment) default: 10]' \
+            '-swmaxedist[set maximum allowed edit distance (for Smith-Waterman alignment) default: 0]' \
+            '-query[set query file name default: undefined]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_matstat {
+        _arguments \
+            '-fmi[specify fmindex default: undefined]' \
+            '-esa[specify suffix array default: undefined]' \
+            '-pck[specify packed index default: undefined]' \
+            '-query[specify queryfiles]' \
+            '-min[only output length if >= given minimum length default: 0]' \
+            '-max[only output length if <= given maximum length default: 0]' \
+            '-output[set output flags (sequence, querypos, subjectpos)]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_md5_to_id {
+        _arguments \
+            '-v[be verbose default: no]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_merge {
+        _arguments \
+            '-retainids[when available, use the original IDs provided in the source file (memory consumption is proportional to the input file size(s)) default: no]' \
+            '-tidy[try to tidy the GFF3 files up during parsing default: no]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_mergefeat {
+        _arguments \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_mgth {
+        _arguments \
+            '-s[score for synonymic base exchanges default: 1.00]' \
+            '-n[score for non-synonymic base exchanges default: -1.00]' \
+            '-b[score for blast-hit-end within query sequence default: -10.00]' \
+            '-q[score for stop-codon within querysequence default: -2.00]' \
+            '-h[score for stop-codon within hitsequence default: -5.00]' \
+            '-l[score for leaving a gene on forward/reverse strand or enter a gene on forward/reverse strand default: -2.00]' \
+            '-p[max. span between coding-regions resume as one prediction default: 400.00]' \
+            '-f[max. span between coding-regions in different reading frames resume as coding-regions in the optimal reading-frame default: 200.00]' \
+            '-c[db-name for fcgi-db default: nucleotide]' \
+            '-o[name for resulting output-file default: output]' \
+            '-k[name for the Hit-Sequence-DB default: nucleotide database]' \
+            '-t[true or false if a Hit-FASTA-File exist default: no]' \
+            '-r[format of the output-file default: 1]' \
+            '-a[minimum length of the as-sequence default: 15]' \
+            '-d[minimum percent-value for hit-statistic-output default: 0.00]' \
+            '-e[use of alternative start-codons default: 1]' \
+            '-m[search for homology default: no]' \
+            '-g[testmodus, output without creating date default: no]' \
+            '-x[extend the EGTs to max default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_mkfeatureindex {
+        _arguments \
+            '-force[force writing to output file default: no]' \
+            '-backend[database backend to use choose from \[sqlite\] default: sqlite]' \
+            '-input[input data format choose from gff|bed|gtf default: gff]' \
+            '-filename[filename for feature database (sqlite backend only) default: undefined]' \
+            '-v[be verbose default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_mkfmindex {
+        _arguments \
+            '-fmout[specify name of FM-index to be generated (mandatory if more than one input index is specified) default: undefined]' \
+            '-ii[specify indices to be used]' \
+            '-size[specify size (tiny, small, medium, big) default: medium]' \
+            '-noindexpos[store no index positions (hence the positions of matches in the index cannot be retrieved) default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_mmapandread {
+        _arguments \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_orffinder {
+        _arguments \
+            '-types[Specify regions which should be searched for open reading frames, e.g. '\''LTR_retrotransposon'\'']' \
+            '-allorfs[search for all ORFs instead of only the longest default: no]' \
+            '-min[minimum length of ORF default: 30]' \
+            '-max[maximum length of ORF default: 10000]' \
+            '-v[be verbose default: no]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-seqfile[set the sequence file from which to take the sequences default: undefined]' \
+            '-encseq[set the encoded sequence indexname from which to take the sequences default: undefined]' \
+            '-seqfiles[set the sequence files from which to extract the features use '\''--'\'' to terminate the list of sequence files]' \
+            '-matchdesc[search the sequence descriptions from the input files for the desired sequence IDs (in GFF3), reporting the first match default: no]' \
+            '-matchdescstart[exactly match the sequence descriptions from the input files for the desired sequence IDs (in GFF3) from the beginning to the first whitespace default: no]' \
+            '-usedesc[use sequence descriptions to map the sequence IDs (in GFF3) to actual sequence entries. If a description contains a sequence range (e.g., III:1000001..2000000), the first part is used as sequence ID ('\''III'\'') and the first range position as offset ('\''1000001'\'') default: no]' \
+            '-regionmapping[set file containing sequence-region to sequence file mapping default: undefined]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_packedindex {
+        _arguments \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_prebwt {
+        _arguments \
+            '-pck[Specify index (packed index) default: undefined]' \
+            '-maxdepth[specify maximum depth (value > 0) default: 0]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_readjoiner {
+        _arguments \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_repfind {
+        _arguments \
+            '-l[Specify minimum length of matches default: 0]' \
+            '-f[Compute forward matches default: yes]' \
+            '-r[Compute reverse matches default: no]' \
+            '-p[Compute matches on reverse strand default: no]' \
+            '-seedlength[Specify minimum length of seed default: 0]' \
+            '-maxfreq[Specify maximal frequency of maximal exact matches in reference sequence default: 0]' \
+            '-extendxdrop[Extend seed to both sides using xdrop algorithm, optional parameter specifies sensitivity default: 97]' \
+            '-xdropbelow[Specify xdrop cutoff score (argument 0 means undefined). If undefined an optimal value is determined automatically depending on the error rate default: 0]' \
+            '-extendgreedy[Extend seed to both sides using greedy algorithm with trimming of waves, optional parameter specifies sensitivity default: 97]' \
+            '-minidentity[Specify minimum identity of matches   as integer in the range from 70 to 99 (for xdrop and greedy extension) default: 80]' \
+            '-ii[Specify input index default: undefined]' \
+            '-outfmt[specify what information about the matches to display alignment: show alignment (possibly followed by]' \
+            '-evalue[switch on evalue filtering of matches (optional argument specifies evalue threshold) default: 10.00]' \
+            '-scan[scan index rather than map it to main memory default: no]' \
+            '-v[be verbose default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_scriptfilter {
+        _arguments \
+            '-showinfo[show information about filter default: yes]' \
+            '-validate[validate filter function default: yes]' \
+            '-oneline[show compact information on one line default: no]' \
+            '-scriptname[show script name default: yes]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_seed_extend {
+        _arguments \
+            '-ii[Input index for encseq encoded sequences]' \
+            '-qii[Query input index (encseq)]' \
+            '-seedlength[Minimum length of a seed default: logarithm of input length with alphabet size as log-base]' \
+            '-spacedseed[use spaced seed of length specified by option -seedlength (optional argument specifies weight of spaced seed) default: 0]' \
+            '-diagbandwidth[Logarithm of diagonal band width in the range from 0 to 10 (for filter) default: 6]' \
+            '-mincoverage[Minimum coverage in two neighbouring diagonal bands (for filter) default: 2.5 x seedlength]' \
+            '-diagband-stat[Compute statistics from diagonal band scores; parameter specifies kind of statistics, possible choices are sum default: sum]' \
+            '-maxfreq[Maximum frequency of a k-mer (for filter) default: undefined]' \
+            '-memlimit[Maximum memory usage to determine the maximum frequency of a k-mer (for filter) default: undefined]' \
+            '-extendxdrop[Extend seed to both sides using xdrop algorithm, optional parameter specifies sensitivity default: 97]' \
+            '-xdropbelow[Specify xdrop cutoff score (0 means automatically defined depending on minidentity) default: 0]' \
+            '-extendgreedy[Extend seed to both sides using greedy algorithm, optional parameter specifies sensitivity default: 97]' \
+            '-maxmat[compute maximal matches of minimum length specified by option -l default: 1]' \
+            '-l[Minimum length of aligned sequences default: undefined]' \
+            '-minidentity[Minimum identity of matches (for seed extension) default: 80]' \
+            '-evalue[switch on evalue filtering of matches (optional argument specifies evalue threshold) default: 10.00]' \
+            '-outfmt[specify what information about the matches to display alignment: show alignment (possibly followed by]' \
+            '-ani[output average nucleotide identity determined from the computed matches (which are not output) default: no]' \
+            '-no-reverse[do not compute matches on reverse complemented strand default: no]' \
+            '-no-forward[do not compute matches on forward strand default: no]' \
+            '-use-apos[Discard a seed only if both apos and bpos overlap with a previous successful alignment default: no]' \
+            '-parts[Divide data into specified number of parts default: 1]' \
+            '-kmerfile[Use pre-calculated k-mers from file (if exist) default: yes]' \
+            '-v[be verbose default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_select {
+        _arguments \
+            '-retainids[when available, use the original IDs provided in the source file (memory consumption is proportional to the input file size(s)) default: no]' \
+            '-seqid[select feature with the given sequence ID (all comments are selected). default: undefined]' \
+            '-source[select feature with the given source (the source is column 2 in regular GFF3 lines) default: undefined]' \
+            '-contain[select all features which are contained in the given range default: undefined]' \
+            '-overlap[select all features which do overlap with the given range default: undefined]' \
+            '-strand[select all top-level features(i.e., features without parents) whose strand equals the given one (must be one of '\''+-.?'\'') default: undefined]' \
+            '-targetstrand[select all top-level features (i.e., features without parents) which have exactly one target attribute whose strand equals the given one (must be one of '\''+-.?'\'') default: undefined]' \
+            '-targetbest[if multiple top-level features (i.e., features without parents) with exactly one target attribute have the same target_id, keep only the feature with the best score. If -targetstrand is used at the same time, this option is applied after -targetstrand. Memory consumption is proportional to the input file size(s). default: no]' \
+            '-hascds[select all top-level features which do have a CDS child default: no]' \
+            '--maxgenelength[select genes up to the given maximum length. default: undefined]' \
+            '-maxgenenum[select the first genes up to the given maximum number default: undefined]' \
+            '-mingenescore[select genes with the given minimum score default: undefined]' \
+            '-maxgenescore[select genes with the given maximum score default: undefined]' \
+            '-minaveragessp[set the minimum average splice site probability. default: undefined]' \
+            '-rule_files[specify Lua filter rule files to be used for selection (terminate list with '\''--'\'')]' \
+            '-rule_logic[select how multiple Lua files should be combined choose from AND|OR default: AND]' \
+            '-dropped_file[save non-selected features to file   default: undefined]' \
+            '-v[be verbose default: no]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_seq {
+        _arguments \
+            '-recreate[recreate index files, even if they exist already default: no]' \
+            '-showfasta[show all sequences (in FASTA format) default: no]' \
+            '-showseqnum[show sequence with given number (sequences are counted from 1 unless -seqnum_from_0 is specified) default: undefined]' \
+            '-showseqlength[show length of sequence with given number (sequences are counted from 1 unless -seqnum_from_0 is specified) default: undefined]' \
+            '-showseqnum_inputfile[show sequence with given numbers specified line by line in given file (sequences are counted from 1 unless -seqnum_from_0 is specified) default: undefined]' \
+            '-seqnum_from_0[for options -showseqnum and -showseqnum_inputfile: count sequence numbers from 0 instead of 1 default: no]' \
+            '-gc-content[print GC-content (for DNA files) default: no]' \
+            '-stat[show sequence statistics default: no]' \
+            '-seqlengthdistri[show sequence length distribution default: no]' \
+            '-width[set output width for FASTA sequence printing (0 disables formatting) default: 0]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_seqfilter {
+        _arguments \
+            '-minlength[set minimum length a sequence must have to pass the filter default: undefined]' \
+            '-maxlength[set maximum length a sequence can have to pass the filter default: undefined]' \
+            '-maxseqnum[set the maximum number of sequences which can pass the filter default: undefined]' \
+            '-sample[set a probability for each sequence to pass the filter default: 1.00]' \
+            '-step[only every '\''step'\''-th sequence passes the filter default: 1]' \
+            '-nowildcards[filter out seqences containing wildcards default: no]' \
+            '-width[set output width for FASTA sequence printing (0 disables formatting) default: 0]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_seqids {
+        _arguments \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_seqmutate {
+        _arguments \
+            '-rate[set the mutation rate default: 1]' \
+            '-width[set output width for FASTA sequence printing (0 disables formatting) default: 0]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_seqorder {
+        _arguments \
+            '-invert[invert order of sequences default: no]' \
+            '-sort[sort sequences lexicographically (by actual sequence) default: no]' \
+            '-revsort[sort sequences in reverse lexicographic order default: no]' \
+            '-sorthdr[sort sequences lexicographically by sequence header default: no]' \
+            '-sorthdrnum[sort sequences numerically by sequence header default: no]' \
+            '-shuffle[shuffle sequences pseudo-randomly default: no]' \
+            '-sortlength[sort by decreasing length default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_seqstat {
+        _arguments \
+            '-v[be verbose default: no]' \
+            '-distlen[show distribution of sequence length. default: no]' \
+            '-b[bucket size for distlen option default: 100]' \
+            '-binary[use a binary format for distlen output output filename: <first_input_filename>.distlen bucketsize: 1 default: no]' \
+            '-contigs[summary of contigs set statistics. default: yes]' \
+            '-nstats[list of N-values to calculate statistics for, terminated by '\''--'\''; if none given, N50 and N80 will be calculated]' \
+            '-genome[set genome length for NG50/NG80 calculation default: 0]' \
+            '-help[display help for basic options and exit]' \
+            '-help+[display help for all options and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_seqtransform {
+        _arguments \
+            '-addstopaminos[append stop amino acids ('\''*'\'') to given protein sequences, if not already present default: no]' \
+            '-width[set output width for FASTA sequence printing (0 disables formatting) default: 0]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_seqtranslate {
+        _arguments \
+            '-reverse[also translate reverse complements default: yes]' \
+            '-fastawidth[width of the FASTA output, 0 for unlimited default: 60]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_sequniq {
+        _arguments \
+            '-rev[also filter out sequences whose reverse complement is identical to a sequence already output default: no]' \
+            '-v[be verbose default: no]' \
+            '-width[set output width for FASTA sequence printing (0 disables formatting) default: 0]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_shredder {
+        _arguments \
+            '-coverage[set the number of times the sequence_file is shreddered default: 1]' \
+            '-minlength[set the minimum length of the shreddered fragments default: 300]' \
+            '-maxlength[set the maximum length of the shreddered fragments default: 700]' \
+            '-overlap[set the overlap between consecutive pieces default: 0]' \
+            '-sample[take samples of the generated sequences pieces with the given probability default: 1.00]' \
+            '-clipdesc[clip descriptions after first space (fooled by '\''\t'\'', '\''\n'\'' etc) adds offset and length to ensure unique identifier default: no]' \
+            '-width[set output width for FASTA sequence printing (0 disables formatting) default: 0]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_shulengthdist {
+        _arguments \
+            '-ii[Specify input index default: undefined]' \
+            '-scan[scan index rather than mapping it to main memory default: no]' \
+            '-v[be verbose default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_simreads {
+        _arguments \
+            '-num[desired number of reads default: undefined]' \
+            '-coverage[desired coverage of the reads default: undefined]' \
+            '-len[fixed read length default: undefined]' \
+            '-minlen[minimal read length default: undefined]' \
+            '-maxlen[maximal read length default: undefined]' \
+            '-distlen[use read length distribution file (in the output format of the seqstat tool) default: undefined]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-p[show a progress bar default: no]' \
+            '-v[be verbose default: no]' \
+            '-ss[simulate reads in forward direction only default: no]' \
+            '-help[display help for basic options and exit]' \
+            '-help+[display help for all options and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_sketch {
+        _arguments \
+            '-pipe[use pipe mode (i.e., show all gff3 features on stdout) default: no]' \
+            '-flattenfiles[do not group tracks by source file name and remove file names from track description default: no]' \
+            '-seqid[sequence region identifier default: first one in file]' \
+            '-start[start position default: first region start]' \
+            '-end[end position default: last region end]' \
+            '-width[target image width (in pixel) default: 800]' \
+            '-style[style file to use default: undefined]' \
+            '-format[output graphics format choose from png|pdf|svg|ps default: png]' \
+            '-input[input data format choose from gff|bed|gtf default: gff]' \
+            '-addintrons[add intron features between existing exon features (before drawing) default: no]' \
+            '-unsafe[enable unsafe mode for style file default: no]' \
+            '-v[be verbose default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_sketch_page {
+        _arguments \
+            '-seqid[sequence region to draw default: first in file]' \
+            '-text[text to show in header default: file name]' \
+            '-fontsize[header and footer font size (in points) default: 10.00]' \
+            '-range[range to draw (e.g. 100 10000) default: full range]' \
+            '-linewidth[base width of a single repeated unit default: 2000]' \
+            '-width[page width in millimeters (default: DIN A4) default: 210.00]' \
+            '-height[page height in millimeters (default: DIN A4) default: 297.00]' \
+            '-format[output format choose from: pdf|ps default: pdf]' \
+            '-style[style file to use default: gtdata/sketch/default.style]' \
+            '-help[display help for basic options and exit]' \
+            '-help+[display help for all options and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_snpper {
+        _arguments \
+            '-trans_table[NCBI translation table number, choose from: * 1: Standard * 2: Vertebrate Mitochondrial * 3: Yeast Mitochondrial * 4: Mold Mitochondrial; Protozoan Mitochondrial; Coelenterate Mitochondrial; Mycoplasma; Spiroplasma * 5: Invertebrate Mitochondrial * 6: Ciliate Nuclear; Dasycladacean Nuclear; Hexamita Nuclear * 9: Echinoderm Mitochondrial; Flatworm Mitochondrial * 10: Euplotid Nuclear * 11: Bacterial, Archaeal and Plant Plastid * 12: Alternative Yeast Nuclear * 13: Ascidian Mitochondrial * 14: Alternative Flatworm Mitochondrial * 15: Blepharisma Macronuclear * 16: Chlorophycean Mitochondrial * 21: Trematode Mitochondrial * 22: Scenedesmus obliquus Mitochondrial * 23: Thraustochytrium Mitochondrial * 24: Pterobranchia Mitochondrial * 25: Candidate Division SR1 and Gracilibacteria default: 1]' \
+            '-seqfile[set the sequence file from which to take the sequences default: undefined]' \
+            '-encseq[set the encoded sequence indexname from which to take the sequences default: undefined]' \
+            '-seqfiles[set the sequence files from which to extract the features use '\''--'\'' to terminate the list of sequence files]' \
+            '-matchdesc[search the sequence descriptions from the input files for the desired sequence IDs (in GFF3), reporting the first match default: no]' \
+            '-matchdescstart[exactly match the sequence descriptions from the input files for the desired sequence IDs (in GFF3) from the beginning to the first whitespace default: no]' \
+            '-usedesc[use sequence descriptions to map the sequence IDs (in GFF3) to actual sequence entries. If a description contains a sequence range (e.g., III:1000001..2000000), the first part is used as sequence ID ('\''III'\'') and the first range position as offset ('\''1000001'\'') default: no]' \
+            '-regionmapping[set file containing sequence-region to sequence file mapping default: undefined]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_speck {
+        _arguments \
+            '-specfile[file with specification definition default: undefined]' \
+            '-colored[show colored output default: yes]' \
+            '-provideindex[provide feature index in specfile namespace (requires O(n) memory for n input features) default: no]' \
+            '-sort[sort input before checking (requires O(n) memory for n input features) default: no]' \
+            '-failhard[stop processing and report runtime errors instead of recording them in the results default: no]' \
+            '-output[output format choose from: \[json, text, html, statsonly, tabular\] or give path to output driver default: text]' \
+            '-typecheck[use an ontology given in an OBO file to validate parent-child relationships. If no argument is given, the sofa.obo file from the gtdata/obo_files directory is used. If an argument is given, it is used as an OBO filename. In the case that such a file does not exist '\''.obo'\'' is added to the argument and loading the resulting filename from the gtdata/obo_files directory is attempted. default: so]' \
+            '-seqfile[set the sequence file from which to take the sequences default: undefined]' \
+            '-encseq[set the encoded sequence indexname from which to take the sequences default: undefined]' \
+            '-seqfiles[set the sequence files from which to extract the features use '\''--'\'' to terminate the list of sequence files]' \
+            '-matchdesc[search the sequence descriptions from the input files for the desired sequence IDs (in GFF3), reporting the first match default: no]' \
+            '-matchdescstart[exactly match the sequence descriptions from the input files for the desired sequence IDs (in GFF3) from the beginning to the first whitespace default: no]' \
+            '-usedesc[use sequence descriptions to map the sequence IDs (in GFF3) to actual sequence entries. If a description contains a sequence range (e.g., III:1000001..2000000), the first part is used as sequence ID ('\''III'\'') and the first range position as offset ('\''1000001'\'') default: no]' \
+            '-regionmapping[set file containing sequence-region to sequence file mapping default: undefined]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-v[be verbose default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_splicesiteinfo {
+        _arguments \
+            '-seqfile[set the sequence file from which to take the sequences default: undefined]' \
+            '-encseq[set the encoded sequence indexname from which to take the sequences default: undefined]' \
+            '-seqfiles[set the sequence files from which to extract the features use '\''--'\'' to terminate the list of sequence files]' \
+            '-matchdesc[search the sequence descriptions from the input files for the desired sequence IDs (in GFF3), reporting the first match default: no]' \
+            '-matchdescstart[exactly match the sequence descriptions from the input files for the desired sequence IDs (in GFF3) from the beginning to the first whitespace default: no]' \
+            '-usedesc[use sequence descriptions to map the sequence IDs (in GFF3) to actual sequence entries. If a description contains a sequence range (e.g., III:1000001..2000000), the first part is used as sequence ID ('\''III'\'') and the first range position as offset ('\''1000001'\'') default: no]' \
+            '-regionmapping[set file containing sequence-region to sequence file mapping default: undefined]' \
+            '-addintrons[add intron features between existing exon features (before computing the information to be shown) default: no]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_splitfasta {
+        _arguments \
+            '-numfiles[set the number of target files default: 0]' \
+            '-targetsize[set the target file size in MB default: 50]' \
+            '-splitdesc[put every fasta entry in a separate file named by its description in the given directory default: undefined]' \
+            '-width[set output width for FASTA sequence printing (0 disables formatting) default: 0]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_stat {
+        _arguments \
+            '-genelengthdistri[show gene length distribution default: no]' \
+            '-genescoredistri[show gene score distribution default: no]' \
+            '-exonlengthdistri[show exon length distribution default: no]' \
+            '-exonnumberdistri[show exon number distribution default: no]' \
+            '-intronlengthdistri[show intron length distribution default: no]' \
+            '-cdslengthdistri[show CDS length distribution (measured in amino acids) default: no]' \
+            '-source[show the set of used source tags (column 2 in regular GFF3 lines) default: no]' \
+            '-addintrons[add intron features between existing exon features (before computing stats) default: no]' \
+            '-v[be verbose default: no]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_suffixerator {
+        _arguments \
+            '-ssp[output sequence separator positions to file default: yes]' \
+            '-des[output sequence descriptions to file default: yes]' \
+            '-sds[output sequence description separator positions to file default: yes]' \
+            '-md5[output MD5 sums to file default: yes]' \
+            '-clipdesc[clip descriptions after first whitespace default: no]' \
+            '-sat[specify kind of sequence representation by one of the keywords direct, bytecompress, eqlen, bit, uchar, ushort, uint32 default: undefined]' \
+            '-dna[input is DNA sequence default: no]' \
+            '-protein[input is protein sequence default: no]' \
+            '-dust[mask low-complexity regions using the dust algorithm default: no]' \
+            '-dustwindow[windowsize for the dust algorithm default: 64]' \
+            '-dustthreshold[threshold for the dust algorithm default: 2.00]' \
+            '-dustlink[Max. distance between regions masked by dust before merging. default: 1]' \
+            '-indexname[specify name for index to be generated default: undefined]' \
+            '-db[specify database files]' \
+            '-smap[specify file containing a symbol mapping default: undefined]' \
+            '-lossless[allow lossless original sequence retrieval default: no]' \
+            '-mirrored[virtually append the reverse complement of each sequence default: no]' \
+            '-pl[specify prefix length for bucket sort recommendation: use without argument; then a reasonable prefix length is automatically determined. default: 0]' \
+            '-dc[specify difference cover value default: 0]' \
+            '-spmopt[optimize esa-construction for suffix-prefix matching default: 0]' \
+            '-memlimit[specify maximal amount of memory to be used during index construction (in bytes, the keywords '\''MB'\'' and '\''GB'\'' are allowed) default: undefined]' \
+            '-kys[output/sort according to keys of the form |key| in fasta header default: nosort]' \
+            '-dir[specify reading direction (fwd, cpl, rev, rcl) default: fwd]' \
+            '-suf[output suffix array (suftab) to file default: no]' \
+            '-lcp[output lcp table (lcptab) to file default: no]' \
+            '-bwt[output Burrows-Wheeler Transformation (bwttab) to file default: no]' \
+            '-bck[output bucket table to file default: no]' \
+            '-v[be verbose default: no]' \
+            '-showprogress[show a progress bar default: no]' \
+            '-ii[specify existing encoded sequence default: undefined]' \
+            '-help[display help for basic options and exit]' \
+            '-help+[display help for all options and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_tagerator {
+        _arguments \
+            '-q[Specify files containing the short sequence tags]' \
+            '-e[Specify the allowed number of differences (replacements/insertions/deletions) default: -1]' \
+            '-esa[Specify index (enhanced suffix array) default: undefined]' \
+            '-pck[Specify index (packed index) default: undefined]' \
+            '-nod[Do not compute direct matches default: no]' \
+            '-nop[Do not compute palindromic matches (i.e. no reverse complemented matches.) default: no]' \
+            '-best[Compute only best matches, i.e. only for smallest edit distance with matches default: no]' \
+            '-maxocc[specify max number of match-occurrences default: 0]' \
+            '-skpp[Skip prefix of pattern (only in pdiff mode) default: no]' \
+            '-withwildcards[output matches containing wildcard characters (e.g. N); only relevant for approximate matching default: yes]' \
+            '-output[use combination of the following keywords to specify output tagnum show ordinal number of tag tagseq show tag sequence dblength show length of match in database dbstartpos show start position of match in database abspos show absolute value of dbstartpos dbsequence show sequence of match strand show strand edist show edit distance tagstartpos show start position of match in tag (only for -maxocc) taglength show length of match in tag (only for -maxocc) tagsuffixseq show suffix tag involved in match (only for -maxocc)]' \
+            '-v[be verbose default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_tallymer {
+        _arguments \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_tirvish {
+        _arguments \
+            '-index[specify the name of the enhanced suffix array index (mandatory) default: undefined]' \
+            '-seed[specify minimum seed length for exact repeats default: 20]' \
+            '-mintirlen[specify minimum length for each TIR default: 100]' \
+            '-maxtirlen[specify maximum length for each TIR default: 1000]' \
+            '-mintirdist[specify minimum distance of TIRs default: 500]' \
+            '-maxtirdist[specify maximum distance of TIRs default: 10000]' \
+            '-mat[specify matchscore for extension-alignment default: 2]' \
+            '-mis[specify mismatchscore for extension-alignment default: -2]' \
+            '-ins[specify insertionscore for extension-alignment default: -3]' \
+            '-del[specify deletionscore for extension-alignment default: -3]' \
+            '-xdrop[specify xdropbelowscore for extension-alignment default: 5]' \
+            '-similar[specify TIR similarity threshold in therange \[1..100%\] default: 85.00]' \
+            '-overlaps[specify no|best|longest|all default: best]' \
+            '-mintsd[specify minimum length for each TSD default: 2]' \
+            '-maxtsd[specify maximum length for each TSD default: 11]' \
+            '-vic[specify the number of nucleotides (to the left and to the right) that will be searched for TSDs around 5'\'' and 3'\'' boundary of predicted TIRs default: 60]' \
+            '-hmms[profile HMM models for domain detection (separate by spaces, finish with --) in HMMER3 format Omit this option to disable pHMM search.]' \
+            '-pdomevalcutoff[global E-value cutoff for pHMM search default 1E-6]' \
+            '-pdomcutoff[model-specific score cutoff choose from TC (trusted cutoff) | GA (gathering cutoff) | NONE (no cutoffs) default: GA]' \
+            '-refseqs[specify the name of the gene sequences to scan for inside candidates default: undefined]' \
+            '-seqids[use sequence descriptions instead of sequence numbers in GFF3 output default: yes]' \
+            '-md5[add MD5 hashes to seqids in GFF3 output default: no]' \
+            '-help[display help for basic options and exit]' \
+            '-help+[display help for all options and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_uniq {
+        _arguments \
+            '-v[be verbose default: no]' \
+            '-o[redirect output to specified file default: undefined]' \
+            '-gzip[write gzip compressed output file default: no]' \
+            '-bzip2[write bzip2 compressed output file default: no]' \
+            '-force[force writing to output file default: no]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_uniquesub {
+        _arguments \
+            '-fmi[specify fmindex default: undefined]' \
+            '-esa[specify suffix array default: undefined]' \
+            '-pck[specify packed index default: undefined]' \
+            '-query[specify queryfiles]' \
+            '-min[only output length if >= given minimum length default: 0]' \
+            '-max[only output length if <= given maximum length default: 0]' \
+            '-output[set output flags (sequence, querypos)]' \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+    function _gt_wtree {
+        _arguments \
+            '-help[display help and exit]' \
+            '-version[display version information and exit]' \
+            "*: :_files"
+
+    }
+
+
+function _gt {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'bed_to_gff3:Parse BED file and convert it to GFF3.'
+            'cds:Add CDS (coding sequence) features to exon features given in GFF3 file.'
+            'chain2dim:Chain pairwise matches.'
+            'chseqids:Change sequence ids by the mapping given in a mapping file.'
+            'clean:Remove all files in the current directory which are automatically created by gt.'
+            'compreads:Call a fastq file compression tool.'
+            'condenseq:Call one of the CONDENSER tools to prepare or manipulate redundancy compressed genomic data.'
+            'congruence:Call a congruence subtool and pass argument(s) to it.'
+            'convertseq:Parse and convert sequence file formats (FASTA/FASTQ, GenBank, EMBL).'
+            'csa:Transform spliced alignments from GFF3 file into consensus spliced alignments.'
+            'dot:Prints feature graphs in dotfile format.'
+            'dupfeat:Duplicate internal feature nodes in given GFF3 files.'
+            'encseq:Call an encoded sequence manipulation tool and pass argument(s) to it.'
+            'encseq2spm:Compute suffix prefix matches from encoded sequence.'
+            'eval:Compare annotation files and show accuracy measures (prediction vs. reference).'
+            'extractfeat:Extract features given in GFF3 file from sequence file.'
+            'extractseq:Extract sequences from given sequence file(s) or fastaindex.'
+            'fastq_sample:Print samples by random choice from given FASTQ files using at least n sequence-chars.'
+            'featureindex:Retrieve annotations from a persistent feature index as GFF3 output.'
+            'fingerprint:Compute MD5 fingerprints for each sequence given in a set of sequence files.'
+            'genomediff:Calculates Kr: pairwise distances between genomes.'
+            'gff3:Parse, possibly transform, and output GFF3 files.'
+            'gff3_to_gtf:Parse GFF3 file(s) and show them as GTF2.2.'
+            'gff3validator:Strictly validate given GFF3 files.'
+            'gtf_to_gff3:Parse GTF2.2 file and convert it to GFF3.'
+            'hop:Cognate sequence-based homopolymer error correction.'
+            'id_to_md5:Change sequence IDs in given GFF3 files to MD5 fingerprints of the corresponding sequences.'
+            'inlineseq_add:Adds inline sequences from external source to GFF3 input.'
+            'inlineseq_split:Split GFF3 annotations with inline sequences into separate files.'
+            'interfeat:Add intermediary features between outside features in given GFF3 file(s).'
+            'loccheck:Checks parent-child containment in GFF3 input.'
+            'ltrclustering:Cluster features of LTRs.'
+            'ltrdigest:Identifies and annotates sequence features in LTR retrotransposon candidates.'
+            'ltrharvest:Predict LTR retrotransposons.'
+            'matchtool:Parse match formats and/or invoke matching tools.'
+            'matstat:Compute matching statistics.'
+            'md5_to_id:Change MD5 fingerprints used as sequence IDs in given GFF3 files to ``regular'\'''\'' ones.'
+            'merge:Merge sorted GFF3 files in sorted fashion.'
+            'mergefeat:Merge adjacent features without children of the same type in given GFF3 file(s).'
+            'mgth:Metagenomethreader, for predicting genes in metagenomeprojects.'
+            'mkfeatureindex:Creates a new FeatureIndex from annotation data.'
+            'mkfmindex:Compute FM-index.'
+            'mmapandread:Map the supplied files into memory and read them once.'
+            'orffinder:Identifies ORFs (open reading frames) in sequences.'
+            'packedindex:Call apacked index subtool and pass argument(s) to it.'
+            'prebwt:Precompute bwt-bounds for some prefix length.'
+            'readjoiner:Readjoiner: a string graph-based sequence assembler.'
+            'repfind:Compute maximal exact matches (and more).'
+            'scriptfilter:Get info about and validate Lua script filters.'
+            'seed_extend:Calculate local alignments using the seed and extend algorithm.'
+            'select:Select certain features (specified by the used options) from given GFF3 file(s).'
+            'seq:Parse the given sequence file(s) and construct the corresponding index files.'
+            'seqfilter:Filter the given sequence file(s) and show the results on stdout.'
+            'seqids:Show sequence IDs from annotation file.'
+            'seqmutate:Mutate the sequences of the given sequence file(s).'
+            'seqorder:Output sequences as MultiFasta in specified order.'
+            'seqstat:Calculate statistics for fasta file(s).'
+            'seqtransform:Perform simple transformations on the given sequence file(s).'
+            'seqtranslate:Translates a nucleotide sequence into a protein sequence.'
+            'sequniq:Filter out repeated sequences in given sequence files.'
+            'shredder:Shredder sequence file(s) into consecutive pieces of random length.'
+            'shulengthdist:Compute distribution of pairwise shustring lengths.'
+            'simreads:Simulate sequencing reads from random positions in the input sequence(s).'
+            'sketch:Create graphical representation of GFF3 annotation files.'
+            'sketch_page:Draw a multi-page PDF/PS representation of an annotation file.'
+            'snpper:Annotates SNPs according to their effect on the genome as given by a genomic annotation.'
+            'speck:Checks spec definition compliance in GFF3 input.'
+            'splicesiteinfo:Show information about splice sites given in GFF3 files.'
+            'splitfasta:Split the supplied fasta file.'
+            'stat:Show statistics about features contained in GFF3 files.'
+            'suffixerator:Compute enhanced suffix array.'
+            'tagerator:Map short sequence tags in given index.'
+            'tallymer:Call a tallymer subtool and pass argument(s) to it.'
+            'tirvish:Identify Terminal Inverted Repeat (TIR) elements,such as DNA transposons.'
+            'uniq:Filter out repeated feature node graphs in a sorted GFF3 file.'
+            'uniquesub:Compute length of minimum unique prefixes.'
+            'wtree:Call an wtree manipulation tool and pass argument(s) to it.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-i[enter interactive mode after executing '\''tool'\'' or '\''script'\'']' \
+        '-q[suppress warnings]' \
+        '-test[perform unit tests and exit]' \
+        '-seed[set seed for random number generator manually. 0 generates a seed from current time and process id]' \
+        '-help[display help and exit]' \
+        '-version[display version information and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (bed_to_gff3)
+            _gt_bed_to_gff3
+            ;;
+
+        (cds)
+            _gt_cds
+            ;;
+
+        (chain2dim)
+            _gt_chain2dim
+            ;;
+
+        (chseqids)
+            _gt_chseqids
+            ;;
+
+        (clean)
+            _gt_clean
+            ;;
+
+        (compreads)
+            _gt_compreads
+            ;;
+
+        (condenseq)
+            _gt_condenseq
+            ;;
+
+        (congruence)
+            _gt_congruence
+            ;;
+
+        (convertseq)
+            _gt_convertseq
+            ;;
+
+        (csa)
+            _gt_csa
+            ;;
+
+        (dot)
+            _gt_dot
+            ;;
+
+        (dupfeat)
+            _gt_dupfeat
+            ;;
+
+        (encseq)
+            _gt_encseq
+            ;;
+
+        (encseq2spm)
+            _gt_encseq2spm
+            ;;
+
+        (eval)
+            _gt_eval
+            ;;
+
+        (extractfeat)
+            _gt_extractfeat
+            ;;
+
+        (extractseq)
+            _gt_extractseq
+            ;;
+
+        (fastq_sample)
+            _gt_fastq_sample
+            ;;
+
+        (featureindex)
+            _gt_featureindex
+            ;;
+
+        (fingerprint)
+            _gt_fingerprint
+            ;;
+
+        (genomediff)
+            _gt_genomediff
+            ;;
+
+        (gff3)
+            _gt_gff3
+            ;;
+
+        (gff3_to_gtf)
+            _gt_gff3_to_gtf
+            ;;
+
+        (gff3validator)
+            _gt_gff3validator
+            ;;
+
+        (gtf_to_gff3)
+            _gt_gtf_to_gff3
+            ;;
+
+        (hop)
+            _gt_hop
+            ;;
+
+        (id_to_md5)
+            _gt_id_to_md5
+            ;;
+
+        (inlineseq_add)
+            _gt_inlineseq_add
+            ;;
+
+        (inlineseq_split)
+            _gt_inlineseq_split
+            ;;
+
+        (interfeat)
+            _gt_interfeat
+            ;;
+
+        (loccheck)
+            _gt_loccheck
+            ;;
+
+        (ltrclustering)
+            _gt_ltrclustering
+            ;;
+
+        (ltrdigest)
+            _gt_ltrdigest
+            ;;
+
+        (ltrharvest)
+            _gt_ltrharvest
+            ;;
+
+        (matchtool)
+            _gt_matchtool
+            ;;
+
+        (matstat)
+            _gt_matstat
+            ;;
+
+        (md5_to_id)
+            _gt_md5_to_id
+            ;;
+
+        (merge)
+            _gt_merge
+            ;;
+
+        (mergefeat)
+            _gt_mergefeat
+            ;;
+
+        (mgth)
+            _gt_mgth
+            ;;
+
+        (mkfeatureindex)
+            _gt_mkfeatureindex
+            ;;
+
+        (mkfmindex)
+            _gt_mkfmindex
+            ;;
+
+        (mmapandread)
+            _gt_mmapandread
+            ;;
+
+        (orffinder)
+            _gt_orffinder
+            ;;
+
+        (packedindex)
+            _gt_packedindex
+            ;;
+
+        (prebwt)
+            _gt_prebwt
+            ;;
+
+        (readjoiner)
+            _gt_readjoiner
+            ;;
+
+        (repfind)
+            _gt_repfind
+            ;;
+
+        (scriptfilter)
+            _gt_scriptfilter
+            ;;
+
+        (seed_extend)
+            _gt_seed_extend
+            ;;
+
+        (select)
+            _gt_select
+            ;;
+
+        (seq)
+            _gt_seq
+            ;;
+
+        (seqfilter)
+            _gt_seqfilter
+            ;;
+
+        (seqids)
+            _gt_seqids
+            ;;
+
+        (seqmutate)
+            _gt_seqmutate
+            ;;
+
+        (seqorder)
+            _gt_seqorder
+            ;;
+
+        (seqstat)
+            _gt_seqstat
+            ;;
+
+        (seqtransform)
+            _gt_seqtransform
+            ;;
+
+        (seqtranslate)
+            _gt_seqtranslate
+            ;;
+
+        (sequniq)
+            _gt_sequniq
+            ;;
+
+        (shredder)
+            _gt_shredder
+            ;;
+
+        (shulengthdist)
+            _gt_shulengthdist
+            ;;
+
+        (simreads)
+            _gt_simreads
+            ;;
+
+        (sketch)
+            _gt_sketch
+            ;;
+
+        (sketch_page)
+            _gt_sketch_page
+            ;;
+
+        (snpper)
+            _gt_snpper
+            ;;
+
+        (speck)
+            _gt_speck
+            ;;
+
+        (splicesiteinfo)
+            _gt_splicesiteinfo
+            ;;
+
+        (splitfasta)
+            _gt_splitfasta
+            ;;
+
+        (stat)
+            _gt_stat
+            ;;
+
+        (suffixerator)
+            _gt_suffixerator
+            ;;
+
+        (tagerator)
+            _gt_tagerator
+            ;;
+
+        (tallymer)
+            _gt_tallymer
+            ;;
+
+        (tirvish)
+            _gt_tirvish
+            ;;
+
+        (uniq)
+            _gt_uniq
+            ;;
+
+        (uniquesub)
+            _gt_uniquesub
+            ;;
+
+        (wtree)
+            _gt_wtree
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
