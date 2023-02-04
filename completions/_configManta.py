@@ -17,7 +17,7 @@ function _configManta.py {
     _arguments -C \
         '--version[show program'\''s version number and exit]' \
         {-h,--help}'[show this help message and exit]' \
-        '--config[provide a configuration file to override defaults in global config file (~/.local/share/condax/envs/manta/share/manta-1.6.0-2/bin/configManta.py.ini)]':file:_files \
+        '--config[provide a configuration file to override defaults in global config file]':file:_files \
         '--allHelp[show all extended/hidden options]' \
         {--bam,--normalBam}'[Normal sample BAM or CRAM file. May be specified more than once, multiple inputs will be treated as each BAM file representing a different sample. \[optional\] (no default)]':file:_files \
         {--tumorBam,--tumourBam}'[Tumor sample BAM or CRAM file. Only up to one tumor bam file accepted. \[optional\] (no default)]':file:_files \

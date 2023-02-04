@@ -121,23 +121,23 @@ function _canu {
         '-gridOptionsbat[Grid engine options applied to unitig construction jobs]' \
         '-gridOptionscns[Grid engine options applied to unitig consensus jobs]' \
         '-gridOptionscor[Grid engine options applied to read correction jobs]' \
-        '-gridOptionscormhap[Grid engine options applied to mhap overlaps for correction jobs]' \
-        '-gridOptionscormmap[Grid engine options applied to mmap overlaps for correction jobs]' \
-        '-gridOptionscorovl[Grid engine options applied to overlaps for correction jobs]' \
+        {-gridOptionscormhap,-gridOptionsCORmhap}'[Grid engine options applied to mhap overlaps for correction jobs]' \
+        {-gridOptionscormmap,-gridOptionsCORmmap}'[Grid engine options applied to mmap overlaps for correction jobs]' \
+        {-gridOptionscorovl,-gridOptionsCORovl}'[Grid engine options applied to overlaps for correction jobs]' \
         '-gridOptionsExecutive[Grid engine options applied to the canu executive script]' \
         '-gridOptionshap[Grid engine options applied to haplotype assignment jobs]' \
         '-gridOptionsJobName[Grid jobs job-name suffix]' \
         '-gridOptionsmeryl[Grid engine options applied to mer counting jobs]' \
-        '-gridOptionsobtmhap[Grid engine options applied to mhap overlaps for trimming jobs]' \
-        '-gridOptionsobtmmap[Grid engine options applied to mmap overlaps for trimming jobs]' \
-        '-gridOptionsobtovl[Grid engine options applied to overlaps for trimming jobs]' \
+        {-gridOptionsobtmhap,-gridOptionsOBTmhap}'[Grid engine options applied to mhap overlaps for trimming jobs]' \
+        {-gridOptionsobtmmap,-gridOptionsOBTmmap}'[Grid engine options applied to mmap overlaps for trimming jobs]' \
+        {-gridOptionsobtovl,-gridOptionsOBTovl}'[Grid engine options applied to overlaps for trimming jobs]' \
         '-gridOptionsoea[Grid engine options applied to overlap error adjustment jobs]' \
         '-gridOptionsovb[Grid engine options applied to overlap store bucketizing jobs]' \
         '-gridOptionsovs[Grid engine options applied to overlap store sorting jobs]' \
         '-gridOptionsred[Grid engine options applied to read error detection jobs]' \
-        '-gridOptionsutgmhap[Grid engine options applied to mhap overlaps for unitig construction jobs]' \
-        '-gridOptionsutgmmap[Grid engine options applied to mmap overlaps for unitig construction jobs]' \
-        '-gridOptionsutgovl[Grid engine options applied to overlaps for unitig construction jobs]' \
+        {-gridOptionsutgmhap,-gridOptionsUTGmhap}'[Grid engine options applied to mhap overlaps for unitig construction jobs]' \
+        {-gridOptionsutgmmap,-gridOptionsUTGmmap}'[Grid engine options applied to mmap overlaps for unitig construction jobs]' \
+        {-gridOptionsutgovl,-gridOptionsUTGovl}'[Grid engine options applied to overlaps for unitig construction jobs]' \
         '-hapConcurrency[Unused, there is only one process]' \
         '-hapMemory[Amount of memory, in gigabytes, to use for haplotype assignment]' \
         '-hapStageSpace[Amount of local disk space needed to stage data for haplotype assignment jobs]' \
@@ -306,6 +306,35 @@ function _canu {
         '-utgRepeatConfusedBP[Repeats where the next best edge is at least this many bp shorter will not be split]' \
         '-utgRepeatConfusedPC[Repeats where the next best edge is at least this many percent shorter will not be split]' \
         '-utgRepeatDeviation[Overlaps this much above mean unitig error rate will not be used for repeat splitting]' \
+        {-ovlmemory,-ovlMemory}'[Alias of -corOvlMemory and -obtOvlMemory and -utgOvlMemory]' \
+        {-mhapmemory,-mhapMemory}'[Aliases for -cormhapMemory and -obtmhapMemory and -utgmhapMemory]' \
+        {-mmapmemory,-mmapMemory}'[Aliases for -cormmapMemory and -obtmmapMemory and -utgmmapMemory]' \
+        {-ovlthreads,-ovlThreads}'[Aliases for -corovlThreads and -obtovlThreads and -utgovlThreads]' \
+        {-mhapthreads,-mhapThreads}'[Aliases for -cormhapThreads and -obtmhapThreads and -utgmhapThreads]' \
+        {-mmapthreads,-mmapThreads}'[Aliases for -cormmapThreads and -obtmmapThreads and -utgmmapThreads]' \
+        {-ovlconcurrency,-ovlConcurrency}'[Aliases for -corovlConcurrency and -obtovlConcurrency and -utgovlConcurrency]' \
+        {-mhapconcurrency,-mhapConcurrency}'[Aliases for -cormhapConcurrency and -obtmhapConcurrency and -utgmhapConcurrency]' \
+        {-mmapconcurrency,-mmapConcurrency}'[Aliases for -cormmapConcurrency and -obtmmapConcurrency and -utgmmapConcurrency]' \
+        '-overlapper[Aliases for -corOverlapper and -obtOverlapper and -utgOverlapper]' \
+        '-realign[Aliases for -corReAlign and -obtReAlign and -utgReAlign]' \
+        {-ovlerrorrate,-ovlErrorRate}'[Aliases for -corOvlErrorRate and -obtOvlErrorRate and -utgOvlErrorRate]' \
+        {-ovlhashblocklength,-ovlHashBlockLength}'[AAliases for -corOvlHashBlockLength and -obtOvlHashBlockLength and -utgOvlHashBlockLength]' \
+        {-ovlrefblocklength,-ovlRefBlockLength}'[Aliases for -corOvlRefBlockLength and -obtOvlRefBlockLength and -utgOvlRefBlockLength]' \
+        {-ovlhashbits,-ovlHashBits}'[Aliases for -corOvlHashBits and -obtOvlHashBits and -utgOvlHashBits]' \
+        {-ovlhashload,-ovlHashLoad}'[Aliases for -corOvlHashLoad and -obtOvlHashLoad and -utgOvlHashLoad]' \
+        {-ovlmersize,-ovlMerSize}'[Aliases for -corOvlOvlMerSize and -obtOvlOvlMerSize and -utgOvlOvlMerSize]' \
+        {-ovlmerthreshold,-ovlMerThreshold}'[Aliases for -corOvlMerThreshold and -obtOvlMerThreshold and -utgOvlMerThreshold]' \
+        {-ovlmerdistinct,-ovlMerDistinct}'[Aliases for -corOvlMerDistinct and -obtOvlMerDistinct and -utgOvlMerDistinct]' \
+        {-ovlfrequentmers,-ovlFrequentMers}'[Aliases for -corOvlFrequentMers and -obtOvlFrequentMers and -utgOvlFrequentMers]' \
+        {-mhapblocksize,-mhapBlockSize}'[Aliases for -corMhapBlockSize and -obtMhapBlockSize and -utgMhapBlockSize]' \
+        {-mhapmersize,-mhapMerSize}'[Aliases for -corMhapMerSize and -obtMhapMerSize and -utgMhapMerSize]' \
+        {-mhapsensitivity,-mhapSensitivity}'[Aliases for -corMhapSensitivity and -obtMhapSensitivity and -utgMhapSensitivity]' \
+        {-mhapfilterunique,-mhapFilterUnique}'[Aliases for -corMhapFilterUnique and -obtMhapFilterUnique and -utgMhapFilterUnique]' \
+        {-mhapfilterthreshold,-mhapFilterThreshold}'[Aliases for -corMhapFilterThreshold and -obtMhapFilterThreshold and -utgMhapFilterThreshold]' \
+        {-mhapnotf,-mhapNoTf}'[Aliases for -corMhapNoTf and -obtMhapNoTf and -utgMhapNoTf]' \
+        {-mhappipe,-mhapPipe}'[Aliases for -corMhapPipe and -obtMhapPipe and -utgMhapPipe]' \
+        {-mmapblocksize,-mmapBlockSize}'[Aliases for -corMMapBlockSize and -obtMMapBlockSize and -utgMMapBlockSize]' \
+        {-mmapmersize,-mmapMerSize}'[Aliases for -corMMapMerSize and -obtMMapMerSize and -utgMMapMerSize]' \
         '*: :_files'
 
     case $state in

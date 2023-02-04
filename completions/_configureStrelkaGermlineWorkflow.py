@@ -17,7 +17,7 @@ function _configureStrelkaGermlineWorkflow.py {
     _arguments -C \
         '--version[show program'\''s version number and exit]' \
         {-h,--help}'[show this help message and exit]' \
-        '--config[provide a configuration file to override defaults in global config file (~/.condax/strelka/share/strelka-2.9.10-1/bin/configureStrelkaGermlineWorkflow.py.ini)]':file:_files \
+        '--config[provide a configuration file to override defaults in global config file]':file:_files \
         '--allHelp[show all extended/hidden options]' \
         '--bam[Sample BAM or CRAM file. May be specified more than once, multiple inputs will be treated as each BAM file representing a different sample. \[required\] (no default)]':file:_files \
         '--ploidy[Provide ploidy file in VCF. The VCF should include one sample column per input sample labeled with the same sample names found in the input BAM/CRAM RG header sections. Ploidy should be provided in records using the FORMAT/CN field, which are interpreted to span the range \[POS+1, INFO/END\]. Any CN value besides 1 or 0 will be treated as 2. File must be tabix indexed. (no default)]':file:_files \

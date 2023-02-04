@@ -17,7 +17,7 @@ function _configureStrelkaSomaticWorkflow.py {
     _arguments -C \
         '--version[show program'\''s version number and exit]' \
         {-h,--help}'[show this help message and exit]' \
-        '--config[provide a configuration file to override defaults in global config file (~/.condax/strelka/share/strelka-2.9.10-1/bin/configureStrelkaSomaticWorkflow.py.ini)]':file:_files \
+        '--config[provide a configuration file to override defaults in global config file]':file:_files \
         '--allHelp[show all extended/hidden options]' \
         '--normalBam[Normal sample BAM or CRAM file. (no default)]':file:_files \
         {--tumorBam,--tumourBam}'[Tumor sample BAM or CRAM file. \[required\] (no default)]':file:_files \
