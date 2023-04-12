@@ -1,20 +1,9 @@
-#compdef _trim-low-abund.py trim-low-abund.py
+#compdef trim-low-abund.py
 
 # Auto-generated with h2o
 
-
 function _trim-low-abund.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--version[show program'\''s version number and exit]' \
         '--info[print citation information]' \
         {-h,--help}'[show this help message and exit]' \
@@ -37,17 +26,9 @@ function _trim-low-abund.py {
         '--diginorm[Eliminate high-coverage reads altogether (digital normalization). (default: False)]' \
         '--diginorm-coverage[Coverage threshold for --diginorm (default: 20)]' \
         '--single-pass[Do not do a second pass across the low coverage data (default: False)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_trim-low-abund.py "$@"
 

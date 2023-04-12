@@ -1,20 +1,9 @@
-#compdef _snippy snippy
+#compdef snippy
 
 # Auto-generated with h2o
 
-
 function _snippy {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--help[This help]' \
         '--version[Print version and exit]' \
         '--citation[Print citation for referencing snippy]' \
@@ -47,17 +36,9 @@ function _snippy {
         '--maxsoft[Maximum soft clipping to allow (default '\''10'\'')]' \
         '--bwaopt[Extra BWA MEM options, eg. -x pacbio (default '\'''\'')]' \
         '--fbopt[Extra Freebayes options, eg. --theta 1E-6 --read-snp-limit 2 (default '\'''\'')]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_snippy "$@"
 

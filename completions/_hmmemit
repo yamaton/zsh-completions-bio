@@ -1,20 +1,9 @@
-#compdef _hmmemit hmmemit
+#compdef hmmemit
 
 # Auto-generated with h2o
 
-
 function _hmmemit {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[show brief help on version and usage]' \
         '-o[send sequence output to file <f>, not stdout]' \
         '-N[number of seqs to sample \[1\] (n>0)]' \
@@ -30,17 +19,9 @@ function _hmmemit {
         '--minl[show consensus as '\''any'\'' (X/N) unless >= this fraction \[0.0\]]' \
         '--minu[show consensus as upper case if >= this fraction \[0.0\]]' \
         '--seed[set RNG seed to <n> \[0\] (n>=0)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_hmmemit "$@"
 

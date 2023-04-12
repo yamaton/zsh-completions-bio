@@ -1,20 +1,9 @@
-#compdef _RepeatProteinMask RepeatProteinMask
+#compdef RepeatProteinMask
 
 # Auto-generated with h2o
 
-
 function _RepeatProteinMask {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,-help}'[Show help]' \
         '-engine[Use the provided search engine to run the blastx runs.]' \
         '-pvalue[The threshold for accepting matches. Matches must hava a pvalue less than this number. Default is *NOT* to threshold.]' \
@@ -30,17 +19,9 @@ function _RepeatProteinMask {
         '-libdir[Path to the RepeatMasker libraries directory.]' \
         '-abblast_dir[The path to the installation of the ABBLAST sequence alignment program.]' \
         '-hmmer_dir[The path to the HMMER profile HMM search software.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_RepeatProteinMask "$@"
 

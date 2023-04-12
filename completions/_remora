@@ -1,34 +1,6 @@
-#compdef _remora remora
+#compdef remora
 
 # Auto-generated with h2o
-
-    function _remora_dataset {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            "*: :_files"
-
-    }
-
-    function _remora_model {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            "*: :_files"
-
-    }
-
-    function _remora_infer {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            "*: :_files"
-
-    }
-
-    function _remora_validate {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            "*: :_files"
-
-    }
 
 
 function _remora {
@@ -79,4 +51,258 @@ function _remora {
      esac
 
 }
+
+
+function _remora_dataset {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'prepare:Prepare Remora training dataset.'
+            'split:Split Remora dataset'
+            'merge:Merge Remora datasets'
+            'inspect:Inspect Remora dataset'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (prepare)
+            _remora_dataset_prepare
+            ;;
+
+        (split)
+            _remora_dataset_split
+            ;;
+
+        (merge)
+            _remora_dataset_merge
+            ;;
+
+        (inspect)
+            _remora_dataset_inspect
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _remora_dataset_prepare {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--output-remora-training-file[Output Remora training dataset file. Default: remora_training_dataset.npz]':file:_files \
+        '--output-remora-reads-file[Output Remora reads to disk. Default: Don'\''t save reads.]':file:_files \
+        '--log-filename[Log filename. Default: Don'\''t output log file.]':file:_files \
+        '--mod-base[If provided input is RemoraReads pickle, modified bases must be provided. Exmaple: `--mod-base m 5mC --mod-base h 5hmC`]' \
+        '--motif[Extract training chunks centered on a defined motif. Argument takes 2 values representing 1) sequence motif and 2) focus position within the motif. For example to restrict to CpG sites use "--motif CG 0". Default: Any context ("N 0")]' \
+        '--chunk-context[Number of context signal points to select around the central position. Default: (50, 50)]' \
+        '--min-samples-per-base[Minimum number of samples per base. This sets the size of the ragged arrays of chunk sequences. Default: 5]' \
+        '--kmer-context-bases[Definition of k-mer (derived from the reference) passed into the model along with each signal position. Default: (1, 1)]' \
+        '--max-chunks-per-read[Maxiumum number of chunks to extract from a single read. Default: 15]' \
+        '--base-start-justify[Justify extracted chunk against the start of the base of interest. Default justifies chunk to middle of signal of the base of interest.]' \
+        '--offset[Offset selected chunk position by a number of bases. Default: 0]' \
+        '--refine-kmer-level-table[Tab-delimited file containing no header and two fields: 1. string k-mer sequence and 2. float expected normalized level. All k-mers must be the same length and all combinations of the bases '\''ACGT'\'' must be present in the file.]' \
+        '--refine-rough-rescale[Apply a rough rescaling using quantiles of signal+move table and levels.]' \
+        '--refine-scale-iters[Number of iterations of signal mapping refinement and signal re-scaling to perform. Set to 0 (default) in order to perform signal mapping refinement, but skip re-scaling. Set to -1 to skip signal mapping (potentially using levels for rough rescaling).]' \
+        '--refine-half-bandwidth[Half bandwidth around signal mapping over which to search for new path.]' \
+        '--refine-algo[Refinement algorithm to apply (if kmer level table is provided).]' \
+        '--refine-short-dwell-parameters[Short dwell penalty refiner parameters. Dwells shorter than LIMIT will be penalized a value of `WEIGHT * (dwell - TARGET)^2`. Default: (15, 5, 0.05)]' \
+        '--mod-base-control[Is this a modified bases control sample?]' \
+        '--base-pred[Train to predict bases (SNPs) and not mods.]' \
+        '--processes[Number of worker processes. Default: 1]' \
+        "*: :_files"
+
+}
+
+function _remora_dataset_split {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--output-basename[Basename for output datasets. Default: split_remora_dataset]' \
+        '--val-prop[The proportion of data to be split into validation set, where val-prop in \[0,0.5).]' \
+        '--val-num[Number of validation chunks to select.]' \
+        '--unstratified[For --val-prop split, perform unstratified splitting. Default will perform split stratified over labels.]' \
+        '--by-label[Split dataset into one dataset for each unique label.]' \
+        "*: :_files"
+
+}
+
+function _remora_dataset_merge {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--input-dataset[1) Remora training dataset path and 2) max number of chunks to extract from this dataset.]' \
+        '--output-dataset[Output path for dataset]' \
+        '--balance[Automatically balance classes when merging]' \
+        "*: :_files"
+
+}
+
+function _remora_dataset_inspect {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+
+function _remora_model {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'train:Train Remora model'
+            'export:Export a model to ONNX format for inference.'
+            'list_pretrained:List pre-trained modified base models.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (train)
+            _remora_model_train
+            ;;
+
+        (export)
+            _remora_model_export
+            ;;
+
+        (list_pretrained)
+            _remora_model_list_pretrained
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _remora_model_train {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--val-prop[Proportion of the dataset to be used as validation. Default: 0.010000]' \
+        '--batch-size[Number of samples per batch. Default: 1000]' \
+        '--chunk-context[Override chunk context from data prep. Number of context signal points to select around the central position.]' \
+        '--kmer-context-bases[Override kmer context bases from data prep. Definition of k-mer (derived from the reference) passed into the model along with each signal position.]' \
+        '--ext-val[Path(s) to the external validation Remora datasets.]' \
+        '--balance[Balance classes exactly prior to training]' \
+        '--output-path[Path to the output files. Default: remora_train_results]':file:_files \
+        '--save-freq[After how many epochs to save the model. Default 10]' \
+        '--overwrite[Overwrite existing output directory if existing.]' \
+        '--model[Model architecture file (required)]' \
+        '--size[Model layer size. Default: 64]' \
+        '--epochs[Number of training epochs. Default: 50]' \
+        '--optimizer[Optimizer setting. Default: adamw]' \
+        '--scheduler[Scheduler setting. Default: None]' \
+        '--lr[Learning rate setting. Default: 0.001000]' \
+        '--weight-decay[Weight decay setting. Default: 0.000100]' \
+        '--early-stopping[Stops training after a number of epochs without improvement.If set to 0 no stopping is done. Default: 0]' \
+        '--seed[Seed value. Default: Random seed]' \
+        '--filter-fraction[Fraction of predictions to filter in validation reporting. Un-filtered validation metrics will always be reported as well. Default: 0.100000]' \
+        '--lr-sched-kwargs[VALUE TYPE]' \
+        '--balanced-batch[Balance classes exactly for each batch in training]' \
+        '--device[ID of GPU that is used for training. Default: Use CPU.]' \
+        "*: :_files"
+
+}
+
+function _remora_model_export {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--model-path[Path to a model architecture. Default: Use path from checkpoint.]':file:_files \
+        "*: :_files"
+
+}
+
+function _remora_model_list_pretrained {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--pore[specify pore type]' \
+        '--basecall-model-type[specify the basecaller model type (e.g., fast, hac or sup)]' \
+        '--basecall-model-version[specify the version of the basecaller]' \
+        '--modified-bases[specify the modified base models you are interested in]' \
+        '--remora-model-type[specify the motif or context that the remora model has been trained on]' \
+        '--remora-model-version[specify the remora model version]' \
+        "*: :_files"
+
+}
+
+function _remora_infer {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+
+function _remora_validate {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'from_modbams:Validate on modBAMs. Prints a single line with 1) error rate, 2) false positive rate, 3) false negative rate, 4) fraction of calls filtered, 6) total number of calls, 7) thresholds (in modbam 0-255 scale), and 8) \[--name\]'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (from_modbams)
+            _remora_validate_from_modbams
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _remora_validate_from_modbams {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--bams[--mod-bams MOD_BAMS \[MOD_BAMS ...\]]' \
+        '--ground-truth-positions[--full-output-filename FULL_OUTPUT_FILENAME]' \
+        '--name[--fixed-thresh FIXED_THRESH FIXED_THRESH]' \
+        '--regions-bed[--pct-filt PCT_FILT]' \
+        '--mod-base[--allow-unbalanced]' \
+        "*: :_files"
+
+}
+
+_remora "$@"
 

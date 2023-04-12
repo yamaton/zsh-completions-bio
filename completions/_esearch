@@ -1,20 +1,9 @@
-#compdef _esearch esearch
+#compdef esearch
 
 # Auto-generated with h2o
 
-
 function _esearch {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-db[Entrez database name.]' \
         '-query[Query string.]' \
         '-q[Query string.]' \
@@ -28,17 +17,9 @@ function _esearch {
         '-spell[Correct misspellings in query.]' \
         '-help[Print usage information.]' \
         '-label[Alias for query step.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_esearch "$@"
 

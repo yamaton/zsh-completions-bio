@@ -1,20 +1,9 @@
-#compdef _gridss gridss
+#compdef gridss
 
 # Auto-generated with h2o
 
-
 function _gridss {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-r,--reference}'[reference genome to use.]' \
         {-o,--output}'[output VCF.]' \
         {-a,--assembly}'[location of the GRIDSS assembly BAM. This file will be created by GRIDSS.]' \
@@ -38,17 +27,9 @@ function _gridss {
         '--nojni[do not use JNI native code acceleration libraries JNI libraries: snappy, GKL, ssw, bwa]' \
         '--jobindex[zero-based assembly job index. Only required when performing parallel assembly across multiple processes.]' \
         '--jobnodes[total number of assembly jobs. Only required when performing parallel assembly across multiple processes.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_gridss "$@"
 

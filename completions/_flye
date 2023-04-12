@@ -1,20 +1,9 @@
-#compdef _flye flye
+#compdef flye
 
 # Auto-generated with h2o
 
-
 function _flye {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--pacbio-raw[PacBio regular CLR reads (<20% error)]':file:_files \
         '--pacbio-corr[PacBio reads that were corrected with other methods (<3% error)]':file:_files \
@@ -44,17 +33,9 @@ function _flye {
         '--stop-after[stop after the specified stage completed]' \
         '--debug[enable debug output]' \
         {-v,--version}'[show program'\''s version number and exit]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_flye "$@"
 

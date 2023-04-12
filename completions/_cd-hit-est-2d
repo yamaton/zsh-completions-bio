@@ -1,20 +1,9 @@
-#compdef _cd-hit-est-2d cd-hit-est-2d
+#compdef cd-hit-est-2d
 
 # Auto-generated with h2o
 
-
 function _cd-hit-est-2d {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-i[input filename for db1 in fasta format, required, can be in .gz format]':file:_files \
         '-i2[input filename for db2 in fasta format, required, can be in .gz format]':file:_files \
         {-j,-j2}'[input filename in fasta/fastq format for R2 reads if input are paired end (PE) files]':file:_files \
@@ -54,17 +43,9 @@ function _cd-hit-est-2d {
         '-gap-ext[gap extension score, default -1]' \
         '-bak[write backup cluster file (1 or 0, default 0)]' \
         '-h[print this help]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_cd-hit-est-2d "$@"
 

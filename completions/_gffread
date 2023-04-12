@@ -1,20 +1,9 @@
-#compdef _gffread gffread
+#compdef gffread
 
 # Auto-generated with h2o
 
-
 function _gffread {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--ids[discard records/transcripts if their IDs are not listed in <IDs.lst>]' \
         '--nids[discard records/transcripts if their IDs are listed in <IDs.lst>]' \
         '-i[discard transcripts having an intron larger than <maxintron>]' \
@@ -78,17 +67,9 @@ function _gffread {
         '--tlf[output "transcript line format" which is like GFF but with exons and CDS related features stored as GFF attributes in the transcript feature line, like this: exoncount=N;exons=<exons>;CDSphase=<N>;CDS=<CDScoords> <exons> is a comma-delimited list of exon_start-exon_end coordinates; <CDScoords> is CDS_start:CDS_end coordinates or a list like <exons>]' \
         '--table[output a simple tab delimited format instead of GFF, with columns having the values of GFF attributes given in <attrlist>; special pseudo-attributes (prefixed by @) are recognized: @id, @geneid, @chr, @start, @end, @strand, @numexons, @exons, @cds, @covlen, @cdslen If any of -w/-y/-x FASTA output files are enabled, the same fields (excluding @id) are appended to the definition line of corresponding FASTA records]' \
         {-v,-E}'[expose (warn about) duplicate transcript IDs and other potential problems with the given GFF/GTF records]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_gffread "$@"
 

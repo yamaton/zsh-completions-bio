@@ -1,20 +1,9 @@
-#compdef _bedops bedops
+#compdef bedops
 
 # Auto-generated with h2o
 
-
 function _bedops {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--chrom[Jump to and process data for given <chromosome> only.]' \
         '--ec[Error check input files (slower).]' \
         '--header[Accept headers (VCF, GFF, SAM, BED, WIG) in any input file.]' \
@@ -32,17 +21,9 @@ function _bedops {
         {-s,--symmdiff}'[Reports the intervals found in exactly 1 input file.]':file:_files \
         {-u,--everything}'[The output consists of all columns from all rows of all input files.]':file:_files \
         {-w,--chop}'[Produces windowed slices from the merged regions of all input files. By default, -w 1 is used with no staggering.]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_bedops "$@"
 

@@ -1,20 +1,9 @@
-#compdef _quast-lg.py quast-lg.py
+#compdef quast-lg.py
 
 # Auto-generated with h2o
 
-
 function _quast-lg.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-o,--output-dir}'[Directory to store all result files \[default: quast_results/results_<datetime>\]]':file:_files \
         '-r[Reference genome file]':file:_files \
         {-g,--features}'[File with genomic feature coordinates in the reference (GFF, BED, NCBI or TXT) Optional '\''type'\'' can be specified for extracting only a specific feature type from GFF]':file:_files \
@@ -84,17 +73,9 @@ function _quast-lg.py {
         '--test-sv[Run QUAST with structural variants detection on the data from the test_data folder, output to quast_test_output]' \
         {-h,--help}'[Print full usage message]' \
         {-v,--version}'[Print version]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_quast-lg.py "$@"
 

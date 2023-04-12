@@ -1,20 +1,9 @@
-#compdef _sql2csv sql2csv
+#compdef sql2csv
 
 # Auto-generated with h2o
 
-
 function _sql2csv {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-v,--verbose}'[Print detailed tracebacks when errors occur.]' \
         {-l,--linenumbers}'[Insert a column of line numbers at the front of the output. Useful when piping to grep or as a simple primary key.]' \
@@ -23,17 +12,9 @@ function _sql2csv {
         '--query[The SQL query to execute. Overrides FILE and STDIN.]' \
         {-e,--encoding}'[Specify the encoding of the input query file.]' \
         {-H,--no-header-row}'[Do not output column names.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_sql2csv "$@"
 

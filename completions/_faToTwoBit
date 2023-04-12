@@ -1,35 +1,16 @@
-#compdef _faToTwoBit faToTwoBit
+#compdef faToTwoBit
 
 # Auto-generated with h2o
 
-
 function _faToTwoBit {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-long[use 64-bit offsets for index. Allow for twoBit to contain more than 4Gb of sequence. NOT COMPATIBLE WITH OLDER CODE.]' \
         '-noMask[Ignore lower-case masking in fa file.]' \
         '-stripVersion[Strip off version number after '\''.'\'' for GenBank accessions.]' \
         '-ignoreDups[Convert first sequence only if there are duplicate sequence names. Use '\''twoBitDup'\'' to find duplicate sequences.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_faToTwoBit "$@"
 

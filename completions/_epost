@@ -1,37 +1,18 @@
-#compdef _epost epost
+#compdef epost
 
 # Auto-generated with h2o
 
-
 function _epost {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-help[Print usage information.]' \
         '-db[Indicate that the identifiers are from the specified database.]' \
         '-id[Specify identifiers directly.]' \
         '-format[uid or acc(ession).]' \
         '-input[Read from filename instead of standard input (which is then free to receive pipeline state from other edirect commands).]':file:_files \
         '-label[Alias for query step.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_epost "$@"
 

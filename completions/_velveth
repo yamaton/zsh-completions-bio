@@ -1,20 +1,9 @@
-#compdef _velveth velveth
+#compdef velveth
 
 # Auto-generated with h2o
 
-
 function _velveth {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-fasta,-fastq,-raw,-fasta.gz,-fastq.gz,-raw.gz,-sam,-bam,-fmtAuto}'[Select file format]' \
         '-interleaved[File contains paired reads interleaved in the one file (default)]' \
         '-separate[Read 2 separate files for paired reads]' \
@@ -24,17 +13,9 @@ function _velveth {
         '-reuse_binary[: reuse   binary sequences file (or link) already in directory (no need to provide original filenames in this case (default: off)]' \
         '-noHash[simply prepare Sequences file, do not hash reads or prepare Roadmaps file (default: off)]' \
         '-create_binary[create binary CnyUnifiedSeq file (default: off)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_velveth "$@"
 

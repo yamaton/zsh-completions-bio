@@ -1,20 +1,9 @@
-#compdef _iHS iHS
+#compdef iHS
 
 # Auto-generated with h2o
 
-
 function _iHS {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-t,--target}'[A zero base comma separated list of target individuals corresponding to VCF columns]' \
         {-r,--region}'[A tabix compliant genomic range format: "seqid:start-end" or "seqid"]' \
         {-f,--file}'[Proper formatted and phased VCF.]':file:_files \
@@ -22,17 +11,9 @@ function _iHS {
         {-a,--af}'[Alternative alleles with frquences less than \[0.05\] are skipped.]' \
         {-x,--threads}'[Number of CPUS \[1\].]' \
         {-g,--gen}'[A PLINK formatted map file.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_iHS "$@"
 

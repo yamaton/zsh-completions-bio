@@ -1,20 +1,9 @@
-#compdef _xtract xtract
+#compdef xtract
 
 # Auto-generated with h2o
 
-
 function _xtract {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-strict[Remove HTML and MathML tags.]' \
         '-mixed[Allow mixed content XML.]' \
         '-accent[Delete Unicode accents and diacritical marks.]' \
@@ -120,17 +109,9 @@ function _xtract {
         '-help[Print usage information and some example argument combinations.]' \
         '-examples[Complete examples of edirect(1) and xtract usage.]' \
         '-version[Print version number.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_xtract "$@"
 

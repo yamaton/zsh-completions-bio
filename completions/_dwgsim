@@ -1,20 +1,9 @@
-#compdef _dwgsim dwgsim
+#compdef dwgsim
 
 # Auto-generated with h2o
 
-
 function _dwgsim {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-e[per base/color/flow error rate of the first read \[from 0.020 to 0.020 by 0.000\]]' \
         '-E[per base/color/flow error rate of the second read \[from 0.020 to 0.020 by 0.000\]]' \
         '-i[use the inner distance instead of the outer distance for pairs \[False\]]' \
@@ -48,17 +37,9 @@ function _dwgsim {
         '-Q[standard deviation of the base quality scores \[2.00\]]' \
         '-o[output type for the FASTQ files \[0\]:]' \
         '-h[print this message]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_dwgsim "$@"
 

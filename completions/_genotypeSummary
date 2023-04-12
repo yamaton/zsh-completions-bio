@@ -1,37 +1,18 @@
-#compdef _genotypeSummary genotypeSummary
+#compdef genotypeSummary
 
 # Auto-generated with h2o
 
-
 function _genotypeSummary {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-t,--target}'[a zero based comma separated list of target individuals corresponding to VCF columns]' \
         {-f,--file}'[proper formatted VCF]':file:_files \
         {-y,--type}'[genotype likelihood format; genotype : GL,PL,GP]' \
         {-r,--region}'[a tabix compliant region : chr1:1-1000 or chr1]' \
         {-s,--snp}'[Only count SNPs]' \
         {-a,--ancestral}'[describe counts relative to the ancestral allele defined as AA in INFO]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_genotypeSummary "$@"
 

@@ -1,20 +1,9 @@
-#compdef _unicycler_polish unicycler_polish
+#compdef unicycler_polish
 
 # Auto-generated with h2o
 
-
 function _unicycler_polish {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-a,--assembly}'[Input assembly to be polished]' \
         {-1,--short1}'[FASTQ file of short reads (first reads in each pair)]' \
@@ -48,17 +37,9 @@ function _unicycler_polish {
         '--minimap[path to miniasm executable (default: minimap)]' \
         '--nucmer[path to nucmer executable (default: nucmer)]' \
         '--showsnps[path to show-snps executable (default: show-snps)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_unicycler_polish "$@"
 

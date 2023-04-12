@@ -1,20 +1,9 @@
-#compdef _miniprot miniprot
+#compdef miniprot
 
 # Auto-generated with h2o
 
-
 function _miniprot {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-k[k-mer size \[6\]]' \
         '-s[submer size (density: 1/(2*(k-s)+1)) \[4\]]' \
         '-b[bits per block \[8\]]' \
@@ -41,17 +30,9 @@ function _miniprot {
         '-u[print unmapped query proteins in PAF]' \
         '--outn[output up to min{NUM,-N} alignments per query \[1000\]]' \
         '-K[query batch size \[2M\]]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_miniprot "$@"
 

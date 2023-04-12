@@ -1,20 +1,9 @@
-#compdef _do-partition.py do-partition.py
+#compdef do-partition.py
 
 # Auto-generated with h2o
 
-
 function _do-partition.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--version[show program'\''s version number and exit]' \
         '--info[print citation information]' \
         {-h,--help}'[show this help message and exit]' \
@@ -27,17 +16,9 @@ function _do-partition.py {
         '--no-big-traverse[Truncate graph joins at big traversals (default: False)]' \
         '--keep-subsets[Keep individual subsets (default: False)]' \
         {-f,--force}'[Overwrite output file if it exists (default: False)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_do-partition.py "$@"
 

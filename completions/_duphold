@@ -1,20 +1,9 @@
-#compdef _duphold duphold
+#compdef duphold
 
 # Auto-generated with h2o
 
-
 function _duphold {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-v,--vcf}'[path to sorted SV VCF/BCF]':file:_files \
         {-b,--bam}'[path to indexed BAM/CRAM]':file:_files \
         {-f,--fasta}'[indexed fasta reference.]':file:_files \
@@ -23,17 +12,9 @@ function _duphold {
         {-o,--output}'[output VCF/BCF (default is VCF to stdout) \[default: -\]]' \
         {-d,--drop}'[drop all samples from a multi-sample --vcf *except* the sample in --bam. useful for parallelization by sample followed by merge.]' \
         {-h,--help}'[show help]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_duphold "$@"
 

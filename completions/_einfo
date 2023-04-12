@@ -1,36 +1,17 @@
-#compdef _einfo einfo
+#compdef einfo
 
 # Auto-generated with h2o
 
-
 function _einfo {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-db[Print information on the specified Entrez database, as an XML eInfoResult document.]' \
         '-dbs[Print a plain-text list of all available Entrez databases.]' \
         '-fields[Print just an XML-structured summary of fields in the specified database.]' \
         '-links[Print just an XML-structured summary of links to and from the specified database.]' \
         '-help[Print usage information, complete with samples of -fields and -links XML output.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_einfo "$@"
 

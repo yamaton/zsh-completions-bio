@@ -1,25 +1,6 @@
-#compdef _assess_homopolymers assess_homopolymers
+#compdef assess_homopolymers
 
 # Auto-generated with h2o
-
-    function _assess_homopolymers_count {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-o,--output_dir}'[Output directory (will be created). (default: homopolymers)]':file:_files \
-            {-t,--threads}'[Number of threads for parallel execution. (default: 1)]' \
-            {-l,--homo_len}'[Minimum homopolymer length, default 3 (default: 3)]' \
-            {-b,--bed}'[Bed file to limit search. (default: None)]' \
-            "*: :_files"
-
-    }
-
-    function _assess_homopolymers_analyse {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-o,--output_dir}'[Output directory (will be created). (default: homopolymers)]':file:_files \
-            "*: :_files"
-
-    }
 
 
 function _assess_homopolymers {
@@ -59,4 +40,25 @@ function _assess_homopolymers {
      esac
 
 }
+
+function _assess_homopolymers_count {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-o,--output_dir}'[Output directory (will be created). (default: homopolymers)]':file:_files \
+        {-t,--threads}'[Number of threads for parallel execution. (default: 1)]' \
+        {-l,--homo_len}'[Minimum homopolymer length, default 3 (default: 3)]' \
+        {-b,--bed}'[Bed file to limit search. (default: None)]' \
+        "*: :_files"
+
+}
+
+function _assess_homopolymers_analyse {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-o,--output_dir}'[Output directory (will be created). (default: homopolymers)]':file:_files \
+        "*: :_files"
+
+}
+
+_assess_homopolymers "$@"
 

@@ -1,38 +1,6 @@
-#compdef _velvetg velvetg
+#compdef velvetg
 
 # Auto-generated with h2o
-
-    function _velvetg_directory {
-        _arguments \
-            '-cov_cutoff[removal of low coverage nodes AFTER tour bus or allow the system to infer it]' \
-            '-ins_length[expected distance between two paired end reads (default: no read pairing)]' \
-            '-read_trkg[tracking of short read positions in assembly (default: no tracking)]' \
-            '-min_contig_lgth[minimum contig length exported to contigs.fa file (default: hash length * 2)]' \
-            '-amos_file[export assembly to AMOS file (default: no export)]' \
-            '-exp_cov[expected coverage of unique regions or allow the system to infer it]' \
-            '-long_cov_cutoff[removal of nodes with low long-read coverage AFTER tour bus]' \
-            '-ins_length[expected distance between two paired-end reads in the respective short-read dataset (default: no read pairing)]' \
-            '-ins_length_long[expected distance between two long paired-end reads (default: no read pairing)]' \
-            '-ins_length[est. standard deviation of respective dataset (default: 10% of corresponding length)]' \
-            '-scaffolding[scaffolding of contigs used paired end information (default: on)]' \
-            '-max_branch_length[maximum length in base pair of bubble (default: 100)]' \
-            '-max_divergence[maximum divergence rate between two branches in a bubble (default: 0.2)]' \
-            '-max_gap_count[maximum number of gaps allowed in the alignment of the two branches of a bubble (default: 3)]' \
-            '-min_pair_count[minimum number of paired end connections to justify the scaffolding of two long contigs (default: 5)]' \
-            '-max_coverage[removal of high coverage nodes AFTER tour bus (default: no removal)]' \
-            '-coverage_mask[minimum coverage required for confident regions of contigs (default: 1)]' \
-            '-long_mult_cutoff[minimum number of long reads required to merge contigs (default: 2)]' \
-            '-unused_reads[export unused reads in UnusedReads.fa file (default: no)]' \
-            '-alignments[export a summary of contig alignment to the reference sequences (default: no)]' \
-            '-exportFiltered[export the long nodes which were eliminated by the coverage filters (default: no)]' \
-            '-clean[remove all the intermediary files which are useless for recalculation (default : no)]' \
-            '-very_clean[remove all the intermediary files (no recalculation possible) (default: no)]' \
-            '-paired_exp_fraction[remove all the paired end connections which less than the specified fraction of the expected count (default: 0.1)]' \
-            '-shortMatePaired[for mate-pair libraries, indicate that the library might be contaminated with paired-end reads (default no)]' \
-            '-conserveLong[preserve sequences with long reads in them (default no)]' \
-            "*: :_files"
-
-    }
 
 
 function _velvetg {
@@ -92,4 +60,38 @@ function _velvetg {
      esac
 
 }
+
+function _velvetg_directory {
+    _arguments \
+        '-cov_cutoff[removal of low coverage nodes AFTER tour bus or allow the system to infer it]' \
+        '-ins_length[expected distance between two paired end reads (default: no read pairing)]' \
+        '-read_trkg[tracking of short read positions in assembly (default: no tracking)]' \
+        '-min_contig_lgth[minimum contig length exported to contigs.fa file (default: hash length * 2)]' \
+        '-amos_file[export assembly to AMOS file (default: no export)]' \
+        '-exp_cov[expected coverage of unique regions or allow the system to infer it]' \
+        '-long_cov_cutoff[removal of nodes with low long-read coverage AFTER tour bus]' \
+        '-ins_length[expected distance between two paired-end reads in the respective short-read dataset (default: no read pairing)]' \
+        '-ins_length_long[expected distance between two long paired-end reads (default: no read pairing)]' \
+        '-ins_length[est. standard deviation of respective dataset (default: 10% of corresponding length)]' \
+        '-scaffolding[scaffolding of contigs used paired end information (default: on)]' \
+        '-max_branch_length[maximum length in base pair of bubble (default: 100)]' \
+        '-max_divergence[maximum divergence rate between two branches in a bubble (default: 0.2)]' \
+        '-max_gap_count[maximum number of gaps allowed in the alignment of the two branches of a bubble (default: 3)]' \
+        '-min_pair_count[minimum number of paired end connections to justify the scaffolding of two long contigs (default: 5)]' \
+        '-max_coverage[removal of high coverage nodes AFTER tour bus (default: no removal)]' \
+        '-coverage_mask[minimum coverage required for confident regions of contigs (default: 1)]' \
+        '-long_mult_cutoff[minimum number of long reads required to merge contigs (default: 2)]' \
+        '-unused_reads[export unused reads in UnusedReads.fa file (default: no)]' \
+        '-alignments[export a summary of contig alignment to the reference sequences (default: no)]' \
+        '-exportFiltered[export the long nodes which were eliminated by the coverage filters (default: no)]' \
+        '-clean[remove all the intermediary files which are useless for recalculation (default : no)]' \
+        '-very_clean[remove all the intermediary files (no recalculation possible) (default: no)]' \
+        '-paired_exp_fraction[remove all the paired end connections which less than the specified fraction of the expected count (default: 0.1)]' \
+        '-shortMatePaired[for mate-pair libraries, indicate that the library might be contaminated with paired-end reads (default no)]' \
+        '-conserveLong[preserve sequences with long reads in them (default no)]' \
+        "*: :_files"
+
+}
+
+_velvetg "$@"
 

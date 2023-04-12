@@ -1,20 +1,9 @@
-#compdef _skesa skesa
+#compdef skesa
 
 # Auto-generated with h2o
 
-
 function _skesa {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[Produce help message]' \
         {-v,--version}'[Print version]' \
         '--cores[Number of cores to use (default all) \[integer\]]' \
@@ -42,17 +31,9 @@ function _skesa {
         '--dbg_out[Output kmer file \[string\]]' \
         '--hist[File for histogram \[string\]]' \
         '--connected_reads[File for connected paired reads \[string\]]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_skesa "$@"
 

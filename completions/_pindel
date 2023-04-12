@@ -1,20 +1,9 @@
-#compdef _pindel pindel
+#compdef pindel
 
 # Auto-generated with h2o
 
-
 function _pindel {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-f,--fasta}'[the reference genome sequences in fasta format]' \
         {-p,--pindel-file}'[the Pindel input file; either this, a pindel configuration file (consisting of multiple pindel filenames) or a bam configuration file is required]' \
         {-i,--config-file}'[the bam config file; either this, a pindel input file, or a pindel config file is required. Per line: path and file name of bam, insert size and sample tag. For example: /data/tumour.bam 400 tumour]':file:_files \
@@ -62,17 +51,9 @@ function _pindel {
         '--MIN_DD_BREAKPOINT_SUPPORT[Minimum number of split reads for calling an exact breakpoint for dispersed duplications. (default: 3)]' \
         '--MIN_DD_MAP_DISTANCE[Minimum mapping distance of read pairs for them to be considered discordant. (default: 8000)]' \
         '--DD_REPORT_DUPLICATION_READS[Report discordant sequences and positions for mates of reads mapping inside dispersed duplications. (default: false)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_pindel "$@"
 

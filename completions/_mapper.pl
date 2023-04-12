@@ -1,20 +1,9 @@
-#compdef _mapper.pl mapper.pl
+#compdef mapper.pl
 
 # Auto-generated with h2o
 
-
 function _mapper.pl {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-a[input file is seq.txt format]' \
         '-b[input file is qseq.txt format]' \
         '-c[input file is fasta format]' \
@@ -36,17 +25,9 @@ function _mapper.pl {
         '-v[outputs progress report]' \
         '-n[overwrite existing files]' \
         '-o[number of threads to use for bowtie]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_mapper.pl "$@"
 

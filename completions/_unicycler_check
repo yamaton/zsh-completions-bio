@@ -1,20 +1,9 @@
-#compdef _unicycler_check unicycler_check
+#compdef unicycler_check
 
 # Auto-generated with h2o
 
-
 function _unicycler_check {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--sam[Input SAM file of alignments (if this file doesn'\''t exist, the alignment will be performed with results saved to this file - you can use the aligner arguments with this script)]' \
         '--ref[FASTA file containing one or more reference sequences]' \
@@ -29,17 +18,9 @@ function _unicycler_check {
         '--html[Path for HTML report (default: do not save HTML report)]' \
         '--threads[Number of CPU threads used to align (default: the number of available CPUs)]' \
         '--verbosity[Level of stdout information (0 to 2) (default: 1)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_unicycler_check "$@"
 

@@ -1,20 +1,9 @@
-#compdef _phylophlan phylophlan
+#compdef phylophlan
 
 # Auto-generated with h2o
 
-
 function _phylophlan {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-i,--input}'[Folder containing your input genomes and/or proteomes (default: None)]' \
         {-c,--clean}'[Clean the output and partial data produced for the specified project (default: None)]' \
@@ -62,17 +51,9 @@ function _phylophlan {
         '--output_folder[Path to the output folder where to save the results (default: )]' \
         '--genome_extension[Extension for input genomes (default: .fna)]' \
         '--proteome_extension[Extension for input proteomes (default: .faa)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_phylophlan "$@"
 

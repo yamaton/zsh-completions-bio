@@ -1,20 +1,9 @@
-#compdef _csvpy csvpy
+#compdef csvpy
 
 # Auto-generated with h2o
 
-
 function _csvpy {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-d,--delimiter}'[Delimiting character of the input CSV file.]' \
         {-t,--tabs}'[Specify that the input CSV file is delimited with tabs. Overrides "-d".]' \
@@ -37,17 +26,9 @@ function _csvpy {
         {-V,--version}'[Display version information and exit.]' \
         '--dict[Load the CSV file into a DictReader.]' \
         '--agate[Load the CSV file into an agate table.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_csvpy "$@"
 

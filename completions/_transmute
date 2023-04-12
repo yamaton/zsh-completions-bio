@@ -1,20 +1,9 @@
-#compdef _transmute transmute
+#compdef transmute
 
 # Auto-generated with h2o
 
-
 function _transmute {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-x2p[Reformat XML]' \
         '-j2p[Reformat JSON]' \
         '-align[-a codes Column alignment codes:]' \
@@ -42,17 +31,9 @@ function _transmute {
         '-decodeURL[URI-unescape the input.]' \
         '-encode64[Base64-encode the input.]' \
         '-decode64[Base64-decode the input.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_transmute "$@"
 

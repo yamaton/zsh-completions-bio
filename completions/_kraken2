@@ -1,20 +1,9 @@
-#compdef _kraken2 kraken2
+#compdef kraken2
 
 # Auto-generated with h2o
 
-
 function _kraken2 {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--db[Name for Kraken 2 DB   (default: none)]' \
         '--threads[Number of threads (default: 1)]' \
         '--quick[Quick operation (use first hit or hits)]' \
@@ -35,17 +24,9 @@ function _kraken2 {
         '--minimum-hit-groups[Minimum number of hit groups (overlapping k-mers sharing the same minimizer) needed to make a call (default: 2)]' \
         '--help[Print this message]' \
         '--version[Print version information]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_kraken2 "$@"
 

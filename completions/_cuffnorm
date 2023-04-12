@@ -1,20 +1,9 @@
-#compdef _cuffnorm cuffnorm
+#compdef cuffnorm
 
 # Auto-generated with h2o
 
-
 function _cuffnorm {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-o,--output-dir}'[write all output files to this directory \[ default: ./ \]]' \
         {-L,--labels}'[comma-separated list of condition labels]' \
         '--norm-standards-file[Housekeeping/spike genes to normalize libraries \[ default: NULL \]]' \
@@ -28,17 +17,9 @@ function _cuffnorm {
         {-q,--quiet}'[log-friendly quiet processing (no progress bar) \[ default: FALSE \]]' \
         '--seed[value of random number generator seed \[ default: 0 \]]' \
         '--no-update-check[do not contact server to check for update availability\[ default: FALSE \]]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_cuffnorm "$@"
 

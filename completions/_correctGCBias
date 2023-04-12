@@ -1,20 +1,9 @@
-#compdef _correctGCBias correctGCBias
+#compdef correctGCBias
 
 # Auto-generated with h2o
 
-
 function _correctGCBias {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {--bamfile,-b}'[Sorted BAM file to correct. (default: None)]':file:_files \
         '--effectiveGenomeSize[The effective genome size is the portion of the genome that is mappable. Large fractions of the genome are stretches of NNNN that should be discarded. Also, if repetitive regions were not included in the mapping of reads, the effective genome size needs to be adjusted accordingly. A table of values is available here: http://deeptools.readthedocs.io/en/latest/content/feature/effectiveGenomeSize.html . (default: None)]' \
         {--genome,-g}'[Genome in two bit format. Most genomes can be found here: http://hgdownload.cse.ucsc.edu/gbdb/ Search for the .2bit ending. Otherwise, fasta files can be converted to 2bit using faToTwoBit available here: http://hgdownload.cse.ucsc.edu/admin/exe/ (default: None)]':file:_files \
@@ -26,17 +15,9 @@ function _correctGCBias {
         {--region,-r}'[Region of the genome to limit the operation to - this is useful when testing parameters to reduce the computing time. The format is chr:start:end, for example --region chr10 or --region chr10:456700:891000. (default: None)]' \
         {--numberOfProcessors,-p}'[Number of processors to use. Type "max/2" to use half the maximum number of processors or "max" to use all available processors. (Default: 1)]' \
         {--verbose,-v}'[Set to see processing messages. (default: False)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_correctGCBias "$@"
 

@@ -1,12 +1,6 @@
-#compdef _cuffmerge cuffmerge
+#compdef cuffmerge
 
 # Auto-generated with h2o
-
-    function _cuffmerge_cuffmerge {
-        _arguments \
-            "*: :_files"
-
-    }
 
 
 function _cuffmerge {
@@ -47,4 +41,12 @@ function _cuffmerge {
      esac
 
 }
+
+function _cuffmerge_cuffmerge {
+    _arguments \
+        "*: :_files"
+
+}
+
+_cuffmerge "$@"
 

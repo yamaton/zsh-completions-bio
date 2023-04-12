@@ -1,20 +1,9 @@
-#compdef _agat_convert_genscan2gff.pl agat_convert_genscan2gff.pl
+#compdef agat_convert_genscan2gff.pl
 
 # Auto-generated with h2o
 
-
 function _agat_convert_genscan2gff.pl {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {--genscan,-g}'[Input bed file that will be convert.]' \
         '--genscan[Input bed file that will be convert.]' \
         '--source[The source informs about the tool used to produce the data and is stored in 2nd field of a gff file. Example: Stringtie,Maker,Augustus,etc. \[default: data\]]' \
@@ -24,17 +13,9 @@ function _agat_convert_genscan2gff.pl {
         '--verbose[add verbosity]' \
         {-o,--output,--out,--outfile,--gff}'[Output GFF file. If no output file is specified, the output will be written to STDOUT.]' \
         {-h,--help}'[Display this helpful text.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_agat_convert_genscan2gff.pl "$@"
 

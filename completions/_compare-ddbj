@@ -1,35 +1,16 @@
-#compdef _compare-ddbj compare-ddbj
+#compdef compare-ddbj
 
 # Auto-generated with h2o
 
-
 function _compare-ddbj {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--no-rename-entry[Disable renaming of entries by extracting accession part assuming dbj|accession|locus format]' \
         '--patch-features[Remove short (< 10bp) introns by patching feature gaps]' \
         '--log[\[debug\] Choose log level from (DEBUG, INFO, WARNING, ERROR) (default: INFO).]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_compare-ddbj "$@"
 

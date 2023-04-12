@@ -1,34 +1,15 @@
-#compdef _coverage_from_fastx coverage_from_fastx
+#compdef coverage_from_fastx
 
 # Auto-generated with h2o
 
-
 function _coverage_from_fastx {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--coverage[Calculate fraction of reads required for this coverage. (default: None)]' \
         '--longest[Use the longest reads when calculating fraction reads required for a given coverage. (default: False)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_coverage_from_fastx "$@"
 

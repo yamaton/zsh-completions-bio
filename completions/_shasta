@@ -1,20 +1,9 @@
-#compdef _shasta shasta
+#compdef shasta
 
 # Auto-generated with h2o
 
-
 function _shasta {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[Write a help message.]' \
         {-v,--version}'[Identify the Shasta version.]' \
         '--config[Configuration name. Can be the name of a built-in configuration or the name of a configuration file.]' \
@@ -149,17 +138,9 @@ function _shasta {
         '--Assembly.mode2.suppressDetailedOutput[Suppress output of detailed representation of the assembly (Mode 2 assembly only).]' \
         '--Assembly.mode2.suppressPhasedOutput[Suppress output of phased representation of the assembly (Mode 2 assembly only).]' \
         '--Assembly.mode2.suppressHaploidOutput[Suppress output of haploid representation of the assembly (Mode 2 assembly only).]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_shasta "$@"
 

@@ -1,20 +1,9 @@
-#compdef _dwgsim_eval dwgsim_eval
+#compdef dwgsim_eval
 
 # Auto-generated with h2o
 
-
 function _dwgsim_eval {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-a[INT split by \[0\]:]' \
         '-b[alignments are from BWA (SOLiD only) \[False\]]' \
         '-c[color space alignments \[False\]]' \
@@ -31,17 +20,9 @@ function _dwgsim_eval {
         '-i[consider only alignments with indels \[False\]]' \
         '-P[STRING a read prefix that was prepended to each read name \[not using\]]' \
         '-h[print this help message]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_dwgsim_eval "$@"
 

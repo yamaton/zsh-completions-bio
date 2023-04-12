@@ -1,37 +1,18 @@
-#compdef _mgaps mgaps
+#compdef mgaps
 
 # Auto-generated with h2o
 
-
 function _mgaps {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-C[Check that fasta header labels alternately have "Reverse"]' \
         '-d[Fixed diagonal difference to join matches]' \
         '-e[Use extent of match (end - start) rather than sum of piece lengths to determine length of cluster]' \
         '-f[Fraction of separation for diagonal difference]' \
         '-l[Minimum length of cluster match]' \
         '-s[Maximum separation between matches in cluster]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_mgaps "$@"
 

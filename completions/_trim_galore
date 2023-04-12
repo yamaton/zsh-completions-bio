@@ -1,20 +1,9 @@
-#compdef _trim_galore trim_galore
+#compdef trim_galore
 
 # Auto-generated with h2o
 
-
 function _trim_galore {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[Print this help message and exits.]' \
         {-v,--version}'[Print the version information and exits.]' \
         {-q,--quality}'[Trim low-quality ends from reads in addition to adapter removal. For   RRBS samples, quality trimming will be performed first, and adapter trimming is carried in a second round. Other files are quality and adapter trimmed in a single pass. The algorithm is the same as the one used by BWA (Subtract INT from all qualities; compute partial sums from all indices to the end of the sequence; cut sequence at the index at which the sum is minimal). Default Phred score: 20.]' \
@@ -60,17 +49,9 @@ function _trim_galore {
         '--retain_unpaired[If only one of the two paired-end reads became too short, the longer   read will be written to either '\''.unpaired_1.fq'\'' or '\''.unpaired_2.fq'\'' output files. The length cutoff for unpaired single-end reads is governed by the parameters -r1/--length_1 and -r2/--length_2. Default: OFF.]' \
         {-r1,--length_1}'[Unpaired single-end read length cutoff needed for read 1 to be written to   '\''.unpaired_1.fq'\'' output file. These reads may be mapped in single-end mode. Default: 35 bp.]' \
         {-r2,--length_2}'[Unpaired single-end read length cutoff needed for read 2 to be written to   '\''.unpaired_2.fq'\'' output file. These reads may be mapped in single-end mode. Default: 35 bp.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_trim_galore "$@"
 

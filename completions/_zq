@@ -1,20 +1,9 @@
-#compdef _zq zq
+#compdef zq
 
 # Auto-generated with h2o
 
-
 function _zq {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--raw[Expert Mode - Since zindex is a sqlite3 database under the covers, this flag lets you run a custom query for use cases not supported by command line args. example: (--raw "select a.line from index_default a , index_secondary b where a.line == b.line and a.key == '\''2'\'' and b.key == '\''KEY_2'\'';")]' \
         {-i,--index}'[Use specified index for searching]' \
         '--index-file[Use index from <index-file> (default <file>.zindex)]' \
@@ -34,17 +23,9 @@ function _zq {
         {--,--ignore_rest}'[Ignores the rest of the labeled arguments following this flag.]' \
         '--version[Displays version information and exits.]' \
         {-h,--help}'[Displays usage information and exits.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_zq "$@"
 

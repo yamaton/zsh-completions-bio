@@ -1,62 +1,6 @@
-#compdef _bwa-mem2 bwa-mem2
+#compdef bwa-mem2
 
 # Auto-generated with h2o
-
-    function _bwa-mem2_index {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _bwa-mem2_mem {
-        _arguments \
-            '-o[Output SAM file name]' \
-            '-t[number of threads \[1\]]' \
-            '-k[minimum seed length \[19\]]' \
-            '-w[band width for banded alignment \[100\]]' \
-            '-d[off-diagonal X-dropoff \[100\]]' \
-            '-r[look for internal seeds inside a seed longer than {-k} * FLOAT \[1.5\]]' \
-            '-y[seed occurrence for the 3rd round seeding \[20\]]' \
-            '-c[skip seeds with more than INT occurrences \[500\]]' \
-            '-D[drop chains shorter than FLOAT fraction of the longest overlapping chain \[0.50\]]' \
-            '-W[discard a chain if seeded bases shorter than INT \[0\]]' \
-            '-m[perform at most INT rounds of mate rescues for each read \[50\]]' \
-            '-S[skip mate rescue]' \
-            '-P[skip pairing; mate rescue performed unless -S also in use]' \
-            '-A[score for a sequence match, which scales options -TdBOELU unless overridden \[1\]]' \
-            '-B[penalty for a mismatch \[4\]]' \
-            '-O[gap open penalties for deletions and insertions \[6,6\]]' \
-            '-O[gap open penalties for deletions and insertions \[6,6\]]' \
-            '-E[gap extension penalty; a gap of size k cost '\''{-O} + {-E}*k'\'' \[1,1\]]' \
-            '-E[gap extension penalty; a gap of size k cost '\''{-O} + {-E}*k'\'' \[1,1\]]' \
-            '-L[penalty for 5'\''- and 3'\''-end clipping \[5,5\]]' \
-            '-L[penalty for 5'\''- and 3'\''-end clipping \[5,5\]]' \
-            '-U[penalty for an unpaired read pair \[17\]]' \
-            '-p[smart pairing (ignoring in2.fq)]' \
-            '-R[read group header line such as '\''@RG\tID:foo\tSM:bar'\'' \[null\]]' \
-            '-H[insert STR to header if it starts with @; or insert lines in FILE \[null\]]':file:_files \
-            '-j[treat ALT contigs as part of the primary assembly (i.e. ignore <idxbase>.alt file)]' \
-            '-5[for split alignment, take the alignment with the smallest coordinate as primary]' \
-            '-q[don'\''t modify mapQ of supplementary alignments]' \
-            '-K[process INT input bases in each batch regardless of nThreads (for reproducibility) \[\]]' \
-            '-v[verbose level: 1=error, 2=warning, 3=message, 4+=debugging \[3\]]' \
-            '-T[minimum score to output \[30\]]' \
-            '-h[if there are <INT hits with score >80% of the max score, output all in XA \[5,200\]]' \
-            '-a[output all alignments for SE or unpaired PE]' \
-            '-C[append FASTA/FASTQ comment to SAM output]' \
-            '-V[output the reference FASTA header in the XR tag]' \
-            '-Y[use soft clipping for supplementary alignments]' \
-            '-M[mark shorter split hits as secondary]' \
-            '-I[specify the mean, standard deviation (10% of the mean if absent), max (4 sigma from the mean if absent) and min of the insert size distribution. FR orientation only. \[inferred\]]' \
-            "*: :_files"
-
-    }
-
-    function _bwa-mem2_version {
-        _arguments \
-            "*: :_files"
-
-    }
 
 
 function _bwa-mem2 {
@@ -100,4 +44,62 @@ function _bwa-mem2 {
      esac
 
 }
+
+function _bwa-mem2_index {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _bwa-mem2_mem {
+    _arguments \
+        '-o[Output SAM file name]' \
+        '-t[number of threads \[1\]]' \
+        '-k[minimum seed length \[19\]]' \
+        '-w[band width for banded alignment \[100\]]' \
+        '-d[off-diagonal X-dropoff \[100\]]' \
+        '-r[look for internal seeds inside a seed longer than {-k} * FLOAT \[1.5\]]' \
+        '-y[seed occurrence for the 3rd round seeding \[20\]]' \
+        '-c[skip seeds with more than INT occurrences \[500\]]' \
+        '-D[drop chains shorter than FLOAT fraction of the longest overlapping chain \[0.50\]]' \
+        '-W[discard a chain if seeded bases shorter than INT \[0\]]' \
+        '-m[perform at most INT rounds of mate rescues for each read \[50\]]' \
+        '-S[skip mate rescue]' \
+        '-P[skip pairing; mate rescue performed unless -S also in use]' \
+        '-A[score for a sequence match, which scales options -TdBOELU unless overridden \[1\]]' \
+        '-B[penalty for a mismatch \[4\]]' \
+        '-O[gap open penalties for deletions and insertions \[6,6\]]' \
+        '-O[gap open penalties for deletions and insertions \[6,6\]]' \
+        '-E[gap extension penalty; a gap of size k cost '\''{-O} + {-E}*k'\'' \[1,1\]]' \
+        '-E[gap extension penalty; a gap of size k cost '\''{-O} + {-E}*k'\'' \[1,1\]]' \
+        '-L[penalty for 5'\''- and 3'\''-end clipping \[5,5\]]' \
+        '-L[penalty for 5'\''- and 3'\''-end clipping \[5,5\]]' \
+        '-U[penalty for an unpaired read pair \[17\]]' \
+        '-p[smart pairing (ignoring in2.fq)]' \
+        '-R[read group header line such as '\''@RG\tID:foo\tSM:bar'\'' \[null\]]' \
+        '-H[insert STR to header if it starts with @; or insert lines in FILE \[null\]]':file:_files \
+        '-j[treat ALT contigs as part of the primary assembly (i.e. ignore <idxbase>.alt file)]' \
+        '-5[for split alignment, take the alignment with the smallest coordinate as primary]' \
+        '-q[don'\''t modify mapQ of supplementary alignments]' \
+        '-K[process INT input bases in each batch regardless of nThreads (for reproducibility) \[\]]' \
+        '-v[verbose level: 1=error, 2=warning, 3=message, 4+=debugging \[3\]]' \
+        '-T[minimum score to output \[30\]]' \
+        '-h[if there are <INT hits with score >80% of the max score, output all in XA \[5,200\]]' \
+        '-a[output all alignments for SE or unpaired PE]' \
+        '-C[append FASTA/FASTQ comment to SAM output]' \
+        '-V[output the reference FASTA header in the XR tag]' \
+        '-Y[use soft clipping for supplementary alignments]' \
+        '-M[mark shorter split hits as secondary]' \
+        '-I[specify the mean, standard deviation (10% of the mean if absent), max (4 sigma from the mean if absent) and min of the insert size distribution. FR orientation only. \[inferred\]]' \
+        "*: :_files"
+
+}
+
+function _bwa-mem2_version {
+    _arguments \
+        "*: :_files"
+
+}
+
+_bwa-mem2 "$@"
 

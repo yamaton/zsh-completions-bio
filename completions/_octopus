@@ -1,20 +1,9 @@
-#compdef _octopus octopus
+#compdef octopus
 
 # Auto-generated with h2o
 
-
 function _octopus {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[Report detailed option information]' \
         '--version[Report detailed version information]' \
         '--config[Config file to populate command line options]' \
@@ -185,17 +174,9 @@ function _octopus {
         '--somatic-forest-model[Trained Ranger random forest model file for somatic variants]' \
         '--min-forest-quality[Minimum PASSing random forest probability (Phred scale)]' \
         '--use-germline-forest-for-somatic-normals[Use the germline forest model for evaluating somatic variant normal sample genotypes rather than the somatic forest model]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_octopus "$@"
 

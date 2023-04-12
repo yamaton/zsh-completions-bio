@@ -1,20 +1,9 @@
-#compdef _filter-abund.py filter-abund.py
+#compdef filter-abund.py
 
 # Auto-generated with h2o
 
-
 function _filter-abund.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--version[show program'\''s version number and exit]' \
         '--info[print citation information]' \
         {-h,--help}'[show this help message and exit]' \
@@ -26,17 +15,9 @@ function _filter-abund.py {
         {-f,--force}'[Overwrite output file if it exists (default: False)]' \
         {-q,--quiet,--gzip}'[Compress output using gzip (default: False)]' \
         '--bzip[Compress output using bzip2 (default: False)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_filter-abund.py "$@"
 

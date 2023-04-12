@@ -1,20 +1,9 @@
-#compdef _plotCoverage plotCoverage
+#compdef plotCoverage
 
 # Auto-generated with h2o
 
-
 function _plotCoverage {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--version[show program'\''s version number and exit]' \
         '--bamfiles[\[FILE1 FILE2 ...\], -b FILE1 FILE2 \[FILE1 FILE2 ...\] List of indexed BAM files separated by spaces.]':file:_files \
         {--help,-h}'[show this help message and exit]' \
@@ -43,17 +32,9 @@ function _plotCoverage {
         '--samFlagExclude[Exclude reads based on the SAM flag. For example, to get only reads that map to the forward strand, use --samFlagExclude 16, where 16 is the SAM flag for reads that map to the reverse strand. (Default: None)]' \
         '--minFragmentLength[The minimum fragment length needed for read/pair inclusion. This option is primarily useful in ATACseq experiments, for filtering mono- or di-nucleosome fragments. (Default: 0)]' \
         '--maxFragmentLength[The maximum fragment length needed for read/pair inclusion. (Default: 0)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_plotCoverage "$@"
 

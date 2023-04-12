@@ -1,20 +1,9 @@
-#compdef _wtdbg2 wtdbg2
+#compdef wtdbg2
 
 # Auto-generated with h2o
 
-
 function _wtdbg2 {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-i[Long reads sequences file (REQUIRED; can be multiple), \[\]]' \
         '-o[Prefix of output files (REQUIRED), \[\]]' \
         '-t[Number of threads, 0 for all cores, \[4\]]' \
@@ -109,17 +98,9 @@ function _wtdbg2 {
         '--keep-isolated-nodes[In graph clean, `wtdbg` normally masks isolated (orphaned) nodes]' \
         '--no-read-clip[Defaultly, `wtdbg` clips a input sequence by analyzing its overlaps to remove high error endings, rolling-circle repeats (see PacBio CCS), and chimera. When building edges, clipped region won'\''t contribute. However, `wtdbg` will use them in the final linking of unitigs]' \
         '--no-chainning-clip[Defaultly, performs alignments chainning in read clipping ** If '\''--aln-bestn 0 --no-read-clip'\'', alignments will be parsed directly, and less RAM spent on recording alignments]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_wtdbg2 "$@"
 

@@ -1,20 +1,9 @@
-#compdef _alignmentSieve alignmentSieve
+#compdef alignmentSieve
 
 # Auto-generated with h2o
 
-
 function _alignmentSieve {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {--bam,-b}'[An indexed BAM file.]':file:_files \
         {--outFile,-o}'[The file to write results to. These are the alignments or fragments that pass the filtering criteria.]':file:_files \
@@ -36,17 +25,9 @@ function _alignmentSieve {
         {--blackListFileName,-bl}'[A BED or GTF file containing regions that should be excluded from all analyses. Currently this works by rejecting genomic chunks that happen to overlap an entry. Consequently, for BAM files, if a read partially overlaps a blacklisted region or a fragment spans over it, then the read/fragment might still be considered. Please note that you should adjust the effective genome size, if relevant.]':file:_files \
         '--minFragmentLength[The minimum fragment length needed for read/pair inclusion. This option is primarily useful in ATACseq experiments, for filtering mono- or di-nucleosome fragments. (Default: 0)]' \
         '--maxFragmentLength[The maximum fragment length needed for read/pair inclusion. A value of 0 indicates no limit. (Default: 0)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_alignmentSieve "$@"
 

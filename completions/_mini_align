@@ -1,20 +1,9 @@
-#compdef _mini_align mini_align
+#compdef mini_align
 
 # Auto-generated with h2o
 
-
 function _mini_align {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[show this help text.]' \
         '-r[reference, should be a fasta file. If correspondng minimap indices do not exist they will be created. (required).]':file:_files \
         '-i[fastq/a input reads (required).]':file:_files \
@@ -37,17 +26,9 @@ function _mini_align {
         '-S[mismatch score]' \
         '-O[open gap penalty]' \
         '-E[extend gap penalty.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_mini_align "$@"
 

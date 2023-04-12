@@ -1,20 +1,9 @@
-#compdef _cd-hit-est cd-hit-est
+#compdef cd-hit-est
 
 # Auto-generated with h2o
 
-
 function _cd-hit-est {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-i[input filename in fasta format, required, can be in .gz format]':file:_files \
         '-j[input filename in fasta/fastq format for R2 reads if input are paired end (PE) files]':file:_files \
         '-o[output filename, required]':file:_files \
@@ -54,17 +43,9 @@ function _cd-hit-est {
         '-sc[sort clusters by size (number of sequences), default 0, output clusters by decreasing length if set to 1, output clusters by decreasing size]' \
         '-sf[sort fasta/fastq by cluster size (number of sequences), default 0, no sorting if set to 1, output sequences by decreasing cluster size this can be very slow if the input is in .gz format]' \
         '-h[print this help]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_cd-hit-est "$@"
 

@@ -1,32 +1,13 @@
-#compdef _vcf2dag vcf2dag
+#compdef vcf2dag
 
 # Auto-generated with h2o
 
-
 function _vcf2dag {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-r,--reference}'[FASTA reference file.]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_vcf2dag "$@"
 

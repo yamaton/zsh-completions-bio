@@ -1,20 +1,9 @@
-#compdef _csvjson csvjson
+#compdef csvjson
 
 # Auto-generated with h2o
 
-
 function _csvjson {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-d,--delimiter}'[Delimiting character of the input CSV file.]' \
         {-t,--tabs}'[Specify that the input CSV file is delimited with tabs. Overrides "-d".]' \
@@ -46,17 +35,9 @@ function _csvjson {
         '--stream[Output JSON as a stream of newline-separated objects, rather than an as an array.]' \
         {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing entirely, or "-1" to sniff the entire file.]' \
         {-I,--no-inference}'[Disable type inference (and --locale, --date-format, --datetime-format) when parsing CSV input.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_csvjson "$@"
 

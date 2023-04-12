@@ -1,20 +1,9 @@
-#compdef _STAR-Fusion STAR-Fusion
+#compdef STAR-Fusion
 
 # Auto-generated with h2o
 
-
 function _STAR-Fusion {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--left_fq[left.fq file (or single.fq)]':file:_files \
         '--right_fq[right.fq file (actually optional, but highly recommended)]':file:_files \
         {--chimeric_junction,-J}'[Chimeric.out.junction file]':file:_files \
@@ -66,17 +55,9 @@ function _STAR-Fusion {
         '--verbose_level[verbosity (default: 2, max=2)]' \
         '--max_sensitivity[includes options: --min_junction_reads 0 --min_sum_frags 1 --require_LDAS 0 --min_spanning_frags_only 1 --min_novel_junction_support 1 --skip_FFPM --no_single_fusion_per_breakpoint --skip_EM]' \
         '--full_Monty[includes max sensitivity and disables filters via: --max_promiscuity 1000000 --min_pct_dom_promiscuity 1 --min_alt_pct_junction 1e-3 --no_annotation_filter --no_RT_artifact_filter]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_STAR-Fusion "$@"
 

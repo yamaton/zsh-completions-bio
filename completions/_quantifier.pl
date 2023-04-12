@@ -1,20 +1,9 @@
-#compdef _quantifier.pl quantifier.pl
+#compdef quantifier.pl
 
 # Auto-generated with h2o
 
-
 function _quantifier.pl {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-u[list all values allowed for the species parameter that have an entry at UCSC]' \
         '-p[miRNA precursor sequences from miRBase]' \
         '-m[miRNA sequences from miRBase]' \
@@ -35,17 +24,9 @@ function _quantifier.pl {
         '-j[do not create an output.mrd file and pdfs if specified]' \
         '-W[read counts are weighed by their number of mappings. e.g. A read maps twice so each position gets 0.5 added to its read profile]' \
         '-U[use only unique read mappings; Caveat: Some miRNAs have multiple precursors. These will be underestimated in their expression since the multimappers are excluded]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_quantifier.pl "$@"
 

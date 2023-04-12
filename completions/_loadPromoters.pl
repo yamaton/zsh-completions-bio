@@ -1,20 +1,9 @@
-#compdef _loadPromoters.pl loadPromoters.pl
+#compdef loadPromoters.pl
 
 # Auto-generated with h2o
 
-
 function _loadPromoters.pl {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-name[used to refer to it later with findMotifs.pl]' \
         '-org[Name of organism, ok to set to '\''null'\'' if not in HOMER]' \
         '-id[specify one: gene, refseq, unigene, ensembl or custom]' \
@@ -29,17 +18,9 @@ function _loadPromoters.pl {
         '-dist[Distance between promoters to consider redundant, default: 500]' \
         '-fasta[FASTA file of promoter regions Each promoter should be the same length with only the ID after each ">" FASTA Files will be considered "masked" so that it will be the default option]':file:_files \
         '-offset[offset of the first base, i.e. -1000 for 1kb upstream]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_loadPromoters.pl "$@"
 

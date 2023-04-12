@@ -1,33 +1,14 @@
-#compdef _rsem-simulate-reads rsem-simulate-reads
+#compdef rsem-simulate-reads
 
 # Auto-generated with h2o
 
-
 function _rsem-simulate-reads {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--seed[Set seed for the random number generator used in simulation. The seed should be a 32-bit unsigned integer.]' \
         '-q[Set it will stop outputting intermediate information.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_rsem-simulate-reads "$@"
 

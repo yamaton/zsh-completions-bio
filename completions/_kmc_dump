@@ -1,33 +1,14 @@
-#compdef _kmc_dump kmc_dump
+#compdef kmc_dump
 
 # Auto-generated with h2o
 
-
 function _kmc_dump {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-ci[exclude k-mers occurring less than <value> times]' \
         '-cx[exclude k-mers occurring more of than <value> times]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_kmc_dump "$@"
 

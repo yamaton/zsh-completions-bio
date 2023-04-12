@@ -1,20 +1,9 @@
-#compdef _miniasm miniasm
+#compdef miniasm
 
 # Auto-generated with h2o
 
-
 function _miniasm {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-R[prefilter clearly contained reads (2-pass required)]' \
         '-m[min match length \[100\]]' \
         '-i[min identity \[0.05\]]' \
@@ -35,17 +24,9 @@ function _miniasm {
         '-1[skip 1-pass read selection]' \
         '-2[skip 2-pass read selection]' \
         '-V[print version number]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_miniasm "$@"
 

@@ -1,20 +1,9 @@
-#compdef _hifiasm hifiasm
+#compdef hifiasm
 
 # Auto-generated with h2o
 
-
 function _hifiasm {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-o[Prefix of output files \[hifiasm.asm\]. For detailed description of all assembly graphs, please see the OUTPUTS section of this man-page.]':file:_files \
         '-t[Number of CPU threads used by hifiasm \[1\].]' \
         '-h[Show help information.]' \
@@ -62,17 +51,9 @@ function _hifiasm {
         '--f-perturb[Fraction to flip for perturbation \[0.1\]. Increasing this may improves phasing results but takes longer time.]' \
         '--l-msjoin[Detect misjoined unitigs of >= INT in size; 0 to disable \[500000\].]' \
         '--seed[RNG seed \[11\].]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_hifiasm "$@"
 

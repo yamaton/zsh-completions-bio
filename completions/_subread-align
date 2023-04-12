@@ -1,20 +1,9 @@
-#compdef _subread-align subread-align
+#compdef subread-align
 
 # Auto-generated with h2o
 
-
 function _subread-align {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-i[Base name of the index.]' \
         '-r[Name of an input read file. If paired-end, this should be the first read file (typically containing "R1"in the file name) and the second should be provided via "-R". Acceptable formats include gzipped FASTQ, FASTQ, gzipped FASTA and FASTA. These formats are identified automatically.]' \
         '-t[Type of input sequencing data. Its values include]' \
@@ -53,17 +42,9 @@ function _subread-align {
         '--gtfFeature[Specify feature type in GTF annotation. '\''exon'\''   by default. Features used for read counting will be extracted from annotation using the provided value.]' \
         '--gtfAttr[Specify attribute type in GTF annotation. '\''gene_id'\''   by default. Meta-features used for read counting will be extracted from annotation using the provided value.]' \
         '-v[Output version of the program.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_subread-align "$@"
 

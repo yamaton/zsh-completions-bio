@@ -1,20 +1,9 @@
-#compdef _assess_assembly assess_assembly
+#compdef assess_assembly
 
 # Auto-generated with h2o
 
-
 function _assess_assembly {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[show this help text.]' \
         '-r[reference, should be a fasta file. If correspondng minimap2 indices do not exist they will be created. (required).]' \
         '-i[fastq/a input assembly (required).]':file:_files \
@@ -29,17 +18,9 @@ function _assess_assembly {
         '-e[use with -l option to create a .bed file to exclude indels. If the -b option is used, the two bed files will be combined.]' \
         '-y[include supplementary alignments.]' \
         '-a[accumulate the stats over a number of chunks, can include multiple values separated by comma, one summary file will be generated for each value \[default: 10,100\].]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_assess_assembly "$@"
 

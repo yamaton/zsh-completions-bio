@@ -1,20 +1,9 @@
-#compdef _esummary esummary
+#compdef esummary
 
 # Auto-generated with h2o
 
-
 function _esummary {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-format[Format of record or report. (See -help output for examples.)]' \
         '-mode[text, xml, asn.1, or json.]' \
         '-style[withparts or conwithfeat.]' \
@@ -31,17 +20,9 @@ function _esummary {
         '-raw[Skip database-specific XML modifications.]' \
         '-json[Convert adjusted XML output to JSON.]' \
         '-help[Print usage information, complete with examples of notable -db/-format/-mode combinations.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_esummary "$@"
 

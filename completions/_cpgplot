@@ -1,20 +1,9 @@
-#compdef _cpgplot cpgplot
+#compdef cpgplot
 
 # Auto-generated with h2o
 
-
 function _cpgplot {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-sequence[Nucleotide sequence(s) filename and optional format, or reference (input USA)]' \
         '-window[\[100\] The percentage CG content and the Observed frequency of CG is calculated within a window whose size is set by this parameter. The window is moved down the sequence and these statistics are calculated at each position that the window is moved to. (Integer 1 or more)]' \
         '-minlen[\[200\] This sets the minimum length that a CpG island has to be before it is reported. (Integer 1 or more)]' \
@@ -32,17 +21,9 @@ function _cpgplot {
         '-pc[If this is set to true then the graph of the percentage C plus G within a window is displayed.]' \
         '-nopc[If this is set to true then the graph of the percentage C plus G within a window is displayed.]' \
         '-help[Report command line options and exit. More information on associated and general qualifiers can be found with -help -verbose]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_cpgplot "$@"
 

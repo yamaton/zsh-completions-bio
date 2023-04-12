@@ -1,20 +1,9 @@
-#compdef _plink plink
+#compdef plink
 
 # Auto-generated with h2o
 
-
 function _plink {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--bfile[Specify .bed + .bim + .fam prefix (default '\''plink'\'').]' \
         '--bed[Specify full name of .bed file.]':file:_files \
         '--bim[Specify full name of .bim file.]':file:_files \
@@ -406,17 +395,9 @@ function _plink {
         '--native[Allow Intel MKL to use processor-dependent code paths.]' \
         '--output-min-p[Specify minimum p-value to write to reports.]' \
         '--debug[Use slower, more crash-resistant logging method.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_plink "$@"
 

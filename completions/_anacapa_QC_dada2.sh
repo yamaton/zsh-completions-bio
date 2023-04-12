@@ -1,20 +1,9 @@
-#compdef _anacapa anacapa
+#compdef anacapa
 
 # Auto-generated with h2o
 
-
 function _anacapa {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-i[path to .fastq.gz files, if files are already compressed use flag -g (see below)]':file:_files \
         '-o[path to output directory]':file:_files \
         '-d[path to Anacapa_db]':file:_files \
@@ -35,17 +24,9 @@ function _anacapa {
         '-e[File path to a list of minimum length(s) reqired for paired F and R reads to overlap (length of the locus - primer length + 20 bp). The user should take into account variability in amplicon region (e.g.The amplicon size for 18S 1389f-1510r is ~260 +/- 50 bp) and make appropriate allowances. e.g. LENGTH_16S=235]':file:_files \
         '-k[Path to file with alternate HPC job submission parameters:   default file = ~/Anacapa_db/scripts/Hoffman2_HPC_header.sh modifiable template file = ~/Anacapa_db/scripts/anacapa_qsub_templates.sh]':file:_files \
         '-h[Shows program usage then quits]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_anacapa "$@"
 

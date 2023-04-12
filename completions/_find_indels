@@ -1,37 +1,18 @@
-#compdef _find_indels find_indels
+#compdef find_indels
 
 # Auto-generated with h2o
 
-
 function _find_indels {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-m,--min_indel_length}'[Filter out indels shorter than this length. (default: 0)]' \
         {-a,--all_alignments}'[Include secondary and supplementary alignments. (default: False)]' \
         {-o,--output}'[Output indels to file instead of stdout. (default: <_io.TextIOWrapper name='\''<stdout>'\'' mode='\''w'\'' encoding='\''utf-8'\''>)]' \
         {-b,--bed}'[Additionaly output a .bed file. (default: None)]' \
         {-t,--threads}'[Number of threads for parallel processing. (default: 1)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_find_indels "$@"
 

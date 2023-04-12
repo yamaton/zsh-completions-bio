@@ -1,20 +1,9 @@
-#compdef _polypolish polypolish
+#compdef polypolish
 
 # Auto-generated with h2o
 
-
 function _polypolish {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-d,--min_depth}'[A base must occur at least this many times in the pileup to be considered valid \[default: 5\]]' \
         '--debug[Optional file to store per-base information for debugging purposes]' \
         {-h,--help}'[Print help information]' \
@@ -22,17 +11,9 @@ function _polypolish {
         {-m,--max_errors}'[Ignore alignments with more than this many mismatches and indels \[default: 10\]]' \
         {-v,--fraction_valid}'[A base must make up at least this fraction of the read depth to be considered valid \[default: 0.5\]]' \
         {-V,--version}'[Print version information]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_polypolish "$@"
 

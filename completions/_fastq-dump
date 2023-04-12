@@ -1,20 +1,9 @@
-#compdef _fastq-dump fastq-dump
+#compdef fastq-dump
 
 # Auto-generated with h2o
 
-
 function _fastq-dump {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-A,--accession}'[Replaces accession derived from <path> in filename(s) and deflines (only for single table dump)]' \
         '--table[Table name within cSRA object, default is "SEQUENCE"]' \
         '--split-spot[Split spots into individual reads]' \
@@ -59,17 +48,9 @@ function _fastq-dump {
         {-L,--log-level}'[Logging level as number or enum string. One of (fatal|sys|int|err|warn|info|debug) or (0-6) Current/default is warn]' \
         '--option-file[Read more options and parameters from the file.]':file:_files \
         {-h,--help}'[print this message]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_fastq-dump "$@"
 

@@ -1,20 +1,9 @@
-#compdef _fastqp fastqp
+#compdef fastqp
 
 # Auto-generated with h2o
 
-
 function _fastqp {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-q,--quiet}'[do not print any messages (default: False)]' \
         {-s,--binsize}'[number of reads to bin for sampling (default: auto)]' \
@@ -31,17 +20,9 @@ function _fastqp {
         '--aligned-only[only aligned reads (default: False)]' \
         '--unaligned-only[only unaligned reads (default: False)]' \
         {-d,--count-duplicates}'[calculate sequence duplication rate (default: False)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_fastqp "$@"
 

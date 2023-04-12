@@ -1,20 +1,9 @@
-#compdef _brename brename
+#compdef brename
 
 # Auto-generated with h2o
 
-
 function _brename {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-d,--dry-run}'[print rename operations but do not run]' \
         {-F,--exclude-filters}'[exclude file filter(s) (regular expression, NOT wildcard). multiple values supported, e.g., -F ".html" -F ".htm", but ATTENTION: comma in filter is treated as separator of multiple filters]' \
         {-U,--force-undo}'[continue undo even when some operations failed]' \
@@ -43,17 +32,9 @@ function _brename {
         {-u,--undo}'[undo the LAST successful operation]' \
         {-v,--verbose}'[verbose level (0 for all, 1 for warning and error, 2 for only error) (default 0)]' \
         {-V,--version}'[print version information and check for update]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_brename "$@"
 

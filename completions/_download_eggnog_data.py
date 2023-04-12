@@ -1,20 +1,9 @@
-#compdef _download_eggnog_data.py download_eggnog_data.py
+#compdef download_eggnog_data.py
 
 # Auto-generated with h2o
 
-
 function _download_eggnog_data.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '-D[Do not install the diamond database (default: False)]' \
         '-F[Install the novel families diamond database, required for "emapper.py -m novel_fams" (default: False)]' \
@@ -27,17 +16,9 @@ function _download_eggnog_data.py {
         '-s[simulate and print commands. Nothing is downloaded (default: False)]' \
         '-q[quiet_mode (default: False)]' \
         '--data_dir[Directory to use for DATA_PATH. (default: None)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_download_eggnog_data.py "$@"
 

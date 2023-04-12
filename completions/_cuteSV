@@ -1,20 +1,9 @@
-#compdef _cuteSV cuteSV
+#compdef cuteSV
 
 # Auto-generated with h2o
 
-
 function _cuteSV {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {--version,-v}'[show program'\''s version number and exit]' \
         {-t,--threads}'[Number of threads to use.\[16\]]' \
@@ -43,17 +32,9 @@ function _cuteSV {
         '--max_cluster_bias_TRA[Maximum distance to cluster read together for translocation.\[50\]]' \
         '--diff_ratio_filtering_TRA[Filter breakpoints with basepair identity less than \[0.6\] for translocation.]' \
         '--remain_reads_ratio[The ratio of reads remained in cluster. Set lower when the alignment data have high quality but recommand over 0.5.\[1.0\]]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_cuteSV "$@"
 

@@ -1,20 +1,9 @@
-#compdef _delta-filter delta-filter
+#compdef delta-filter
 
 # Auto-generated with h2o
 
-
 function _delta-filter {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-1[1-to-1 alignment allowing for rearrangements (intersection of -r and -q alignments)]' \
         '-g[1-to-1 global alignment not allowing rearrangements]' \
         '-h[Display help information]' \
@@ -25,17 +14,9 @@ function _delta-filter {
         '-r[Maps each position of each reference to its best hit in the query, allowing for query overlaps]' \
         '-u[Set the minimum alignment uniqueness, i.e. percent of the alignment matching to unique reference AND query sequence \[0, 100\], default 0]' \
         '-o[Set the maximum alignment overlap for -r and -q options as a percent of the alignment length \[0, 100\], default 100]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_delta-filter "$@"
 

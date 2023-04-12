@@ -1,20 +1,9 @@
-#compdef _racon racon
+#compdef racon
 
 # Auto-generated with h2o
 
-
 function _racon {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-u,--include-unpolished}'[output unpolished target sequences]' \
         {-f,--fragment-correction}'[perform fragment correction instead of contig polishing (overlaps file should contain dual/self overlaps!)]' \
         {-w,--window-length}'[default: 500 size of window on which POA is performed]' \
@@ -27,17 +16,9 @@ function _racon {
         {-t,--threads}'[default: 1 number of threads]' \
         '--version[prints the version number]' \
         {-h,--help}'[prints the usage]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_racon "$@"
 

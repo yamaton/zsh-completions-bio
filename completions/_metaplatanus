@@ -1,20 +1,9 @@
-#compdef _metaplatanus metaplatanus
+#compdef metaplatanus
 
 # Auto-generated with h2o
 
-
 function _metaplatanus {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-IP[lib_id inward_pair_files (reads in 2 files, fasta or fastq; at least one library required)]' \
         '-OP[lib_id outward_pair_files (reads in 2 files, fasta or fastq; aka mate-pairs or jumping-library)]' \
         '-binning_IP[lib_id inward_pair_files for binning process. (reads in 2 files, fasta or fastq; the data are usually from another sample)]' \
@@ -37,17 +26,9 @@ function _metaplatanus {
         '-overwrite[overwrite the previous results, not re-start (default, off)]' \
         {-h,-help}'[display usage]' \
         {-v,-version}'[display version]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_metaplatanus "$@"
 

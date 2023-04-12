@@ -1,20 +1,9 @@
-#compdef _hypo hypo
+#compdef hypo
 
 # Auto-generated with h2o
 
-
 function _hypo {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-r,--reads-short}'[Input file name containing reads (in fasta/fastq format; can be compressed). A list of files containing file names in each line can be passed with @ prefix.]' \
         {-d,--draft}'[Input file name containing the draft contigs (in fasta/fastq format; can be compressed).]' \
         {-b,--bam-sr}'[Input file name containing the alignments of short reads against the draft (in bam/sam format; must have CIGAR information).]' \
@@ -35,17 +24,9 @@ function _hypo {
         {-q,--qual-map-th}'[Threshold for mapping quality of reads. The reads with mapping quality below this threshold will not be taken into consideration. \[Default\] 2.]' \
         {-i,--intermed}'[Store or use (if already exist) the intermediate files. \[Currently, only Solid kmers are stored as an intermediate file.\].]' \
         {-h,--help}'[Print the usage.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_hypo "$@"
 

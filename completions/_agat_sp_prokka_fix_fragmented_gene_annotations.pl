@@ -1,20 +1,9 @@
-#compdef _agat_sp_prokka_fix_fragmented_gene_annotations.pl agat_sp_prokka_fix_fragmented_gene_annotations.pl
+#compdef agat_sp_prokka_fix_fragmented_gene_annotations.pl
 
 # Auto-generated with h2o
 
-
 function _agat_sp_prokka_fix_fragmented_gene_annotations.pl {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--gff[Input genome GTF/GFF file. Mandatory.]' \
         {-f,--fa,--fasta}'[Input genome fasta file. Mandatory.]' \
         '--db[Input Uniprot fasta file used by prokka. Mandatory.]' \
@@ -26,17 +15,9 @@ function _agat_sp_prokka_fix_fragmented_gene_annotations.pl {
         {-o,--output,--out}'[Output folder. Mandatory.]' \
         '-v[verbose mode. Default off.]' \
         {-h,--help}'[Display this helpful text.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_agat_sp_prokka_fix_fragmented_gene_annotations.pl "$@"
 

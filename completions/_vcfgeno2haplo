@@ -1,36 +1,17 @@
-#compdef _vcfgeno2haplo vcfgeno2haplo
+#compdef vcfgeno2haplo
 
 # Auto-generated with h2o
 
-
 function _vcfgeno2haplo {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[Print this message]' \
         {-v,--version}'[Print version]' \
         {-r,--reference}'[FASTA reference file]':file:_files \
         {-w,--window-size}'[Merge variants at most this many bp apart (default 30)]' \
         {-o,--only-variants}'[Don'\''t output the entire haplotype, just concatenate REF/ALT strings (delimited by ":")]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_vcfgeno2haplo "$@"
 

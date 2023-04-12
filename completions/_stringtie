@@ -1,20 +1,9 @@
-#compdef _stringtie stringtie
+#compdef stringtie
 
 # Auto-generated with h2o
 
-
 function _stringtie {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--version[print just the version at stdout and exit]' \
         '--conservative[conservative transcript assembly, same as -t -c 1.5 -f 0.05]' \
         '--mix[both short and long read data alignments are provided (long read alignments must be the 2nd BAM/CRAM input file)]' \
@@ -57,17 +46,9 @@ function _stringtie {
         '-g[gap between transcripts to merge together (default: 250)]' \
         '-i[keep merged transcripts with retained introns; by default these are not kept unless there is strong evidence for them]' \
         '-l[name prefix for output transcripts (default: MSTRG)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_stringtie "$@"
 

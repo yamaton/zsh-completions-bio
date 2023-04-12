@@ -1,20 +1,9 @@
-#compdef _featureCounts featureCounts
+#compdef featureCounts
 
 # Auto-generated with h2o
 
-
 function _featureCounts {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-a[Name of an annotation file. GTF/GFF format by default. See -F option for more format information. Inbuilt annotations (SAF format) is available in '\''annotation'\'' directory of the package. Gzipped file is also accepted.]' \
         '-o[Name of output file including read counts. A separate file including summary statistics of counting results is also included in the output ('\''<string>.summary'\''). Both files are in tab delimited format.]' \
         '-F[Specify format of the provided annotation file. Acceptable formats include '\''GTF'\'' (or compatible GFF format) and '\''SAF'\''. '\''GTF'\'' by default. For SAF format, please refer to Users Guide.]' \
@@ -58,17 +47,9 @@ function _featureCounts {
         '--maxMOp[Maximum number of '\''M'\'' operations allowed in a CIGAR string. 10 by default. Both '\''X'\'' and '\''='\'' are treated as '\''M'\'' and adjacent '\''M'\'' operations are merged in the CIGAR string.]' \
         '--verbose[Output verbose information for debugging, such as unmatched chromosome/contig names.]' \
         '-v[Output version of the program.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_featureCounts "$@"
 

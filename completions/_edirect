@@ -1,20 +1,9 @@
-#compdef _edirect edirect
+#compdef edirect
 
 # Auto-generated with h2o
 
-
 function _edirect {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-help[Print usage information.]' \
         '-email[Send the given e-mail address to have someone to notify in case a runaway script causes problems with an NCBI Entrez server.]' \
         '-tool[Send the given client name.]' \
@@ -25,17 +14,9 @@ function _edirect {
         '-verbose[Display the ENTREZ_DIRECT XML field values at each step.]' \
         '-debug[Print the internal URL query and XML results of each step.]' \
         '-base[Specify a particular server for quality assurance testing.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_edirect "$@"
 

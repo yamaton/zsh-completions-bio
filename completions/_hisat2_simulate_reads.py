@@ -1,20 +1,9 @@
-#compdef _hisat2_simulate_reads.py hisat2_simulate_reads.py
+#compdef hisat2_simulate_reads.py
 
 # Auto-generated with h2o
 
-
 function _hisat2_simulate_reads.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-d,--dna}'[DNA-seq reads (default: RNA-seq reads)]' \
         '--single-end[single-end reads (default: paired-end reads)]' \
@@ -30,17 +19,9 @@ function _hisat2_simulate_reads.py {
         '--sanity-check[sanity check]' \
         {-v,--verbose}'[also print some statistics to stderr]' \
         '--version[show program'\''s version number and exit]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_hisat2_simulate_reads.py "$@"
 

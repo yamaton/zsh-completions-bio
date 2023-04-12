@@ -1,20 +1,9 @@
-#compdef _kmc kmc
+#compdef kmc
 
 # Auto-generated with h2o
 
-
 function _kmc {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-v[verbose mode (shows all parameter settings); default: false]' \
         '-k[k-mer length (k from 1 to 256; default: 25)]' \
         '-m[max amount of RAM in GB (from 1 to 1024); default: 12]' \
@@ -38,17 +27,9 @@ function _kmc {
         '-hp[hide percentage progress (default: false)]' \
         '-e[only estimate histogram of k-mers occurrences instead of exact k-mer counting]' \
         '--opt-out-size[optimize output database size (may increase running time)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_kmc "$@"
 

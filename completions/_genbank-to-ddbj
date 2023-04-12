@@ -1,20 +1,9 @@
-#compdef _genbank-to-ddbj genbank-to-ddbj
+#compdef genbank-to-ddbj
 
 # Auto-generated with h2o
 
-
 function _genbank-to-ddbj {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {--gbk,--gbff,--genbank}'[Input GenBank file]':file:_files \
         '--metadata[Input metadata in TOML describing COMMON and other entires]':file:_files \
@@ -24,17 +13,9 @@ function _genbank-to-ddbj {
         {-o,--out,--output}'[Specify annotation file name as output]':file:_files \
         {-v,--version}'[Show version]' \
         '--log[\[debug\] Choose log level from (DEBUG, INFO, WARNING, ERROR) (default: INFO).]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_genbank-to-ddbj "$@"
 

@@ -1,31 +1,12 @@
-#compdef _rsem-generate-data-matrix rsem-generate-data-matrix
+#compdef rsem-generate-data-matrix
 
 # Auto-generated with h2o
 
-
 function _rsem-generate-data-matrix {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+    _arguments \
+        "*: :_files"
 
 }
+
+_rsem-generate-data-matrix "$@"
 

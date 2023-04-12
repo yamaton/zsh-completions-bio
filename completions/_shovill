@@ -1,20 +1,9 @@
-#compdef _shovill shovill
+#compdef shovill
 
 # Auto-generated with h2o
 
-
 function _shovill {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--help[This help]' \
         '--version[Print version and exit]' \
         '--check[Check dependencies are installed]' \
@@ -38,17 +27,9 @@ function _shovill {
         '--noreadcorr[Disable read error correction (default: OFF)]' \
         '--nostitch[Disable read stitching (default: OFF)]' \
         '--nocorr[Disable post-assembly correction (default: OFF)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_shovill "$@"
 

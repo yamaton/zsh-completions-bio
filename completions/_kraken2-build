@@ -1,20 +1,9 @@
-#compdef _kraken2-build kraken2-build
+#compdef kraken2-build
 
 # Auto-generated with h2o
 
-
 function _kraken2-build {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--download-taxonomy[Download NCBI taxonomic information]' \
         '--download-library[Download partial library (TYPE = one of "archaea", "bacteria", "plasmid", "viral", "human", "fungi", "plant", "protozoa", "nr", "nt", "UniVec", "UniVec_Core")]' \
         '--special[Download and build a special database (TYPE = one of "greengenes", "silva", "rdp")]' \
@@ -36,17 +25,9 @@ function _kraken2-build {
         '--skip-maps[Avoids downloading accession number to taxid maps, used with --download-taxonomy.]' \
         '--load-factor[Proportion of the hash table to be populated (build task only; def: 0.7, must be between 0 and 1).]' \
         '--fast-build[Do not require database to be deterministically built when using multiple threads. This is faster, but does introduce variability in minimizer/LCA pairs. Used with --build and --standard options.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_kraken2-build "$@"
 

@@ -1,20 +1,9 @@
-#compdef _filtlong filtlong
+#compdef filtlong
 
 # Auto-generated with h2o
 
-
 function _filtlong {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-t,--target_bases}'[keep only the best reads up to this many total bases]' \
         {-p,--keep_percent}'[keep only this percentage of the best reads (measured by bases)]' \
         '--min_length[minimum length threshold]' \
@@ -32,17 +21,9 @@ function _filtlong {
         '--window_size[size of sliding window used when measuring window quality (default: 250)]' \
         '--verbose[verbose output to stderr with info for each read]' \
         '--version[display the program version and quit]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_filtlong "$@"
 

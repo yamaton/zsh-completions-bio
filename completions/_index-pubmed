@@ -1,33 +1,14 @@
-#compdef _index-pubmed index-pubmed
+#compdef index-pubmed
 
 # Auto-generated with h2o
 
-
 function _index-pubmed {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-path[Place the local archive in dir.]':file:_files \
         {-temp,-work,-working}'[Place intermediate subtrees in dir.]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_index-pubmed "$@"
 

@@ -1,20 +1,9 @@
-#compdef _bamPEFragmentSize bamPEFragmentSize
+#compdef bamPEFragmentSize
 
 # Auto-generated with h2o
 
-
 function _bamPEFragmentSize {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {--bamfiles,-b}'[List of BAM files to process]':file:_files \
         {--histogram,-hist,-o}'[Save a .png file with a histogram of the fragment length distribution.]':file:_files \
@@ -31,17 +20,9 @@ function _bamPEFragmentSize {
         '--outRawFragmentLengths[Save the fragment (or read if the input is single-end) length and their associated number of occurrences to a tab-separated file. Columns are length, number of occurrences, and the sample label.]':file:_files \
         '--verbose[Set if processing data messages are wanted.]' \
         '--version[show program'\''s version number and exit]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_bamPEFragmentSize "$@"
 

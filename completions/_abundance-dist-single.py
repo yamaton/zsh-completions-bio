@@ -1,20 +1,9 @@
-#compdef _abundance-dist-single.py abundance-dist-single.py
+#compdef abundance-dist-single.py
 
 # Auto-generated with h2o
 
-
 function _abundance-dist-single.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--version[show program'\''s version number and exit]' \
         '--info[print citation information]' \
         {-h,--help}'[show this help message and exit]' \
@@ -29,17 +18,9 @@ function _abundance-dist-single.py {
         {-s,--squash}'[Overwrite output file if it exists (default: False)]' \
         '--savegraph[Save the k-mer countgraph to the specified filename. (default: None)]':file:_files \
         {-f,--force}'[Override sanity checks (default: False)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_abundance-dist-single.py "$@"
 

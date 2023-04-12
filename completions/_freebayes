@@ -1,20 +1,9 @@
-#compdef _freebayes freebayes
+#compdef freebayes
 
 # Auto-generated with h2o
 
-
 function _freebayes {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[For a complete description of options.]' \
         '--haplotype-length[# naive variant calling: simply annotate observation counts of SNPs and indels]' \
         {-h,--help}'[Prints this help dialog.]' \
@@ -94,17 +83,9 @@ function _freebayes {
         {-=,--genotype-qualities}'[Calculate the marginal probability of genotypes and report as GQ in each sample field in the VCF output.]' \
         {-d,--debug}'[Print debugging output.]' \
         '-dd[Print more verbose debugging output (requires "make DEBUG")]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_freebayes "$@"
 

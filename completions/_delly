@@ -1,139 +1,6 @@
-#compdef _delly delly
+#compdef delly
 
 # Auto-generated with h2o
-
-    function _delly_call {
-        _arguments \
-            {-?,--help}'[show help message]' \
-            {-t,--svtype}'[SV type to compute \[DEL, INS, DUP, INV, BND, ALL\]]' \
-            {-g,--genome}'[genome fasta file]' \
-            {-x,--exclude}'[file with regions to exclude]' \
-            {-o,--outfile}'[BCF output file]' \
-            {-q,--map-qual}'[min. paired-end (PE) mapping quality]' \
-            {-r,--qual-tra}'[min. PE quality for translocation]' \
-            {-s,--mad-cutoff}'[insert size cutoff, median+s*MAD (deletions only)]' \
-            {-c,--minclip}'[min. clipping length]' \
-            {-z,--min-clique-size}'[min. PE/SR clique size]' \
-            {-m,--minrefsep}'[min. reference separation]' \
-            {-n,--maxreadsep}'[max. read separation]' \
-            {-v,--vcffile}'[input VCF/BCF file for genotyping]' \
-            {-u,--geno-qual}'[min. mapping quality for genotyping]' \
-            {-d,--dump}'[gzipped output file for SV-reads (optional)]' \
-            "*: :_files"
-
-    }
-
-    function _delly_merge {
-        _arguments \
-            {-?,--help}'[show help message]' \
-            {-o,--outfile}'[Merged SV BCF output file]' \
-            {-u,--chunks}'[max. chunk size to merge groups of BCF files]' \
-            {-a,--vaf}'[min. fractional ALT support]' \
-            {-v,--coverage}'[min. coverage]' \
-            {-m,--minsize}'[min. SV size]' \
-            {-n,--maxsize}'[max. SV size]' \
-            {-e,--cnvmode}'[Merge delly CNV files]' \
-            {-c,--precise}'[Filter sites for PRECISE]' \
-            {-p,--pass}'[Filter sites for PASS]' \
-            {-b,--bp-offset}'[max. breakpoint offset]' \
-            {-r,--rec-overlap}'[min. reciprocal overlap]' \
-            "*: :_files"
-
-    }
-
-    function _delly_filter {
-        _arguments \
-            {-?,--help}'[show help message]' \
-            {-f,--filter}'[Filter mode (somatic, germline)]' \
-            {-o,--outfile}'[Filtered SV BCF output file]' \
-            {-y,--quality}'[min. SV site quality]' \
-            {-a,--altaf}'[min. fractional ALT support]' \
-            {-m,--minsize}'[min. SV size]' \
-            {-n,--maxsize}'[max. SV size]' \
-            {-r,--ratiogeno}'[min. fraction of genotyped samples]' \
-            {-p,--pass}'[Filter sites for PASS]' \
-            {-s,--samples}'[Two-column sample file listing sample name and tumor or control]' \
-            {-v,--coverage}'[min. coverage in tumor]' \
-            {-c,--controlcontamination}'[max. fractional ALT support in control]' \
-            {-q,--gq}'[min. median GQ for carriers and non-carriers]' \
-            {-e,--rddel}'[max. read-depth ratio of carrier vs. non-carrier for a deletion]' \
-            {-u,--rddup}'[min. read-depth ratio of carrier vs. non-carrier for a duplication]' \
-            "*: :_files"
-
-    }
-
-    function _delly_lr {
-        _arguments \
-            {-?,--help}'[show help message]' \
-            {-t,--svtype}'[SV type to compute \[DEL, INS, DUP, INV, BND, ALL\]]' \
-            {-y,--technology}'[seq. technology \[pb, ont\]]' \
-            {-g,--genome}'[genome fasta file]' \
-            {-x,--exclude}'[file with regions to exclude]' \
-            {-o,--outfile}'[BCF output file]' \
-            {-q,--mapqual}'[min. mapping quality]' \
-            {-c,--minclip}'[min. clipping length]' \
-            {-z,--min-clique-size}'[min. clique size]' \
-            {-m,--minrefsep}'[min. reference separation]' \
-            {-n,--maxreadsep}'[max. read separation]' \
-            {-p,--max-reads}'[max. reads for consensus computation]' \
-            {-f,--flank-size}'[min. flank size]' \
-            {-a,--flank-quality}'[min. flank quality]' \
-            {-i,--indel-size}'[use exact alleles for InDels <10kbp]' \
-            {-r,--max-isize}'[max. insertion size]' \
-            {-v,--vcffile}'[input VCF/BCF file for genotyping]' \
-            {-u,--geno-qual}'[min. mapping quality for genotyping]' \
-            {-d,--dump}'[gzipped output file for SV-reads]' \
-            "*: :_files"
-
-    }
-
-    function _delly_cnv {
-        _arguments \
-            {-?,--help}'[show help message]' \
-            {-g,--genome}'[genome file]' \
-            {-q,--quality}'[min. mapping quality]' \
-            {-m,--mappability}'[input mappability map]' \
-            {-y,--ploidy}'[baseline ploidy]' \
-            {-o,--outfile}'[BCF output file]' \
-            {-c,--covfile}'[gzipped coverage file]' \
-            {-x,--sdrd}'[min. SD read-depth shift]' \
-            {-t,--cn-offset}'[min. CN offset]' \
-            {-z,--cnv-size}'[min. CNV size]' \
-            {-l,--svfile}'[delly SV file for breakpoint refinement]' \
-            {-v,--vcffile}'[input VCF/BCF file for re-genotyping]' \
-            {-u,--segmentation}'[copy-number segmentation]' \
-            {-i,--window-size}'[window size]' \
-            {-j,--window-offset}'[window offset]' \
-            {-b,--bed-intervals}'[input BED file]' \
-            {-k,--fraction-window}'[min. callable window fraction \[0,1\]]' \
-            {-a,--adaptive-windowing}'[use mappable bases for window size]' \
-            {-w,--scan-window}'[scanning window size]' \
-            {-f,--fraction-unique}'[uniqueness filter for scan windows \[0,1\]]' \
-            {-r,--scan-regions}'[scanning regions in BED format]' \
-            {-d,--mad-cutoff}'[median + 3 * mad count cutoff]' \
-            {-p,--percentile}'[excl. extreme GC fraction]' \
-            {-n,--no-window-selection}'[no scan window selection]' \
-            "*: :_files"
-
-    }
-
-    function _delly_classify {
-        _arguments \
-            {-?,--help}'[show help message]' \
-            {-f,--filter}'[Filter mode (somatic, germline)]' \
-            {-o,--outfile}'[Filtered CNV BCF output file]' \
-            {-m,--minsize}'[min. CNV size]' \
-            {-n,--maxsize}'[max. CNV size]' \
-            {-p,--pass}'[Filter sites for PASS]' \
-            {-s,--samples}'[Two-column sample file listing sample name and tumor or control]' \
-            {-e,--pgerm}'[probability germline]' \
-            {-t,--cn-offset}'[min. CN offset]' \
-            {-y,--ploidy}'[baseline ploidy]' \
-            {-q,--qual}'[min. site quality]' \
-            {-x,--maxsd}'[max. population SD]' \
-            "*: :_files"
-
-    }
 
 
 function _delly {
@@ -192,4 +59,139 @@ function _delly {
      esac
 
 }
+
+function _delly_call {
+    _arguments \
+        {-?,--help}'[show help message]' \
+        {-t,--svtype}'[SV type to compute \[DEL, INS, DUP, INV, BND, ALL\]]' \
+        {-g,--genome}'[genome fasta file]' \
+        {-x,--exclude}'[file with regions to exclude]' \
+        {-o,--outfile}'[BCF output file]' \
+        {-q,--map-qual}'[min. paired-end (PE) mapping quality]' \
+        {-r,--qual-tra}'[min. PE quality for translocation]' \
+        {-s,--mad-cutoff}'[insert size cutoff, median+s*MAD (deletions only)]' \
+        {-c,--minclip}'[min. clipping length]' \
+        {-z,--min-clique-size}'[min. PE/SR clique size]' \
+        {-m,--minrefsep}'[min. reference separation]' \
+        {-n,--maxreadsep}'[max. read separation]' \
+        {-v,--vcffile}'[input VCF/BCF file for genotyping]' \
+        {-u,--geno-qual}'[min. mapping quality for genotyping]' \
+        {-d,--dump}'[gzipped output file for SV-reads (optional)]' \
+        "*: :_files"
+
+}
+
+function _delly_merge {
+    _arguments \
+        {-?,--help}'[show help message]' \
+        {-o,--outfile}'[Merged SV BCF output file]' \
+        {-u,--chunks}'[max. chunk size to merge groups of BCF files]' \
+        {-a,--vaf}'[min. fractional ALT support]' \
+        {-v,--coverage}'[min. coverage]' \
+        {-m,--minsize}'[min. SV size]' \
+        {-n,--maxsize}'[max. SV size]' \
+        {-e,--cnvmode}'[Merge delly CNV files]' \
+        {-c,--precise}'[Filter sites for PRECISE]' \
+        {-p,--pass}'[Filter sites for PASS]' \
+        {-b,--bp-offset}'[max. breakpoint offset]' \
+        {-r,--rec-overlap}'[min. reciprocal overlap]' \
+        "*: :_files"
+
+}
+
+function _delly_filter {
+    _arguments \
+        {-?,--help}'[show help message]' \
+        {-f,--filter}'[Filter mode (somatic, germline)]' \
+        {-o,--outfile}'[Filtered SV BCF output file]' \
+        {-y,--quality}'[min. SV site quality]' \
+        {-a,--altaf}'[min. fractional ALT support]' \
+        {-m,--minsize}'[min. SV size]' \
+        {-n,--maxsize}'[max. SV size]' \
+        {-r,--ratiogeno}'[min. fraction of genotyped samples]' \
+        {-p,--pass}'[Filter sites for PASS]' \
+        {-s,--samples}'[Two-column sample file listing sample name and tumor or control]' \
+        {-v,--coverage}'[min. coverage in tumor]' \
+        {-c,--controlcontamination}'[max. fractional ALT support in control]' \
+        {-q,--gq}'[min. median GQ for carriers and non-carriers]' \
+        {-e,--rddel}'[max. read-depth ratio of carrier vs. non-carrier for a deletion]' \
+        {-u,--rddup}'[min. read-depth ratio of carrier vs. non-carrier for a duplication]' \
+        "*: :_files"
+
+}
+
+function _delly_lr {
+    _arguments \
+        {-?,--help}'[show help message]' \
+        {-t,--svtype}'[SV type to compute \[DEL, INS, DUP, INV, BND, ALL\]]' \
+        {-y,--technology}'[seq. technology \[pb, ont\]]' \
+        {-g,--genome}'[genome fasta file]' \
+        {-x,--exclude}'[file with regions to exclude]' \
+        {-o,--outfile}'[BCF output file]' \
+        {-q,--mapqual}'[min. mapping quality]' \
+        {-c,--minclip}'[min. clipping length]' \
+        {-z,--min-clique-size}'[min. clique size]' \
+        {-m,--minrefsep}'[min. reference separation]' \
+        {-n,--maxreadsep}'[max. read separation]' \
+        {-p,--max-reads}'[max. reads for consensus computation]' \
+        {-f,--flank-size}'[min. flank size]' \
+        {-a,--flank-quality}'[min. flank quality]' \
+        {-i,--indel-size}'[use exact alleles for InDels <10kbp]' \
+        {-r,--max-isize}'[max. insertion size]' \
+        {-v,--vcffile}'[input VCF/BCF file for genotyping]' \
+        {-u,--geno-qual}'[min. mapping quality for genotyping]' \
+        {-d,--dump}'[gzipped output file for SV-reads]' \
+        "*: :_files"
+
+}
+
+function _delly_cnv {
+    _arguments \
+        {-?,--help}'[show help message]' \
+        {-g,--genome}'[genome file]' \
+        {-q,--quality}'[min. mapping quality]' \
+        {-m,--mappability}'[input mappability map]' \
+        {-y,--ploidy}'[baseline ploidy]' \
+        {-o,--outfile}'[BCF output file]' \
+        {-c,--covfile}'[gzipped coverage file]' \
+        {-x,--sdrd}'[min. SD read-depth shift]' \
+        {-t,--cn-offset}'[min. CN offset]' \
+        {-z,--cnv-size}'[min. CNV size]' \
+        {-l,--svfile}'[delly SV file for breakpoint refinement]' \
+        {-v,--vcffile}'[input VCF/BCF file for re-genotyping]' \
+        {-u,--segmentation}'[copy-number segmentation]' \
+        {-i,--window-size}'[window size]' \
+        {-j,--window-offset}'[window offset]' \
+        {-b,--bed-intervals}'[input BED file]' \
+        {-k,--fraction-window}'[min. callable window fraction \[0,1\]]' \
+        {-a,--adaptive-windowing}'[use mappable bases for window size]' \
+        {-w,--scan-window}'[scanning window size]' \
+        {-f,--fraction-unique}'[uniqueness filter for scan windows \[0,1\]]' \
+        {-r,--scan-regions}'[scanning regions in BED format]' \
+        {-d,--mad-cutoff}'[median + 3 * mad count cutoff]' \
+        {-p,--percentile}'[excl. extreme GC fraction]' \
+        {-n,--no-window-selection}'[no scan window selection]' \
+        "*: :_files"
+
+}
+
+function _delly_classify {
+    _arguments \
+        {-?,--help}'[show help message]' \
+        {-f,--filter}'[Filter mode (somatic, germline)]' \
+        {-o,--outfile}'[Filtered CNV BCF output file]' \
+        {-m,--minsize}'[min. CNV size]' \
+        {-n,--maxsize}'[max. CNV size]' \
+        {-p,--pass}'[Filter sites for PASS]' \
+        {-s,--samples}'[Two-column sample file listing sample name and tumor or control]' \
+        {-e,--pgerm}'[probability germline]' \
+        {-t,--cn-offset}'[min. CN offset]' \
+        {-y,--ploidy}'[baseline ploidy]' \
+        {-q,--qual}'[min. site quality]' \
+        {-x,--maxsd}'[max. population SD]' \
+        "*: :_files"
+
+}
+
+_delly "$@"
 

@@ -1,20 +1,9 @@
-#compdef _prokka prokka
+#compdef prokka
 
 # Auto-generated with h2o
 
-
 function _prokka {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--dbdir[Prokka database root folders]' \
         '--listdb[List all configured databases]' \
         '--setupdb[Index all installed databases]' \
@@ -60,17 +49,9 @@ function _prokka {
         '--citation[Print citation for referencing Prokka]' \
         '--quiet[No screen output (default OFF)]' \
         '--debug[Debug mode: keep all temporary files (default OFF)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_prokka "$@"
 

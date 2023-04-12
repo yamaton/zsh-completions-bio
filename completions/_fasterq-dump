@@ -1,20 +1,9 @@
-#compdef _fasterq-dump fasterq-dump
+#compdef fasterq-dump
 
 # Auto-generated with h2o
 
-
 function _fasterq-dump {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-o,--outfile}'[full path of outputfile (overrides usage of current directory and given accession)]':file:_files \
         {-O,--outdir}'[path for outputfile (overrides usage of current directory, but uses given accession)]':file:_files \
         {-b,--bufsize}'[size of file-buffer (dflt=1MB, takes number or number and unit where unit is one of (K|M|G) case-insensitive)]' \
@@ -57,17 +46,9 @@ function _fasterq-dump {
         {-L,--log-level}'[Logging level as number or enum string. One of (fatal|sys|int|err|warn|info|debug) or (0-6) Current/default is warn]' \
         '--option-file[Read more options and parameters from the file.]':file:_files \
         {-h,--help}'[print this message]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_fasterq-dump "$@"
 

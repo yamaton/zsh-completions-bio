@@ -1,20 +1,9 @@
-#compdef _emapper.py emapper.py
+#compdef emapper.py
 
 # Auto-generated with h2o
 
-
 function _emapper.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-v,--version}'[show version and exit. (default: False)]' \
         '--list_taxa[List taxa available for --tax_scope/--tax_scope_mode, and exit (default: False)]' \
@@ -93,17 +82,9 @@ function _emapper.py {
         '--decorate_gff[Add search hits and/or annotation results to GFF file from gene prediction of a user specified one. no = no GFF decoration at all. GFF file from blastx-based gene prediction will be created anyway. yes = add search hits and/or annotations to GFF file from Prodigal or blastx-based gene prediction. FILE = decorate the specified pre-existing GFF FILE. e.g. --decorage_gff myfile.gff You change the field interpreted as ID of the feature with --decorate_gff_ID_field. (default: no)]' \
         '--decorate_gff_ID_field[Change the field used in GFF files as ID of the feature. (default: ID)]' \
         '--excel[Output annotations also in .xlsx format. (default: False)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_emapper.py "$@"
 

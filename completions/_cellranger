@@ -1,300 +1,6 @@
-#compdef _cellranger cellranger
+#compdef cellranger
 
 # Auto-generated with h2o
-
-    function _cellranger_count {
-        _arguments \
-            '--id[A unique run id and output folder name \[a-zA-Z0-9_-\]+]' \
-            '--description[Sample description to embed in output files \[default: \]]' \
-            '--transcriptome[Path of folder containing 10x-compatible transcriptome reference]':file:_files \
-            '--fastqs[Path to input FASTQ data]':file:_files \
-            '--project[Name of the project folder within a mkfastq or bcl2fastq-generated folder from which to pick FASTQs]' \
-            '--sample[Prefix of the filenames of FASTQs to select]' \
-            '--lanes[Only use FASTQs from selected lanes]' \
-            '--libraries[CSV file declaring input library data sources]' \
-            '--feature-ref[Feature reference CSV file, declaring Feature Barcode constructs and associated barcodes]' \
-            '--target-panel[The target panel CSV file declaring the target panel used, if any. Default analysis will exclude intronic mapped reads, which is the recommended mode for targeted assay. Use include-introns=true to include intronic mapped reads in analysis]' \
-            '--expect-cells[Expected number of recovered cells, used as input to cell calling algorithm]' \
-            '--force-cells[Force pipeline to use this number of cells, bypassing cell calling algorithm. \[MINIMUM: 10\]]' \
-            '--no-bam[Set --no-bam to not generate the BAM file. This will reduce the total computation time for the pipestance and the size of the output directory. If unsure, we recommend not to use this option. BAM file could be useful for troubleshooting and downstream analysis]' \
-            '--nosecondary[Disable secondary analysis, e.g. clustering. Optional]' \
-            '--r1-length[Hard trim the input Read 1 to this length before analysis]' \
-            '--r2-length[Hard trim the input Read 2 to this length before analysis]' \
-            '--include-introns[Include intronic reads in count (default=true unless --target-panel is specified in which case default=false)]' \
-            '--chemistry[Assay configuration. NOTE: by default the assay configuration is detected automatically, which is the recommened mode. You usually will not need to specify a chemistry. Options are: '\''auto'\'' for autodetection, '\''threeprime'\'' for Single Cell 3'\'', '\''fiveprime'\'' for Single Cell 5'\'', '\''SC3Pv1'\'' or '\''SC3Pv2'\'' or '\''SC3Pv3'\'' for Single Cell 3'\'' v1/v2/v3, '\''SC3Pv3LT'\'' for Single Cell 3'\'' v3 LT, '\''SC3Pv3HT'\'' for Single Cell 3'\'' v3 HT, '\''SC5P-PE'\'' or '\''SC5P-R2'\'' for Single Cell 5'\'', paired-end/R2-only, '\''SC-FB'\'' for Single Cell Antibody-only 3'\'' v2 or 5'\'' \[default: auto\]]' \
-            '--no-libraries[Proceed with processing using a --feature-ref but no Feature Barcode libraries specified with the '\''libraries'\'' flag]' \
-            '--check-library-compatibility[Whether to check for barcode compatibility between libraries. \[default: true\]]' \
-            '--no-target-umi-filter[Turn off the target UMI filtering subpipeline. Only applies when --target-panel is used]' \
-            '--dry[Do not execute the pipeline. Generate a pipeline invocation (.mro) file and stop]' \
-            '--jobmode[Job manager to use. Valid options: local (default), sge, lsf, slurm or path to a .template file. Search for help on "Cluster Mode" at support.10xgenomics.com for more details on configuring the pipeline to use a compute cluster \[default: local\]]' \
-            '--localcores[Set max cores the pipeline may request at one time. Only applies to local jobs]' \
-            '--localmem[Set max GB the pipeline may request at one time. Only applies to local jobs]' \
-            '--localvmem[Set max virtual address space in GB for the pipeline. Only applies to local jobs]' \
-            '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only applies to cluster jobmodes]' \
-            '--maxjobs[Set max jobs submitted to cluster at one time. Only applies to cluster jobmodes]' \
-            '--jobinterval[Set delay between submitting jobs to cluster, in ms. Only applies to cluster jobmodes]' \
-            '--overrides[The path to a JSON file that specifies stage-level overrides for cores and memory. Finer-grained than --localcores, --mempercore and --localmem. Consult https://support.10xgenomics.com/ for an example override file]':file:_files \
-            '--uiport[Serve web UI at http://localhost:PORT]' \
-            '--disable-ui[Do not serve the web UI]' \
-            '--noexit[Keep web UI running after pipestance completes or fails]' \
-            '--nopreflight[Skip preflight checks]' \
-            {-h,--help}'[Print help information]' \
-            "*: :_files"
-
-    }
-
-    function _cellranger_multi {
-        _arguments \
-            '--id[A unique run id and output folder name \[a-zA-Z0-9_-\]+]' \
-            '--description[Sample description to embed in output files \[default: \]]' \
-            '--csv[Path of CSV file enumerating input libraries and analysis parameters]' \
-            '--dry[Do not execute the pipeline. Generate a pipeline invocation (.mro) file and stop]' \
-            '--jobmode[Job manager to use. Valid options: local (default), sge, lsf, slurm or path to a .template file. Search for help on "Cluster Mode" at support.10xgenomics.com for more details on configuring the pipeline to use a compute cluster \[default: local\]]' \
-            '--localcores[Set max cores the pipeline may request at one time. Only applies to local jobs]' \
-            '--localmem[Set max GB the pipeline may request at one time. Only applies to local jobs]' \
-            '--localvmem[Set max virtual address space in GB for the pipeline. Only applies to local jobs]' \
-            '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only applies to cluster jobmodes]' \
-            '--maxjobs[Set max jobs submitted to cluster at one time. Only applies to cluster jobmodes]' \
-            '--jobinterval[Set delay between submitting jobs to cluster, in ms. Only applies to cluster jobmodes]' \
-            '--overrides[The path to a JSON file that specifies stage-level overrides for cores and memory. Finer-grained than --localcores, --mempercore and --localmem. Consult https://support.10xgenomics.com/ for an example override file]':file:_files \
-            '--uiport[Serve web UI at http://localhost:PORT]' \
-            '--disable-ui[Do not serve the web UI]' \
-            '--noexit[Keep web UI running after pipestance completes or fails]' \
-            '--nopreflight[Skip preflight checks]' \
-            {-h,--help}'[Print help information]' \
-            "*: :_files"
-
-    }
-
-    function _cellranger_vdj {
-        _arguments \
-            '--id[A unique run id and output folder name \[a-zA-Z0-9_-\]+]' \
-            '--description[Sample description to embed in output files \[default: \]]' \
-            '--reference[Path of folder containing 10x-compatible VDJ reference. Optional if '\''--denovo'\'' is specified]':file:_files \
-            '--fastqs[Path to input FASTQ data]':file:_files \
-            '--project[Name of the project folder within a mkfastq or bcl2fastq-generated folder to pick FASTQs from]' \
-            '--sample[Prefix of the filenames of FASTQs to select]' \
-            '--lanes[Only use FASTQs from selected lanes]' \
-            '--denovo[Run in reference-free mode (do not use annotations)]' \
-            '--chain[Chain type to display metrics for: '\''TR'\'' for T cell receptors, '\''IG'\'' for B cell receptors, or '\''auto'\'' to autodetect \[default: auto\]]' \
-            '--inner-enrichment-primers[If inner enrichment primers other than those provided in the 10x kits are used, they need to be specified here as a textfile with one primer per line. Disable secondary analysis, e.g. clustering]':file:_files \
-            '--dry[Do not execute the pipeline. Generate a pipeline invocation (.mro) file and stop]' \
-            '--jobmode[Job manager to use. Valid options: local (default), sge, lsf, slurm or path to a .template file. Search for help on "Cluster Mode" at support.10xgenomics.com for more details on configuring the pipeline to use a compute cluster \[default: local\]]' \
-            '--localcores[Set max cores the pipeline may request at one time. Only applies to local jobs]' \
-            '--localmem[Set max GB the pipeline may request at one time. Only applies to local jobs]' \
-            '--localvmem[Set max virtual address space in GB for the pipeline. Only applies to local jobs]' \
-            '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only applies to cluster jobmodes]' \
-            '--maxjobs[Set max jobs submitted to cluster at one time. Only applies to cluster jobmodes]' \
-            '--jobinterval[Set delay between submitting jobs to cluster, in ms. Only applies to cluster jobmodes]' \
-            '--overrides[The path to a JSON file that specifies stage-level overrides for cores and memory. Finer-grained than --localcores, --mempercore and --localmem. Consult https://support.10xgenomics.com/ for an example override file]':file:_files \
-            '--uiport[Serve web UI at http://localhost:PORT]' \
-            '--disable-ui[Do not serve the web UI]' \
-            '--noexit[Keep web UI running after pipestance completes or fails]' \
-            '--nopreflight[Skip preflight checks]' \
-            {-h,--help}'[Print help information]' \
-            "*: :_files"
-
-    }
-
-    function _cellranger_aggr {
-        _arguments \
-            '--id[A unique run id and output folder name \[a-zA-Z0-9_-\]+]' \
-            '--description[Sample description to embed in output files \[default: \]]' \
-            '--csv[Path of CSV file enumerating '\''cellranger count/vdj/multi'\'' outputs]' \
-            '--normalize[Library depth normalization mode \[default: mapped\] \[possible values: mapped, none\]]' \
-            '--nosecondary[Disable secondary analysis, e.g. clustering]' \
-            '--dry[Do not execute the pipeline. Generate a pipeline invocation (.mro) file and stop]' \
-            '--jobmode[Job manager to use. Valid options: local (default), sge, lsf, slurm or path to a .template file. Search for help on "Cluster Mode" at support.10xgenomics.com for more details on configuring the pipeline to use a compute cluster \[default: local\]]' \
-            '--localcores[Set max cores the pipeline may request at one time. Only applies to local jobs]' \
-            '--localmem[Set max GB the pipeline may request at one time. Only applies to local jobs]' \
-            '--localvmem[Set max virtual address space in GB for the pipeline. Only applies to local jobs]' \
-            '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only applies to cluster jobmodes]' \
-            '--maxjobs[Set max jobs submitted to cluster at one time. Only applies to cluster jobmodes]' \
-            '--jobinterval[Set delay between submitting jobs to cluster, in ms. Only applies to cluster jobmodes]' \
-            '--overrides[The path to a JSON file that specifies stage-level overrides for cores and memory. Finer-grained than --localcores, --mempercore and --localmem. Consult https://support.10xgenomics.com/ for an example override file]':file:_files \
-            '--uiport[Serve web UI at http://localhost:PORT]' \
-            '--disable-ui[Do not serve the web UI]' \
-            '--noexit[Keep web UI running after pipestance completes or fails]' \
-            '--nopreflight[Skip preflight checks]' \
-            {-h,--help}'[Print help information]' \
-            "*: :_files"
-
-    }
-
-    function _cellranger_reanalyze {
-        _arguments \
-            '--id[A unique run id and output folder name \[a-zA-Z0-9_-\]+]' \
-            '--description[Sample description to embed in output files \[default: \]]' \
-            '--matrix[A feature-barcode matrix containing data for one genome. Should be the filtered version, unless using --force-cells]' \
-            '--params[A CSV file specifying analysis parameters. Optional]' \
-            '--barcodes[A CSV file containing a list of cell barcodes to use for reanalysis, e.g. barcodes exported from Loupe Browser. Optional]' \
-            '--genes[A CSV file containing a list of feature IDs to use for reanalysis. For gene expression, this should correspond to the gene_id field in the reference GTF should be \(e.g. ENSG... for ENSEMBL-based references\). Optional]' \
-            '--exclude-genes[A CSV file containing a list of feature IDs to exclude from reanalysis. For gene expression, this should correspond to the gene_id field in the reference GTF \(e.g., ENSG... for ENSEMBL-based references\). The exclusion is applied after --genes. Optional]' \
-            '--agg[If the input matrix was produced by '\''aggr'\'', you may pass the same aggregation CSV in order to retain per-library tag information in the resulting .cloupe file. This argument is required to enable chemistry batch correction. Optional]' \
-            '--force-cells[Force pipeline to use this number of cells, bypassing cell calling algorithm. \[MINIMUM: 10\]]' \
-            '--dry[Do not execute the pipeline. Generate a pipeline invocation (.mro) file and stop]' \
-            '--jobmode[Job manager to use. Valid options: local (default), sge, lsf, slurm or path to a .template file. Search for help on "Cluster Mode" at support.10xgenomics.com for more details on configuring the pipeline to use a compute cluster \[default: local\]]' \
-            '--localcores[Set max cores the pipeline may request at one time. Only applies to local jobs]' \
-            '--localmem[Set max GB the pipeline may request at one time. Only applies to local jobs]' \
-            '--localvmem[Set max virtual address space in GB for the pipeline. Only applies to local jobs]' \
-            '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only applies to cluster jobmodes]' \
-            '--maxjobs[Set max jobs submitted to cluster at one time. Only applies to cluster jobmodes]' \
-            '--jobinterval[Set delay between submitting jobs to cluster, in ms. Only applies to cluster jobmodes]' \
-            '--overrides[The path to a JSON file that specifies stage-level overrides for cores and memory. Finer-grained than --localcores, --mempercore and --localmem. Consult https://support.10xgenomics.com/ for an example override file]':file:_files \
-            '--uiport[Serve web UI at http://localhost:PORT]' \
-            '--disable-ui[Do not serve the web UI]' \
-            '--noexit[Keep web UI running after pipestance completes or fails]' \
-            '--nopreflight[Skip preflight checks]' \
-            {-h,--help}'[Print help information]' \
-            "*: :_files"
-
-    }
-
-    function _cellranger_targeted-compare {
-        _arguments \
-            '--id[A unique run id and output folder name \[a-zA-Z0-9_-\]+]' \
-            '--description[Sample description to embed in output files \[default: \]]' \
-            '--targeted[Path to the targeted molecule_info.h5 from a '\''count --targetpanel'\'' analysis run (targeted gene expression run)]' \
-            '--parent[Path to the parent molecule_info.h5 from a '\''count'\'' analysis run (parent unbiased gene expression run)]' \
-            '--target-panel[A CSV file declaring the target gene panel used in the targeted experiment. Must be the same target panel CSV file specified in the '\''count --target-panel'\'' analysis run]' \
-            '--dry[Do not execute the pipeline. Generate a pipeline invocation (.mro) file and stop]' \
-            '--jobmode[Job manager to use. Valid options: local (default), sge, lsf, slurm or path to a .template file. Search for help on "Cluster Mode" at support.10xgenomics.com for more details on configuring the pipeline to use a compute cluster \[default: local\]]' \
-            '--localcores[Set max cores the pipeline may request at one time. Only applies to local jobs]' \
-            '--localmem[Set max GB the pipeline may request at one time. Only applies to local jobs]' \
-            '--localvmem[Set max virtual address space in GB for the pipeline. Only applies to local jobs]' \
-            '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only applies to cluster jobmodes]' \
-            '--maxjobs[Set max jobs submitted to cluster at one time. Only applies to cluster jobmodes]' \
-            '--jobinterval[Set delay between submitting jobs to cluster, in ms. Only applies to cluster jobmodes]' \
-            '--overrides[The path to a JSON file that specifies stage-level overrides for cores and memory. Finer-grained than --localcores, --mempercore and --localmem. Consult https://support.10xgenomics.com/ for an example override file]':file:_files \
-            '--uiport[Serve web UI at http://localhost:PORT]' \
-            '--disable-ui[Do not serve the web UI]' \
-            '--noexit[Keep web UI running after pipestance completes or fails]' \
-            '--nopreflight[Skip preflight checks]' \
-            {-h,--help}'[Print help information]' \
-            "*: :_files"
-
-    }
-
-    function _cellranger_targeted-depth {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--molecule-h5[path to molecule_info.h5 file from a whole transcriptome analysis]' \
-            '--target-panel[path to target panel CSV file]' \
-            "*: :_files"
-
-    }
-
-    function _cellranger_mkvdjref {
-        _arguments \
-            '--ref-version[Optional reference version string to include.]' \
-            '--rm-transcripts[Path to text file with transcript IDs to ignore. This]':file:_files \
-            {-h,--help}'[Show this message.]' \
-            '--version[Show version.]' \
-            "*: :_files"
-
-    }
-
-    function _cellranger_mkfastq {
-        _arguments \
-            '--fastq-cluster-count[--minimum-trimmed-read-length]' \
-            '--run[Path of Illumina BCL run folder.]':file:_files \
-            '--id[Name of the folder created by mkfastq. If not supplied,]' \
-            {--csv,--samplesheet,--sample-sheet}'[Path to the sample sheet. The sample sheet can either be]':file:_files \
-            '--simple-csv[Deprecated. Same meaning as --csv.]':file:_files \
-            '--force-single-index[If 10x-supplied i7/i5 paired indices are specified,]' \
-            '--filter-single-index[Only demultiplex samples identified]' \
-            '--filter-dual-index[Only demultiplex samples identified]' \
-            '--rc-i2-override[Indicates if the bases in the I2 read are emitted as]' \
-            '--lanes[Comma-delimited series of lanes to demultiplex. Shortcut]' \
-            '--use-bases-mask[Same as bcl2fastq; override the read lengths as]' \
-            '--delete-undetermined[Delete the Undetermined FASTQ files left by bcl2fastq]' \
-            '--output-dir[Same as in bcl2fastq. Folder where FASTQs, reports and]':file:_files \
-            '--project[Custom project name, to override the samplesheet or to]' \
-            '--jobmode[Job manager to use. Valid options: local (default), sge,]' \
-            '--localcores[Set max cores the pipeline may request at one time. Only]' \
-            '--localmem[Set max GB the pipeline may request at one time. Only]' \
-            '--localvmem[Set max virtual address space in GB for the pipeline.]' \
-            '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only]' \
-            '--maxjobs[Set max jobs submitted to cluster at one time. Only]' \
-            '--jobinterval[Set delay between submitting jobs to cluster, in ms.]' \
-            '--overrides[The path to a JSON file that specifies stage-level]':file:_files \
-            '--uiport[Serve web UI at http://localhost:PORT]' \
-            '--disable-ui[Do not serve the UI.]' \
-            '--noexit[Keep web UI running after pipestance completes or fails.]' \
-            '--nopreflight[Skip preflight checks.]' \
-            {-h,--help}'[Show this message.]' \
-            '--version[Show version.]' \
-            "*: :_files"
-
-    }
-
-    function _cellranger_testrun {
-        _arguments \
-            '--id[A unique run id and output folder name \[a-zA-Z0-9_-\]+]' \
-            '--description[Sample description to embed in output files]' \
-            '--dry[Do not execute the pipeline. Generate a pipeline invocation (.mro) file and stop]' \
-            '--jobmode[Job manager to use. Valid options: local (default), sge, lsf, slurm or path to a .template file. Search for help on "Cluster Mode" at support.10xgenomics.com for more details on configuring the pipeline to use a compute cluster \[default: local\]]' \
-            '--localcores[Set max cores the pipeline may request at one time. Only applies to local jobs]' \
-            '--localmem[Set max GB the pipeline may request at one time. Only applies to local jobs]' \
-            '--localvmem[Set max virtual address space in GB for the pipeline. Only applies to local jobs]' \
-            '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only applies to cluster jobmodes]' \
-            '--maxjobs[Set max jobs submitted to cluster at one time. Only applies to cluster jobmodes]' \
-            '--jobinterval[Set delay between submitting jobs to cluster, in ms. Only applies to cluster jobmodes]' \
-            '--overrides[The path to a JSON file that specifies stage-level overrides for cores and memory. Finer-grained than --localcores, --mempercore and --localmem. Consult https://support.10xgenomics.com/ for an example override file]':file:_files \
-            '--uiport[Serve web UI at http://localhost:PORT]' \
-            '--disable-ui[Do not serve the web UI]' \
-            '--noexit[Keep web UI running after pipestance completes or fails]' \
-            '--nopreflight[Skip preflight checks]' \
-            {-h,--help}'[Print help information]' \
-            "*: :_files"
-
-    }
-
-    function _cellranger_mat2csv {
-        _arguments \
-            '--genome[Specify which genome to extract. This only applies to]' \
-            {-h,--help}'[Show this message.]' \
-            '--version[Show version.]' \
-            "*: :_files"
-
-    }
-
-    function _cellranger_mkref {
-        _arguments \
-            '--genome[Unique genome name(s), used to name output folder \[a-zA-Z0-9_-\]+. Specify multiple genomes by specifying the --genome argument multiple times; the output folder will be <name1>_and_<name2>.]' \
-            '--fasta[Path(s) to FASTA file containing your genome reference.]':file:_files \
-            '--genes[Path(s) to genes GTF file(S) containing annotated genes for your genome reference. Specify multiple genomes by specifying the --genes argument multiple times.]':file:_files \
-            '--nthreads[Number of threads used during STAR genome index]' \
-            '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
-            '--ref-version[Optional reference version string to include with]' \
-            {-h,--help}'[Show this message.]' \
-            '--version[Show version.]' \
-            "*: :_files"
-
-    }
-
-    function _cellranger_mkgtf {
-        _arguments \
-            '--attribute[Key-value pair in attributes field to be kept in the GTF]' \
-            {-h,--help}'[Show this message.]' \
-            '--version[Show version.]' \
-            "*: :_files"
-
-    }
-
-    function _cellranger_upload {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _cellranger_sitecheck {
-        _arguments \
-            {-h,--help}'[Show this message.]' \
-            '--version[Show version.]' \
-            "*: :_files"
-
-    }
 
 
 function _cellranger {
@@ -400,4 +106,300 @@ function _cellranger {
      esac
 
 }
+
+function _cellranger_count {
+    _arguments \
+        '--id[A unique run id and output folder name \[a-zA-Z0-9_-\]+]' \
+        '--description[Sample description to embed in output files \[default: \]]' \
+        '--transcriptome[Path of folder containing 10x-compatible transcriptome reference]':file:_files \
+        '--fastqs[Path to input FASTQ data]':file:_files \
+        '--project[Name of the project folder within a mkfastq or bcl2fastq-generated folder from which to pick FASTQs]' \
+        '--sample[Prefix of the filenames of FASTQs to select]' \
+        '--lanes[Only use FASTQs from selected lanes]' \
+        '--libraries[CSV file declaring input library data sources]' \
+        '--feature-ref[Feature reference CSV file, declaring Feature Barcode constructs and associated barcodes]' \
+        '--target-panel[The target panel CSV file declaring the target panel used, if any. Default analysis will exclude intronic mapped reads, which is the recommended mode for targeted assay. Use include-introns=true to include intronic mapped reads in analysis]' \
+        '--expect-cells[Expected number of recovered cells, used as input to cell calling algorithm]' \
+        '--force-cells[Force pipeline to use this number of cells, bypassing cell calling algorithm. \[MINIMUM: 10\]]' \
+        '--no-bam[Set --no-bam to not generate the BAM file. This will reduce the total computation time for the pipestance and the size of the output directory. If unsure, we recommend not to use this option. BAM file could be useful for troubleshooting and downstream analysis]' \
+        '--nosecondary[Disable secondary analysis, e.g. clustering. Optional]' \
+        '--r1-length[Hard trim the input Read 1 to this length before analysis]' \
+        '--r2-length[Hard trim the input Read 2 to this length before analysis]' \
+        '--include-introns[Include intronic reads in count (default=true unless --target-panel is specified in which case default=false)]' \
+        '--chemistry[Assay configuration. NOTE: by default the assay configuration is detected automatically, which is the recommened mode. You usually will not need to specify a chemistry. Options are: '\''auto'\'' for autodetection, '\''threeprime'\'' for Single Cell 3'\'', '\''fiveprime'\'' for Single Cell 5'\'', '\''SC3Pv1'\'' or '\''SC3Pv2'\'' or '\''SC3Pv3'\'' for Single Cell 3'\'' v1/v2/v3, '\''SC3Pv3LT'\'' for Single Cell 3'\'' v3 LT, '\''SC3Pv3HT'\'' for Single Cell 3'\'' v3 HT, '\''SC5P-PE'\'' or '\''SC5P-R2'\'' for Single Cell 5'\'', paired-end/R2-only, '\''SC-FB'\'' for Single Cell Antibody-only 3'\'' v2 or 5'\'' \[default: auto\]]' \
+        '--no-libraries[Proceed with processing using a --feature-ref but no Feature Barcode libraries specified with the '\''libraries'\'' flag]' \
+        '--check-library-compatibility[Whether to check for barcode compatibility between libraries. \[default: true\]]' \
+        '--no-target-umi-filter[Turn off the target UMI filtering subpipeline. Only applies when --target-panel is used]' \
+        '--dry[Do not execute the pipeline. Generate a pipeline invocation (.mro) file and stop]' \
+        '--jobmode[Job manager to use. Valid options: local (default), sge, lsf, slurm or path to a .template file. Search for help on "Cluster Mode" at support.10xgenomics.com for more details on configuring the pipeline to use a compute cluster \[default: local\]]' \
+        '--localcores[Set max cores the pipeline may request at one time. Only applies to local jobs]' \
+        '--localmem[Set max GB the pipeline may request at one time. Only applies to local jobs]' \
+        '--localvmem[Set max virtual address space in GB for the pipeline. Only applies to local jobs]' \
+        '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only applies to cluster jobmodes]' \
+        '--maxjobs[Set max jobs submitted to cluster at one time. Only applies to cluster jobmodes]' \
+        '--jobinterval[Set delay between submitting jobs to cluster, in ms. Only applies to cluster jobmodes]' \
+        '--overrides[The path to a JSON file that specifies stage-level overrides for cores and memory. Finer-grained than --localcores, --mempercore and --localmem. Consult https://support.10xgenomics.com/ for an example override file]':file:_files \
+        '--uiport[Serve web UI at http://localhost:PORT]' \
+        '--disable-ui[Do not serve the web UI]' \
+        '--noexit[Keep web UI running after pipestance completes or fails]' \
+        '--nopreflight[Skip preflight checks]' \
+        {-h,--help}'[Print help information]' \
+        "*: :_files"
+
+}
+
+function _cellranger_multi {
+    _arguments \
+        '--id[A unique run id and output folder name \[a-zA-Z0-9_-\]+]' \
+        '--description[Sample description to embed in output files \[default: \]]' \
+        '--csv[Path of CSV file enumerating input libraries and analysis parameters]' \
+        '--dry[Do not execute the pipeline. Generate a pipeline invocation (.mro) file and stop]' \
+        '--jobmode[Job manager to use. Valid options: local (default), sge, lsf, slurm or path to a .template file. Search for help on "Cluster Mode" at support.10xgenomics.com for more details on configuring the pipeline to use a compute cluster \[default: local\]]' \
+        '--localcores[Set max cores the pipeline may request at one time. Only applies to local jobs]' \
+        '--localmem[Set max GB the pipeline may request at one time. Only applies to local jobs]' \
+        '--localvmem[Set max virtual address space in GB for the pipeline. Only applies to local jobs]' \
+        '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only applies to cluster jobmodes]' \
+        '--maxjobs[Set max jobs submitted to cluster at one time. Only applies to cluster jobmodes]' \
+        '--jobinterval[Set delay between submitting jobs to cluster, in ms. Only applies to cluster jobmodes]' \
+        '--overrides[The path to a JSON file that specifies stage-level overrides for cores and memory. Finer-grained than --localcores, --mempercore and --localmem. Consult https://support.10xgenomics.com/ for an example override file]':file:_files \
+        '--uiport[Serve web UI at http://localhost:PORT]' \
+        '--disable-ui[Do not serve the web UI]' \
+        '--noexit[Keep web UI running after pipestance completes or fails]' \
+        '--nopreflight[Skip preflight checks]' \
+        {-h,--help}'[Print help information]' \
+        "*: :_files"
+
+}
+
+function _cellranger_vdj {
+    _arguments \
+        '--id[A unique run id and output folder name \[a-zA-Z0-9_-\]+]' \
+        '--description[Sample description to embed in output files \[default: \]]' \
+        '--reference[Path of folder containing 10x-compatible VDJ reference. Optional if '\''--denovo'\'' is specified]':file:_files \
+        '--fastqs[Path to input FASTQ data]':file:_files \
+        '--project[Name of the project folder within a mkfastq or bcl2fastq-generated folder to pick FASTQs from]' \
+        '--sample[Prefix of the filenames of FASTQs to select]' \
+        '--lanes[Only use FASTQs from selected lanes]' \
+        '--denovo[Run in reference-free mode (do not use annotations)]' \
+        '--chain[Chain type to display metrics for: '\''TR'\'' for T cell receptors, '\''IG'\'' for B cell receptors, or '\''auto'\'' to autodetect \[default: auto\]]' \
+        '--inner-enrichment-primers[If inner enrichment primers other than those provided in the 10x kits are used, they need to be specified here as a textfile with one primer per line. Disable secondary analysis, e.g. clustering]':file:_files \
+        '--dry[Do not execute the pipeline. Generate a pipeline invocation (.mro) file and stop]' \
+        '--jobmode[Job manager to use. Valid options: local (default), sge, lsf, slurm or path to a .template file. Search for help on "Cluster Mode" at support.10xgenomics.com for more details on configuring the pipeline to use a compute cluster \[default: local\]]' \
+        '--localcores[Set max cores the pipeline may request at one time. Only applies to local jobs]' \
+        '--localmem[Set max GB the pipeline may request at one time. Only applies to local jobs]' \
+        '--localvmem[Set max virtual address space in GB for the pipeline. Only applies to local jobs]' \
+        '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only applies to cluster jobmodes]' \
+        '--maxjobs[Set max jobs submitted to cluster at one time. Only applies to cluster jobmodes]' \
+        '--jobinterval[Set delay between submitting jobs to cluster, in ms. Only applies to cluster jobmodes]' \
+        '--overrides[The path to a JSON file that specifies stage-level overrides for cores and memory. Finer-grained than --localcores, --mempercore and --localmem. Consult https://support.10xgenomics.com/ for an example override file]':file:_files \
+        '--uiport[Serve web UI at http://localhost:PORT]' \
+        '--disable-ui[Do not serve the web UI]' \
+        '--noexit[Keep web UI running after pipestance completes or fails]' \
+        '--nopreflight[Skip preflight checks]' \
+        {-h,--help}'[Print help information]' \
+        "*: :_files"
+
+}
+
+function _cellranger_aggr {
+    _arguments \
+        '--id[A unique run id and output folder name \[a-zA-Z0-9_-\]+]' \
+        '--description[Sample description to embed in output files \[default: \]]' \
+        '--csv[Path of CSV file enumerating '\''cellranger count/vdj/multi'\'' outputs]' \
+        '--normalize[Library depth normalization mode \[default: mapped\] \[possible values: mapped, none\]]' \
+        '--nosecondary[Disable secondary analysis, e.g. clustering]' \
+        '--dry[Do not execute the pipeline. Generate a pipeline invocation (.mro) file and stop]' \
+        '--jobmode[Job manager to use. Valid options: local (default), sge, lsf, slurm or path to a .template file. Search for help on "Cluster Mode" at support.10xgenomics.com for more details on configuring the pipeline to use a compute cluster \[default: local\]]' \
+        '--localcores[Set max cores the pipeline may request at one time. Only applies to local jobs]' \
+        '--localmem[Set max GB the pipeline may request at one time. Only applies to local jobs]' \
+        '--localvmem[Set max virtual address space in GB for the pipeline. Only applies to local jobs]' \
+        '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only applies to cluster jobmodes]' \
+        '--maxjobs[Set max jobs submitted to cluster at one time. Only applies to cluster jobmodes]' \
+        '--jobinterval[Set delay between submitting jobs to cluster, in ms. Only applies to cluster jobmodes]' \
+        '--overrides[The path to a JSON file that specifies stage-level overrides for cores and memory. Finer-grained than --localcores, --mempercore and --localmem. Consult https://support.10xgenomics.com/ for an example override file]':file:_files \
+        '--uiport[Serve web UI at http://localhost:PORT]' \
+        '--disable-ui[Do not serve the web UI]' \
+        '--noexit[Keep web UI running after pipestance completes or fails]' \
+        '--nopreflight[Skip preflight checks]' \
+        {-h,--help}'[Print help information]' \
+        "*: :_files"
+
+}
+
+function _cellranger_reanalyze {
+    _arguments \
+        '--id[A unique run id and output folder name \[a-zA-Z0-9_-\]+]' \
+        '--description[Sample description to embed in output files \[default: \]]' \
+        '--matrix[A feature-barcode matrix containing data for one genome. Should be the filtered version, unless using --force-cells]' \
+        '--params[A CSV file specifying analysis parameters. Optional]' \
+        '--barcodes[A CSV file containing a list of cell barcodes to use for reanalysis, e.g. barcodes exported from Loupe Browser. Optional]' \
+        '--genes[A CSV file containing a list of feature IDs to use for reanalysis. For gene expression, this should correspond to the gene_id field in the reference GTF should be \(e.g. ENSG... for ENSEMBL-based references\). Optional]' \
+        '--exclude-genes[A CSV file containing a list of feature IDs to exclude from reanalysis. For gene expression, this should correspond to the gene_id field in the reference GTF \(e.g., ENSG... for ENSEMBL-based references\). The exclusion is applied after --genes. Optional]' \
+        '--agg[If the input matrix was produced by '\''aggr'\'', you may pass the same aggregation CSV in order to retain per-library tag information in the resulting .cloupe file. This argument is required to enable chemistry batch correction. Optional]' \
+        '--force-cells[Force pipeline to use this number of cells, bypassing cell calling algorithm. \[MINIMUM: 10\]]' \
+        '--dry[Do not execute the pipeline. Generate a pipeline invocation (.mro) file and stop]' \
+        '--jobmode[Job manager to use. Valid options: local (default), sge, lsf, slurm or path to a .template file. Search for help on "Cluster Mode" at support.10xgenomics.com for more details on configuring the pipeline to use a compute cluster \[default: local\]]' \
+        '--localcores[Set max cores the pipeline may request at one time. Only applies to local jobs]' \
+        '--localmem[Set max GB the pipeline may request at one time. Only applies to local jobs]' \
+        '--localvmem[Set max virtual address space in GB for the pipeline. Only applies to local jobs]' \
+        '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only applies to cluster jobmodes]' \
+        '--maxjobs[Set max jobs submitted to cluster at one time. Only applies to cluster jobmodes]' \
+        '--jobinterval[Set delay between submitting jobs to cluster, in ms. Only applies to cluster jobmodes]' \
+        '--overrides[The path to a JSON file that specifies stage-level overrides for cores and memory. Finer-grained than --localcores, --mempercore and --localmem. Consult https://support.10xgenomics.com/ for an example override file]':file:_files \
+        '--uiport[Serve web UI at http://localhost:PORT]' \
+        '--disable-ui[Do not serve the web UI]' \
+        '--noexit[Keep web UI running after pipestance completes or fails]' \
+        '--nopreflight[Skip preflight checks]' \
+        {-h,--help}'[Print help information]' \
+        "*: :_files"
+
+}
+
+function _cellranger_targeted-compare {
+    _arguments \
+        '--id[A unique run id and output folder name \[a-zA-Z0-9_-\]+]' \
+        '--description[Sample description to embed in output files \[default: \]]' \
+        '--targeted[Path to the targeted molecule_info.h5 from a '\''count --targetpanel'\'' analysis run (targeted gene expression run)]' \
+        '--parent[Path to the parent molecule_info.h5 from a '\''count'\'' analysis run (parent unbiased gene expression run)]' \
+        '--target-panel[A CSV file declaring the target gene panel used in the targeted experiment. Must be the same target panel CSV file specified in the '\''count --target-panel'\'' analysis run]' \
+        '--dry[Do not execute the pipeline. Generate a pipeline invocation (.mro) file and stop]' \
+        '--jobmode[Job manager to use. Valid options: local (default), sge, lsf, slurm or path to a .template file. Search for help on "Cluster Mode" at support.10xgenomics.com for more details on configuring the pipeline to use a compute cluster \[default: local\]]' \
+        '--localcores[Set max cores the pipeline may request at one time. Only applies to local jobs]' \
+        '--localmem[Set max GB the pipeline may request at one time. Only applies to local jobs]' \
+        '--localvmem[Set max virtual address space in GB for the pipeline. Only applies to local jobs]' \
+        '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only applies to cluster jobmodes]' \
+        '--maxjobs[Set max jobs submitted to cluster at one time. Only applies to cluster jobmodes]' \
+        '--jobinterval[Set delay between submitting jobs to cluster, in ms. Only applies to cluster jobmodes]' \
+        '--overrides[The path to a JSON file that specifies stage-level overrides for cores and memory. Finer-grained than --localcores, --mempercore and --localmem. Consult https://support.10xgenomics.com/ for an example override file]':file:_files \
+        '--uiport[Serve web UI at http://localhost:PORT]' \
+        '--disable-ui[Do not serve the web UI]' \
+        '--noexit[Keep web UI running after pipestance completes or fails]' \
+        '--nopreflight[Skip preflight checks]' \
+        {-h,--help}'[Print help information]' \
+        "*: :_files"
+
+}
+
+function _cellranger_targeted-depth {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--molecule-h5[path to molecule_info.h5 file from a whole transcriptome analysis]' \
+        '--target-panel[path to target panel CSV file]' \
+        "*: :_files"
+
+}
+
+function _cellranger_mkvdjref {
+    _arguments \
+        '--ref-version[Optional reference version string to include.]' \
+        '--rm-transcripts[Path to text file with transcript IDs to ignore. This]':file:_files \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+function _cellranger_mkfastq {
+    _arguments \
+        '--fastq-cluster-count[--minimum-trimmed-read-length]' \
+        '--run[Path of Illumina BCL run folder.]':file:_files \
+        '--id[Name of the folder created by mkfastq. If not supplied,]' \
+        {--csv,--samplesheet,--sample-sheet}'[Path to the sample sheet. The sample sheet can either be]':file:_files \
+        '--simple-csv[Deprecated. Same meaning as --csv.]':file:_files \
+        '--force-single-index[If 10x-supplied i7/i5 paired indices are specified,]' \
+        '--filter-single-index[Only demultiplex samples identified]' \
+        '--filter-dual-index[Only demultiplex samples identified]' \
+        '--rc-i2-override[Indicates if the bases in the I2 read are emitted as]' \
+        '--lanes[Comma-delimited series of lanes to demultiplex. Shortcut]' \
+        '--use-bases-mask[Same as bcl2fastq; override the read lengths as]' \
+        '--delete-undetermined[Delete the Undetermined FASTQ files left by bcl2fastq]' \
+        '--output-dir[Same as in bcl2fastq. Folder where FASTQs, reports and]':file:_files \
+        '--project[Custom project name, to override the samplesheet or to]' \
+        '--jobmode[Job manager to use. Valid options: local (default), sge,]' \
+        '--localcores[Set max cores the pipeline may request at one time. Only]' \
+        '--localmem[Set max GB the pipeline may request at one time. Only]' \
+        '--localvmem[Set max virtual address space in GB for the pipeline.]' \
+        '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only]' \
+        '--maxjobs[Set max jobs submitted to cluster at one time. Only]' \
+        '--jobinterval[Set delay between submitting jobs to cluster, in ms.]' \
+        '--overrides[The path to a JSON file that specifies stage-level]':file:_files \
+        '--uiport[Serve web UI at http://localhost:PORT]' \
+        '--disable-ui[Do not serve the UI.]' \
+        '--noexit[Keep web UI running after pipestance completes or fails.]' \
+        '--nopreflight[Skip preflight checks.]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+function _cellranger_testrun {
+    _arguments \
+        '--id[A unique run id and output folder name \[a-zA-Z0-9_-\]+]' \
+        '--description[Sample description to embed in output files]' \
+        '--dry[Do not execute the pipeline. Generate a pipeline invocation (.mro) file and stop]' \
+        '--jobmode[Job manager to use. Valid options: local (default), sge, lsf, slurm or path to a .template file. Search for help on "Cluster Mode" at support.10xgenomics.com for more details on configuring the pipeline to use a compute cluster \[default: local\]]' \
+        '--localcores[Set max cores the pipeline may request at one time. Only applies to local jobs]' \
+        '--localmem[Set max GB the pipeline may request at one time. Only applies to local jobs]' \
+        '--localvmem[Set max virtual address space in GB for the pipeline. Only applies to local jobs]' \
+        '--mempercore[Reserve enough threads for each job to ensure enough memory will be available, assuming each core on your cluster has at least this much memory available. Only applies to cluster jobmodes]' \
+        '--maxjobs[Set max jobs submitted to cluster at one time. Only applies to cluster jobmodes]' \
+        '--jobinterval[Set delay between submitting jobs to cluster, in ms. Only applies to cluster jobmodes]' \
+        '--overrides[The path to a JSON file that specifies stage-level overrides for cores and memory. Finer-grained than --localcores, --mempercore and --localmem. Consult https://support.10xgenomics.com/ for an example override file]':file:_files \
+        '--uiport[Serve web UI at http://localhost:PORT]' \
+        '--disable-ui[Do not serve the web UI]' \
+        '--noexit[Keep web UI running after pipestance completes or fails]' \
+        '--nopreflight[Skip preflight checks]' \
+        {-h,--help}'[Print help information]' \
+        "*: :_files"
+
+}
+
+function _cellranger_mat2csv {
+    _arguments \
+        '--genome[Specify which genome to extract. This only applies to]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+function _cellranger_mkref {
+    _arguments \
+        '--genome[Unique genome name(s), used to name output folder \[a-zA-Z0-9_-\]+. Specify multiple genomes by specifying the --genome argument multiple times; the output folder will be <name1>_and_<name2>.]' \
+        '--fasta[Path(s) to FASTA file containing your genome reference.]':file:_files \
+        '--genes[Path(s) to genes GTF file(S) containing annotated genes for your genome reference. Specify multiple genomes by specifying the --genes argument multiple times.]':file:_files \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+function _cellranger_mkgtf {
+    _arguments \
+        '--attribute[Key-value pair in attributes field to be kept in the GTF]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+function _cellranger_upload {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _cellranger_sitecheck {
+    _arguments \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+_cellranger "$@"
 

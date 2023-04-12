@@ -1,20 +1,9 @@
-#compdef _cd-hit cd-hit
+#compdef cd-hit
 
 # Auto-generated with h2o
 
-
 function _cd-hit {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-i[input filename in fasta format, required, can be in .gz format]':file:_files \
         '-o[output filename, required]':file:_files \
         '-c[sequence identity threshold, default 0.9   this is the default cd-hit'\''s "global sequence identity" calculated as: number of identical amino acids or bases in alignment divided by the full length of the shorter sequence]' \
@@ -43,17 +32,9 @@ function _cd-hit {
         '-sf[sort fasta/fastq by cluster size (number of sequences), default 0, no sorting if set to 1, output sequences by decreasing cluster size this can be very slow if the input is in .gz format]' \
         '-bak[write backup cluster file (1 or 0, default 0)]' \
         '-h[print this help]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_cd-hit "$@"
 

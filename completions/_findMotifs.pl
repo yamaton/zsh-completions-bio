@@ -1,20 +1,9 @@
-#compdef _findMotifs.pl findMotifs.pl
+#compdef findMotifs.pl
 
 # Auto-generated with h2o
 
-
 function _findMotifs.pl {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-len[motif length, default=8,10,12 \[NOTE: values greater 12 may cause the program to run out of memmory - in these cases decrease the number of sequences analyzed\]]' \
         '-bg[ids to use as background, default: all genes]':file:_files \
         '-start[offset from TSS, default=-300 \[max=based on Promoter Set\]]' \
@@ -69,17 +58,9 @@ function _findMotifs.pl {
         '-minlp[stop looking for motifs when seed logp score gets above #, default: -10]' \
         '-float[allow adjustment of the degeneracy threshold for known motifs to improve p-value\[dangerous\]]' \
         '-depth[time spent on local optimization default: med]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_findMotifs.pl "$@"
 

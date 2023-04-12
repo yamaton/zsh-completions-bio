@@ -1,32 +1,13 @@
-#compdef _vcfglxgt vcfglxgt
+#compdef vcfglxgt
 
 # Auto-generated with h2o
 
-
 function _vcfglxgt {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-n,--fix-null-genotypes}'[only apply to null and partly-null genotypes]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_vcfglxgt "$@"
 

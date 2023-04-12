@@ -1,20 +1,9 @@
-#compdef _agat_sp_extract_sequences.pl agat_sp_extract_sequences.pl
+#compdef agat_sp_extract_sequences.pl
 
 # Auto-generated with h2o
 
-
 function _agat_sp_extract_sequences.pl {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {--alternative_start_codon,--asc}'[Bolean - When activated it can affect the translation of the start codon. Indeed alternative start codons exist, and are translated by the cells'\''machinery by a Methionine (M). By default AGAT translates the first codon as other codons by the corresponding AA. If you wish to translate the first codon by a M when it is a valid alternative start codon, activate this parameter. If the sequence you try to translate is a CDS (or starting by a CDS), the phase is checked and the alternative start codon is accepted only if the phase is 0.]' \
         '--cdna[Boolean - This extract the cdna sequence (i.e reverse complement of the mRNA: transcribed sequence (devoid of introns, but containing untranslated exons, then reverse complemented). It corresponds to extract the exons sequences, merge them, and reverse complement the sequence (--type exon --merge --revcomp).]' \
         {--clean_final_stop,--cfs}'[Boolean - The Clean Final Stop option allows removing the translation of the final stop codons that is represented by the <*> character. This character can be disturbing for many programs (e.g interproscan)]' \
@@ -39,17 +28,9 @@ function _agat_sp_extract_sequences.pl {
         '--split[Boolean - By default, all features that span several locations (e.g. cds and utr can span over several exons) are merge together to shape the biological feature (e.g. several cds chuncks are merged to create the CDS in its whole). If you wish to extract all the chuncks independently activate this option.]' \
         {-t,--type}'[String - Define the feature you want to extract the sequence from. Default '\''cds'\''. Most common choice are: gene,mrna,exon,cds,trna,three_prime_utr,five_prime_utr. When you choose exon (or cds,utr,etc.), all the exons of a same parent feature are attached together before to extract the sequence. If you wish to extract each exon of an mRNA independently, see option --split. /!\ `-t mRNA` will extract the features labeled as "mRNA" and corresponds to the cdna* because it contains the introns if any. It does not actually extract the mRNAs as it is defined biologicaly. To extract the mRNA as defined biologicaly you must use `-t exon`. *Not a real cdna because it is not reversed]' \
         {--up,-5,--five,-upstream}'[Integer - It will take that number of nucleotide in more at the 5'\'' extremity. /!\ You must activate the option "--full" if you wish to extract only the most upstream part of certain features (exon,cds,utr) otherwise you will extract each upstream parts of the subfeatures (e.g many cds parts may be needed to shape a cds in its whole).]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_agat_sp_extract_sequences.pl "$@"
 

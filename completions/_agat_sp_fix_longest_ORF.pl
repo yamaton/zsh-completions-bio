@@ -1,20 +1,9 @@
-#compdef _agat_sp_fix_longest_ORF.pl agat_sp_fix_longest_ORF.pl
+#compdef agat_sp_fix_longest_ORF.pl
 
 # Auto-generated with h2o
 
-
 function _agat_sp_fix_longest_ORF.pl {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--gff[Input GTF/GFF file.]' \
         {-f,--fa,--fasta}'[Imput fasta file.]' \
         {--ct,--codon,--table}'[Codon table to use. \[default 1\]]' \
@@ -23,17 +12,9 @@ function _agat_sp_fix_longest_ORF.pl {
         {-o,--output,--out,--outfile}'[Output GFF file. If no output file is specified, the output will be written to STDOUT.]' \
         '-v[verbose mode. Default off. -v 1 minimum verbosity, -v 3 maximum verbosity]' \
         {-h,--help}'[Display this helpful text.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_agat_sp_fix_longest_ORF.pl "$@"
 

@@ -1,20 +1,9 @@
-#compdef _rename rename
+#compdef rename
 
 # Auto-generated with h2o
 
-
 function _rename {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[See a synopsis.]' \
         '--man[Browse the manpage.]' \
         {-0,--null}'[When reading file names from "STDIN", split on NUL bytes instead of newlines. This is useful in combination with GNU find'\''s "-print0" option, GNU grep'\''s "-Z" option, and GNU sort'\''s "-z" option, to name just a few. Only valid if no filenames have been given on the commandline.]' \
@@ -49,17 +38,9 @@ function _rename {
         '--noctrl[Replace all sequences of control characters in the filename with single underscore characters.]' \
         '--nometa[Replace every shell meta-character with an underscore.]' \
         '--trim[Remove any sequence of spaces and underscores at the left and right ends of the filename.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_rename "$@"
 

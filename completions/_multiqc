@@ -1,20 +1,9 @@
-#compdef _multiqc multiqc
+#compdef multiqc
 
 # Auto-generated with h2o
 
-
 function _multiqc {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {--force,-f}'[Overwrite any existing reports]' \
         {--config,-c}'[Specific config file to load, after those in MultiQC dir / home dir / working dir. (PATH)]' \
         '--cl-config[Specify MultiQC config YAML on the command line (TEXT)]' \
@@ -56,17 +45,9 @@ function _multiqc {
         '--no-ansi[Disable coloured log output]' \
         '--version[Show the version and exit.]' \
         {--help,-h}'[Show this message and exit.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_multiqc "$@"
 

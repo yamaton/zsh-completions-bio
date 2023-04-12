@@ -1,20 +1,9 @@
-#compdef _htseq-count htseq-count
+#compdef htseq-count
 
 # Auto-generated with h2o
 
-
 function _htseq-count {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--version[Show software version and exit]' \
         {-f,--format}'[Type of <alignment_file> data. DEPRECATED: file format is detected automatically. This option is ignored.]' \
@@ -40,17 +29,9 @@ function _htseq-count {
         '--feature-query[Restrict to features descibed in this expression. Currently supports a single kind of expression: attribute == "one attr" to restrict the GFF to a single gene or transcript, e.g. --feature-query '\''gene_name == "ACTB"'\'' - notice the single quotes around the argument of this option and the double quotes around the gene name. Broader queries might become available in the future.]' \
         {-q,--quiet}'[Suppress progress report]' \
         '--with-header[Whether to add a column header to the output TSV file indicating which column corresponds to which input BAM file. Only used if output to console or tsv or csv file. Default to False.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_htseq-count "$@"
 

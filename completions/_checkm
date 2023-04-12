@@ -1,388 +1,6 @@
-#compdef _checkm checkm
+#compdef checkm
 
 # Auto-generated with h2o
-
-    function _checkm_tree {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-r,--reduced_tree}'[use reduced tree (requires <16GB of memory) for determining lineage of each bin]' \
-            '--ali[generate HMMER alignment file for each bin]' \
-            '--nt[generate nucleotide gene sequences for each bin]' \
-            {-g,--genes}'[bins contain genes as amino acids instead of nucleotide contigs]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            {-t,--threads}'[number of threads (default: 1)]' \
-            '--pplacer_threads[number of threads used by pplacer (memory usage increases linearly with additional threads) (default: 1)]' \
-            {-q,--quiet}'[suppress console output]' \
-            '--tmpdir[specify an alternative directory for temporary files]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _checkm_tree_qa {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-o,--out_format}'[desired output: (default: 1)]' \
-            {-f,--file}'[print results to file (default: stdout)]':file:_files \
-            '--tab_table[print tab-separated values table]' \
-            {-q,--quiet}'[suppress console output]' \
-            '--tmpdir[specify an alternative directory for temporary files]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _checkm_lineage_set {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-u,--unique}'[minimum number of unique phylogenetic markers required to use lineage-specific marker set (default: 10)]' \
-            {-m,--multi}'[maximum number of multi-copy phylogenetic markers before defaulting to domain-level marker set (default: 10)]' \
-            '--force_domain[use domain-level sets for all bins]' \
-            '--no_refinement[do not perform lineage-specific marker set refinement]' \
-            {-q,--quiet}'[suppress console output]' \
-            '--tmpdir[specify an alternative directory for temporary files]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _checkm_taxon_list {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--rank[restrict list to specified taxonomic rank (default: ALL)]' \
-            '--tmpdir[specify an alternative directory for temporary files]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _checkm_taxon_set {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-q,--quiet}'[suppress console output]' \
-            '--tmpdir[specify an alternative directory for temporary files]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _checkm_analyze {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--ali[generate HMMER alignment file for each bin]' \
-            '--nt[generate nucleotide gene sequences for each bin]' \
-            {-g,--genes}'[bins contain genes as amino acids instead of nucleotide contigs]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            {-t,--threads}'[number of threads (default: 1)]' \
-            {-q,--quiet}'[suppress console output]' \
-            '--tmpdir[specify an alternative directory for temporary files]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _checkm_qa {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-o,--out_format}'[desired output: (default: 1)]' \
-            '--exclude_markers[file specifying markers to exclude from marker sets]' \
-            '--individual_markers[treat marker as independent (i.e., ignore co-located set structure)]' \
-            '--skip_adj_correction[do not exclude adjacent marker genes when estimating contamination]' \
-            '--skip_pseudogene_correction[skip identification and filtering of pseudogenes]' \
-            '--aai_strain[AAI threshold used to identify strain heterogeneity (default: 0.9)]' \
-            {-a,--alignment_file}'[produce file showing alignment of multi-copy genes and their AAI identity]':file:_files \
-            '--ignore_thresholds[ignore model-specific score thresholds]' \
-            {-e,--e_value}'[e-value cut off (default: 1e-10)]' \
-            {-l,--length}'[percent overlap between target and query (default: 0.7)]' \
-            {-c,--coverage_file}'[file containing coverage of each sequence; coverage information added to table type 2 (see coverage command)]':file:_files \
-            {-f,--file}'[print results to file (default: stdout)]':file:_files \
-            '--tab_table[print tab-separated values table]' \
-            {-t,--threads}'[number of threads (default: 1)]' \
-            {-q,--quiet}'[suppress console output]' \
-            '--tmpdir[specify an alternative directory for temporary files]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _checkm_lineage_wf {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-r,--reduced_tree}'[use reduced tree (requires <16GB of memory) for determining lineage of each bin]' \
-            '--ali[generate HMMER alignment file for each bin]' \
-            '--nt[generate nucleotide gene sequences for each bin]' \
-            {-g,--genes}'[bins contain genes as amino acids instead of nucleotide contigs]' \
-            {-u,--unique}'[minimum number of unique phylogenetic markers required to use lineage-specific marker set (default: 10)]' \
-            {-m,--multi}'[maximum number of multi-copy phylogenetic markers before defaulting to domain-level marker set (default: 10)]' \
-            '--force_domain[use domain-level sets for all bins]' \
-            '--no_refinement[do not perform lineage-specific marker set refinement]' \
-            '--individual_markers[treat marker as independent (i.e., ignore co-located set structure)]' \
-            '--skip_adj_correction[do not exclude adjacent marker genes when estimating contamination]' \
-            '--skip_pseudogene_correction[skip identification and filtering of pseudogenes]' \
-            '--aai_strain[AAI threshold used to identify strain heterogeneity (default: 0.9)]' \
-            {-a,--alignment_file}'[produce file showing alignment of multi-copy genes and their AAI identity]':file:_files \
-            '--ignore_thresholds[ignore model-specific score thresholds]' \
-            {-e,--e_value}'[e-value cut off (default: 1e-10)]' \
-            {-l,--length}'[percent overlap between target and query (default: 0.7)]' \
-            {-f,--file}'[print results to file (default: stdout)]':file:_files \
-            '--tab_table[print tab-separated values table]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            {-t,--threads}'[number of threads (default: 1)]' \
-            '--pplacer_threads[number of threads used by pplacer (memory usage increases linearly with additional threads) (default: 1)]' \
-            {-q,--quiet}'[suppress console output]' \
-            '--tmpdir[specify an alternative directory for temporary files]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _checkm_taxonomy_wf {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--ali[generate HMMER alignment file for each bin]' \
-            '--nt[generate nucleotide gene sequences for each bin]' \
-            {-g,--genes}'[bins contain genes as amino acids instead of nucleotide contigs]' \
-            '--individual_markers[treat marker as independent (i.e., ignore co-located set structure)]' \
-            '--skip_adj_correction[do not exclude adjacent marker genes when estimating contamination]' \
-            '--skip_pseudogene_correction[skip identification and filtering of pseudogenes]' \
-            '--aai_strain[AAI threshold used to identify strain heterogeneity (default: 0.9)]' \
-            {-a,--alignment_file}'[produce file showing alignment of multi-copy genes and their AAI identity]':file:_files \
-            '--ignore_thresholds[ignore model-specific score thresholds]' \
-            {-e,--e_value}'[e-value cut off (default: 1e-10)]' \
-            {-l,--length}'[percent overlap between target and query (default: 0.7)]' \
-            {-c,--coverage_file}'[file containing coverage of each sequence; coverage information added to table type 2 (see coverage command)]':file:_files \
-            {-f,--file}'[print results to file (default: stdout)]':file:_files \
-            '--tab_table[print tab-separated values table]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            {-t,--threads}'[number of threads (default: 1)]' \
-            {-q,--quiet}'[suppress console output]' \
-            '--tmpdir[specify an alternative directory for temporary files]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _checkm_gc_plot {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--image_type[desired image type (default: png)]' \
-            '--dpi[desired DPI of output image (default: 600)]' \
-            '--font_size[Desired font size (default: 8)]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            '--width[width of output image (default: 6.5)]' \
-            '--height[height of output image (default: 3.5)]' \
-            {-w,--gc_window_size}'[window size used to calculate GC histogram (default: 5000)]' \
-            {-b,--gc_bin_width}'[width of GC bars in histogram (default: 0.01)]' \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_coding_plot {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--image_type[desired image type (default: png)]' \
-            '--dpi[desired DPI of output image (default: 600)]' \
-            '--font_size[Desired font size (default: 8)]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            '--width[width of output image (default: 6.5)]' \
-            '--height[height of output image (default: 3.5)]' \
-            {-w,--cd_window_size}'[window size used to calculate CD histogram (default: 10000)]' \
-            {-b,--cd_bin_width}'[width of CD bars in histogram (default: 0.01)]' \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_tetra_plot {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--image_type[desired image type (default: png)]' \
-            '--dpi[desired DPI of output image (default: 600)]' \
-            '--font_size[Desired font size (default: 8)]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            '--width[width of output image (default: 6.5)]' \
-            '--height[height of output image (default: 3.5)]' \
-            {-w,--td_window_size}'[window size used to calculate TD histogram (default: 5000)]' \
-            {-b,--td_bin_width}'[width of TD bars in histogram (default: 0.01)]' \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_dist_plot {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--image_type[desired image type (default: png)]' \
-            '--dpi[desired DPI of output image (default: 600)]' \
-            '--font_size[Desired font size (default: 8)]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            '--width[width of output image (default: 6.5)]' \
-            '--height[height of output image (default: 8)]' \
-            {-a,--gc_window_size}'[window size used to calculate GC histogram (default: 5000)]' \
-            {-b,--td_window_size}'[window size used to calculate TD histogram (default: 5000)]' \
-            {-c,--cd_window_size}'[window size used to calculate CD histogram (default: 10000)]' \
-            {-1,--gc_bin_width}'[width of GC bars in histogram (default: 0.01)]' \
-            {-2,--td_bin_width}'[width of TD bars in histogram (default: 0.01)]' \
-            {-3,--cd_bin_width}'[width of CD bars in histogram (default: 0.01)]' \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_nx_plot {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--image_type[desired image type (default: png)]' \
-            '--dpi[desired DPI of output image (default: 600)]' \
-            '--font_size[Desired font size (default: 8)]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            '--width[width of output image (default: 6.5)]' \
-            '--height[height of output image (default: 6.5)]' \
-            {-s,--step_size}'[x step size for calculating Nx (default: 0.05)]' \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_len_hist {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--image_type[desired image type (default: png)]' \
-            '--dpi[desired DPI of output image (default: 600)]' \
-            '--font_size[Desired font size (default: 8)]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            '--width[width of output image (default: 6.5)]' \
-            '--height[height of output image (default: 6.5)]' \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_marker_plot {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--image_type[desired image type (default: png)]' \
-            '--dpi[desired DPI of output image (default: 600)]' \
-            '--font_size[Desired font size (default: 8)]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            '--width[width of output image (default: 6.5)]' \
-            '--height[height of output image (default: 6.5)]' \
-            '--fig_padding[white space to place around figure (in inches) (default: 0.2)]' \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_gc_bias_plot {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--image_type[desired image type (default: png)]' \
-            '--dpi[desired DPI of output image (default: 600)]' \
-            '--font_size[Desired font size (default: 8)]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            '--width[width of output image (default: 6.5)]' \
-            '--height[height of output image (default: 3.5)]' \
-            {-w,--window_size}'[window size used to calculate plot statistics (default: 5000)]' \
-            {-r,--all_reads}'[use all reads to estimate coverage instead of just those in proper pairs]' \
-            {-a,--min_align}'[minimum alignment length as percentage of read length (default: 0.98)]' \
-            {-e,--max_edit_dist}'[maximum edit distance as percentage of read length (default: 0.02)]' \
-            {-t,--threads}'[number of threads (default: 1)]' \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_unique {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-x,--extension}'[extension of bins (all other files in bin directory are ignored) (default: fna)]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_merge {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-g,--genes}'[bins contain genes as amino acids instead of nucleotide contigs]' \
-            '--delta_comp[minimum increase in completeness to report pair (default: 5.0)]' \
-            '--delta_cont[maximum increase in contamination to report pair (default: 10.0)]' \
-            '--merged_comp[minimum merged completeness to report pair (default: 50.0)]' \
-            '--merged_cont[maximum merged contamination to report pair (default: 20.0)]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            {-t,--threads}'[number of threads (default: 1)]' \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_outliers {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-d,--distributions}'[reference distribution used to identify outliers; integer between 0 and 100 (default: 95)]' \
-            {-r,--report_type}'[report sequences that are outliers in '\''all'\'' or '\''any'\'' reference distribution (default: any)]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_modify {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-a,--add}'[ID of sequence to add to bin (may specify multiple times)]' \
-            {-r,--remove}'[ID of sequence to remove from bin (may specify multiple times)]' \
-            {-o,--outlier_file}'[remove all sequences marked as outliers in the bin (see outlier command)]':file:_files \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_unbinned {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            {-s,--min_seq_len}'[required length of sequence]' \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_coverage {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            {-r,--all_reads}'[use all reads to estimate coverage instead of just those in proper pairs]' \
-            {-a,--min_align}'[minimum alignment length as percentage of read length (default: 0.98)]' \
-            {-e,--max_edit_dist}'[maximum edit distance as percentage of read length (default: 0.02)]' \
-            {-m,--min_qc}'[minimum quality score (in phred) (default: 15)]' \
-            {-t,--threads}'[number of threads (default: 1)]' \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_tetra {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-t,--threads}'[number of threads (default: 1)]' \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_profile {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-f,--file}'[print results to file (default: stdout)]':file:_files \
-            '--tab_table[print tab-separated values table]' \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
-
-    function _checkm_ssu_finder {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
-            {-e,--evalue}'[e-value threshold for identifying hits (default: 1e-05)]' \
-            {-c,--concatenate}'[concatenate hits that are within the specified number of base pairs (default: 200)]' \
-            {-t,--threads}'[number of threads (default: 1)]' \
-            {-q,--quiet}'[suppress console output]' \
-            "*: :_files"
-
-    }
 
 
 function _checkm {
@@ -541,4 +159,388 @@ function _checkm {
      esac
 
 }
+
+function _checkm_tree {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-r,--reduced_tree}'[use reduced tree (requires <16GB of memory) for determining lineage of each bin]' \
+        '--ali[generate HMMER alignment file for each bin]' \
+        '--nt[generate nucleotide gene sequences for each bin]' \
+        {-g,--genes}'[bins contain genes as amino acids instead of nucleotide contigs]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        {-t,--threads}'[number of threads (default: 1)]' \
+        '--pplacer_threads[number of threads used by pplacer (memory usage increases linearly with additional threads) (default: 1)]' \
+        {-q,--quiet}'[suppress console output]' \
+        '--tmpdir[specify an alternative directory for temporary files]':file:_files \
+        "*: :_files"
+
+}
+
+function _checkm_tree_qa {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-o,--out_format}'[desired output: (default: 1)]' \
+        {-f,--file}'[print results to file (default: stdout)]':file:_files \
+        '--tab_table[print tab-separated values table]' \
+        {-q,--quiet}'[suppress console output]' \
+        '--tmpdir[specify an alternative directory for temporary files]':file:_files \
+        "*: :_files"
+
+}
+
+function _checkm_lineage_set {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-u,--unique}'[minimum number of unique phylogenetic markers required to use lineage-specific marker set (default: 10)]' \
+        {-m,--multi}'[maximum number of multi-copy phylogenetic markers before defaulting to domain-level marker set (default: 10)]' \
+        '--force_domain[use domain-level sets for all bins]' \
+        '--no_refinement[do not perform lineage-specific marker set refinement]' \
+        {-q,--quiet}'[suppress console output]' \
+        '--tmpdir[specify an alternative directory for temporary files]':file:_files \
+        "*: :_files"
+
+}
+
+function _checkm_taxon_list {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--rank[restrict list to specified taxonomic rank (default: ALL)]' \
+        '--tmpdir[specify an alternative directory for temporary files]':file:_files \
+        "*: :_files"
+
+}
+
+function _checkm_taxon_set {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress console output]' \
+        '--tmpdir[specify an alternative directory for temporary files]':file:_files \
+        "*: :_files"
+
+}
+
+function _checkm_analyze {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--ali[generate HMMER alignment file for each bin]' \
+        '--nt[generate nucleotide gene sequences for each bin]' \
+        {-g,--genes}'[bins contain genes as amino acids instead of nucleotide contigs]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        {-t,--threads}'[number of threads (default: 1)]' \
+        {-q,--quiet}'[suppress console output]' \
+        '--tmpdir[specify an alternative directory for temporary files]':file:_files \
+        "*: :_files"
+
+}
+
+function _checkm_qa {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-o,--out_format}'[desired output: (default: 1)]' \
+        '--exclude_markers[file specifying markers to exclude from marker sets]' \
+        '--individual_markers[treat marker as independent (i.e., ignore co-located set structure)]' \
+        '--skip_adj_correction[do not exclude adjacent marker genes when estimating contamination]' \
+        '--skip_pseudogene_correction[skip identification and filtering of pseudogenes]' \
+        '--aai_strain[AAI threshold used to identify strain heterogeneity (default: 0.9)]' \
+        {-a,--alignment_file}'[produce file showing alignment of multi-copy genes and their AAI identity]':file:_files \
+        '--ignore_thresholds[ignore model-specific score thresholds]' \
+        {-e,--e_value}'[e-value cut off (default: 1e-10)]' \
+        {-l,--length}'[percent overlap between target and query (default: 0.7)]' \
+        {-c,--coverage_file}'[file containing coverage of each sequence; coverage information added to table type 2 (see coverage command)]':file:_files \
+        {-f,--file}'[print results to file (default: stdout)]':file:_files \
+        '--tab_table[print tab-separated values table]' \
+        {-t,--threads}'[number of threads (default: 1)]' \
+        {-q,--quiet}'[suppress console output]' \
+        '--tmpdir[specify an alternative directory for temporary files]':file:_files \
+        "*: :_files"
+
+}
+
+function _checkm_lineage_wf {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-r,--reduced_tree}'[use reduced tree (requires <16GB of memory) for determining lineage of each bin]' \
+        '--ali[generate HMMER alignment file for each bin]' \
+        '--nt[generate nucleotide gene sequences for each bin]' \
+        {-g,--genes}'[bins contain genes as amino acids instead of nucleotide contigs]' \
+        {-u,--unique}'[minimum number of unique phylogenetic markers required to use lineage-specific marker set (default: 10)]' \
+        {-m,--multi}'[maximum number of multi-copy phylogenetic markers before defaulting to domain-level marker set (default: 10)]' \
+        '--force_domain[use domain-level sets for all bins]' \
+        '--no_refinement[do not perform lineage-specific marker set refinement]' \
+        '--individual_markers[treat marker as independent (i.e., ignore co-located set structure)]' \
+        '--skip_adj_correction[do not exclude adjacent marker genes when estimating contamination]' \
+        '--skip_pseudogene_correction[skip identification and filtering of pseudogenes]' \
+        '--aai_strain[AAI threshold used to identify strain heterogeneity (default: 0.9)]' \
+        {-a,--alignment_file}'[produce file showing alignment of multi-copy genes and their AAI identity]':file:_files \
+        '--ignore_thresholds[ignore model-specific score thresholds]' \
+        {-e,--e_value}'[e-value cut off (default: 1e-10)]' \
+        {-l,--length}'[percent overlap between target and query (default: 0.7)]' \
+        {-f,--file}'[print results to file (default: stdout)]':file:_files \
+        '--tab_table[print tab-separated values table]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        {-t,--threads}'[number of threads (default: 1)]' \
+        '--pplacer_threads[number of threads used by pplacer (memory usage increases linearly with additional threads) (default: 1)]' \
+        {-q,--quiet}'[suppress console output]' \
+        '--tmpdir[specify an alternative directory for temporary files]':file:_files \
+        "*: :_files"
+
+}
+
+function _checkm_taxonomy_wf {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--ali[generate HMMER alignment file for each bin]' \
+        '--nt[generate nucleotide gene sequences for each bin]' \
+        {-g,--genes}'[bins contain genes as amino acids instead of nucleotide contigs]' \
+        '--individual_markers[treat marker as independent (i.e., ignore co-located set structure)]' \
+        '--skip_adj_correction[do not exclude adjacent marker genes when estimating contamination]' \
+        '--skip_pseudogene_correction[skip identification and filtering of pseudogenes]' \
+        '--aai_strain[AAI threshold used to identify strain heterogeneity (default: 0.9)]' \
+        {-a,--alignment_file}'[produce file showing alignment of multi-copy genes and their AAI identity]':file:_files \
+        '--ignore_thresholds[ignore model-specific score thresholds]' \
+        {-e,--e_value}'[e-value cut off (default: 1e-10)]' \
+        {-l,--length}'[percent overlap between target and query (default: 0.7)]' \
+        {-c,--coverage_file}'[file containing coverage of each sequence; coverage information added to table type 2 (see coverage command)]':file:_files \
+        {-f,--file}'[print results to file (default: stdout)]':file:_files \
+        '--tab_table[print tab-separated values table]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        {-t,--threads}'[number of threads (default: 1)]' \
+        {-q,--quiet}'[suppress console output]' \
+        '--tmpdir[specify an alternative directory for temporary files]':file:_files \
+        "*: :_files"
+
+}
+
+function _checkm_gc_plot {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--image_type[desired image type (default: png)]' \
+        '--dpi[desired DPI of output image (default: 600)]' \
+        '--font_size[Desired font size (default: 8)]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        '--width[width of output image (default: 6.5)]' \
+        '--height[height of output image (default: 3.5)]' \
+        {-w,--gc_window_size}'[window size used to calculate GC histogram (default: 5000)]' \
+        {-b,--gc_bin_width}'[width of GC bars in histogram (default: 0.01)]' \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+function _checkm_coding_plot {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--image_type[desired image type (default: png)]' \
+        '--dpi[desired DPI of output image (default: 600)]' \
+        '--font_size[Desired font size (default: 8)]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        '--width[width of output image (default: 6.5)]' \
+        '--height[height of output image (default: 3.5)]' \
+        {-w,--cd_window_size}'[window size used to calculate CD histogram (default: 10000)]' \
+        {-b,--cd_bin_width}'[width of CD bars in histogram (default: 0.01)]' \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+function _checkm_tetra_plot {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--image_type[desired image type (default: png)]' \
+        '--dpi[desired DPI of output image (default: 600)]' \
+        '--font_size[Desired font size (default: 8)]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        '--width[width of output image (default: 6.5)]' \
+        '--height[height of output image (default: 3.5)]' \
+        {-w,--td_window_size}'[window size used to calculate TD histogram (default: 5000)]' \
+        {-b,--td_bin_width}'[width of TD bars in histogram (default: 0.01)]' \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+function _checkm_dist_plot {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--image_type[desired image type (default: png)]' \
+        '--dpi[desired DPI of output image (default: 600)]' \
+        '--font_size[Desired font size (default: 8)]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        '--width[width of output image (default: 6.5)]' \
+        '--height[height of output image (default: 8)]' \
+        {-a,--gc_window_size}'[window size used to calculate GC histogram (default: 5000)]' \
+        {-b,--td_window_size}'[window size used to calculate TD histogram (default: 5000)]' \
+        {-c,--cd_window_size}'[window size used to calculate CD histogram (default: 10000)]' \
+        {-1,--gc_bin_width}'[width of GC bars in histogram (default: 0.01)]' \
+        {-2,--td_bin_width}'[width of TD bars in histogram (default: 0.01)]' \
+        {-3,--cd_bin_width}'[width of CD bars in histogram (default: 0.01)]' \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+function _checkm_nx_plot {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--image_type[desired image type (default: png)]' \
+        '--dpi[desired DPI of output image (default: 600)]' \
+        '--font_size[Desired font size (default: 8)]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        '--width[width of output image (default: 6.5)]' \
+        '--height[height of output image (default: 6.5)]' \
+        {-s,--step_size}'[x step size for calculating Nx (default: 0.05)]' \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+function _checkm_len_hist {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--image_type[desired image type (default: png)]' \
+        '--dpi[desired DPI of output image (default: 600)]' \
+        '--font_size[Desired font size (default: 8)]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        '--width[width of output image (default: 6.5)]' \
+        '--height[height of output image (default: 6.5)]' \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+function _checkm_marker_plot {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--image_type[desired image type (default: png)]' \
+        '--dpi[desired DPI of output image (default: 600)]' \
+        '--font_size[Desired font size (default: 8)]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        '--width[width of output image (default: 6.5)]' \
+        '--height[height of output image (default: 6.5)]' \
+        '--fig_padding[white space to place around figure (in inches) (default: 0.2)]' \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+function _checkm_gc_bias_plot {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--image_type[desired image type (default: png)]' \
+        '--dpi[desired DPI of output image (default: 600)]' \
+        '--font_size[Desired font size (default: 8)]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        '--width[width of output image (default: 6.5)]' \
+        '--height[height of output image (default: 3.5)]' \
+        {-w,--window_size}'[window size used to calculate plot statistics (default: 5000)]' \
+        {-r,--all_reads}'[use all reads to estimate coverage instead of just those in proper pairs]' \
+        {-a,--min_align}'[minimum alignment length as percentage of read length (default: 0.98)]' \
+        {-e,--max_edit_dist}'[maximum edit distance as percentage of read length (default: 0.02)]' \
+        {-t,--threads}'[number of threads (default: 1)]' \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+function _checkm_unique {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-x,--extension}'[extension of bins (all other files in bin directory are ignored) (default: fna)]' \
+        "*: :_files"
+
+}
+
+function _checkm_merge {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-g,--genes}'[bins contain genes as amino acids instead of nucleotide contigs]' \
+        '--delta_comp[minimum increase in completeness to report pair (default: 5.0)]' \
+        '--delta_cont[maximum increase in contamination to report pair (default: 10.0)]' \
+        '--merged_comp[minimum merged completeness to report pair (default: 50.0)]' \
+        '--merged_cont[maximum merged contamination to report pair (default: 20.0)]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        {-t,--threads}'[number of threads (default: 1)]' \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+function _checkm_outliers {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-d,--distributions}'[reference distribution used to identify outliers; integer between 0 and 100 (default: 95)]' \
+        {-r,--report_type}'[report sequences that are outliers in '\''all'\'' or '\''any'\'' reference distribution (default: any)]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+function _checkm_modify {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-a,--add}'[ID of sequence to add to bin (may specify multiple times)]' \
+        {-r,--remove}'[ID of sequence to remove from bin (may specify multiple times)]' \
+        {-o,--outlier_file}'[remove all sequences marked as outliers in the bin (see outlier command)]':file:_files \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+function _checkm_unbinned {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        {-s,--min_seq_len}'[required length of sequence]' \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+function _checkm_coverage {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        {-r,--all_reads}'[use all reads to estimate coverage instead of just those in proper pairs]' \
+        {-a,--min_align}'[minimum alignment length as percentage of read length (default: 0.98)]' \
+        {-e,--max_edit_dist}'[maximum edit distance as percentage of read length (default: 0.02)]' \
+        {-m,--min_qc}'[minimum quality score (in phred) (default: 15)]' \
+        {-t,--threads}'[number of threads (default: 1)]' \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+function _checkm_tetra {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-t,--threads}'[number of threads (default: 1)]' \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+function _checkm_profile {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-f,--file}'[print results to file (default: stdout)]':file:_files \
+        '--tab_table[print tab-separated values table]' \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+function _checkm_ssu_finder {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-x,--extension}'[extension of bins (other files in directory are ignored) (default: fna)]' \
+        {-e,--evalue}'[e-value threshold for identifying hits (default: 1e-05)]' \
+        {-c,--concatenate}'[concatenate hits that are within the specified number of base pairs (default: 200)]' \
+        {-t,--threads}'[number of threads (default: 1)]' \
+        {-q,--quiet}'[suppress console output]' \
+        "*: :_files"
+
+}
+
+_checkm "$@"
 

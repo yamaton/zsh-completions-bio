@@ -1,20 +1,9 @@
-#compdef _cuffcompare cuffcompare
+#compdef cuffcompare
 
 # Auto-generated with h2o
 
-
 function _cuffcompare {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-i[provide a text file with a list of Cufflinks GTF files to process instead of expecting them as command line arguments (useful when a large number of GTF files should be processed)]' \
         '-r[a set of known mRNAs to use as a reference for assessing the accuracy of mRNAs or gene models given in <input.gtf>]' \
         '-R[for -r option, consider only the reference transcripts that overlap any of the input transfrags (Sn correction)]' \
@@ -30,17 +19,9 @@ function _cuffcompare {
         '-G[generic GFF input file(s): do not assume Cufflinks GTF, do not discard any intron-redundant transfrags)]' \
         '-T[do not generate .tmap and .refmap files for each input file]' \
         '-V[verbose processing mode (showing all GFF parsing warnings)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_cuffcompare "$@"
 

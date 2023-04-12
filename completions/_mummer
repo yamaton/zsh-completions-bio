@@ -1,20 +1,9 @@
-#compdef _mummer mummer
+#compdef mummer
 
 # Auto-generated with h2o
 
-
 function _mummer {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-mum[compute maximal matches that are unique in both sequences]' \
         '-mumreference[compute maximal matches that are unique in the referencesequence but not necessarily in the query-sequence (default)]' \
         '-mumcand[same as -mumreference]' \
@@ -36,17 +25,9 @@ function _mummer {
         '-kmer[use kmer table containing sa-intervals (speeds up searching first k characters) in the index and during search \[int value, auto\]]' \
         '-save[save index to file to use again later (string)]' \
         '-load[load index from file]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_mummer "$@"
 

@@ -1,40 +1,6 @@
-#compdef _cromwell cromwell
+#compdef cromwell
 
 # Auto-generated with h2o
-
-    function _cromwell_server {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _cromwell_run {
-        _arguments \
-            '--workflow-root[Workflow root.]' \
-            {-i,--inputs}'[Workflow inputs file.]' \
-            {-o,--options}'[Workflow options file.]' \
-            {-t,--type}'[Workflow type.]' \
-            {-v,--type-version}'[Workflow type version.]' \
-            {-l,--labels}'[Workflow labels file.]' \
-            {-p,--imports}'[A zip file to search for workflow imports.]' \
-            {-m,--metadata-output}'[An optional JSON file path to output metadata.]' \
-            "*: :_files"
-
-    }
-
-    function _cromwell_submit {
-        _arguments \
-            '--workflow-root[Workflow root.]' \
-            {-i,--inputs}'[Workflow inputs file.]' \
-            {-o,--options}'[Workflow options file.]' \
-            {-t,--type}'[Workflow type.]' \
-            {-v,--type-version}'[Workflow type version.]' \
-            {-l,--labels}'[Workflow labels file.]' \
-            {-p,--imports}'[A zip file to search for workflow imports.]' \
-            {-h,--host}'[Cromwell server URL.]' \
-            "*: :_files"
-
-    }
 
 
 function _cromwell {
@@ -80,4 +46,40 @@ function _cromwell {
      esac
 
 }
+
+function _cromwell_server {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _cromwell_run {
+    _arguments \
+        '--workflow-root[Workflow root.]' \
+        {-i,--inputs}'[Workflow inputs file.]' \
+        {-o,--options}'[Workflow options file.]' \
+        {-t,--type}'[Workflow type.]' \
+        {-v,--type-version}'[Workflow type version.]' \
+        {-l,--labels}'[Workflow labels file.]' \
+        {-p,--imports}'[A zip file to search for workflow imports.]' \
+        {-m,--metadata-output}'[An optional JSON file path to output metadata.]' \
+        "*: :_files"
+
+}
+
+function _cromwell_submit {
+    _arguments \
+        '--workflow-root[Workflow root.]' \
+        {-i,--inputs}'[Workflow inputs file.]' \
+        {-o,--options}'[Workflow options file.]' \
+        {-t,--type}'[Workflow type.]' \
+        {-v,--type-version}'[Workflow type version.]' \
+        {-l,--labels}'[Workflow labels file.]' \
+        {-p,--imports}'[A zip file to search for workflow imports.]' \
+        {-h,--host}'[Cromwell server URL.]' \
+        "*: :_files"
+
+}
+
+_cromwell "$@"
 

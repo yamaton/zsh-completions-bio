@@ -1,20 +1,9 @@
-#compdef _pepinfo pepinfo
+#compdef pepinfo
 
 # Auto-generated with h2o
 
-
 function _pepinfo {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-sequence[Protein sequence filename and optional format, or reference (input USA)]':file:_files \
         '-graph[\[$EMBOSS_GRAPHICS value, or png\] Graph type (ps, hpgl, hp7470, hp7580, meta, cps, tek, tekt, none, data, png, gif, svg)]' \
         '-outfile[\[*.pepinfo\] Output file name]':file:_files \
@@ -26,17 +15,9 @@ function _pepinfo {
         '-hydropathyplot[Plot graphs of hydropathy]' \
         '-nohydropathyplot[Do not plot graphs of hydropathy]' \
         '-help[Report command line options and exit. More information on associated and general qualifiers can be found with -help -verbose]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_pepinfo "$@"
 

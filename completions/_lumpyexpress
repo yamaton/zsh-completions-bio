@@ -1,20 +1,9 @@
-#compdef _lumpyexpress lumpyexpress
+#compdef lumpyexpress
 
 # Auto-generated with h2o
 
-
 function _lumpyexpress {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-B[full BAM or CRAM file(s) (comma separated) (required)]':file:_files \
         '-S[split reads BAM file(s) (comma separated)]':file:_files \
         '-D[discordant reads BAM files(s) (comma separated)]':file:_files \
@@ -30,17 +19,9 @@ function _lumpyexpress {
         '-K[path to lumpyexpress.config file]':file:_files \
         '-v[verbose]' \
         '-h[show this message]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_lumpyexpress "$@"
 

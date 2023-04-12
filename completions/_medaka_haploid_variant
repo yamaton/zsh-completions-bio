@@ -1,20 +1,9 @@
-#compdef _medaka_haploid_variant medaka_haploid_variant
+#compdef medaka_haploid_variant
 
 # Auto-generated with h2o
 
-
 function _medaka_haploid_variant {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[show this help text.]' \
         '-i[fastx input basecalls (required).]':file:_files \
         '-r[fasta reference sequence (required).]':file:_files \
@@ -25,17 +14,9 @@ function _medaka_haploid_variant {
         '-x[Force recreation of alignment index.]' \
         '-t[number of threads with which to create features (default: 1).]' \
         '-b[batchsize, controls memory use (default: 100).]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_medaka_haploid_variant "$@"
 

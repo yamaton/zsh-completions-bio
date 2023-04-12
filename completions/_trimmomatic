@@ -1,33 +1,6 @@
-#compdef _trimmomatic trimmomatic
+#compdef trimmomatic
 
 # Auto-generated with h2o
-
-    function _trimmomatic_PE {
-        _arguments \
-            '-threads[indicates the number of threads to use, which improves performance on multi-core computers. If not specified, it will be chosen automatically.]' \
-            {-phred33,-phred64}'[specifies the base quality encoding. If no quality encoding is specified, it will be determined automatically (since version 0.32). The prior default was -phred64.]' \
-            '-trimlog[creates a log of all read trimmings]':file:_files \
-            '-summary[creates a summary file]':file:_files \
-            '-quiet[inhibit messages]' \
-            '-validatePairs[validate pairs]' \
-            '-basein[specify forward file of paired reads]' \
-            '-baseout[set base filename from which the 4 output files can be derived.]' \
-            '-version[Show version]' \
-            "*: :_files"
-
-    }
-
-    function _trimmomatic_SE {
-        _arguments \
-            '-threads[indicates the number of threads to use, which improves performance on multi-core computers. If not specified, it will be chosen automatically.]' \
-            {-phred33,-phred64}'[specifies the base quality encoding. If no quality encoding is specified, it will be determined automatically (since version 0.32). The prior default was -phred64.]' \
-            '-trimlog[creates a log of all read trimmings]':file:_files \
-            '-summary[creates a summary file]':file:_files \
-            '-quiet[inhibit messages]' \
-            '-version[Show version]' \
-            "*: :_files"
-
-    }
 
 
 function _trimmomatic {
@@ -66,4 +39,33 @@ function _trimmomatic {
      esac
 
 }
+
+function _trimmomatic_PE {
+    _arguments \
+        '-threads[indicates the number of threads to use, which improves performance on multi-core computers. If not specified, it will be chosen automatically.]' \
+        {-phred33,-phred64}'[specifies the base quality encoding. If no quality encoding is specified, it will be determined automatically (since version 0.32). The prior default was -phred64.]' \
+        '-trimlog[creates a log of all read trimmings]':file:_files \
+        '-summary[creates a summary file]':file:_files \
+        '-quiet[inhibit messages]' \
+        '-validatePairs[validate pairs]' \
+        '-basein[specify forward file of paired reads]' \
+        '-baseout[set base filename from which the 4 output files can be derived.]' \
+        '-version[Show version]' \
+        "*: :_files"
+
+}
+
+function _trimmomatic_SE {
+    _arguments \
+        '-threads[indicates the number of threads to use, which improves performance on multi-core computers. If not specified, it will be chosen automatically.]' \
+        {-phred33,-phred64}'[specifies the base quality encoding. If no quality encoding is specified, it will be determined automatically (since version 0.32). The prior default was -phred64.]' \
+        '-trimlog[creates a log of all read trimmings]':file:_files \
+        '-summary[creates a summary file]':file:_files \
+        '-quiet[inhibit messages]' \
+        '-version[Show version]' \
+        "*: :_files"
+
+}
+
+_trimmomatic "$@"
 

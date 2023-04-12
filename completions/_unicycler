@@ -1,20 +1,9 @@
-#compdef _unicycler unicycler
+#compdef unicycler
 
 # Auto-generated with h2o
 
-
 function _unicycler {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[Show this help message and exit]' \
         '--help_all[Show a help message with all program options]' \
         '--version[Show Unicycler'\''s version number]' \
@@ -54,17 +43,9 @@ function _unicycler {
         '--start_gene_cov[The minimum required BLAST percent coverage for a start gene search (default: 95.0)]' \
         '--makeblastdb_path[Path to the makeblastdb executable (default: makeblastdb)]':file:_files \
         '--tblastn_path[Path to the tblastn executable (default: tblastn)]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_unicycler "$@"
 

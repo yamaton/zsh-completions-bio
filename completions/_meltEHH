@@ -1,37 +1,18 @@
-#compdef _meltEHH meltEHH
+#compdef meltEHH
 
 # Auto-generated with h2o
 
-
 function _meltEHH {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-t,--target}'[A zero base comma separated list of target individuals corresponding to VCF columns]' \
         {-r,--region}'[A tabix compliant genomic range format: "seqid:start-end" or "seqid"]' \
         {-f,--file}'[Proper formatted and phased VCF.]':file:_files \
         {-y,--type}'[Genotype likelihood format: GT,PL,GL,GP]' \
         {-p,--positio}'[Variant position to melt.]' \
         {-a,--af}'[Alternative alleles with frequencies less than \[0.05\] are skipped.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_meltEHH "$@"
 

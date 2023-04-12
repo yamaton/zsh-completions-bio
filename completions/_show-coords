@@ -1,20 +1,9 @@
-#compdef _show-coords show-coords
+#compdef show-coords
 
 # Auto-generated with h2o
 
-
 function _show-coords {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-b[Merges overlapping alignments regardless of match dir or frame and does not display any idenitity information.]' \
         '-B[Switch output to btab format]' \
         '-c[Include percent coverage information in the output]' \
@@ -30,17 +19,9 @@ function _show-coords {
         '-q[Sort output lines by query IDs and coordinates]' \
         '-r[Sort output lines by reference IDs and coordinates]' \
         '-T[Switch output to tab-delimited format]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_show-coords "$@"
 

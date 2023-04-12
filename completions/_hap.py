@@ -1,20 +1,9 @@
-#compdef _hap.py hap.py
+#compdef hap.py
 
 # Auto-generated with h2o
 
-
 function _hap.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-v,--version}'[Show version number and exit.]' \
         {-r,--reference}'[Specify a reference file.]' \
@@ -76,17 +65,9 @@ function _hap.py {
         '--logfile[Write logging information into file rather than to stderr]':file:_files \
         '--verbose[Raise logging level from warning to info.]' \
         '--quiet[Set logging level to output errors only.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_hap.py "$@"
 

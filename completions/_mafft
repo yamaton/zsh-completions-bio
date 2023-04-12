@@ -1,20 +1,9 @@
-#compdef _mafft mafft
+#compdef mafft
 
 # Auto-generated with h2o
 
-
 function _mafft {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--auto[Automatically selects an appropriate strategy from L-INS-i, FFT-NS-i and FFT-NS-2, according to data size. Default: off (always FFT-NS-2)]' \
         '--6merpair[Distance is calculated based on the number of shared 6mers. Default: on]' \
         '--globalpair[All pairwise alignments are computed with the Needleman-Wunsch algorithm. More accurate but slower than --6merpair. Suitable for a set of globally alignable sequences. Applicable to up to ~200 sequences. A combination with --maxiterate 1000 is recommended (G-INS-i). Default: off (6mer distance is used)]' \
@@ -55,17 +44,9 @@ function _mafft {
         '--seed[Seed alignments given in alignment_n (fasta format) are aligned with sequences in input. The alignment within every seed is preserved.]' \
         '--thread[Number of threads (if unsure, --thread -1)]' \
         '--dash[Add structural information (Rozewicki et al, submitted)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_mafft "$@"
 

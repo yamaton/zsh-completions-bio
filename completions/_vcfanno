@@ -1,36 +1,17 @@
-#compdef _vcfanno vcfanno
+#compdef vcfanno
 
 # Auto-generated with h2o
 
-
 function _vcfanno {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-base-path[optional base-path to prepend to annotation files in the config]' \
         '-ends[annotate the start and end as well as the interval itself.]' \
         '-lua[optional path to a file containing custom lua functions to be used as ops]' \
         '-p[number of processes to use. (default 2)]' \
         '-permissive-overlap[annotate with an overlapping variant even it doesn'\''t share the same ref and alt alleles. Default is to require exact match between variants.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_vcfanno "$@"
 

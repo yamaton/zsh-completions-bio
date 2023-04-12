@@ -1,20 +1,9 @@
-#compdef _subsample_bam subsample_bam
+#compdef subsample_bam
 
 # Auto-generated with h2o
 
-
 function _subsample_bam {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-o,--output_prefix}'[Output prefix (default: sub_sampled)]' \
         {-r,--regions}'[Only process given regions. (default: None)]' \
@@ -31,17 +20,9 @@ function _subsample_bam {
         {-s,--stride}'[Stride in genomic coordinates when searching for new reads. Smaller can lead to more compact pileup. (default: 1000)]' \
         {-P,--proportional}'[Activate proportional sampling, thus keeping depth variations of the pileup. (default: False)]' \
         {-S,--seed}'[Random seed for proportional downsampling of reads. (default: None)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_subsample_bam "$@"
 

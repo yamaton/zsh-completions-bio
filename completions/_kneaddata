@@ -1,20 +1,9 @@
-#compdef _kneaddata kneaddata
+#compdef kneaddata
 
 # Auto-generated with h2o
 
-
 function _kneaddata {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-v,--verbose}'[additional output is printed]' \
         '--version[show program'\''s version number and exit]' \
@@ -59,17 +48,9 @@ function _kneaddata {
         '--minscore[minimum alignment score to report \[ DEFAULT : 50 \]]' \
         '--maxperiod[maximum period size to report \[ DEFAULT : 500 \]]' \
         '--fastqc[path to fastqc \[ DEFAULT : $PATH \]]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_kneaddata "$@"
 

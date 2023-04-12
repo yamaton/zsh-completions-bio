@@ -1,20 +1,9 @@
-#compdef _show-snps show-snps
+#compdef show-snps
 
 # Auto-generated with h2o
 
-
 function _show-snps {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-C[Do not report SNPs from alignments with an ambiguous mapping, i.e. only report SNPs where the \[R\] and \[Q\] columns equal 0 and do not output these columns]' \
         '-h[Display help information]' \
         '-H[Do not print the output header]' \
@@ -25,17 +14,9 @@ function _show-snps {
         '-S[Specify which alignments to report by passing '\''show-coords'\'' lines to stdin]' \
         '-T[Switch to tab-delimited format]' \
         '-x[Include x characters of surrounding SNP context in the output, default 0]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_show-snps "$@"
 

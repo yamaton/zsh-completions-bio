@@ -1,20 +1,9 @@
-#compdef _plotHeatmap plotHeatmap
+#compdef plotHeatmap
 
 # Auto-generated with h2o
 
-
 function _plotHeatmap {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {--matrixFile,-m}'[Matrix file from the computeMatrix tool. (default: None)]':file:_files \
         {--outFileName,-out,-o}'[File name to save the image to. The file ending will be used to determine the image format. The available options are: "png", "eps", "pdf" and "svg", e.g., MyHeatmap.png. (default: None)]':file:_files \
         '--outFileSortedRegions[File name into which the regions are saved after skipping zeros or min/max threshold values. The order of the regions in the file follows the sorting order selected. This is useful, for example, to generate other heatmaps while keeping the sorting of the first heatmap. Example: Heatmap1sortedRegions.bed (default: None)]':file:_files \
@@ -59,17 +48,9 @@ function _plotHeatmap {
         '--perGroup[The default is to plot all groups of regions by sample. Using this option instead plots all samples by group of regions. Note that this is only useful if you have multiple groups of regions. by sample rather than group. (default: False)]' \
         '--plotFileFormat[Image format type. If given, this option overrides the image format based on the plotFile ending. The available options are: "png", "eps", "pdf", "plotly" and "svg" (default: None)]' \
         '--verbose[If set, warning messages and additional information are given. (default: False)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_plotHeatmap "$@"
 

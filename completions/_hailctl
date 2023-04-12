@@ -1,57 +1,6 @@
-#compdef _hailctl hailctl
+#compdef hailctl
 
 # Auto-generated with h2o
-
-    function _hailctl_dataproc {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--beta[Force use of `beta` in gcloud commands (default: False)]' \
-            "*: :_files"
-
-    }
-
-    function _hailctl_describe {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {--requester-pays-project-id,-u}'[Project to be billed for GCS requests. (default: None)]' \
-            "*: :_files"
-
-    }
-
-    function _hailctl_hdinsight {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            "*: :_files"
-
-    }
-
-    function _hailctl_auth {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            "*: :_files"
-
-    }
-
-    function _hailctl_dev {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            "*: :_files"
-
-    }
-
-    function _hailctl_batch {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            "*: :_files"
-
-    }
-
-    function _hailctl_config {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            "*: :_files"
-
-    }
 
 
 function _hailctl {
@@ -116,4 +65,968 @@ function _hailctl {
      esac
 
 }
+
+
+function _hailctl_dataproc {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'start:Start a Dataproc cluster configured for Hail.'
+            'submit:Submit a Python script to a running Dataproc cluster.'
+            'connect:Connect to a running Dataproc cluster.'
+            'diagnose:Diagnose problems in a Dataproc cluster.'
+            'stop:Shut down a Dataproc cluster.'
+            'list:List active Dataproc clusters.'
+            'modify:Modify active Dataproc clusters.'
+            'describe:DEPRECATED. Describe Hail Matrix Table and Table files.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        '--beta[Force use of `beta` in gcloud commands (default: False)]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (start)
+            _hailctl_dataproc_start
+            ;;
+
+        (submit)
+            _hailctl_dataproc_submit
+            ;;
+
+        (connect)
+            _hailctl_dataproc_connect
+            ;;
+
+        (diagnose)
+            _hailctl_dataproc_diagnose
+            ;;
+
+        (stop)
+            _hailctl_dataproc_stop
+            ;;
+
+        (list)
+            _hailctl_dataproc_list
+            ;;
+
+        (modify)
+            _hailctl_dataproc_modify
+            ;;
+
+        (describe)
+            _hailctl_dataproc_describe
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _hailctl_dataproc_start {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--master-machine-type,--master,-m}'[Master machine type (default: n1-highmem-8).]' \
+        '--master-memory-fraction[Fraction of master memory allocated to the JVM. Use a smaller value to reserve more memory for Python. (default: 0.8)]' \
+        '--master-boot-disk-size[Disk size of master machine, in GB (default: 100).]' \
+        '--num-master-local-ssds[Number of local SSDs to attach to the master machine (default: 0).]' \
+        '--num-secondary-workers[NUM_SECONDARY_WORKERS, --num-preemptible-workers NUM_SECONDARY_WORKERS, --n-pre-workers NUM_SECONDARY_WORKERS, -p NUM_SECONDARY_WORKERS Number of secondary (preemptible) worker machines (default: 0).]' \
+        '--num-worker-local-ssds[Number of local SSDs to attach to each worker machine (default: 0).]' \
+        {--num-workers,--n-workers,-w}'[Number of worker machines (default: 2).]' \
+        {--secondary-worker-boot-disk-size,--preemptible-worker-boot-disk-size}'[Disk size of secondary (preemptible) worker machines, in GB (default: 40).]' \
+        '--worker-boot-disk-size[Disk size of worker machines, in GB (default: 40).]' \
+        {--worker-machine-type,--worker}'[Worker machine type (default: n1-standard-8, or n1-highmem-8 with --vep).]' \
+        '--region[Compute region for the cluster.]' \
+        '--zone[Compute zone for the cluster.]' \
+        '--properties[Additional configuration properties for the cluster]' \
+        '--metadata[Comma-separated list of metadata to add: KEY1=VALUE1,KEY2=VALUE2...]' \
+        {--packages,--pkgs}'[Comma-separated list of Python packages to be installed on the master node.]' \
+        '--project[Google Cloud project to start cluster (defaults to currently set project).]' \
+        '--configuration[Google Cloud configuration to start cluster (defaults to currently set configuration).]' \
+        '--max-idle[If specified, maximum idle time before shutdown (e.g. 60m).]' \
+        '--expiration-time[If specified, time at which cluster is shutdown (e.g. 2020-01-01T00:00:00Z).]' \
+        '--max-age[If specified, maximum age before shutdown (e.g. 60m).]' \
+        '--bucket[The Google Cloud Storage bucket to use for cluster staging (just the bucket name, no gs:// prefix).]' \
+        '--temp-bucket[The Google Cloud Storage bucket to use for cluster temporary storage (just the bucket name, no gs:// prefix).]' \
+        '--network[the network for all nodes in this cluster]' \
+        '--service-account[The Google Service Account to use for cluster creation (default to the Compute Engine service account).]' \
+        '--master-tags[comma-separated list of instance tags to apply to the mastern node]' \
+        '--scopes[Specifies access scopes for the node instances]' \
+        '--wheel[Non-default Hail installation. Warning: experimental.]' \
+        '--init[Comma-separated list of init scripts to run.]' \
+        '--init_timeout[Flag to specify a timeout period for the initialization action]' \
+        '--vep[Install VEP for the specified reference genome.]' \
+        '--dry-run[Print gcloud dataproc command, but don'\''t run it.]' \
+        '--no-off-heap-memory[If true, don'\''t partition JVM memory between hail heap and JVM heap]' \
+        '--big-executors[If true, double memory allocated per executor, using half the cores of the cluster with an extra large memory allotment per core.]' \
+        '--off-heap-memory-fraction[Minimum fraction of worker memory dedicated to off-heap Hail values.]' \
+        '--off-heap-memory-hard-limit[If true, limit off-heap allocations to the dedicated fraction]' \
+        '--yarn-memory-fraction[Fraction of machine memory to allocate to the yarn container scheduler.]' \
+        '--requester-pays-allow-all[Allow reading from all requester-pays buckets.]' \
+        '--requester-pays-allow-buckets[Comma-separated list of requester-pays buckets to allow reading from.]' \
+        '--requester-pays-allow-annotation-db[Allows reading from any of the requester-pays buckets that hold data for the annotation database.]' \
+        '--debug-mode[Enable debug features on created cluster (heap dump on out-of-memory error)]' \
+        "*: :_files"
+
+}
+
+function _hailctl_dataproc_submit {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--files[Comma-separated list of files to add to the working directory of the Hail application.]':file:_files \
+        '--pyfiles[Comma-separated list of files (or directories with python files) to add to the PYTHONPATH.]':file:_files \
+        {--properties,-p}'[Extra Spark properties to set.]' \
+        '--gcloud_configuration[Google Cloud configuration to submit job (defaults to currently set configuration).]' \
+        '--dry-run[Print gcloud dataproc command, but don'\''t run it.]' \
+        '--region[Compute region for the cluster.]' \
+        "*: :_files"
+
+}
+
+function _hailctl_dataproc_connect {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--project[Google Cloud project for the cluster (defaults to currently set project).]' \
+        {--port,-p}'[Local port to use for SSH tunnel to leader (master) node (default: 10000).]' \
+        {--zone,-z}'[Compute zone for Dataproc cluster.]' \
+        '--dry-run[Print gcloud dataproc command, but don'\''t run it.]' \
+        "*: :_files"
+
+}
+
+function _hailctl_dataproc_diagnose {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--dest,-d}'[Directory for diagnose output -- must be local.]' \
+        {--hail-log,-l}'[Path for hail.log file.]' \
+        '--overwrite[Delete dest directory before adding new files.]' \
+        '--no-diagnose[Do not run gcloud dataproc clusters diagnose.]' \
+        {--compress,-z}'[GZIP all files.]' \
+        '--workers[Specific workers to get log files from.]' \
+        '--take[Only download logs from the first N workers.]' \
+        "*: :_files"
+
+}
+
+function _hailctl_dataproc_stop {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--async[Do not wait for cluster deletion.]' \
+        '--dry-run[Print gcloud dataproc command, but don'\''t run it.]' \
+        "*: :_files"
+
+}
+
+function _hailctl_dataproc_list {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _hailctl_dataproc_modify {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--num-workers,--n-workers,-w}'[New number of worker machines (min. 2).]' \
+        '--num-secondary-workers[NUM_SECONDARY_WORKERS, --num-preemptible-workers NUM_SECONDARY_WORKERS, --n-pre-workers NUM_SECONDARY_WORKERS, -p NUM_SECONDARY_WORKERS New number of secondary (preemptible) worker machines.]' \
+        {--graceful-decommission-timeout,--graceful}'[If set, cluster size downgrade will use graceful decommissioning with the given timeout (e.g. "60m").]' \
+        '--max-idle[New maximum idle time before shutdown (e.g. "60m").]' \
+        '--no-max-idle[Disable auto deletion after idle time.]' \
+        '--expiration-time[The time when cluster will be auto-deleted. (e.g. "2020-01-01T20:00:00Z"). Execute gcloud topic datatimes for more information.]' \
+        '--max-age[If the cluster is older than this, it will be auto-deleted. (e.g. "2h")Execute gcloud topic datatimes for more information.]' \
+        '--no-max-age[Disable auto-deletion due to max age or expiration time.]' \
+        '--dry-run[Print gcloud dataproc command, but don'\''t run it.]' \
+        {--zone,-z}'[Compute zone for Dataproc cluster.]' \
+        '--update-hail-version[Update the version of hail running on cluster to match the currently installed version.]' \
+        '--wheel[New Hail installation.]' \
+        "*: :_files"
+
+}
+
+function _hailctl_dataproc_describe {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--requester-pays-project-id,-u}'[Project to be billed for GCS requests.]' \
+        "*: :_files"
+
+}
+
+function _hailctl_describe {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--requester-pays-project-id,-u}'[Project to be billed for GCS requests. (default: None)]' \
+        "*: :_files"
+
+}
+
+
+function _hailctl_hdinsight {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'start:Start an HDInsight cluster configured for Hail.'
+            'stop:Stop an HDInsight cluster configured for Hail.'
+            'submit:Submit a job to an HDInsight cluster configured for Hail.'
+            'list:List HDInsight clusters configured for Hail.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (start)
+            _hailctl_hdinsight_start
+            ;;
+
+        (stop)
+            _hailctl_hdinsight_stop
+            ;;
+
+        (submit)
+            _hailctl_hdinsight_submit
+            ;;
+
+        (list)
+            _hailctl_hdinsight_list
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _hailctl_hdinsight_start {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--http-password[Password for web access. If unspecified one will be generated.]' \
+        '--sshuser-password[Password for ssh access. If unspecified one will be generated.]' \
+        '--location[Azure location in which to place the cluster.]' \
+        '--num-workers[Initial number of workers.]' \
+        '--install-hail-uri[A custom install hail bash script to use. Must be accessible by the cluster'\''s head nodes. http(s) and wasb(s) protocols are both acceptable]' \
+        '--install-native-deps-uri[A custom install hail bash script to use. Must be accessible by the cluster'\''s nodes. http(s) and wasb(s) protocols are both acceptable]' \
+        '--wheel-uri[A custom wheel file to use. Must be accessible by the cluster'\''s head nodes. only http(s) protocol is acceptable]' \
+        '--vep[Install VEP for the specified reference genome.]' \
+        '--vep-loftee-uri[(REQUIRED FOR VEP) A folder file containing the VEP loftee data files. There are tarred, requester-pays copies available at gs://hail-REGION-vep/loftee-beta/GRCh38.tar and gs://hail-REGION-vep/loftee-beta/GRCh37.tar where REGION is one of us, eu, uk, and aus-sydney. Must be accessible by the cluster'\''s head nodes. Must be an Azure blob storage URI like https://account.blob.core.windows.net/container/foo. See the Azure-specific VEP instructions in the Hail documentation.]' \
+        '--vep-homo-sapiens-uri[(REQUIRED FOR VEP) A folder file containing the VEP homo sapiens data files. There are tarred, requester-pays copies available at gs://hail-REGION-vep/homo-sapiens/95_GRCh38.tar and gs://hail-REGION-vep/homo-sapiens/85_GRCh37.tar where REGION is one of us, eu, uk, and aus-sydney. Must be accessible by the cluster'\''s head nodes. Must be an Azure blob storage URI like https://account.blob.core.windows.net/container/foo. See the Azure-specific VEP instructions in the Hail documentation.]' \
+        '--vep-config-uri[A VEP config to use. Must be accessible by the cluster'\''s head nodes. Only http(s) protocol is acceptable.]' \
+        '--install-vep-uri[A custom VEP install script to use. Must be accessible by the cluster'\''s nodes. http(s) and wasb(s) protocols are both acceptable]' \
+        "*: :_files"
+
+}
+
+function _hailctl_hdinsight_stop {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--extra-hdinsight-delete-args[Storage account in which cluster'\''s container exists.]' \
+        '--extra-storage-delete-args[Storage account in which cluster'\''s container exists.]' \
+        "*: :_files"
+
+}
+
+function _hailctl_hdinsight_submit {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _hailctl_hdinsight_list {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+
+function _hailctl_auth {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'login:Obtain Hail credentials.'
+            'copy-paste-login:Obtain Hail credentials with a copy paste token.'
+            'logout:Revoke Hail credentials.'
+            'list:List Hail credentials.'
+            'user:Get Hail user information.'
+            'create-user:Create a new Hail user.'
+            'delete-user:Delete a Hail user.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (login)
+            _hailctl_auth_login
+            ;;
+
+        (copy-paste-login)
+            _hailctl_auth_copy-paste-login
+            ;;
+
+        (logout)
+            _hailctl_auth_logout
+            ;;
+
+        (list)
+            _hailctl_auth_list
+            ;;
+
+        (user)
+            _hailctl_auth_user
+            ;;
+
+        (create-user)
+            _hailctl_auth_create-user
+            ;;
+
+        (delete-user)
+            _hailctl_auth_delete-user
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _hailctl_auth_login {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--namespace,-n}'[Specify namespace for auth server. (default: from deploy configuration)]' \
+        "*: :_files"
+
+}
+
+function _hailctl_auth_copy-paste-login {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--namespace,-n}'[Specify namespace for auth server. (default: from deploy configuration)]' \
+        "*: :_files"
+
+}
+
+function _hailctl_auth_logout {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _hailctl_auth_list {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _hailctl_auth_user {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _hailctl_auth_create-user {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--developer[User should be a developer.]' \
+        '--service-account[User should be a service account.]' \
+        {--namespace,-n}'[Specify namespace for auth server. (default: from deploy configuration)]' \
+        '--wait[Wait for the creation of the user to finish]' \
+        "*: :_files"
+
+}
+
+function _hailctl_auth_delete-user {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--namespace,-n}'[Specify namespace for auth server. (default: from deploy configuration)]' \
+        '--wait[Wait for the creation of the user to finish]' \
+        "*: :_files"
+
+}
+
+
+function _hailctl_dev {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'config:Configure deployment'
+            'deploy:Deploy a branch'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (config)
+            _hailctl_dev_config
+            ;;
+
+        (deploy)
+            _hailctl_dev_deploy
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+
+function _hailctl_dev_config {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'set:Set deploy configuration property.'
+            'show:List all dev configuration properties. Note: This subcommand is deprecated. Use `list` instead'
+            'list:List all dev configuration properties.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (set)
+            _hailctl_dev_config_set
+            ;;
+
+        (show)
+            _hailctl_dev_config_show
+            ;;
+
+        (list)
+            _hailctl_dev_config_list
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+
+function _hailctl_dev_config_set {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'value:Value to set property to.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (value)
+            _hailctl_dev_config_set_value
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _hailctl_dev_config_set_value {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _hailctl_dev_config_show {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _hailctl_dev_config_list {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _hailctl_dev_deploy {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--branch,-b}'[Fully-qualified branch, e.g., hail-is/hail:feature.]' \
+        {--steps,-s}'[Comma or space-separated list of steps to run.]' \
+        {--excluded_steps,-e}'[Comma or space-separated list of steps to forcibly exclude. Use with caution!]' \
+        {--extra-config,-c}'[Comma or space-separate list of key=value pairs to add as extra config parameters.]' \
+        {--open,-o}'[Open the deploy batch page in a web browser.]' \
+        "*: :_files"
+
+}
+
+
+function _hailctl_batch {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'billing:List billing'
+            'list:List batches'
+            'get:Get a particular batch'\''s info'
+            'cancel:Cancel a batch'
+            'delete:Delete a batch'
+            'submit:Submit a batch'
+            'log:Get log for a job'
+            'job:Get the status and specification for a job'
+            'wait:Wait for a batch to complete, then print JSON status.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (billing)
+            _hailctl_batch_billing
+            ;;
+
+        (list)
+            _hailctl_batch_list
+            ;;
+
+        (get)
+            _hailctl_batch_get
+            ;;
+
+        (cancel)
+            _hailctl_batch_cancel
+            ;;
+
+        (delete)
+            _hailctl_batch_delete
+            ;;
+
+        (submit)
+            _hailctl_batch_submit
+            ;;
+
+        (log)
+            _hailctl_batch_log
+            ;;
+
+        (job)
+            _hailctl_batch_job
+            ;;
+
+        (wait)
+            _hailctl_batch_wait
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _hailctl_batch_billing {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _hailctl_batch_list {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--query,-q}'[see docs at https://batch.hail.is/batches]' \
+        {--limit,-l}'[number of batches to return (default 50)]' \
+        {--all,-a}'[list all batches (overrides --limit)]' \
+        '--before[start listing before supplied id]' \
+        '--full[when output is tabular, print more information]' \
+        '--no-header[do not print a table header]' \
+        '-o[]' \
+        "*: :_files"
+
+}
+
+
+function _hailctl_batch_get {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'batch_id:ID number of the desired batch'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        '-o[Specify output format]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (batch_id)
+            _hailctl_batch_get_batch_id
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _hailctl_batch_get_batch_id {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _hailctl_batch_cancel {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+
+function _hailctl_batch_delete {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'batch_id:ID number of batch to be deleted'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (batch_id)
+            _hailctl_batch_delete_batch_id
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _hailctl_batch_delete_batch_id {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _hailctl_batch_submit {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--name[Batch name]' \
+        '--image-name[Name for Docker image. Defaults to hailgenetics/hail]' \
+        '--files[Comma-separated list of files or directories to add to the working directory of job]':file:_files \
+        '-o[]' \
+        "*: :_files"
+
+}
+
+
+function _hailctl_batch_log {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'batch_id:ID number of the desired batch'
+            'job_id:ID number of the desired job'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        '-o[Specify output format]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (batch_id)
+            _hailctl_batch_log_batch_id
+            ;;
+
+        (job_id)
+            _hailctl_batch_log_job_id
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _hailctl_batch_log_batch_id {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _hailctl_batch_log_job_id {
+    _arguments \
+        "*: :_files"
+
+}
+
+
+function _hailctl_batch_job {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'batch_id:ID number of the desired batch'
+            'job_id:ID number of the desired job'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        '-o[Specify output format]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (batch_id)
+            _hailctl_batch_job_batch_id
+            ;;
+
+        (job_id)
+            _hailctl_batch_job_job_id
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _hailctl_batch_job_batch_id {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _hailctl_batch_job_job_id {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _hailctl_batch_wait {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--quiet,-q}'[Do not print a progress bar for the batch]' \
+        "*: :_files"
+
+}
+
+
+function _hailctl_config {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'set:Set a Hail configuration parameter.'
+            'unset:Unset a Hail configuration parameter (restore to default behavior).'
+            'get:Get the value of a Hail configuration parameter.'
+            'config-location:Print the location of the config file'
+            'list:lists every config variable in the section (default: all sections)'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (set)
+            _hailctl_config_set
+            ;;
+
+        (unset)
+            _hailctl_config_unset
+            ;;
+
+        (get)
+            _hailctl_config_get
+            ;;
+
+        (config-location)
+            _hailctl_config_config-location
+            ;;
+
+        (list)
+            _hailctl_config_list
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _hailctl_config_set {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _hailctl_config_unset {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _hailctl_config_get {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _hailctl_config_config-location {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _hailctl_config_list {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+_hailctl "$@"
 

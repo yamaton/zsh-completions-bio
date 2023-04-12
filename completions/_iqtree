@@ -1,20 +1,9 @@
-#compdef _iqtree iqtree
+#compdef iqtree
 
 # Auto-generated with h2o
 
-
 function _iqtree {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[Print (more) help usages]' \
         '-s[PHYLIP/FASTA/NEXUS/CLUSTAL/MSF alignment file(s)]':file:_files \
         '-s[Directory of alignment files]':file:_files \
@@ -254,17 +243,9 @@ function _iqtree {
         '--no-outfiles[Suppress printing output files]' \
         '--eigenlib[Use Eigen3 library]' \
         '-alninfo[Print alignment sites statistics to .alninfo]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_iqtree "$@"
 

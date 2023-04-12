@@ -1,20 +1,9 @@
-#compdef _bgzip bgzip
+#compdef bgzip
 
 # Auto-generated with h2o
 
-
 function _bgzip {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--binary[Bgzip will attempt to ensure BGZF blocks end on a newline when the input is a text file. The exception to this is where a single line is larger than a BGZF block (64Kb). This can aid tools that use the index to perform random access on the compressed stream, as the start of a block is likely to also be the start of a text record.]' \
         {-b,--offset}'[Decompress to standard output from virtual file position (0-based uncompressed offset). Implies -c and -d.]' \
         {-c,--stdout}'[Write to standard output, keep original files unchanged.]' \
@@ -30,17 +19,9 @@ function _bgzip {
         {-s,--size}'[Decompress INT bytes (uncompressed size) to standard output. Implies -c.]' \
         {-t,--test}'[Test the intregrity of the compressed file.]' \
         {-@,--threads}'[Number of threads to use \[1\].]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_bgzip "$@"
 

@@ -1,34 +1,15 @@
-#compdef _fast_convert fast_convert
+#compdef fast_convert
 
 # Auto-generated with h2o
 
-
 function _fast_convert {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--discard_q[Discard quality information from fastq, use with --mock_q. (default: False)]' \
         '--mock_q[Mock quality value, valid for convert=aq|qq. (default: 10)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_fast_convert "$@"
 

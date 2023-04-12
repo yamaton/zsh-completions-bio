@@ -1,35 +1,16 @@
-#compdef _bFst bFst
+#compdef bFst
 
 # Auto-generated with h2o
 
-
 function _bFst {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-t,--target}'[a zero bases comma separated list of target individuals corrisponding to VCF columns]' \
         {-b,--background}'[a zero bases comma separated list of background individuals corrisponding to VCF columns]' \
         {-f,--file}'[a proper formatted VCF file. the FORMAT field MUST contain "PL"]':file:_files \
         {-d,--deltaaf}'[skip sites were the difference in allele frequency is less than deltaaf]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_bFst "$@"
 

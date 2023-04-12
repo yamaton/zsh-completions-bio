@@ -1,20 +1,9 @@
-#compdef _megacc megacc
+#compdef megacc
 
 # Auto-generated with h2o
 
-
 function _megacc {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-a,--analysisOptions}'[(*required*) Specify the full path to the Mega Analysis Options (.mao) file. This file tells MEGA-CC which analysis to perform as well as which options to use]':file:_files \
         {-c,--calibration}'[Specify the full path to a calibration file that you wish to use. The calibration file is used to provide calibration data for tree timing methods.]':file:_files \
         {-ca,--concatenate-alignments}'[Command to concatenate multiple sequence alignments into a single sequence alignment file The files to be concatenated should either be located in a directory specified by the -d option or the -l option can be used to specify the files to concatenate via a text file that has the full path to each file on a separate line.]' \
@@ -34,17 +23,9 @@ function _megacc {
         {-r,--recursive}'[If a directory is specified for analysis by default MEGA only searches the contents of that folder and not any of it'\''s children. To include the contents of all folders under the one specified, use this option.]' \
         {-s,--silent}'[This option prevents progress updates from being written to stdout.]' \
         {-t,--tree}'[(*required for some analyses*) Specify the full path to the tree file you wish to use. (Some analyses requires a user provided tree, or allow you to provide your own)]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_megacc "$@"
 

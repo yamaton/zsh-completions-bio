@@ -1,20 +1,9 @@
-#compdef _winnowmap winnowmap
+#compdef winnowmap
 
 # Auto-generated with h2o
 
-
 function _winnowmap {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-H[use homopolymer-compressed k-mer]' \
         '-k[k-mer size (no larger than 28) \[15\]]' \
         '-w[minimizer window size \[50\]]' \
@@ -51,17 +40,9 @@ function _winnowmap {
         '-K[minibatch size for mapping \[1000M\]]' \
         '--version[show version number]' \
         '-x[preset (always applied before other options) \[\] - map-ont (ont-to-ref, uses default param) - map-pb (hifi-to-ref, all defaults but does finer read fragmentation in SV-aware mapping) - map-pb-clr (clr-to-ref, sets --sv-off) - splice/splice:hq - long-read/Pacbio-CCS spliced alignment, sets --sv-off - asm5/asm10/asm20 - asm-to-ref mapping]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_winnowmap "$@"
 

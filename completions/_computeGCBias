@@ -1,20 +1,9 @@
-#compdef _computeGCBias computeGCBias
+#compdef computeGCBias
 
 # Auto-generated with h2o
 
-
 function _computeGCBias {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {--bamfile,-b}'[Sorted BAM file. (default: None)]':file:_files \
         '--effectiveGenomeSize[The effective genome size is the portion of the genome that is mappable. Large fractions of the genome are stretches of NNNN that should be discarded. Also, if repetitive regions were not included in the mapping of reads, the effective genome size needs to be adjusted accordingly. A table of values is available here: http://deeptools.readthedocs.io/en/latest/content/feature/effectiveGenomeSize.html . (default: None)]' \
         {--genome,-g}'[Genome in two bit format. Most genomes can be found here: http://hgdownload.cse.ucsc.edu/gbdb/ Search for the .2bit ending. Otherwise, fasta files can be converted to 2bit using the UCSC programm called faToTwoBit available for different plattforms at http://hgdownload.cse.ucsc.edu/admin/exe/ (default: None)]':file:_files \
@@ -31,17 +20,9 @@ function _computeGCBias {
         '--biasPlot[If given, a diagnostic image summarizing the GC-bias will be saved. (default: None)]':file:_files \
         '--plotFileFormat[image format type. If given, this option overrides the image format based on the plotFile ending. The available options are: "png", "eps", "pdf", "plotly" and "svg" (default: None)]' \
         '--regionSize[To plot the reads per %GC over a regionthe size of the region is required. By default, the bin size is set to 300 bases, which is close to the standard fragment size for Illumina machines. However, if the depth of sequencing is low, a larger bin size will be required, otherwise many bins will not overlap with any read (Default: 300)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_computeGCBias "$@"
 

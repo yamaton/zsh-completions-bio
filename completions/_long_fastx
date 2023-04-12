@@ -1,35 +1,16 @@
-#compdef _long_fastx long_fastx
+#compdef long_fastx
 
 # Auto-generated with h2o
 
-
 function _long_fastx {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--longest[Percentage of longest reads to partition.]' \
         '--bases[Maximum number of bases (subject to at least one read.)]' \
         '--others[Write all other reads to file.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_long_fastx "$@"
 

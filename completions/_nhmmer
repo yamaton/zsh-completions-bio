@@ -1,20 +1,9 @@
-#compdef _nhmmer nhmmer
+#compdef nhmmer
 
 # Auto-generated with h2o
 
-
 function _nhmmer {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[show brief help on version and usage]' \
         '-o[direct output to file <f>, not stdout]' \
         '-A[save multiple alignment of all hits to file <f>]' \
@@ -64,17 +53,9 @@ function _nhmmer {
         '--watson[only search the top strand]' \
         '--crick[only search the bottom strand]' \
         '--cpu[number of parallel CPU workers to use for multithreads \[2\] (n>=0)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_nhmmer "$@"
 

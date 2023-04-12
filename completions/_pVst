@@ -1,20 +1,9 @@
-#compdef _pVst pVst
+#compdef pVst
 
 # Auto-generated with h2o
 
-
 function _pVst {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-t,--target}'[a zero based comma separated list of target individuals corresponding to VCF columns]' \
         {-b,--background}'[a zero based comma separated list of background individuals corresponding to VCF columns]' \
         {-f,--file}'[a properly formatted VCF.]':file:_files \
@@ -22,17 +11,9 @@ function _pVst {
         {-r,--region}'[a tabix compliant genomic range seqid or seqid:start-end]' \
         {-x,--cpu}'[number of CPUs \[1\]]' \
         {-n,--per}'[number of permutations \[1000\]]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_pVst "$@"
 

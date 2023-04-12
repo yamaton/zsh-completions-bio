@@ -1,20 +1,9 @@
-#compdef _findMotifsGenome.pl findMotifsGenome.pl
+#compdef findMotifsGenome.pl
 
 # Auto-generated with h2o
 
-
 function _findMotifsGenome.pl {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-mask[mask repeats/lower case sequence, can also add '\''r'\'' to genome, i.e. mm9r]' \
         '-bg[genomic positions to be used as background, default=automatic]':file:_files \
         '-chopify[chop up large background regions to the avg size of target regions]' \
@@ -66,17 +55,9 @@ function _findMotifsGenome.pl {
         '-minlp[stop looking for motifs when seed logp score gets above #, default: -10]' \
         '-homer1[to force the use of the original homer]' \
         '-depth[time spent on local optimization default: med]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_findMotifsGenome.pl "$@"
 

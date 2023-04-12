@@ -1,20 +1,9 @@
-#compdef _bowtie2 bowtie2
+#compdef bowtie2
 
 # Auto-generated with h2o
 
-
 function _bowtie2 {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-x[Index filename prefix (minus trailing .X.bt2).]':file:_files \
         '-1[Files with #1 mates, paired with files in <m2>.]':file:_files \
         '-2[Files with #2 mates, paired with files in <m1>.]':file:_files \
@@ -105,17 +94,9 @@ function _bowtie2 {
         '--non-deterministic[seed rand. gen. arbitrarily instead of using read attributes]' \
         '--version[print version information and quit]' \
         {-h,--help}'[print this usage message]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_bowtie2 "$@"
 

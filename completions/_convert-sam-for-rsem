@@ -1,34 +1,15 @@
-#compdef _convert-sam-for-rsem convert-sam-for-rsem
+#compdef convert-sam-for-rsem
 
 # Auto-generated with h2o
 
-
 function _convert-sam-for-rsem {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-p,--num-threads}'[Set the number of threads to be used for converting. (Default: 1)]' \
         '--memory-per-thread[Set the maximum allowable memory per thread. <string> represents the memory and accepts suffices '\''K/M/G'\''. (Default: 1G)]' \
         {-h,--help}'[Show help information.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_convert-sam-for-rsem "$@"
 

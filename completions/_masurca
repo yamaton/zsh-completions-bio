@@ -1,20 +1,9 @@
-#compdef _masurca masurca
+#compdef masurca
 
 # Auto-generated with h2o
 
-
 function _masurca {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-t,--threads}'[ONLY to use with -i option, number of threads]' \
         {-i,--illumina}'[Run assembly without creating configuration file, argument can be <illumina_paired_end_forward_reads> or <illumina_paired_end_forward_reads,illumina_paired_end_reverse_reads> if you only have single-end Illumina data. Reads file(s) could be fasta or fastq, can be gzip]' \
         {-r,--reads}'[ONLY to use with -i option, single long reads file for hybrid assembly, can be Nanopore or PacBio, fasta or fastq, can be gzipped]':file:_files \
@@ -25,17 +14,9 @@ function _masurca {
         {-l,--ld-library-path}'[Prepend to LD_LIBRARY_PATH in assembly script]':file:_files \
         '--skip-checking[Skip checking availability of other executables]' \
         {-h,--help}'[This message]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_masurca "$@"
 

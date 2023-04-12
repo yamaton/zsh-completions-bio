@@ -1,20 +1,9 @@
-#compdef _blat blat
+#compdef blat
 
 # Auto-generated with h2o
 
-
 function _blat {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-t[Database type. The default is dna.]' \
         '-q[Query type. The default is dna.]' \
         '-prot[Synonymous with -t=prot -q=prot.]' \
@@ -42,17 +31,9 @@ function _blat {
         '-fine[For high-quality mRNAs, look harder for small initial and terminal exons. Not recommended for ESTs.]' \
         '-maxIntron[Sets maximum intron size. Default is 750000.]' \
         '-extendThroughN[Allows extension of alignment through large blocks of Ns.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_blat "$@"
 

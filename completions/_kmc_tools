@@ -1,42 +1,6 @@
-#compdef _kmc_tools kmc_tools
+#compdef kmc_tools
 
 # Auto-generated with h2o
-
-    function _kmc_tools_transform {
-        _arguments \
-            '-t[- total number of threads (default: no. of CPU cores)]' \
-            '-v[- enable verbose mode (shows some information) (default: false)]' \
-            '-hp[- hide percentage progress (default: false)]' \
-            "*: :_files"
-
-    }
-
-    function _kmc_tools_simple {
-        _arguments \
-            '-t[- total number of threads (default: no. of CPU cores)]' \
-            '-v[- enable verbose mode (shows some information) (default: false)]' \
-            '-hp[- hide percentage progress (default: false)]' \
-            "*: :_files"
-
-    }
-
-    function _kmc_tools_complex {
-        _arguments \
-            '-t[- total number of threads (default: no. of CPU cores)]' \
-            '-v[- enable verbose mode (shows some information) (default: false)]' \
-            '-hp[- hide percentage progress (default: false)]' \
-            "*: :_files"
-
-    }
-
-    function _kmc_tools_filter {
-        _arguments \
-            '-t[- total number of threads (default: no. of CPU cores)]' \
-            '-v[- enable verbose mode (shows some information) (default: false)]' \
-            '-hp[- hide percentage progress (default: false)]' \
-            "*: :_files"
-
-    }
 
 
 function _kmc_tools {
@@ -88,4 +52,42 @@ function _kmc_tools {
      esac
 
 }
+
+function _kmc_tools_transform {
+    _arguments \
+        '-t[- total number of threads (default: no. of CPU cores)]' \
+        '-v[- enable verbose mode (shows some information) (default: false)]' \
+        '-hp[- hide percentage progress (default: false)]' \
+        "*: :_files"
+
+}
+
+function _kmc_tools_simple {
+    _arguments \
+        '-t[- total number of threads (default: no. of CPU cores)]' \
+        '-v[- enable verbose mode (shows some information) (default: false)]' \
+        '-hp[- hide percentage progress (default: false)]' \
+        "*: :_files"
+
+}
+
+function _kmc_tools_complex {
+    _arguments \
+        '-t[- total number of threads (default: no. of CPU cores)]' \
+        '-v[- enable verbose mode (shows some information) (default: false)]' \
+        '-hp[- hide percentage progress (default: false)]' \
+        "*: :_files"
+
+}
+
+function _kmc_tools_filter {
+    _arguments \
+        '-t[- total number of threads (default: no. of CPU cores)]' \
+        '-v[- enable verbose mode (shows some information) (default: false)]' \
+        '-hp[- hide percentage progress (default: false)]' \
+        "*: :_files"
+
+}
+
+_kmc_tools "$@"
 

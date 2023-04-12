@@ -1,20 +1,9 @@
-#compdef _efilter efilter
+#compdef efilter
 
 # Auto-generated with h2o
 
-
 function _efilter {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-q[Limit results to those matching the given query string.]' \
         '-query[Limit results to those matching the given query string.]' \
         '-sort[Sort results by the given field.]' \
@@ -41,17 +30,9 @@ function _efilter {
         '-pathway[reactome, wikipathways.]':file:_files \
         '-help[Print usage information.]' \
         '-label[Alias for query step.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_efilter "$@"
 

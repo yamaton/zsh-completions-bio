@@ -1,20 +1,9 @@
-#compdef _promer promer
+#compdef promer
 
 # Auto-generated with h2o
 
-
 function _promer {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--mum[Use anchor matches that are unique in both the reference and query]' \
         '--mumcand[Same as --mumreference]' \
         '--mumreference[Use anchor matches that are unique in in the reference but not necessarily unique in the query (default behavior)]' \
@@ -37,17 +26,9 @@ function _promer {
         {-p,--prefix}'[Set the prefix of the output files (default "out")]' \
         {-V,--version}'[Display the version information and exit]' \
         {-x,--matrix}'[Set the alignment matrix number to 1 \[BLOSUM 45\], 2 \[BLOSUM 62\] or 3 \[BLOSUM 80\] (default 2)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_promer "$@"
 

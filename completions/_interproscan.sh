@@ -1,20 +1,9 @@
-#compdef _interproscan.sh interproscan.sh
+#compdef interproscan.sh
 
 # Auto-generated with h2o
 
-
 function _interproscan.sh {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-appl,--applications}'[Optional, comma separated list of analyses. If this option is not set, ALL analyses will be run.]' \
         {-b,--output-file-base}'[Optional, base output filename (relative or absolute path). Note that this option, the --output-dir (-d) option and the --outfile (-o) option are mutually exclusive. The appropriate file extension for the output format(s) will be appended automatically. By default the input file path/name will be used.]':file:_files \
         {-cpu,--cpu}'[Optional, number of cores for inteproscan.]' \
@@ -38,17 +27,9 @@ function _interproscan.sh {
         {-version,--version}'[Optional, display version number]' \
         {-vl,--verbose-level}'[Optional, display verbose log output at level specified.]' \
         {-vtsv,--output-tsv-version}'[Optional, includes a TSV version file along with any TSV output (when TSV output requested)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_interproscan.sh "$@"
 

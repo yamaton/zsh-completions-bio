@@ -1,20 +1,9 @@
-#compdef _NanoStat NanoStat
+#compdef NanoStat
 
 # Auto-generated with h2o
 
-
 function _NanoStat {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show the help and exit]' \
         {-v,--version}'[Print version and exit.]' \
         {-o,--outdir}'[Specify directory for output, only in combination with -n.]':file:_files \
@@ -32,17 +21,9 @@ function _NanoStat {
         '--ubam[Data is in one or more unmapped bam file(s).]':file:_files \
         '--cram[Data is in one or more sorted cram file(s).]':file:_files \
         '--feather[Data is in one or more feather file(s).]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_NanoStat "$@"
 

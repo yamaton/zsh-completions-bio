@@ -1,24 +1,6 @@
-#compdef _catalogue_errors catalogue_errors
+#compdef catalogue_errors
 
 # Auto-generated with h2o
-
-    function _catalogue_errors_count {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--bed[.bed file of reference regions to include. (default: None)]' \
-            {-t,--threads}'[Number of threads for parallel execution. (default: 1)]' \
-            {-o,--outdir}'[Output directory. (default: error_catalogue)]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _catalogue_errors_analyse {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-o,--outdir}'[Output directory (will be created). (default: error_catalogue)]':file:_files \
-            "*: :_files"
-
-    }
 
 
 function _catalogue_errors {
@@ -58,4 +40,24 @@ function _catalogue_errors {
      esac
 
 }
+
+function _catalogue_errors_count {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--bed[.bed file of reference regions to include. (default: None)]' \
+        {-t,--threads}'[Number of threads for parallel execution. (default: 1)]' \
+        {-o,--outdir}'[Output directory. (default: error_catalogue)]':file:_files \
+        "*: :_files"
+
+}
+
+function _catalogue_errors_analyse {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-o,--outdir}'[Output directory (will be created). (default: error_catalogue)]':file:_files \
+        "*: :_files"
+
+}
+
+_catalogue_errors "$@"
 

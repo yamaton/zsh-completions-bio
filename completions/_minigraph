@@ -1,20 +1,9 @@
-#compdef _minigraph minigraph
+#compdef minigraph
 
 # Auto-generated with h2o
 
-
 function _minigraph {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-k[k-mer size (no larger than 28) \[17\]]' \
         '-w[minizer window size \[11\]]' \
         '-c[perform base alignment; RECOMMENDED]' \
@@ -41,17 +30,9 @@ function _minigraph {
         '-S[output linear chains in * sName sLen nMz div sStart sEnd qStart qEnd]' \
         '--vc[output in the vertex coordinate]' \
         '-x[lr: noisy long read mapping (the default) - asm: asm-to-ref mapping - sr: short reads - ggs: incremental graph generation]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_minigraph "$@"
 

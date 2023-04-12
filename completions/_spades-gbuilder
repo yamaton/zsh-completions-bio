@@ -1,20 +1,9 @@
-#compdef _spades-gbuilder spades-gbuilder
+#compdef spades-gbuilder
 
 # Auto-generated with h2o
 
-
 function _spades-gbuilder {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-k[k-mer length to use]' \
         '-c[infer coverage]' \
         '-t[# of threads to use]' \
@@ -24,17 +13,9 @@ function _spades-gbuilder {
         '--fastg[produce graph in FASTG format]' \
         '--gfa[produce graph in GFA1 format]' \
         '--spades[produce graph in SPAdes internal format]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_spades-gbuilder "$@"
 

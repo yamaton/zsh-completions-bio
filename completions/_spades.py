@@ -1,20 +1,9 @@
-#compdef _spades.py spades.py
+#compdef spades.py
 
 # Auto-generated with h2o
 
-
 function _spades.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-o[directory to store all the resulting files (required)]':file:_files \
         '--isolate[this flag is highly recommended for high-coverage isolate and multi-cell data]' \
         '--sc[this flag is required for MDA (single-cell) data]' \
@@ -73,17 +62,9 @@ function _spades.py {
         '--cov-cutoff[coverage cutoff value (a positive float number, or '\''auto'\'', or '\''off'\'') \[default: '\''off'\''\]]' \
         '--phred-offset[PHRED quality offset in the input reads (33 or 64), \[default: auto-detect\]]' \
         '--custom-hmms[directory with custom hmms that replace default ones, \[default: None\]]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_spades.py "$@"
 

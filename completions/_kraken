@@ -1,20 +1,9 @@
-#compdef _kraken kraken
+#compdef kraken
 
 # Auto-generated with h2o
 
-
 function _kraken {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--db[Name for Kraken DB   (default: none)]' \
         '--threads[Number of threads (default: 1)]' \
         '--fasta-input[Input is FASTA format]' \
@@ -34,17 +23,9 @@ function _kraken {
         '--check-names[Ensure each pair of reads have names that agree with each other; ignored if --paired is not specified]' \
         '--help[Print this message]' \
         '--version[Print version information]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_kraken "$@"
 

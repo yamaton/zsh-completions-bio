@@ -1,20 +1,9 @@
-#compdef _rsem-run-em rsem-run-em
+#compdef rsem-run-em
 
 # Auto-generated with h2o
 
-
 function _rsem-run-em {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-p[number of threads which user wants to use. (default: 1)]' \
         '-b[produce bam format output file. (default: off)]' \
         '-q[set it quiet]' \
@@ -22,17 +11,9 @@ function _rsem-run-em {
         '--sampling[sample each read from its posterior distribution when BAM file is generated. (default: off)]' \
         '--seed[the seed used for the BAM sampling. (default: off)]' \
         '--append-names[append transcript_name/gene_name when available. (default: off)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_rsem-run-em "$@"
 

@@ -1,20 +1,9 @@
-#compdef _bismark bismark
+#compdef bismark
 
 # Auto-generated with h2o
 
-
 function _bismark {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-1[Comma-separated list of files containing the #1 mates (filename usually includes   "_1"), e.g. flyA_1.fq,flyB_1.fq). Sequences specified with this option must correspond file-for-file and read-for-read with those specified in <mates2>. Reads may be a mix of different lengths. Bismark will produce one mapping result and one report file per paired-end input file pair.]':file:_files \
         '-2[Comma-separated list of files containing the #2 mates (filename usually includes   "_2"), e.g. flyA_2.fq,flyB_2.fq). Sequences specified with this option must correspond file-for-file and read-for-read with those specified in <mates1>. Reads may be a mix of different lengths.]':file:_files \
         {--se,--single_end}'[Sets single-end mapping mode explicitly giving a list of file names as <list>. The filenames may be provided as a comma \[,\] or colon \[:\] separated list.]' \
@@ -78,17 +67,9 @@ function _bismark {
         '--mm2_pacbio[Using the minimap2 preset for PacBio vs reference mapping (-x map-pb). Only works in conjuntion with --minimap2. Default: OFF.]' \
         '--mm2_short_reads[This option invokes the minmap2 preset setting '\''-x sr'\'' and is intended for genomic short-read mapping with accurate reads (probably Illumina 150bp+ ?). For spliced short-reads, please use --hisat2 instead. Default: OFF.]' \
         '--mm2_maximum_length[Maximum length cutoff for very long sequences (currently allowed 100-100,000 bp). Default: 10000.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_bismark "$@"
 

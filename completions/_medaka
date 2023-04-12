@@ -1,174 +1,6 @@
-#compdef _medaka medaka
+#compdef medaka
 
 # Auto-generated with h2o
-
-    function _medaka_compress_bam {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--debug[Verbose logging of debug information. (default: 20)]' \
-            '--quiet[Minimal logging; warnings only). (default: 20)]' \
-            '--regions[Genomic regions to analyse, or a bed file. (default: None)]' \
-            '--threads[Number of threads for parallel execution. (default: 1)]' \
-            '--use_fast5_info[Root directory containing the fast5 files and .tsv file with columns filename and read_id. (default: None)]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _medaka_features {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--debug[Verbose logging of debug information. (default: 20)]' \
-            '--quiet[Minimal logging; warnings only). (default: 20)]' \
-            '--batch_size[Inference batch size. (default: 100)]' \
-            '--chunk_len[Chunk length of samples. (default: 10000)]' \
-            '--chunk_ovlp[Overlap of chunks. (default: 1000)]' \
-            '--regions[Genomic regions to analyse, or a bed file. (default: None)]' \
-            '--truth[Bam of truth aligned to ref to create features for training. (default: None)]' \
-            '--truth_haplotag[Two-letter tag defining haplotype of alignments for polyploidy labels. (default: None)]' \
-            '--threads[Number of threads for parallel execution. (default: 1)]' \
-            '--label_scheme[Labelling scheme. (default: HaploidLabelScheme)]' \
-            '--label_scheme_args[Label scheme key-word arguments. (default: {})]' \
-            '--feature_encoder[FeatureEncoder used to create the features. (default: CountsFeatureEncoder)]' \
-            '--feature_encoder_args[Feature encoder key-word arguments. (default: {})]' \
-            "*: :_files"
-
-    }
-
-    function _medaka_train {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--debug[Verbose logging of debug information. (default: 20)]' \
-            '--quiet[Minimal logging; warnings only). (default: 20)]' \
-            '--train_name[Name for training run. (default: keras_train)]' \
-            '--model[Model definition and initial weights .hdf, or .yml with kwargs to build model. {r103_fast_g507, r103_fast_snp_g507, r103_fast_variant_g507, r103_hac_g507, r103_hac_snp_g507, r103_hac_variant_g507, r103_min_high_g345, r103_min_high_g360, r103_prom_high_g360, r103_prom_snp_g3210, r103_prom_variant_g3210, r103_sup_g507, r103_sup_snp_g507, r103_sup_variant_g507, r1041_e82_260bps_fast_g632, r1041_e82_260bps_fast_variant_g632, r1041_e82_260bps_hac_g632, r1041_e82_260bps_hac_variant_g632, r1041_e82_260bps_sup_g632, r1041_e82_260bps_sup_variant_g632, r1041_e82_400bps_fast_g615, r1041_e82_400bps_fast_g632, r1041_e82_400bps_fast_variant_g615, r1041_e82_400bps_fast_variant_g632, r1041_e82_400bps_hac_g615, r1041_e82_400bps_hac_g632, r1041_e82_400bps_hac_variant_g615, r1041_e82_400bps_hac_variant_g632, r1041_e82_400bps_sup_g615, r1041_e82_400bps_sup_variant_g615, r104_e81_fast_g5015, r104_e81_fast_variant_g5015, r104_e81_hac_g5015, r104_e81_hac_variant_g5015, r104_e81_sup_g5015, r104_e81_sup_g610, r104_e81_sup_variant_g610, r10_min_high_g303, r10_min_high_g340, r941_e81_fast_g514, r941_e81_fast_variant_g514, r941_e81_hac_g514, r941_e81_hac_variant_g514, r941_e81_sup_g514, r941_e81_sup_variant_g514, r941_min_fast_g303, r941_min_fast_g507, r941_min_fast_snp_g507, r941_min_fast_variant_g507, r941_min_hac_g507, r941_min_hac_snp_g507, r941_min_hac_variant_g507, r941_min_high_g303, r941_min_high_g330, r941_min_high_g340_rle, r941_min_high_g344, r941_min_high_g351, r941_min_high_g360, r941_min_sup_g507, r941_min_sup_snp_g507, r941_min_sup_variant_g507, r941_prom_fast_g303, r941_prom_fast_g507, r941_prom_fast_snp_g507, r941_prom_fast_variant_g507, r941_prom_hac_g507, r941_prom_hac_snp_g507, r941_prom_hac_variant_g507, r941_prom_high_g303, r941_prom_high_g330, r941_prom_high_g344, r941_prom_high_g360, r941_prom_high_g4011, r941_prom_snp_g303, r941_prom_snp_g322, r941_prom_snp_g360, r941_prom_sup_g507, r941_prom_sup_snp_g507, r941_prom_sup_variant_g507, r941_prom_variant_g303, r941_prom_variant_g322, r941_prom_variant_g360, r941_sup_plant_g610, r941_sup_plant_variant_g610} (default: None)]' \
-            '--epochs[Maximum number of trainig epochs. (default: 5000)]' \
-            '--batch_size[Training batch size. (default: 100)]' \
-            '--max_samples[Only train on max_samples. (default: inf)]' \
-            '--mini_epochs[Reduce fraction of data per epoch by this factor (default: 1)]' \
-            '--seed[Seed for random batch shuffling. (default: None)]' \
-            '--threads_io[Number of threads for parallel IO. (default: 1)]' \
-            '--device[GPU device to use. (default: 0)]' \
-            '--optimizer[Optimizer to use. (default: rmsprop)]' \
-            '--optim_args[Optimizer key-word arguments. (default: None)]' \
-            '--validation_split[Fraction of data to validate on. (default: 0.2)]' \
-            '--validation_features[Paths to validation data (default: None)]' \
-            "*: :_files"
-
-    }
-
-    function _medaka_consensus {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--debug[Verbose logging of debug information. (default: 20)]' \
-            '--quiet[Minimal logging; warnings only). (default: 20)]' \
-            '--batch_size[Inference batch size. (default: 100)]' \
-            '--chunk_len[Chunk length of samples. (default: 10000)]' \
-            '--chunk_ovlp[Overlap of chunks. (default: 1000)]' \
-            '--regions[Genomic regions to analyse, or a bed file. (default: None)]' \
-            '--model[Model to use. {r103_fast_g507, r103_fast_snp_g507, r103_fast_variant_g507, r103_hac_g507, r103_hac_snp_g507, r103_hac_variant_g507, r103_min_high_g345, r103_min_high_g360, r103_prom_high_g360, r103_prom_snp_g3210, r103_prom_variant_g3210, r103_sup_g507, r103_sup_snp_g507, r103_sup_variant_g507, r1041_e82_260bps_fast_g632, r1041_e82_260bps_fast_variant_g632, r1041_e82_260bps_hac_g632, r1041_e82_260bps_hac_variant_g632, r1041_e82_260bps_sup_g632, r1041_e82_260bps_sup_variant_g632, r1041_e82_400bps_fast_g615, r1041_e82_400bps_fast_g632, r1041_e82_400bps_fast_variant_g615, r1041_e82_400bps_fast_variant_g632, r1041_e82_400bps_hac_g615, r1041_e82_400bps_hac_g632, r1041_e82_400bps_hac_variant_g615, r1041_e82_400bps_hac_variant_g632, r1041_e82_400bps_sup_g615, r1041_e82_400bps_sup_variant_g615, r104_e81_fast_g5015, r104_e81_fast_variant_g5015, r104_e81_hac_g5015, r104_e81_hac_variant_g5015, r104_e81_sup_g5015, r104_e81_sup_g610, r104_e81_sup_variant_g610, r10_min_high_g303, r10_min_high_g340, r941_e81_fast_g514, r941_e81_fast_variant_g514, r941_e81_hac_g514, r941_e81_hac_variant_g514, r941_e81_sup_g514, r941_e81_sup_variant_g514, r941_min_fast_g303, r941_min_fast_g507, r941_min_fast_snp_g507, r941_min_fast_variant_g507, r941_min_hac_g507, r941_min_hac_snp_g507, r941_min_hac_variant_g507, r941_min_high_g303, r941_min_high_g330, r941_min_high_g340_rle, r941_min_high_g344, r941_min_high_g351, r941_min_high_g360, r941_min_sup_g507, r941_min_sup_snp_g507, r941_min_sup_variant_g507, r941_prom_fast_g303, r941_prom_fast_g507, r941_prom_fast_snp_g507, r941_prom_fast_variant_g507, r941_prom_hac_g507, r941_prom_hac_snp_g507, r941_prom_hac_variant_g507, r941_prom_high_g303, r941_prom_high_g330, r941_prom_high_g344, r941_prom_high_g360, r941_prom_high_g4011, r941_prom_snp_g303, r941_prom_snp_g322, r941_prom_snp_g360, r941_prom_sup_g507, r941_prom_sup_snp_g507, r941_prom_sup_variant_g507, r941_prom_variant_g303, r941_prom_variant_g322, r941_prom_variant_g360, r941_sup_plant_g610, r941_sup_plant_variant_g610} (default: r941_min_hac_g507)]' \
-            '--threads[Number of threads used by inference. (default: 1)]' \
-            '--bam_workers[Number of workers used to prepare data from bam. (default: 2)]' \
-            '--bam_chunk[Size of reference chunks each worker parses from bam. (can be used to control memory use). (default: 1000000)]' \
-            '--check_output[Verify integrity of output file after inference. (default: False)]' \
-            '--save_features[Save features with consensus probabilities. (default: False)]' \
-            '--RG[Read group to select. (default: None)]' \
-            '--tag_name[Two-letter tag name. (default: None)]' \
-            '--tag_value[Value of tag. (default: None)]' \
-            '--tag_keep_missing[Keep alignments when tag is missing. (default: False)]' \
-            "*: :_files"
-
-    }
-
-    function _medaka_smolecule {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--debug[Verbose logging of debug information. (default: 20)]' \
-            '--quiet[Minimal logging; warnings only). (default: 20)]' \
-            '--batch_size[Inference batch size. (default: 100)]' \
-            '--chunk_len[Chunk length of samples. (default: 1000)]' \
-            '--chunk_ovlp[Overlap of chunks. (default: 500)]' \
-            '--model[Model to use. {r103_fast_g507, r103_fast_snp_g507, r103_fast_variant_g507, r103_hac_g507, r103_hac_snp_g507, r103_hac_variant_g507, r103_min_high_g345, r103_min_high_g360, r103_prom_high_g360, r103_prom_snp_g3210, r103_prom_variant_g3210, r103_sup_g507, r103_sup_snp_g507, r103_sup_variant_g507, r1041_e82_260bps_fast_g632, r1041_e82_260bps_fast_variant_g632, r1041_e82_260bps_hac_g632, r1041_e82_260bps_hac_variant_g632, r1041_e82_260bps_sup_g632, r1041_e82_260bps_sup_variant_g632, r1041_e82_400bps_fast_g615, r1041_e82_400bps_fast_g632, r1041_e82_400bps_fast_variant_g615, r1041_e82_400bps_fast_variant_g632, r1041_e82_400bps_hac_g615, r1041_e82_400bps_hac_g632, r1041_e82_400bps_hac_variant_g615, r1041_e82_400bps_hac_variant_g632, r1041_e82_400bps_sup_g615, r1041_e82_400bps_sup_variant_g615, r104_e81_fast_g5015, r104_e81_fast_variant_g5015, r104_e81_hac_g5015, r104_e81_hac_variant_g5015, r104_e81_sup_g5015, r104_e81_sup_g610, r104_e81_sup_variant_g610, r10_min_high_g303, r10_min_high_g340, r941_e81_fast_g514, r941_e81_fast_variant_g514, r941_e81_hac_g514, r941_e81_hac_variant_g514, r941_e81_sup_g514, r941_e81_sup_variant_g514, r941_min_fast_g303, r941_min_fast_g507, r941_min_fast_snp_g507, r941_min_fast_variant_g507, r941_min_hac_g507, r941_min_hac_snp_g507, r941_min_hac_variant_g507, r941_min_high_g303, r941_min_high_g330, r941_min_high_g340_rle, r941_min_high_g344, r941_min_high_g351, r941_min_high_g360, r941_min_sup_g507, r941_min_sup_snp_g507, r941_min_sup_variant_g507, r941_prom_fast_g303, r941_prom_fast_g507, r941_prom_fast_snp_g507, r941_prom_fast_variant_g507, r941_prom_hac_g507, r941_prom_hac_snp_g507, r941_prom_hac_variant_g507, r941_prom_high_g303, r941_prom_high_g330, r941_prom_high_g344, r941_prom_high_g360, r941_prom_high_g4011, r941_prom_snp_g303, r941_prom_snp_g322, r941_prom_snp_g360, r941_prom_sup_g507, r941_prom_sup_snp_g507, r941_prom_sup_variant_g507, r941_prom_variant_g303, r941_prom_variant_g322, r941_prom_variant_g360, r941_sup_plant_g610, r941_sup_plant_variant_g610} (default: r941_min_hac_g507)]' \
-            '--min_depth[Sites with depth lower than min_depth will not be polished. (default: 0)]' \
-            '--method[Pre-medaka consensus generation method. (default: spoa)]' \
-            '--depth[Minimum subread count. (default: 3)]' \
-            '--length[Minimum median subread length. (default: 400)]' \
-            '--threads[Number of threads used by inference. (default: 1)]' \
-            '--check_output[Verify integrity of output file after inference. (default: False)]' \
-            '--save_features[Save features with consensus probabilities. (default: False)]' \
-            '--qualities[Output consensus with per-base quality scores (fastq). (default: False)]' \
-            "*: :_files"
-
-    }
-
-    function _medaka_consensus_from_features {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--debug[Verbose logging of debug information. (default: 20)]' \
-            '--quiet[Minimal logging; warnings only). (default: 20)]' \
-            '--model[Model to use. {r103_fast_g507, r103_fast_snp_g507, r103_fast_variant_g507, r103_hac_g507, r103_hac_snp_g507, r103_hac_variant_g507, r103_min_high_g345, r103_min_high_g360, r103_prom_high_g360, r103_prom_snp_g3210, r103_prom_variant_g3210, r103_sup_g507, r103_sup_snp_g507, r103_sup_variant_g507, r1041_e82_260bps_fast_g632, r1041_e82_260bps_fast_variant_g632, r1041_e82_260bps_hac_g632, r1041_e82_260bps_hac_variant_g632, r1041_e82_260bps_sup_g632, r1041_e82_260bps_sup_variant_g632, r1041_e82_400bps_fast_g615, r1041_e82_400bps_fast_g632, r1041_e82_400bps_fast_variant_g615, r1041_e82_400bps_fast_variant_g632, r1041_e82_400bps_hac_g615, r1041_e82_400bps_hac_g632, r1041_e82_400bps_hac_variant_g615, r1041_e82_400bps_hac_variant_g632, r1041_e82_400bps_sup_g615, r1041_e82_400bps_sup_variant_g615, r104_e81_fast_g5015, r104_e81_fast_variant_g5015, r104_e81_hac_g5015, r104_e81_hac_variant_g5015, r104_e81_sup_g5015, r104_e81_sup_g610, r104_e81_sup_variant_g610, r10_min_high_g303, r10_min_high_g340, r941_e81_fast_g514, r941_e81_fast_variant_g514, r941_e81_hac_g514, r941_e81_hac_variant_g514, r941_e81_sup_g514, r941_e81_sup_variant_g514, r941_min_fast_g303, r941_min_fast_g507, r941_min_fast_snp_g507, r941_min_fast_variant_g507, r941_min_hac_g507, r941_min_hac_snp_g507, r941_min_hac_variant_g507, r941_min_high_g303, r941_min_high_g330, r941_min_high_g340_rle, r941_min_high_g344, r941_min_high_g351, r941_min_high_g360, r941_min_sup_g507, r941_min_sup_snp_g507, r941_min_sup_variant_g507, r941_prom_fast_g303, r941_prom_fast_g507, r941_prom_fast_snp_g507, r941_prom_fast_variant_g507, r941_prom_hac_g507, r941_prom_hac_snp_g507, r941_prom_hac_variant_g507, r941_prom_high_g303, r941_prom_high_g330, r941_prom_high_g344, r941_prom_high_g360, r941_prom_high_g4011, r941_prom_snp_g303, r941_prom_snp_g322, r941_prom_snp_g360, r941_prom_sup_g507, r941_prom_sup_snp_g507, r941_prom_sup_variant_g507, r941_prom_variant_g303, r941_prom_variant_g322, r941_prom_variant_g360, r941_sup_plant_g610, r941_sup_plant_variant_g610} (default: r941_min_hac_g507)]' \
-            "*: :_files"
-
-    }
-
-    function _medaka_fastrle {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--debug[Verbose logging of debug information. (default: 20)]' \
-            '--quiet[Minimal logging; warnings only). (default: 20)]' \
-            '--block_size[Block size for hompolymer splitting, e.g. with a value of blocksize=3, AAAA -> A3 A1. (default: 94)]' \
-            "*: :_files"
-
-    }
-
-    function _medaka_stitch {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--debug[Verbose logging of debug information. (default: 20)]' \
-            '--quiet[Minimal logging; warnings only). (default: 20)]' \
-            '--regions[Genomic ref_names to process, or a bed file. (default: None)]' \
-            '--min_depth[Sites with depth lower than min_depth will not be polished. (default: 0)]' \
-            '--threads[Number of worker processes to use. (default: 1)]' \
-            '--no-fillgaps[Don'\''t fill gaps in consensus sequence with draft sequence. (default: True)]' \
-            '--fill_char[Use a designated character to fill gaps. (default: None)]' \
-            '--qualities[Output with per-base quality scores (fastq). (default: False)]' \
-            "*: :_files"
-
-    }
-
-    function _medaka_variant {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--debug[Verbose logging of debug information. (default: 20)]' \
-            '--quiet[Minimal logging; warnings only). (default: 20)]' \
-            '--regions[Genomic ref_names to process, or a bed file. (default: None)]' \
-            '--verbose[Populate VCF info fields. (default: False)]' \
-            '--ambig_ref[Decode variants at ambiguous reference positions. (default: False)]' \
-            '--gvcf[Output VCF records for reference loci predicted to be non-variant. (default: False)]' \
-            "*: :_files"
-
-    }
-
-    function _medaka_snp {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--debug[Verbose logging of debug information. (default: 20)]' \
-            '--quiet[Minimal logging; warnings only). (default: 20)]' \
-            '--regions[Genomic ref_names to process, or a bed file. (default: None)]' \
-            '--threshold[Threshold for considering secondary calls. A value of 1 will result in haploid decoding. (default: 0.04)]' \
-            '--ref_vcf[Reference vcf. (default: None)]' \
-            '--verbose[Populate VCF info fields. (default: False)]' \
-            "*: :_files"
-
-    }
-
-    function _medaka_tools {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--debug[Verbose logging of debug information. (default: 20)]' \
-            '--quiet[Minimal logging; warnings only). (default: 20)]' \
-            "*: :_files"
-
-    }
 
 
 function _medaka {
@@ -254,4 +86,383 @@ function _medaka {
      esac
 
 }
+
+function _medaka_compress_bam {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--regions[Genomic regions to analyse, or a bed file. (default: None)]' \
+        '--threads[Number of threads for parallel execution. (default: 1)]' \
+        '--use_fast5_info[Root directory containing the fast5 files and .tsv file with columns filename and read_id. (default: None)]':file:_files \
+        "*: :_files"
+
+}
+
+function _medaka_features {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--batch_size[Inference batch size. (default: 100)]' \
+        '--chunk_len[Chunk length of samples. (default: 10000)]' \
+        '--chunk_ovlp[Overlap of chunks. (default: 1000)]' \
+        '--regions[Genomic regions to analyse, or a bed file. (default: None)]' \
+        '--truth[Bam of truth aligned to ref to create features for training. (default: None)]' \
+        '--truth_haplotag[Two-letter tag defining haplotype of alignments for polyploidy labels. (default: None)]' \
+        '--threads[Number of threads for parallel execution. (default: 1)]' \
+        '--label_scheme[Labelling scheme. (default: HaploidLabelScheme)]' \
+        '--label_scheme_args[Label scheme key-word arguments. (default: {})]' \
+        '--feature_encoder[FeatureEncoder used to create the features. (default: CountsFeatureEncoder)]' \
+        '--feature_encoder_args[Feature encoder key-word arguments. (default: {})]' \
+        "*: :_files"
+
+}
+
+function _medaka_train {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--train_name[Name for training run. (default: keras_train)]' \
+        '--model[Model definition and initial weights .hdf, or .yml with kwargs to build model. {r103_fast_g507, r103_fast_snp_g507, r103_fast_variant_g507, r103_hac_g507, r103_hac_snp_g507, r103_hac_variant_g507, r103_min_high_g345, r103_min_high_g360, r103_prom_high_g360, r103_prom_snp_g3210, r103_prom_variant_g3210, r103_sup_g507, r103_sup_snp_g507, r103_sup_variant_g507, r1041_e82_260bps_fast_g632, r1041_e82_260bps_fast_variant_g632, r1041_e82_260bps_hac_g632, r1041_e82_260bps_hac_variant_g632, r1041_e82_260bps_sup_g632, r1041_e82_260bps_sup_variant_g632, r1041_e82_400bps_fast_g615, r1041_e82_400bps_fast_g632, r1041_e82_400bps_fast_variant_g615, r1041_e82_400bps_fast_variant_g632, r1041_e82_400bps_hac_g615, r1041_e82_400bps_hac_g632, r1041_e82_400bps_hac_variant_g615, r1041_e82_400bps_hac_variant_g632, r1041_e82_400bps_sup_g615, r1041_e82_400bps_sup_variant_g615, r104_e81_fast_g5015, r104_e81_fast_variant_g5015, r104_e81_hac_g5015, r104_e81_hac_variant_g5015, r104_e81_sup_g5015, r104_e81_sup_g610, r104_e81_sup_variant_g610, r10_min_high_g303, r10_min_high_g340, r941_e81_fast_g514, r941_e81_fast_variant_g514, r941_e81_hac_g514, r941_e81_hac_variant_g514, r941_e81_sup_g514, r941_e81_sup_variant_g514, r941_min_fast_g303, r941_min_fast_g507, r941_min_fast_snp_g507, r941_min_fast_variant_g507, r941_min_hac_g507, r941_min_hac_snp_g507, r941_min_hac_variant_g507, r941_min_high_g303, r941_min_high_g330, r941_min_high_g340_rle, r941_min_high_g344, r941_min_high_g351, r941_min_high_g360, r941_min_sup_g507, r941_min_sup_snp_g507, r941_min_sup_variant_g507, r941_prom_fast_g303, r941_prom_fast_g507, r941_prom_fast_snp_g507, r941_prom_fast_variant_g507, r941_prom_hac_g507, r941_prom_hac_snp_g507, r941_prom_hac_variant_g507, r941_prom_high_g303, r941_prom_high_g330, r941_prom_high_g344, r941_prom_high_g360, r941_prom_high_g4011, r941_prom_snp_g303, r941_prom_snp_g322, r941_prom_snp_g360, r941_prom_sup_g507, r941_prom_sup_snp_g507, r941_prom_sup_variant_g507, r941_prom_variant_g303, r941_prom_variant_g322, r941_prom_variant_g360, r941_sup_plant_g610, r941_sup_plant_variant_g610} (default: None)]' \
+        '--epochs[Maximum number of trainig epochs. (default: 5000)]' \
+        '--batch_size[Training batch size. (default: 100)]' \
+        '--max_samples[Only train on max_samples. (default: inf)]' \
+        '--mini_epochs[Reduce fraction of data per epoch by this factor (default: 1)]' \
+        '--seed[Seed for random batch shuffling. (default: None)]' \
+        '--threads_io[Number of threads for parallel IO. (default: 1)]' \
+        '--device[GPU device to use. (default: 0)]' \
+        '--optimizer[Optimizer to use. (default: rmsprop)]' \
+        '--optim_args[Optimizer key-word arguments. (default: None)]' \
+        '--validation_split[Fraction of data to validate on. (default: 0.2)]' \
+        '--validation_features[Paths to validation data (default: None)]' \
+        "*: :_files"
+
+}
+
+function _medaka_consensus {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--batch_size[Inference batch size. (default: 100)]' \
+        '--chunk_len[Chunk length of samples. (default: 10000)]' \
+        '--chunk_ovlp[Overlap of chunks. (default: 1000)]' \
+        '--regions[Genomic regions to analyse, or a bed file. (default: None)]' \
+        '--model[Model to use. {r103_fast_g507, r103_fast_snp_g507, r103_fast_variant_g507, r103_hac_g507, r103_hac_snp_g507, r103_hac_variant_g507, r103_min_high_g345, r103_min_high_g360, r103_prom_high_g360, r103_prom_snp_g3210, r103_prom_variant_g3210, r103_sup_g507, r103_sup_snp_g507, r103_sup_variant_g507, r1041_e82_260bps_fast_g632, r1041_e82_260bps_fast_variant_g632, r1041_e82_260bps_hac_g632, r1041_e82_260bps_hac_variant_g632, r1041_e82_260bps_sup_g632, r1041_e82_260bps_sup_variant_g632, r1041_e82_400bps_fast_g615, r1041_e82_400bps_fast_g632, r1041_e82_400bps_fast_variant_g615, r1041_e82_400bps_fast_variant_g632, r1041_e82_400bps_hac_g615, r1041_e82_400bps_hac_g632, r1041_e82_400bps_hac_variant_g615, r1041_e82_400bps_hac_variant_g632, r1041_e82_400bps_sup_g615, r1041_e82_400bps_sup_variant_g615, r104_e81_fast_g5015, r104_e81_fast_variant_g5015, r104_e81_hac_g5015, r104_e81_hac_variant_g5015, r104_e81_sup_g5015, r104_e81_sup_g610, r104_e81_sup_variant_g610, r10_min_high_g303, r10_min_high_g340, r941_e81_fast_g514, r941_e81_fast_variant_g514, r941_e81_hac_g514, r941_e81_hac_variant_g514, r941_e81_sup_g514, r941_e81_sup_variant_g514, r941_min_fast_g303, r941_min_fast_g507, r941_min_fast_snp_g507, r941_min_fast_variant_g507, r941_min_hac_g507, r941_min_hac_snp_g507, r941_min_hac_variant_g507, r941_min_high_g303, r941_min_high_g330, r941_min_high_g340_rle, r941_min_high_g344, r941_min_high_g351, r941_min_high_g360, r941_min_sup_g507, r941_min_sup_snp_g507, r941_min_sup_variant_g507, r941_prom_fast_g303, r941_prom_fast_g507, r941_prom_fast_snp_g507, r941_prom_fast_variant_g507, r941_prom_hac_g507, r941_prom_hac_snp_g507, r941_prom_hac_variant_g507, r941_prom_high_g303, r941_prom_high_g330, r941_prom_high_g344, r941_prom_high_g360, r941_prom_high_g4011, r941_prom_snp_g303, r941_prom_snp_g322, r941_prom_snp_g360, r941_prom_sup_g507, r941_prom_sup_snp_g507, r941_prom_sup_variant_g507, r941_prom_variant_g303, r941_prom_variant_g322, r941_prom_variant_g360, r941_sup_plant_g610, r941_sup_plant_variant_g610} (default: r941_min_hac_g507)]' \
+        '--threads[Number of threads used by inference. (default: 1)]' \
+        '--bam_workers[Number of workers used to prepare data from bam. (default: 2)]' \
+        '--bam_chunk[Size of reference chunks each worker parses from bam. (can be used to control memory use). (default: 1000000)]' \
+        '--check_output[Verify integrity of output file after inference. (default: False)]' \
+        '--save_features[Save features with consensus probabilities. (default: False)]' \
+        '--RG[Read group to select. (default: None)]' \
+        '--tag_name[Two-letter tag name. (default: None)]' \
+        '--tag_value[Value of tag. (default: None)]' \
+        '--tag_keep_missing[Keep alignments when tag is missing. (default: False)]' \
+        "*: :_files"
+
+}
+
+function _medaka_smolecule {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--batch_size[Inference batch size. (default: 100)]' \
+        '--chunk_len[Chunk length of samples. (default: 1000)]' \
+        '--chunk_ovlp[Overlap of chunks. (default: 500)]' \
+        '--model[Model to use. {r103_fast_g507, r103_fast_snp_g507, r103_fast_variant_g507, r103_hac_g507, r103_hac_snp_g507, r103_hac_variant_g507, r103_min_high_g345, r103_min_high_g360, r103_prom_high_g360, r103_prom_snp_g3210, r103_prom_variant_g3210, r103_sup_g507, r103_sup_snp_g507, r103_sup_variant_g507, r1041_e82_260bps_fast_g632, r1041_e82_260bps_fast_variant_g632, r1041_e82_260bps_hac_g632, r1041_e82_260bps_hac_variant_g632, r1041_e82_260bps_sup_g632, r1041_e82_260bps_sup_variant_g632, r1041_e82_400bps_fast_g615, r1041_e82_400bps_fast_g632, r1041_e82_400bps_fast_variant_g615, r1041_e82_400bps_fast_variant_g632, r1041_e82_400bps_hac_g615, r1041_e82_400bps_hac_g632, r1041_e82_400bps_hac_variant_g615, r1041_e82_400bps_hac_variant_g632, r1041_e82_400bps_sup_g615, r1041_e82_400bps_sup_variant_g615, r104_e81_fast_g5015, r104_e81_fast_variant_g5015, r104_e81_hac_g5015, r104_e81_hac_variant_g5015, r104_e81_sup_g5015, r104_e81_sup_g610, r104_e81_sup_variant_g610, r10_min_high_g303, r10_min_high_g340, r941_e81_fast_g514, r941_e81_fast_variant_g514, r941_e81_hac_g514, r941_e81_hac_variant_g514, r941_e81_sup_g514, r941_e81_sup_variant_g514, r941_min_fast_g303, r941_min_fast_g507, r941_min_fast_snp_g507, r941_min_fast_variant_g507, r941_min_hac_g507, r941_min_hac_snp_g507, r941_min_hac_variant_g507, r941_min_high_g303, r941_min_high_g330, r941_min_high_g340_rle, r941_min_high_g344, r941_min_high_g351, r941_min_high_g360, r941_min_sup_g507, r941_min_sup_snp_g507, r941_min_sup_variant_g507, r941_prom_fast_g303, r941_prom_fast_g507, r941_prom_fast_snp_g507, r941_prom_fast_variant_g507, r941_prom_hac_g507, r941_prom_hac_snp_g507, r941_prom_hac_variant_g507, r941_prom_high_g303, r941_prom_high_g330, r941_prom_high_g344, r941_prom_high_g360, r941_prom_high_g4011, r941_prom_snp_g303, r941_prom_snp_g322, r941_prom_snp_g360, r941_prom_sup_g507, r941_prom_sup_snp_g507, r941_prom_sup_variant_g507, r941_prom_variant_g303, r941_prom_variant_g322, r941_prom_variant_g360, r941_sup_plant_g610, r941_sup_plant_variant_g610} (default: r941_min_hac_g507)]' \
+        '--min_depth[Sites with depth lower than min_depth will not be polished. (default: 0)]' \
+        '--method[Pre-medaka consensus generation method. (default: spoa)]' \
+        '--depth[Minimum subread count. (default: 3)]' \
+        '--length[Minimum median subread length. (default: 400)]' \
+        '--threads[Number of threads used by inference. (default: 1)]' \
+        '--check_output[Verify integrity of output file after inference. (default: False)]' \
+        '--save_features[Save features with consensus probabilities. (default: False)]' \
+        '--qualities[Output consensus with per-base quality scores (fastq). (default: False)]' \
+        "*: :_files"
+
+}
+
+function _medaka_consensus_from_features {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--model[Model to use. {r103_fast_g507, r103_fast_snp_g507, r103_fast_variant_g507, r103_hac_g507, r103_hac_snp_g507, r103_hac_variant_g507, r103_min_high_g345, r103_min_high_g360, r103_prom_high_g360, r103_prom_snp_g3210, r103_prom_variant_g3210, r103_sup_g507, r103_sup_snp_g507, r103_sup_variant_g507, r1041_e82_260bps_fast_g632, r1041_e82_260bps_fast_variant_g632, r1041_e82_260bps_hac_g632, r1041_e82_260bps_hac_variant_g632, r1041_e82_260bps_sup_g632, r1041_e82_260bps_sup_variant_g632, r1041_e82_400bps_fast_g615, r1041_e82_400bps_fast_g632, r1041_e82_400bps_fast_variant_g615, r1041_e82_400bps_fast_variant_g632, r1041_e82_400bps_hac_g615, r1041_e82_400bps_hac_g632, r1041_e82_400bps_hac_variant_g615, r1041_e82_400bps_hac_variant_g632, r1041_e82_400bps_sup_g615, r1041_e82_400bps_sup_variant_g615, r104_e81_fast_g5015, r104_e81_fast_variant_g5015, r104_e81_hac_g5015, r104_e81_hac_variant_g5015, r104_e81_sup_g5015, r104_e81_sup_g610, r104_e81_sup_variant_g610, r10_min_high_g303, r10_min_high_g340, r941_e81_fast_g514, r941_e81_fast_variant_g514, r941_e81_hac_g514, r941_e81_hac_variant_g514, r941_e81_sup_g514, r941_e81_sup_variant_g514, r941_min_fast_g303, r941_min_fast_g507, r941_min_fast_snp_g507, r941_min_fast_variant_g507, r941_min_hac_g507, r941_min_hac_snp_g507, r941_min_hac_variant_g507, r941_min_high_g303, r941_min_high_g330, r941_min_high_g340_rle, r941_min_high_g344, r941_min_high_g351, r941_min_high_g360, r941_min_sup_g507, r941_min_sup_snp_g507, r941_min_sup_variant_g507, r941_prom_fast_g303, r941_prom_fast_g507, r941_prom_fast_snp_g507, r941_prom_fast_variant_g507, r941_prom_hac_g507, r941_prom_hac_snp_g507, r941_prom_hac_variant_g507, r941_prom_high_g303, r941_prom_high_g330, r941_prom_high_g344, r941_prom_high_g360, r941_prom_high_g4011, r941_prom_snp_g303, r941_prom_snp_g322, r941_prom_snp_g360, r941_prom_sup_g507, r941_prom_sup_snp_g507, r941_prom_sup_variant_g507, r941_prom_variant_g303, r941_prom_variant_g322, r941_prom_variant_g360, r941_sup_plant_g610, r941_sup_plant_variant_g610} (default: r941_min_hac_g507)]' \
+        "*: :_files"
+
+}
+
+function _medaka_fastrle {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--block_size[Block size for hompolymer splitting, e.g. with a value of blocksize=3, AAAA -> A3 A1. (default: 94)]' \
+        "*: :_files"
+
+}
+
+function _medaka_stitch {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--regions[Genomic ref_names to process, or a bed file. (default: None)]' \
+        '--min_depth[Sites with depth lower than min_depth will not be polished. (default: 0)]' \
+        '--threads[Number of worker processes to use. (default: 1)]' \
+        '--no-fillgaps[Don'\''t fill gaps in consensus sequence with draft sequence. (default: True)]' \
+        '--fill_char[Use a designated character to fill gaps. (default: None)]' \
+        '--qualities[Output with per-base quality scores (fastq). (default: False)]' \
+        "*: :_files"
+
+}
+
+function _medaka_variant {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--regions[Genomic ref_names to process, or a bed file. (default: None)]' \
+        '--verbose[Populate VCF info fields. (default: False)]' \
+        '--ambig_ref[Decode variants at ambiguous reference positions. (default: False)]' \
+        '--gvcf[Output VCF records for reference loci predicted to be non-variant. (default: False)]' \
+        "*: :_files"
+
+}
+
+function _medaka_snp {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--regions[Genomic ref_names to process, or a bed file. (default: None)]' \
+        '--threshold[Threshold for considering secondary calls. A value of 1 will result in haploid decoding. (default: 0.04)]' \
+        '--ref_vcf[Reference vcf. (default: None)]' \
+        '--verbose[Populate VCF info fields. (default: False)]' \
+        "*: :_files"
+
+}
+
+
+function _medaka_tools {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'haploid2diploid:Merge two haploid VCFs into a diploid VCF.'
+            'diploid2haploid:Split a diploid VCF into two haploid VCFs.'
+            'classify_variants:Classify variants and write vcf for each type and subtype.'
+            'annotate:Annotate vcf with read depth and supporting reads info fields.'
+            'consensus2vcf:Call variants by alignment of a consensus sequence to a reference.'
+            'vcf2tsv:convert vcf to tsv, unpacking info and sample columns.'
+            'homozygous_regions:Find homozygous regions from a diploid vcf.'
+            'resolve_model:Resolve model and print full file path.'
+            'is_rle_model:Check if a model is an RLE model.'
+            'list_models:List all models.'
+            'hdf_to_bed:Write a bed file of regions spanned by a hdf file.'
+            'download_models:Download model files for any models not already installed.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (haploid2diploid)
+            _medaka_tools_haploid2diploid
+            ;;
+
+        (diploid2haploid)
+            _medaka_tools_diploid2haploid
+            ;;
+
+        (classify_variants)
+            _medaka_tools_classify_variants
+            ;;
+
+        (annotate)
+            _medaka_tools_annotate
+            ;;
+
+        (consensus2vcf)
+            _medaka_tools_consensus2vcf
+            ;;
+
+        (vcf2tsv)
+            _medaka_tools_vcf2tsv
+            ;;
+
+        (homozygous_regions)
+            _medaka_tools_homozygous_regions
+            ;;
+
+        (resolve_model)
+            _medaka_tools_resolve_model
+            ;;
+
+        (is_rle_model)
+            _medaka_tools_is_rle_model
+            ;;
+
+        (list_models)
+            _medaka_tools_list_models
+            ;;
+
+        (hdf_to_bed)
+            _medaka_tools_hdf_to_bed
+            ;;
+
+        (download_models)
+            _medaka_tools_download_models
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _medaka_tools_haploid2diploid {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--discard_phase[output unphased diploid vcf (default: False)]' \
+        '--adjacent[Merge adjacent variants (i.e. variants with non-overlapping genomic ranges) instead of just overlapping ones. If set to True, all runs of adjacent variants will be merged including those which appear in just one of the input VCFs. (default: False)]' \
+        '--split_mnp[Split each mnp into multiple snps. (default: False)]' \
+        "*: :_files"
+
+}
+
+function _medaka_tools_diploid2haploid {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--notrim[Do not trim variant to minimal ref and alt and update pos. (default: False)]' \
+        "*: :_files"
+
+}
+
+function _medaka_tools_classify_variants {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--replace_info[Replace info tag (useful for visual inspection of types). (default: False)]' \
+        "*: :_files"
+
+}
+
+function _medaka_tools_annotate {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--chunk_size[Chunk size for building pileups. (default: 500000)]' \
+        '--pad[Padding width either side of variant for realignment. (default: 25)]' \
+        '--dpsp[Calulate depth and alignment score of spanning reads (default: False)]' \
+        '--RG[Read group to select. (default: None)]' \
+        "*: :_files"
+
+}
+
+function _medaka_tools_consensus2vcf {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--regions[Genomic ref_names to process, or a bed file. (default: None)]' \
+        '--bam[Existing bam file. (default: None)]' \
+        '--out_prefix[Output prefix for .bam and .vcf files. (default: consensus2vcf)]' \
+        '--chunk_size[Size of consensus chunks (default: 100000)]' \
+        '--pad[Reference chunks are chunk_size + pad. (default: 10000)]' \
+        '--mode[Edlib alignment mode. NW: global in consensus and ref. HW: global in consensus, local in ref. HWT: same as HW, but alignments trimmed to start and end on a match. (default: HWT)]' \
+        "*: :_files"
+
+}
+
+function _medaka_tools_vcf2tsv {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        "*: :_files"
+
+}
+
+function _medaka_tools_homozygous_regions {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--min_len[Minimum region length. (default: 1000)]' \
+        '--suffix[Output suffix. (default: regions.txt)]' \
+        "*: :_files"
+
+}
+
+function _medaka_tools_resolve_model {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--model[Model to use. {r103_fast_g507, r103_fast_snp_g507, r103_fast_variant_g507, r103_hac_g507, r103_hac_snp_g507, r103_hac_variant_g507, r103_min_high_g345, r103_min_high_g360, r103_prom_high_g360, r103_prom_snp_g3210, r103_prom_variant_g3210, r103_sup_g507, r103_sup_snp_g507, r103_sup_variant_g507, r1041_e82_260bps_fast_g632, r1041_e82_260bps_fast_variant_g632, r1041_e82_260bps_hac_g632, r1041_e82_260bps_hac_variant_g632, r1041_e82_260bps_sup_g632, r1041_e82_260bps_sup_variant_g632, r1041_e82_400bps_fast_g615, r1041_e82_400bps_fast_g632, r1041_e82_400bps_fast_variant_g615, r1041_e82_400bps_fast_variant_g632, r1041_e82_400bps_hac_g615, r1041_e82_400bps_hac_g632, r1041_e82_400bps_hac_variant_g615, r1041_e82_400bps_hac_variant_g632, r1041_e82_400bps_sup_g615, r1041_e82_400bps_sup_variant_g615, r104_e81_fast_g5015, r104_e81_fast_variant_g5015, r104_e81_hac_g5015, r104_e81_hac_variant_g5015, r104_e81_sup_g5015, r104_e81_sup_g610, r104_e81_sup_variant_g610, r10_min_high_g303, r10_min_high_g340, r941_e81_fast_g514, r941_e81_fast_variant_g514, r941_e81_hac_g514, r941_e81_hac_variant_g514, r941_e81_sup_g514, r941_e81_sup_variant_g514, r941_min_fast_g303, r941_min_fast_g507, r941_min_fast_snp_g507, r941_min_fast_variant_g507, r941_min_hac_g507, r941_min_hac_snp_g507, r941_min_hac_variant_g507, r941_min_high_g303, r941_min_high_g330, r941_min_high_g340_rle, r941_min_high_g344, r941_min_high_g351, r941_min_high_g360, r941_min_sup_g507, r941_min_sup_snp_g507, r941_min_sup_variant_g507, r941_prom_fast_g303, r941_prom_fast_g507, r941_prom_fast_snp_g507, r941_prom_fast_variant_g507, r941_prom_hac_g507, r941_prom_hac_snp_g507, r941_prom_hac_variant_g507, r941_prom_high_g303, r941_prom_high_g330, r941_prom_high_g344, r941_prom_high_g360, r941_prom_high_g4011, r941_prom_snp_g303, r941_prom_snp_g322, r941_prom_snp_g360, r941_prom_sup_g507, r941_prom_sup_snp_g507, r941_prom_sup_variant_g507, r941_prom_variant_g303, r941_prom_variant_g322, r941_prom_variant_g360, r941_sup_plant_g610, r941_sup_plant_variant_g610} (default: r941_min_hac_g507)]' \
+        "*: :_files"
+
+}
+
+function _medaka_tools_is_rle_model {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--model[Model to use. {r103_fast_g507, r103_fast_snp_g507, r103_fast_variant_g507, r103_hac_g507, r103_hac_snp_g507, r103_hac_variant_g507, r103_min_high_g345, r103_min_high_g360, r103_prom_high_g360, r103_prom_snp_g3210, r103_prom_variant_g3210, r103_sup_g507, r103_sup_snp_g507, r103_sup_variant_g507, r1041_e82_260bps_fast_g632, r1041_e82_260bps_fast_variant_g632, r1041_e82_260bps_hac_g632, r1041_e82_260bps_hac_variant_g632, r1041_e82_260bps_sup_g632, r1041_e82_260bps_sup_variant_g632, r1041_e82_400bps_fast_g615, r1041_e82_400bps_fast_g632, r1041_e82_400bps_fast_variant_g615, r1041_e82_400bps_fast_variant_g632, r1041_e82_400bps_hac_g615, r1041_e82_400bps_hac_g632, r1041_e82_400bps_hac_variant_g615, r1041_e82_400bps_hac_variant_g632, r1041_e82_400bps_sup_g615, r1041_e82_400bps_sup_variant_g615, r104_e81_fast_g5015, r104_e81_fast_variant_g5015, r104_e81_hac_g5015, r104_e81_hac_variant_g5015, r104_e81_sup_g5015, r104_e81_sup_g610, r104_e81_sup_variant_g610, r10_min_high_g303, r10_min_high_g340, r941_e81_fast_g514, r941_e81_fast_variant_g514, r941_e81_hac_g514, r941_e81_hac_variant_g514, r941_e81_sup_g514, r941_e81_sup_variant_g514, r941_min_fast_g303, r941_min_fast_g507, r941_min_fast_snp_g507, r941_min_fast_variant_g507, r941_min_hac_g507, r941_min_hac_snp_g507, r941_min_hac_variant_g507, r941_min_high_g303, r941_min_high_g330, r941_min_high_g340_rle, r941_min_high_g344, r941_min_high_g351, r941_min_high_g360, r941_min_sup_g507, r941_min_sup_snp_g507, r941_min_sup_variant_g507, r941_prom_fast_g303, r941_prom_fast_g507, r941_prom_fast_snp_g507, r941_prom_fast_variant_g507, r941_prom_hac_g507, r941_prom_hac_snp_g507, r941_prom_hac_variant_g507, r941_prom_high_g303, r941_prom_high_g330, r941_prom_high_g344, r941_prom_high_g360, r941_prom_high_g4011, r941_prom_snp_g303, r941_prom_snp_g322, r941_prom_snp_g360, r941_prom_sup_g507, r941_prom_sup_snp_g507, r941_prom_sup_variant_g507, r941_prom_variant_g303, r941_prom_variant_g322, r941_prom_variant_g360, r941_sup_plant_g610, r941_sup_plant_variant_g610} (default: r941_min_hac_g507)]' \
+        "*: :_files"
+
+}
+
+function _medaka_tools_list_models {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--model[Model to use. {r103_fast_g507, r103_fast_snp_g507, r103_fast_variant_g507, r103_hac_g507, r103_hac_snp_g507, r103_hac_variant_g507, r103_min_high_g345, r103_min_high_g360, r103_prom_high_g360, r103_prom_snp_g3210, r103_prom_variant_g3210, r103_sup_g507, r103_sup_snp_g507, r103_sup_variant_g507, r1041_e82_260bps_fast_g632, r1041_e82_260bps_fast_variant_g632, r1041_e82_260bps_hac_g632, r1041_e82_260bps_hac_variant_g632, r1041_e82_260bps_sup_g632, r1041_e82_260bps_sup_variant_g632, r1041_e82_400bps_fast_g615, r1041_e82_400bps_fast_g632, r1041_e82_400bps_fast_variant_g615, r1041_e82_400bps_fast_variant_g632, r1041_e82_400bps_hac_g615, r1041_e82_400bps_hac_g632, r1041_e82_400bps_hac_variant_g615, r1041_e82_400bps_hac_variant_g632, r1041_e82_400bps_sup_g615, r1041_e82_400bps_sup_variant_g615, r104_e81_fast_g5015, r104_e81_fast_variant_g5015, r104_e81_hac_g5015, r104_e81_hac_variant_g5015, r104_e81_sup_g5015, r104_e81_sup_g610, r104_e81_sup_variant_g610, r10_min_high_g303, r10_min_high_g340, r941_e81_fast_g514, r941_e81_fast_variant_g514, r941_e81_hac_g514, r941_e81_hac_variant_g514, r941_e81_sup_g514, r941_e81_sup_variant_g514, r941_min_fast_g303, r941_min_fast_g507, r941_min_fast_snp_g507, r941_min_fast_variant_g507, r941_min_hac_g507, r941_min_hac_snp_g507, r941_min_hac_variant_g507, r941_min_high_g303, r941_min_high_g330, r941_min_high_g340_rle, r941_min_high_g344, r941_min_high_g351, r941_min_high_g360, r941_min_sup_g507, r941_min_sup_snp_g507, r941_min_sup_variant_g507, r941_prom_fast_g303, r941_prom_fast_g507, r941_prom_fast_snp_g507, r941_prom_fast_variant_g507, r941_prom_hac_g507, r941_prom_hac_snp_g507, r941_prom_hac_variant_g507, r941_prom_high_g303, r941_prom_high_g330, r941_prom_high_g344, r941_prom_high_g360, r941_prom_high_g4011, r941_prom_snp_g303, r941_prom_snp_g322, r941_prom_snp_g360, r941_prom_sup_g507, r941_prom_sup_snp_g507, r941_prom_sup_variant_g507, r941_prom_variant_g303, r941_prom_variant_g322, r941_prom_variant_g360, r941_sup_plant_g610, r941_sup_plant_variant_g610} (default: r941_min_hac_g507)]' \
+        "*: :_files"
+
+}
+
+function _medaka_tools_hdf_to_bed {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        "*: :_files"
+
+}
+
+function _medaka_tools_download_models {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Verbose logging of debug information. (default: 20)]' \
+        '--quiet[Minimal logging; warnings only). (default: 20)]' \
+        '--models[Model(s) to download to cache. (default: \['\''r103_fast_g507'\'', '\''r103_fast_snp_g507'\'', '\''r103_fast_variant_g507'\'', '\''r103_hac_g507'\'', '\''r103_hac_snp_g507'\'', '\''r103_hac_variant_g507'\'', '\''r103_min_high_g345'\'', '\''r103_min_high_g360'\'', '\''r103_prom_high_g360'\'', '\''r103_prom_snp_g3210'\'', '\''r103_prom_variant_g3210'\'', '\''r103_sup_g507'\'', '\''r103_sup_snp_g507'\'', '\''r103_sup_variant_g507'\'', '\''r1041_e82_260bps_fast_g632'\'', '\''r1041_e82_260bps_fast_variant_g632'\'', '\''r1041_e82_260bps_hac_g632'\'', '\''r1041_e82_260bps_hac_variant_g632'\'', '\''r1041_e82_260bps_sup_g632'\'', '\''r1041_e82_260bps_sup_variant_g632'\'', '\''r1041_e82_400bps_fast_g615'\'', '\''r1041_e82_400bps_fast_g632'\'', '\''r1041_e82_400bps_fast_variant_g615'\'', '\''r1041_e82_400bps_fast_variant_g632'\'', '\''r1041_e82_400bps_hac_g615'\'', '\''r1041_e82_400bps_hac_g632'\'', '\''r1041_e82_400bps_hac_variant_g615'\'', '\''r1041_e82_400bps_hac_variant_g632'\'', '\''r1041_e82_400bps_sup_g615'\'', '\''r1041_e82_400bps_sup_variant_g615'\'', '\''r104_e81_fast_g5015'\'', '\''r104_e81_fast_variant_g5015'\'', '\''r104_e81_hac_g5015'\'', '\''r104_e81_hac_variant_g5015'\'', '\''r104_e81_sup_g5015'\'', '\''r104_e81_sup_g610'\'', '\''r104_e81_sup_variant_g610'\'', '\''r10_min_high_g303'\'', '\''r10_min_high_g340'\'', '\''r941_e81_fast_g514'\'', '\''r941_e81_fast_variant_g514'\'', '\''r941_e81_hac_g514'\'', '\''r941_e81_hac_variant_g514'\'', '\''r941_e81_sup_g514'\'', '\''r941_e81_sup_variant_g514'\'', '\''r941_min_fast_g303'\'', '\''r941_min_fast_g507'\'', '\''r941_min_fast_snp_g507'\'', '\''r941_min_fast_variant_g507'\'', '\''r941_min_hac_g507'\'', '\''r941_min_hac_snp_g507'\'', '\''r941_min_hac_variant_g507'\'', '\''r941_min_high_g303'\'', '\''r941_min_high_g330'\'', '\''r941_min_high_g340_rle'\'', '\''r941_min_high_g344'\'', '\''r941_min_high_g351'\'', '\''r941_min_high_g360'\'', '\''r941_min_sup_g507'\'', '\''r941_min_sup_snp_g507'\'', '\''r941_min_sup_variant_g507'\'', '\''r941_prom_fast_g303'\'', '\''r941_prom_fast_g507'\'', '\''r941_prom_fast_snp_g507'\'', '\''r941_prom_fast_variant_g507'\'', '\''r941_prom_hac_g507'\'', '\''r941_prom_hac_snp_g507'\'', '\''r941_prom_hac_variant_g507'\'', '\''r941_prom_high_g303'\'', '\''r941_prom_high_g330'\'', '\''r941_prom_high_g344'\'', '\''r941_prom_high_g360'\'', '\''r941_prom_high_g4011'\'', '\''r941_prom_snp_g303'\'', '\''r941_prom_snp_g322'\'', '\''r941_prom_snp_g360'\'', '\''r941_prom_sup_g507'\'', '\''r941_prom_sup_snp_g507'\'', '\''r941_prom_sup_variant_g507'\'', '\''r941_prom_variant_g303'\'', '\''r941_prom_variant_g322'\'', '\''r941_prom_variant_g360'\'', '\''r941_sup_plant_g610'\'', '\''r941_sup_plant_variant_g610'\''\])]' \
+        "*: :_files"
+
+}
+
+_medaka "$@"
 

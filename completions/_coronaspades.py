@@ -1,20 +1,9 @@
-#compdef _coronaspades.py coronaspades.py
+#compdef coronaspades.py
 
 # Auto-generated with h2o
 
-
 function _coronaspades.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-o[directory to store all the resulting files (required)]':file:_files \
         '--iontorrent[this flag is required for IonTorrent data]' \
         '--test[runs SPAdes on toy dataset]' \
@@ -63,17 +52,9 @@ function _coronaspades.py {
         '--cov-cutoff[coverage cutoff value (a positive float number, or '\''auto'\'', or '\''off'\'') \[default: '\''off'\''\]]' \
         '--phred-offset[PHRED quality offset in the input reads (33 or 64), \[default: auto-detect\]]' \
         '--custom-hmms[directory with custom hmms that replace default ones, \[default: None\]]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_coronaspades.py "$@"
 

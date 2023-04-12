@@ -1,20 +1,9 @@
-#compdef _srapath srapath
+#compdef srapath
 
 # Auto-generated with h2o
 
-
 function _srapath {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-f,--function}'[function to perform (resolve, names, search) default=resolve or names if protocol is specified]' \
         {-t,--timeout}'[timeout-value for request]' \
         {-a,--protocol}'[protocol (fasp; http; https; fasp,http; ..) default=https]' \
@@ -35,17 +24,9 @@ function _srapath {
         {-L,--log-level}'[Logging level as number or enum string. One of (fatal|sys|int|err|warn|info|debug) or (0-6) Current/default is warn]' \
         '--option-file[Read more options and parameters from the file.]':file:_files \
         {-h,--help}'[print this message]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_srapath "$@"
 

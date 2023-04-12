@@ -1,20 +1,9 @@
-#compdef _normalize-by-median.py normalize-by-median.py
+#compdef normalize-by-median.py
 
 # Auto-generated with h2o
 
-
 function _normalize-by-median.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--version[show program'\''s version number and exit]' \
         '--info[print citation information]' \
         {-h,--help}'[show this help message and exit]' \
@@ -35,17 +24,9 @@ function _normalize-by-median.py {
         {-l,--loadgraph}'[load a precomputed k-mer graph from disk (default: None)]':file:_files \
         '--gzip[Compress output using gzip (default: False)]' \
         '--bzip[Compress output using bzip2 (default: False)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_normalize-by-median.py "$@"
 

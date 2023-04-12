@@ -1,34 +1,15 @@
-#compdef _nextPolish nextPolish
+#compdef nextPolish
 
 # Auto-generated with h2o
 
-
 function _nextPolish {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-l,--log}'[log file (default: pidXXX.log.info)]':file:_files \
         {-v,--version}'[show program'\''s version number and exit]' \
         {-h,--help}'[please use the config file to pass parameters]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_nextPolish "$@"
 

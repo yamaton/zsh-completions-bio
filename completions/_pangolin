@@ -1,20 +1,9 @@
-#compdef _pangolin pangolin
+#compdef pangolin
 
 # Auto-generated with h2o
 
-
 function _pangolin {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-o,--outdir}'[Output directory. Default: current working directory]':file:_files \
         '--outfile[Optional output file name. Default: lineage_report.csv]':file:_files \
@@ -41,17 +30,9 @@ function _pangolin {
         '--all-versions[Print all tool, dependency, and data versions then exit.]' \
         '--verbose[Print lots of stuff to screen]' \
         {-t,--threads}'[Number of threads]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_pangolin "$@"
 

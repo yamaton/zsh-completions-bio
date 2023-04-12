@@ -1,20 +1,9 @@
-#compdef _clustalo clustalo
+#compdef clustalo
 
 # Auto-generated with h2o
 
-
 function _clustalo {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-i,--in,--infile}'[Multiple sequence input file (- for stdin)]':file:_files \
         '--hmm-in[HMM input files]':file:_files \
         '--hmm-batch[specify HMMs for individual sequences]':file:_files \
@@ -56,17 +45,9 @@ function _clustalo {
         '--version[Print version information and exit]' \
         '--long-version[Print long version information and exit]' \
         '--force[Force file overwriting]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_clustalo "$@"
 

@@ -1,20 +1,9 @@
-#compdef _metabat metabat
+#compdef metabat
 
 # Auto-generated with h2o
 
-
 function _metabat {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[produce help message]' \
         {-i,--inFile}'[Contigs in (gzipped) fasta file format \[Mandatory\]]' \
         {-o,--outFile}'[Base file name and path for each bin. The default output is fasta format. Use -l option to output only contig names \[Mandatory\].]' \
@@ -37,17 +26,9 @@ function _metabat {
         '--seed[For exact reproducibility. (0: use random seed)]' \
         {-d,--debug}'[Debug output]' \
         {-v,--verbose}'[Verbose output]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_metabat "$@"
 

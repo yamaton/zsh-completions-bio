@@ -1,34 +1,15 @@
-#compdef _bedGraphToBigWig bedGraphToBigWig
+#compdef bedGraphToBigWig
 
 # Auto-generated with h2o
 
-
 function _bedGraphToBigWig {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-blockSize[Number of items to bundle in r-tree. Default 256]' \
         '-itemsPerSlot[Number of data points bundled at lowest level. Default 1024]' \
         '-unc[If set, do not use compression.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_bedGraphToBigWig "$@"
 

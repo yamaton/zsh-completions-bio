@@ -1,20 +1,9 @@
-#compdef _hisat2 hisat2
+#compdef hisat2
 
 # Auto-generated with h2o
 
-
 function _hisat2 {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-x[Index filename prefix (minus trailing .X.ht2).]':file:_files \
         '-1[Files with #1 mates, paired with files in <m2>. Could be gzip'\''ed (extension: .gz) or bzip2'\''ed (extension: .bz2).]':file:_files \
         '-2[Files with #2 mates, paired with files in <m1>. Could be gzip'\''ed (extension: .gz) or bzip2'\''ed (extension: .bz2).]':file:_files \
@@ -101,17 +90,9 @@ function _hisat2 {
         '--add-chrname[add '\''chr'\'' to reference names in alignment]' \
         '--version[print version information and quit]' \
         {-h,--help}'[print this usage message]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_hisat2 "$@"
 

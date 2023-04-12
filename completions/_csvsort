@@ -1,20 +1,9 @@
-#compdef _csvsort csvsort
+#compdef csvsort
 
 # Auto-generated with h2o
 
-
 function _csvsort {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-d,--delimiter}'[Delimiting character of the input CSV file.]' \
         {-t,--tabs}'[Specify that the input CSV file is delimited with tabs. Overrides "-d".]' \
@@ -40,17 +29,9 @@ function _csvsort {
         {-r,--reverse}'[Sort in descending order.]' \
         {-y,--snifflimit}'[Limit CSV dialect sniffing to the specified number of bytes. Specify "0" to disable sniffing entirely, or "-1" to sniff the entire file.]' \
         {-I,--no-inference}'[Disable type inference when parsing the input.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_csvsort "$@"
 

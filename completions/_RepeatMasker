@@ -1,20 +1,9 @@
-#compdef _RepeatMasker RepeatMasker
+#compdef RepeatMasker
 
 # Auto-generated with h2o
 
-
 function _RepeatMasker {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,-help}'[Detailed help]' \
         {-e,-engine}'[Use an alternate search engine to the default. Note: '\''ncbi'\'' and '\''rmblast'\'' are both aliases for the rmblastn search engine engine. The generic NCBI blastn program is not sensitive enough for use with RepeatMasker at this time.]' \
         {-par,-parallel}'[The number of sequence batch jobs \[50kb minimum\] to run in parallel. RepeatMasker will fork off this number of parallel jobs, each running the search engine specified. For each search engine invocation ( where applicable ) a fixed the number of cores/threads is used:]' \
@@ -61,17 +50,9 @@ function _RepeatMasker {
         '-rmblast_dir[The path to the installation of the RMBLAST sequence alignment program.]' \
         '-crossmatch_dir[The path Phil Green'\''s cross_match program ( phrap program suite ).]' \
         '-trf_prgm[The full path including the name for the TRF program.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_RepeatMasker "$@"
 

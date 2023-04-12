@@ -1,20 +1,9 @@
-#compdef _sra-stat sra-stat
+#compdef sra-stat
 
 # Auto-generated with h2o
 
-
 function _sra-stat {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-x,--xml}'[output as XML, default is text]' \
         {-b,--start}'[starting spot id, default is 1]' \
         {-e,--stop}'[ending spot id, default is max]' \
@@ -33,17 +22,9 @@ function _sra-stat {
         {-v,--verbose}'[Increase the verbosity of the program status messages. Use multiple times for more verbosity. Negates quiet.]' \
         {-q,--quiet}'[Turn off all status messages for the program. Negated by verbose.]' \
         '--option-file[Read more options and parameters from the file.]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_sra-stat "$@"
 

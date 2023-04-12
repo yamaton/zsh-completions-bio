@@ -1,20 +1,9 @@
-#compdef _alimask alimask
+#compdef alimask
 
 # Auto-generated with h2o
 
-
 function _alimask {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[show brief help on version and usage]' \
         '-o[direct summary output to file <f>, not stdout]' \
         '--modelrange[range(s) for mask(s) in model coordinates]' \
@@ -38,17 +27,9 @@ function _alimask {
         '--wid[for --wblosum: set identity cutoff \[0.62\] (0<=x<=1)]' \
         '--informat[assert input alifile is in format <s> (no autodetect)]' \
         '--seed[set RNG seed to <n> (if 0: one-time arbitrary seed) \[42\]]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_alimask "$@"
 

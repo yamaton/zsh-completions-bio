@@ -1,20 +1,9 @@
-#compdef _csvcut csvcut
+#compdef csvcut
 
 # Auto-generated with h2o
 
-
 function _csvcut {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-d,--delimiter}'[Delimiting character of the input CSV file.]' \
         {-t,--tabs}'[Specify that the input CSV file is delimited with tabs. Overrides "-d".]' \
@@ -35,17 +24,9 @@ function _csvcut {
         {-c,--columns}'[A comma-separated list of column indices, names or ranges to be extracted, e.g. "1,id,3-5". Defaults to all columns.]' \
         {-C,--not-columns}'[A comma-separated list of column indices, names or ranges to be excluded, e.g. "1,id,3-5". Defaults to no columns.]' \
         {-x,--delete-empty-rows}'[After cutting, delete rows which are completely empty.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_csvcut "$@"
 

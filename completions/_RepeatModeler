@@ -1,20 +1,9 @@
-#compdef _RepeatModeler RepeatModeler
+#compdef RepeatModeler
 
 # Auto-generated with h2o
 
-
 function _RepeatModeler {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[Detailed help]' \
         '-database[The name of the sequence database to run an analysis on. This is the name that was provided to the BuildDatabase script using the "-name" option.]' \
         '-pa[Specify the number of parallel search jobs to run. RMBlast jobs will use 4 cores each and ABBlast jobs will use a single core each. i.e. on a machine with 12 cores and running with RMBlast you would use -pa 3 to fully utilize the machine.]' \
@@ -34,17 +23,9 @@ function _RepeatModeler {
         '-rscout_dir[The path to the installation of the RepeatScout ( 1.0.6 or higher ) de-novo repeatfinding program.]' \
         '-trf_dir[The full path to TRF program. TRF must be named \"trf\". ( 4.0.9 or higher )]' \
         '-ninja_dir[The path to the installation of the Ninja phylogenetic analysis package.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_RepeatModeler "$@"
 

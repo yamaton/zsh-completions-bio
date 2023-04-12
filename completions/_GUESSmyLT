@@ -1,20 +1,9 @@
-#compdef _GUESSmyLT GUESSmyLT
+#compdef GUESSmyLT
 
 # Auto-generated with h2o
 
-
 function _GUESSmyLT {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--organism[Mandatory when no annotation provided. What organism are you dealing with? prokaryote or eukaryote.]' \
         '--reads[One or two read files in .fastq or .fastq.gz format. Files can be compressed or uncrompressed. Handles interleaved read files and any known .fastq header format.]' \
@@ -27,17 +16,9 @@ function _GUESSmyLT {
         '--memory[Maximum memory that can be used by GUESSmyLT in GB. E.g. '\''10G'\''. Default value is 8G.]' \
         '--output[Full path to output directory. Default is working directory.]' \
         '-n[(Snakemake dryrun option) Allows to see the scheduling plan including the assigned priorities.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_GUESSmyLT "$@"
 

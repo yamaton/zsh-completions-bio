@@ -1,83 +1,6 @@
-#compdef _bonito bonito
+#compdef bonito
 
 # Auto-generated with h2o
-
-    function _bonito_basecaller {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--reference[--modified-bases MODIFIED_BASES \[MODIFIED_BASES ...\]]' \
-            '--modified-base-model[--modified-procs MODIFIED_PROCS]' \
-            '--modified-device[--read-ids READ_IDS]' \
-            '--device[--seed SEED]' \
-            '--weights[--skip]' \
-            '--no-trim[--save-ctc]' \
-            '--revcomp[--recursive]' \
-            '--quantize[--no-quantize]' \
-            '--overlap[--chunksize CHUNKSIZE]' \
-            '--batchsize[--max-reads MAX_READS]' \
-            '--min-qscore[--alignment-threads ALIGNMENT_THREADS]' \
-            "*: :_files"
-
-    }
-
-    function _bonito_train {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--config[--pretrained PRETRAINED]' \
-            '--directory[--device DEVICE]':file:_files \
-            '--lr[--seed SEED]' \
-            '--epochs[--batch BATCH]' \
-            '--chunks[--valid-chunks VALID_CHUNKS]' \
-            '--no-amp[-f, --force]' \
-            '--restore-optim[--nondeterministic]' \
-            '--save-optim-every[--grad-accum-split GRAD_ACCUM_SPLIT]' \
-            "*: :_files"
-
-    }
-
-    function _bonito_evaluate {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--directory[--device DEVICE]':file:_files \
-            '--seed[--weights WEIGHTS]' \
-            '--chunks[--batchsize BATCHSIZE]' \
-            '--beamsize[--poa]' \
-            "*: :_files"
-
-    }
-
-    function _bonito_view {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            "*: :_files"
-
-    }
-
-    function _bonito_convert {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--seed[--chunksize CHUNKSIZE]' \
-            "*: :_files"
-
-    }
-
-    function _bonito_download {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--all[--models]' \
-            '--training[--list, --show]' \
-            "*: :_files"
-
-    }
-
-    function _bonito_export {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {--format,--config}'[config file to read settings from]' \
-            '--fuse-bn[fuse batchnorm layers]' \
-            "*: :_files"
-
-    }
 
 
 function _bonito {
@@ -143,4 +66,83 @@ function _bonito {
      esac
 
 }
+
+function _bonito_basecaller {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--reference[--modified-bases MODIFIED_BASES \[MODIFIED_BASES ...\]]' \
+        '--modified-base-model[--modified-procs MODIFIED_PROCS]' \
+        '--modified-device[--read-ids READ_IDS]' \
+        '--device[--seed SEED]' \
+        '--weights[--skip]' \
+        '--no-trim[--save-ctc]' \
+        '--revcomp[--recursive]' \
+        '--quantize[--no-quantize]' \
+        '--overlap[--chunksize CHUNKSIZE]' \
+        '--batchsize[--max-reads MAX_READS]' \
+        '--min-qscore[--alignment-threads ALIGNMENT_THREADS]' \
+        "*: :_files"
+
+}
+
+function _bonito_train {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--config[--pretrained PRETRAINED]' \
+        '--directory[--device DEVICE]':file:_files \
+        '--lr[--seed SEED]' \
+        '--epochs[--batch BATCH]' \
+        '--chunks[--valid-chunks VALID_CHUNKS]' \
+        '--no-amp[-f, --force]' \
+        '--restore-optim[--nondeterministic]' \
+        '--save-optim-every[--grad-accum-split GRAD_ACCUM_SPLIT]' \
+        "*: :_files"
+
+}
+
+function _bonito_evaluate {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--directory[--device DEVICE]':file:_files \
+        '--seed[--weights WEIGHTS]' \
+        '--chunks[--batchsize BATCHSIZE]' \
+        '--beamsize[--poa]' \
+        "*: :_files"
+
+}
+
+function _bonito_view {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _bonito_convert {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--seed[--chunksize CHUNKSIZE]' \
+        "*: :_files"
+
+}
+
+function _bonito_download {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--all[--models]' \
+        '--training[--list, --show]' \
+        "*: :_files"
+
+}
+
+function _bonito_export {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--format,--config}'[config file to read settings from]' \
+        '--fuse-bn[fuse batchnorm layers]' \
+        "*: :_files"
+
+}
+
+_bonito "$@"
 

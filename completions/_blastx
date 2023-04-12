@@ -1,20 +1,9 @@
-#compdef _blastx blastx
+#compdef blastx
 
 # Auto-generated with h2o
 
-
 function _blastx {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[Print USAGE and DESCRIPTION;  ignore all other parameters]' \
         '-help[Print USAGE, DESCRIPTION and ARGUMENTS; ignore all other parameters]' \
         '-version[Print version number;  ignore other arguments]' \
@@ -80,17 +69,9 @@ function _blastx {
         '-num_threads[Number of threads (CPUs) to use in the BLAST search (Default = `1'\'')]' \
         '-remote[Execute search remotely?]' \
         '-use_sw_tback[Compute locally optimal Smith-Waterman alignments?]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_blastx "$@"
 

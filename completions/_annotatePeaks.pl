@@ -1,20 +1,9 @@
-#compdef _annotatePeaks.pl annotatePeaks.pl
+#compdef annotatePeaks.pl
 
 # Auto-generated with h2o
 
-
 function _annotatePeaks.pl {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-gtf[Use -gff and -gff3 if appropriate, but GTF is better]':file:_files \
         '-gid[by default the GTF file is processed by transcript_id, use this option for gene_id]' \
         '-ann[created by assignGenomeAnnotation, see website]':file:_files \
@@ -82,17 +71,9 @@ function _annotatePeaks.pl {
         '-homer1[by default, the new version of homer \[-homer2\] is used for finding motifs]' \
         '-cpu[Number of processors to use when possible - only some parts utilize multiple cores]' \
         '-noblanks[remove peaks/rows with missing data]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_annotatePeaks.pl "$@"
 

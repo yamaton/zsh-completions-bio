@@ -1,20 +1,9 @@
-#compdef _megahit megahit
+#compdef megahit
 
 # Auto-generated with h2o
 
-
 function _megahit {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-1[comma-separated list of fasta/q paired-end #1 files, paired with files in <pe2>]' \
         '-2[comma-separated list of fasta/q paired-end #2 files, paired with files in <pe1>]' \
         '--12[comma-separated list of interleaved fasta/q paired-end files]' \
@@ -49,17 +38,9 @@ function _megahit {
         '--test[run MEGAHIT on a toy test dataset]' \
         {-h,--help}'[print the usage message]' \
         {-v,--version}'[print version]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_megahit "$@"
 

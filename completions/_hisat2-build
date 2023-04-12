@@ -1,20 +1,9 @@
-#compdef _hisat2-build hisat2-build
+#compdef hisat2-build
 
 # Auto-generated with h2o
 
-
 function _hisat2-build {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-c[reference sequences given on cmd line (as <reference_in>)]' \
         '--large-index[force generated index to be '\''large'\'', even if ref has fewer than 4 billion nucleotides]' \
         {-a,--noauto}'[disable automatic -p/--bmax/--dcv memory-fitting]' \
@@ -42,17 +31,9 @@ function _hisat2-build {
         {-h,--help}'[print detailed description of tool and its options]' \
         '--usage[print this usage message]' \
         '--version[print version information and quit]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_hisat2-build "$@"
 

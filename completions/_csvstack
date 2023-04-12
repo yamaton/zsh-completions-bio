@@ -1,20 +1,9 @@
-#compdef _csvstack csvstack
+#compdef csvstack
 
 # Auto-generated with h2o
 
-
 function _csvstack {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-d,--delimiter}'[Delimiting character of the input CSV file.]' \
         {-t,--tabs}'[Specify that the input CSV file is delimited with tabs. Overrides "-d".]' \
@@ -34,17 +23,9 @@ function _csvstack {
         {-g,--groups}'[A comma-separated list of values to add as "grouping factors", one per CSV being stacked. These are added to the output as a new column. You may specify a name for the new column using the -n flag.]' \
         {-n,--group-name}'[A name for the grouping column, e.g. "year". Only used when also specifying -g.]' \
         '--filenames[Use the filename of each input file as its grouping value. When specified, -g will be ignored.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_csvstack "$@"
 

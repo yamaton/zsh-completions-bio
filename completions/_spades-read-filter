@@ -1,20 +1,9 @@
-#compdef _spades-read-filter spades-read-filter
+#compdef spades-read-filter
 
 # Auto-generated with h2o
 
-
 function _spades-read-filter {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-k,--kmer}'[K-mer length]' \
         {-c,--cov}'[Median kmer count threshold (read pairs, s.t. kmer count median for BOTH reads LESS OR EQUAL to this value will be ignored)]' \
         {-d,--dataset}'[Dataset description (in YAML)]' \
@@ -23,17 +12,9 @@ function _spades-read-filter {
         '--drop-names[Drop read names and quality (makes everything faster)]' \
         '--drop-quality[Drop read quality (makes everything faster)]' \
         {-h,--help}'[Show help]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_spades-read-filter "$@"
 

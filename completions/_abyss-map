@@ -1,20 +1,9 @@
-#compdef _abyss-map abyss-map
+#compdef abyss-map
 
 # Auto-generated with h2o
 
-
 function _abyss-map {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-l,--min-align}'[find matches at least N bp \[1\]]' \
         {-j,--threads}'[use N parallel threads \[1\]]' \
         {-C,--append-comment}'[append the FASTA/FASTQ comment to the SAM tags]' \
@@ -41,17 +30,9 @@ function _abyss-map {
         '--library[specify library NAME for database]' \
         '--strain[specify strain NAME for database]' \
         '--species[specify species NAME for database]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_abyss-map "$@"
 

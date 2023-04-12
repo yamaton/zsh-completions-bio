@@ -1,20 +1,9 @@
-#compdef _agat_sp_manage_functional_annotation.pl agat_sp_manage_functional_annotation.pl
+#compdef agat_sp_manage_functional_annotation.pl
 
 # Auto-generated with h2o
 
-
 function _agat_sp_manage_functional_annotation.pl {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-f,--reffile,-ref,--gff,--gff3}'[String - Input GTF/GFF file.]' \
         {-b,--blast}'[String - Input blast ( outfmt 6 = tabular ) file that will be used to complement the features read from the first file (specified with --ref).]' \
         {-d,--db}'[String - The fasta file that has been used as DB for the blast. Gene names and products/descriptions will be fished from this file.]' \
@@ -29,17 +18,9 @@ function _agat_sp_manage_functional_annotation.pl {
         '--pcds[Boolean - pcds stands for populate cds. It copies the Name, product, Ontology_term, Dbxref and uniprot_id attributes from mRNA to the CDS.]' \
         '-v[Boolean - Verbose, for debug purpose.]' \
         {-h,--help}'[Boolean - Display this helpful text.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_agat_sp_manage_functional_annotation.pl "$@"
 

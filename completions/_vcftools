@@ -1,20 +1,9 @@
-#compdef _vcftools vcftools
+#compdef vcftools
 
 # Auto-generated with h2o
 
-
 function _vcftools {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--vcf[This option defines the VCF file to be processed. VCFtools expects files in VCF format v4.0, v4.1 or v4.2. The latter two are supported with some small limitations. If the user provides a dash character '\''-'\'' as a file name, the program expects a VCF file to be piped in through standard in.]':file:_files \
         '--gzvcf[This option can be used in place of the --vcf option to read compressed (gzipped) VCF files directly.]':file:_files \
         '--bcf[This option can be used in place of the --vcf option to read BCF2 files directly. You do not need to specify if this file is compressed with BGZF encoding. If the user provides a dash character '\''-'\'' as a file name, the program expects a BCF2 file to be piped in through standard in.]':file:_files \
@@ -113,17 +102,9 @@ function _vcftools {
         '--diff-indv-map[This option allows the user to specify a mapping of individual IDs in the second file to those in the first file. The program expects the file to contain a tab-delimited line containing an individual'\''s name in file one followed by that same individual'\''s name in file two with one mapping per line.]':file:_files \
         '--diff-discordance-matrix[This option calculates a discordance matrix. This option only works with bi-allelic loci with matching alleles that are present in both files. The resulting output file has the suffix ".diff.discordance.matrix".]' \
         '--diff-switch-error[This option calculates phasing errors (specifically "switch errors"). This option creates an output file describing switch errors found between sites, with suffix ".diff.switch".]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_vcftools "$@"
 

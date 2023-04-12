@@ -1,20 +1,9 @@
-#compdef _tabix tabix
+#compdef tabix
 
 # Auto-generated with h2o
 
-
 function _tabix {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-0,--zero-based}'[coordinates are zero-based]' \
         {-b,--begin}'[column number for region start \[4\]]' \
         {-c,--comment}'[skip comment lines starting with CHAR \[null\]]' \
@@ -35,17 +24,9 @@ function _tabix {
         '--cache[set cache size to INT megabytes (0 disables) \[10\]]' \
         '--separate-regions[separate the output by corresponding regions]' \
         '--verbosity[set verbosity \[3\]]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_tabix "$@"
 

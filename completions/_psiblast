@@ -1,20 +1,9 @@
-#compdef _psiblast psiblast
+#compdef psiblast
 
 # Auto-generated with h2o
 
-
 function _psiblast {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[Print USAGE and DESCRIPTION; ignore all other parameters]' \
         '-help[Print USAGE, DESCRIPTION and ARGUMENTS; ignore all other parameters]' \
         '-version[Print version number; ignore other arguments]' \
@@ -86,17 +75,9 @@ function _psiblast {
         '-pseudocount[Pseudo-count value used when constructing PSSM]' \
         '-inclusion_ethresh[E-value inclusion threshold for pairwise alignments]' \
         '-phi_pattern[File name containing pattern to search]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_psiblast "$@"
 

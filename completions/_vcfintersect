@@ -1,20 +1,9 @@
-#compdef _vcfintersect vcfintersect
+#compdef vcfintersect
 
 # Auto-generated with h2o
 
-
 function _vcfintersect {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-b,--bed}'[use intervals provided by this BED file]':file:_files \
         {-R,--region}'[use 1-based tabix-style region (e.g. chrZ:10-20), multiples allowed]' \
         {-S,--start-only}'[don'\''t use the reference length information in the record to determine overlap status, just use the start posiion]' \
@@ -28,17 +17,9 @@ function _vcfintersect {
         {-t,--tag}'[attach TAG to each record'\''s info field if it would intersect]' \
         {-V,--tag-value}'[use this value to indicate that the allele is passing '\''.'\'' will be used otherwise. default: '\''PASS'\'']' \
         {-M,--merge-from,-T,--merge-to}'[merge from FROM-TAG used in the -i file, setting TO-TAG in the current file.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_vcfintersect "$@"
 

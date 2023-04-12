@@ -1,20 +1,9 @@
-#compdef _seqret seqret
+#compdef seqret
 
 # Auto-generated with h2o
 
-
 function _seqret {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-sequence[(Gapped) sequence(s) filename and optional format, or reference (input USA)]' \
         '-outseq[\[<sequence>.<format>\] Sequence set(s) filename and optional format (output USA)]' \
         '-feature[Use feature information]' \
@@ -58,17 +47,9 @@ function _seqret {
         '-fatal[Report fatal errors]' \
         '-die[Report dying program messages]' \
         '-version[Report version number and exit]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_seqret "$@"
 

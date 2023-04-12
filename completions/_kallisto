@@ -1,117 +1,6 @@
-#compdef _kallisto kallisto
+#compdef kallisto
 
 # Auto-generated with h2o
-
-    function _kallisto_index {
-        _arguments \
-            {-i,--index}'[Filename for the kallisto index to be constructed]' \
-            {-k,--kmer-size}'[k-mer (odd) length (default: 31, max value: 31)]' \
-            '--make-unique[Replace repeated target names with unique names]' \
-            "*: :_files"
-
-    }
-
-    function _kallisto_quant {
-        _arguments \
-            {-i,--index}'[Filename for the kallisto index to be used for]' \
-            {-o,--output-dir}'[Directory to write output to]' \
-            '--bias[Perform sequence based bias correction]' \
-            {-b,--bootstrap-samples}'[Number of bootstrap samples (default: 0)]' \
-            '--seed[Seed for the bootstrap sampling (default: 42)]' \
-            '--plaintext[Output plaintext instead of HDF5]' \
-            '--fusion[Search for fusions for Pizzly]' \
-            '--single[Quantify single-end reads]' \
-            '--single-overhang[Include reads where unobserved rest of fragment is predicted to lie outside a transcript]' \
-            '--fr-stranded[Strand specific reads, first read forward]' \
-            '--rf-stranded[Strand specific reads, first read reverse]' \
-            {-l,--fragment-length}'[Estimated average fragment length]' \
-            {-s,--sd}'[Estimated standard deviation of fragment length (default: -l, -s values are estimated from paired end data, but are required when using --single)]' \
-            {-t,--threads}'[Number of threads to use (default: 1)]' \
-            '--pseudobam[Save pseudoalignments to transcriptome to BAM file]' \
-            '--genomebam[Project pseudoalignments to genome sorted BAM file]' \
-            {-g,--gtf}'[GTF file for transcriptome information (required for --genomebam)]' \
-            {-c,--chromosomes}'[Tab separated file with chromosome names and lengths (optional for --genomebam, but recommended)]' \
-            '--verbose[Print out progress information every 1M proccessed reads]' \
-            "*: :_files"
-
-    }
-
-    function _kallisto_quant-tcc {
-        _arguments \
-            {-o,--output-dir}'[Directory to write output to]' \
-            {-i,--index}'[Filename for the kallisto index to be used (required if file with names of transcripts not supplied)]' \
-            {-T,--txnames}'[File with names of transcripts   (required if index file not supplied)]' \
-            {-e,--ec-file}'[File containing equivalence classes (default: equivalence classes are taken from the index)]':file:_files \
-            {-f,--fragment-file}'[File containing fragment length distribution (default: effective length normalization is not performed)]':file:_files \
-            {-l,--fragment-length}'[Estimated average fragment length]' \
-            {-s,--sd}'[Estimated standard deviation of fragment length (note: -l, -s values only should be supplied when]' \
-            {-t,--threads}'[Number of threads to use (default: 1)]' \
-            {-g,--genemap}'[File for mapping transcripts to genes (required for obtaining gene-level abundances)]' \
-            {-G,--gtf}'[GTF file for transcriptome information (can be used instead of --genemap for obtaining gene-level abundances)]':file:_files \
-            {-b,--bootstrap-samples}'[Number of bootstrap samples (default: 0)]' \
-            '--seed[Seed for the bootstrap sampling (default: 42)]' \
-            "*: :_files"
-
-    }
-
-    function _kallisto_bus {
-        _arguments \
-            {-i,--index}'[Filename for the kallisto index to be used for pseudoalignment]' \
-            {-o,--output-dir}'[Directory to write output to]' \
-            {-x,--technology}'[Single-cell technology used]' \
-            {-l,--list}'[List all single-cell technologies supported]' \
-            {-B,--batch}'[Process files listed in FILE]':file:_files \
-            {-t,--threads}'[Number of threads to use (default: 1)]' \
-            {-b,--bam}'[Input file is a BAM file]' \
-            {-n,--num}'[Output number of read in flag column (incompatible with --bam)]' \
-            {-T,--tag}'[5′ tag sequence to identify UMI reads for certain technologies]' \
-            '--fr-stranded[Strand specific reads for UMI-tagged reads, first read forward]' \
-            '--rf-stranded[Strand specific reads for UMI-tagged reads, first read reverse]' \
-            '--unstranded[Treat all read as non-strand-specific]' \
-            '--paired[Treat reads as paired]' \
-            '--genomebam[Project pseudoalignments to genome sorted BAM file]' \
-            {-g,--gtf}'[GTF file for transcriptome information (required for --genomebam)]' \
-            {-c,--chromosomes}'[Tab separated file with chromosome names and lengths (optional for --genomebam, but recommended)]' \
-            '--verbose[Print out progress information every 1M proccessed reads]' \
-            "*: :_files"
-
-    }
-
-    function _kallisto_merge {
-        _arguments \
-            {-i,--index}'[Filename for the kallisto index to be used for pseudoalignment]' \
-            {-o,--output-dir}'[Directory to write output to]' \
-            "*: :_files"
-
-    }
-
-    function _kallisto_h5dump {
-        _arguments \
-            {-o,--output-dir}'[Directory to write output to]' \
-            "*: :_files"
-
-    }
-
-    function _kallisto_inspect {
-        _arguments \
-            {-G,--gfa}'[Filename for GFA output of T-DBG]' \
-            {-g,--gtf}'[Filename for GTF file]' \
-            {-b,--bed}'[Filename for BED output (default: index + ".bed")]' \
-            "*: :_files"
-
-    }
-
-    function _kallisto_version {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _kallisto_cite {
-        _arguments \
-            "*: :_files"
-
-    }
 
 
 function _kallisto {
@@ -185,4 +74,117 @@ function _kallisto {
      esac
 
 }
+
+function _kallisto_index {
+    _arguments \
+        {-i,--index}'[Filename for the kallisto index to be constructed]' \
+        {-k,--kmer-size}'[k-mer (odd) length (default: 31, max value: 31)]' \
+        '--make-unique[Replace repeated target names with unique names]' \
+        "*: :_files"
+
+}
+
+function _kallisto_quant {
+    _arguments \
+        {-i,--index}'[Filename for the kallisto index to be used for]' \
+        {-o,--output-dir}'[Directory to write output to]' \
+        '--bias[Perform sequence based bias correction]' \
+        {-b,--bootstrap-samples}'[Number of bootstrap samples (default: 0)]' \
+        '--seed[Seed for the bootstrap sampling (default: 42)]' \
+        '--plaintext[Output plaintext instead of HDF5]' \
+        '--fusion[Search for fusions for Pizzly]' \
+        '--single[Quantify single-end reads]' \
+        '--single-overhang[Include reads where unobserved rest of fragment is predicted to lie outside a transcript]' \
+        '--fr-stranded[Strand specific reads, first read forward]' \
+        '--rf-stranded[Strand specific reads, first read reverse]' \
+        {-l,--fragment-length}'[Estimated average fragment length]' \
+        {-s,--sd}'[Estimated standard deviation of fragment length (default: -l, -s values are estimated from paired end data, but are required when using --single)]' \
+        {-t,--threads}'[Number of threads to use (default: 1)]' \
+        '--pseudobam[Save pseudoalignments to transcriptome to BAM file]' \
+        '--genomebam[Project pseudoalignments to genome sorted BAM file]' \
+        {-g,--gtf}'[GTF file for transcriptome information (required for --genomebam)]' \
+        {-c,--chromosomes}'[Tab separated file with chromosome names and lengths (optional for --genomebam, but recommended)]' \
+        '--verbose[Print out progress information every 1M proccessed reads]' \
+        "*: :_files"
+
+}
+
+function _kallisto_quant-tcc {
+    _arguments \
+        {-o,--output-dir}'[Directory to write output to]' \
+        {-i,--index}'[Filename for the kallisto index to be used (required if file with names of transcripts not supplied)]' \
+        {-T,--txnames}'[File with names of transcripts   (required if index file not supplied)]' \
+        {-e,--ec-file}'[File containing equivalence classes (default: equivalence classes are taken from the index)]':file:_files \
+        {-f,--fragment-file}'[File containing fragment length distribution (default: effective length normalization is not performed)]':file:_files \
+        {-l,--fragment-length}'[Estimated average fragment length]' \
+        {-s,--sd}'[Estimated standard deviation of fragment length (note: -l, -s values only should be supplied when]' \
+        {-t,--threads}'[Number of threads to use (default: 1)]' \
+        {-g,--genemap}'[File for mapping transcripts to genes (required for obtaining gene-level abundances)]' \
+        {-G,--gtf}'[GTF file for transcriptome information (can be used instead of --genemap for obtaining gene-level abundances)]':file:_files \
+        {-b,--bootstrap-samples}'[Number of bootstrap samples (default: 0)]' \
+        '--seed[Seed for the bootstrap sampling (default: 42)]' \
+        "*: :_files"
+
+}
+
+function _kallisto_bus {
+    _arguments \
+        {-i,--index}'[Filename for the kallisto index to be used for pseudoalignment]' \
+        {-o,--output-dir}'[Directory to write output to]' \
+        {-x,--technology}'[Single-cell technology used]' \
+        {-l,--list}'[List all single-cell technologies supported]' \
+        {-B,--batch}'[Process files listed in FILE]':file:_files \
+        {-t,--threads}'[Number of threads to use (default: 1)]' \
+        {-b,--bam}'[Input file is a BAM file]' \
+        {-n,--num}'[Output number of read in flag column (incompatible with --bam)]' \
+        {-T,--tag}'[5′ tag sequence to identify UMI reads for certain technologies]' \
+        '--fr-stranded[Strand specific reads for UMI-tagged reads, first read forward]' \
+        '--rf-stranded[Strand specific reads for UMI-tagged reads, first read reverse]' \
+        '--unstranded[Treat all read as non-strand-specific]' \
+        '--paired[Treat reads as paired]' \
+        '--genomebam[Project pseudoalignments to genome sorted BAM file]' \
+        {-g,--gtf}'[GTF file for transcriptome information (required for --genomebam)]' \
+        {-c,--chromosomes}'[Tab separated file with chromosome names and lengths (optional for --genomebam, but recommended)]' \
+        '--verbose[Print out progress information every 1M proccessed reads]' \
+        "*: :_files"
+
+}
+
+function _kallisto_merge {
+    _arguments \
+        {-i,--index}'[Filename for the kallisto index to be used for pseudoalignment]' \
+        {-o,--output-dir}'[Directory to write output to]' \
+        "*: :_files"
+
+}
+
+function _kallisto_h5dump {
+    _arguments \
+        {-o,--output-dir}'[Directory to write output to]' \
+        "*: :_files"
+
+}
+
+function _kallisto_inspect {
+    _arguments \
+        {-G,--gfa}'[Filename for GFA output of T-DBG]' \
+        {-g,--gtf}'[Filename for GTF file]' \
+        {-b,--bed}'[Filename for BED output (default: index + ".bed")]' \
+        "*: :_files"
+
+}
+
+function _kallisto_version {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _kallisto_cite {
+    _arguments \
+        "*: :_files"
+
+}
+
+_kallisto "$@"
 

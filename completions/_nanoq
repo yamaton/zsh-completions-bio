@@ -1,20 +1,9 @@
-#compdef _nanoq nanoq
+#compdef nanoq
 
 # Auto-generated with h2o
 
-
 function _nanoq {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-f,--fast}'[Ignore quality values if present]' \
         {-h,--help}'[Prints help information]' \
         {-H,--header}'[Header for summary output]' \
@@ -32,17 +21,9 @@ function _nanoq {
         {-O,--output-type}'[u: uncompressed; b: Bzip2; g: Gzip; l: Lzma]' \
         {-r,--report}'[Summary report output file]' \
         {-t,--top}'[Number of top reads in verbose summary \[default: 5\]]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_nanoq "$@"
 

@@ -1,20 +1,9 @@
-#compdef _abyss-fixmate abyss-fixmate
+#compdef abyss-fixmate
 
 # Auto-generated with h2o
 
-
 function _abyss-fixmate {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--no-qname[set the qname to * \[default\]]' \
         '--qname[do not alter the qname]' \
         '--all[print all alignments]' \
@@ -30,17 +19,9 @@ function _abyss-fixmate {
         '--library[specify library NAME for sqlite]' \
         '--strain[specify strain NAME for sqlite]' \
         '--species[specify species NAME for sqlite]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_abyss-fixmate "$@"
 

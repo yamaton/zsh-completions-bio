@@ -1,20 +1,9 @@
-#compdef _snakemake snakemake
+#compdef snakemake
 
 # Auto-generated with h2o
 
-
 function _snakemake {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {--dry-run,--dryrun,-n}'[Do not execute anything, and display what would be done. If you have a very large workflow, use --dry-run --quiet to just print a summary of the DAG of jobs. (default: False)]' \
         '--profile[Name of profile to use for configuring Snakemake. Snakemake will search for a corresponding folder in /etc/xdg/snakemake and ~/.config/snakemake. Alternatively, this can be an absolute or relative path. The profile folder has to contain a file '\''config.yaml'\''. This file can be used to set default values for command line options in YAML format. For example, '\''--cluster qsub'\'' becomes '\''cluster: qsub'\'' in the YAML file. Profiles can be obtained from https://github.com/snakemake-profiles. The profile can also be set via the environment variable $SNAKEMAKE_PROFILE. \[env var: SNAKEMAKE_PROFILE\] (default: None)]':file:_files \
@@ -168,17 +157,9 @@ function _snakemake {
         '--singularity-prefix[Specify a directory in which singularity images will be stored.If not supplied, the value is set to the '\''.snakemake'\'' directory relative to the invocation directory. If supplied, the `--use-singularity` flag must also be set. The value may be given as a relative path, which will be extrapolated to the invocation directory, or as an absolute path. (default: None)]':file:_files \
         '--singularity-args[Pass additional args to singularity. (default: )]' \
         '--use-envmodules[If defined in the rule, run job within the given environment modules, loaded in the given order. This can be combined with --use-conda and --use-singularity, which will then be only used as a fallback for rules which don'\''t define environment modules. (default: False)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_snakemake "$@"
 

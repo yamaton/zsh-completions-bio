@@ -1,20 +1,9 @@
-#compdef _ffq ffq
+#compdef ffq
 
 # Auto-generated with h2o
 
-
 function _ffq {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[Show this help message and exit]' \
         '-o[Path to write metadata (default: standard out)]' \
         '-l[Max depth to fetch data within accession tree]' \
@@ -25,17 +14,9 @@ function _ffq {
         '--split[Split output into separate files by accession (`-o` is a directory)]' \
         '--verbose[Print debugging information]' \
         '--version[show program'\''s version number and exit]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_ffq "$@"
 

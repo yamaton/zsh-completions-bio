@@ -1,20 +1,9 @@
-#compdef _cutadapt cutadapt
+#compdef cutadapt
 
 # Auto-generated with h2o
 
-
 function _cutadapt {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[Show this help message and exit]' \
         '--version[Show version number and exit]' \
         '--debug[Print debug log. Use twice to also print DP matrices]' \
@@ -73,17 +62,9 @@ function _cutadapt {
         '--untrimmed-paired-output[Write second read in a pair to this FILE when no adapter was found. Use with --untrimmed-output. Default: output to same file as trimmed reads]':file:_files \
         '--too-short-paired-output[Write second read in a pair to this file if pair is too short.]':file:_files \
         '--too-long-paired-output[Write second read in a pair to this file if pair is too long.]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_cutadapt "$@"
 

@@ -1,34 +1,15 @@
-#compdef _spades-gmapper spades-gmapper
+#compdef spades-gmapper
 
 # Auto-generated with h2o
 
-
 function _spades-gmapper {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-k[k-mer length to use]' \
         '-t[# of threads to use]' \
         '--tmp-dir[scratch directory to use]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_spades-gmapper "$@"
 

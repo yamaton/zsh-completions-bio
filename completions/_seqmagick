@@ -1,179 +1,6 @@
-#compdef _seqmagick seqmagick
+#compdef seqmagick
 
 # Auto-generated with h2o
-
-    function _seqmagick_help {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            "*: :_files"
-
-    }
-
-    function _seqmagick_convert {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--alphabet[Input alphabet. Required for writing NEXUS.]' \
-            '--line-wrap[Adjust line wrap for sequence strings. When N is 0, all line breaks are removed. Only fasta files are supported for the output format.]' \
-            '--sort[Perform sorting by length or name, ascending or descending. ASCII sorting is performed for names]' \
-            '--cut[Keep only the residues within the 1-indexed start and end positions specified, : separated. Includes last item. Start or end can be left unspecified to indicate start/end of sequence. A negative start may be provided to indicate an offset from the end of the sequence. Note that to prevent negative numbers being interpreted as flags, this should be written with an equals sign between `--cut` and the argument, e.g.: `--cut=-10:`]' \
-            '--relative-to[Apply --cut relative to the indexes of non-gap residues in sequence identified by ID]' \
-            '--drop[Remove the residues at the specified indices. Same format as `--cut`.]' \
-            '--dash-gap[Replace any of the characters "?.:~" with a "-" for all sequences]' \
-            '--lower[Translate the sequences to lower case]' \
-            '--mask[Replace residues in 1-indexed slice with gap-characters. If --relative-to is also specified, coordinates are relative to the sequence ID provided.]' \
-            '--reverse[Reverse the order of sites in sequences]' \
-            '--reverse-complement[Convert sequences into reverse complements]' \
-            '--squeeze[Remove any gaps that are present in the same position across all sequences in an alignment (equivalent to --squeeze-threshold=1.0)]' \
-            '--squeeze-threshold[Trim columns from an alignment which have gaps in least the specified proportion of sequences.]' \
-            '--transcribe[Transcription and back transcription for generic DNA and RNA. Source sequences must be the correct alphabet or this action will likely produce incorrect results.]' \
-            '--translate[Translate from generic DNA/RNA to proteins. Options with "stop" suffix will NOT translate through stop codons . Source sequences must be the correct alphabet or this action will likely produce incorrect results.]' \
-            '--ungap[Remove gaps in the sequence alignment]' \
-            '--upper[Translate the sequences to upper case]' \
-            '--deduplicate-sequences[Remove any duplicate sequences by sequence content, keep the first instance seen]' \
-            '--deduplicated-sequences-file[Write all of the deduplicated sequences to a file]':file:_files \
-            '--deduplicate-taxa[Remove any duplicate sequences by ID, keep the first instance seen]' \
-            '--exclude-from-file[Filter sequences, removing those sequence IDs in the specified file]':file:_files \
-            '--include-from-file[Filter sequences, keeping only those sequence IDs in the specified file]':file:_files \
-            '--head[Trim down to top N sequences. With the leading `-'\'', print all but the last N sequences.]' \
-            '--max-length[Discard any sequences beyond the specified maximum length. This operation occurs *before* all length-changing options such as cut and squeeze.]' \
-            '--min-length[Discard any sequences less than the specified minimum length. This operation occurs *before* cut and squeeze.]' \
-            '--min-ungapped-length[Discard any sequences less than the specified minimum length, excluding gaps. This operation occurs *before* cut and squeeze.]' \
-            '--pattern-include[Filter the sequences by regular expression in ID or description]' \
-            '--pattern-exclude[Filter the sequences by regular expression in ID or description]' \
-            '--prune-empty[Prune sequences containing only gaps ('\''-'\'')]' \
-            '--sample[Select a random sampling of sequences]' \
-            '--sample-seed[Set random seed for sampling of sequences]' \
-            '--seq-pattern-include[Filter the sequences by regular expression in sequence]' \
-            '--seq-pattern-exclude[Filter the sequences by regular expression in sequence]' \
-            '--tail[Trim down to bottom N sequences. Use +N to output sequences starting with the Nth.]' \
-            '--first-name[Take only the first whitespace-delimited word as the name of the sequence]' \
-            '--name-suffix[Append a suffix to all IDs.]' \
-            '--name-prefix[Insert a prefix for all IDs.]' \
-            '--pattern-replace[Replace regex pattern "search_pattern" with "replace_pattern" in sequence ID and description]' \
-            '--strip-range[Strip ranges from sequences IDs, matching </x-y>]' \
-            '--input-format[Input file format (default: determine from extension)]' \
-            '--output-format[Output file format (default: determine from extension)]' \
-            "*: :_files"
-
-    }
-
-    function _seqmagick_info {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--input-format[Input format. Overrides extension for all input files]' \
-            '--out-file[Output destination. Default: STDOUT]':file:_files \
-            '--format[Specify output format as tab-delimited, CSV or aligned in a borderless table. Default is tab-delimited if the output is directed to a file, aligned if output to the console.]' \
-            '--threads[Number of threads (CPUs). \[1\]]' \
-            "*: :_files"
-
-    }
-
-    function _seqmagick_mogrify {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--alphabet[Input alphabet. Required for writing NEXUS.]' \
-            '--line-wrap[Adjust line wrap for sequence strings. When N is 0, all line breaks are removed. Only fasta files are supported for the output format.]' \
-            '--sort[Perform sorting by length or name, ascending or descending. ASCII sorting is performed for names]' \
-            '--cut[Keep only the residues within the 1-indexed start and end positions specified, : separated. Includes last item. Start or end can be left unspecified to indicate start/end of sequence. A negative start may be provided to indicate an offset from the end of the sequence. Note that to prevent negative numbers being interpreted as flags, this should be written with an equals sign between `--cut` and the argument, e.g.: `--cut=-10:`]' \
-            '--relative-to[Apply --cut relative to the indexes of non-gap residues in sequence identified by ID]' \
-            '--drop[Remove the residues at the specified indices. Same format as `--cut`.]' \
-            '--dash-gap[Replace any of the characters "?.:~" with a "-" for all sequences]' \
-            '--lower[Translate the sequences to lower case]' \
-            '--mask[Replace residues in 1-indexed slice with gap-characters. If --relative-to is also specified, coordinates are relative to the sequence ID provided.]' \
-            '--reverse[Reverse the order of sites in sequences]' \
-            '--reverse-complement[Convert sequences into reverse complements]' \
-            '--squeeze[Remove any gaps that are present in the same position across all sequences in an alignment (equivalent to --squeeze-threshold=1.0)]' \
-            '--squeeze-threshold[Trim columns from an alignment which have gaps in least the specified proportion of sequences.]' \
-            '--transcribe[Transcription and back transcription for generic DNA and RNA. Source sequences must be the correct alphabet or this action will likely produce incorrect results.]' \
-            '--translate[Translate from generic DNA/RNA to proteins. Options with "stop" suffix will NOT translate through stop codons . Source sequences must be the correct alphabet or this action will likely produce incorrect results.]' \
-            '--ungap[Remove gaps in the sequence alignment]' \
-            '--upper[Translate the sequences to upper case]' \
-            '--deduplicate-sequences[Remove any duplicate sequences by sequence content, keep the first instance seen]' \
-            '--deduplicated-sequences-file[Write all of the deduplicated sequences to a file]':file:_files \
-            '--deduplicate-taxa[Remove any duplicate sequences by ID, keep the first instance seen]' \
-            '--exclude-from-file[Filter sequences, removing those sequence IDs in the specified file]':file:_files \
-            '--include-from-file[Filter sequences, keeping only those sequence IDs in the specified file]':file:_files \
-            '--head[Trim down to top N sequences. With the leading `-'\'', print all but the last N sequences.]' \
-            '--max-length[Discard any sequences beyond the specified maximum length. This operation occurs *before* all length-changing options such as cut and squeeze.]' \
-            '--min-length[Discard any sequences less than the specified minimum length. This operation occurs *before* cut and squeeze.]' \
-            '--min-ungapped-length[Discard any sequences less than the specified minimum length, excluding gaps. This operation occurs *before* cut and squeeze.]' \
-            '--pattern-include[Filter the sequences by regular expression in ID or description]' \
-            '--pattern-exclude[Filter the sequences by regular expression in ID or description]' \
-            '--prune-empty[Prune sequences containing only gaps ('\''-'\'')]' \
-            '--sample[Select a random sampling of sequences]' \
-            '--sample-seed[Set random seed for sampling of sequences]' \
-            '--seq-pattern-include[Filter the sequences by regular expression in sequence]' \
-            '--seq-pattern-exclude[Filter the sequences by regular expression in sequence]' \
-            '--tail[Trim down to bottom N sequences. Use +N to output sequences starting with the Nth.]' \
-            '--first-name[Take only the first whitespace-delimited word as the name of the sequence]' \
-            '--name-suffix[Append a suffix to all IDs.]' \
-            '--name-prefix[Insert a prefix for all IDs.]' \
-            '--pattern-replace[Replace regex pattern "search_pattern" with "replace_pattern" in sequence ID and description]' \
-            '--strip-range[Strip ranges from sequences IDs, matching </x-y>]' \
-            '--input-format[Input file format (default: determine from extension)]' \
-            '--output-format[Output file format (default: determine from extension)]' \
-            "*: :_files"
-
-    }
-
-    function _seqmagick_primer-trim {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--reverse-is-revcomp[Reverse primer is written as the reverse complement of the top strand (default: False)]' \
-            '--source-format[Alignment format (default: detect from extension]' \
-            '--output-format[Alignment format (default: detect from extension]' \
-            '--include-primers[Include the primers in the output (default: False)]' \
-            '--max-hamming-distance[Maximum Hamming distance between primer and alignment site (default: 1). IUPAC ambiguous bases in the primer matching unambiguous bases in the alignment are not penalized]' \
-            '--prune-action[Action to take. Options are trim (trim to the region defined by the two primers, decreasing the width of the alignment), or isolate (convert all characters outside the primer-defined area to gaps). default: trim]' \
-            "*: :_files"
-
-    }
-
-    function _seqmagick_quality-filter {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--input-qual[The quality scores associated with the input file. Only used if input file is fasta.]' \
-            '--min-mean-quality[Minimum mean quality score for each read \[default: 25.0\]]' \
-            '--min-length[Minimum length to keep sequence \[default: 200\]]' \
-            '--max-length[Maximum length to keep before truncating \[default: 1000\]. This operation occurs before --max-ambiguous]' \
-            '--ambiguous-action[Action to take on ambiguous base in sequence (N'\''s). \[default: no action\]]' \
-            '--max-ambiguous[Maximum number of ambiguous bases in a sequence. Sequences exceeding this count will be removed.]' \
-            '--pct-ambiguous[Maximun percent of ambiguous bases in a sequence. Sequences exceeding this percent will be removed.]' \
-            '--report-out[Output file for report \[default: stdout\]]' \
-            '--details-out[Output file to report fate of each sequence]' \
-            '--no-details-comment[Do not write comment lines with version and call to start --details-out]' \
-            '--quality-window-mean-qual[Minimum quality score within the window defined by --quality-window. \[default: same as --min-mean-quality\]]' \
-            '--quality-window-prop[Proportion of reads within quality window to that must pass filter. Floats are \[default: 1.0\]]' \
-            '--quality-window[Window size for truncating sequences. When set to a non-zero value, sequences are truncated where the mean mean quality within the window drops below --min-mean-quality. \[default: 0\]]' \
-            '--primer[IUPAC ambiguous primer to require]' \
-            '--no-primer[Do not use a primer.]' \
-            '--barcode-file[CSV file containing sample_id,barcode\[,primer\] in the rows. A single primer for all sequences may be specified with `--primer`, or `--no-primer` may be used to indicate barcodes should be used without a primer check.]':file:_files \
-            '--barcode-header[Barcodes have a header row \[default: False\]]' \
-            '--map-out[Path to write sequence_id,sample_id pairs]' \
-            '--quoting[A string naming an attribute of the csv module defining the quoting behavior for `SAMPLE_MAP`. \[default: QUOTE_MINIMAL\]]' \
-            "*: :_files"
-
-    }
-
-    function _seqmagick_extract-ids {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-o,--output-file}'[Destination file]':file:_files \
-            '--input-format[Input format for sequence file]' \
-            {-d,--include-description}'[Include the sequence description in output \[default: False\]]' \
-            "*: :_files"
-
-    }
-
-    function _seqmagick_backtrans-align {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-o,--out-file}'[Output destination. Default: STDOUT]':file:_files \
-            {-t,--translation-table}'[Translation table to use. \[Default: standard-ambiguous\]]' \
-            {-a,--fail-action}'[Action to take on an ambiguous codon \[default: fail\]]' \
-            "*: :_files"
-
-    }
 
 
 function _seqmagick {
@@ -246,4 +73,256 @@ function _seqmagick {
      esac
 
 }
+
+function _seqmagick_help {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+
+function _seqmagick_convert {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'source_file:Input sequence file'
+            'dest_file:Output file'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        '--alphabet[Input alphabet. Required for writing NEXUS.]' \
+        '--line-wrap[Adjust line wrap for sequence strings. When N is 0, all line breaks are removed. Only fasta files are supported for the output format.]' \
+        '--sort[Perform sorting by length or name, ascending or descending. ASCII sorting is performed for names]' \
+        '--cut[Keep only the residues within the 1-indexed start and end positions specified, : separated. Includes last item. Start or end can be left unspecified to indicate start/end of sequence. A negative start may be provided to indicate an offset from the end of the sequence. Note that to prevent negative numbers being interpreted as flags, this should be written with an equals sign between `--cut` and the argument, e.g.: `--cut=-10:`]' \
+        '--relative-to[Apply --cut relative to the indexes of non-gap residues in sequence identified by ID]' \
+        '--drop[Remove the residues at the specified indices. Same format as `--cut`.]' \
+        '--dash-gap[Replace any of the characters "?.:~" with a "-" for all sequences]' \
+        '--lower[Translate the sequences to lower case]' \
+        '--mask[Replace residues in 1-indexed slice with gap-characters. If --relative-to is also specified, coordinates are relative to the sequence ID provided.]' \
+        '--reverse[Reverse the order of sites in sequences]' \
+        '--reverse-complement[Convert sequences into reverse complements]' \
+        '--squeeze[Remove any gaps that are present in the same position across all sequences in an alignment (equivalent to --squeeze-threshold=1.0)]' \
+        '--squeeze-threshold[Trim columns from an alignment which have gaps in least the specified proportion of sequences.]' \
+        '--transcribe[Transcription and back transcription for generic DNA and RNA. Source sequences must be the correct alphabet or this action will likely produce incorrect results.]' \
+        '--translate[Translate from generic DNA/RNA to proteins. Options with "stop" suffix will NOT translate through stop codons . Source sequences must be the correct alphabet or this action will likely produce incorrect results.]' \
+        '--ungap[Remove gaps in the sequence alignment]' \
+        '--upper[Translate the sequences to upper case]' \
+        '--deduplicate-sequences[Remove any duplicate sequences by sequence content, keep the first instance seen]' \
+        '--deduplicated-sequences-file[Write all of the deduplicated sequences to a file]':file:_files \
+        '--deduplicate-taxa[Remove any duplicate sequences by ID, keep the first instance seen]' \
+        '--exclude-from-file[Filter sequences, removing those sequence IDs in the specified file]':file:_files \
+        '--include-from-file[Filter sequences, keeping only those sequence IDs in the specified file]':file:_files \
+        '--head[Trim down to top N sequences. With the leading `-'\'', print all but the last N sequences.]' \
+        '--max-length[Discard any sequences beyond the specified maximum length. This operation occurs *before* all length-changing options such as cut and squeeze.]' \
+        '--min-length[Discard any sequences less than the specified minimum length. This operation occurs *before* cut and squeeze.]' \
+        '--min-ungapped-length[Discard any sequences less than the specified minimum length, excluding gaps. This operation occurs *before* cut and squeeze.]' \
+        '--pattern-include[Filter the sequences by regular expression in ID or description]' \
+        '--pattern-exclude[Filter the sequences by regular expression in ID or description]' \
+        '--prune-empty[Prune sequences containing only gaps ('\''-'\'')]' \
+        '--sample[Select a random sampling of sequences]' \
+        '--sample-seed[Set random seed for sampling of sequences]' \
+        '--seq-pattern-include[Filter the sequences by regular expression in sequence]' \
+        '--seq-pattern-exclude[Filter the sequences by regular expression in sequence]' \
+        '--tail[Trim down to bottom N sequences. Use +N to output sequences starting with the Nth.]' \
+        '--first-name[Take only the first whitespace-delimited word as the name of the sequence]' \
+        '--name-suffix[Append a suffix to all IDs.]' \
+        '--name-prefix[Insert a prefix for all IDs.]' \
+        '--pattern-replace[Replace regex pattern "search_pattern" with "replace_pattern" in sequence ID and description]' \
+        '--strip-range[Strip ranges from sequences IDs, matching </x-y>]' \
+        '--input-format[Input file format (default: determine from extension)]' \
+        '--output-format[Output file format (default: determine from extension)]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (source_file)
+            _seqmagick_convert_source_file
+            ;;
+
+        (dest_file)
+            _seqmagick_convert_dest_file
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _seqmagick_convert_source_file {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _seqmagick_convert_dest_file {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _seqmagick_info {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--input-format[Input format. Overrides extension for all input files]' \
+        '--out-file[Output destination. Default: STDOUT]':file:_files \
+        '--format[Specify output format as tab-delimited, CSV or aligned in a borderless table. Default is tab-delimited if the output is directed to a file, aligned if output to the console.]' \
+        '--threads[Number of threads (CPUs). \[1\]]' \
+        "*: :_files"
+
+}
+
+
+function _seqmagick_mogrify {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'sequence_file:Sequence file(s) to mogrify'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        '--alphabet[Input alphabet. Required for writing NEXUS.]' \
+        '--line-wrap[Adjust line wrap for sequence strings. When N is 0, all line breaks are removed. Only fasta files are supported for the output format.]' \
+        '--sort[Perform sorting by length or name, ascending or descending. ASCII sorting is performed for names]' \
+        '--cut[Keep only the residues within the 1-indexed start and end positions specified, : separated. Includes last item. Start or end can be left unspecified to indicate start/end of sequence. A negative start may be provided to indicate an offset from the end of the sequence. Note that to prevent negative numbers being interpreted as flags, this should be written with an equals sign between `--cut` and the argument, e.g.: `--cut=-10:`]' \
+        '--relative-to[Apply --cut relative to the indexes of non-gap residues in sequence identified by ID]' \
+        '--drop[Remove the residues at the specified indices. Same format as `--cut`.]' \
+        '--dash-gap[Replace any of the characters "?.:~" with a "-" for all sequences]' \
+        '--lower[Translate the sequences to lower case]' \
+        '--mask[Replace residues in 1-indexed slice with gap-characters. If --relative-to is also specified, coordinates are relative to the sequence ID provided.]' \
+        '--reverse[Reverse the order of sites in sequences]' \
+        '--reverse-complement[Convert sequences into reverse complements]' \
+        '--squeeze[Remove any gaps that are present in the same position across all sequences in an alignment (equivalent to --squeeze-threshold=1.0)]' \
+        '--squeeze-threshold[Trim columns from an alignment which have gaps in least the specified proportion of sequences.]' \
+        '--transcribe[Transcription and back transcription for generic DNA and RNA. Source sequences must be the correct alphabet or this action will likely produce incorrect results.]' \
+        '--translate[Translate from generic DNA/RNA to proteins. Options with "stop" suffix will NOT translate through stop codons . Source sequences must be the correct alphabet or this action will likely produce incorrect results.]' \
+        '--ungap[Remove gaps in the sequence alignment]' \
+        '--upper[Translate the sequences to upper case]' \
+        '--deduplicate-sequences[Remove any duplicate sequences by sequence content, keep the first instance seen]' \
+        '--deduplicated-sequences-file[Write all of the deduplicated sequences to a file]':file:_files \
+        '--deduplicate-taxa[Remove any duplicate sequences by ID, keep the first instance seen]' \
+        '--exclude-from-file[Filter sequences, removing those sequence IDs in the specified file]':file:_files \
+        '--include-from-file[Filter sequences, keeping only those sequence IDs in the specified file]':file:_files \
+        '--head[Trim down to top N sequences. With the leading `-'\'', print all but the last N sequences.]' \
+        '--max-length[Discard any sequences beyond the specified maximum length. This operation occurs *before* all length-changing options such as cut and squeeze.]' \
+        '--min-length[Discard any sequences less than the specified minimum length. This operation occurs *before* cut and squeeze.]' \
+        '--min-ungapped-length[Discard any sequences less than the specified minimum length, excluding gaps. This operation occurs *before* cut and squeeze.]' \
+        '--pattern-include[Filter the sequences by regular expression in ID or description]' \
+        '--pattern-exclude[Filter the sequences by regular expression in ID or description]' \
+        '--prune-empty[Prune sequences containing only gaps ('\''-'\'')]' \
+        '--sample[Select a random sampling of sequences]' \
+        '--sample-seed[Set random seed for sampling of sequences]' \
+        '--seq-pattern-include[Filter the sequences by regular expression in sequence]' \
+        '--seq-pattern-exclude[Filter the sequences by regular expression in sequence]' \
+        '--tail[Trim down to bottom N sequences. Use +N to output sequences starting with the Nth.]' \
+        '--first-name[Take only the first whitespace-delimited word as the name of the sequence]' \
+        '--name-suffix[Append a suffix to all IDs.]' \
+        '--name-prefix[Insert a prefix for all IDs.]' \
+        '--pattern-replace[Replace regex pattern "search_pattern" with "replace_pattern" in sequence ID and description]' \
+        '--strip-range[Strip ranges from sequences IDs, matching </x-y>]' \
+        '--input-format[Input file format (default: determine from extension)]' \
+        '--output-format[Output file format (default: determine from extension)]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (sequence_file)
+            _seqmagick_mogrify_sequence_file
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _seqmagick_mogrify_sequence_file {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _seqmagick_primer-trim {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--reverse-is-revcomp[Reverse primer is written as the reverse complement of the top strand (default: False)]' \
+        '--source-format[Alignment format (default: detect from extension]' \
+        '--output-format[Alignment format (default: detect from extension]' \
+        '--include-primers[Include the primers in the output (default: False)]' \
+        '--max-hamming-distance[Maximum Hamming distance between primer and alignment site (default: 1). IUPAC ambiguous bases in the primer matching unambiguous bases in the alignment are not penalized]' \
+        '--prune-action[Action to take. Options are trim (trim to the region defined by the two primers, decreasing the width of the alignment), or isolate (convert all characters outside the primer-defined area to gaps). default: trim]' \
+        "*: :_files"
+
+}
+
+function _seqmagick_quality-filter {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--input-qual[The quality scores associated with the input file. Only used if input file is fasta.]' \
+        '--min-mean-quality[Minimum mean quality score for each read \[default: 25.0\]]' \
+        '--min-length[Minimum length to keep sequence \[default: 200\]]' \
+        '--max-length[Maximum length to keep before truncating \[default: 1000\]. This operation occurs before --max-ambiguous]' \
+        '--ambiguous-action[Action to take on ambiguous base in sequence (N'\''s). \[default: no action\]]' \
+        '--max-ambiguous[Maximum number of ambiguous bases in a sequence. Sequences exceeding this count will be removed.]' \
+        '--pct-ambiguous[Maximun percent of ambiguous bases in a sequence. Sequences exceeding this percent will be removed.]' \
+        '--report-out[Output file for report \[default: stdout\]]' \
+        '--details-out[Output file to report fate of each sequence]' \
+        '--no-details-comment[Do not write comment lines with version and call to start --details-out]' \
+        '--quality-window-mean-qual[Minimum quality score within the window defined by --quality-window. \[default: same as --min-mean-quality\]]' \
+        '--quality-window-prop[Proportion of reads within quality window to that must pass filter. Floats are \[default: 1.0\]]' \
+        '--quality-window[Window size for truncating sequences. When set to a non-zero value, sequences are truncated where the mean mean quality within the window drops below --min-mean-quality. \[default: 0\]]' \
+        '--primer[IUPAC ambiguous primer to require]' \
+        '--no-primer[Do not use a primer.]' \
+        '--barcode-file[CSV file containing sample_id,barcode\[,primer\] in the rows. A single primer for all sequences may be specified with `--primer`, or `--no-primer` may be used to indicate barcodes should be used without a primer check.]':file:_files \
+        '--barcode-header[Barcodes have a header row \[default: False\]]' \
+        '--map-out[Path to write sequence_id,sample_id pairs]' \
+        '--quoting[A string naming an attribute of the csv module defining the quoting behavior for `SAMPLE_MAP`. \[default: QUOTE_MINIMAL\]]' \
+        "*: :_files"
+
+}
+
+function _seqmagick_extract-ids {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-o,--output-file}'[Destination file]':file:_files \
+        '--input-format[Input format for sequence file]' \
+        {-d,--include-description}'[Include the sequence description in output \[default: False\]]' \
+        "*: :_files"
+
+}
+
+function _seqmagick_backtrans-align {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-o,--out-file}'[Output destination. Default: STDOUT]':file:_files \
+        {-t,--translation-table}'[Translation table to use. \[Default: standard-ambiguous\]]' \
+        {-a,--fail-action}'[Action to take on an ambiguous codon \[default: fail\]]' \
+        "*: :_files"
+
+}
+
+_seqmagick "$@"
 

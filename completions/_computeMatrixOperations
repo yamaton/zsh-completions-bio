@@ -1,95 +1,6 @@
-#compdef _computeMatrixOperations computeMatrixOperations
+#compdef computeMatrixOperations
 
 # Auto-generated with h2o
-
-    function _computeMatrixOperations_info {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {--matrixFile,-m}'[Matrix file from the computeMatrix tool. (default: None)]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _computeMatrixOperations_relabel {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {--matrixFile,-m}'[Matrix file from the computeMatrix tool. (default: None)]':file:_files \
-            {--outFileName,-o}'[Output file name (default: None)]':file:_files \
-            '--groupLabels[Groups labels. If none are specified then the current labels will be kept. (default: None)]' \
-            '--sampleLabels[Sample labels. If none are specified then the current labels will be kept. (default: None)]' \
-            "*: :_files"
-
-    }
-
-    function _computeMatrixOperations_subset {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {--matrixFile,-m}'[Matrix file from the computeMatrix tool. (default: None)]':file:_files \
-            {--outFileName,-o}'[Output file name (default: None)]':file:_files \
-            '--groups[Groups to include. If none are specified then all will be included. (default: None)]' \
-            '--samples[Samples to include. If none are specified then all will be included. (default: None)]' \
-            "*: :_files"
-
-    }
-
-    function _computeMatrixOperations_filterStrand {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {--matrixFile,-m}'[Matrix file from the computeMatrix tool. (default: None)]':file:_files \
-            {--outFileName,-o}'[Output file name (default: None)]':file:_files \
-            {--strand,-s}'[Strand (default: None)]' \
-            "*: :_files"
-
-    }
-
-    function _computeMatrixOperations_filterValues {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {--matrixFile,-m}'[Matrix file from the computeMatrix tool. (default: None)]':file:_files \
-            {--outFileName,-o}'[Output file name (default: None)]':file:_files \
-            '--min[Minimum value. Any row having a single entry less than this will be excluded. The default is no minimum. (default: None)]' \
-            '--max[Maximum value. Any row having a single entry more than this will be excluded. The default is no maximum. (default: None)]' \
-            "*: :_files"
-
-    }
-
-    function _computeMatrixOperations_rbind {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--matrixFile[\[MATRIXFILE ...\], -m MATRIXFILE \[MATRIXFILE ...\] Matrix files from the computeMatrix tool. (default: None)]':file:_files \
-            {--outFileName,-o}'[Output file name (default: None)]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _computeMatrixOperations_cbind {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--matrixFile[\[MATRIXFILE ...\], -m MATRIXFILE \[MATRIXFILE ...\] Matrix files from the computeMatrix tool. (default: None)]':file:_files \
-            {--outFileName,-o}'[Output file name (default: None)]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _computeMatrixOperations_sort {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {--matrixFile,-m}'[Matrix file from the computeMatrix tool. (default: None)]':file:_files \
-            {--outFileName,-o}'[Output file name (default: None)]':file:_files \
-            {--regionsFileName,-R}'[File name(s), in BED or GTF format, containing the regions. If multiple bed files are given, each one is considered a group that can be plotted separately. Also, adding a "#" symbol in the bed file causes all the regions until the previous "#" to be considered one group. Alternatively for BED files, putting deepTools_group in the header can be used to indicate a column with group labels. Note that these should be sorted such that all group entries are together. (default: None)]':file:_files \
-            '--transcriptID[When a GTF file is used to provide regions, only entries with this value as their feature (column 3) will be processed as transcripts. (Default: transcript)]' \
-            '--transcript_id_designator[Each region has an ID (e.g., ACTB) assigned to it, which for BED files is either column 4 (if it exists) or the interval bounds. For GTF files this is instead stored in the last column as a key:value pair (e.g., as '\''transcript_id "ACTB"'\'', for a key of transcript_id and a value of ACTB). In some cases it can be convenient to use a different identifier. To do so, set this to the desired key. (Default: transcript_id)]' \
-            "*: :_files"
-
-    }
-
-    function _computeMatrixOperations_dataRange {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {--matrixFile,-m}'[Matrix file from the computeMatrix tool. (default: None)]':file:_files \
-            "*: :_files"
-
-    }
 
 
 function _computeMatrixOperations {
@@ -165,4 +76,95 @@ function _computeMatrixOperations {
      esac
 
 }
+
+function _computeMatrixOperations_info {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--matrixFile,-m}'[Matrix file from the computeMatrix tool. (default: None)]':file:_files \
+        "*: :_files"
+
+}
+
+function _computeMatrixOperations_relabel {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--matrixFile,-m}'[Matrix file from the computeMatrix tool. (default: None)]':file:_files \
+        {--outFileName,-o}'[Output file name (default: None)]':file:_files \
+        '--groupLabels[Groups labels. If none are specified then the current labels will be kept. (default: None)]' \
+        '--sampleLabels[Sample labels. If none are specified then the current labels will be kept. (default: None)]' \
+        "*: :_files"
+
+}
+
+function _computeMatrixOperations_subset {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--matrixFile,-m}'[Matrix file from the computeMatrix tool. (default: None)]':file:_files \
+        {--outFileName,-o}'[Output file name (default: None)]':file:_files \
+        '--groups[Groups to include. If none are specified then all will be included. (default: None)]' \
+        '--samples[Samples to include. If none are specified then all will be included. (default: None)]' \
+        "*: :_files"
+
+}
+
+function _computeMatrixOperations_filterStrand {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--matrixFile,-m}'[Matrix file from the computeMatrix tool. (default: None)]':file:_files \
+        {--outFileName,-o}'[Output file name (default: None)]':file:_files \
+        {--strand,-s}'[Strand (default: None)]' \
+        "*: :_files"
+
+}
+
+function _computeMatrixOperations_filterValues {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--matrixFile,-m}'[Matrix file from the computeMatrix tool. (default: None)]':file:_files \
+        {--outFileName,-o}'[Output file name (default: None)]':file:_files \
+        '--min[Minimum value. Any row having a single entry less than this will be excluded. The default is no minimum. (default: None)]' \
+        '--max[Maximum value. Any row having a single entry more than this will be excluded. The default is no maximum. (default: None)]' \
+        "*: :_files"
+
+}
+
+function _computeMatrixOperations_rbind {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--matrixFile[\[MATRIXFILE ...\], -m MATRIXFILE \[MATRIXFILE ...\] Matrix files from the computeMatrix tool. (default: None)]':file:_files \
+        {--outFileName,-o}'[Output file name (default: None)]':file:_files \
+        "*: :_files"
+
+}
+
+function _computeMatrixOperations_cbind {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--matrixFile[\[MATRIXFILE ...\], -m MATRIXFILE \[MATRIXFILE ...\] Matrix files from the computeMatrix tool. (default: None)]':file:_files \
+        {--outFileName,-o}'[Output file name (default: None)]':file:_files \
+        "*: :_files"
+
+}
+
+function _computeMatrixOperations_sort {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--matrixFile,-m}'[Matrix file from the computeMatrix tool. (default: None)]':file:_files \
+        {--outFileName,-o}'[Output file name (default: None)]':file:_files \
+        {--regionsFileName,-R}'[File name(s), in BED or GTF format, containing the regions. If multiple bed files are given, each one is considered a group that can be plotted separately. Also, adding a "#" symbol in the bed file causes all the regions until the previous "#" to be considered one group. Alternatively for BED files, putting deepTools_group in the header can be used to indicate a column with group labels. Note that these should be sorted such that all group entries are together. (default: None)]':file:_files \
+        '--transcriptID[When a GTF file is used to provide regions, only entries with this value as their feature (column 3) will be processed as transcripts. (Default: transcript)]' \
+        '--transcript_id_designator[Each region has an ID (e.g., ACTB) assigned to it, which for BED files is either column 4 (if it exists) or the interval bounds. For GTF files this is instead stored in the last column as a key:value pair (e.g., as '\''transcript_id "ACTB"'\'', for a key of transcript_id and a value of ACTB). In some cases it can be convenient to use a different identifier. To do so, set this to the desired key. (Default: transcript_id)]' \
+        "*: :_files"
+
+}
+
+function _computeMatrixOperations_dataRange {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--matrixFile,-m}'[Matrix file from the computeMatrix tool. (default: None)]':file:_files \
+        "*: :_files"
+
+}
+
+_computeMatrixOperations "$@"
 

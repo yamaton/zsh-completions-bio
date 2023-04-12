@@ -1,20 +1,9 @@
-#compdef _bigwigCompare bigwigCompare
+#compdef bigwigCompare
 
 # Auto-generated with h2o
 
-
 function _bigwigCompare {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {--bigwig1,-b1}'[Bigwig file 1. Usually the file for the treatment. (default: None)]':file:_files \
         {--bigwig2,-b2}'[Bigwig file 2. Usually the file for the control. (default: None)]':file:_files \
@@ -35,17 +24,9 @@ function _bigwigCompare {
         '--userKey[For remote files bedgraph/wiggle files hosted on deepBlue, this specifies the user key to use for access. The default is "anonymous_key", which suffices for public datasets. If you need access to a restricted access/private dataset, then request a key from deepBlue and specify it here. (default: anonymous_key)]' \
         '--deepBlueTempDir[If specified, temporary files from preloading datasets from deepBlue will be written here (note, this directory must exist). If not specified, where ever temporary files would normally be written on your system is used. (default: None)]':file:_files \
         '--deepBlueKeepTemp[If specified, temporary bigWig files from preloading deepBlue datasets are not deleted. A message will be printed noting where these files are and what sample they correspond to. These can then be used if you wish to analyse the same sample with the same regions again. (default: False)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_bigwigCompare "$@"
 

@@ -1,20 +1,9 @@
-#compdef _plotEnrichment plotEnrichment
+#compdef plotEnrichment
 
 # Auto-generated with h2o
 
-
 function _plotEnrichment {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {--bamfiles,-b}'[List of indexed bam files separated by spaces.]':file:_files \
         '--BED[Limits the enrichment analysis to the regions specified in these BED/GTF files. Enrichment is calculated as the number of reads overlapping each feature type. The feature type is column 3 in a GTF file and "peak" for BED files.]':file:_files \
@@ -48,17 +37,9 @@ function _plotEnrichment {
         '--samFlagExclude[Exclude reads based on the SAM flag. For example, to get only reads that map to the forward strand, use --samFlagExclude 16, where 16 is the SAM flag for reads that map to the reverse strand. (Default: None)]' \
         '--minFragmentLength[The minimum fragment length needed for read/pair inclusion. This option is primarily useful in ATACseq experiments, for filtering mono- or di-nucleosome fragments. (Default: 0)]' \
         '--maxFragmentLength[The maximum fragment length needed for read/pair inclusion. (Default: 0)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_plotEnrichment "$@"
 

@@ -1,34 +1,15 @@
-#compdef _vcfannotate vcfannotate
+#compdef vcfannotate
 
 # Auto-generated with h2o
 
-
 function _vcfannotate {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-b,--bed}'[use annotations provided by this BED file]' \
         {-k,--key}'[use this INFO field key for the annotations]' \
         {-d,--default}'[use this INFO field key for records without annotations]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_vcfannotate "$@"
 

@@ -1,225 +1,6 @@
-#compdef _snpEff snpEff
+#compdef snpEff
 
 # Auto-generated with h2o
-
-    function _snpEff_build {
-        _arguments \
-            '-embl[Use Embl format.]' \
-            '-genbank[Use GenBank format.]' \
-            '-gff2[Use GFF2 format (obsolete).]' \
-            '-gff3[Use GFF3 format.]' \
-            '-gtf22[Use GTF 2.2 format.]' \
-            '-knowngenes[Use KnownGenes table from UCSC.]' \
-            '-refseq[Use RefSeq table from UCSC.]' \
-            '-cellType[Only build regulation tracks for cellType <type>.]' \
-            '-maxErrorRate[Maximum allowed error rate (number between 0.0 and 1.0). Default: 0.05]' \
-            '-noCheckCds[Skip CDS sequences check.]' \
-            '-noCheckProtein[Skip Protein sequences check.]' \
-            '-noStoreSeqs[Do not store sequence in binary files. Default: false]' \
-            '-onlyReg[Only build regulation tracks.]' \
-            '-regSortedByType[The '\''regulation.gff'\'' file is sorted by '\''regulation type'\'' instead of sorted by chromosome:pos. Default: false]' \
-            '-storeSeqs[Store sequence in binary files. Default: true]' \
-            {-c,-config}'[Specify config file]' \
-            '-configOption[Override a config file option]' \
-            {-d,-debug}'[Debug mode (very verbose).]' \
-            '-dataDir[Override data_dir parameter from config file.]':file:_files \
-            '-download[Download a SnpEff database, if not available locally. Default: true]' \
-            '-nodownload[Do not download a SnpEff database, if not available locally.]' \
-            {-h,-help}'[Show this help and exit]' \
-            '-noLog[Do not report usage statistics to server]' \
-            {-q,-quiet}'[Quiet mode (do not show any messages or errors)]' \
-            {-v,-verbose}'[Verbose mode]' \
-            '-version[Show version number and exit]' \
-            "*: :_files"
-
-    }
-
-    function _snpEff_buildNextProt {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _snpEff_cds {
-        _arguments \
-            {-c,-config}'[Specify config file]':file:_files \
-            '-noLog[Do not report usage statistics to server]' \
-            '-v[Verbose mode]' \
-            '-d[Debug mode]' \
-            "*: :_files"
-
-    }
-
-    function _snpEff_closest {
-        _arguments \
-            '-bed[Input format is BED. Default: VCF]' \
-            '-tss[Measure distance from TSS (transcription start site)]' \
-            "*: :_files"
-
-    }
-
-    function _snpEff_count {
-        _arguments \
-            '-n[Output file base name.]' \
-            '-p[Calculate probability model (binomial). Default: false]' \
-            {-c,-config}'[Specify config file]' \
-            '-configOption[Override a config file option]' \
-            {-d,-debug}'[Debug mode (very verbose).]' \
-            '-dataDir[Override data_dir parameter from config file.]':file:_files \
-            '-download[Download a SnpEff database, if not available locally. Default: true]' \
-            '-nodownload[Do not download a SnpEff database, if not available locally.]' \
-            {-h,-help}'[Show this help and exit]' \
-            '-noLog[Do not report usage statistics to server]' \
-            {-q,-quiet}'[Quiet mode (do not show any messages or errors)]' \
-            {-v,-verbose}'[Verbose mode]' \
-            '-version[Show version number and exit]' \
-            '-canon[Only use canonical transcripts.]' \
-            '-canonList[Only use canonical transcripts, replace some transcripts using the '\''gene_id transcript_id'\'' entries in <file>.]':file:_files \
-            '-interaction[Annotate using inteactions (requires interaciton database). Default: true]' \
-            '-interval[Use a custom intervals in TXT/BED/BigBed/VCF/GFF file (you may use this option many times)]':file:_files \
-            '-maxTSL[Only use transcripts having Transcript Support Level lower than <TSL_number>.]' \
-            '-motif[Annotate using motifs (requires Motif database). Default: true]' \
-            '-nextProt[Annotate using NextProt (requires NextProt database).]' \
-            '-noGenome[Do not load any genomic database (e.g. annotate using custom files).]' \
-            '-noExpandIUB[Disable IUB code expansion in input variants]' \
-            '-noInteraction[Disable inteaction annotations]' \
-            '-noMotif[Disable motif annotations.]' \
-            '-noNextProt[Disable NextProt annotations.]' \
-            '-onlyReg[Only use regulation tracks.]' \
-            '-onlyProtein[Only use protein coding transcripts. Default: false]' \
-            '-onlyTr[Only use the transcripts in this file. Format: One transcript ID per line.]':file:_files \
-            '-reg[Regulation track to use (this option can be used add several times).]' \
-            {-ss,-spliceSiteSize}'[Set size for splice sites (donor and acceptor) in bases. Default: 2]' \
-            '-spliceRegionExonSize[Set size for splice site region within exons. Default: 3 bases]' \
-            '-spliceRegionIntronMin[Set minimum number of bases for splice site region within intron. Default: 3 bases]' \
-            '-spliceRegionIntronMax[Set maximum number of bases for splice site region within intron. Default: 8 bases]' \
-            '-strict[Only use '\''validated'\'' transcripts (i.e. sequence has been checked). Default: false]' \
-            {-ud,-upDownStreamLen}'[Set upstream downstream interval length (in bases)]' \
-            "*: :_files"
-
-    }
-
-    function _snpEff_databases {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _snpEff_download {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _snpEff_dump {
-        _arguments \
-            '-bed[Dump in BED format (implies -0)]' \
-            '-chr[Prepend '\''string'\'' to chromosome name (e.g. '\''chr1'\'' instead of '\''1'\'')]' \
-            '-txt[Dump as a TXT table (implies -1)]' \
-            '-0[Output zero-based coordinates.]' \
-            '-1[Output one-based coordinates]' \
-            "*: :_files"
-
-    }
-
-    function _snpEff_genes2bed {
-        _arguments \
-            '-cds[Show coding exons (no UTRs).]' \
-            '-e[Show exons for every transcript.]' \
-            '-f[A TXT file having one gene ID (or name) per line.]':file:_files \
-            '-i[Show introns for every transcript.]' \
-            '-pc[Use only protein coding genes.]' \
-            '-tr[Show transcript coordinates.]' \
-            '-ud[Expand gene interval upstream and downstream by '\''num'\'' bases.]' \
-            "*: :_files"
-
-    }
-
-    function _snpEff_len {
-        _arguments \
-            '-r[<num> : Assume a read size of '\''num'\'' bases.]' \
-            '-iter[<num> : Perform '\''num'\'' iterations of random sampling.]' \
-            '-reads[Each random sampling iteration has '\''num'\'' reads.]' \
-            "*: :_files"
-
-    }
-
-    function _snpEff_pdb {
-        _arguments \
-            '-aaSep[Minimum number of AA of separation within the sequence. Default: 20]' \
-            '-idMap[ID map file (i.e. file containing mapping from PDB ID to transcript ID). Default: db/pdb/idMap_pdbId_ensemblId_refseqId.txt.gz]':file:_files \
-            '-interactList[A file containing protein-protein interations (from PDB co-srystalzed structures). Default: db/pdb/idMap_pdbId_ensemblId_refseqId.txt.gz]':file:_files \
-            '-maxDist[Maximum distance in Angtrom for any atom in a pair of amino acids to be considered '\''in contact'\''. Default: 3.0]' \
-            '-maxErr[Maximum amino acid sequence differece between PDB file and genome. Default: 0.1]' \
-            '-org[Organism '\''common name'\''. Default: HUMAN]' \
-            '-orgScientific[Organism '\''scientific name'\''. Default: HOMO SAPIENS]' \
-            '-pdbDir[Path to PDB files (files in all sub-dirs are scanned).]':file:_files \
-            '-res[Maximum PDB file resolution. Default: 3.0]' \
-            {-c,-config}'[Specify config file]' \
-            '-configOption[Override a config file option]' \
-            {-d,-debug}'[Debug mode (very verbose).]' \
-            '-dataDir[Override data_dir parameter from config file.]':file:_files \
-            '-download[Download a SnpEff database, if not available locally. Default: true]' \
-            '-nodownload[Do not download a SnpEff database, if not available locally.]' \
-            {-h,-help}'[Show this help and exit]' \
-            '-noLog[Do not report usage statistics to server]' \
-            {-q,-quiet}'[Quiet mode (do not show any messages or errors)]' \
-            {-v,-verbose}'[Verbose mode]' \
-            '-version[Show version number and exit]' \
-            '-canon[Only use canonical transcripts.]' \
-            '-canonList[Only use canonical transcripts, replace some transcripts using the '\''gene_id transcript_id'\'' entries in <file>.]':file:_files \
-            '-interaction[Annotate using inteactions (requires interaciton database). Default: true]' \
-            '-interval[Use a custom intervals in TXT/BED/BigBed/VCF/GFF file (you may use this option many times)]':file:_files \
-            '-maxTSL[Only use transcripts having Transcript Support Level lower than <TSL_number>.]' \
-            '-motif[Annotate using motifs (requires Motif database). Default: true]' \
-            '-nextProt[Annotate using NextProt (requires NextProt database).]' \
-            '-noGenome[Do not load any genomic database (e.g. annotate using custom files).]' \
-            '-noExpandIUB[Disable IUB code expansion in input variants]' \
-            '-noInteraction[Disable inteaction annotations]' \
-            '-noMotif[Disable motif annotations.]' \
-            '-noNextProt[Disable NextProt annotations.]' \
-            '-onlyReg[Only use regulation tracks.]' \
-            '-onlyProtein[Only use protein coding transcripts. Default: false]' \
-            '-onlyTr[Only use the transcripts in this file. Format: One transcript ID per line.]':file:_files \
-            '-reg[Regulation track to use (this option can be used add several times).]' \
-            {-ss,-spliceSiteSize}'[Set size for splice sites (donor and acceptor) in bases. Default: 2]' \
-            '-spliceRegionExonSize[Set size for splice site region within exons. Default: 3 bases]' \
-            '-spliceRegionIntronMin[Set minimum number of bases for splice site region within intron. Default: 3 bases]' \
-            '-spliceRegionIntronMax[Set maximum number of bases for splice site region within intron. Default: 8 bases]' \
-            '-strict[Only use '\''validated'\'' transcripts (i.e. sequence has been checked). Default: false]' \
-            {-ud,-upDownStreamLen}'[Set upstream downstream interval length (in bases)]' \
-            "*: :_files"
-
-    }
-
-    function _snpEff_protein {
-        _arguments \
-            '-codonTables[Try all codon tables on each chromosome and calculate error rates.]' \
-            "*: :_files"
-
-    }
-
-    function _snpEff_seq {
-        _arguments \
-            '-r[Reverse-Watson-Cricks complement.]' \
-            "*: :_files"
-
-    }
-
-    function _snpEff_show {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _snpEff_translocReport {
-        _arguments \
-            '-onlyOneTr[Report only one transcript (used for debugging).]' \
-            '-outPath[Create output SVG files for each translocation in '\''path'\'' (set to empty to disable). Default '\'''\'']':file:_files \
-            '-report[Output report file name. Default: translocations_report.html]':file:_files \
-            "*: :_files"
-
-    }
 
 
 function _snpEff {
@@ -356,4 +137,225 @@ function _snpEff {
      esac
 
 }
+
+function _snpEff_build {
+    _arguments \
+        '-embl[Use Embl format.]' \
+        '-genbank[Use GenBank format.]' \
+        '-gff2[Use GFF2 format (obsolete).]' \
+        '-gff3[Use GFF3 format.]' \
+        '-gtf22[Use GTF 2.2 format.]' \
+        '-knowngenes[Use KnownGenes table from UCSC.]' \
+        '-refseq[Use RefSeq table from UCSC.]' \
+        '-cellType[Only build regulation tracks for cellType <type>.]' \
+        '-maxErrorRate[Maximum allowed error rate (number between 0.0 and 1.0). Default: 0.05]' \
+        '-noCheckCds[Skip CDS sequences check.]' \
+        '-noCheckProtein[Skip Protein sequences check.]' \
+        '-noStoreSeqs[Do not store sequence in binary files. Default: false]' \
+        '-onlyReg[Only build regulation tracks.]' \
+        '-regSortedByType[The '\''regulation.gff'\'' file is sorted by '\''regulation type'\'' instead of sorted by chromosome:pos. Default: false]' \
+        '-storeSeqs[Store sequence in binary files. Default: true]' \
+        {-c,-config}'[Specify config file]' \
+        '-configOption[Override a config file option]' \
+        {-d,-debug}'[Debug mode (very verbose).]' \
+        '-dataDir[Override data_dir parameter from config file.]':file:_files \
+        '-download[Download a SnpEff database, if not available locally. Default: true]' \
+        '-nodownload[Do not download a SnpEff database, if not available locally.]' \
+        {-h,-help}'[Show this help and exit]' \
+        '-noLog[Do not report usage statistics to server]' \
+        {-q,-quiet}'[Quiet mode (do not show any messages or errors)]' \
+        {-v,-verbose}'[Verbose mode]' \
+        '-version[Show version number and exit]' \
+        "*: :_files"
+
+}
+
+function _snpEff_buildNextProt {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _snpEff_cds {
+    _arguments \
+        {-c,-config}'[Specify config file]':file:_files \
+        '-noLog[Do not report usage statistics to server]' \
+        '-v[Verbose mode]' \
+        '-d[Debug mode]' \
+        "*: :_files"
+
+}
+
+function _snpEff_closest {
+    _arguments \
+        '-bed[Input format is BED. Default: VCF]' \
+        '-tss[Measure distance from TSS (transcription start site)]' \
+        "*: :_files"
+
+}
+
+function _snpEff_count {
+    _arguments \
+        '-n[Output file base name.]' \
+        '-p[Calculate probability model (binomial). Default: false]' \
+        {-c,-config}'[Specify config file]' \
+        '-configOption[Override a config file option]' \
+        {-d,-debug}'[Debug mode (very verbose).]' \
+        '-dataDir[Override data_dir parameter from config file.]':file:_files \
+        '-download[Download a SnpEff database, if not available locally. Default: true]' \
+        '-nodownload[Do not download a SnpEff database, if not available locally.]' \
+        {-h,-help}'[Show this help and exit]' \
+        '-noLog[Do not report usage statistics to server]' \
+        {-q,-quiet}'[Quiet mode (do not show any messages or errors)]' \
+        {-v,-verbose}'[Verbose mode]' \
+        '-version[Show version number and exit]' \
+        '-canon[Only use canonical transcripts.]' \
+        '-canonList[Only use canonical transcripts, replace some transcripts using the '\''gene_id transcript_id'\'' entries in <file>.]':file:_files \
+        '-interaction[Annotate using inteactions (requires interaciton database). Default: true]' \
+        '-interval[Use a custom intervals in TXT/BED/BigBed/VCF/GFF file (you may use this option many times)]':file:_files \
+        '-maxTSL[Only use transcripts having Transcript Support Level lower than <TSL_number>.]' \
+        '-motif[Annotate using motifs (requires Motif database). Default: true]' \
+        '-nextProt[Annotate using NextProt (requires NextProt database).]' \
+        '-noGenome[Do not load any genomic database (e.g. annotate using custom files).]' \
+        '-noExpandIUB[Disable IUB code expansion in input variants]' \
+        '-noInteraction[Disable inteaction annotations]' \
+        '-noMotif[Disable motif annotations.]' \
+        '-noNextProt[Disable NextProt annotations.]' \
+        '-onlyReg[Only use regulation tracks.]' \
+        '-onlyProtein[Only use protein coding transcripts. Default: false]' \
+        '-onlyTr[Only use the transcripts in this file. Format: One transcript ID per line.]':file:_files \
+        '-reg[Regulation track to use (this option can be used add several times).]' \
+        {-ss,-spliceSiteSize}'[Set size for splice sites (donor and acceptor) in bases. Default: 2]' \
+        '-spliceRegionExonSize[Set size for splice site region within exons. Default: 3 bases]' \
+        '-spliceRegionIntronMin[Set minimum number of bases for splice site region within intron. Default: 3 bases]' \
+        '-spliceRegionIntronMax[Set maximum number of bases for splice site region within intron. Default: 8 bases]' \
+        '-strict[Only use '\''validated'\'' transcripts (i.e. sequence has been checked). Default: false]' \
+        {-ud,-upDownStreamLen}'[Set upstream downstream interval length (in bases)]' \
+        "*: :_files"
+
+}
+
+function _snpEff_databases {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _snpEff_download {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _snpEff_dump {
+    _arguments \
+        '-bed[Dump in BED format (implies -0)]' \
+        '-chr[Prepend '\''string'\'' to chromosome name (e.g. '\''chr1'\'' instead of '\''1'\'')]' \
+        '-txt[Dump as a TXT table (implies -1)]' \
+        '-0[Output zero-based coordinates.]' \
+        '-1[Output one-based coordinates]' \
+        "*: :_files"
+
+}
+
+function _snpEff_genes2bed {
+    _arguments \
+        '-cds[Show coding exons (no UTRs).]' \
+        '-e[Show exons for every transcript.]' \
+        '-f[A TXT file having one gene ID (or name) per line.]':file:_files \
+        '-i[Show introns for every transcript.]' \
+        '-pc[Use only protein coding genes.]' \
+        '-tr[Show transcript coordinates.]' \
+        '-ud[Expand gene interval upstream and downstream by '\''num'\'' bases.]' \
+        "*: :_files"
+
+}
+
+function _snpEff_len {
+    _arguments \
+        '-r[<num> : Assume a read size of '\''num'\'' bases.]' \
+        '-iter[<num> : Perform '\''num'\'' iterations of random sampling.]' \
+        '-reads[Each random sampling iteration has '\''num'\'' reads.]' \
+        "*: :_files"
+
+}
+
+function _snpEff_pdb {
+    _arguments \
+        '-aaSep[Minimum number of AA of separation within the sequence. Default: 20]' \
+        '-idMap[ID map file (i.e. file containing mapping from PDB ID to transcript ID). Default: db/pdb/idMap_pdbId_ensemblId_refseqId.txt.gz]':file:_files \
+        '-interactList[A file containing protein-protein interations (from PDB co-srystalzed structures). Default: db/pdb/idMap_pdbId_ensemblId_refseqId.txt.gz]':file:_files \
+        '-maxDist[Maximum distance in Angtrom for any atom in a pair of amino acids to be considered '\''in contact'\''. Default: 3.0]' \
+        '-maxErr[Maximum amino acid sequence differece between PDB file and genome. Default: 0.1]' \
+        '-org[Organism '\''common name'\''. Default: HUMAN]' \
+        '-orgScientific[Organism '\''scientific name'\''. Default: HOMO SAPIENS]' \
+        '-pdbDir[Path to PDB files (files in all sub-dirs are scanned).]':file:_files \
+        '-res[Maximum PDB file resolution. Default: 3.0]' \
+        {-c,-config}'[Specify config file]' \
+        '-configOption[Override a config file option]' \
+        {-d,-debug}'[Debug mode (very verbose).]' \
+        '-dataDir[Override data_dir parameter from config file.]':file:_files \
+        '-download[Download a SnpEff database, if not available locally. Default: true]' \
+        '-nodownload[Do not download a SnpEff database, if not available locally.]' \
+        {-h,-help}'[Show this help and exit]' \
+        '-noLog[Do not report usage statistics to server]' \
+        {-q,-quiet}'[Quiet mode (do not show any messages or errors)]' \
+        {-v,-verbose}'[Verbose mode]' \
+        '-version[Show version number and exit]' \
+        '-canon[Only use canonical transcripts.]' \
+        '-canonList[Only use canonical transcripts, replace some transcripts using the '\''gene_id transcript_id'\'' entries in <file>.]':file:_files \
+        '-interaction[Annotate using inteactions (requires interaciton database). Default: true]' \
+        '-interval[Use a custom intervals in TXT/BED/BigBed/VCF/GFF file (you may use this option many times)]':file:_files \
+        '-maxTSL[Only use transcripts having Transcript Support Level lower than <TSL_number>.]' \
+        '-motif[Annotate using motifs (requires Motif database). Default: true]' \
+        '-nextProt[Annotate using NextProt (requires NextProt database).]' \
+        '-noGenome[Do not load any genomic database (e.g. annotate using custom files).]' \
+        '-noExpandIUB[Disable IUB code expansion in input variants]' \
+        '-noInteraction[Disable inteaction annotations]' \
+        '-noMotif[Disable motif annotations.]' \
+        '-noNextProt[Disable NextProt annotations.]' \
+        '-onlyReg[Only use regulation tracks.]' \
+        '-onlyProtein[Only use protein coding transcripts. Default: false]' \
+        '-onlyTr[Only use the transcripts in this file. Format: One transcript ID per line.]':file:_files \
+        '-reg[Regulation track to use (this option can be used add several times).]' \
+        {-ss,-spliceSiteSize}'[Set size for splice sites (donor and acceptor) in bases. Default: 2]' \
+        '-spliceRegionExonSize[Set size for splice site region within exons. Default: 3 bases]' \
+        '-spliceRegionIntronMin[Set minimum number of bases for splice site region within intron. Default: 3 bases]' \
+        '-spliceRegionIntronMax[Set maximum number of bases for splice site region within intron. Default: 8 bases]' \
+        '-strict[Only use '\''validated'\'' transcripts (i.e. sequence has been checked). Default: false]' \
+        {-ud,-upDownStreamLen}'[Set upstream downstream interval length (in bases)]' \
+        "*: :_files"
+
+}
+
+function _snpEff_protein {
+    _arguments \
+        '-codonTables[Try all codon tables on each chromosome and calculate error rates.]' \
+        "*: :_files"
+
+}
+
+function _snpEff_seq {
+    _arguments \
+        '-r[Reverse-Watson-Cricks complement.]' \
+        "*: :_files"
+
+}
+
+function _snpEff_show {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _snpEff_translocReport {
+    _arguments \
+        '-onlyOneTr[Report only one transcript (used for debugging).]' \
+        '-outPath[Create output SVG files for each translocation in '\''path'\'' (set to empty to disable). Default '\'''\'']':file:_files \
+        '-report[Output report file name. Default: translocations_report.html]':file:_files \
+        "*: :_files"
+
+}
+
+_snpEff "$@"
 

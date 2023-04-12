@@ -1,20 +1,9 @@
-#compdef _hmmalign hmmalign
+#compdef hmmalign
 
 # Auto-generated with h2o
 
-
 function _hmmalign {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[show brief help on version and usage]' \
         '-o[output alignment to file <f>, not stdout]' \
         '--mapali[include alignment in file <f> (same ali that HMM came from)]' \
@@ -24,17 +13,9 @@ function _hmmalign {
         '--rna[assert <seqfile>, <hmmfile> both RNA: no autodetection]' \
         '--informat[assert <seqfile> is in format <s>: no autodetection]' \
         '--outformat[output alignment in format <s> \[Stockholm\]]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_hmmalign "$@"
 

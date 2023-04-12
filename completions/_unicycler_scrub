@@ -1,20 +1,9 @@
-#compdef _unicycler_scrub unicycler_scrub
+#compdef unicycler_scrub
 
 # Auto-generated with h2o
 
-
 function _unicycler_scrub {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-i,--input}'[These are the reads or assembly to be scrubbed (can be FASTA or FASTQ format]' \
         {-o,--out}'[The scrubbed reads or assembly will be saved to this file (will have the same format as the --input file format) or use "none" to not produce an output file]' \
@@ -27,17 +16,9 @@ function _unicycler_scrub {
         '--keep_paf[Save the alignments to file (makes repeated runs faster because alignments can be loaded from file) (default: False)]' \
         '--parameters[Low-level parameters (for debugging use only) (default: )]' \
         '--verbosity[Level of stdout information (default: 1)   0 = no stdout, 1 = basic progress indicators,   2 = extra info, 3 = debugging info]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_unicycler_scrub "$@"
 

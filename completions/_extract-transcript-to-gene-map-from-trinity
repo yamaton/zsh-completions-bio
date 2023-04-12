@@ -1,31 +1,12 @@
-#compdef _extract-transcript-to-gene-map-from-trinity extract-transcript-to-gene-map-from-trinity
+#compdef extract-transcript-to-gene-map-from-trinity
 
 # Auto-generated with h2o
 
-
 function _extract-transcript-to-gene-map-from-trinity {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+    _arguments \
+        "*: :_files"
 
 }
+
+_extract-transcript-to-gene-map-from-trinity "$@"
 

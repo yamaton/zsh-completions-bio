@@ -1,20 +1,9 @@
-#compdef _hmmsim hmmsim
+#compdef hmmsim
 
 # Auto-generated with h2o
 
-
 function _hmmsim {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[show brief help on version and usage]' \
         '-a[obtain alignment length statistics too]' \
         '-v[verbose: print scores]' \
@@ -53,17 +42,9 @@ function _hmmsim {
         '--x-no-lengthmodel[turn the H3 length model off]' \
         '--nu[set nu parameter (# expected HSPs) for GMSV \[2.0\]]' \
         '--pthresh[set P-value threshold for --ffile \[0.02\]]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_hmmsim "$@"
 

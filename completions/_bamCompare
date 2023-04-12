@@ -1,20 +1,9 @@
-#compdef _bamCompare bamCompare
+#compdef bamCompare
 
 # Auto-generated with h2o
 
-
 function _bamCompare {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {--bamfile1,-b1}'[Sorted BAM file 1. Usually the BAM file for the treatment. (default: None)]':file:_files \
         {--bamfile2,-b2}'[Sorted BAM file 2. Usually the BAM file for the control. (default: None)]':file:_files \
         {--outFileName,-o}'[Output file name. (default: None)]':file:_files \
@@ -47,17 +36,9 @@ function _bamCompare {
         '--samFlagExclude[Exclude reads based on the SAM flag. For example, to get only reads that map to the forward strand, use --samFlagExclude 16, where 16 is the SAM flag for reads that map to the reverse strand. (Default: None)]' \
         '--minFragmentLength[The minimum fragment length needed for read/pair inclusion. This option is primarily useful in ATACseq experiments, for filtering mono- or di-nucleosome fragments. (Default: 0)]' \
         '--maxFragmentLength[The maximum fragment length needed for read/pair inclusion. (Default: 0)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_bamCompare "$@"
 

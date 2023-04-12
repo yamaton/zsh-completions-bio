@@ -1,20 +1,9 @@
-#compdef _configManta.py configManta.py
+#compdef configManta.py
 
 # Auto-generated with h2o
 
-
 function _configManta.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--version[show program'\''s version number and exit]' \
         {-h,--help}'[show this help message and exit]' \
         '--config[provide a configuration file to override defaults in global config file]':file:_files \
@@ -27,17 +16,9 @@ function _configManta.py {
         '--referenceFasta[samtools-indexed reference fasta file \[required\]]':file:_files \
         '--runDir[Name of directory to be created where all workflow scripts and output will be written. Each analysis requires a separate directory. (default: MantaWorkflow)]':file:_files \
         '--callRegions[Optionally provide a bgzip-compressed/tabix-indexed BED file containing the set of regions to call. No VCF output will be provided outside of these regions. The full genome will still be used to estimate statistics from the input (such as expected fragment size distribution). Only one BED file may be specified. (default: call the entire genome)]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_configManta.py "$@"
 

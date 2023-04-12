@@ -1,20 +1,9 @@
-#compdef _estimateScaleFactor estimateScaleFactor
+#compdef estimateScaleFactor
 
 # Auto-generated with h2o
 
-
 function _estimateScaleFactor {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-b,--bamfiles}'[List of indexed BAM files, space delineated (default: None)]':file:_files \
         {--ignoreForNormalization,-ignore}'[A comma-separated list of chromosome names, limited by quotes, containing those chromosomes that should be excluded during normalization computations. For example, --ignoreForNormalization "chrX, chrM" (default: None)]' \
@@ -25,17 +14,9 @@ function _estimateScaleFactor {
         {--numberOfProcessors,-p}'[Number of processors to use. The default is to use half the maximum number of processors. (default: max/2)]' \
         {--verbose,-v}'[Set to see processing messages. (default: False)]' \
         '--version[show program'\''s version number and exit]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_estimateScaleFactor "$@"
 

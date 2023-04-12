@@ -1,20 +1,9 @@
-#compdef _lumpy lumpy
+#compdef lumpy
 
 # Auto-generated with h2o
 
-
 function _lumpy {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-g[Genome file (defines chromosome order)]' \
         '-e[Show evidence for each call]' \
         '-w[File read windows size (default 1000000)]' \
@@ -28,17 +17,9 @@ function _lumpy {
         '-sr[bam_file:<file name>, id:<sample name>, back_distance:<distance>, min_mapping_threshold:<mapping quality>, weight:<sample weight>, min_clip:<minimum clip length>, read_group:<string>]' \
         '-pe[bam_file:<file name>, id:<sample name>, histo_file:<file name>, mean:<value>, stdev:<value>, read_length:<length>, min_non_overlap:<length>, discordant_z:<z value>, back_distance:<distance>, min_mapping_threshold:<mapping quality>, weight:<sample weight>, read_group:<string>]' \
         '-bedpe[bedpe_file:<bedpe file>, id:<sample name>, weight:<sample weight>]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_lumpy "$@"
 

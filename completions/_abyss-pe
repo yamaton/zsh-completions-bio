@@ -1,20 +1,9 @@
-#compdef _abyss-pe abyss-pe
+#compdef abyss-pe
 
 # Auto-generated with h2o
 
-
 function _abyss-pe {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-b,-m}'[Ignored for compatibility.]' \
         {-B,--always-make}'[Unconditionally make all targets.]' \
         {-C,--directory}'[Change to DIRECTORY before doing anything.]':file:_files \
@@ -47,17 +36,9 @@ function _abyss-pe {
         '--no-print-directory[Turn off -w, even if it was turned on implicitly.]' \
         {-W,--what-if,--new-file,--assume-new}'[Consider FILE to be infinitely new.]':file:_files \
         '--warn-undefined-variables[Warn when an undefined variable is referenced.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_abyss-pe "$@"
 

@@ -1,20 +1,9 @@
-#compdef _jackhmmer jackhmmer
+#compdef jackhmmer
 
 # Auto-generated with h2o
 
-
 function _jackhmmer {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[show brief help on version and usage]' \
         '-N[set maximum number of iterations to <n> \[5\] (n>0)]' \
         '-o[direct output to file <f>, not stdout]' \
@@ -74,17 +63,9 @@ function _jackhmmer {
         '--qformat[assert query <seqfile> is in format <s>: no autodetection]' \
         '--tformat[assert target <seqdb> is in format <s>>: no autodetection]' \
         '--cpu[number of parallel CPU workers to use for multithreads \[2\]]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_jackhmmer "$@"
 

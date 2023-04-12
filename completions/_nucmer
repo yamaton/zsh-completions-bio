@@ -1,20 +1,9 @@
-#compdef _nucmer nucmer
+#compdef nucmer
 
 # Auto-generated with h2o
 
-
 function _nucmer {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--mum[Use anchor matches that are unique in both the reference and query (false)]' \
         '--maxmatch[Use all anchor matches regardless of their uniqueness (false)]' \
         {-b,--breaklen}'[Set the distance an alignment extension will attempt to extend poor scoring regions before giving up (200)]' \
@@ -40,17 +29,9 @@ function _nucmer {
         {-U,--usage,-h,--help}'[This message]' \
         '--full-help[Detailed help]' \
         {-V,--version}'[Version]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_nucmer "$@"
 

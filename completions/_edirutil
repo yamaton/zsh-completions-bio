@@ -1,20 +1,9 @@
-#compdef _edirutil edirutil
+#compdef edirutil
 
 # Auto-generated with h2o
 
-
 function _edirutil {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-db[Work with the named Entrez database.]' \
         '-web[Pass the specified WebEnv cookie.]' \
         '-key[Work with the Nth result set associated with the specified WebEnv.]' \
@@ -23,17 +12,9 @@ function _edirutil {
         '-silent[Suppress connection failure retry messages.]' \
         '-verbose[Display the ENTREZ_DIRECT XML field values at each step.]' \
         '-debug[Print the internal URL query and XML results of each step.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_edirutil "$@"
 

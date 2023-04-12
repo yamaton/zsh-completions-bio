@@ -1,20 +1,9 @@
-#compdef _metaquast metaquast
+#compdef metaquast
 
 # Auto-generated with h2o
 
-
 function _metaquast {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-o,--output-dir}'[Directory to store all result files \[default: quast_results/results_<datetime>\]]':file:_files \
         '-r[Comma-separated list of reference genomes or directory with reference genomes]':file:_files \
         '--references-list[Text file with list of reference genome names for downloading from NCBI]':file:_files \
@@ -91,17 +80,9 @@ function _metaquast {
         '--test-no-ref[Run MetaQUAST without references on the data from the test_data folder, output to quast_test_output. MetaQUAST will download SILVA 16S rRNA database (~170 Mb) for searching reference genomes Internet connection is required]' \
         {-h,--help}'[Print full usage message]' \
         {-v,--version}'[Print version]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_metaquast "$@"
 

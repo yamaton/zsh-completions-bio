@@ -1,577 +1,6 @@
-#compdef _unikmer unikmer
+#compdef unikmer
 
 # Auto-generated with h2o
-
-    function _unikmer_autocompletion {
-        _arguments \
-            '--file[autocompletion file (default "~/.bash_completion.d/unikmer.sh")]' \
-            {-h,--help}'[help for autocompletion]' \
-            '--shell[autocompletion type (bash|zsh|fish|powershell) (default "bash")]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_common {
-        _arguments \
-            {-h,--help}'[help for common]' \
-            {-m,--mix-taxid}'[allow part of files being whithout taxids]' \
-            {-n,--number}'[minimum number of files that share a k-mer (overides -p/--proportion)]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-p,--proportion}'[minimum proportion of files that share a k-mer (default 1)]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_concat {
-        _arguments \
-            {-h,--help}'[help for concat]' \
-            {-n,--number}'[number of k-mers (default -1)]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-s,--sorted}'[input k-mers are sorted]' \
-            {-t,--taxid}'[global taxid]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_count {
-        _arguments \
-            {-K,--canonical}'[only keep the canonical k-mers]' \
-            '--circular[circular genome]' \
-            {-H,--hash}'[save hash of k-mer, automatically on for k>32. This flag overides global flag -c/--compact]' \
-            {-h,--help}'[help for count]' \
-            {-k,--kmer-len}'[k-mer length]' \
-            {-l,--linear}'[output k-mers in linear order]' \
-            {-W,--minimizer-w}'[minimizer window size]' \
-            {-V,--more-verbose}'[print extra verbose information]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-T,--parse-taxid}'[parse taxid from FASTA/Q header]' \
-            {-r,--parse-taxid-regexp}'[regular expression for passing taxid]' \
-            {-d,--repeated}'[only count duplicate k-mers, for removing singleton in FASTQ]' \
-            {-D,--scale}'[scale/down-sample factor (default 1)]' \
-            {-B,--seq-name-filter}'[list of regular expressions for filtering out sequences by header/name, case ignored.]' \
-            {-s,--sort}'[sort k-mers, this significantly reduce file size for k<=25. This flag overides global flag -c/--compact]' \
-            {-S,--syncmer-s}'[closed syncmer length]' \
-            {-t,--taxid}'[global taxid]' \
-            {-u,--unique}'[only count unique k-mers, which are not duplicate]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_decode {
-        _arguments \
-            {-a,--all}'[output all data: encoded integer, decoded k-mer]' \
-            {-h,--help}'[help for decode]' \
-            {-k,--kmer-len}'[k-mer length]' \
-            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_diff {
-        _arguments \
-            {-t,--compare-taxid}'[take taxid into consideration. type unikmer "diff -h" for detail]' \
-            {-h,--help}'[help for diff]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-s,--sort}'[sort k-mers, this significantly reduce file size for k<=25. This flag overides global flag -c/--compact]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_dump {
-        _arguments \
-            {-K,--canonical}'[save the canonical k-mers]' \
-            {-O,--canonical-only}'[only save the canonical k-mers. This flag overides -K/--canonical]' \
-            {-H,--hash}'[save hash of k-mer, automatically on for k>32. This flag overides global flag -c/--compact]' \
-            '--hashed[giving hash values of k-mers, This flag overides global flag -c/--compact]' \
-            {-h,--help}'[help for dump]' \
-            {-k,--kmer-len}'[k-mer length]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-s,--sorted}'[input k-mers are sorted]' \
-            {-t,--taxid}'[global taxid]' \
-            {-u,--unique}'[remove duplicate k-mers]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_encode {
-        _arguments \
-            {-a,--all}'[output all data: orginial k-mer, parsed k-mer, encoded integer, encode bits]' \
-            {-K,--canonical}'[keep the canonical k-mers]' \
-            {-H,--hash}'[save hash of k-mer, automatically on for k>32]' \
-            {-h,--help}'[help for encode]' \
-            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_filter {
-        _arguments \
-            {-h,--help}'[help for filter]' \
-            {-v,--invert}'[invert result, i.e., output low-complexity k-mers]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-d,--penalty-d}'[penalty for different bases (default 1)]' \
-            {-s,--penalty-s}'[penalty for successive bases (default 3)]' \
-            {-t,--threshold}'[penalty threshold for filter, higher is stricter (default 15)]' \
-            {-w,--window}'[window size for checking penalty (default 7)]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_grep {
-        _arguments \
-            {-D,--degenerate}'[query k-mers contains degenerate base]' \
-            '--force[overwrite output directory]' \
-            {-h,--help}'[help for grep]' \
-            {-v,--invert-match}'[invert the sense of matching, to select non-matching records]' \
-            {-m,--multiple-outfiles}'[write results into separated files for multiple input files]' \
-            {-O,--out-dir}'[output directory (default "unikmer-grep")]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-S,--out-suffix}'[output suffix (default ".grep")]' \
-            {-q,--query}'[query k-mers/taxids (multiple values delimted by comma supported)]' \
-            {-f,--query-file}'[query file (one k-mer/taxid per line)]' \
-            {-t,--query-is-taxid}'[queries are taxids]' \
-            {-F,--query-unik-file}'[query file in .unik format]' \
-            {-d,--repeated}'[only print duplicate k-mers]' \
-            {-s,--sort}'[sort k-mers, this significantly reduce file size for k<=25. This flag overides global flag -c/--compact]' \
-            {-u,--unique}'[remove duplicate k-mers]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_head {
-        _arguments \
-            {-h,--help}'[help for head]' \
-            {-n,--number}'[number of k-mers to extract (default 10)]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_info {
-        _arguments \
-            {-a,--all}'[all information, including number of k-mers]' \
-            {-b,--basename}'[only output basename of files]' \
-            {-h,--help}'[help for info]' \
-            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
-            {-e,--skip-err}'[skip error, only show warning message]' \
-            '--symbol-false[smybol for false (default "✕")]' \
-            '--symbol-true[smybol for true (default "✓")]' \
-            {-T,--tabular}'[output in machine-friendly tabular format]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_inter {
-        _arguments \
-            {-h,--help}'[help for inter]' \
-            {-m,--mix-taxid}'[allow part of files being whithout taxids]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_locate {
-        _arguments \
-            '--circular[circular genome. type "unikmer locate -h" for details]' \
-            {-g,--genome}'[genomes in (gzipped) fasta file(s)]' \
-            {-h,--help}'[help for locate]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-B,--seq-name-filter}'[list of regular expressions for filtering out sequences by header/name, case ignored]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_merge {
-        _arguments \
-            '--force[overwrite tmp dir]' \
-            {-h,--help}'[help for merge]' \
-            {-D,--is-dir}'[intput files are directory containing chunk files]' \
-            {-k,--keep-tmp-dir}'[keep tmp dir]' \
-            {-M,--max-open-files}'[max number of open files (default 400)]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-p,--pattern}'[chunk file pattern (regular expression) (default "^chunk_\\d+\\.unik$")]' \
-            {-d,--repeated}'[only print duplicate k-mers]' \
-            {-t,--tmp-dir}'[directory for intermediate files (default "./")]' \
-            {-u,--unique}'[remove duplicate k-mers]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_num {
-        _arguments \
-            {-b,--basename}'[only output basename of files]' \
-            {-n,--file-name}'[show file name]' \
-            {-f,--force}'[read whole file and count k-mers]' \
-            {-h,--help}'[help for num]' \
-            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_rfilter {
-        _arguments \
-            {-B,--black-list}'[black list of ranks to discard, e.g., '\''"no rank", "clade"'\'']' \
-            {-N,--discard-noranks}'[discard ranks without order, type "unikmer filter --help" for details]' \
-            {-R,--discard-root}'[discard root taxid, defined by --root-taxid]' \
-            {-E,--equal-to}'[output taxIDs with rank equal to some ranks, multiple values can be separated with comma "," (e.g., -E "genus,species"), or give multiple times (e.g., -E genus -E species)]' \
-            {-h,--help}'[help for rfilter]' \
-            {-H,--higher-than}'[output ranks higher than a rank, exclusive with --lower-than]' \
-            '--list-order[list defined ranks in order]' \
-            '--list-ranks[list ordered ranks in taxonomy database]' \
-            {-L,--lower-than}'[output ranks lower than a rank, exclusive with --higher-than]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-r,--rank-file}'[user-defined ordered taxonomic ranks, type "unikmer rfilter --help" for details]' \
-            '--root-taxid[root taxid (default 1)]' \
-            {-n,--save-predictable-norank}'[do not discard some special ranks without order when using -L, where rank of the closest higher node is still lower than rank cutoff]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_sample {
-        _arguments \
-            {-h,--help}'[help for sample]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-s,--start}'[start location (default 1)]' \
-            {-w,--window}'[window size (default 1)]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_sort {
-        _arguments \
-            {-m,--chunk-size}'[split input into chunks of N k-mers, supports K/M/G suffix, type "unikmer sort -h" for detail]' \
-            '--force[overwrite tmp dir]' \
-            {-h,--help}'[help for sort]' \
-            {-k,--keep-tmp-dir}'[keep tmp dir]' \
-            {-M,--max-open-files}'[max number of open files (default 400)]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-d,--repeated}'[only print duplicate k-mers]' \
-            {-t,--tmp-dir}'[directory for intermediate files (default "./")]' \
-            {-u,--unique}'[remove duplicate k-mers]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_split {
-        _arguments \
-            {-m,--chunk-size}'[split input into chunks of N k-mers, supports K/M/G suffix, type "unikmer sort -h" for detail]' \
-            '--force[overwrite output directory]' \
-            {-h,--help}'[help for split]' \
-            {-O,--out-dir}'[output directory]' \
-            {-d,--repeated}'[split for further printing duplicate k-mers]' \
-            {-u,--unique}'[split for further removing duplicate k-mers]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_tsplit {
-        _arguments \
-            '--force[overwrite output directory]' \
-            {-h,--help}'[help for tsplit]' \
-            {-O,--out-dir}'[output directory]' \
-            {-o,--out-prefix}'[out file prefix (default "tsplit")]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_union {
-        _arguments \
-            {-h,--help}'[help for union]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-s,--sort}'[sort k-mers, this significantly reduce file size for k<=25. This flag overides global flag -c/--compact]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_uniqs {
-        _arguments \
-            {-M,--allow-multiple-mapped-kmer}'[allow multiple mapped k-mers]' \
-            '--circular[circular genome. type "unikmer uniqs -h" for details]' \
-            {-g,--genome}'[genomes in (gzipped) fasta file(s)]' \
-            {-h,--help}'[help for uniqs]' \
-            {-x,--max-cont-non-uniq-kmers}'[max continuous non-unique k-mers]' \
-            {-X,--max-num-cont-non-uniq-kmers}'[max number of continuous non-unique k-mers]' \
-            {-m,--min-len}'[minimum length of subsequence (default 200)]' \
-            {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
-            {-a,--output-fasta}'[output fasta format instead of BED3]' \
-            {-B,--seq-name-filter}'[list of regular expressions for filtering out sequences by header/name, case ignored]' \
-            {-W,--seqs-in-a-file-as-one-genome}'[treat seqs in a genome file as one genome]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_version {
-        _arguments \
-            {-u,--check-update}'[check update]' \
-            {-h,--help}'[help for version]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
-
-    function _unikmer_view {
-        _arguments \
-            {-a,--fasta}'[output in FASTA format, with encoded integer as FASTA header]' \
-            {-q,--fastq}'[output in FASTQ format, with encoded integer as FASTQ header]' \
-            {-g,--genome}'[genomes in (gzipped) fasta file(s) for decoding hashed k-mers]' \
-            {-h,--help}'[help for view]' \
-            {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
-            {-n,--show-code}'[show encoded integer along with k-mer]' \
-            {-N,--show-code-only}'[only show encoded integers, faster than cutting from result of -n/--show-cde]' \
-            {-t,--show-taxid}'[show taxid]' \
-            {-T,--show-taxid-only}'[show taxid only]' \
-            {-c,--compact}'[write compact binary file with little loss of speed]' \
-            '--compression-level[compression level (default -1)]' \
-            '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
-            {-I,--ignore-taxid}'[ignore taxonomy information]' \
-            {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
-            '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
-            {-C,--no-compress}'[do not compress binary file (not recommended)]' \
-            '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
-            {-j,--threads}'[number of CPUs to use (default 4)]' \
-            '--verbose[print verbose information]' \
-            "*: :_files"
-
-    }
 
 
 function _unikmer {
@@ -736,4 +165,577 @@ function _unikmer {
      esac
 
 }
+
+function _unikmer_autocompletion {
+    _arguments \
+        '--file[autocompletion file (default "~/.bash_completion.d/unikmer.sh")]' \
+        {-h,--help}'[help for autocompletion]' \
+        '--shell[autocompletion type (bash|zsh|fish|powershell) (default "bash")]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_common {
+    _arguments \
+        {-h,--help}'[help for common]' \
+        {-m,--mix-taxid}'[allow part of files being whithout taxids]' \
+        {-n,--number}'[minimum number of files that share a k-mer (overides -p/--proportion)]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-p,--proportion}'[minimum proportion of files that share a k-mer (default 1)]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_concat {
+    _arguments \
+        {-h,--help}'[help for concat]' \
+        {-n,--number}'[number of k-mers (default -1)]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-s,--sorted}'[input k-mers are sorted]' \
+        {-t,--taxid}'[global taxid]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_count {
+    _arguments \
+        {-K,--canonical}'[only keep the canonical k-mers]' \
+        '--circular[circular genome]' \
+        {-H,--hash}'[save hash of k-mer, automatically on for k>32. This flag overides global flag -c/--compact]' \
+        {-h,--help}'[help for count]' \
+        {-k,--kmer-len}'[k-mer length]' \
+        {-l,--linear}'[output k-mers in linear order]' \
+        {-W,--minimizer-w}'[minimizer window size]' \
+        {-V,--more-verbose}'[print extra verbose information]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-T,--parse-taxid}'[parse taxid from FASTA/Q header]' \
+        {-r,--parse-taxid-regexp}'[regular expression for passing taxid]' \
+        {-d,--repeated}'[only count duplicate k-mers, for removing singleton in FASTQ]' \
+        {-D,--scale}'[scale/down-sample factor (default 1)]' \
+        {-B,--seq-name-filter}'[list of regular expressions for filtering out sequences by header/name, case ignored.]' \
+        {-s,--sort}'[sort k-mers, this significantly reduce file size for k<=25. This flag overides global flag -c/--compact]' \
+        {-S,--syncmer-s}'[closed syncmer length]' \
+        {-t,--taxid}'[global taxid]' \
+        {-u,--unique}'[only count unique k-mers, which are not duplicate]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_decode {
+    _arguments \
+        {-a,--all}'[output all data: encoded integer, decoded k-mer]' \
+        {-h,--help}'[help for decode]' \
+        {-k,--kmer-len}'[k-mer length]' \
+        {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_diff {
+    _arguments \
+        {-t,--compare-taxid}'[take taxid into consideration. type unikmer "diff -h" for detail]' \
+        {-h,--help}'[help for diff]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-s,--sort}'[sort k-mers, this significantly reduce file size for k<=25. This flag overides global flag -c/--compact]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_dump {
+    _arguments \
+        {-K,--canonical}'[save the canonical k-mers]' \
+        {-O,--canonical-only}'[only save the canonical k-mers. This flag overides -K/--canonical]' \
+        {-H,--hash}'[save hash of k-mer, automatically on for k>32. This flag overides global flag -c/--compact]' \
+        '--hashed[giving hash values of k-mers, This flag overides global flag -c/--compact]' \
+        {-h,--help}'[help for dump]' \
+        {-k,--kmer-len}'[k-mer length]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-s,--sorted}'[input k-mers are sorted]' \
+        {-t,--taxid}'[global taxid]' \
+        {-u,--unique}'[remove duplicate k-mers]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_encode {
+    _arguments \
+        {-a,--all}'[output all data: orginial k-mer, parsed k-mer, encoded integer, encode bits]' \
+        {-K,--canonical}'[keep the canonical k-mers]' \
+        {-H,--hash}'[save hash of k-mer, automatically on for k>32]' \
+        {-h,--help}'[help for encode]' \
+        {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_filter {
+    _arguments \
+        {-h,--help}'[help for filter]' \
+        {-v,--invert}'[invert result, i.e., output low-complexity k-mers]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-d,--penalty-d}'[penalty for different bases (default 1)]' \
+        {-s,--penalty-s}'[penalty for successive bases (default 3)]' \
+        {-t,--threshold}'[penalty threshold for filter, higher is stricter (default 15)]' \
+        {-w,--window}'[window size for checking penalty (default 7)]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_grep {
+    _arguments \
+        {-D,--degenerate}'[query k-mers contains degenerate base]' \
+        '--force[overwrite output directory]' \
+        {-h,--help}'[help for grep]' \
+        {-v,--invert-match}'[invert the sense of matching, to select non-matching records]' \
+        {-m,--multiple-outfiles}'[write results into separated files for multiple input files]' \
+        {-O,--out-dir}'[output directory (default "unikmer-grep")]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-S,--out-suffix}'[output suffix (default ".grep")]' \
+        {-q,--query}'[query k-mers/taxids (multiple values delimted by comma supported)]' \
+        {-f,--query-file}'[query file (one k-mer/taxid per line)]' \
+        {-t,--query-is-taxid}'[queries are taxids]' \
+        {-F,--query-unik-file}'[query file in .unik format]' \
+        {-d,--repeated}'[only print duplicate k-mers]' \
+        {-s,--sort}'[sort k-mers, this significantly reduce file size for k<=25. This flag overides global flag -c/--compact]' \
+        {-u,--unique}'[remove duplicate k-mers]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_head {
+    _arguments \
+        {-h,--help}'[help for head]' \
+        {-n,--number}'[number of k-mers to extract (default 10)]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_info {
+    _arguments \
+        {-a,--all}'[all information, including number of k-mers]' \
+        {-b,--basename}'[only output basename of files]' \
+        {-h,--help}'[help for info]' \
+        {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+        {-e,--skip-err}'[skip error, only show warning message]' \
+        '--symbol-false[smybol for false (default "✕")]' \
+        '--symbol-true[smybol for true (default "✓")]' \
+        {-T,--tabular}'[output in machine-friendly tabular format]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_inter {
+    _arguments \
+        {-h,--help}'[help for inter]' \
+        {-m,--mix-taxid}'[allow part of files being whithout taxids]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_locate {
+    _arguments \
+        '--circular[circular genome. type "unikmer locate -h" for details]' \
+        {-g,--genome}'[genomes in (gzipped) fasta file(s)]' \
+        {-h,--help}'[help for locate]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-B,--seq-name-filter}'[list of regular expressions for filtering out sequences by header/name, case ignored]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_merge {
+    _arguments \
+        '--force[overwrite tmp dir]' \
+        {-h,--help}'[help for merge]' \
+        {-D,--is-dir}'[intput files are directory containing chunk files]' \
+        {-k,--keep-tmp-dir}'[keep tmp dir]' \
+        {-M,--max-open-files}'[max number of open files (default 400)]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-p,--pattern}'[chunk file pattern (regular expression) (default "^chunk_\\d+\\.unik$")]' \
+        {-d,--repeated}'[only print duplicate k-mers]' \
+        {-t,--tmp-dir}'[directory for intermediate files (default "./")]' \
+        {-u,--unique}'[remove duplicate k-mers]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_num {
+    _arguments \
+        {-b,--basename}'[only output basename of files]' \
+        {-n,--file-name}'[show file name]' \
+        {-f,--force}'[read whole file and count k-mers]' \
+        {-h,--help}'[help for num]' \
+        {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_rfilter {
+    _arguments \
+        {-B,--black-list}'[black list of ranks to discard, e.g., '\''"no rank", "clade"'\'']' \
+        {-N,--discard-noranks}'[discard ranks without order, type "unikmer filter --help" for details]' \
+        {-R,--discard-root}'[discard root taxid, defined by --root-taxid]' \
+        {-E,--equal-to}'[output taxIDs with rank equal to some ranks, multiple values can be separated with comma "," (e.g., -E "genus,species"), or give multiple times (e.g., -E genus -E species)]' \
+        {-h,--help}'[help for rfilter]' \
+        {-H,--higher-than}'[output ranks higher than a rank, exclusive with --lower-than]' \
+        '--list-order[list defined ranks in order]' \
+        '--list-ranks[list ordered ranks in taxonomy database]' \
+        {-L,--lower-than}'[output ranks lower than a rank, exclusive with --higher-than]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-r,--rank-file}'[user-defined ordered taxonomic ranks, type "unikmer rfilter --help" for details]' \
+        '--root-taxid[root taxid (default 1)]' \
+        {-n,--save-predictable-norank}'[do not discard some special ranks without order when using -L, where rank of the closest higher node is still lower than rank cutoff]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_sample {
+    _arguments \
+        {-h,--help}'[help for sample]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-s,--start}'[start location (default 1)]' \
+        {-w,--window}'[window size (default 1)]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_sort {
+    _arguments \
+        {-m,--chunk-size}'[split input into chunks of N k-mers, supports K/M/G suffix, type "unikmer sort -h" for detail]' \
+        '--force[overwrite tmp dir]' \
+        {-h,--help}'[help for sort]' \
+        {-k,--keep-tmp-dir}'[keep tmp dir]' \
+        {-M,--max-open-files}'[max number of open files (default 400)]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-d,--repeated}'[only print duplicate k-mers]' \
+        {-t,--tmp-dir}'[directory for intermediate files (default "./")]' \
+        {-u,--unique}'[remove duplicate k-mers]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_split {
+    _arguments \
+        {-m,--chunk-size}'[split input into chunks of N k-mers, supports K/M/G suffix, type "unikmer sort -h" for detail]' \
+        '--force[overwrite output directory]' \
+        {-h,--help}'[help for split]' \
+        {-O,--out-dir}'[output directory]' \
+        {-d,--repeated}'[split for further printing duplicate k-mers]' \
+        {-u,--unique}'[split for further removing duplicate k-mers]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_tsplit {
+    _arguments \
+        '--force[overwrite output directory]' \
+        {-h,--help}'[help for tsplit]' \
+        {-O,--out-dir}'[output directory]' \
+        {-o,--out-prefix}'[out file prefix (default "tsplit")]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_union {
+    _arguments \
+        {-h,--help}'[help for union]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-s,--sort}'[sort k-mers, this significantly reduce file size for k<=25. This flag overides global flag -c/--compact]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_uniqs {
+    _arguments \
+        {-M,--allow-multiple-mapped-kmer}'[allow multiple mapped k-mers]' \
+        '--circular[circular genome. type "unikmer uniqs -h" for details]' \
+        {-g,--genome}'[genomes in (gzipped) fasta file(s)]' \
+        {-h,--help}'[help for uniqs]' \
+        {-x,--max-cont-non-uniq-kmers}'[max continuous non-unique k-mers]' \
+        {-X,--max-num-cont-non-uniq-kmers}'[max number of continuous non-unique k-mers]' \
+        {-m,--min-len}'[minimum length of subsequence (default 200)]' \
+        {-o,--out-prefix}'[out file prefix ("-" for stdout) (default "-")]' \
+        {-a,--output-fasta}'[output fasta format instead of BED3]' \
+        {-B,--seq-name-filter}'[list of regular expressions for filtering out sequences by header/name, case ignored]' \
+        {-W,--seqs-in-a-file-as-one-genome}'[treat seqs in a genome file as one genome]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_version {
+    _arguments \
+        {-u,--check-update}'[check update]' \
+        {-h,--help}'[help for version]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+function _unikmer_view {
+    _arguments \
+        {-a,--fasta}'[output in FASTA format, with encoded integer as FASTA header]' \
+        {-q,--fastq}'[output in FASTQ format, with encoded integer as FASTQ header]' \
+        {-g,--genome}'[genomes in (gzipped) fasta file(s) for decoding hashed k-mers]' \
+        {-h,--help}'[help for view]' \
+        {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+        {-n,--show-code}'[show encoded integer along with k-mer]' \
+        {-N,--show-code-only}'[only show encoded integers, faster than cutting from result of -n/--show-cde]' \
+        {-t,--show-taxid}'[show taxid]' \
+        {-T,--show-taxid-only}'[show taxid only]' \
+        {-c,--compact}'[write compact binary file with little loss of speed]' \
+        '--compression-level[compression level (default -1)]' \
+        '--data-dir[directory containing NCBI Taxonomy files, including nodes.dmp, names.dmp, merged.dmp and delnodes.dmp (default "~/.unikmer")]' \
+        {-I,--ignore-taxid}'[ignore taxonomy information]' \
+        {-i,--infile-list}'[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        '--max-taxid[for smaller TaxIds, we can use less space to store TaxIds. default value is 1<<32-1, that'\''s enough for NCBI Taxonomy TaxIds (default 4294967295)]' \
+        {-C,--no-compress}'[do not compress binary file (not recommended)]' \
+        '--nocheck-file[do not check binary file, when using process substitution or named pipe]' \
+        {-j,--threads}'[number of CPUs to use (default 4)]' \
+        '--verbose[print verbose information]' \
+        "*: :_files"
+
+}
+
+_unikmer "$@"
 

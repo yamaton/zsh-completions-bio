@@ -1,20 +1,9 @@
-#compdef _busco busco
+#compdef busco
 
 # Auto-generated with h2o
 
-
 function _busco {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-i,--in}'[Input sequence file in FASTA format. Can be an assembled genome or transcriptome (DNA), or protein sequences from an annotated gene set. Also possible to use a path to a directory containing multiple input files.]':file:_files \
         {-o,--out}'[Give your analysis run a recognisable short name. Output folders and files will be labelled with this name. The path to the output folder is set with --out_path.]' \
         {-m,--mode}'[Specify which BUSCO analysis mode to run.   There are three valid modes: - geno or genome, for genome assemblies (DNA) - tran or transcriptome, for transcriptome assemblies (DNA) - prot or proteins, for annotated gene sets (protein)]' \
@@ -48,17 +37,9 @@ function _busco {
         '--tar[Compress some subdirectories with many files to save space]' \
         '--update-data[Download and replace with last versions all lineages datasets and files necessary to their automated selection]' \
         {-v,--version}'[Show this version and exit]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_busco "$@"
 

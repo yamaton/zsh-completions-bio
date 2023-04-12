@@ -1,20 +1,9 @@
-#compdef _pilon pilon
+#compdef pilon
 
 # Auto-generated with h2o
 
-
 function _pilon {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--genome[The input genome we are trying to improve, which must be the reference used for the bam alignments. At least one of --frags or --jumps must also be given.]' \
         '--frags[A bam file consisting of fragment paired-end alignments, aligned to the --genome argument using bwa or bowtie2. This argument may be specifed more than once.]' \
         '--jumps[A bam file consisting of jump (mate pair) paired-end alignments, aligned to the --genome argument using bwa or bowtie2. This argument may be specifed more than once.]' \
@@ -49,17 +38,9 @@ function _pilon {
         '--minmq[Minimum alignment mapping quality for a read to count in pileups (default 0)]' \
         '--minqual[Minimum base quality to consider for pileups (default 0)]' \
         '--nostrays[Skip making a pass through the input BAM files to identify stray pairs, that is, those pairs in which both reads are aligned but not marked valid because they have inconsistent orientation or separation. Identifying stray pairs can help fill gaps and assemble larger insertions, especially of repeat content. However, doing so sometimes consumes considerable memory.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_pilon "$@"
 

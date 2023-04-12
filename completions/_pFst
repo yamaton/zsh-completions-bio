@@ -1,20 +1,9 @@
-#compdef _pFst pFst
+#compdef pFst
 
 # Auto-generated with h2o
 
-
 function _pFst {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-t,--target}'[a zero based comma separated list of target individuals corresponding to VCF columns]' \
         {-b,--background}'[a zero based comma separated list of background individuals corresponding to VCF columns]' \
         {-f,--file}'[a properly formatted VCF.]':file:_files \
@@ -22,17 +11,9 @@ function _pFst {
         {-d,--deltaaf}'[skip sites where the difference in allele frequencies is less than deltaaf, default is zero]' \
         {-r,--region}'[a tabix compliant genomic range seqid or seqid:start-end]' \
         {-c,--counts}'[use genotype counts rather than genotype likelihoods to estimate parameters, default false]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_pFst "$@"
 

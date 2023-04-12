@@ -1,20 +1,9 @@
-#compdef _minimap2 minimap2
+#compdef minimap2
 
 # Auto-generated with h2o
 
-
 function _minimap2 {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-x[preset (always applied before other options; see minimap2.1 for details) \[\]]' \
         '-H[use homopolymer-compressed k-mer (preferrable for PacBio)]' \
         '-k[k-mer size (no larger than 28) \[15\]]' \
@@ -50,17 +39,9 @@ function _minimap2 {
         '-t[number of threads \[3\]]' \
         '-K[minibatch size for mapping \[500M\]]' \
         '--version[show version number]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_minimap2 "$@"
 

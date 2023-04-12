@@ -1,35 +1,16 @@
-#compdef _medaka_counts medaka_counts
+#compdef medaka_counts
 
 # Auto-generated with h2o
 
-
 function _medaka_counts {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--print[print counts. (default: False)]' \
         '--dtypes[perform a multi-datatype tests. (default: None)]' \
         '--norm[additional normalisation tests. (total, fwd_rev) (default: None)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_medaka_counts "$@"
 

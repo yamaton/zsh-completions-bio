@@ -1,23 +1,6 @@
-#compdef _barrnap barrnap
+#compdef barrnap
 
 # Auto-generated with h2o
-
-    function _barrnap_barrnap {
-        _arguments \
-            '--help[This help]' \
-            '--version[Print version and exit]' \
-            '--citation[Print citation for referencing barrnap]' \
-            '--kingdom[Kingdom: mito euk bac arc (default '\''bac'\'')]' \
-            '--quiet[No screen output (default OFF)]' \
-            '--threads[Number of threads/cores/CPUs to use (default '\''1'\'')]' \
-            '--lencutoff[Proportional length threshold to label as partial (default '\''0.8'\'')]' \
-            '--reject[Proportional length threshold to reject prediction (default '\''0.25'\'')]' \
-            '--evalue[Similarity e-value cut-off (default '\''1e-06'\'')]' \
-            '--incseq[Include FASTA _input_ sequences in GFF3 output (default OFF)]' \
-            '--outseq[Save rRNA hit seqs to this FASTA file (default '\'''\'')]' \
-            "*: :_files"
-
-    }
 
 
 function _barrnap {
@@ -62,4 +45,155 @@ function _barrnap {
      esac
 
 }
+
+
+function _barrnap_barrnap {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'barrnap:\[options\] - < chr.fa'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--help[This help]' \
+        '--version[Print version and exit]' \
+        '--citation[Print citation for referencing barrnap]' \
+        '--kingdom[Kingdom: mito euk bac arc (default '\''bac'\'')]' \
+        '--quiet[No screen output (default OFF)]' \
+        '--threads[Number of threads/cores/CPUs to use (default '\''1'\'')]' \
+        '--lencutoff[Proportional length threshold to label as partial (default '\''0.8'\'')]' \
+        '--reject[Proportional length threshold to reject prediction (default '\''0.25'\'')]' \
+        '--evalue[Similarity e-value cut-off (default '\''1e-06'\'')]' \
+        '--incseq[Include FASTA _input_ sequences in GFF3 output (default OFF)]' \
+        '--outseq[Save rRNA hit seqs to this FASTA file (default '\'''\'')]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (barrnap)
+            _barrnap_barrnap_barrnap
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+
+function _barrnap_barrnap_barrnap {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'barrnap:\[options\] - < chr.fa'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--help[This help]' \
+        '--version[Print version and exit]' \
+        '--citation[Print citation for referencing barrnap]' \
+        '--kingdom[Kingdom: mito bac euk arc (default '\''bac'\'')]' \
+        '--quiet[No screen output (default OFF)]' \
+        '--threads[Number of threads/cores/CPUs to use (default '\''1'\'')]' \
+        '--lencutoff[Proportional length threshold to label as partial (default '\''0.8'\'')]' \
+        '--reject[Proportional length threshold to reject prediction (default '\''0.25'\'')]' \
+        '--evalue[Similarity e-value cut-off (default '\''1e-06'\'')]' \
+        '--incseq[Include FASTA _input_ sequences in GFF3 output (default OFF)]' \
+        '--outseq[Save rRNA hit seqs to this FASTA file (default '\'''\'')]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (barrnap)
+            _barrnap_barrnap_barrnap_barrnap
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+
+function _barrnap_barrnap_barrnap_barrnap {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'barrnap:\[options\] - < chr.fa'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--help[This help]' \
+        '--version[Print version and exit]' \
+        '--citation[Print citation for referencing barrnap]' \
+        '--kingdom[Kingdom: bac mito arc euk (default '\''bac'\'')]' \
+        '--quiet[No screen output (default OFF)]' \
+        '--threads[Number of threads/cores/CPUs to use (default '\''1'\'')]' \
+        '--lencutoff[Proportional length threshold to label as partial (default '\''0.8'\'')]' \
+        '--reject[Proportional length threshold to reject prediction (default '\''0.25'\'')]' \
+        '--evalue[Similarity e-value cut-off (default '\''1e-06'\'')]' \
+        '--incseq[Include FASTA _input_ sequences in GFF3 output (default OFF)]' \
+        '--outseq[Save rRNA hit seqs to this FASTA file (default '\'''\'')]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (barrnap)
+            _barrnap_barrnap_barrnap_barrnap_barrnap
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _barrnap_barrnap_barrnap_barrnap_barrnap {
+    _arguments \
+        '--help[This help]' \
+        '--version[Print version and exit]' \
+        '--citation[Print citation for referencing barrnap]' \
+        '--kingdom[Kingdom: bac arc mito euk (default '\''bac'\'')]' \
+        '--quiet[No screen output (default OFF)]' \
+        '--threads[Number of threads/cores/CPUs to use (default '\''1'\'')]' \
+        '--lencutoff[Proportional length threshold to label as partial (default '\''0.8'\'')]' \
+        '--reject[Proportional length threshold to reject prediction (default '\''0.25'\'')]' \
+        '--evalue[Similarity e-value cut-off (default '\''1e-06'\'')]' \
+        '--incseq[Include FASTA _input_ sequences in GFF3 output (default OFF)]' \
+        '--outseq[Save rRNA hit seqs to this FASTA file (default '\'''\'')]' \
+        "*: :_files"
+
+}
+
+_barrnap "$@"
 

@@ -1,37 +1,18 @@
-#compdef _vcfevenregions vcfevenregions
+#compdef vcfevenregions
 
 # Auto-generated with h2o
 
-
 function _vcfevenregions {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-f,--fasta-reference}'[FASTA reference file to use to obtain primer sequences.]' \
         {-n,--number-of-regions}'[The number of desired regions.]' \
         {-p,--number-of-positions}'[The number of positions per region.]' \
         {-o,--offset}'[Add an offset to region positioning, to avoid boundary related artifacts in downstream processing.]' \
         {-l,--overlap}'[The number of sites to overlap between regions. Default 0.]' \
         {-s,--separator}'[Specify string to use to separate region output. Default '\''-'\'']' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_vcfevenregions "$@"
 

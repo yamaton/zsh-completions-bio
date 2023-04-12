@@ -1,20 +1,9 @@
-#compdef _makeblastdb makeblastdb
+#compdef makeblastdb
 
 # Auto-generated with h2o
 
-
 function _makeblastdb {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-dbtype[Molecule type of target db]' \
         '-h[Print USAGE and DESCRIPTION;  ignore all other parameters]' \
         '-help[Print USAGE, DESCRIPTION and ARGUMENTS; ignore all other parameters]' \
@@ -35,17 +24,9 @@ function _makeblastdb {
         '-logfile[File to which the program log should be redirected]':file:_files \
         '-taxid[Taxonomy ID to assign to all sequences (Incompatible with: taxid_map)]' \
         '-taxid_map[Text file mapping sequence IDs to taxonomy IDs. Format:<SequenceId> <TaxonomyId><newline>]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_makeblastdb "$@"
 

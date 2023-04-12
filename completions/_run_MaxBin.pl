@@ -1,20 +1,9 @@
-#compdef _run_MaxBin.pl run_MaxBin.pl
+#compdef run_MaxBin.pl
 
 # Auto-generated with h2o
 
-
 function _run_MaxBin.pl {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-reads,-reads2,-reads3}'[Input reads information]':file:_files \
         {-abund,-abund2,-abund3}'[Input abundance information]':file:_files \
         '-reads_list[Input multiple reads files]':file:_files \
@@ -28,17 +17,9 @@ function _run_MaxBin.pl {
         {-version,-v}'[print version number]' \
         '-verbose[show verbose messages]' \
         '-preserve_intermediate[preserve intermediate data]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_run_MaxBin.pl "$@"
 

@@ -1,58 +1,6 @@
-#compdef _dataformat dataformat
+#compdef dataformat
 
 # Auto-generated with h2o
-
-    function _dataformat_tsv {
-        _arguments \
-            '--elide-header[Do not output header]' \
-            {-h,--help}'[help for tsv]' \
-            '--force[Force dataformat to run without type check prompt]' \
-            "*: :_files"
-
-    }
-
-    function _dataformat_excel {
-        _arguments \
-            {-h,--help}'[help for excel]' \
-            '--outputfile[Excel workbook file]' \
-            '--force[Force dataformat to run without type check prompt]' \
-            "*: :_files"
-
-    }
-
-    function _dataformat_catalog {
-        _arguments \
-            {-h,--help}'[help for catalog]' \
-            '--inputfile[Input file]' \
-            '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-            '--force[Force dataformat to run without type check prompt]' \
-            "*: :_files"
-
-    }
-
-    function _dataformat_completion {
-        _arguments \
-            {-h,--help}'[help for completion]' \
-            '--force[Force dataformat to run without type check prompt]' \
-            "*: :_files"
-
-    }
-
-    function _dataformat_version {
-        _arguments \
-            {-h,--help}'[help for version]' \
-            '--force[Force dataformat to run without type check prompt]' \
-            "*: :_files"
-
-    }
-
-    function _dataformat_help {
-        _arguments \
-            {-h,--help}'[help for help]' \
-            '--force[Force dataformat to run without type check prompt]' \
-            "*: :_files"
-
-    }
 
 
 function _dataformat {
@@ -113,4 +61,482 @@ function _dataformat {
      esac
 
 }
+
+
+function _dataformat_tsv {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'genome:Convert Genome Assembly Data Report into TSV format'
+            'genome-seq:Convert Genome Assembly Sequence Report into TSV format'
+            'gene:Convert Gene Report into TSV format'
+            'gene-product:Convert Gene Product Report into TSV format'
+            'virus-genome:Convert Virus Data Report into TSV format'
+            'virus-annotation:Convert Virus Annotation Report into TSV format'
+            'microbigge:Convert MicroBIGG-E Data Report into TSV format'
+            'prok-gene:Convert Prokaryote Gene Report into TSV format'
+            'prok-gene-location:Convert Prokaryote Gene Location Report into TSV format'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--elide-header[Do not output header]' \
+        {-h,--help}'[help for tsv]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (genome)
+            _dataformat_tsv_genome
+            ;;
+
+        (genome-seq)
+            _dataformat_tsv_genome-seq
+            ;;
+
+        (gene)
+            _dataformat_tsv_gene
+            ;;
+
+        (gene-product)
+            _dataformat_tsv_gene-product
+            ;;
+
+        (virus-genome)
+            _dataformat_tsv_virus-genome
+            ;;
+
+        (virus-annotation)
+            _dataformat_tsv_virus-annotation
+            ;;
+
+        (microbigge)
+            _dataformat_tsv_microbigge
+            ;;
+
+        (prok-gene)
+            _dataformat_tsv_prok-gene
+            ;;
+
+        (prok-gene-location)
+            _dataformat_tsv_prok-gene-location
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _dataformat_tsv_genome {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for genome]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--elide-header[Do not output header]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+function _dataformat_tsv_genome-seq {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for genome-seq]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--elide-header[Do not output header]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+function _dataformat_tsv_gene {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for gene]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--elide-header[Do not output header]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+function _dataformat_tsv_gene-product {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for gene-product]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--elide-header[Do not output header]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+function _dataformat_tsv_virus-genome {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for virus-genome]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--elide-header[Do not output header]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+function _dataformat_tsv_virus-annotation {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for virus-annotation]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--elide-header[Do not output header]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+function _dataformat_tsv_microbigge {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for microbigge]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--elide-header[Do not output header]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+function _dataformat_tsv_prok-gene {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for prok-gene]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--elide-header[Do not output header]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+function _dataformat_tsv_prok-gene-location {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for prok-gene-location]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--elide-header[Do not output header]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+
+function _dataformat_excel {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'genome:Convert Genome Assembly Data Report into an Excel workbook'
+            'genome-seq:Convert Genome Assembly Sequence Report into an Excel workbook'
+            'gene:Convert Gene Report into an Excel workbook'
+            'gene-product:Convert Gene Product Report into an Excel workbook'
+            'virus-genome:Convert Virus Data Report into an Excel workbook'
+            'virus-annotation:Convert Virus Annotation Report into an Excel workbook'
+            'microbigge:Convert MicroBIGG-E Data Report into an Excel workbook'
+            'prok-gene:Convert Prokaryote Gene Report into an Excel workbook'
+            'prok-gene-location:Convert Prokaryote Gene Location Report into an Excel workbook'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[help for excel]' \
+        '--outputfile[Excel workbook file]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (genome)
+            _dataformat_excel_genome
+            ;;
+
+        (genome-seq)
+            _dataformat_excel_genome-seq
+            ;;
+
+        (gene)
+            _dataformat_excel_gene
+            ;;
+
+        (gene-product)
+            _dataformat_excel_gene-product
+            ;;
+
+        (virus-genome)
+            _dataformat_excel_virus-genome
+            ;;
+
+        (virus-annotation)
+            _dataformat_excel_virus-annotation
+            ;;
+
+        (microbigge)
+            _dataformat_excel_microbigge
+            ;;
+
+        (prok-gene)
+            _dataformat_excel_prok-gene
+            ;;
+
+        (prok-gene-location)
+            _dataformat_excel_prok-gene-location
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _dataformat_excel_genome {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for genome]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        '--outputfile[Excel workbook file]' \
+        "*: :_files"
+
+}
+
+function _dataformat_excel_genome-seq {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for genome-seq]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        '--outputfile[Excel workbook file]' \
+        "*: :_files"
+
+}
+
+function _dataformat_excel_gene {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for gene]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        '--outputfile[Excel workbook file]' \
+        "*: :_files"
+
+}
+
+function _dataformat_excel_gene-product {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for gene-product]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        '--outputfile[Excel workbook file]' \
+        "*: :_files"
+
+}
+
+function _dataformat_excel_virus-genome {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for virus-genome]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        '--outputfile[Excel workbook file]' \
+        "*: :_files"
+
+}
+
+function _dataformat_excel_virus-annotation {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for virus-annotation]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        '--outputfile[Excel workbook file]' \
+        "*: :_files"
+
+}
+
+function _dataformat_excel_microbigge {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for microbigge]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        '--outputfile[Excel workbook file]' \
+        "*: :_files"
+
+}
+
+function _dataformat_excel_prok-gene {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for prok-gene]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        '--outputfile[Excel workbook file]' \
+        "*: :_files"
+
+}
+
+function _dataformat_excel_prok-gene-location {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for prok-gene-location]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        '--outputfile[Excel workbook file]' \
+        "*: :_files"
+
+}
+
+function _dataformat_catalog {
+    _arguments \
+        {-h,--help}'[help for catalog]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+
+function _dataformat_completion {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'bash:Generate bash autocompletion script'
+            'zsh:Generate zsh autocompletion script'
+            'fish:Generate fish autocompletion script'
+            'powershell:Generate powershell autocompletion script'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[help for completion]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (bash)
+            _dataformat_completion_bash
+            ;;
+
+        (zsh)
+            _dataformat_completion_zsh
+            ;;
+
+        (fish)
+            _dataformat_completion_fish
+            ;;
+
+        (powershell)
+            _dataformat_completion_powershell
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _dataformat_completion_bash {
+    _arguments \
+        {-h,--help}'[help for bash]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+function _dataformat_completion_zsh {
+    _arguments \
+        {-h,--help}'[help for zsh]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+function _dataformat_completion_fish {
+    _arguments \
+        {-h,--help}'[help for fish]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+function _dataformat_completion_powershell {
+    _arguments \
+        {-h,--help}'[help for powershell]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+function _dataformat_version {
+    _arguments \
+        {-h,--help}'[help for version]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+function _dataformat_help {
+    _arguments \
+        {-h,--help}'[help for help]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
+_dataformat "$@"
 

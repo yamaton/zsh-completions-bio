@@ -1,170 +1,6 @@
-#compdef _jellyfish jellyfish
+#compdef jellyfish
 
 # Auto-generated with h2o
-
-    function _jellyfish_count {
-        _arguments \
-            {-m,--mer-len}'[*Length of mer]' \
-            {-s,--size}'[*Initial hash size]' \
-            {-t,--threads}'[Number of threads (1)]' \
-            '--sam[SAM/BAM/CRAM formatted input file]':file:_files \
-            {-F,--Files}'[Number files open simultaneously (1)]' \
-            {-g,--generator}'[File of commands generating fast\[aq\]]':file:_files \
-            {-G,--Generators}'[Number of generators run simultaneously (1)]' \
-            {-S,--shell}'[Shell used to run generator commands ($SHELL or /bin/sh)]' \
-            {-o,--output}'[Output file (mer_counts.jf)]' \
-            {-c,--counter-len}'[Length bits of counting field (7)]' \
-            '--out-counter-len[Length in bytes of counter field in output (4)]' \
-            {-C,--canonical}'[Count both strand, canonical representation (false)]' \
-            '--bc[Bloom counter to filter out singleton mers]' \
-            '--bf-size[Use bloom filter to count high-frequency mers]' \
-            '--bf-fp[False positive rate of bloom filter (0.01)]' \
-            '--if[Count only k-mers in this files]':file:_files \
-            {-Q,--min-qual-char}'[Any base with quality below this character is changed to N]' \
-            '--quality-start[ASCII for quality values (64)]' \
-            '--min-quality[Minimum quality. A base with lesser quality becomes an N]' \
-            {-p,--reprobes}'[Maximum number of reprobes (126)]' \
-            '--text[Dump in text format (false)]' \
-            '--disk[Disk operation. Do not do size doubling (false)]' \
-            {-L,--lower-count}'[Don'\''t output k-mer with count < lower-count]' \
-            {-U,--upper-count}'[Don'\''t output k-mer with count > upper-count]' \
-            '--timing[Print timing information]':file:_files \
-            {--usage,-h,--help}'[This message]' \
-            '--full-help[Detailed help]' \
-            {-V,--version}'[Version]' \
-            "*: :_files"
-
-    }
-
-    function _jellyfish_bc {
-        _arguments \
-            {-s,--size}'[*Expected number of k-mers in input]' \
-            {-m,--mer-len}'[*Length of mer]' \
-            {-f,--fpr}'[False positive rate (0.001)]' \
-            {-C,--canonical}'[Count both strand, canonical representation (false)]' \
-            {-t,--threads}'[Number of threads (1)]' \
-            {-o,--output}'[Output file (mer_bloom_filter)]' \
-            {-F,--Files}'[Number files open simultaneously (1)]' \
-            {-g,--generator}'[File of commands generating fast\[aq\]]':file:_files \
-            {-G,--Generators}'[Number of generators run simultaneously (1)]' \
-            {-S,--shell}'[Shell used to run generator commands ($SHELL or /bin/sh)]' \
-            '--timing[Print timing information]':file:_files \
-            {-U,--usage,-h,--help}'[This message]' \
-            {-V,--version}'[Version]' \
-            "*: :_files"
-
-    }
-
-    function _jellyfish_info {
-        _arguments \
-            {-s,--skip}'[Skip header and dump remainder of file (false)]' \
-            {-j,--json}'[Dump full header in JSON format (false)]' \
-            {-c,--cmd}'[Display only the command line (false)]' \
-            {-U,--usage,-h,--help}'[This message]' \
-            {-V,--version}'[Version]' \
-            "*: :_files"
-
-    }
-
-    function _jellyfish_stats {
-        _arguments \
-            {-L,--lower-count}'[Don'\''t consider k-mer with count < lower-count (0)]' \
-            {-U,--upper-count}'[Don'\''t consider k-mer with count > upper-count (2^64)]' \
-            {-v,--verbose}'[Verbose (false)]' \
-            {-o,--output}'[Output file]' \
-            {--usage,-h,--help}'[This message]' \
-            '--full-help[Detailed help]' \
-            {-V,--version}'[Version]' \
-            "*: :_files"
-
-    }
-
-    function _jellyfish_histo {
-        _arguments \
-            {-l,--low}'[Low count value of histogram (1)]' \
-            {-h,--high}'[High count value of histogram (10000)]' \
-            {-i,--increment}'[Increment value for buckets (1)]' \
-            {-t,--threads}'[Number of threads (1)]' \
-            {-f,--full}'[Full histo. Don'\''t skip count 0. (false)]' \
-            {-o,--output}'[Output file]' \
-            {-v,--verbose}'[Output information (false)]' \
-            {-U,--usage,--help}'[This message]' \
-            '--full-help[Detailed help]' \
-            {-V,--version}'[Version]' \
-            "*: :_files"
-
-    }
-
-    function _jellyfish_dump {
-        _arguments \
-            {-c,--column}'[Column format (false)]' \
-            {-t,--tab}'[Tab separator (false)]' \
-            {-L,--lower-count}'[Don'\''t output k-mer with count < lower-count]' \
-            {-U,--upper-count}'[Don'\''t output k-mer with count > upper-count]' \
-            {-o,--output}'[Output file]' \
-            {--usage,-h,--help}'[This message]' \
-            {-V,--version}'[Version]' \
-            "*: :_files"
-
-    }
-
-    function _jellyfish_merge {
-        _arguments \
-            {-o,--output}'[Output file (mer_counts_merged.jf)]' \
-            {-m,--min}'[Compute min count instead of sum (false)]' \
-            {-M,--max}'[Compute max count instead of sum (false)]' \
-            {-j,--jaccard}'[Compute the jaccard and weighted jaccard similarities (false)]' \
-            {-L,--lower-count}'[Don'\''t output k-mer with count < lower-count]' \
-            {-U,--upper-count}'[Don'\''t output k-mer with count > upper-count]' \
-            {--usage,-h,--help}'[This message]' \
-            {-V,--version}'[Version]' \
-            "*: :_files"
-
-    }
-
-    function _jellyfish_query {
-        _arguments \
-            {-s,--sequence}'[Output counts for all mers in sequence]':file:_files \
-            {-o,--output}'[Output file (stdout)]':file:_files \
-            {-i,--interactive}'[Interactive, queries from stdin (false)]' \
-            {-l,--load}'[Force pre-loading of database file into memory (false)]' \
-            {-L,--no-load}'[Disable pre-loading of database file into memory (false)]' \
-            {-U,--usage,-h,--help}'[This message]' \
-            {-V,--version}'[Version]' \
-            "*: :_files"
-
-    }
-
-    function _jellyfish_cite {
-        _arguments \
-            {-b,--bibtex}'[Bibtex format (false)]' \
-            {-o,--output}'[Output file]' \
-            {-U,--usage,-h,--help}'[This message]' \
-            {-V,--version}'[Version]' \
-            "*: :_files"
-
-    }
-
-    function _jellyfish_mem {
-        _arguments \
-            {-m,--mer-len}'[*Length of mer]' \
-            {-s,--size}'[Initial hash size]' \
-            {-c,--counter-len}'[Length bits of counting field (7)]' \
-            {-p,--reprobes}'[Maximum number of reprobes (126)]' \
-            '--mem[Return maximum size to fit within that memory]' \
-            '--bc[Ignored switch]' \
-            {--usage,-h,--help}'[This message]' \
-            '--full-help[Detailed help]' \
-            {-V,--version}'[Version]' \
-            "*: :_files"
-
-    }
-
-    function _jellyfish_jf {
-        _arguments \
-            "*: :_files"
-
-    }
 
 
 function _jellyfish {
@@ -250,4 +86,170 @@ function _jellyfish {
      esac
 
 }
+
+function _jellyfish_count {
+    _arguments \
+        {-m,--mer-len}'[*Length of mer]' \
+        {-s,--size}'[*Initial hash size]' \
+        {-t,--threads}'[Number of threads (1)]' \
+        '--sam[SAM/BAM/CRAM formatted input file]':file:_files \
+        {-F,--Files}'[Number files open simultaneously (1)]' \
+        {-g,--generator}'[File of commands generating fast\[aq\]]':file:_files \
+        {-G,--Generators}'[Number of generators run simultaneously (1)]' \
+        {-S,--shell}'[Shell used to run generator commands ($SHELL or /bin/sh)]' \
+        {-o,--output}'[Output file (mer_counts.jf)]' \
+        {-c,--counter-len}'[Length bits of counting field (7)]' \
+        '--out-counter-len[Length in bytes of counter field in output (4)]' \
+        {-C,--canonical}'[Count both strand, canonical representation (false)]' \
+        '--bc[Bloom counter to filter out singleton mers]' \
+        '--bf-size[Use bloom filter to count high-frequency mers]' \
+        '--bf-fp[False positive rate of bloom filter (0.01)]' \
+        '--if[Count only k-mers in this files]':file:_files \
+        {-Q,--min-qual-char}'[Any base with quality below this character is changed to N]' \
+        '--quality-start[ASCII for quality values (64)]' \
+        '--min-quality[Minimum quality. A base with lesser quality becomes an N]' \
+        {-p,--reprobes}'[Maximum number of reprobes (126)]' \
+        '--text[Dump in text format (false)]' \
+        '--disk[Disk operation. Do not do size doubling (false)]' \
+        {-L,--lower-count}'[Don'\''t output k-mer with count < lower-count]' \
+        {-U,--upper-count}'[Don'\''t output k-mer with count > upper-count]' \
+        '--timing[Print timing information]':file:_files \
+        {--usage,-h,--help}'[This message]' \
+        '--full-help[Detailed help]' \
+        {-V,--version}'[Version]' \
+        "*: :_files"
+
+}
+
+function _jellyfish_bc {
+    _arguments \
+        {-s,--size}'[*Expected number of k-mers in input]' \
+        {-m,--mer-len}'[*Length of mer]' \
+        {-f,--fpr}'[False positive rate (0.001)]' \
+        {-C,--canonical}'[Count both strand, canonical representation (false)]' \
+        {-t,--threads}'[Number of threads (1)]' \
+        {-o,--output}'[Output file (mer_bloom_filter)]' \
+        {-F,--Files}'[Number files open simultaneously (1)]' \
+        {-g,--generator}'[File of commands generating fast\[aq\]]':file:_files \
+        {-G,--Generators}'[Number of generators run simultaneously (1)]' \
+        {-S,--shell}'[Shell used to run generator commands ($SHELL or /bin/sh)]' \
+        '--timing[Print timing information]':file:_files \
+        {-U,--usage,-h,--help}'[This message]' \
+        {-V,--version}'[Version]' \
+        "*: :_files"
+
+}
+
+function _jellyfish_info {
+    _arguments \
+        {-s,--skip}'[Skip header and dump remainder of file (false)]' \
+        {-j,--json}'[Dump full header in JSON format (false)]' \
+        {-c,--cmd}'[Display only the command line (false)]' \
+        {-U,--usage,-h,--help}'[This message]' \
+        {-V,--version}'[Version]' \
+        "*: :_files"
+
+}
+
+function _jellyfish_stats {
+    _arguments \
+        {-L,--lower-count}'[Don'\''t consider k-mer with count < lower-count (0)]' \
+        {-U,--upper-count}'[Don'\''t consider k-mer with count > upper-count (2^64)]' \
+        {-v,--verbose}'[Verbose (false)]' \
+        {-o,--output}'[Output file]' \
+        {--usage,-h,--help}'[This message]' \
+        '--full-help[Detailed help]' \
+        {-V,--version}'[Version]' \
+        "*: :_files"
+
+}
+
+function _jellyfish_histo {
+    _arguments \
+        {-l,--low}'[Low count value of histogram (1)]' \
+        {-h,--high}'[High count value of histogram (10000)]' \
+        {-i,--increment}'[Increment value for buckets (1)]' \
+        {-t,--threads}'[Number of threads (1)]' \
+        {-f,--full}'[Full histo. Don'\''t skip count 0. (false)]' \
+        {-o,--output}'[Output file]' \
+        {-v,--verbose}'[Output information (false)]' \
+        {-U,--usage,--help}'[This message]' \
+        '--full-help[Detailed help]' \
+        {-V,--version}'[Version]' \
+        "*: :_files"
+
+}
+
+function _jellyfish_dump {
+    _arguments \
+        {-c,--column}'[Column format (false)]' \
+        {-t,--tab}'[Tab separator (false)]' \
+        {-L,--lower-count}'[Don'\''t output k-mer with count < lower-count]' \
+        {-U,--upper-count}'[Don'\''t output k-mer with count > upper-count]' \
+        {-o,--output}'[Output file]' \
+        {--usage,-h,--help}'[This message]' \
+        {-V,--version}'[Version]' \
+        "*: :_files"
+
+}
+
+function _jellyfish_merge {
+    _arguments \
+        {-o,--output}'[Output file (mer_counts_merged.jf)]' \
+        {-m,--min}'[Compute min count instead of sum (false)]' \
+        {-M,--max}'[Compute max count instead of sum (false)]' \
+        {-j,--jaccard}'[Compute the jaccard and weighted jaccard similarities (false)]' \
+        {-L,--lower-count}'[Don'\''t output k-mer with count < lower-count]' \
+        {-U,--upper-count}'[Don'\''t output k-mer with count > upper-count]' \
+        {--usage,-h,--help}'[This message]' \
+        {-V,--version}'[Version]' \
+        "*: :_files"
+
+}
+
+function _jellyfish_query {
+    _arguments \
+        {-s,--sequence}'[Output counts for all mers in sequence]':file:_files \
+        {-o,--output}'[Output file (stdout)]':file:_files \
+        {-i,--interactive}'[Interactive, queries from stdin (false)]' \
+        {-l,--load}'[Force pre-loading of database file into memory (false)]' \
+        {-L,--no-load}'[Disable pre-loading of database file into memory (false)]' \
+        {-U,--usage,-h,--help}'[This message]' \
+        {-V,--version}'[Version]' \
+        "*: :_files"
+
+}
+
+function _jellyfish_cite {
+    _arguments \
+        {-b,--bibtex}'[Bibtex format (false)]' \
+        {-o,--output}'[Output file]' \
+        {-U,--usage,-h,--help}'[This message]' \
+        {-V,--version}'[Version]' \
+        "*: :_files"
+
+}
+
+function _jellyfish_mem {
+    _arguments \
+        {-m,--mer-len}'[*Length of mer]' \
+        {-s,--size}'[Initial hash size]' \
+        {-c,--counter-len}'[Length bits of counting field (7)]' \
+        {-p,--reprobes}'[Maximum number of reprobes (126)]' \
+        '--mem[Return maximum size to fit within that memory]' \
+        '--bc[Ignored switch]' \
+        {--usage,-h,--help}'[This message]' \
+        '--full-help[Detailed help]' \
+        {-V,--version}'[Version]' \
+        "*: :_files"
+
+}
+
+function _jellyfish_jf {
+    _arguments \
+        "*: :_files"
+
+}
+
+_jellyfish "$@"
 

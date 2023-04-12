@@ -1,20 +1,9 @@
-#compdef _cd-hit-454 cd-hit-454
+#compdef cd-hit-454
 
 # Auto-generated with h2o
 
-
 function _cd-hit-454 {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-i[input filename in fasta format, required, can be in .gz format]':file:_files \
         '-o[output filename, required]':file:_files \
         '-c[sequence identity threshold, default 0.98   this is a "global sequence identity" calculated as : number of identical amino acids or bases in alignment divided by the full length of the shorter sequence + gaps]' \
@@ -35,17 +24,9 @@ function _cd-hit-454 {
         '-gap-ext[gap extension score, default -1]' \
         '-bak[write backup cluster file (1 or 0, default 0)]' \
         '-h[print this help]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_cd-hit-454 "$@"
 

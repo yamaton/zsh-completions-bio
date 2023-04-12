@@ -1,20 +1,9 @@
-#compdef _hhblits hhblits
+#compdef hhblits
 
 # Auto-generated with h2o
 
-
 function _hhblits {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-i[input/query: single sequence or multiple sequence alignment (MSA) in a3m, a2m, or FASTA format, or HMM in hhm format]':file:_files \
         '-d[database name (e.g. uniprot20_29Feb2012) Multiple databases may be specified with '\''-d <db1> -d <db2> ...'\'']' \
         '-n[number of iterations (default=2)]' \
@@ -116,17 +105,9 @@ function _hhblits {
         '-maxseq[max number of input rows (def=65535)]' \
         '-maxres[max number of HMM columns (def=20001)]' \
         '-maxmem[limit memory for realignment (in GB) (def=3.0)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_hhblits "$@"
 

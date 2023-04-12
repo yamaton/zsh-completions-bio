@@ -1,20 +1,9 @@
-#compdef _NanoFilt NanoFilt
+#compdef NanoFilt
 
 # Auto-generated with h2o
 
-
 function _NanoFilt {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show the help and exit]' \
         {-v,--version}'[Print version and exit.]' \
         '--logfile[Specify the path and filename for the log file.]':file:_files \
@@ -27,17 +16,9 @@ function _NanoFilt {
         '--tailcrop[Trim n nucleotides from end of read]' \
         {-s,--summary}'[Use albacore or guppy summary file for quality scores]' \
         '--readtype[Which read type to extract information about from summary. Options are 1D, 2D or 1D2]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_NanoFilt "$@"
 

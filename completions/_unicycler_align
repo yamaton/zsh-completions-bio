@@ -1,20 +1,9 @@
-#compdef _unicycler_align unicycler_align
+#compdef unicycler_align
 
 # Auto-generated with h2o
 
-
 function _unicycler_align {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--ref[FASTA file containing one or more reference sequences]' \
         '--reads[FASTQ or FASTA file of long reads]' \
@@ -28,17 +17,9 @@ function _unicycler_align {
         '--verbosity[Level of stdout information (0 to 4) (default: 1)]' \
         '--min_len[Minimum alignment length (bp) - exclude alignments shorter than this length (default: 100)]' \
         '--allowed_overlap[Allow this much overlap between alignments in a single read (default: 100)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_unicycler_align "$@"
 

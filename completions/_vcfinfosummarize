@@ -1,20 +1,9 @@
-#compdef _vcfinfosummarize vcfinfosummarize
+#compdef vcfinfosummarize
 
 # Auto-generated with h2o
 
-
 function _vcfinfosummarize {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-f,--field}'[Summarize this field in the INFO column]' \
         {-i,--info}'[Store the computed statistic in this info field]' \
         {-a,--average}'[Take the mean for field (default)]' \
@@ -23,17 +12,9 @@ function _vcfinfosummarize {
         {-x,--max}'[Use the max]' \
         {-h,--help}'[Print this message]' \
         {-v,--version}'[Print version]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_vcfinfosummarize "$@"
 

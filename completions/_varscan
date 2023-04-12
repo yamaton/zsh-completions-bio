@@ -1,211 +1,6 @@
-#compdef _varscan varscan
+#compdef varscan
 
 # Auto-generated with h2o
-
-    function _varscan_pileup2snp {
-        _arguments \
-            '--min-coverage[Minimum read depth at a position to make a call \[8\]]' \
-            '--min-reads2[Minimum supporting reads at a position to call variants \[2\]]' \
-            '--min-avg-qual[Minimum base quality at a position to count a read \[15\]]' \
-            '--min-var-freq[Minimum variant allele frequency threshold \[0.01\]]' \
-            '--min-freq-for-hom[Minimum frequency to call homozygote \[0.75\]]' \
-            '--p-value[Default p-value threshold for calling variants \[99e-02\]]' \
-            '--variants[Report only variant (SNP/indel) positions \[0\]]' \
-            "*: :_files"
-
-    }
-
-    function _varscan_pileup2indel {
-        _arguments \
-            '--min-coverage[Minimum read depth at a position to make a call \[8\]]' \
-            '--min-reads2[Minimum supporting reads at a position to call variants \[2\]]' \
-            '--min-avg-qual[Minimum base quality at a position to count a read \[15\]]' \
-            '--min-var-freq[Minimum variant allele frequency threshold \[0.01\]]' \
-            '--min-freq-for-hom[Minimum frequency to call homozygote \[0.75\]]' \
-            '--p-value[Default p-value threshold for calling variants \[99e-02\]]' \
-            '--variants[Report only variant (SNP/indel) positions \[0\]]' \
-            "*: :_files"
-
-    }
-
-    function _varscan_pileup2cns {
-        _arguments \
-            '--min-coverage[Minimum read depth at a position to make a call \[8\]]' \
-            '--min-reads2[Minimum supporting reads at a position to call variants \[2\]]' \
-            '--min-avg-qual[Minimum base quality at a position to count a read \[15\]]' \
-            '--min-var-freq[Minimum variant allele frequency threshold \[0.01\]]' \
-            '--min-freq-for-hom[Minimum frequency to call homozygote \[0.75\]]' \
-            '--p-value[Default p-value threshold for calling variants \[99e-02\]]' \
-            '--variants[Report only variant (SNP/indel) positions \[0\]]' \
-            "*: :_files"
-
-    }
-
-    function _varscan_mpileup2snp {
-        _arguments \
-            '--min-coverage[Minimum read depth at a position to make a call \[8\]]' \
-            '--min-reads2[Minimum supporting reads at a position to call variants \[2\]]' \
-            '--min-avg-qual[Minimum base quality at a position to count a read \[15\]]' \
-            '--min-var-freq[Minimum variant allele frequency threshold \[0.01\]]' \
-            '--min-freq-for-hom[Minimum frequency to call homozygote \[0.75\]]' \
-            '--p-value[Default p-value threshold for calling variants \[99e-02\]]' \
-            '--vcf-sample-list[For VCF output, a list of sample names in order, one per line]' \
-            '--variants[Report only variant (SNP/indel) positions \[0\]]' \
-            "*: :_files"
-
-    }
-
-    function _varscan_mpileup2indel {
-        _arguments \
-            '--min-coverage[Minimum read depth at a position to make a call \[8\]]' \
-            '--min-reads2[Minimum supporting reads at a position to call variants \[2\]]' \
-            '--min-avg-qual[Minimum base quality at a position to count a read \[15\]]' \
-            '--min-var-freq[Minimum variant allele frequency threshold \[0.01\]]' \
-            '--min-freq-for-hom[Minimum frequency to call homozygote \[0.75\]]' \
-            '--p-value[Default p-value threshold for calling variants \[99e-02\]]' \
-            '--vcf-sample-list[For VCF output, a list of sample names in order, one per line]' \
-            '--variants[Report only variant (SNP/indel) positions \[0\]]' \
-            "*: :_files"
-
-    }
-
-    function _varscan_mpileup2cns {
-        _arguments \
-            '--min-coverage[Minimum read depth at a position to make a call \[8\]]' \
-            '--min-reads2[Minimum supporting reads at a position to call variants \[2\]]' \
-            '--min-avg-qual[Minimum base quality at a position to count a read \[15\]]' \
-            '--min-var-freq[Minimum variant allele frequency threshold \[0.01\]]' \
-            '--min-freq-for-hom[Minimum frequency to call homozygote \[0.75\]]' \
-            '--p-value[Default p-value threshold for calling variants \[99e-02\]]' \
-            '--vcf-sample-list[For VCF output, a list of sample names in order, one per line]' \
-            '--variants[Report only variant (SNP/indel) positions \[0\]]' \
-            "*: :_files"
-
-    }
-
-    function _varscan_somatic {
-        _arguments \
-            '--min-freq-for-hom[Minimum frequency to call homozygote \[0.75\]]' \
-            {--normal-purity,-}'[of normal sample \[1.00\]]' \
-            {--normal-purity,-}'[of normal sample   --tumor-purity - Estimated purity (tumor content) of tumor sample \[1.00\]]' \
-            {--normal-purity,-}'[of normal sample 1.00   --tumor-purity - Estimated purity (tumor content) of tumor sample \[1.00\]]' \
-            {--tumor-purity,-}'[of tumor sample \[1.00\]]' \
-            {--tumor-purity,-}'[of tumor sample   --p-value - P-value threshold to call a heterozygote \[0.99\]]' \
-            {--tumor-purity,-}'[of tumor sample 1.00   --p-value - P-value threshold to call a heterozygote \[0.99\]]' \
-            "*: :_files"
-
-    }
-
-    function _varscan_readcounts {
-        _arguments \
-            '--variants-file[A list of variants at which to report readcounts]' \
-            '--output-file[Output file to contain the readcounts]' \
-            '--min-coverage[Minimum read depth at a position to make a call \[1\]]' \
-            '--min-base-qual[Minimum base quality at a position to count a read \[20\]]' \
-            "*: :_files"
-
-    }
-
-    function _varscan_filter {
-        _arguments \
-            '--min-coverage[Minimum read depth at a position to make a call \[10\]]' \
-            '--min-reads2[Minimum supporting reads at a position to call variants \[2\]]' \
-            '--min-strands2[Minimum # of strands on which variant observed (1 or 2) \[1\]]' \
-            '--min-avg-qual[Minimum average base quality for variant-supporting reads \[20\]]' \
-            '--min-var-freq[Minimum variant allele frequency threshold \[0.20\]]' \
-            '--p-value[Default p-value threshold for calling variants \[1e-01\]]' \
-            '--indel-file[File of indels for filtering nearby SNPs]' \
-            '--output-file[File to contain variants passing filters]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _varscan_somaticFilter {
-        _arguments \
-            '--min-coverage[Minimum read depth at a position to make a call \[10\]]' \
-            '--min-reads2[Minimum supporting reads at a position to call variants \[4\]]' \
-            '--min-strands2[Minimum # of strands on which variant observed (1 or 2) \[1\]]' \
-            '--min-var-freq[Minimum variant allele frequency threshold \[0.20\]]' \
-            '--p-value[Default p-value threshold for calling variants \[5e-02\]]' \
-            '--indel-file[File of indels for filtering nearby SNPs]' \
-            '--output-file[Optional output file for filtered variants]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _varscan_fpfilter {
-        _arguments \
-            '--output-file[Optional output file for filter-pass variants]':file:_files \
-            '--filtered-file[Optional output file for filter-fail variants]':file:_files \
-            '--dream3-settings[If set to 1, optimizes filter parameters based on TCGA-ICGC DREAM-3 SNV Challenge results]' \
-            '--keep-failures[If set to 1, includes failures in the output file]' \
-            '--min-var-count[Minimum number of variant-supporting reads \[4\]]' \
-            '--min-var-count-lc[Minimum number of variant-supporting reads when depth below somaticPdepth \[2\]]' \
-            '--min-var-freq[Minimum variant allele frequency \[0.05\]]' \
-            '--max-somatic-p[Maximum somatic p-value \[1.0\]]' \
-            '--max-somatic-p-depth[Depth required to test max somatic p-value \[10\]]' \
-            '--min-ref-readpos[Minimum average read position of ref-supporting reads \[0.1\]]' \
-            '--min-var-readpos[Minimum average read position of var-supporting reads \[0.1\]]' \
-            '--min-ref-dist3[Minimum average distance to effective 3'\'' end (ref) \[0.1\]]' \
-            '--min-var-dist3[Minimum average distance to effective 3'\'' end (var) \[0.1\]]' \
-            '--min-strandedness[Minimum fraction of variant reads from each strand \[0.01\]]' \
-            '--min-strand-reads[Minimum allele depth required to perform the strand tests \[5\]]' \
-            '--min-ref-basequal[Minimum average base quality for ref allele \[15\]]' \
-            '--min-var-basequal[Minimum average base quality for var allele \[15\]]' \
-            '--max-basequal-diff[Maximum average base quality diff (ref - var) \[50\]]' \
-            '--min-ref-avgrl[Minimum average trimmed read length for ref allele \[90\]]' \
-            '--min-var-avgrl[Minimum average trimmed read length for var allele \[90\]]' \
-            '--max-rl-diff[Maximum average relative read length difference (ref - var) \[0.25\]]' \
-            '--max-ref-mmqs[Maximum mismatch quality sum of reference-supporting reads \[100\]]' \
-            '--max-var-mmqs[Maximum mismatch quality sum of variant-supporting reads \[100\]]' \
-            '--min-mmqs-diff[Minimum average mismatch quality sum (var - ref) \[0\]]' \
-            '--max-mmqs-diff[Maximum average mismatch quality sum (var - ref) \[50\]]' \
-            '--min-ref-mapqual[Minimum average mapping quality for ref allele \[15\]]' \
-            '--min-var-mapqual[Minimum average mapping quality for var allele \[15\]]' \
-            '--max-mapqual-diff[Maximum average mapping quality (ref - var) \[50\]]' \
-            "*: :_files"
-
-    }
-
-    function _varscan_processSomatic {
-        _arguments \
-            '--min-tumor-freq[Minimum variant allele frequency in tumor \[0.10\]]' \
-            '--max-normal-freq[Maximum variant allele frequency in normal \[0.05\]]' \
-            '--p-value[P-value for high-confidence calling \[0.07\]]' \
-            "*: :_files"
-
-    }
-
-    function _varscan_copyCaller {
-        _arguments \
-            '--output-file[Output file to contain the calls]':file:_files \
-            '--output-homdel-file[Optional output file for candidate homozygous deletions]' \
-            '--min-coverage[Minimum normal read depth at a position to make a call \[20\]]' \
-            '--min-tumor-coverage[Minimum tumor read depth at a position to make a non-homdel call \[10\]]' \
-            '--max-homdel-coverage[Maximum depth in tumor for candidate homozygous deletions \[5\]]' \
-            '--min-region-size[Minimum size (in bases) for a region to be counted \[10\]]' \
-            '--recenter-up[Recenter data around an adjusted baseline > 0 \[0\]]' \
-            '--recenter-down[Recenter data around an adjusted baseline < 0 \[0\]]' \
-            "*: :_files"
-
-    }
-
-    function _varscan_compare {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _varscan_limit {
-        _arguments \
-            '--positions-file[a file of chromosome-positions, tab delimited, or VCF]':file:_files \
-            '--regions-file[a file of chromosome-start-stops, tab delimited]':file:_files \
-            '--margin-size[shoulder bases to allow on either side of targets \[0\]]' \
-            '--output-file[Output file for the matching variants]':file:_files \
-            '--not-file[Output file for variants NOT matching regions/positions]' \
-            "*: :_files"
-
-    }
 
 
 function _varscan {
@@ -309,4 +104,251 @@ function _varscan {
      esac
 
 }
+
+function _varscan_pileup2snp {
+    _arguments \
+        '--min-coverage[Minimum read depth at a position to make a call \[8\]]' \
+        '--min-reads2[Minimum supporting reads at a position to call variants \[2\]]' \
+        '--min-avg-qual[Minimum base quality at a position to count a read \[15\]]' \
+        '--min-var-freq[Minimum variant allele frequency threshold \[0.01\]]' \
+        '--min-freq-for-hom[Minimum frequency to call homozygote \[0.75\]]' \
+        '--p-value[Default p-value threshold for calling variants \[99e-02\]]' \
+        '--variants[Report only variant (SNP/indel) positions \[0\]]' \
+        "*: :_files"
+
+}
+
+function _varscan_pileup2indel {
+    _arguments \
+        '--min-coverage[Minimum read depth at a position to make a call \[8\]]' \
+        '--min-reads2[Minimum supporting reads at a position to call variants \[2\]]' \
+        '--min-avg-qual[Minimum base quality at a position to count a read \[15\]]' \
+        '--min-var-freq[Minimum variant allele frequency threshold \[0.01\]]' \
+        '--min-freq-for-hom[Minimum frequency to call homozygote \[0.75\]]' \
+        '--p-value[Default p-value threshold for calling variants \[99e-02\]]' \
+        '--variants[Report only variant (SNP/indel) positions \[0\]]' \
+        "*: :_files"
+
+}
+
+function _varscan_pileup2cns {
+    _arguments \
+        '--min-coverage[Minimum read depth at a position to make a call \[8\]]' \
+        '--min-reads2[Minimum supporting reads at a position to call variants \[2\]]' \
+        '--min-avg-qual[Minimum base quality at a position to count a read \[15\]]' \
+        '--min-var-freq[Minimum variant allele frequency threshold \[0.01\]]' \
+        '--min-freq-for-hom[Minimum frequency to call homozygote \[0.75\]]' \
+        '--p-value[Default p-value threshold for calling variants \[99e-02\]]' \
+        '--variants[Report only variant (SNP/indel) positions \[0\]]' \
+        "*: :_files"
+
+}
+
+function _varscan_mpileup2snp {
+    _arguments \
+        '--min-coverage[Minimum read depth at a position to make a call \[8\]]' \
+        '--min-reads2[Minimum supporting reads at a position to call variants \[2\]]' \
+        '--min-avg-qual[Minimum base quality at a position to count a read \[15\]]' \
+        '--min-var-freq[Minimum variant allele frequency threshold \[0.01\]]' \
+        '--min-freq-for-hom[Minimum frequency to call homozygote \[0.75\]]' \
+        '--p-value[Default p-value threshold for calling variants \[99e-02\]]' \
+        '--vcf-sample-list[For VCF output, a list of sample names in order, one per line]' \
+        '--variants[Report only variant (SNP/indel) positions \[0\]]' \
+        "*: :_files"
+
+}
+
+function _varscan_mpileup2indel {
+    _arguments \
+        '--min-coverage[Minimum read depth at a position to make a call \[8\]]' \
+        '--min-reads2[Minimum supporting reads at a position to call variants \[2\]]' \
+        '--min-avg-qual[Minimum base quality at a position to count a read \[15\]]' \
+        '--min-var-freq[Minimum variant allele frequency threshold \[0.01\]]' \
+        '--min-freq-for-hom[Minimum frequency to call homozygote \[0.75\]]' \
+        '--p-value[Default p-value threshold for calling variants \[99e-02\]]' \
+        '--vcf-sample-list[For VCF output, a list of sample names in order, one per line]' \
+        '--variants[Report only variant (SNP/indel) positions \[0\]]' \
+        "*: :_files"
+
+}
+
+function _varscan_mpileup2cns {
+    _arguments \
+        '--min-coverage[Minimum read depth at a position to make a call \[8\]]' \
+        '--min-reads2[Minimum supporting reads at a position to call variants \[2\]]' \
+        '--min-avg-qual[Minimum base quality at a position to count a read \[15\]]' \
+        '--min-var-freq[Minimum variant allele frequency threshold \[0.01\]]' \
+        '--min-freq-for-hom[Minimum frequency to call homozygote \[0.75\]]' \
+        '--p-value[Default p-value threshold for calling variants \[99e-02\]]' \
+        '--vcf-sample-list[For VCF output, a list of sample names in order, one per line]' \
+        '--variants[Report only variant (SNP/indel) positions \[0\]]' \
+        "*: :_files"
+
+}
+
+
+function _varscan_somatic {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'normal_pileup:- The SAMtools pileup file for Normal'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--min-freq-for-hom[Minimum frequency to call homozygote \[0.75\]]' \
+        {--normal-purity,-}'[of normal sample \[1.00\]]' \
+        {--normal-purity,-}'[of normal sample   --tumor-purity - Estimated purity (tumor content) of tumor sample \[1.00\]]' \
+        {--normal-purity,-}'[of normal sample 1.00   --tumor-purity - Estimated purity (tumor content) of tumor sample \[1.00\]]' \
+        {--tumor-purity,-}'[of tumor sample \[1.00\]]' \
+        {--tumor-purity,-}'[of tumor sample   --p-value - P-value threshold to call a heterozygote \[0.99\]]' \
+        {--tumor-purity,-}'[of tumor sample 1.00   --p-value - P-value threshold to call a heterozygote \[0.99\]]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (normal_pileup)
+            _varscan_somatic_normal_pileup
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _varscan_somatic_normal_pileup {
+    _arguments \
+        '--min-freq-for-hom[Minimum frequency to call homozygote \[0.75\]]' \
+        {--normal-purity,-}'[of normal sample \[1.00\]]' \
+        {--normal-purity,-}'[of normal sample   --tumor-purity - Estimated purity (tumor content) of tumor sample \[1.00\]]' \
+        {--normal-purity,-}'[of normal sample 1.00   --tumor-purity - Estimated purity (tumor content) of tumor sample \[1.00\]]' \
+        {--tumor-purity,-}'[of tumor sample \[1.00\]]' \
+        {--tumor-purity,-}'[of tumor sample   --p-value - P-value threshold to call a heterozygote \[0.99\]]' \
+        {--tumor-purity,-}'[of tumor sample 1.00   --p-value - P-value threshold to call a heterozygote \[0.99\]]' \
+        "*: :_files"
+
+}
+
+function _varscan_readcounts {
+    _arguments \
+        '--variants-file[A list of variants at which to report readcounts]' \
+        '--output-file[Output file to contain the readcounts]' \
+        '--min-coverage[Minimum read depth at a position to make a call \[1\]]' \
+        '--min-base-qual[Minimum base quality at a position to count a read \[20\]]' \
+        "*: :_files"
+
+}
+
+function _varscan_filter {
+    _arguments \
+        '--min-coverage[Minimum read depth at a position to make a call \[10\]]' \
+        '--min-reads2[Minimum supporting reads at a position to call variants \[2\]]' \
+        '--min-strands2[Minimum # of strands on which variant observed (1 or 2) \[1\]]' \
+        '--min-avg-qual[Minimum average base quality for variant-supporting reads \[20\]]' \
+        '--min-var-freq[Minimum variant allele frequency threshold \[0.20\]]' \
+        '--p-value[Default p-value threshold for calling variants \[1e-01\]]' \
+        '--indel-file[File of indels for filtering nearby SNPs]' \
+        '--output-file[File to contain variants passing filters]':file:_files \
+        "*: :_files"
+
+}
+
+function _varscan_somaticFilter {
+    _arguments \
+        '--min-coverage[Minimum read depth at a position to make a call \[10\]]' \
+        '--min-reads2[Minimum supporting reads at a position to call variants \[4\]]' \
+        '--min-strands2[Minimum # of strands on which variant observed (1 or 2) \[1\]]' \
+        '--min-var-freq[Minimum variant allele frequency threshold \[0.20\]]' \
+        '--p-value[Default p-value threshold for calling variants \[5e-02\]]' \
+        '--indel-file[File of indels for filtering nearby SNPs]' \
+        '--output-file[Optional output file for filtered variants]':file:_files \
+        "*: :_files"
+
+}
+
+function _varscan_fpfilter {
+    _arguments \
+        '--output-file[Optional output file for filter-pass variants]':file:_files \
+        '--filtered-file[Optional output file for filter-fail variants]':file:_files \
+        '--dream3-settings[If set to 1, optimizes filter parameters based on TCGA-ICGC DREAM-3 SNV Challenge results]' \
+        '--keep-failures[If set to 1, includes failures in the output file]' \
+        '--min-var-count[Minimum number of variant-supporting reads \[4\]]' \
+        '--min-var-count-lc[Minimum number of variant-supporting reads when depth below somaticPdepth \[2\]]' \
+        '--min-var-freq[Minimum variant allele frequency \[0.05\]]' \
+        '--max-somatic-p[Maximum somatic p-value \[1.0\]]' \
+        '--max-somatic-p-depth[Depth required to test max somatic p-value \[10\]]' \
+        '--min-ref-readpos[Minimum average read position of ref-supporting reads \[0.1\]]' \
+        '--min-var-readpos[Minimum average read position of var-supporting reads \[0.1\]]' \
+        '--min-ref-dist3[Minimum average distance to effective 3'\'' end (ref) \[0.1\]]' \
+        '--min-var-dist3[Minimum average distance to effective 3'\'' end (var) \[0.1\]]' \
+        '--min-strandedness[Minimum fraction of variant reads from each strand \[0.01\]]' \
+        '--min-strand-reads[Minimum allele depth required to perform the strand tests \[5\]]' \
+        '--min-ref-basequal[Minimum average base quality for ref allele \[15\]]' \
+        '--min-var-basequal[Minimum average base quality for var allele \[15\]]' \
+        '--max-basequal-diff[Maximum average base quality diff (ref - var) \[50\]]' \
+        '--min-ref-avgrl[Minimum average trimmed read length for ref allele \[90\]]' \
+        '--min-var-avgrl[Minimum average trimmed read length for var allele \[90\]]' \
+        '--max-rl-diff[Maximum average relative read length difference (ref - var) \[0.25\]]' \
+        '--max-ref-mmqs[Maximum mismatch quality sum of reference-supporting reads \[100\]]' \
+        '--max-var-mmqs[Maximum mismatch quality sum of variant-supporting reads \[100\]]' \
+        '--min-mmqs-diff[Minimum average mismatch quality sum (var - ref) \[0\]]' \
+        '--max-mmqs-diff[Maximum average mismatch quality sum (var - ref) \[50\]]' \
+        '--min-ref-mapqual[Minimum average mapping quality for ref allele \[15\]]' \
+        '--min-var-mapqual[Minimum average mapping quality for var allele \[15\]]' \
+        '--max-mapqual-diff[Maximum average mapping quality (ref - var) \[50\]]' \
+        "*: :_files"
+
+}
+
+function _varscan_processSomatic {
+    _arguments \
+        '--min-tumor-freq[Minimum variant allele frequency in tumor \[0.10\]]' \
+        '--max-normal-freq[Maximum variant allele frequency in normal \[0.05\]]' \
+        '--p-value[P-value for high-confidence calling \[0.07\]]' \
+        "*: :_files"
+
+}
+
+function _varscan_copyCaller {
+    _arguments \
+        '--output-file[Output file to contain the calls]':file:_files \
+        '--output-homdel-file[Optional output file for candidate homozygous deletions]' \
+        '--min-coverage[Minimum normal read depth at a position to make a call \[20\]]' \
+        '--min-tumor-coverage[Minimum tumor read depth at a position to make a non-homdel call \[10\]]' \
+        '--max-homdel-coverage[Maximum depth in tumor for candidate homozygous deletions \[5\]]' \
+        '--min-region-size[Minimum size (in bases) for a region to be counted \[10\]]' \
+        '--recenter-up[Recenter data around an adjusted baseline > 0 \[0\]]' \
+        '--recenter-down[Recenter data around an adjusted baseline < 0 \[0\]]' \
+        "*: :_files"
+
+}
+
+function _varscan_compare {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _varscan_limit {
+    _arguments \
+        '--positions-file[a file of chromosome-positions, tab delimited, or VCF]':file:_files \
+        '--regions-file[a file of chromosome-start-stops, tab delimited]':file:_files \
+        '--margin-size[shoulder bases to allow on either side of targets \[0\]]' \
+        '--output-file[Output file for the matching variants]':file:_files \
+        '--not-file[Output file for variants NOT matching regions/positions]' \
+        "*: :_files"
+
+}
+
+_varscan "$@"
 

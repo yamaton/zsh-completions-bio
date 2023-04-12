@@ -1,20 +1,9 @@
-#compdef _plotPCA plotPCA
+#compdef plotPCA
 
 # Auto-generated with h2o
 
-
 function _plotPCA {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--transpose[Perform the PCA on the transposed matrix, (i.e., on the matrix where rows are samples and columns are bins/features. This then matches what is typically done in R.]' \
         '--rowCenter[When specified, each row (bin, gene, etc.) in the matrix is centered at 0 before the PCA is computed. This is useful only if you have a strong bin/gene/etc. correlation and the resulting principal component has samples stacked vertically. This option is not applicable if --transpose is specified.]' \
@@ -32,17 +21,9 @@ function _plotPCA {
         '--colors[A list of colors for the symbols. Color names and html hex string (e.g., #eeff22) are accepted. The color names should be space separated. For example, --colors red blue green. If not specified, the symbols will be given automatic colors.]' \
         '--markers[A list of markers for the symbols. (e.g., '\''<'\'','\''>'\'','\''o'\'') are accepted. The marker values should be space separated. For example, --markers '\''s'\'' '\''o'\'' '\''s'\'' '\''o'\''. If not specified, the symbols will be given automatic shapes.]' \
         '--version[show program'\''s version number and exit]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_plotPCA "$@"
 

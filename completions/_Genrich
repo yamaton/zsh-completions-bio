@@ -1,20 +1,9 @@
-#compdef _Genrich Genrich
+#compdef Genrich
 
 # Auto-generated with h2o
 
-
 function _Genrich {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-t[Input SAM/BAM file(s) for experimental sample(s)]':file:_files \
         '-o[Output peak file (in ENCODE narrowPeak format)]':file:_files \
         '-c[Input SAM/BAM file(s) for control sample(s)]':file:_files \
@@ -42,17 +31,9 @@ function _Genrich {
         '-P[Call peaks directly from a log file (-f)]' \
         '-z[Option to gzip-compress output(s)]' \
         '-v[Option to print status updates/counts to stderr]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_Genrich "$@"
 

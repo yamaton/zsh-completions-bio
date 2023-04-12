@@ -1,20 +1,9 @@
-#compdef _fasttree fasttree
+#compdef fasttree
 
 # Auto-generated with h2o
 
-
 function _fasttree {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-n[read in multiple alignments in. This only works with phylip interleaved format. For example, you can use it with the output from phylip'\''s seqboot. If you use -n, FastTree will write 1 tree per line to standard output.]' \
         '-intree[read the starting tree in from newickfile. Any branch lengths in the starting trees are ignored. -intree with -n will read a separate starting tree for each alignment.]':file:_files \
         '-intree1[read the same starting tree for each alignment]':file:_files \
@@ -49,17 +38,9 @@ function _fasttree {
         '-bionj[weighted joins as in BIONJ FastTree will also weight joins during NNIs]' \
         '-constraints[an alignment with values of 0, 1, and - Not all sequences need be present. A column of 0s and 1s defines a constrained split. Some constraints may be violated (see '\''violating constraints:'\'' in standard error).]':file:_files \
         '-constraintWeight[how strongly to weight the constraints. A value of 1 means a penalty of 1 in tree length for violating a constraint Default: 100.0]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_fasttree "$@"
 

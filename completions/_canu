@@ -1,20 +1,9 @@
-#compdef _canu canu
+#compdef canu
 
 # Auto-generated with h2o
 
-
 function _canu {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-p[Prefix of the output files name]' \
         '-d[Directory the assembly is computed in]':file:_files \
         '-haplotype[generate haplotype-specific reads]' \
@@ -335,17 +324,9 @@ function _canu {
         {-mhappipe,-mhapPipe}'[Aliases for -corMhapPipe and -obtMhapPipe and -utgMhapPipe]' \
         {-mmapblocksize,-mmapBlockSize}'[Aliases for -corMMapBlockSize and -obtMMapBlockSize and -utgMMapBlockSize]' \
         {-mmapmersize,-mmapMerSize}'[Aliases for -corMMapMerSize and -obtMMapMerSize and -utgMMapMerSize]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_canu "$@"
 

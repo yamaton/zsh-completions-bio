@@ -1,20 +1,9 @@
-#compdef _hmmbuild hmmbuild
+#compdef hmmbuild
 
 # Auto-generated with h2o
 
-
 function _hmmbuild {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[show brief help on version and usage]' \
         '-n[name the HMM <s>]' \
         '-o[direct summary output to file <f>, not stdout]' \
@@ -60,17 +49,9 @@ function _hmmbuild {
         '--w_beta[tail mass at which window length is determined]' \
         '--w_length[window length]' \
         '--maxinsertlen[pretend all inserts are length <= <n>]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_hmmbuild "$@"
 

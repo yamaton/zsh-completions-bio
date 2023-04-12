@@ -1,37 +1,18 @@
-#compdef _bioawk bioawk
+#compdef bioawk
 
 # Auto-generated with h2o
 
-
 function _bioawk {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-t[Set tabs as the separators: Equivalent to -F'\''\t'\'' -v OFS="\t"]' \
         '-c[Specify input format]' \
         '-f[Program file as input.]':file:_files \
         '-v[Assign value to variable `var` before program is executed]' \
         '-F[Define input field separator as regular expression]' \
         '-H[Extract with header]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_bioawk "$@"
 

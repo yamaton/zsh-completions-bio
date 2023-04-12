@@ -1,20 +1,9 @@
-#compdef _raven raven
+#compdef raven
 
 # Auto-generated with h2o
 
-
 function _raven {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-k,--kmer-len}'[length of minimizers used to find overlaps \[default: 15\]]' \
         {-w,--window-len}'[length of sliding window from which minimizers are sampled \[default: 5\]]' \
         {-f,--frequency}'[threshold for ignoring most frequent minimizers \[default: 0.001\]]' \
@@ -28,17 +17,9 @@ function _raven {
         {-t,--threads}'[number of threads \[default: 1\]]' \
         '--version[prints the version number]' \
         {-h,--help}'[prints the usage]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_raven "$@"
 

@@ -1,20 +1,9 @@
-#compdef _abyss-fac abyss-fac
+#compdef abyss-fac
 
 # Auto-generated with h2o
 
-
 function _abyss-fac {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-G,-e,--genome-size}'[expected genome size. Used to calculate NG50 and associated stats \[disabled\]]' \
         {-s,-t,--min-length}'[ignore sequences shorter than N bp \[500\]]' \
         {-d,--delimiter}'[use S for the field delimiter \[\t\]]' \
@@ -29,17 +18,9 @@ function _abyss-fac {
         {-v,--verbose}'[display verbose output]' \
         '--help[display this help and exit]' \
         '--version[output version information and exit]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_abyss-fac "$@"
 

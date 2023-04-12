@@ -1,20 +1,9 @@
-#compdef _svtyper svtyper
+#compdef svtyper
 
 # Auto-generated with h2o
 
-
 function _svtyper {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-i,--input_vcf}'[VCF input (default: stdin)]':file:_files \
         {-o,--output_vcf}'[output VCF to write (default: stdout)]':file:_files \
@@ -30,17 +19,9 @@ function _svtyper {
         '--disc_weight[weight for discordant paired-end reads \[1\]]' \
         {-w,--write_alignment}'[write relevant reads to BAM file]':file:_files \
         '--verbose[Report status updates]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_svtyper "$@"
 

@@ -1,189 +1,6 @@
-#compdef _bwa bwa
+#compdef bwa
 
 # Auto-generated with h2o
-
-    function _bwa_index {
-        _arguments \
-            '-p[prefix of the index \[same as fasta name\]]' \
-            '-b[block size for the bwtsw algorithm (effective with -a bwtsw) \[10000000\]]' \
-            '-6[index files named as <in.fasta>.64.* instead of <in.fasta>.*]' \
-            "*: :_files"
-
-    }
-
-    function _bwa_mem {
-        _arguments \
-            '-t[number of threads \[1\]]' \
-            '-k[minimum seed length \[19\]]' \
-            '-w[band width for banded alignment \[100\]]' \
-            '-d[off-diagonal X-dropoff \[100\]]' \
-            '-r[look for internal seeds inside a seed longer than {-k} * FLOAT \[1.5\]]' \
-            '-y[seed occurrence for the 3rd round seeding \[20\]]' \
-            '-c[skip seeds with more than INT occurrences \[500\]]' \
-            '-D[drop chains shorter than FLOAT fraction of the longest overlapping chain \[0.50\]]' \
-            '-W[discard a chain if seeded bases shorter than INT \[0\]]' \
-            '-m[perform at most INT rounds of mate rescues for each read \[50\]]' \
-            '-S[skip mate rescue]' \
-            '-P[skip pairing; mate rescue performed unless -S also in use]' \
-            '-A[score for a sequence match, which scales options -TdBOELU unless overridden \[1\]]' \
-            '-B[penalty for a mismatch \[4\]]' \
-            '-O[gap open penalties for deletions and insertions \[6,6\]]' \
-            '-E[gap extension penalty; a gap of size k cost '\''{-O} + {-E}*k'\'' \[1,1\]]' \
-            '-L[penalty for 5'\''- and 3'\''-end clipping \[5,5\]]' \
-            '-U[penalty for an unpaired read pair \[17\]]' \
-            '-x[read type. Setting -x changes multiple parameters unless overridden \[null\] pacbio: -k17 -W40 -r10 -A1 -B1 -O1 -E1 -L0 (PacBio reads to ref) ont2d: -k14 -W20 -r10 -A1 -B1 -O1 -E1 -L0 (Oxford Nanopore 2D-reads to ref) intractg: -B9 -O16 -L5 (intra-species contigs to ref)]' \
-            '-p[smart pairing (ignoring in2.fq)]' \
-            '-R[read group header line such as '\''@RG\tID:foo\tSM:bar'\'' \[null\]]' \
-            '-H[insert STR to header if it starts with @; or insert lines in FILE \[null\]]':file:_files \
-            '-o[sam file to output results to \[stdout\]]':file:_files \
-            '-j[treat ALT contigs as part of the primary assembly (i.e. ignore <idxbase>.alt file)]' \
-            '-5[for split alignment, take the alignment with the smallest coordinate as primary]' \
-            '-q[don'\''t modify mapQ of supplementary alignments]' \
-            '-K[process INT input bases in each batch regardless of nThreads (for reproducibility) \[\]]' \
-            '-v[verbosity level: 1=error, 2=warning, 3=message, 4+=debugging \[3\]]' \
-            '-T[minimum score to output \[30\]]' \
-            '-h[if there are <INT hits with score >80% of the max score, output all in XA \[0,0\]]' \
-            '-a[output all alignments for SE or unpaired PE]' \
-            '-C[append FASTA/FASTQ comment to SAM output]' \
-            '-V[output the reference FASTA header in the XR tag]' \
-            '-Y[use soft clipping for supplementary alignments]' \
-            '-M[mark shorter split hits as secondary]' \
-            '-I[specify the mean, standard deviation (10% of the mean if absent), max (4 sigma from the mean if absent) and min of the insert size distribution. FR orientation only. \[inferred\]]' \
-            "*: :_files"
-
-    }
-
-    function _bwa_fastmap {
-        _arguments \
-            '-w[max interval size to find coordiantes \[20\]]' \
-            '-i[min SMEM interval size \[1\]]' \
-            '-L[max MEM length \[2147483647\]]' \
-            '-I[stop if MEM is longer than -l with a size less than INT \[0\]]' \
-            "*: :_files"
-
-    }
-
-    function _bwa_pemerge {
-        _arguments \
-            '-u[output unmerged reads only]' \
-            '-t[number of threads \[1\]]' \
-            '-T[minimum end overlap \[10\]]' \
-            '-Q[max sum of errors \[70\]]' \
-            "*: :_files"
-
-    }
-
-    function _bwa_aln {
-        _arguments \
-            '-o[maximum number or fraction of gap opens \[1\]]' \
-            '-e[maximum number of gap extensions, -1 for disabling long gaps \[-1\]]' \
-            '-i[do not put an indel within INT bp towards the ends \[5\]]' \
-            '-d[maximum occurrences for extending a long deletion \[10\]]' \
-            '-l[seed length \[32\]]' \
-            '-k[maximum differences in the seed \[2\]]' \
-            '-m[maximum entries in the queue \[2000000\]]' \
-            '-t[number of threads \[1\]]' \
-            '-M[mismatch penalty \[3\]]' \
-            '-O[gap open penalty \[11\]]' \
-            '-E[gap extension penalty \[4\]]' \
-            '-R[stop searching when there are >INT equally best hits \[30\]]' \
-            '-q[quality threshold for read trimming down to 35bp \[0\]]' \
-            '-f[file to write output to instead of stdout]':file:_files \
-            '-B[length of barcode]' \
-            '-L[log-scaled gap penalty for long deletions]' \
-            '-N[non-iterative mode: search for all n-difference hits (slooow)]' \
-            '-I[the input is in the Illumina 1.3+ FASTQ-like format]' \
-            '-b[the input read file is in the BAM format]' \
-            '-0[use single-end reads only (effective with -b)]' \
-            '-1[use the 1st read in a pair (effective with -b)]' \
-            '-2[use the 2nd read in a pair (effective with -b)]' \
-            '-Y[filter Casava-filtered sequences]' \
-            "*: :_files"
-
-    }
-
-    function _bwa_samse {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _bwa_sampe {
-        _arguments \
-            '-o[maximum occurrences for one end \[100000\]]' \
-            '-n[maximum hits to output for paired reads \[3\]]' \
-            '-N[maximum hits to output for discordant pairs \[10\]]' \
-            '-c[prior of chimeric rate (lower bound) \[1.0e-05\]]' \
-            '-f[sam file to output results to \[stdout\]]':file:_files \
-            '-r[read group header line such as `@RG\tID:foo\tSM:bar'\'' \[null\]]' \
-            '-P[preload index into memory (for base-space reads only)]' \
-            '-s[disable Smith-Waterman for the unmapped mate]' \
-            '-A[disable insert size estimate (force -s)]' \
-            "*: :_files"
-
-    }
-
-    function _bwa_bwasw {
-        _arguments \
-            '-b[mismatch penalty \[3\]]' \
-            '-q[gap open penalty \[5\]]' \
-            '-r[gap extension penalty \[2\]]' \
-            '-w[band width \[50\]]' \
-            '-m[mask level \[0.50\]]' \
-            '-t[number of threads \[1\]]' \
-            '-f[file to output results to instead of stdout]':file:_files \
-            '-H[in SAM output, use hard clipping instead of soft clipping]' \
-            '-C[copy FASTA/Q comment to SAM output]' \
-            '-M[mark multi-part alignments as secondary]' \
-            '-S[skip Smith-Waterman read pairing]' \
-            '-I[ignore pairs with insert >=INT for inferring the size distr \[20000\]]' \
-            '-T[score threshold divided by a \[30\]]' \
-            '-c[coefficient of length-threshold adjustment \[5.5\]]' \
-            '-z[Z-best \[1\]]' \
-            '-s[maximum seeding interval size \[3\]]' \
-            '-N[# seeds to trigger rev aln; 2*INT is also the chaining threshold \[5\]]' \
-            '-G[maximum gap size during chaining \[10000\]]' \
-            "*: :_files"
-
-    }
-
-    function _bwa_shm {
-        _arguments \
-            '-l[list names of indices in shared memory]' \
-            '-f[temporary file to reduce peak memory]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _bwa_fa2pac {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _bwa_pac2bwt {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _bwa_pac2bwtgen {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _bwa_bwtupdate {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _bwa_bwt2sa {
-        _arguments \
-            "*: :_files"
-
-    }
 
 
 function _bwa {
@@ -282,4 +99,189 @@ function _bwa {
      esac
 
 }
+
+function _bwa_index {
+    _arguments \
+        '-p[prefix of the index \[same as fasta name\]]' \
+        '-b[block size for the bwtsw algorithm (effective with -a bwtsw) \[10000000\]]' \
+        '-6[index files named as <in.fasta>.64.* instead of <in.fasta>.*]' \
+        "*: :_files"
+
+}
+
+function _bwa_mem {
+    _arguments \
+        '-t[number of threads \[1\]]' \
+        '-k[minimum seed length \[19\]]' \
+        '-w[band width for banded alignment \[100\]]' \
+        '-d[off-diagonal X-dropoff \[100\]]' \
+        '-r[look for internal seeds inside a seed longer than {-k} * FLOAT \[1.5\]]' \
+        '-y[seed occurrence for the 3rd round seeding \[20\]]' \
+        '-c[skip seeds with more than INT occurrences \[500\]]' \
+        '-D[drop chains shorter than FLOAT fraction of the longest overlapping chain \[0.50\]]' \
+        '-W[discard a chain if seeded bases shorter than INT \[0\]]' \
+        '-m[perform at most INT rounds of mate rescues for each read \[50\]]' \
+        '-S[skip mate rescue]' \
+        '-P[skip pairing; mate rescue performed unless -S also in use]' \
+        '-A[score for a sequence match, which scales options -TdBOELU unless overridden \[1\]]' \
+        '-B[penalty for a mismatch \[4\]]' \
+        '-O[gap open penalties for deletions and insertions \[6,6\]]' \
+        '-E[gap extension penalty; a gap of size k cost '\''{-O} + {-E}*k'\'' \[1,1\]]' \
+        '-L[penalty for 5'\''- and 3'\''-end clipping \[5,5\]]' \
+        '-U[penalty for an unpaired read pair \[17\]]' \
+        '-x[read type. Setting -x changes multiple parameters unless overridden \[null\] pacbio: -k17 -W40 -r10 -A1 -B1 -O1 -E1 -L0 (PacBio reads to ref) ont2d: -k14 -W20 -r10 -A1 -B1 -O1 -E1 -L0 (Oxford Nanopore 2D-reads to ref) intractg: -B9 -O16 -L5 (intra-species contigs to ref)]' \
+        '-p[smart pairing (ignoring in2.fq)]' \
+        '-R[read group header line such as '\''@RG\tID:foo\tSM:bar'\'' \[null\]]' \
+        '-H[insert STR to header if it starts with @; or insert lines in FILE \[null\]]':file:_files \
+        '-o[sam file to output results to \[stdout\]]':file:_files \
+        '-j[treat ALT contigs as part of the primary assembly (i.e. ignore <idxbase>.alt file)]' \
+        '-5[for split alignment, take the alignment with the smallest coordinate as primary]' \
+        '-q[don'\''t modify mapQ of supplementary alignments]' \
+        '-K[process INT input bases in each batch regardless of nThreads (for reproducibility) \[\]]' \
+        '-v[verbosity level: 1=error, 2=warning, 3=message, 4+=debugging \[3\]]' \
+        '-T[minimum score to output \[30\]]' \
+        '-h[if there are <INT hits with score >80% of the max score, output all in XA \[0,0\]]' \
+        '-a[output all alignments for SE or unpaired PE]' \
+        '-C[append FASTA/FASTQ comment to SAM output]' \
+        '-V[output the reference FASTA header in the XR tag]' \
+        '-Y[use soft clipping for supplementary alignments]' \
+        '-M[mark shorter split hits as secondary]' \
+        '-I[specify the mean, standard deviation (10% of the mean if absent), max (4 sigma from the mean if absent) and min of the insert size distribution. FR orientation only. \[inferred\]]' \
+        "*: :_files"
+
+}
+
+function _bwa_fastmap {
+    _arguments \
+        '-w[max interval size to find coordiantes \[20\]]' \
+        '-i[min SMEM interval size \[1\]]' \
+        '-L[max MEM length \[2147483647\]]' \
+        '-I[stop if MEM is longer than -l with a size less than INT \[0\]]' \
+        "*: :_files"
+
+}
+
+function _bwa_pemerge {
+    _arguments \
+        '-u[output unmerged reads only]' \
+        '-t[number of threads \[1\]]' \
+        '-T[minimum end overlap \[10\]]' \
+        '-Q[max sum of errors \[70\]]' \
+        "*: :_files"
+
+}
+
+function _bwa_aln {
+    _arguments \
+        '-o[maximum number or fraction of gap opens \[1\]]' \
+        '-e[maximum number of gap extensions, -1 for disabling long gaps \[-1\]]' \
+        '-i[do not put an indel within INT bp towards the ends \[5\]]' \
+        '-d[maximum occurrences for extending a long deletion \[10\]]' \
+        '-l[seed length \[32\]]' \
+        '-k[maximum differences in the seed \[2\]]' \
+        '-m[maximum entries in the queue \[2000000\]]' \
+        '-t[number of threads \[1\]]' \
+        '-M[mismatch penalty \[3\]]' \
+        '-O[gap open penalty \[11\]]' \
+        '-E[gap extension penalty \[4\]]' \
+        '-R[stop searching when there are >INT equally best hits \[30\]]' \
+        '-q[quality threshold for read trimming down to 35bp \[0\]]' \
+        '-f[file to write output to instead of stdout]':file:_files \
+        '-B[length of barcode]' \
+        '-L[log-scaled gap penalty for long deletions]' \
+        '-N[non-iterative mode: search for all n-difference hits (slooow)]' \
+        '-I[the input is in the Illumina 1.3+ FASTQ-like format]' \
+        '-b[the input read file is in the BAM format]' \
+        '-0[use single-end reads only (effective with -b)]' \
+        '-1[use the 1st read in a pair (effective with -b)]' \
+        '-2[use the 2nd read in a pair (effective with -b)]' \
+        '-Y[filter Casava-filtered sequences]' \
+        "*: :_files"
+
+}
+
+function _bwa_samse {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _bwa_sampe {
+    _arguments \
+        '-o[maximum occurrences for one end \[100000\]]' \
+        '-n[maximum hits to output for paired reads \[3\]]' \
+        '-N[maximum hits to output for discordant pairs \[10\]]' \
+        '-c[prior of chimeric rate (lower bound) \[1.0e-05\]]' \
+        '-f[sam file to output results to \[stdout\]]':file:_files \
+        '-r[read group header line such as `@RG\tID:foo\tSM:bar'\'' \[null\]]' \
+        '-P[preload index into memory (for base-space reads only)]' \
+        '-s[disable Smith-Waterman for the unmapped mate]' \
+        '-A[disable insert size estimate (force -s)]' \
+        "*: :_files"
+
+}
+
+function _bwa_bwasw {
+    _arguments \
+        '-b[mismatch penalty \[3\]]' \
+        '-q[gap open penalty \[5\]]' \
+        '-r[gap extension penalty \[2\]]' \
+        '-w[band width \[50\]]' \
+        '-m[mask level \[0.50\]]' \
+        '-t[number of threads \[1\]]' \
+        '-f[file to output results to instead of stdout]':file:_files \
+        '-H[in SAM output, use hard clipping instead of soft clipping]' \
+        '-C[copy FASTA/Q comment to SAM output]' \
+        '-M[mark multi-part alignments as secondary]' \
+        '-S[skip Smith-Waterman read pairing]' \
+        '-I[ignore pairs with insert >=INT for inferring the size distr \[20000\]]' \
+        '-T[score threshold divided by a \[30\]]' \
+        '-c[coefficient of length-threshold adjustment \[5.5\]]' \
+        '-z[Z-best \[1\]]' \
+        '-s[maximum seeding interval size \[3\]]' \
+        '-N[# seeds to trigger rev aln; 2*INT is also the chaining threshold \[5\]]' \
+        '-G[maximum gap size during chaining \[10000\]]' \
+        "*: :_files"
+
+}
+
+function _bwa_shm {
+    _arguments \
+        '-l[list names of indices in shared memory]' \
+        '-f[temporary file to reduce peak memory]':file:_files \
+        "*: :_files"
+
+}
+
+function _bwa_fa2pac {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _bwa_pac2bwt {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _bwa_pac2bwtgen {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _bwa_bwtupdate {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _bwa_bwt2sa {
+    _arguments \
+        "*: :_files"
+
+}
+
+_bwa "$@"
 

@@ -1,33 +1,14 @@
-#compdef _common_errors_from_bam common_errors_from_bam
+#compdef common_errors_from_bam
 
 # Auto-generated with h2o
 
-
 function _common_errors_from_bam {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-o,--output_prefix}'[Prefix for outputs. (default: common_errors)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_common_errors_from_bam "$@"
 

@@ -1,36 +1,6 @@
-#compdef _pyega3 pyega3
+#compdef pyega3
 
 # Auto-generated with h2o
-
-    function _pyega3_datasets {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            "*: :_files"
-
-    }
-
-    function _pyega3_files {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            "*: :_files"
-
-    }
-
-    function _pyega3_fetch {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {--reference-name,-r}'[The reference sequence name, for example '\''chr1'\'', '\''1'\'', or '\''chrX'\''. If unspecified, all data is returned.]' \
-            {--reference-md5,-m}'[The MD5 checksum uniquely representing the requested reference sequence as a lower-case hexadecimal string, calculated as the MD5 of the upper-case sequence excluding all whitespace characters.]' \
-            {--start,-s}'[The start position of the range on the reference, 0-based, inclusive. If specified, reference-name or reference-md5 must also be specified.]' \
-            {--end,-e}'[The end position of the range on the reference, 0-based exclusive. If specified, reference-name or reference-md5 must also be specified.]' \
-            {--format,-f}'[The format of data to request.]' \
-            {--max-retries,-M}'[The maximum number of times to retry a failed transfer. Any negative number means infinite number of retries.]' \
-            {--retry-wait,-W}'[The number of seconds to wait before retrying a failed transfer.]' \
-            '--output-dir[Output directory. The files will be saved into this directory. Must exist. Default: the current working directory.]':file:_files \
-            '--delete-temp-files[Do not keep those temporary, partial files which were left on the disk after a failed transfer.]' \
-            "*: :_files"
-
-    }
 
 
 function _pyega3 {
@@ -83,4 +53,36 @@ function _pyega3 {
      esac
 
 }
+
+function _pyega3_datasets {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _pyega3_files {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _pyega3_fetch {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {--reference-name,-r}'[The reference sequence name, for example '\''chr1'\'', '\''1'\'', or '\''chrX'\''. If unspecified, all data is returned.]' \
+        {--reference-md5,-m}'[The MD5 checksum uniquely representing the requested reference sequence as a lower-case hexadecimal string, calculated as the MD5 of the upper-case sequence excluding all whitespace characters.]' \
+        {--start,-s}'[The start position of the range on the reference, 0-based, inclusive. If specified, reference-name or reference-md5 must also be specified.]' \
+        {--end,-e}'[The end position of the range on the reference, 0-based exclusive. If specified, reference-name or reference-md5 must also be specified.]' \
+        {--format,-f}'[The format of data to request.]' \
+        {--max-retries,-M}'[The maximum number of times to retry a failed transfer. Any negative number means infinite number of retries.]' \
+        {--retry-wait,-W}'[The number of seconds to wait before retrying a failed transfer.]' \
+        '--output-dir[Output directory. The files will be saved into this directory. Must exist. Default: the current working directory.]':file:_files \
+        '--delete-temp-files[Do not keep those temporary, partial files which were left on the disk after a failed transfer.]' \
+        "*: :_files"
+
+}
+
+_pyega3 "$@"
 

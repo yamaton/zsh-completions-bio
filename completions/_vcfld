@@ -1,20 +1,9 @@
-#compdef _vcfld vcfld
+#compdef vcfld
 
 # Auto-generated with h2o
 
-
 function _vcfld {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-t,--target}'[a zero base comma separated list of target individuals corresponding to VCF columns]' \
         {-b,--background}'[a zero base comma separated list of background individuals corresponding to VCF columns]' \
         {-f,--file}'[a properly formatted phased VCF file]':file:_files \
@@ -22,17 +11,9 @@ function _vcfld {
         {-w,--window}'[window size to average LD; default is 1000]' \
         {-e,--external}'[population to calculate LD expectation; default is target]' \
         {-d,--derived}'[which haplotype to count "00" vs "11"; default "00",]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_vcfld "$@"
 

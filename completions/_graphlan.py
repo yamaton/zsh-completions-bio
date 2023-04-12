@@ -1,20 +1,9 @@
-#compdef _graphlan.py graphlan.py
+#compdef graphlan.py
 
 # Auto-generated with h2o
 
-
 function _graphlan.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--format[set the format of the output image (default none meaning that the format is guessed from the output file extension)]' \
         '--warnings[set whether warning messages should be reported or not (default 1)]' \
@@ -25,17 +14,9 @@ function _graphlan.py {
         '--external_legends[specify whether the two external legends should be put in separate file or keep them along with the image (default behavior)]' \
         '--avoid_reordering[specify whether the tree will be reorder or not (default the tree will be reordered)]' \
         {-v,--version}'[Prints the current GraPhlAn version and exit]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_graphlan.py "$@"
 

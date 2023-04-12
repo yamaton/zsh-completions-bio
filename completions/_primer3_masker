@@ -1,20 +1,9 @@
-#compdef _primer3_masker primer3_masker
+#compdef primer3_masker
 
 # Auto-generated with h2o
 
-
 function _primer3_masker {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[- print this usage screen and exit]' \
         {-p,--probability_cutoff}'[- masking cutoff \[0, 1\] (default: >=0.1)]' \
         {-lh,--kmer_lists_path}'[- path to the kmer list files (default: ../kmer_lists/)]' \
@@ -26,17 +15,9 @@ function _primer3_masker {
         {-c,--masking_char}'[- character used for masking (default: N)]' \
         {-s,--soft_mask}'[- use soft masking (default: false)]' \
         {-d,--masking_direction}'[- a strand to mask (fwd, rev, both) (default: both)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_primer3_masker "$@"
 

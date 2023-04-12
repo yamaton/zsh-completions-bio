@@ -1,20 +1,9 @@
-#compdef _NanoPlot NanoPlot
+#compdef NanoPlot
 
 # Auto-generated with h2o
 
-
 function _NanoPlot {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show the help and exit]' \
         {-v,--version}'[Print version and exit.]' \
         {-t,--threads}'[Set the allowed number of threads to be used by the script]' \
@@ -62,17 +51,9 @@ function _NanoPlot {
         '--cram[Data is in one or more sorted cram file(s).]':file:_files \
         '--pickle[Data is a pickle file stored earlier.]' \
         '--feather[Data is in one or more feather file(s).]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_NanoPlot "$@"
 

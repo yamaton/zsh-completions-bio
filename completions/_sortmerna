@@ -1,20 +1,9 @@
-#compdef _sortmerna sortmerna
+#compdef sortmerna
 
 # Auto-generated with h2o
 
-
 function _sortmerna {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--ref[Reference file (FASTA) absolute or relative path.]':file:_files \
         '--reads[Raw reads file (FASTA/FASTQ/FASTA.GZ/FASTQ.GZ).]':file:_files \
         '--workdir[Workspace directory USRDIR/sortmerna/run/]':file:_files \
@@ -68,17 +57,9 @@ function _sortmerna {
         '--cmd[Launch an interactive session (command prompt) False]' \
         '--task[Processing Task 4]' \
         '--dbg-level[Optional Debug level 0]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_sortmerna "$@"
 

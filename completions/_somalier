@@ -1,58 +1,6 @@
-#compdef _somalier somalier
+#compdef somalier
 
 # Auto-generated with h2o
-
-    function _somalier_extract {
-        _arguments \
-            {-s,--sites}'[sites vcf file of variants to extract]' \
-            {-f,--fasta}'[path to reference fasta file]' \
-            {-d,--out-dir}'[path to output directory (default: .)]':file:_files \
-            '--sample-prefix[prefix for the sample name stored inside the digest]' \
-            {-h,--help}'[Show this help]' \
-            "*: :_files"
-
-    }
-
-    function _somalier_relate {
-        _arguments \
-            {-g,--groups}'[optional path to expected groups of samples (e.g. tumor normal pairs). A group file is specified as comma-separated groups per line e.g.:]' \
-            '--sample-prefix[optional sample prefixes that can be removed to find identical samples. e.g. batch1-sampleA batch2-sampleA]' \
-            {-p,--ped}'[optional path to a ped/fam file indicating the expected relationships among samples.]' \
-            {-d,--min-depth}'[only genotype sites with at least this depth. (default: 7)]' \
-            '--min-ab[hets sites must be between min-ab and 1 - min_ab. set this to 0.2 for RNA-Seq data (default: 0.3)]' \
-            {-u,--unknown}'[set unknown genotypes to hom-ref. it is often preferable to use this with VCF samples that were not jointly called]' \
-            {-i,--infer}'[infer relationships (https://github.com/brentp/somalier/wiki/pedigree-inference)]' \
-            {-o,--output-prefix}'[output prefix for results. (default: somalier)]' \
-            {-h,--help}'[Show this help]' \
-            "*: :_files"
-
-    }
-
-    function _somalier_ancestry {
-        _arguments \
-            '--labels[file with ancestry labels]' \
-            {-o,--output-prefix}'[prefix for output files (default: somalier-ancestry)]' \
-            '--n-pcs[number of principal components to use in the reduced dataset (default: 5)]' \
-            '--nn-hidden-size[shape of hidden layer in neural network (default: 16)]' \
-            '--nn-batch-size[batch size fo training neural network (default: 32)]' \
-            '--nn-test-samples[number of labeled samples to test for NN convergence (default: 101)]' \
-            {-h,--help}'[Show this help]' \
-            "*: :_files"
-
-    }
-
-    function _somalier_find-sites {
-        _arguments \
-            {-x,--exclude}'[optional exclude files]' \
-            {-i,--include}'[optional include file. only consider variants that fall in ranges within this file]' \
-            '--gnotate-exclude[sites in slivar gnotation (zip) format to exclude]' \
-            '--snp-dist[minimum distance between autosomal SNPs to avoid linkage (default: 10000)]' \
-            '--min-AN[minimum number of alleles (AN) at the site. (must be less than twice number of samples in the cohort) (default: 115_000)]' \
-            '--min-AF[minimum allele frequency for a site (default: 0.15)]' \
-            {-h,--help}'[Show this help]' \
-            "*: :_files"
-
-    }
 
 
 function _somalier {
@@ -101,4 +49,58 @@ function _somalier {
      esac
 
 }
+
+function _somalier_extract {
+    _arguments \
+        {-s,--sites}'[sites vcf file of variants to extract]' \
+        {-f,--fasta}'[path to reference fasta file]' \
+        {-d,--out-dir}'[path to output directory (default: .)]':file:_files \
+        '--sample-prefix[prefix for the sample name stored inside the digest]' \
+        {-h,--help}'[Show this help]' \
+        "*: :_files"
+
+}
+
+function _somalier_relate {
+    _arguments \
+        {-g,--groups}'[optional path to expected groups of samples (e.g. tumor normal pairs). A group file is specified as comma-separated groups per line e.g.:]' \
+        '--sample-prefix[optional sample prefixes that can be removed to find identical samples. e.g. batch1-sampleA batch2-sampleA]' \
+        {-p,--ped}'[optional path to a ped/fam file indicating the expected relationships among samples.]' \
+        {-d,--min-depth}'[only genotype sites with at least this depth. (default: 7)]' \
+        '--min-ab[hets sites must be between min-ab and 1 - min_ab. set this to 0.2 for RNA-Seq data (default: 0.3)]' \
+        {-u,--unknown}'[set unknown genotypes to hom-ref. it is often preferable to use this with VCF samples that were not jointly called]' \
+        {-i,--infer}'[infer relationships (https://github.com/brentp/somalier/wiki/pedigree-inference)]' \
+        {-o,--output-prefix}'[output prefix for results. (default: somalier)]' \
+        {-h,--help}'[Show this help]' \
+        "*: :_files"
+
+}
+
+function _somalier_ancestry {
+    _arguments \
+        '--labels[file with ancestry labels]' \
+        {-o,--output-prefix}'[prefix for output files (default: somalier-ancestry)]' \
+        '--n-pcs[number of principal components to use in the reduced dataset (default: 5)]' \
+        '--nn-hidden-size[shape of hidden layer in neural network (default: 16)]' \
+        '--nn-batch-size[batch size fo training neural network (default: 32)]' \
+        '--nn-test-samples[number of labeled samples to test for NN convergence (default: 101)]' \
+        {-h,--help}'[Show this help]' \
+        "*: :_files"
+
+}
+
+function _somalier_find-sites {
+    _arguments \
+        {-x,--exclude}'[optional exclude files]' \
+        {-i,--include}'[optional include file. only consider variants that fall in ranges within this file]' \
+        '--gnotate-exclude[sites in slivar gnotation (zip) format to exclude]' \
+        '--snp-dist[minimum distance between autosomal SNPs to avoid linkage (default: 10000)]' \
+        '--min-AN[minimum number of alleles (AN) at the site. (must be less than twice number of samples in the cohort) (default: 115_000)]' \
+        '--min-AF[minimum allele frequency for a site (default: 0.15)]' \
+        {-h,--help}'[Show this help]' \
+        "*: :_files"
+
+}
+
+_somalier "$@"
 

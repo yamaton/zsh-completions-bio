@@ -1,20 +1,9 @@
-#compdef _wgsim wgsim
+#compdef wgsim
 
 # Auto-generated with h2o
 
-
 function _wgsim {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-e[base error rate \[0.000\]]' \
         '-d[outer distance between the two ends \[500\]]' \
         '-s[standard deviation \[50\]]' \
@@ -27,17 +16,9 @@ function _wgsim {
         '-S[seed for random generator \[0, use the current time\]]' \
         '-A[discard if the fraction of ambiguous bases higher than FLOAT \[0.05\]]' \
         '-h[haplotype mode]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_wgsim "$@"
 

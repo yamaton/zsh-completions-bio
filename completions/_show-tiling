@@ -1,20 +1,9 @@
-#compdef _show-tiling show-tiling
+#compdef show-tiling
 
 # Auto-generated with h2o
 
-
 function _show-tiling {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-a[Describe the tiling path by printing the tab-delimited alignment region coordinates to stdout]' \
         '-c[Assume the reference sequences are circular, and allow tiled contigs to span the origin]' \
         '-h[Display help information]' \
@@ -28,17 +17,9 @@ function _show-tiling {
         '-v[Set minimum contig coverage to tile \[0.0, 100.0\] (nucmer default = 95.0) sum of individual alignments (promer default = 50.0) extent of syntenic region]' \
         '-V[Set minimum contig coverage difference \[0.0, 100.0\] i.e. the difference needed to determine one alignment is '\''better'\'' than another alignment (nucmer default = 10.0) sum of individual alignments (promer default = 30.0) extent of syntenic region]' \
         '-x[Describe the tiling path by printing the XML contig linking information to stdout]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_show-tiling "$@"
 

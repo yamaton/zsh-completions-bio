@@ -1,20 +1,9 @@
-#compdef _TransDecoder.Predict TransDecoder.Predict
+#compdef TransDecoder.Predict
 
 # Auto-generated with h2o
 
-
 function _TransDecoder.Predict {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-t[transcripts.fasta]':file:_files \
         '--retain_long_orfs_mode[(default: dynamic) In dynamic mode, sets range according to 1%FDR in random sequence of same GC content.]' \
         '--retain_long_orfs_length[under '\''strict'\'' mode, retain all ORFs found that are equal or longer than these many nucleotides even if no other evidence marks it as coding (default: 1000000) so essentially turned off by default.)]' \
@@ -27,17 +16,9 @@ function _TransDecoder.Predict {
         '-T[Top longest ORFs to train Markov Model (hexamer stats) (default: 500) Note, 10x this value are first selected for removing redundancies, and then this -T value of longest ORFs are selected from the non-redundant set.]' \
         '--genetic_code[(default: Universal) Select from: Acetabularia,Candida,Ciliate,Dasycladacean,Euplotid,Hexamita,Mesodinium,Mitochondrial-Ascidian,Mitochondrial-Chlorophycean,Mitochondrial-Echinoderm,Mitochondrial-Flatworm,Mitochondrial-Invertebrates,Mitochondrial-Protozoan,Mitochondrial-Pterobranchia,Mitochondrial-Scenedesmus_obliquus,Mitochondrial-Thraustochytrium,Mitochondrial-Trematode,Mitochondrial-Vertebrates,Mitochondrial-Yeast,Pachysolen_tannophilus,Peritrich,SR1_Gracilibacteria,Tetrahymena,Universal]' \
         '--version[show version (5.5.0)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_TransDecoder.Predict "$@"
 

@@ -1,20 +1,9 @@
-#compdef _tblastx tblastx
+#compdef tblastx
 
 # Auto-generated with h2o
 
-
 function _tblastx {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[Print USAGE and DESCRIPTION;  ignore all other parameters]' \
         '-help[Print USAGE, DESCRIPTION and ARGUMENTS; ignore all other parameters]' \
         '-version[Print version number;  ignore other arguments]' \
@@ -61,17 +50,9 @@ function _tblastx {
         '-parse_deflines[Should the query and subject defline(s) be parsed?]' \
         '-num_threads[Number of threads (CPUs) to use in the BLAST search]' \
         '-remote[Execute search remotely?]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_tblastx "$@"
 

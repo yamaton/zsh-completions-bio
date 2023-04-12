@@ -1,20 +1,9 @@
-#compdef _fastqe fastqe
+#compdef fastqe
 
 # Auto-generated with h2o
 
-
 function _fastqe {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--minlen[Minimum length sequence to include in stats (default 0)]' \
         '--scale[show relevant scale in output]' \
@@ -29,17 +18,9 @@ function _fastqe {
         '--output[write output to OUTPUT_FILE instead of stdout]':file:_files \
         '--long[enable long reads up to READ_LENGTH bp long]' \
         '--log[record program progress in LOG_FILE]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_fastqe "$@"
 

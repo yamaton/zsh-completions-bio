@@ -1,20 +1,9 @@
-#compdef _som.py som.py
+#compdef som.py
 
 # Auto-generated with h2o
 
-
 function _som.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-o,--output}'[Output file prefix for statistics and feature table (when selected)]' \
         {-l,--location}'[Location for bcftools view (e.g. chr1)]' \
@@ -56,17 +45,9 @@ function _som.py {
         '--logfile[Write logging information into file rather than to stderr]':file:_files \
         '--verbose[Raise logging level from warning to info.]' \
         '--quiet[Set logging level to output errors only.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_som.py "$@"
 

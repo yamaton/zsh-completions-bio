@@ -1,31 +1,12 @@
-#compdef _rsem-for-ebseq-find-DE rsem-for-ebseq-find-DE
+#compdef rsem-for-ebseq-find-DE
 
 # Auto-generated with h2o
 
-
 function _rsem-for-ebseq-find-DE {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+    _arguments \
+        "*: :_files"
 
 }
+
+_rsem-for-ebseq-find-DE "$@"
 

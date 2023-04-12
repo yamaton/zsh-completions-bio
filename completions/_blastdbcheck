@@ -1,20 +1,9 @@
-#compdef _blastdbcheck blastdbcheck
+#compdef blastdbcheck
 
 # Auto-generated with h2o
 
-
 function _blastdbcheck {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[Print USAGE and DESCRIPTION; ignore all other parameters]' \
         '-help[Print USAGE, DESCRIPTION and ARGUMENTS; ignore all other parameters]' \
         '-version[Print version number; ignore other arguments]' \
@@ -31,17 +20,9 @@ function _blastdbcheck {
         '-legacy[Enable check for existence of temporary files.]' \
         '-must_have_taxids[Require that all sequences in the database have taxid set.]' \
         '-cdd_delta[Do aditional tests for a CDD database for DELTA-BLAST]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_blastdbcheck "$@"
 

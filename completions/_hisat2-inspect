@@ -1,20 +1,9 @@
-#compdef _hisat2-inspect hisat2-inspect
+#compdef hisat2-inspect
 
 # Auto-generated with h2o
 
-
 function _hisat2-inspect {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--large-index[force inspection of the '\''large'\'' index, even if a '\''small'\'' one is present.]' \
         {-a,--across}'[Number of characters across in FASTA output (default: 60)]' \
         {-s,--summary}'[Print summary incl. ref names, lengths, index properties]' \
@@ -27,17 +16,9 @@ function _hisat2-inspect {
         {-v,--verbose}'[Verbose output (for debugging)]' \
         {-h,--help}'[print detailed description of tool and its options]' \
         '--usage[print this usage message]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_hisat2-inspect "$@"
 

@@ -1,20 +1,9 @@
-#compdef _mummerplot mummerplot
+#compdef mummerplot
 
 # Auto-generated with h2o
 
-
 function _mummerplot {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-b,--breaklen}'[Highlight alignments with breakpoints further than breaklen nucleotides from the nearest sequence end]' \
         '--color[Color plot lines with a percent similarity gradient or turn off all plot color (default color by match dir) If the plot is very sparse, edit the .gp script to plot with '\''linespoints'\'' instead of '\''lines'\'']' \
         '--nocolor[Color plot lines with a percent similarity gradient or turn off all plot color (default color by match dir) If the plot is very sparse, edit the .gp script to plot with '\''linespoints'\'' instead of '\''lines'\'']' \
@@ -40,17 +29,9 @@ function _mummerplot {
         {-x,--xrange}'[Set the xrange for the plot '\''\[min:max\]'\'']' \
         {-y,--yrange}'[Set the yrange for the plot '\''\[min:max\]'\'']' \
         {-V,--version}'[Display the version information and exit]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_mummerplot "$@"
 

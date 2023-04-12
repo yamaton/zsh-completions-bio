@@ -1,35 +1,16 @@
-#compdef _backtranseq backtranseq
+#compdef backtranseq
 
 # Auto-generated with h2o
 
-
 function _backtranseq {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-sequence[(Gapped) protein sequence(s) filename and optional format, or reference (input USA)]':file:_files \
         '-outfile[(Aligned) nucleotide sequence set(s) filename and optional format (output USA)]' \
         '-cfile[\[Ehuman.cut\] Codon usage table name]':file:_files \
         '-help[Report command line options and exit. More information on associated and general qualifiers can be found with -help -verbose]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_backtranseq "$@"
 

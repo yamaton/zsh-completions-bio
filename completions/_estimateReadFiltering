@@ -1,20 +1,9 @@
-#compdef _estimateReadFiltering estimateReadFiltering
+#compdef estimateReadFiltering
 
 # Auto-generated with h2o
 
-
 function _estimateReadFiltering {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--bamfiles[\[FILE1 FILE2 ...\], -b FILE1 FILE2 \[FILE1 FILE2 ...\] List of indexed bam files separated by spaces.]':file:_files \
         {--outFile,-o}'[The file to write results to. By default, results are printed to the console]':file:_files \
@@ -31,17 +20,9 @@ function _estimateReadFiltering {
         '--samFlagInclude[Include reads based on the SAM flag. For example, to get only reads that are the first mate, use a flag of 64. This is useful to count properly paired reads only once, as otherwise the second mate will be also considered for the coverage. (Default: None)]' \
         '--samFlagExclude[Exclude reads based on the SAM flag. For example, to get only reads that map to the forward strand, use --samFlagExclude 16, where 16 is the SAM flag for reads that map to the reverse strand. (Default: None)]' \
         {--blackListFileName,-bl}'[A BED or GTF file containing regions that should be excluded from all analyses. Currently this works by rejecting genomic chunks that happen to overlap an entry. Consequently, for BAM files, if a read partially overlaps a blacklisted region or a fragment spans over it, then the read/fragment might still be considered. Please note that you should adjust the effective genome size, if relevant.]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_estimateReadFiltering "$@"
 

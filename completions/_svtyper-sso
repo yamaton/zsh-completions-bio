@@ -1,20 +1,9 @@
-#compdef _svtyper-sso svtyper-sso
+#compdef svtyper-sso
 
 # Auto-generated with h2o
 
-
 function _svtyper-sso {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-i,--input_vcf}'[VCF input (default: stdin)]':file:_files \
         {-o,--output_vcf}'[output VCF to write (default: stdout)]':file:_files \
@@ -30,17 +19,9 @@ function _svtyper-sso {
         '--disc_weight[weight for discordant paired-end reads \[1\]]' \
         '--cores[number of workers to use for parallel processing]' \
         '--batch_size[number of breakpoints to batch for a parallel processing worker job]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_svtyper-sso "$@"
 

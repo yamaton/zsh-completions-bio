@@ -1,20 +1,9 @@
-#compdef _ProcessRepeats ProcessRepeats
+#compdef ProcessRepeats
 
 # Auto-generated with h2o
 
-
 function _ProcessRepeats {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,-help}'[Detailed help]' \
         '-species[Post process RepeatMasker results run on sequence from this species. Default is human.]' \
         '-lib[Skips most processing, does not produce a .tbl file unless the custome library is in the ">name#class" format.]':file:_files \
@@ -33,17 +22,9 @@ function _ProcessRepeats {
         '-maskSource[Instructs ProcessRepeats to mask the sequence file using the annotation.]':file:_files \
         '-x[Mask repeats with a lower case '\''x'\''.]' \
         '-xsmall[Mask repeats by making the sequence lowercase.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_ProcessRepeats "$@"
 

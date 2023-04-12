@@ -1,20 +1,9 @@
-#compdef _primer3_core primer3_core
+#compdef primer3_core
 
 # Auto-generated with h2o
 
-
 function _primer3_core {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--default_version[n=2 is the default, and directs primer3_core to use the latest default values (the ones documented here). n=1 directs primer3_core to use defaults from version 2.2.3 and before.]' \
         '--format_output[Generate user-oriented (rather than program-oriented) output.]' \
         '--strict_tags[Generate a fatal error if there is any tag in the input that it does not recognize. This tag also applies to the settings file (see documentation for the --p3_settings_file argument), if any, but with limitations: lines that do not begin with PRIMER_ or P3_FILE_ID are always ignored in the settings file.]' \
@@ -23,17 +12,9 @@ function _primer3_core {
         '--io_version[(backward compatibility) --io_version=4 is the only legal value and the default .]' \
         '--output[Specifies the file where the output should be written. If omitted, stdout is used.]':file:_files \
         '--error[Specifies the file where the error messages should be written. If omitted, stderr is used.]':file:_files \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_primer3_core "$@"
 

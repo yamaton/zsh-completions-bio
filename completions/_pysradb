@@ -1,283 +1,6 @@
-#compdef _pysradb pysradb
+#compdef pysradb
 
 # Auto-generated with h2o
-
-    function _pysradb_metadata {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--saveto[Save metadata dataframe to file]' \
-            '--assay[Include assay type in output]' \
-            '--desc[Should sample_attribute be included]' \
-            '--detailed[Display detailed metadata table]' \
-            '--expand[Should sample_attribute be expanded]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_download {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--out-dir[Output directory root]':file:_files \
-            {--srx,-}'[x SRX \[SRX ...\] Download only these SRX(s)]' \
-            {--srp,-}'[p SRP \[SRP ...\] SRP ID]' \
-            {--geo,-}'[g GEO \[GEO ...\] GEO ID]' \
-            {--skip-confirmation,-y}'[Skip confirmation]' \
-            {--use_ascp,-a}'[Use aspera instead of wget]' \
-            '--col[Specify column to download]' \
-            {--threads,-t}'[Number of threads]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_search {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-o,--saveto}'[Save search result dataframe to file]' \
-            {-s,--stats}'[Displays some useful statistics for the search results.]' \
-            {-g,--graphs}'[Generates graphs to illustrate the search result. By default all graphs are generated. Alternatively, select a subset from the options below in a space-separated string: daterange, organism, source, selection, platform, basecount]' \
-            {-d,--db}'[Select the db API (sra, ena, or geo) to query, default = sra. Note: pysradb search works slightly differently when db = geo. Please refer to '\''pysradb search --geo-info'\'' for more details.]' \
-            {-v,--verbosity}'[Level of search result details (0, 1, 2 or 3), default = 2 0: run accession only 1: run accession and experiment title 2: accession numbers, titles and sequencing information 3: records in 2 and other information such as download url, sample attributes, etc]' \
-            '--run-description[Displays run accessions and descriptions only. Equivalent to --verbosity 1]' \
-            '--detailed[Displays detailed search results. Equivalent to --verbosity 3.]' \
-            {-m,--max}'[Maximum number of entries to return, default = 20]' \
-            {-q,--query}'[Main query string. Note that if no query is supplied, at least one of the following flags must be present:]' \
-            {-A,--accession}'[Accession number]' \
-            {-O,--organism}'[Scientific name of the sample organism]' \
-            {-L,--layout}'[Library layout. Accepts either SINGLE or PAIRED]' \
-            {-M,--mbases}'[Size of the sample rounded to the nearest megabase]' \
-            {-D,--publication-date}'[Publication date of the run in the format dd-mm-yyyy. If a date range is desired, enter the start date, followed by end date, separated by a colon '\'':'\''. Example: 01-01-2010:31-12-2010]' \
-            {-P,--platform}'[Sequencing platform]' \
-            {-E,--selection}'[Library selection]' \
-            {-C,--source}'[Library source]' \
-            {-S,--strategy}'[Library preparation strategy]' \
-            {-T,--title}'[Experiment title]' \
-            {-I,--geo-info}'[Displays information on how to query GEO DataSets via '\''pysradb search --db geo ...'\'', including accepted inputs for -G/--geo-query, -Y/--geo-dataset-type and -Z/--geo-entry-type.]' \
-            {-G,--geo-query}'[Main query string for GEO DataSet. This flag is only used when db is set to be geo.Please refer to '\''pysradb search --geo-info'\'' for more details.]' \
-            {-Y,--geo-dataset-type}'[GEO DataSet Type. This flag is only used when --db is set to be geo.Please refer to '\''pysradb search --geo-info'\'' for more details.]' \
-            {-Z,--geo-entry-type}'[GEO Entry Type. This flag is only used when --db is set to be geo.Please refer to '\''pysradb search --geo-info'\'' for more details.]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_gse-to-gsm {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--saveto[Save output to file]' \
-            '--detailed[Output additional columns: \[sample_accession (SRS), run_accession (SRR), sample_alias (GSM), run_alias (GSM_r)\]]' \
-            '--desc[Should sample_attribute be included]' \
-            '--expand[Should sample_attribute be expanded]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_gse-to-srp {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--saveto[Save output to file]' \
-            '--detailed[Output additional columns: \[experiment_accession (SRX), run_accession (SRR), sample_accession (SRS), experiment_alias (GSM_), run_alias (GSM_r), sample_alias (GSM)\]]' \
-            '--desc[Should sample_attribute be included]' \
-            '--expand[Should sample_attribute be expanded]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_gsm-to-gse {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--saveto[Save output to file]' \
-            '--detailed[Output additional columns: \[sample_accession (SRS), run_accession (SRR), sample_alias (GSM), run_alias (GSM_r)\]]' \
-            '--desc[Should sample_attribute be included]' \
-            '--expand[Should sample_attribute be expanded]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_gsm-to-srp {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--desc[Should sample_attribute be included]' \
-            '--detailed[Output additional columns: \[experiment_accession (SRX), sample_accession (SRS), run_accession (SRR), experiment_alias (GSM), sample_alias (GSM), run_alias (GSM_r), study_alias (GSE)\]]' \
-            '--expand[Should sample_attribute be expanded]' \
-            '--saveto[Save output to file]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_gsm-to-srr {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--desc[Should sample_attribute be included]' \
-            '--detailed[Output additional columns: \[experiment_accession (SRX), sample_accession (SRS), study_accession (SRS), run_alias (GSM_r), sample_alias (GSM), study_alias (GSE)\]]' \
-            '--expand[Should sample_attribute be expanded]' \
-            '--saveto[Save output to file]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_gsm-to-srs {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--desc[Should sample_attribute be included]' \
-            '--detailed[Output additional columns: \[experiment_accession (SRX), run_accession (SRR), study_accession (SRP), run_alias (GSM_r), experiment_alias (GSM), study_alias (GSE)\]]' \
-            '--expand[Should sample_attribute be expanded]' \
-            '--saveto[Save output to file]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_gsm-to-srx {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--desc[Should sample_attribute be included]' \
-            '--detailed[Output additional columns: \[experiment_accession (SRX), sample_accession (SRS), run_accession (SRR), experiment_alias (GSM), sample_alias (GSM), run_alias (GSM_r), study_alias (GSE)\]]' \
-            '--expand[Should sample_attribute be expanded]' \
-            '--saveto[Save output to file]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_srp-to-gse {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--saveto[Save output to file]' \
-            '--detailed[Output additional columns: \[sample_accession, run_accession\]]' \
-            '--desc[Should sample_attribute be included]' \
-            '--expand[Should sample_attribute be expanded]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_srp-to-srr {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--saveto[Save output to file]' \
-            '--detailed[Output additional columns: \[experiment_accession (SRX), sample_accession (SRS), study_alias (GSE), experiment_alias (GSM), sample_alias (GSM_), run_alias (GSM_r)\]]' \
-            '--desc[Should sample_attribute be included]' \
-            '--expand[Should sample_attribute be expanded]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_srp-to-srs {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--saveto[Save output to file]' \
-            '--detailed[Output additional columns: \[run_accession (SRR), study_accession (SRP), experiment_alias (GSM), sample_alias (GSM_), run_alias (GSM_r), study_alias (GSE)\]]' \
-            '--desc[Should sample_attribute be included]' \
-            '--expand[Should sample_attribute be expanded]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_srp-to-srx {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--saveto[Save output to file]' \
-            '--detailed[Output additional columns: \[sample_accession (SRS), run_accession (SRR), experiment_alias (GSM), sample_alias (GSM_), run_alias (GSM_r)'\'', study_alias (GSE)\]]' \
-            '--desc[Should sample_attribute be included]' \
-            '--expand[Should sample_attribute be expanded]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_srr-to-gsm {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--detailed['\''Output additional columns: \[experiment_accession (SRX), study_accession (SRP), run_alias (GSM_r), sample_alias (GSM_), experiment_alias (GSM), study_alias (GSE)\]]' \
-            '--desc[Should sample_attribute be included]' \
-            '--expand[Should sample_attribute be expanded]' \
-            '--saveto[Save output to file]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_srr-to-srp {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--detailed['\''Output additional columns: \[experiment_accession (SRX), sample_accession (SRS), run_alias (GSM_r), experiment_alias (GSM), sample_alias (GSM_), study_alias (GSE)\]]' \
-            '--desc[Should sample_attribute be included]' \
-            '--expand[Should sample_attribute be expanded]' \
-            '--saveto[Save output to file]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_srr-to-srs {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--detailed['\''Output additional columns: \[experiment_accession (SRX), study_accession (SRP), run_alias (GSM_r), sample_alias (GSM_), experiment_alias (GSM), study_alias (GSE)\]]' \
-            '--desc[Should sample_attribute be included]' \
-            '--expand[Should sample_attribute be expanded]' \
-            '--saveto[Save output to file]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_srr-to-srx {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--detailed[Output additional columns: \[sample_accession (SRS), study_accession (SRP), run_alias (GSM_r), experiment_alias (GSM), sample_alias (GSM_), study_alias (GSE)\]]' \
-            '--desc[Should sample_attribute be included]' \
-            '--expand[Should sample_attribute be expanded]' \
-            '--saveto[Save output to file]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_srs-to-gsm {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--saveto[Save output to file]' \
-            '--detailed[Output additional columns: \[run_accession, study_accession\]]' \
-            '--desc[Should sample_attribute be included]' \
-            '--expand[Should sample_attribute be expanded]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_srs-to-srx {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--saveto[Save output to file]' \
-            '--detailed[Output additional columns: \[run_accession, study_accession\]]' \
-            '--desc[Should sample_attribute be included]' \
-            '--expand[Should sample_attribute be expanded]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_srx-to-srp {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--desc[Should sample_attribute be included]' \
-            '--detailed[Output additional columns: \[run_accession (SRR), sample_accession (SRS), experiment_alias (GSM), run_alias (GSM_r), sample_alias (GSM), study_alias (GSE)\]]' \
-            '--expand[Should sample_attribute be expanded]' \
-            '--saveto[Save output to file]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_srx-to-srr {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--desc[Should sample_attribute be included]' \
-            '--detailed[Output additional columns: \[sample_accession, study_accession\]]' \
-            '--expand[Should sample_attribute be expanded]' \
-            '--saveto[Save output to file]' \
-            "*: :_files"
-
-    }
-
-    function _pysradb_srx-to-srs {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            '--saveto[Save output to file]' \
-            '--detailed[Output additional columns: \[run_accession, study_accession\]]' \
-            '--desc[Should sample_attribute be included]' \
-            '--expand[Should sample_attribute be expanded]' \
-            "*: :_files"
-
-    }
 
 
 function _pysradb {
@@ -424,4 +147,283 @@ function _pysradb {
      esac
 
 }
+
+function _pysradb_metadata {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--saveto[Save metadata dataframe to file]' \
+        '--assay[Include assay type in output]' \
+        '--desc[Should sample_attribute be included]' \
+        '--detailed[Display detailed metadata table]' \
+        '--expand[Should sample_attribute be expanded]' \
+        "*: :_files"
+
+}
+
+function _pysradb_download {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--out-dir[Output directory root]':file:_files \
+        {--srx,-}'[x SRX \[SRX ...\] Download only these SRX(s)]' \
+        {--srp,-}'[p SRP \[SRP ...\] SRP ID]' \
+        {--geo,-}'[g GEO \[GEO ...\] GEO ID]' \
+        {--skip-confirmation,-y}'[Skip confirmation]' \
+        {--use_ascp,-a}'[Use aspera instead of wget]' \
+        '--col[Specify column to download]' \
+        {--threads,-t}'[Number of threads]' \
+        "*: :_files"
+
+}
+
+function _pysradb_search {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-o,--saveto}'[Save search result dataframe to file]' \
+        {-s,--stats}'[Displays some useful statistics for the search results.]' \
+        {-g,--graphs}'[Generates graphs to illustrate the search result. By default all graphs are generated. Alternatively, select a subset from the options below in a space-separated string: daterange, organism, source, selection, platform, basecount]' \
+        {-d,--db}'[Select the db API (sra, ena, or geo) to query, default = sra. Note: pysradb search works slightly differently when db = geo. Please refer to '\''pysradb search --geo-info'\'' for more details.]' \
+        {-v,--verbosity}'[Level of search result details (0, 1, 2 or 3), default = 2 0: run accession only 1: run accession and experiment title 2: accession numbers, titles and sequencing information 3: records in 2 and other information such as download url, sample attributes, etc]' \
+        '--run-description[Displays run accessions and descriptions only. Equivalent to --verbosity 1]' \
+        '--detailed[Displays detailed search results. Equivalent to --verbosity 3.]' \
+        {-m,--max}'[Maximum number of entries to return, default = 20]' \
+        {-q,--query}'[Main query string. Note that if no query is supplied, at least one of the following flags must be present:]' \
+        {-A,--accession}'[Accession number]' \
+        {-O,--organism}'[Scientific name of the sample organism]' \
+        {-L,--layout}'[Library layout. Accepts either SINGLE or PAIRED]' \
+        {-M,--mbases}'[Size of the sample rounded to the nearest megabase]' \
+        {-D,--publication-date}'[Publication date of the run in the format dd-mm-yyyy. If a date range is desired, enter the start date, followed by end date, separated by a colon '\'':'\''. Example: 01-01-2010:31-12-2010]' \
+        {-P,--platform}'[Sequencing platform]' \
+        {-E,--selection}'[Library selection]' \
+        {-C,--source}'[Library source]' \
+        {-S,--strategy}'[Library preparation strategy]' \
+        {-T,--title}'[Experiment title]' \
+        {-I,--geo-info}'[Displays information on how to query GEO DataSets via '\''pysradb search --db geo ...'\'', including accepted inputs for -G/--geo-query, -Y/--geo-dataset-type and -Z/--geo-entry-type.]' \
+        {-G,--geo-query}'[Main query string for GEO DataSet. This flag is only used when db is set to be geo.Please refer to '\''pysradb search --geo-info'\'' for more details.]' \
+        {-Y,--geo-dataset-type}'[GEO DataSet Type. This flag is only used when --db is set to be geo.Please refer to '\''pysradb search --geo-info'\'' for more details.]' \
+        {-Z,--geo-entry-type}'[GEO Entry Type. This flag is only used when --db is set to be geo.Please refer to '\''pysradb search --geo-info'\'' for more details.]' \
+        "*: :_files"
+
+}
+
+function _pysradb_gse-to-gsm {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--saveto[Save output to file]' \
+        '--detailed[Output additional columns: \[sample_accession (SRS), run_accession (SRR), sample_alias (GSM), run_alias (GSM_r)\]]' \
+        '--desc[Should sample_attribute be included]' \
+        '--expand[Should sample_attribute be expanded]' \
+        "*: :_files"
+
+}
+
+function _pysradb_gse-to-srp {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--saveto[Save output to file]' \
+        '--detailed[Output additional columns: \[experiment_accession (SRX), run_accession (SRR), sample_accession (SRS), experiment_alias (GSM_), run_alias (GSM_r), sample_alias (GSM)\]]' \
+        '--desc[Should sample_attribute be included]' \
+        '--expand[Should sample_attribute be expanded]' \
+        "*: :_files"
+
+}
+
+function _pysradb_gsm-to-gse {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--saveto[Save output to file]' \
+        '--detailed[Output additional columns: \[sample_accession (SRS), run_accession (SRR), sample_alias (GSM), run_alias (GSM_r)\]]' \
+        '--desc[Should sample_attribute be included]' \
+        '--expand[Should sample_attribute be expanded]' \
+        "*: :_files"
+
+}
+
+function _pysradb_gsm-to-srp {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--desc[Should sample_attribute be included]' \
+        '--detailed[Output additional columns: \[experiment_accession (SRX), sample_accession (SRS), run_accession (SRR), experiment_alias (GSM), sample_alias (GSM), run_alias (GSM_r), study_alias (GSE)\]]' \
+        '--expand[Should sample_attribute be expanded]' \
+        '--saveto[Save output to file]' \
+        "*: :_files"
+
+}
+
+function _pysradb_gsm-to-srr {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--desc[Should sample_attribute be included]' \
+        '--detailed[Output additional columns: \[experiment_accession (SRX), sample_accession (SRS), study_accession (SRS), run_alias (GSM_r), sample_alias (GSM), study_alias (GSE)\]]' \
+        '--expand[Should sample_attribute be expanded]' \
+        '--saveto[Save output to file]' \
+        "*: :_files"
+
+}
+
+function _pysradb_gsm-to-srs {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--desc[Should sample_attribute be included]' \
+        '--detailed[Output additional columns: \[experiment_accession (SRX), run_accession (SRR), study_accession (SRP), run_alias (GSM_r), experiment_alias (GSM), study_alias (GSE)\]]' \
+        '--expand[Should sample_attribute be expanded]' \
+        '--saveto[Save output to file]' \
+        "*: :_files"
+
+}
+
+function _pysradb_gsm-to-srx {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--desc[Should sample_attribute be included]' \
+        '--detailed[Output additional columns: \[experiment_accession (SRX), sample_accession (SRS), run_accession (SRR), experiment_alias (GSM), sample_alias (GSM), run_alias (GSM_r), study_alias (GSE)\]]' \
+        '--expand[Should sample_attribute be expanded]' \
+        '--saveto[Save output to file]' \
+        "*: :_files"
+
+}
+
+function _pysradb_srp-to-gse {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--saveto[Save output to file]' \
+        '--detailed[Output additional columns: \[sample_accession, run_accession\]]' \
+        '--desc[Should sample_attribute be included]' \
+        '--expand[Should sample_attribute be expanded]' \
+        "*: :_files"
+
+}
+
+function _pysradb_srp-to-srr {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--saveto[Save output to file]' \
+        '--detailed[Output additional columns: \[experiment_accession (SRX), sample_accession (SRS), study_alias (GSE), experiment_alias (GSM), sample_alias (GSM_), run_alias (GSM_r)\]]' \
+        '--desc[Should sample_attribute be included]' \
+        '--expand[Should sample_attribute be expanded]' \
+        "*: :_files"
+
+}
+
+function _pysradb_srp-to-srs {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--saveto[Save output to file]' \
+        '--detailed[Output additional columns: \[run_accession (SRR), study_accession (SRP), experiment_alias (GSM), sample_alias (GSM_), run_alias (GSM_r), study_alias (GSE)\]]' \
+        '--desc[Should sample_attribute be included]' \
+        '--expand[Should sample_attribute be expanded]' \
+        "*: :_files"
+
+}
+
+function _pysradb_srp-to-srx {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--saveto[Save output to file]' \
+        '--detailed[Output additional columns: \[sample_accession (SRS), run_accession (SRR), experiment_alias (GSM), sample_alias (GSM_), run_alias (GSM_r)'\'', study_alias (GSE)\]]' \
+        '--desc[Should sample_attribute be included]' \
+        '--expand[Should sample_attribute be expanded]' \
+        "*: :_files"
+
+}
+
+function _pysradb_srr-to-gsm {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--detailed['\''Output additional columns: \[experiment_accession (SRX), study_accession (SRP), run_alias (GSM_r), sample_alias (GSM_), experiment_alias (GSM), study_alias (GSE)\]]' \
+        '--desc[Should sample_attribute be included]' \
+        '--expand[Should sample_attribute be expanded]' \
+        '--saveto[Save output to file]' \
+        "*: :_files"
+
+}
+
+function _pysradb_srr-to-srp {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--detailed['\''Output additional columns: \[experiment_accession (SRX), sample_accession (SRS), run_alias (GSM_r), experiment_alias (GSM), sample_alias (GSM_), study_alias (GSE)\]]' \
+        '--desc[Should sample_attribute be included]' \
+        '--expand[Should sample_attribute be expanded]' \
+        '--saveto[Save output to file]' \
+        "*: :_files"
+
+}
+
+function _pysradb_srr-to-srs {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--detailed['\''Output additional columns: \[experiment_accession (SRX), study_accession (SRP), run_alias (GSM_r), sample_alias (GSM_), experiment_alias (GSM), study_alias (GSE)\]]' \
+        '--desc[Should sample_attribute be included]' \
+        '--expand[Should sample_attribute be expanded]' \
+        '--saveto[Save output to file]' \
+        "*: :_files"
+
+}
+
+function _pysradb_srr-to-srx {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--detailed[Output additional columns: \[sample_accession (SRS), study_accession (SRP), run_alias (GSM_r), experiment_alias (GSM), sample_alias (GSM_), study_alias (GSE)\]]' \
+        '--desc[Should sample_attribute be included]' \
+        '--expand[Should sample_attribute be expanded]' \
+        '--saveto[Save output to file]' \
+        "*: :_files"
+
+}
+
+function _pysradb_srs-to-gsm {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--saveto[Save output to file]' \
+        '--detailed[Output additional columns: \[run_accession, study_accession\]]' \
+        '--desc[Should sample_attribute be included]' \
+        '--expand[Should sample_attribute be expanded]' \
+        "*: :_files"
+
+}
+
+function _pysradb_srs-to-srx {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--saveto[Save output to file]' \
+        '--detailed[Output additional columns: \[run_accession, study_accession\]]' \
+        '--desc[Should sample_attribute be included]' \
+        '--expand[Should sample_attribute be expanded]' \
+        "*: :_files"
+
+}
+
+function _pysradb_srx-to-srp {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--desc[Should sample_attribute be included]' \
+        '--detailed[Output additional columns: \[run_accession (SRR), sample_accession (SRS), experiment_alias (GSM), run_alias (GSM_r), sample_alias (GSM), study_alias (GSE)\]]' \
+        '--expand[Should sample_attribute be expanded]' \
+        '--saveto[Save output to file]' \
+        "*: :_files"
+
+}
+
+function _pysradb_srx-to-srr {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--desc[Should sample_attribute be included]' \
+        '--detailed[Output additional columns: \[sample_accession, study_accession\]]' \
+        '--expand[Should sample_attribute be expanded]' \
+        '--saveto[Save output to file]' \
+        "*: :_files"
+
+}
+
+function _pysradb_srx-to-srs {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--saveto[Save output to file]' \
+        '--detailed[Output additional columns: \[run_accession, study_accession\]]' \
+        '--desc[Should sample_attribute be included]' \
+        '--expand[Should sample_attribute be expanded]' \
+        "*: :_files"
+
+}
+
+_pysradb "$@"
 

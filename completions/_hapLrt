@@ -1,36 +1,17 @@
-#compdef _hapLrt hapLrt
+#compdef hapLrt
 
 # Auto-generated with h2o
 
-
 function _hapLrt {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-t,--target}'[a zero base comma separated list of target individuals corresponding to VCF columns]' \
         {-b,--background}'[a zero base comma separated list of background individuals corresponding to VCF columns]' \
         {-f,--file}'[a properly formatted phased VCF file]':file:_files \
         {-y,--type}'[type of genotype likelihood: PL, GL or GP]' \
         {-r,--region}'[a genomic range to calculate hapLrt on in the format "seqid:start-end" or "seqid"]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_hapLrt "$@"
 

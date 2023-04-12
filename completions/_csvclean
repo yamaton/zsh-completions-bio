@@ -1,20 +1,9 @@
-#compdef _csvclean csvclean
+#compdef csvclean
 
 # Auto-generated with h2o
 
-
 function _csvclean {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-d,--delimiter}'[Delimiting character of the input CSV file.]' \
         {-t,--tabs}'[Specify that the input CSV file is delimited with tabs. Overrides "-d".]' \
@@ -32,17 +21,9 @@ function _csvclean {
         '--zero[When interpreting or displaying column numbers, use zero-based numbering instead of the default 1-based numbering.]' \
         {-V,--version}'[Display version information and exit.]' \
         {-n,--dry-run}'[Do not create output files. Information about what would have been done will be printed to STDERR.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_csvclean "$@"
 

@@ -1,20 +1,9 @@
-#compdef _dfast dfast
+#compdef dfast
 
 # Auto-generated with h2o
 
-
 function _dfast {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-g,--genome}'[Genomic FASTA file]':file:_files \
         {-o,--out}'[Output directory (default:OUT)]':file:_files \
         {-c,--config}'[Configuration file (default config will be used if not specified)]':file:_files \
@@ -61,17 +50,9 @@ function _dfast {
         '--show_config[Show pipeline configuration and exit]' \
         '--version[Show program version]' \
         {-h,--help}'[Show this help message]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_dfast "$@"
 

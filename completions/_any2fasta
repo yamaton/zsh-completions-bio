@@ -1,12 +1,6 @@
-#compdef _any2fasta any2fasta
+#compdef any2fasta
 
 # Auto-generated with h2o
-
-    function _any2fasta_any2fasta {
-        _arguments \
-            "*: :_files"
-
-    }
 
 
 function _any2fasta {
@@ -46,4 +40,12 @@ function _any2fasta {
      esac
 
 }
+
+function _any2fasta_any2fasta {
+    _arguments \
+        "*: :_files"
+
+}
+
+_any2fasta "$@"
 

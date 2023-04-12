@@ -1,32 +1,13 @@
-#compdef _rsem-tbam2gbam rsem-tbam2gbam
+#compdef rsem-tbam2gbam
 
 # Auto-generated with h2o
 
-
 function _rsem-tbam2gbam {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-p[number of threads which user wants to use. (default: 1)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_rsem-tbam2gbam "$@"
 

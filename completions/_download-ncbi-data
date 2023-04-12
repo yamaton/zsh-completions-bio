@@ -1,66 +1,6 @@
-#compdef _download-ncbi-data download-ncbi-data
+#compdef download-ncbi-data
 
 # Auto-generated with h2o
-
-    function _download-ncbi-data_pmc-oa {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _download-ncbi-data_pmc-bioc {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _download-ncbi-data_bioconcepts {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _download-ncbi-data_generif {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _download-ncbi-data_meshtree {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _download-ncbi-data_taxnames {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _download-ncbi-data_journals {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _download-ncbi-data_oa-list {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _download-ncbi-data_oa-book {
-        _arguments \
-            "*: :_files"
-
-    }
-
-    function _download-ncbi-data_carotene {
-        _arguments \
-            "*: :_files"
-
-    }
 
 
 function _download-ncbi-data {
@@ -139,4 +79,66 @@ function _download-ncbi-data {
      esac
 
 }
+
+function _download-ncbi-data_pmc-oa {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _download-ncbi-data_pmc-bioc {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _download-ncbi-data_bioconcepts {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _download-ncbi-data_generif {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _download-ncbi-data_meshtree {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _download-ncbi-data_taxnames {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _download-ncbi-data_journals {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _download-ncbi-data_oa-list {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _download-ncbi-data_oa-book {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _download-ncbi-data_carotene {
+    _arguments \
+        "*: :_files"
+
+}
+
+_download-ncbi-data "$@"
 

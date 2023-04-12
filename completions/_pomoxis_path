@@ -1,32 +1,13 @@
-#compdef _pomoxis_path pomoxis_path
+#compdef pomoxis_path
 
 # Auto-generated with h2o
 
-
 function _pomoxis_path {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_pomoxis_path "$@"
 

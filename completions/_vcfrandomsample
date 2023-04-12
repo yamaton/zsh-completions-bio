@@ -1,35 +1,16 @@
-#compdef _vcfrandomsample vcfrandomsample
+#compdef vcfrandomsample
 
 # Auto-generated with h2o
 
-
 function _vcfrandomsample {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-r,--rate}'[base sampling probability per locus]' \
         {-s,--scale-by}'[scale sampling likelihood by this Float info field]' \
         {-p,--random-seed}'[use this random seed (by default read from /dev/random)]' \
         {-q,--pseudorandom-seed}'[use a pseudorandom seed (by default read from /dev/random)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_vcfrandomsample "$@"
 

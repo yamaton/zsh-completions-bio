@@ -1,20 +1,9 @@
-#compdef _vep vep
+#compdef vep
 
 # Auto-generated with h2o
 
-
 function _vep {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--help[Display this message and quit]' \
         {-i,--input_file}'[Input file]':file:_files \
         {-o,--output_file}'[Output file]':file:_files \
@@ -25,17 +14,9 @@ function _vep {
         '--cache[cache]' \
         '--offline[offline]' \
         '--database[database]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_vep "$@"
 

@@ -1,20 +1,9 @@
-#compdef _bowtie2-inspect bowtie2-inspect
+#compdef bowtie2-inspect
 
 # Auto-generated with h2o
 
-
 function _bowtie2-inspect {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--large-index[force inspection of the '\''large'\'' index, even if a '\''small'\'' one is present.]' \
         '--debug[use the debug binary; slower, assertions enabled]' \
         '--sanitized[use sanitized binary; slower, uses ASan and/or UBSan]' \
@@ -24,17 +13,9 @@ function _bowtie2-inspect {
         {-o,--output}'[Save output to filename (default stdout)]' \
         {-v,--verbose}'[Verbose output (for debugging)]' \
         {-h,--help}'[print this and message quit]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_bowtie2-inspect "$@"
 

@@ -1,20 +1,9 @@
-#compdef _Trinity Trinity
+#compdef Trinity
 
 # Auto-generated with h2o
 
-
 function _Trinity {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--seqType[type of reads: ('\''fa'\'' or '\''fq'\'')]' \
         '--max_memory[suggested max memory to use by Trinity where limiting can be enabled. (jellyfish, sorting, etc) provided in Gb of RAM, ie. '\''--max_memory 10G'\'']' \
         '--left[left reads, one or more file names (separated by commas, no spaces)]' \
@@ -80,17 +69,9 @@ function _Trinity {
         '--grid_node_CPU[number of threads for each parallel process to leverage. (default: 1)]' \
         '--grid_node_max_memory[max memory targeted for each grid node. (default: 1G)]' \
         '--FORCE[ignore failed commands from earlier run, continue on.   (Note, this should only be used after you'\''ve already dealt with these failed commands directly as needed)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_Trinity "$@"
 

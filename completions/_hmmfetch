@@ -1,36 +1,17 @@
-#compdef _hmmfetch hmmfetch
+#compdef hmmfetch
 
 # Auto-generated with h2o
 
-
 function _hmmfetch {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-h[help; show brief info on version and usage]' \
         '-f[second cmdline arg is a file of names to retrieve]' \
         '-o[output HMM to file <f> instead of stdout]' \
         '-O[output HMM to file named <key>]' \
         '--index[index the <hmmfile>, creating <hmmfile>.ssi]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_hmmfetch "$@"
 

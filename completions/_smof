@@ -1,244 +1,6 @@
-#compdef _smof smof
+#compdef smof
 
 # Auto-generated with h2o
-
-    function _smof_cut {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-f,--fields}'[Indices to print, comma delimited, with ranges]' \
-            {-v,--complement}'[Invert selection]' \
-            "*: :_files"
-
-    }
-
-    function _smof_clean {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-t,--type}'[sequence type]' \
-            {-u,--toupper}'[convert to uppercase]' \
-            {-l,--tolower}'[convert to lowercase]' \
-            {-x,--toseq}'[removes all non-letter characters (gaps, stops, etc.)]' \
-            {-s,--reduce-header}'[Remove all text from header that follows the first word (delimited by the value of the --delimiter argument, '\''\[ |\]'\'' by default)]' \
-            '--delimiter[The regex delimiter used by --reduce-header]' \
-            {-r,--mask-irregular}'[converts irregular letters to unknown]' \
-            {-m,--mask-lowercase}'[convert lower-case to unknown]' \
-            {-w,--col_width}'[width of the sequence output (0 indicates no wrapping)]' \
-            {-d,--standardize}'[Convert '\''X'\'' in DNA to '\''N'\'' and '\''\[._\]'\'' to '\''-'\'' (for gaps)]' \
-            "*: :_files"
-
-    }
-
-    function _smof_consensus {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-t,--table}'[Print count table instead of consensus]' \
-            "*: :_files"
-
-    }
-
-    function _smof_filter {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-s,--shorter-than}'[keep only if length is less than or equal to LEN]' \
-            {-l,--longer-than}'[keep only if length is greater than or equal to LEN]' \
-            {-c,--composition}'[keep only if composition meets the condition (e.g. '\''GC > .5'\'')]' \
-            "*: :_files"
-
-    }
-
-    function _smof_grep {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-q,--match-sequence}'[match sequence rather than header]' \
-            {-f,--file}'[obtain patterns from FILE, one per line]':file:_files \
-            {-L,--files-without-match}'[print names files with no matches]' \
-            {-l,--files-with-matches}'[print names input files with matches]' \
-            {-w,--wrap}'[a regular expression to capture patterns]' \
-            {-P,--perl-regexp}'[treat patterns as perl regular expressions]' \
-            {-G,--ambiguous-nucl}'[parse extended nucleotide alphabet]' \
-            {-I,--case-sensitive}'[DO NOT ignore case distinctions (ignore by default)]' \
-            {-v,--invert-match}'[print non-matching entries]' \
-            {-o,--only-matching}'[show only the part that matches]' \
-            {-B,--before-context}'[Include N characters before match]' \
-            {-A,--after-context}'[Include N characters after match]' \
-            {-C,--context}'[Include N characters before and after match]' \
-            {-c,--count}'[print number of entries with matches]' \
-            {-m,--count-matches}'[print number of non-overlapping matches]' \
-            {-x,--line-regexp}'[force PATTERN to match the whole text (regex allowed)]' \
-            {-X,--exact}'[force PATTERN to literally equal the text (fast)]' \
-            {-g,--gapped}'[match across gaps when searching aligned sequences]' \
-            {-b,--both-strands}'[search both strands]' \
-            {-r,--reverse-only}'[only search the reverse strand]' \
-            {-y,--no-color}'[do not print in color]' \
-            {-Y,--force-color}'[print in color even to non-tty (DANGEROUS)]' \
-            {-S,--preserve-color}'[Preserve incoming color]' \
-            '--color[Choose a highlight color]' \
-            '--gff[output matches in gff format]' \
-            '--gff-type[name of searched feature]' \
-            '--fastain[Search for exact sequence matches against FASTA]' \
-            "*: :_files"
-
-    }
-
-    function _smof_md5sum {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-i,--ignore-case}'[convert all to uppercase, before hashing]' \
-            {-q,--each-sequence}'[calculate md5sum for each sequence (TAB delimited)]' \
-            {-s,--all-sequences}'[calculate one md5sum for all concatenated sequences]' \
-            {-d,--all-headers}'[calculate one md5sum for all concatenated headers]' \
-            {-r,--replace-header}'[replace the header of each entry with the checksum of the sequence]' \
-            "*: :_files"
-
-    }
-
-    function _smof_head {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-n,--entries}'[print first K entries; or use -n -K to print all but the last K entries]' \
-            {-f,--first}'[print first K letters of each sequence]' \
-            {-l,--last}'[print last K letters of each sequence]' \
-            "*: :_files"
-
-    }
-
-    function _smof_permute {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-w,--word-size}'[size of each word (default=1)]' \
-            {-s,--start-offset}'[number of letters to ignore at beginning (default=0)]' \
-            {-e,--end-offset}'[number of letters to ignore at end (default=0)]' \
-            '--seed[set random seed (for reproducibility/debugging)]' \
-            "*: :_files"
-
-    }
-
-    function _smof_reverse {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-c,--complement}'[take the reverse complement of the sequence]' \
-            {-V,--no-validate}'[do not check whether the sequence is DNA before reverse complement]' \
-            {-S,--preserve-color}'[Preserve incoming color]' \
-            {-Y,--force-color}'[print in color even to non-tty (DANGEROUS)]' \
-            "*: :_files"
-
-    }
-
-    function _smof_sample {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-n,--number}'[sample size (default=1)]' \
-            '--seed[set random seed (for reproducibility/debugging)]' \
-            "*: :_files"
-
-    }
-
-    function _smof_sniff {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            "*: :_files"
-
-    }
-
-    function _smof_sort {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-x,--regex}'[sort by single regex capture]' \
-            {-r,--reverse}'[reverse sort]' \
-            {-n,--numeric-sort}'[numeric sort]' \
-            {-l,--length-sort}'[sort by sequence length]' \
-            {-R,--random-sort}'[randomly sort sequences]' \
-            {-k,--key}'[Key to sort on (column number or tag)]' \
-            {-t,--field-separator}'[The field separator (default: '\''|'\'')]' \
-            {-p,--pair-separator}'[The separator between a tag and value (default: '\''='\'')]' \
-            "*: :_files"
-
-    }
-
-    function _smof_split {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-n,--number}'[Number of output files or sequences per file]' \
-            {-q,--seqs}'[split by maximum sequences per file]' \
-            {-p,--prefix}'[prefix for output files (default="xxx")]' \
-            "*: :_files"
-
-    }
-
-    function _smof_stat {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-d,--delimiter}'[output delimiter]' \
-            {-q,--byseq}'[write a line for each sequence]' \
-            {-I,--case-sensitive}'[match case]' \
-            {-m,--count-lower}'[count the number of lowercase characters]' \
-            {-c,--counts}'[write counts of all characters]' \
-            {-t,--type}'[guess sequence type]' \
-            {-l,--length}'[write sequence length]' \
-            {-p,--proportion}'[write proportion of each character]' \
-            {-C,--aa-profile}'[display protein profile]' \
-            {-g,--hist}'[write ascii histogram of sequence lengths]' \
-            {-G,--log-hist}'[write ascii histogram of sequence log2 lengths]' \
-            "*: :_files"
-
-    }
-
-    function _smof_subseq {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-b,--bounds}'[from and to values (indexed from 1)]' \
-            {-f,--gff}'[get bounds from this gff3 file]':file:_files \
-            {-k,--keep}'[With --gff, keep sequences with no matches]' \
-            {-c,--color}'[color subsequence (do not extract)]' \
-            {-a,--annotate}'[Append the subsequence interval to the defline]' \
-            {-Y,--force-color}'[print in color even to non-tty (DANGEROUS)]' \
-            "*: :_files"
-
-    }
-
-    function _smof_tail {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-n,--entries}'[print last K entries; or use -n +K to output starting with the Kth]' \
-            {-f,--first}'[print first K letters of each sequence]' \
-            {-l,--last}'[print last K letters of each sequence]' \
-            "*: :_files"
-
-    }
-
-    function _smof_translate {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-s,--from-start}'[Require each product begin with a start codon]' \
-            {-f,--all-frames}'[Translate in all frames, keep longest]' \
-            {-c,--cds}'[Write the DNA coding sequence]' \
-            "*: :_files"
-
-    }
-
-    function _smof_uniq {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-c,--count}'[writes (count|header) in tab-delimited format]' \
-            {-d,--repeated}'[print only repeated entries]' \
-            {-u,--uniq}'[print only unique entries]' \
-            {-p,--pack}'[combine redundant sequences by concatenating the headers]' \
-            {-P,--unpack}'[reverse the pack operation]' \
-            {-z,--pack-sep}'[set delimiting string for pack/unpack operations (SOH, 0x01, by default)]' \
-            {-f,--first-header}'[remove entries with duplicate headers (keep only the first)]' \
-            '--removed[With -f, store removed sequences in FILE]':file:_files \
-            "*: :_files"
-
-    }
-
-    function _smof_wc {
-        _arguments \
-            {-h,--help}'[show this help message and exit]' \
-            {-m,--chars}'[writes the summed length of all sequences]' \
-            {-l,--lines}'[writes the total number of sequences]' \
-            "*: :_files"
-
-    }
 
 
 function _smof {
@@ -364,4 +126,244 @@ function _smof {
      esac
 
 }
+
+function _smof_cut {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-f,--fields}'[Indices to print, comma delimited, with ranges]' \
+        {-v,--complement}'[Invert selection]' \
+        "*: :_files"
+
+}
+
+function _smof_clean {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-t,--type}'[sequence type]' \
+        {-u,--toupper}'[convert to uppercase]' \
+        {-l,--tolower}'[convert to lowercase]' \
+        {-x,--toseq}'[removes all non-letter characters (gaps, stops, etc.)]' \
+        {-s,--reduce-header}'[Remove all text from header that follows the first word (delimited by the value of the --delimiter argument, '\''\[ |\]'\'' by default)]' \
+        '--delimiter[The regex delimiter used by --reduce-header]' \
+        {-r,--mask-irregular}'[converts irregular letters to unknown]' \
+        {-m,--mask-lowercase}'[convert lower-case to unknown]' \
+        {-w,--col_width}'[width of the sequence output (0 indicates no wrapping)]' \
+        {-d,--standardize}'[Convert '\''X'\'' in DNA to '\''N'\'' and '\''\[._\]'\'' to '\''-'\'' (for gaps)]' \
+        "*: :_files"
+
+}
+
+function _smof_consensus {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-t,--table}'[Print count table instead of consensus]' \
+        "*: :_files"
+
+}
+
+function _smof_filter {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-s,--shorter-than}'[keep only if length is less than or equal to LEN]' \
+        {-l,--longer-than}'[keep only if length is greater than or equal to LEN]' \
+        {-c,--composition}'[keep only if composition meets the condition (e.g. '\''GC > .5'\'')]' \
+        "*: :_files"
+
+}
+
+function _smof_grep {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--match-sequence}'[match sequence rather than header]' \
+        {-f,--file}'[obtain patterns from FILE, one per line]':file:_files \
+        {-L,--files-without-match}'[print names files with no matches]' \
+        {-l,--files-with-matches}'[print names input files with matches]' \
+        {-w,--wrap}'[a regular expression to capture patterns]' \
+        {-P,--perl-regexp}'[treat patterns as perl regular expressions]' \
+        {-G,--ambiguous-nucl}'[parse extended nucleotide alphabet]' \
+        {-I,--case-sensitive}'[DO NOT ignore case distinctions (ignore by default)]' \
+        {-v,--invert-match}'[print non-matching entries]' \
+        {-o,--only-matching}'[show only the part that matches]' \
+        {-B,--before-context}'[Include N characters before match]' \
+        {-A,--after-context}'[Include N characters after match]' \
+        {-C,--context}'[Include N characters before and after match]' \
+        {-c,--count}'[print number of entries with matches]' \
+        {-m,--count-matches}'[print number of non-overlapping matches]' \
+        {-x,--line-regexp}'[force PATTERN to match the whole text (regex allowed)]' \
+        {-X,--exact}'[force PATTERN to literally equal the text (fast)]' \
+        {-g,--gapped}'[match across gaps when searching aligned sequences]' \
+        {-b,--both-strands}'[search both strands]' \
+        {-r,--reverse-only}'[only search the reverse strand]' \
+        {-y,--no-color}'[do not print in color]' \
+        {-Y,--force-color}'[print in color even to non-tty (DANGEROUS)]' \
+        {-S,--preserve-color}'[Preserve incoming color]' \
+        '--color[Choose a highlight color]' \
+        '--gff[output matches in gff format]' \
+        '--gff-type[name of searched feature]' \
+        '--fastain[Search for exact sequence matches against FASTA]' \
+        "*: :_files"
+
+}
+
+function _smof_md5sum {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-i,--ignore-case}'[convert all to uppercase, before hashing]' \
+        {-q,--each-sequence}'[calculate md5sum for each sequence (TAB delimited)]' \
+        {-s,--all-sequences}'[calculate one md5sum for all concatenated sequences]' \
+        {-d,--all-headers}'[calculate one md5sum for all concatenated headers]' \
+        {-r,--replace-header}'[replace the header of each entry with the checksum of the sequence]' \
+        "*: :_files"
+
+}
+
+function _smof_head {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-n,--entries}'[print first K entries; or use -n -K to print all but the last K entries]' \
+        {-f,--first}'[print first K letters of each sequence]' \
+        {-l,--last}'[print last K letters of each sequence]' \
+        "*: :_files"
+
+}
+
+function _smof_permute {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-w,--word-size}'[size of each word (default=1)]' \
+        {-s,--start-offset}'[number of letters to ignore at beginning (default=0)]' \
+        {-e,--end-offset}'[number of letters to ignore at end (default=0)]' \
+        '--seed[set random seed (for reproducibility/debugging)]' \
+        "*: :_files"
+
+}
+
+function _smof_reverse {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-c,--complement}'[take the reverse complement of the sequence]' \
+        {-V,--no-validate}'[do not check whether the sequence is DNA before reverse complement]' \
+        {-S,--preserve-color}'[Preserve incoming color]' \
+        {-Y,--force-color}'[print in color even to non-tty (DANGEROUS)]' \
+        "*: :_files"
+
+}
+
+function _smof_sample {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-n,--number}'[sample size (default=1)]' \
+        '--seed[set random seed (for reproducibility/debugging)]' \
+        "*: :_files"
+
+}
+
+function _smof_sniff {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        "*: :_files"
+
+}
+
+function _smof_sort {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-x,--regex}'[sort by single regex capture]' \
+        {-r,--reverse}'[reverse sort]' \
+        {-n,--numeric-sort}'[numeric sort]' \
+        {-l,--length-sort}'[sort by sequence length]' \
+        {-R,--random-sort}'[randomly sort sequences]' \
+        {-k,--key}'[Key to sort on (column number or tag)]' \
+        {-t,--field-separator}'[The field separator (default: '\''|'\'')]' \
+        {-p,--pair-separator}'[The separator between a tag and value (default: '\''='\'')]' \
+        "*: :_files"
+
+}
+
+function _smof_split {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-n,--number}'[Number of output files or sequences per file]' \
+        {-q,--seqs}'[split by maximum sequences per file]' \
+        {-p,--prefix}'[prefix for output files (default="xxx")]' \
+        "*: :_files"
+
+}
+
+function _smof_stat {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-d,--delimiter}'[output delimiter]' \
+        {-q,--byseq}'[write a line for each sequence]' \
+        {-I,--case-sensitive}'[match case]' \
+        {-m,--count-lower}'[count the number of lowercase characters]' \
+        {-c,--counts}'[write counts of all characters]' \
+        {-t,--type}'[guess sequence type]' \
+        {-l,--length}'[write sequence length]' \
+        {-p,--proportion}'[write proportion of each character]' \
+        {-C,--aa-profile}'[display protein profile]' \
+        {-g,--hist}'[write ascii histogram of sequence lengths]' \
+        {-G,--log-hist}'[write ascii histogram of sequence log2 lengths]' \
+        "*: :_files"
+
+}
+
+function _smof_subseq {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-b,--bounds}'[from and to values (indexed from 1)]' \
+        {-f,--gff}'[get bounds from this gff3 file]':file:_files \
+        {-k,--keep}'[With --gff, keep sequences with no matches]' \
+        {-c,--color}'[color subsequence (do not extract)]' \
+        {-a,--annotate}'[Append the subsequence interval to the defline]' \
+        {-Y,--force-color}'[print in color even to non-tty (DANGEROUS)]' \
+        "*: :_files"
+
+}
+
+function _smof_tail {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-n,--entries}'[print last K entries; or use -n +K to output starting with the Kth]' \
+        {-f,--first}'[print first K letters of each sequence]' \
+        {-l,--last}'[print last K letters of each sequence]' \
+        "*: :_files"
+
+}
+
+function _smof_translate {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-s,--from-start}'[Require each product begin with a start codon]' \
+        {-f,--all-frames}'[Translate in all frames, keep longest]' \
+        {-c,--cds}'[Write the DNA coding sequence]' \
+        "*: :_files"
+
+}
+
+function _smof_uniq {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-c,--count}'[writes (count|header) in tab-delimited format]' \
+        {-d,--repeated}'[print only repeated entries]' \
+        {-u,--uniq}'[print only unique entries]' \
+        {-p,--pack}'[combine redundant sequences by concatenating the headers]' \
+        {-P,--unpack}'[reverse the pack operation]' \
+        {-z,--pack-sep}'[set delimiting string for pack/unpack operations (SOH, 0x01, by default)]' \
+        {-f,--first-header}'[remove entries with duplicate headers (keep only the first)]' \
+        '--removed[With -f, store removed sequences in FILE]':file:_files \
+        "*: :_files"
+
+}
+
+function _smof_wc {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-m,--chars}'[writes the summed length of all sequences]' \
+        {-l,--lines}'[writes the total number of sequences]' \
+        "*: :_files"
+
+}
+
+_smof "$@"
 

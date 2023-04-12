@@ -1,20 +1,9 @@
-#compdef _sniffles sniffles
+#compdef sniffles
 
 # Auto-generated with h2o
 
-
 function _sniffles {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--version[show program'\''s version number and exit]' \
         {-i,--input}'[For single-sample calling: A coordinate-sorted and indexed .bam/.cram (BAM/CRAM format) file containing aligned reads. - OR - For multi-sample calling: Multiple .snf files (generated before by running Sniffles2 for individual samples with --snf) (default: None)]' \
@@ -73,17 +62,9 @@ function _sniffles {
         '--symbolic[Output all SVs as symbolic, including insertions and deletions, instead of reporting nucleotide sequences. (default: False)]' \
         '--allow-overwrite[Allow overwriting output files if already existing (default: False)]' \
         '--combine-consensus[Output the consensus genotype of all samples (default: False)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_sniffles "$@"
 

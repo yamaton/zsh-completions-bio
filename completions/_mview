@@ -1,20 +1,9 @@
-#compdef _mview mview
+#compdef mview
 
 # Auto-generated with h2o
 
-
 function _mview {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-in[Input {blast,uvfasta,clustal,fasta,pir,msf,plain,hssp,maf,multas,mips,jnetz}.]' \
         '-out[Output {pearson,fasta,pir,plain,clustal,msf,mview,rdb}. \[mview\]]' \
         '-ruler[Show ruler. \[on\]]' \
@@ -88,17 +77,9 @@ function _mview {
         '-listcolors[Print listing of known colormaps.]' \
         '-listgroups[Print listing of known consensus groups.]' \
         '-listcss[Print style sheet.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_mview "$@"
 

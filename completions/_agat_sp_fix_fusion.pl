@@ -1,20 +1,9 @@
-#compdef _agat_sp_fix_fusion.pl agat_sp_fix_fusion.pl
+#compdef agat_sp_fix_fusion.pl
 
 # Auto-generated with h2o
 
-
 function _agat_sp_fix_fusion.pl {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-gff[Input GTF/GFF file.]' \
         {-fa,--fasta}'[Input fasta file.]' \
         {--ct,--codon,--table}'[Codon table to use. \[default 1\]]' \
@@ -23,17 +12,9 @@ function _agat_sp_fix_fusion.pl {
         {-v,--verbose}'[Output verbose information.]' \
         {-o,--output,--out,--outfile}'[Output GFF file. If no output file is specified, the output will be written to STDOUT.]' \
         {-h,--help}'[Display this helpful text.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_agat_sp_fix_fusion.pl "$@"
 

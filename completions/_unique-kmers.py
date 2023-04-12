@@ -1,20 +1,9 @@
-#compdef _unique-kmers.py unique-kmers.py
+#compdef unique-kmers.py
 
 # Auto-generated with h2o
 
-
 function _unique-kmers.py {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--version[show program'\''s version number and exit]' \
         '--info[print citation information]' \
         {-h,--help}'[show this help message and exit]' \
@@ -23,17 +12,9 @@ function _unique-kmers.py {
         {-R,--report}'[generate informational report and write to filename (default: None)]':file:_files \
         {-S,--stream-records}'[write input sequences to STDOUT (default: False)]' \
         '--diagnostics[print out recommended tablesize arguments and restrictions (default: False)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_unique-kmers.py "$@"
 

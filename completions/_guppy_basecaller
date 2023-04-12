@@ -1,20 +1,9 @@
-#compdef _guppy_basecaller guppy_basecaller
+#compdef guppy_basecaller
 
 # Auto-generated with h2o
 
-
 function _guppy_basecaller {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '--adapter_pt_range_scale[Set polyT/adapter range scale for setting read scaling median absolute deviation.]' \
         '--as_cpu_threads_per_scaler[Number of CPU worker threads per adapter scaler.]' \
         '--dmean_threshold[Threshold for coarse stall event detection]' \
@@ -146,17 +135,9 @@ function _guppy_basecaller {
         '--disable_pings[Disable the transmission of telemetry pings.]' \
         '--ping_segment_duration[Duration in minutes of each ping segment.]' \
         '--ping_url[URL to send pings to.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_guppy_basecaller "$@"
 

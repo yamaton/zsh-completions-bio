@@ -1,20 +1,9 @@
-#compdef _abyss-bloom abyss-bloom
+#compdef abyss-bloom
 
 # Auto-generated with h2o
 
-
 function _abyss-bloom {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-k,--kmer}'[the size of a k-mer \[<=192\]]' \
         {-v,--verbose}'[display verbose output]' \
         '--help[display this help and exit]' \
@@ -47,17 +36,9 @@ function _abyss-bloom {
         '--bed[output k-mers in BED format]' \
         '--fasta[output k-mers in FASTA format \[default\]]' \
         '--raw[output k-mers in raw format (one per line)]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_abyss-bloom "$@"
 

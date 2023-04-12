@@ -1,20 +1,9 @@
-#compdef _nquire nquire
+#compdef nquire
 
 # Auto-generated with h2o
 
-
 function _nquire {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         '-help[Print usage information, complete with a few examples, some additionally illustrating the use of xtract(1).]' \
         '-ftp[Use FTP instead of HTTP. The shell implementation accepts a filename on the command line only when invoked from a (pseudo)terminal, and otherwise reads filenames from standard input.]':file:_files \
         '-get[Use HTTP(S) GET instead of POST.]' \
@@ -25,17 +14,9 @@ function _nquire {
         '-tag[Add &tag=value,... to the base URL. (Must follow any simple components.)]' \
         '-examples[Examples of advanced queries.]' \
         '-version[Print version number.]' \
-        '*: :_files'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        esac
-        ;;
-     esac
+        "*: :_files"
 
 }
+
+_nquire "$@"
 
