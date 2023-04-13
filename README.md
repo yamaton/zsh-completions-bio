@@ -3,11 +3,8 @@ This repository contains zsh shell completion scripts for bioinformatics tools.
 
 ![zsh-completions-no-window](https://user-images.githubusercontent.com/256288/154776190-a4991546-1af7-4c50-95d5-8f6872464992.svg)
 
-## Known problems
 
-* Multi-level subcommand is NOT supported yet, and the scripts here may behave erroneous.
-
-## List of zsh scripts
+## List of supported bioinformatics commands
 
 Please refer to [the list](https://github.com/yamaton/h2o-curated-data/blob/main/bio.txt).
 
