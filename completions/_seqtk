@@ -10,11 +10,13 @@ function _seqtk {
         local -a commands
         commands=(
             'seq:common transformation of FASTA/Q'
+            'size:report the number sequences and bases'
             'comp:get the nucleotide composition of FASTA/Q'
             'sample:subsample sequences'
             'subseq:extract subsequences from FASTA/Q'
             'fqchk:fastq QC (base/quality summary)'
             'mergepe:interleave two PE FASTA/Q files'
+            'split:split one file into multiple smaller files'
             'trimfq:trim FASTQ using the Phred algorithm'
             'hety:regional heterozygosity'
             'gc:identify high- or low-GC regions'
@@ -25,7 +27,10 @@ function _seqtk {
             'rename:rename sequence names'
             'randbase:choose a random base from hets'
             'cutN:cut sequence at long N'
+            'gap:get the gap locations'
             'listhet:extract the position of each het'
+            'hpc:homopolyer-compressed sequence'
+            'telo:identify telomere repeats in asm or long reads'
         )
         _describe 'command' commands
     }
@@ -43,6 +48,10 @@ function _seqtk {
         case $line[1] in
         (seq)
             _seqtk_seq
+            ;;
+
+        (size)
+            _seqtk_size
             ;;
 
         (comp)
@@ -63,6 +72,10 @@ function _seqtk {
 
         (mergepe)
             _seqtk_mergepe
+            ;;
+
+        (split)
+            _seqtk_split
             ;;
 
         (trimfq)
@@ -105,8 +118,20 @@ function _seqtk {
             _seqtk_cutN
             ;;
 
+        (gap)
+            _seqtk_gap
+            ;;
+
         (listhet)
             _seqtk_listhet
+            ;;
+
+        (hpc)
+            _seqtk_hpc
+            ;;
+
+        (telo)
+            _seqtk_telo
             ;;
 
         esac
@@ -135,22 +160,26 @@ function _seqtk_seq {
         '-2[output the 2n reads only]' \
         '-V[shift quality by '\''(-Q) - 33'\'']' \
         '-U[convert all bases to uppercases]' \
+        '-x[convert all lowercases to -n]' \
         '-S[strip of white spaces in sequences]' \
+        "*: :_files"
+
+}
+
+function _seqtk_size {
+    _arguments \
         "*: :_files"
 
 }
 
 function _seqtk_comp {
     _arguments \
-        '-u[Upper only]' \
-        '-r[Specify input BED file]':file:_files \
         "*: :_files"
 
 }
 
 function _seqtk_sample {
     _arguments \
-        '-s[RNG seed \[11\]]' \
         '-2[2-pass mode: twice as slow but with much reduced memory]' \
         "*: :_files"
 
@@ -159,6 +188,7 @@ function _seqtk_sample {
 function _seqtk_subseq {
     _arguments \
         '-t[TAB delimited output]' \
+        '-s[strand aware]' \
         '-l[sequence line length \[0\]]' \
         "*: :_files"
 
@@ -166,7 +196,6 @@ function _seqtk_subseq {
 
 function _seqtk_fqchk {
     _arguments \
-        '-q[Quality value. Set 0 to get the distribution of all quality values.]' \
         "*: :_files"
 
 }
@@ -177,9 +206,16 @@ function _seqtk_mergepe {
 
 }
 
+function _seqtk_split {
+    _arguments \
+        '-n[number of files \[10\]]' \
+        '-l[line length \[0\]]' \
+        "*: :_files"
+
+}
+
 function _seqtk_trimfq {
     _arguments \
-        '-q[error rate threshold (disabled by -b/-e) \[0.05\]]' \
         '-l[maximally trim down to INT bp (disabled by -b/-e) \[30\]]' \
         '-b[trim INT bp from left (non-zero to disable -q/-l) \[0\]]' \
         '-e[trim INT bp from right (non-zero to disable -q/-l) \[0\]]' \
@@ -191,7 +227,6 @@ function _seqtk_trimfq {
 
 function _seqtk_hety {
     _arguments \
-        '-w[window size \[50000\]]' \
         '-t[# start positions in a window \[5\]]' \
         '-m[treat lowercases as masked]' \
         "*: :_files"
@@ -216,7 +251,6 @@ function _seqtk_mutfa {
 
 function _seqtk_mergefa {
     _arguments \
-        '-q[quality threshold \[0\]]' \
         '-i[take intersection]' \
         '-m[convert to lowercase when one of the input base is N]' \
         '-r[pick a random allele from het]' \
@@ -251,15 +285,36 @@ function _seqtk_randbase {
 
 function _seqtk_cutN {
     _arguments \
-        '-n[min size of N tract \[1000\]]' \
         '-p[penalty for a non-N \[10\]]' \
         '-g[print gaps only, no sequence]' \
         "*: :_files"
 
 }
 
+function _seqtk_gap {
+    _arguments \
+        "*: :_files"
+
+}
+
 function _seqtk_listhet {
     _arguments \
+        "*: :_files"
+
+}
+
+function _seqtk_hpc {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _seqtk_telo {
+    _arguments \
+        '-m[motif \[CCCTAA\]]' \
+        '-p[penalty \[1\]]' \
+        '-d[max drop \[2000\]]' \
+        '-s[min score \[300\]]' \
         "*: :_files"
 
 }
