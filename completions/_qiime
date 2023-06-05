@@ -168,7 +168,7 @@ function _qiime_tools {
         commands=(
             'cache-create:Create an empty cache at the given location.'
             'cache-fetch:Fetches an artifact out of a cache into a .qza.'
-            'cache-garbage-collection:Runs garbage collection on the cache at the'
+            'cache-garbage-collection:Runs garbage collection on the cache at the specified location.'
             'cache-remove:Removes a given key from a cache.'
             'cache-status:Checks the status of the cache.'
             'cache-store:Stores a .qza in the cache under a key.'
@@ -178,6 +178,8 @@ function _qiime_tools {
             'extract:Extract a QIIME 2 Artifact or Visualization archive.'
             'import:Import data into a new QIIME 2 Artifact.'
             'inspect-metadata:Inspect columns available in metadata.'
+            'list-formats:List the available formats.'
+            'list-types:List the available semantic types.'
             'peek:Take a peek at a QIIME 2 Artifact or Visualization.'
             'validate:Validate data in a QIIME 2 Artifact.'
             'view:View a QIIME 2 Visualization.'
@@ -243,6 +245,14 @@ function _qiime_tools {
 
         (inspect-metadata)
             _qiime_tools_inspect-metadata
+            ;;
+
+        (list-formats)
+            _qiime_tools_list-formats
+            ;;
+
+        (list-types)
+            _qiime_tools_list-types
             ;;
 
         (peek)
@@ -374,9 +384,29 @@ function _qiime_tools_inspect-metadata {
 
 }
 
+function _qiime_tools_list-formats {
+    _arguments \
+        '--importable[List the importable formats.]' \
+        '--exportable[List the exportable formats.]' \
+        '--strict[Show only exact matches for the format argument(s).]' \
+        '--tsv[Print as machine readable tab-separated values.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_tools_list-types {
+    _arguments \
+        '--strict[Show only exact matches for the type argument(s).]' \
+        '--tsv[Print as machine readable tab-separated values.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
 function _qiime_tools_peek {
     _arguments \
-        {--tsv,--no-tsv}'[Print as machine-readable tab separated values.]' \
+        {--tsv,--no-tsv}'[Print as machine-readable tab-separated values.]' \
         '--help[Show this message and exit.]' \
         "*: :_files"
 
@@ -606,6 +636,7 @@ function _qiime_composition {
             'add-pseudocount:Add pseudocount to table'
             'ancom:Apply ANCOM to identify features that differ in abundance.'
             'ancombc:Analysis of Composition of Microbiomes with Bias Correction'
+            'da-barplot:Differential abundance bar plots'
             'tabulate:View tabular output from ANCOM-BC.'
         )
         _describe 'command' commands
@@ -638,6 +669,10 @@ function _qiime_composition {
             _qiime_composition_ancombc
             ;;
 
+        (da-barplot)
+            _qiime_composition_da-barplot
+            ;;
+
         (tabulate)
             _qiime_composition_tabulate
             ;;
@@ -668,6 +703,7 @@ function _qiime_composition_ancom {
         {--m-metadata-file,--m-metadata-column}'[The categorical sample metadata column to test for differential abundance across. \[required\]]' \
         '--p-transform-function[The method applied to transform feature values before generating volcano plots. \[default: '\''clr'\''\]]' \
         '--p-difference-function[The method applied to visualize fold difference in feature abundances across groups for volcano plots.]' \
+        {--p-filter-missing,--p-no-filter-missing}'[If True, samples with missing metadata values will be filtered from the table prior to analysis. If False, an error will be raised if there are any missing metadata values. \[default: False\]]' \
         '--o-visualization[\[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
@@ -680,7 +716,7 @@ function _qiime_composition_ancom {
 
 function _qiime_composition_ancombc {
     _arguments \
-        '--i-table[The feature table to be used for ANCOM computation.]' \
+        '--i-table[The feature table to be used for ANCOM-BC computation. \[required\]]' \
         '--p-formula[How the microbial absolute abundances for each taxon depend on the variables within the `metadata`.]' \
         '--p-prv-cut[A numerical fraction between 0-1. Taxa with prevalences less than this value will be excluded from the analysis. \[default: 0.1\]]' \
         '--p-lib-cut[A numerical threshold for filtering samples based on library sizes. Samples with library sizes less than this value will be excluded from the analysis.]' \
@@ -692,6 +728,27 @@ function _qiime_composition_ancombc {
         '--m-metadata-file[(multiple The sample metadata.]' \
         '--p-reference-levels[List\[Str\] Define the reference level(s) to be used for]' \
         '--o-differentials[The calculated per-feature differentials. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_composition_da-barplot {
+    _arguments \
+        '--i-data[The ANCOM-BC output to be plotted. \[required\]]' \
+        '--p-effect-size-label[Label for effect sizes in `data`. \[default: '\''lfc'\''\]]' \
+        '--p-feature-id-label[Label for feature ids in `data`. \[default: '\''id'\''\]]' \
+        '--p-error-label[Label for effect size errors in `data`.]' \
+        '--p-significance-label[Label for statistical significance level in `data`.]' \
+        '--p-significance-threshold[Exclude features with statistical significance level greater (i.e., less significant) than this threshold.]' \
+        '--p-level-delimiter[If feature ids encode hierarchical information, split the levels when generating feature labels in the visualization using this delimiter. \[optional\]]' \
+        '--p-effect-size-threshold[Range(0.0, None) Exclude features with an absolute value of effect]' \
+        '--m-feature-ids-file[(multiple Exclude features if their ids are not included in]' \
+        '--o-visualization[\[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
@@ -721,10 +778,10 @@ function _qiime_cutadapt {
     function _commands {
         local -a commands
         commands=(
-            'demux-paired:Demultiplex paired-end sequence data with barcodes in-'
-            'demux-single:Demultiplex single-end sequence data with barcodes in-'
-            'trim-paired:Find and remove adapters in demultiplexed paired-end'
-            'trim-single:Find and remove adapters in demultiplexed single-end'
+            'demux-paired:Demultiplex paired-end sequence data with barcodes in-sequence.'
+            'demux-single:Demultiplex single-end sequence data with barcodes in-sequence.'
+            'trim-paired:Find and remove adapters in demultiplexed paired-end sequences.'
+            'trim-single:Find and remove adapters in demultiplexed single-end sequences.'
         )
         _describe 'command' commands
     }
@@ -993,7 +1050,7 @@ function _qiime_dada2_denoise-pyro {
         '--p-max-ee[Reads with number of expected errors higher than this value will be discarded. \[default: 2.0\]]' \
         '--p-trunc-q[Reads are truncated at the first instance of a quality score less than or equal to this value. If the resulting read is then shorter than `trunc-len`, it is discarded. \[default: 2\]]' \
         '--p-max-len[Remove reads prior to trimming or truncation which are longer than this value. If 0 is provided no reads will be removed based on length. \[default: 0\]]' \
-        '--p-pooling-method[The method used to pool samples for denoising. "independent": Samples are denoised indpendently. "pseudo": The pseudo-pooling method is used to approximate pooling of samples. In short, samples are denoised independently once, ASVs detected in at least 2 samples are recorded, and samples are denoised independently a second time, but this time with prior knowledge of the recorded ASVs and thus higher sensitivity to those ASVs.]' \
+        '--p-pooling-method[The method used to pool samples for denoising. "independent": Samples are denoised independently. "pseudo": The pseudo-pooling method is used to approximate pooling of samples. In short, samples are denoised independently once, ASVs detected in at least 2 samples are recorded, and samples are denoised independently a second time, but this time with prior knowledge of the recorded ASVs and thus higher sensitivity to those ASVs.]' \
         '--p-chimera-method[The method used to remove chimeras. "none": No chimera removal is performed. "pooled": All reads are pooled prior to chimera detection. "consensus": Chimeras are detected in samples individually, and sequences found chimeric in a sufficient fraction of samples are removed. \[default: '\''consensus'\''\]]' \
         '--p-min-fold-parent-over-abundance[The minimum abundance of potential parents of a sequence being tested as chimeric, expressed as a fold-change versus the abundance of the sequence being tested. Values should be greater than or equal to 1 (i.e. parents should be more abundant than the sequence being tested). This parameter has no effect if chimera-method is "none". \[default: 1.0\]]' \
         {--p-allow-one-off,--p-no-allow-one-off}'[Bimeras that are one-off from exact are also identified if the `allow-one-off` argument is True. If True, a sequence will be identified as bimera if it is one mismatch or indel away from an exact bimera. \[default: False\]]' \
@@ -1154,7 +1211,7 @@ function _qiime_demux {
     function _commands {
         local -a commands
         commands=(
-            'emp-paired:Demultiplex paired-end sequence data generated with the'
+            'emp-paired:Demultiplex paired-end sequence data generated with the EMP protocol.'
             'emp-single:Demultiplex sequence data generated with the EMP protocol.'
             'filter-samples:Filter samples out of demultiplexed data.'
             'subsample-paired:Subsample paired-end sequences without replacement.'
@@ -1315,19 +1372,19 @@ function _qiime_diversity {
             'alpha-rarefaction:Alpha rarefaction curves'
             'beta:Beta diversity'
             'beta-correlation:Beta diversity correlation'
-            'beta-group-significance:Beta diversity group significance'
-            'beta-phylogenetic:Beta diversity (phylogenetic)'
-            'beta-rarefaction:Beta diversity rarefaction'
-            'bioenv:bioenv'
-            'core-metrics:Core diversity metrics (non-phylogenetic)'
-            'core-metrics-phylogenetic:Core diversity metrics (phylogenetic and non-'
+            'beta-group-significance:Determine whether groups of samples are significantly different from one another using a permutation-based statistical test.'
+            'beta-phylogenetic:Computes a user-specified phylogenetic beta diversity metric for all pairs of samples in a feature table.'
+            'beta-rarefaction:Repeatedly rarefy a feature table to compare beta diversity results within a given rarefaction depth.'
+            'bioenv:Find the subsets of variables in metadata whose Euclidean distances are maximally rank-correlated with distance matrix.'
+            'core-metrics:Applies a collection of diversity metrics (non-phylogenetic) to a feature table.'
+            'core-metrics-phylogenetic:Applies a collection of diversity metrics (both phylogenetic and non-phylogenetic) to a feature table.'
             'filter-distance-matrix:Filter samples from a distance matrix.'
             'mantel:Apply the Mantel test to two distance matrices'
             'pcoa:Principal Coordinate Analysis'
-            'pcoa-biplot:Principal Coordinate Analysis Biplot'
-            'procrustes-analysis:Procrustes Analysis'
-            'tsne:t-distributed stochastic neighbor embedding'
-            'umap:Uniform Manifold Approximation and Projection'
+            'pcoa-biplot:Project features into a principal coordinates matrix.'
+            'procrustes-analysis:Fit two ordination matrices with Procrustes analysis'
+            'tsne:Apply t-distributed stochastic neighbor embedding.'
+            'umap:Apply Uniform Manifold Approximation and Projection.'
         )
         _describe 'command' commands
     }
@@ -1461,6 +1518,11 @@ function _qiime_diversity_alpha {
         '--o-alpha-diversity[Vector containing per-sample alpha diversities.]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -1507,6 +1569,11 @@ function _qiime_diversity_alpha-phylogenetic {
         '--o-alpha-diversity[Vector containing per-sample alpha diversities.]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -1535,12 +1602,17 @@ function _qiime_diversity_alpha-rarefaction {
 
 function _qiime_diversity_beta {
     _arguments \
-        '--i-table[The feature table containing the samples over which]' \
-        '--i-table[The feature table containing the samples over which]' \
-        '--p-pseudocount[Range(1, None) A pseudocount to handle zeros for compositional]' \
+        '--i-table[The feature table containing the samples over which beta diversity should be computed. \[required\]]' \
+        '--p-metric[A pseudocount to handle zeros for compositional metrics. This is ignored for other metrics. \[default: 1\]]' \
+        '--p-pseudocount[A pseudocount to handle zeros for compositional metrics. This is ignored for other metrics. \[default: 1\]]' \
         '--o-distance-matrix[DistanceMatrix The resulting distance matrix. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -1552,15 +1624,20 @@ function _qiime_diversity_beta-correlation {
     _arguments \
         '--i-distance-matrix[DistanceMatrix Matrix of distances between pairs of samples.]' \
         {--m-metadata-file,--m-metadata-column}'[Numeric metadata column from which to compute pairwise Euclidean distances \[required\]]' \
-        '--p-method[The correlation test to be applied in the Mantel test.]' \
+        '--p-method[The correlation test to be applied in the Mantel test. \[default: '\''spearman'\''\]]' \
+        '--p-permutations[The number of permutations to be run when computing p-values. Supplying a value of zero will disable permutation testing and p-values will not be calculated (this results in *much* quicker execution time if p-values are not desired). \[default: 999\]]' \
         {--p-intersect-ids,--p-no-intersect-ids}'[If supplied, IDs that are not found in both distance matrices will be discarded before applying the Mantel test. Default behavior is to error on any mismatched IDs. \[default: False\]]' \
         '--p-label1[Label for `distance-matrix` in the output visualization. \[default: '\''Metadata'\''\]]' \
         '--p-label2[Label for `metadata-distance-matrix` in the output visualization. \[default: '\''Distance Matrix'\''\]]' \
-        '--p-permutations[Range(0, None) The number of permutations to be run when computing]' \
+        '--o-metadata-distance-matrix[The Distance Matrix produced from the metadata column and used in the mantel test \[required\]]' \
         '--o-mantel-scatter-visualization[Scatter plot rendering of the manteltest results]' \
-        '--o-metadata-distance-matrix[DistanceMatrix The Distance Matrix produced from the metadata column]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -1570,7 +1647,7 @@ function _qiime_diversity_beta-correlation {
 
 function _qiime_diversity_beta-group-significance {
     _arguments \
-        '--i-distance-matrix[DistanceMatrix Matrix of distances between pairs of samples.]' \
+        '--i-distance-matrix[Matrix of distances between pairs of samples.]' \
         {--m-metadata-file,--m-metadata-column}'[Categorical sample metadata column. \[required\]]' \
         '--p-method[The group significance test to be applied.]' \
         {--p-pairwise,--p-no-pairwise}'[Perform pairwise tests between all pairs of groups in addition to the test across all groups. This can be very slow if there are a lot of groups in the metadata column. \[default: False\]]' \
@@ -1587,15 +1664,21 @@ function _qiime_diversity_beta-group-significance {
 
 function _qiime_diversity_beta-phylogenetic {
     _arguments \
-        '--i-table[The feature table containing the samples over which]' \
-        '--i-table[The feature table containing the samples over which]' \
-        '--i-phylogeny[Phylogenetic tree containing tip identifiers that   Phylogeny\[Rooted\] correspond to the feature identifiers in the table.]' \
+        '--i-table[The feature table containing the samples over which beta diversity should be computed. \[required\]]' \
+        '--i-phylogeny[Phylogenetic tree containing tip identifiers that correspond to the feature identifiers in the table. This tree can contain tip ids that are not present in the table, but all feature ids in the table must be present in this tree. \[required\]]' \
+        '--p-metric[The beta diversity metric to be computed. \[required\]]' \
+        '--p-threads[The number of CPU threads to use in performing this calculation. May not exceed the number of available physical cores. If threads = '\''auto'\'', one thread will be created for each identified CPU core on the host. \[default: 1\]]' \
         {--p-variance-adjusted,--p-no-variance-adjusted}'[Perform variance adjustment based on Chang et al. BMC Bioinformatics 2011. Weights distances based on the proportion of the relative abundance represented between the samples at a given node under evaluation. \[default: False\]]' \
         '--p-alpha[This parameter is only used when the choice of metric is generalized_unifrac. The value of alpha controls importance of sample proportions. 1.0 is weighted normalized UniFrac. 0.0 is close to unweighted UniFrac, but only if the sample proportions are dichotomized. \[optional\]]' \
         {--p-bypass-tips,--p-no-bypass-tips}'[In a bifurcating tree, the tips make up about 50% of the nodes in a tree. By ignoring them, specificity can be traded for reduced compute time. This has the effect of collapsing the phylogeny, and is analogous (in concept) to moving from 99% to 97% OTUs \[default: False\]]' \
-        '--o-distance-matrix[DistanceMatrix The resulting distance matrix. \[required\]]' \
+        '--o-distance-matrix[The resulting distance matrix. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -1606,12 +1689,15 @@ function _qiime_diversity_beta-phylogenetic {
 function _qiime_diversity_beta-rarefaction {
     _arguments \
         '--i-table[Feature table upon which to perform beta diversity rarefaction analyses. \[required\]]' \
-        '--i-phylogeny[Phylogenetic tree containing tip identifiers that]' \
-        '--m-metadata-file[(multiple arguments The sample metadata used for the Emperor jackknifed]' \
-        '--p-sampling-depth[Range(1, None) The total frequency that each sample should be]' \
+        '--i-phylogeny[Phylogenetic tree containing tip identifiers that correspond to the feature identifiers in the table. This tree can contain tip ids that are not present in the table, but all feature ids in the table must be present in this tree. \[required for phylogenetic metrics\] \[optional\]]' \
+        '--p-metric[The beta diversity metric to be computed. \[required\]]' \
+        '--p-clustering-method[Samples can be clustered with neighbor joining or UPGMA. An arbitrary rarefaction trial will be used for the tree, and the remaining trials are used to calculate the support of the internal nodes of that tree. \[required\]]' \
+        '--m-metadata-file[(multiple arguments The sample metadata used for the Emperor jackknifed PCoA plot. \[required\]]' \
+        '--p-sampling-depth[The total frequency that each sample should be rarefied to prior to computing the diversity metric. \[required\]]' \
         '--p-iterations[Number of times to rarefy the feature table at a   Range(2, None) given sampling depth. \[default: 10\]]' \
         '--p-clustering-method[Samples can be clustered with neighbor joining or UPGMA. An arbitrary rarefaction trial will be used for the tree, and the remaining trials are used to calculate the support of the internal nodes of that tree. \[required\]]' \
         '--p-correlation-method[The Mantel correlation test to be applied when computing correlation between beta diversity distance matrices. \[default: '\''spearman'\''\]]' \
+        '--p-color-scheme[The matplotlib color scheme to generate the heatmap with. \[default: '\''BrBG'\''\]]' \
         '--o-visualization[\[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
@@ -1624,8 +1710,8 @@ function _qiime_diversity_beta-rarefaction {
 
 function _qiime_diversity_bioenv {
     _arguments \
-        '--i-distance-matrix[DistanceMatrix Matrix of distances between pairs of samples.]' \
-        '--m-metadata-file[(multiple The sample metadata.]' \
+        '--i-distance-matrix[Matrix of distances between pairs of samples.]' \
+        '--m-metadata-file[The sample metadata.]' \
         '--o-visualization[\[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
@@ -1639,21 +1725,27 @@ function _qiime_diversity_bioenv {
 function _qiime_diversity_core-metrics {
     _arguments \
         '--i-table[The feature table containing the samples over which diversity metrics should be computed. \[required\]]' \
+        '--p-sampling-depth[The total frequency that each sample should be rarefied to prior to computing diversity metrics. \[required\]]' \
+        '--m-metadata-file[The sample metadata to use in the emperor plots. \[required\]]' \
         {--p-with-replacement,--p-no-with-replacement}'[Rarefy with replacement by sampling from the multinomial distribution instead of rarefying without replacement. \[default: False\]]' \
-        '--p-sampling-depth[Range(1, None) The total frequency that each sample should be]' \
-        '--m-metadata-file[(multiple The sample metadata to use in the emperor plots.]' \
+        '--p-n-jobs[\[beta methods only\] - The number of concurrent jobs to use in performing this calculation. May not exceed the number of available physical cores. If n-jobs = '\''auto'\'', one job will be launched for each identified CPU core on the host. \[default: 1\]]' \
         '--o-rarefied-table[The resulting rarefied feature table. \[required\]]' \
-        '--o-observed-features-vector[Vector of Observed Features values by sample.]' \
-        '--o-shannon-vector[Vector of Shannon diversity values by sample.]' \
-        '--o-evenness-vector[Vector of Pielou'\''s evenness values by sample.]' \
-        '--o-jaccard-emperor[Emperor plot of the PCoA matrix computed from Jaccard.]' \
+        '--o-observed-features-vector[Vector of Observed Features values by sample. \[required\]]' \
+        '--o-shannon-vector[Vector of Shannon diversity values by sample. \[required\]]' \
+        '--o-evenness-vector[Vector of Pielou'\''s evenness values by sample. \[required\]]' \
+        '--o-jaccard-distance-matrix[Matrix of Jaccard distances between pairs of samples. \[required\]]' \
+        '--o-bray-curtis-distance-matrix[Matrix of Bray-Curtis distances between pairs of samples. \[required\]]' \
+        '--o-jaccard-pcoa-results[PCoA matrix computed from Jaccard distances between samples. \[required\]]' \
+        '--o-jaccard-emperor[Emperor plot of the PCoA matrix computed from Jaccard. \[required\]]' \
         '--o-bray-curtis-emperor[Emperor plot of the PCoA matrix computed from Bray-Curtis. \[required\]]' \
-        '--o-jaccard-distance-matrix[DistanceMatrix Matrix of Jaccard distances between pairs of samples.]' \
-        '--o-bray-curtis-distance-matrix[DistanceMatrix Matrix of Bray-Curtis distances between pairs of]' \
-        '--o-jaccard-pcoa-results[PCoAResults PCoA matrix computed from Jaccard distances between]' \
-        '--o-bray-curtis-pcoa-results[PCoAResults PCoA matrix computed from Bray-Curtis distances]' \
+        '--o-bray-curtis-pcoa-results[PCoAResults PCoA matrix computed from Bray-Curtis distances Bray-Curtis. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -1664,29 +1756,34 @@ function _qiime_diversity_core-metrics {
 function _qiime_diversity_core-metrics-phylogenetic {
     _arguments \
         '--i-table[The feature table containing the samples over which diversity metrics should be computed. \[required\]]' \
-        '--i-phylogeny[Phylogenetic tree containing tip identifiers that]' \
+        '--i-phylogeny[Phylogenetic tree containing tip identifiers that correspond to the feature identifiers in the table. This tree can contain tip ids that are not present in the table, but all feature ids in the table must be present in this tree. \[required\]]' \
+        '--p-sampling-depth[The total frequency that each sample should be rarefied to prior to computing diversity metrics. \[required\]]' \
+        '--m-metadata-file[The sample metadata to use in the emperor plots. \[required\]]' \
         {--p-with-replacement,--p-no-with-replacement}'[Rarefy with replacement by sampling from the multinomial distribution instead of rarefying without replacement. \[default: False\]]' \
-        '--p-sampling-depth[Range(1, None) The total frequency that each sample should be]' \
-        '--m-metadata-file[(multiple arguments The sample metadata to use in the emperor plots.]' \
         '--o-rarefied-table[The resulting rarefied feature table. \[required\]]' \
         '--o-faith-pd-vector[Vector of Faith PD values by sample. \[required\]]' \
-        '--o-observed-features-vector[Vector of Observed Features values by sample.]' \
-        '--o-shannon-vector[Vector of Shannon diversity values by sample.]' \
-        '--o-evenness-vector[Vector of Pielou'\''s evenness values by sample.]' \
-        '--o-jaccard-pcoa-results[ARTIFACT]' \
+        '--o-observed-features-vector[Vector of Observed Features values by sample. \[required\]]' \
+        '--o-shannon-vector[Vector of Shannon diversity values by sample. \[required\]]' \
+        '--o-evenness-vector[Vector of Pielou'\''s evenness values by sample. \[required\]]' \
+        '--o-unweighted-unifrac-distance-matrix[DistanceMatrix Matrix of unweighted UniFrac distances between pairs of samples. \[required\]]' \
+        '--o-weighted-unifrac-distance-matrix[DistanceMatrix Matrix of weighted UniFrac distances between pairs of samples. \[required\]]' \
+        '--o-jaccard-distance-matrix[DistanceMatrix Matrix of Jaccard distances between pairs of samples. \[required\]]' \
+        '--o-bray-curtis-distance-matrix[DistanceMatrix Matrix of Bray-Curtis distances between pairs of samples. \[required\]]' \
+        '--o-unweighted-unifrac-pcoa-results[PCoAResults PCoA matrix computed from unweighted UniFrac distances between samples. \[required\]]' \
+        '--o-weighted-unifrac-pcoa-results[PCoAResults PCoA matrix computed from weighted UniFrac distances between samples. \[required\]]' \
+        '--o-jaccard-pcoa-results[PCoA matrix computed from Jaccard distances between samples. \[required\]]' \
+        '--o-bray-curtis-pcoa-results[PCoAResults PCoA matrix computed from Bray-Curtis distances samples. \[required\]]' \
         '--o-unweighted-unifrac-emperor[Emperor plot of the PCoA matrix computed from unweighted UniFrac. \[required\]]' \
         '--o-weighted-unifrac-emperor[Emperor plot of the PCoA matrix computed from weighted UniFrac. \[required\]]' \
         '--o-jaccard-emperor[Emperor plot of the PCoA matrix computed from Jaccard. \[required\]]' \
         '--o-bray-curtis-emperor[Emperor plot of the PCoA matrix computed from Bray-Curtis. \[required\]]' \
-        '--o-unweighted-unifrac-distance-matrix[DistanceMatrix Matrix of unweighted UniFrac distances between]' \
-        '--o-weighted-unifrac-distance-matrix[DistanceMatrix Matrix of weighted UniFrac distances between pairs]' \
-        '--o-jaccard-distance-matrix[DistanceMatrix Matrix of Jaccard distances between pairs of]' \
-        '--o-bray-curtis-distance-matrix[DistanceMatrix Matrix of Bray-Curtis distances between pairs of]' \
-        '--o-unweighted-unifrac-pcoa-results[PCoAResults PCoA matrix computed from unweighted UniFrac]' \
-        '--o-weighted-unifrac-pcoa-results[PCoAResults PCoA matrix computed from weighted UniFrac]' \
-        '--o-bray-curtis-pcoa-results[PCoAResults PCoA matrix computed from Bray-Curtis distances]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -1731,8 +1828,8 @@ function _qiime_diversity_mantel {
 
 function _qiime_diversity_pcoa {
     _arguments \
-        '--i-distance-matrix[DistanceMatrix The distance matrix on which PCoA should be computed.]' \
-        '--p-number-of-dimensions[Range(1, None) Dimensions to reduce the distance matrix to. This]' \
+        '--i-distance-matrix[DistanceMatrix The distance matrix on which PCoA should be computed. \[required\]]' \
+        '--p-number-of-dimensions[Dimensions to reduce the distance matrix to. This number determines how many eigenvectors and eigenvalues are returned,and influences the choice of algorithm used to compute them. By default, uses the default eigendecomposition method, SciPy'\''s eigh, which computes all eigenvectors and eigenvalues in an exact manner. For very large matrices, this is expected to be slow. If a value is specified for this parameter, then the fast, heuristic eigendecomposition algorithm fsvd is used, which only computes and returns the number of dimensions specified, but suffers some degree of accuracy loss, the magnitude of which varies across different datasets. \[optional\]]' \
         '--o-pcoa[The resulting PCoA matrix.]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
@@ -1747,6 +1844,7 @@ function _qiime_diversity_pcoa-biplot {
     _arguments \
         '--i-pcoa[The PCoA where the features will be projected onto.]' \
         '--i-features[Variables to project onto the PCoA matrix \[required\]]' \
+        '--o-biplot[The resulting PCoA matrix. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
@@ -1758,12 +1856,13 @@ function _qiime_diversity_pcoa-biplot {
 
 function _qiime_diversity_procrustes-analysis {
     _arguments \
-        '--i-reference[The ordination matrix to which data is fitted to.]' \
-        '--i-other[The ordination matrix that'\''s fitted to the]' \
-        '--p-dimensions[The number of dimensions to use when fitting the]' \
-        '--o-transformed-reference[PCoAResults A normalized version of the "reference" ordination]' \
-        '--o-transformed-other[PCoAResults A normalized and fitted version of the "other"]' \
-        '--o-disparity-results[ProcrustesStatistics The sum of the squares of the pointwise differences]' \
+        '--i-reference[The ordination matrix to which data is fitted to. \[required\]]' \
+        '--i-other[The ordination matrix that'\''s fitted to the reference ordination. \[required\]]' \
+        '--p-dimensions[The number of dimensions to use when fitting the two matrices \[default: 5\]]' \
+        '--p-permutations[The number of permutations to be run when computing p-values. Supplying a value of `disable` will disable permutation testing and p-values will not be calculated (this results in *much* quicker execution time if p-values are not desired). \[default: 999\]]' \
+        '--o-transformed-reference[A normalized version of the "reference" ordination matrix. \[required\]]' \
+        '--o-transformed-other[A normalized and fitted version of the "other" ordination matrix. \[required\]]' \
+        '--o-disparity-results[The sum of the squares of the pointwise differences between the two input datasets & its p value. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
@@ -1775,14 +1874,14 @@ function _qiime_diversity_procrustes-analysis {
 
 function _qiime_diversity_tsne {
     _arguments \
-        '--i-distance-matrix[DistanceMatrix The distance matrix on which t-SNE should be]' \
-        '--p-number-of-dimensions[Range(2, None) Dimensions to reduce the distance matrix to.]' \
-        '--p-perplexity[Provide the balance between local and global   Range(1, None) structure. Low values concentrate on local structure.]' \
+        '--i-distance-matrix[The distance matrix on which t-SNE should be computed. \[required\]]' \
+        '--p-number-of-dimensions[Dimensions to reduce the distance matrix to. \[required\]]' \
+        '--p-perplexity[Provide the balance between local and global structure. Low values concentrate on local structure. \[default: 25.0\]]' \
         '--p-n-iter[Range(1, None) \[default: 1000\]]' \
-        '--p-learning-rate[Range(10.0, None) Controls how much the weights are adjusted at each]' \
-        '--p-early-exaggeration[Range(0, None) Affects the tightness of the shown clusters. Larger]' \
+        '--p-learning-rate[Controls how much the weights are adjusted at each update. \[default: 200.0\]]' \
+        '--p-early-exaggeration[Affects the tightness of the shown clusters. Larger values increase the distance between natural clusters in the embedded space. \[default: 12.0\]]' \
         '--p-random-state[Seed used by random number generator. \[optional\]]' \
-        '--o-tsne[The resulting t-SNE matrix.]' \
+        '--o-tsne[The resulting t-SNE matrix. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
@@ -1794,12 +1893,12 @@ function _qiime_diversity_tsne {
 
 function _qiime_diversity_umap {
     _arguments \
-        '--i-distance-matrix[DistanceMatrix The distance matrix on which UMAP should be computed.]' \
-        '--p-number-of-dimensions[Range(2, None) Dimensions to reduce the distance matrix to.]' \
-        '--p-n-neighbors[Range(1, None) Provide the balance between local and global]' \
-        '--p-min-dist[Controls the cluster size. Low values cause clumpier   Range(0, None) clusters. Higher values preserve a broad topological]' \
+        '--i-distance-matrix[The distance matrix on which UMAP should be computed. \[required\]]' \
+        '--p-number-of-dimensions[Dimensions to reduce the distance matrix to. \[default: 2\]]' \
+        '--p-n-neighbors[Provide the balance between local and global structure. \[default: 15\]]' \
+        '--p-min-dist[Controls the cluster size. Low values cause clumpier clusters. Higher values preserve a broad topological structure. \[default: 0.4\]]' \
         '--p-random-state[Seed used by random number generator. \[optional\]]' \
-        '--o-umap[The resulting UMAP matrix.]' \
+        '--o-umap[The resulting UMAP matrix. required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
@@ -1819,11 +1918,11 @@ function _qiime_diversity-lib {
             'alpha-passthrough:Alpha Passthrough (non-phylogenetic)'
             'beta-passthrough:Beta Passthrough (non-phylogenetic)'
             'beta-phylogenetic-passthrough:Beta Phylogenetic Passthrough'
-            'bray-curtis:Bray-Curtis Dissimilarity'
-            'faith-pd:Faith'\''s Phylogenetic Diversity'
-            'jaccard:Jaccard Distance'
+            'bray-curtis:Compute Bray-Curtis dissimilarity for each sample in a feature table.'
+            'faith-pd:Computes Faith'\''s Phylogenetic Diversity for all samples in a feature table.'
+            'jaccard:Compute Jaccard distance for each sample in a feature table.'
             'observed-features:Observed Features'
-            'pielou-evenness:Pielou'\''s Evenness'
+            'pielou-evenness:Compute Pielou'\''s Evenness for each sample in a feature table'
             'shannon-entropy:Shannon'\''s Entropy'
             'unweighted-unifrac:Unweighted Unifrac'
             'weighted-unifrac:Weighted Unifrac'
@@ -1899,6 +1998,7 @@ function _qiime_diversity-lib {
 function _qiime_diversity-lib_alpha-passthrough {
     _arguments \
         '--i-table[The feature table containing the samples for which a selected metric should be computed. \[required\]]' \
+        '--p-metric[The alpha diversity metric to be computed. \[required\]]' \
         '--o-vector[Vector containing per-sample values for the chosen metric. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
@@ -1912,8 +2012,9 @@ function _qiime_diversity-lib_alpha-passthrough {
 function _qiime_diversity-lib_beta-passthrough {
     _arguments \
         '--i-table[The feature table containing the samples over which beta diversity should be computed. \[required\]]' \
-        '--p-pseudocount[Range(1, None) A pseudocount to handle zeros for compositional]' \
-        '--o-distance-matrix[DistanceMatrix The resulting distance matrix. \[required\]]' \
+        '--p-metric[The beta diversity metric to be computed. \[required\]]' \
+        '--p-pseudocount[A pseudocount to handle zeros for compositional]' \
+        '--o-distance-matrix[The resulting distance matrix. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
@@ -1927,11 +2028,13 @@ function _qiime_diversity-lib_beta-passthrough {
 function _qiime_diversity-lib_beta-phylogenetic-passthrough {
     _arguments \
         '--i-table[The feature table containing the samples over which beta diversity should be computed. \[required\]]' \
-        '--i-phylogeny[Phylogenetic tree containing tip identifiers that]' \
+        '--i-phylogeny[Phylogenetic tree containing tip identifiers that correspond to the feature identifiers in the table. \[required\]]' \
+        '--p-metric[The beta diversity metric to be computed. \[required\]]' \
+        '--p-threads[The number of CPU threads to use in performing this calculation. \[default: 1\]]' \
         {--p-variance-adjusted,--p-no-variance-adjusted}'[Perform variance adjustment based on Chang et al. BMC Bioinformatics 2011. Weights distances based on the proportion of the relative abundance represented between the samples at a given node under evaluation. \[default: False\]]' \
         '--p-alpha[This parameter is only used when the choice of metric is generalized_unifrac. The value of alpha controls importance of sample proportions. 1.0 is weighted normalized UniFrac. 0.0 is close to unweighted UniFrac, but only if the sample proportions are dichotomized. \[optional\]]' \
         {--p-bypass-tips,--p-no-bypass-tips}'[In a bifurcating tree, the tips make up about 50% of the nodes in a tree. By ignoring them, specificity can be traded for reduced compute time. This has the effect of collapsing the phylogeny, and is analogous (in concept) to moving from 99% to 97% OTUs \[default: False\]]' \
-        '--o-distance-matrix[DistanceMatrix The resulting distance matrix. \[required\]]' \
+        '--o-distance-matrix[The resulting distance matrix. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
@@ -1945,8 +2048,9 @@ function _qiime_diversity-lib_beta-phylogenetic-passthrough {
 
 function _qiime_diversity-lib_bray-curtis {
     _arguments \
-        '--i-table[The feature table containing the samples for which Bray-Curtis dissimilarity should be computed.]' \
-        '--o-distance-matrix[DistanceMatrix Distance matrix for Bray-Curtis dissimilarity]' \
+        '--i-table[The feature table containing the samples for which Bray-Curtis dissimilarity should be computed. \[required\]]' \
+        '--p-n-jobs[The number of concurrent jobs to use in performing this calculation. \[default: 1\]]' \
+        '--o-distance-matrix[Distance matrix for Bray-Curtis dissimilarity \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
@@ -1959,9 +2063,9 @@ function _qiime_diversity-lib_bray-curtis {
 
 function _qiime_diversity-lib_faith-pd {
     _arguments \
-        '--i-table[The feature table containing the samples for which]' \
-        '--i-table[The feature table containing the samples for which]' \
-        '--i-phylogeny[Phylogenetic tree containing tip identifiers that   Phylogeny\[Rooted\] correspond to the feature identifiers in the table.]' \
+        '--i-table[The feature table containing the samples for which Faith'\''s phylogenetic diversity should be computed. \[required\]]' \
+        '--i-phylogeny[Phylogenetic tree containing tip identifiers that correspond to the feature identifiers in the table. \[required\]]' \
+        '--p-threads[The number of CPU threads to use in performing this calculation. \[default: 1\]]' \
         '--o-vector[Vector containing per-sample values for Faith'\''s Phylogenetic Diversity. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
@@ -1974,9 +2078,9 @@ function _qiime_diversity-lib_faith-pd {
 
 function _qiime_diversity-lib_jaccard {
     _arguments \
-        '--i-table[The feature table containing the samples for which]' \
-        '--i-table[The feature table containing the samples for which]' \
-        '--o-distance-matrix[DistanceMatrix Distance matrix for Jaccard index \[required\]]' \
+        '--i-table[The feature table containing the samples for which  Jaccard distance should be computed. \[required\]]' \
+        '--p-n-jobs[The number of concurrent jobs to use in performing this calculation. \[default: 1\]]' \
+        '--o-distance-matrix[Distance matrix for Jaccard index \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
@@ -1989,8 +2093,7 @@ function _qiime_diversity-lib_jaccard {
 
 function _qiime_diversity-lib_observed-features {
     _arguments \
-        '--i-table[The feature table containing the samples for which the]' \
-        '--i-table[The feature table containing the samples for which the]' \
+        '--i-table[The feature table containing the samples for which the number of observed features should be calculated. \[required\]]' \
         '--o-vector[Vector containing per-sample counts of observed features. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
@@ -2031,11 +2134,11 @@ function _qiime_diversity-lib_shannon-entropy {
 
 function _qiime_diversity-lib_unweighted-unifrac {
     _arguments \
-        '--i-table[The feature table containing the samples for which]' \
-        '--i-table[The feature table containing the samples for which]' \
-        '--i-phylogeny[Phylogenetic tree containing tip identifiers that   Phylogeny\[Rooted\] correspond to the feature identifiers in the table.]' \
+        '--i-table[The feature table containing the samples for which Unweighted Unifrac should be computed. \[required\]]' \
+        '--i-phylogeny[Phylogenetic tree containing tip identifiers that correspond to the feature identifiers in the table. \[required\]]' \
+        '--p-threads[The number of CPU threads to use in performing this calculation. \[default: 1\]]' \
         {--p-bypass-tips,--p-no-bypass-tips}'[In a bifurcating tree, the tips make up about 50% of the nodes in a tree. By ignoring them, specificity can be traded for reduced compute time. This has the effect of collapsing the phylogeny, and is analogous (in concept) to moving from 99% to 97% OTUs \[default: False\]]' \
-        '--o-distance-matrix[DistanceMatrix Distance matrix for Unweighted Unifrac. \[required\]]' \
+        '--o-distance-matrix[Distance matrix for Unweighted Unifrac. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
@@ -2049,9 +2152,10 @@ function _qiime_diversity-lib_unweighted-unifrac {
 function _qiime_diversity-lib_weighted-unifrac {
     _arguments \
         '--i-table[The feature table containing the samples for which Weighted Unifrac should be computed. \[required\]]' \
-        '--i-phylogeny[Phylogenetic tree containing tip identifiers that]' \
+        '--i-phylogeny[Phylogenetic tree containing tip identifiers that correspond to the feature identifiers in the table. \[required\]]' \
+        '--p-threads[The number of CPU threads to use in performing this calculation. \[default: 1\]]' \
         {--p-bypass-tips,--p-no-bypass-tips}'[In a bifurcating tree, the tips make up about 50% of the nodes in a tree. By ignoring them, specificity can be traded for reduced compute time. This has the effect of collapsing the phylogeny, and is analogous (in concept) to moving from 99% to 97% OTUs \[default: False\]]' \
-        '--o-distance-matrix[DistanceMatrix Distance matrix for Unweighted Unifrac. \[required\]]' \
+        '--o-distance-matrix[Distance matrix for Unweighted Unifrac. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
@@ -2069,8 +2173,8 @@ function _qiime_emperor {
     function _commands {
         local -a commands
         commands=(
-            'biplot:Visualize and Interact with Principal Coordinates Analysis'
-            'plot:Visualize and Interact with Principal Coordinates Analysis'
+            'biplot:Visualize and Interact with Principal Coordinates Analysis Biplot'
+            'plot:Visualize and Interact with Principal Coordinates Analysis Plots'
             'procrustes-plot:Visualize and Interact with a procrustes plot'
         )
         _describe 'command' commands
@@ -2111,11 +2215,12 @@ function _qiime_emperor {
 
 function _qiime_emperor_biplot {
     _arguments \
+        '--i-biplot[The principal coordinates matrix to be plotted. \[required\]]' \
+        '--m-sample-metadata-file[The sample metadata. \[required\]]' \
+        '--m-feature-metadata-file[The feature metadata (useful to manipulate the arrows in the plot). \[required\]]' \
         {--p-ignore-missing-samples,--p-no-ignore-missing-samples}'[This will suppress the error raised when the coordinates matrix contains samples that are not present in the metadata. Samples without metadata are included by setting all metadata values to: "This sample has no metadata". This flag is only applied if at least one sample is present in both the coordinates matrix and the metadata. \[default: False\]]' \
         {--p-invert,--p-no-invert}'[If specified, the point and arrow coordinates will be swapped. \[default: False\]]' \
         '--p-number-of-features[INTEGER]' \
-        '--m-sample-metadata-file[(multiple The sample metadata]' \
-        '--m-feature-metadata-file[(multiple The feature metadata (useful to manipulate the arrows]' \
         '--o-visualization[\[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
@@ -2128,11 +2233,11 @@ function _qiime_emperor_biplot {
 
 function _qiime_emperor_plot {
     _arguments \
-        '--i-pcoa[The principal coordinates matrix to be plotted.]' \
+        '--i-pcoa[The principal coordinates matrix to be plotted. \[required\]]' \
+        '--m-metadata-file[The sample metadata. \[required\]]' \
+        '--p-custom-axes[Numeric sample metadata columns that should be included as axes in the Emperor plot. \[optional\]]' \
         {--p-ignore-missing-samples,--p-no-ignore-missing-samples}'[This will suppress the error raised when the coordinates matrix contains samples that are not present in the metadata. Samples without metadata are included by setting all metadata values to: "This sample has no metadata". This flag is only applied if at least one sample is present in both the coordinates matrix and the metadata. \[default: False\]]' \
         {--p-ignore-pcoa-features,--p-no-ignore-pcoa-features}'[Biplot arrows cannot be visualized using this method. If you want to visualize biplot arrows use the `biplot` method. Enabling this setting will ignore any PCoA features that are present, otherwise, if PCoA features are detected an error will be raised. \[default: False\]]' \
-        '--m-metadata-file[(multiple The sample metadata.]' \
-        '--p-custom-axes[List\[Str\] Numeric sample metadata columns that should be]' \
         '--o-visualization[\[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
@@ -2145,12 +2250,12 @@ function _qiime_emperor_plot {
 
 function _qiime_emperor_procrustes-plot {
     _arguments \
+        '--i-reference-pcoa[The reference ordination matrix to be plotted. \[required\]]' \
+        '--i-other-pcoa[The "other" ordination matrix to be plotted (the one that was fitted to the reference). \[required\]]' \
         '--i-m2-stats[The M^2 value of the procrustes analysis & its associated p value. \[optional\]]' \
-        '--i-reference-pcoa[PCoAResults The reference ordination matrix to be plotted.]' \
-        '--i-other-pcoa[PCoAResults The "other" ordination matrix to be plotted (the one]' \
         {--p-ignore-missing-samples,--p-no-ignore-missing-samples}'[This will suppress the error raised when the coordinates matrix contains samples that are not present in the metadata. Samples without metadata are included by setting all metadata values to: "This sample has no metadata". This flag is only applied if at least one sample is present in both the coordinates matrix and the metadata. \[default: False\]]' \
-        '--m-metadata-file[(multiple The sample metadata.]' \
-        '--p-custom-axes[List\[Str\] Numeric sample metadata columns that should be]' \
+        '--m-metadata-file[The sample metadata. \[required\]]' \
+        '--p-custom-axes[Numeric sample metadata columns that should be included as axes in the Emperor plot. \[optional\]]' \
         '--o-visualization[\[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
@@ -2171,11 +2276,12 @@ function _qiime_feature-classifier {
             'blast:BLAST+ local alignment search.'
             'classify-consensus-blast:BLAST+ consensus taxonomy classifier'
             'classify-consensus-vsearch:VSEARCH-based consensus taxonomy classifier'
+            'classify-hybrid-vsearch-sklearn:ALPHA Hybrid classifier: VSEARCH exact match + sklearn classifier'
             'classify-sklearn:Pre-fitted sklearn-based taxonomy classifier'
             'extract-reads:Extract reads from reference sequences.'
             'find-consensus-annotation:Find consensus among multiple annotations.'
             'fit-classifier-naive-bayes:Train the naive_bayes classifier'
-            'fit-classifier-sklearn:Train an almost arbitrary scikit-learn'
+            'fit-classifier-sklearn:Train an almost arbitrary scikit-learn classifier'
             'vsearch-global:VSEARCH global alignment search'
         )
         _describe 'command' commands
@@ -2206,6 +2312,10 @@ function _qiime_feature-classifier {
 
         (classify-consensus-vsearch)
             _qiime_feature-classifier_classify-consensus-vsearch
+            ;;
+
+        (classify-hybrid-vsearch-sklearn)
+            _qiime_feature-classifier_classify-hybrid-vsearch-sklearn
             ;;
 
         (classify-sklearn)
@@ -2275,6 +2385,11 @@ function _qiime_feature-classifier_classify-consensus-blast {
         '--o-search-results[FeatureData\[BLAST6\] Top hits for each query. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -2301,6 +2416,46 @@ function _qiime_feature-classifier_classify-consensus-vsearch {
         '--o-search-results[FeatureData\[BLAST6\] Top hits for each query. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_feature-classifier_classify-hybrid-vsearch-sklearn {
+    _arguments \
+        '--i-query[Query Sequences. \[required\]]' \
+        '--i-reference-reads[Reference sequences. \[required\]]' \
+        '--i-reference-taxonomy[Reference taxonomy labels. \[required\]]' \
+        '--i-classifier[Pre-trained sklearn taxonomic classifier for classifying the reads. \[required\]]' \
+        '--p-maxaccepts[Maximum number of hits to keep for each query. Set to "all" to keep all hits > perc-identity similarity. Note that if strand=both, maxaccepts will keep N hits for each direction (if searches in the opposite direction yield results that exceed the minimum perc-identity). In those cases use maxhits to control the total number of hits returned. This option works in pair with maxrejects. The search process sorts target sequences by decreasing number of k-mers they have in common with the query sequence, using that information as a proxy for sequence similarity. After pairwise alignments, if the first target sequence passes the acceptation criteria, it is accepted as best hit and the search process stops for that query. If maxaccepts is set to a higher value, more hits are accepted. If maxaccepts and maxrejects are both set to "all", the complete database is searched. \[default: 10\]]' \
+        '--p-perc-identity[Percent sequence similarity to use for PREFILTER. Reject match if percent identity to query is lower. Set to a lower value to perform a rough pre-filter. This parameter is ignored if `prefilter` is disabled. \[default: 0.5\]]' \
+        '--p-query-cov[Query coverage threshold to use for PREFILTER. Reject match if query alignment coverage per high-scoring pair is lower. Set to a lower value to perform a rough pre-filter. This parameter is ignored if `prefilter` is disabled. \[default: 0.8\]]' \
+        '--p-strand[Align against reference sequences in forward ("plus") or both directions ("both"). \[default: '\''both'\''\]]' \
+        '--p-min-consensus[Minimum fraction of assignments must match top hit to be accepted as consensus assignment.]' \
+        '--p-maxhits[max hits \[default: '\''all'\''\]]' \
+        '--p-maxrejects[max rejects \[default: '\''all'\''\]]' \
+        '--p-reads-per-batch[Number of reads to process in each batch for sklearn classification. If "auto", this parameter is autoscaled to min(number of query sequences / threads, 20000). \[default: '\''auto'\''\]]' \
+        '--p-confidence[Confidence threshold for limiting taxonomic depth. Set to "disable" to disable confidence calculation, or 0 to calculate confidence but not apply it to limit the taxonomic depth of the assignments.]' \
+        '--p-read-orientation[Direction of reads with respect to reference sequences in pre-trained sklearn classifier. same will cause reads to be classified unchanged; reverse-complement will cause reads to be reversed and complemented prior to classification. "auto" will autodetect orientation based on the confidence estimates for the first 100 reads. \[default: '\''auto'\''\]]' \
+        '--p-threads[Number of threads to use for job parallelization. \[default: 1\]]' \
+        {--p-prefilter,--p-no-prefilter}'[Toggle positive filter of query sequences on or off. \[default: True\]]' \
+        '--p-sample-size[Randomly extract the given number of sequences from the reference database to use for prefiltering. This parameter is ignored if `prefilter` is disabled. \[default: 1000\]]' \
+        '--p-randseed[Use integer as a seed for the pseudo-random]' \
+        '--o-classification[Taxonomy classifications of query sequences. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -2445,11 +2600,11 @@ function _qiime_feature-table {
         commands=(
             'core-features:Identify core features in table'
             'filter-features:Filter features from table'
-            'filter-features-conditionally:Filter features from a table based on'
+            'filter-features-conditionally:Filter features from a table based on abundance and prevalence'
             'filter-samples:Filter samples from table'
             'filter-seqs:Filter features from sequences'
-            'group:Group samples or features by a metadata'
-            'heatmap:Generate a heatmap representation of a'
+            'group:Group samples or features by a metadata column'
+            'heatmap:Generate a heatmap representation of a feature table'
             'merge:Combine multiple tables'
             'merge-seqs:Combine collections of feature sequences'
             'merge-taxa:Combine collections of feature taxonomies'
@@ -2842,9 +2997,9 @@ function _qiime_fragment-insertion {
     function _commands {
         local -a commands
         commands=(
-            'classify-otus-experimental:Experimental: Obtain taxonomic lineages, by'
+            'classify-otus-experimental:Experimental: Obtain taxonomic lineages, by finding closest OTU in reference phylogeny.'
             'filter-features:Filter fragments in tree from table.'
-            'sepp:Insert fragment sequences using SEPP into'
+            'sepp:Insert fragment sequences using SEPP into reference phylogenies.'
         )
         _describe 'command' commands
     }
@@ -2938,14 +3093,14 @@ function _qiime_gneiss {
     function _commands {
         local -a commands
         commands=(
-            'assign-ids:Assigns ids on internal nodes in the tree,'
-            'correlation-clustering:Hierarchical clustering using feature'
+            'assign-ids:Assigns ids on internal nodes in the tree, and makes sure that they are consistent with the table columns.'
+            'correlation-clustering:Hierarchical clustering using feature correlation.'
             'dendrogram-heatmap:Dendrogram heatmap.'
-            'gradient-clustering:Hierarchical clustering using gradient'
-            'ilr-hierarchical:Isometric Log-ratio Transform applied to a'
-            'ilr-phylogenetic:Isometric Log-ratio Transform applied to a'
-            'ilr-phylogenetic-differential:Differentially abundant Phylogenetic Log'
-            'ilr-phylogenetic-ordination:Ordination through a phylogenetic Isometric'
+            'gradient-clustering:Hierarchical clustering using gradient information.'
+            'ilr-hierarchical:Isometric Log-ratio Transform applied to a hierarchical clustering'
+            'ilr-phylogenetic:Isometric Log-ratio Transform applied to a phylogenetic tree'
+            'ilr-phylogenetic-differential:Differentially abundant Phylogenetic Log Ratios.'
+            'ilr-phylogenetic-ordination:Ordination through a phylogenetic Isometric Log Ratio transform.'
         )
         _describe 'command' commands
     }
@@ -3115,11 +3270,11 @@ function _qiime_gneiss_ilr-phylogenetic-differential {
 function _qiime_gneiss_ilr-phylogenetic-ordination {
     _arguments \
         '--i-table[The feature table containing the samples in which the ilr transform will be performed. \[required\]]' \
-        '--i-tree[A rooted phylogeny of feature identifiers that]' \
-        '--p-pseudocount[The value to add to zero counts in the feature]' \
+        '--i-tree[A rooted phylogeny of feature identifiers that defines the partitions of features. \[required\]]' \
+        '--p-pseudocount[The value to add to zero counts in the feature table \[default: 0.5\]]' \
         '--p-top-k-var[The top k most variable balances. \[default: 10\]]' \
-        '--p-clades[The names of clades to focus on (overrides]' \
-        '--o-bifurcated-tree[Phylogeny\[Rooted\] Bifurcating phylogeny \[required\]]' \
+        '--p-clades[The names of clades to focus on (overrides top-k-var). \[optional\]]' \
+        '--o-bifurcated-tree[Bifurcating phylogeny \[required\]]' \
         '--o-clade-metadata[Metadata specifying clade membership. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
@@ -3139,14 +3294,14 @@ function _qiime_longitudinal {
         commands=(
             'anova:ANOVA test'
             'feature-volatility:Feature volatility analysis'
-            'first-differences:Compute first differences or difference from'
-            'first-distances:Compute first distances or distance from baseline'
+            'first-differences:Compute first differences or difference from baseline between sequential states'
+            'first-distances:Compute first distances or distance from baseline between sequential states'
             'linear-mixed-effects:Linear mixed effects modeling'
             'maturity-index:Microbial maturity index prediction.'
             'nmit:Nonparametric microbial interdependence test'
             'pairwise-differences:Paired difference testing and boxplots'
             'pairwise-distances:Paired pairwise distance testing and boxplots'
-            'plot-feature-volatility:Plot longitudinal feature volatility and'
+            'plot-feature-volatility:Plot longitudinal feature volatility and importances'
             'volatility:Generate interactive volatility plot'
         )
         _describe 'command' commands
@@ -3243,7 +3398,7 @@ function _qiime_longitudinal_feature-volatility {
         {--p-parameter-tuning,--p-no-parameter-tuning}'[Automatically tune hyperparameters using random grid search. \[default: False\]]' \
         '--p-missing-samples[How to handle missing samples in metadata. "error" will fail if missing samples are detected. "ignore" will cause the feature table and metadata to be filtered, so that only samples found in both files are retained. \[default: '\''error'\''\]]' \
         '--p-importance-threshold[VALUE Float % Range(0, None,]' \
-        '--m-metadata-file[(multiple Sample metadata file containing]' \
+        '--m-metadata-file[Sample metadata file containing]' \
         '--p-n-estimators[Range(1, None) Number of trees to grow for estimation. More trees]' \
         '--o-filtered-table[Feature table containing only important features.]' \
         '--o-feature-importance[Importance of each input feature to model accuracy.]' \
@@ -3252,6 +3407,11 @@ function _qiime_longitudinal_feature-volatility {
         '--o-sample-estimator[Trained sample regressor. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -3323,20 +3483,20 @@ function _qiime_longitudinal_maturity-index {
         '--i-table[Feature table containing all features that should be used for target prediction. \[required\]]' \
         '--p-state-column[Numeric metadata column containing sampling time (state) data to use as prediction target. \[required\]]' \
         '--p-group-by[Categorical metadata column to use for plotting and significance testing between main treatment groups.]' \
-        '--p-control[Value of group-by to use as control group. The regression model will be trained using only control group data, and the maturity scores of other groups consequently will be assessed relative to this group.]' \
+        '--p-control[Value of group-by to use as control group. The regression model will be trained using only control group data, and the maturity scores of other groups consequently will be assessed relative to this group. \[required\]]' \
         '--p-individual-id-column[Optional metadata column containing IDs for individual subjects. Adds individual subject (spaghetti) vectors to volatility charts if a column name is provided. \[optional\]]' \
         '--p-step[If optimize-feature-selection is True, step is the percentage of features to remove at each iteration.]' \
         '--p-cv[Number of k-fold cross-validations to perform.]' \
         '--p-random-state[Seed used by random number generator. \[optional\]]' \
         '--p-n-jobs[Number of jobs to run in parallel. \[default: 1\]]' \
         {--p-parameter-tuning,--p-no-parameter-tuning}'[Automatically tune hyperparameters using random grid search. \[default: False\]]' \
-        {--p-optimize-feature-selection,--p-no-optimize-feature-selection}'[Automatically optimize input feature selection using recursive feature elimination. \[default: False\]]' \
+        {--p-optimize-feature-selection,--p-no-optimize-feature-selection}'[Automatically optimize input feature selection using recursive feature elimination.]' \
         {--p-stratify,--p-no-stratify}'[Evenly stratify training and test data among metadata categories. If True, all values in column must match at least two samples. \[default: False\]]' \
         '--p-missing-samples[How to handle missing samples in metadata. "error" will fail if missing samples are detected. "ignore" will cause the feature table and metadata to be filtered, so that only samples found in both files are retained. \[default: '\''error'\''\]]' \
-        '--m-metadata-file[(multiple]' \
+        '--m-metadata-file[(multiple arguments]' \
         '--p-n-estimators[Range(1, None) Number of trees to grow for estimation. More trees]' \
         '--p-test-size[Range(0.0, 1.0) Fraction of input samples to exclude from training]' \
-        '--p-feature-count[Range(0, None) Filter feature table to include top N most important]' \
+        '--p-feature-count[Range(0, None) Filter feature table to include top N most]' \
         '--o-sample-estimator[Trained sample estimator. \[required\]]' \
         '--o-feature-importance[Importance of each input feature to model accuracy.]' \
         '--o-predictions[Predicted target values for each input sample.]' \
@@ -3347,6 +3507,11 @@ function _qiime_longitudinal_maturity-index {
         '--o-volatility-plots[Interactive volatility plots of MAZ and maturity scores, target (column) predictions, and the sample metadata. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -3551,18 +3716,18 @@ function _qiime_phylogeny {
     function _commands {
         local -a commands
         commands=(
-            'align-to-tree-mafft-fasttree:Build a phylogenetic tree using fasttree and'
-            'align-to-tree-mafft-iqtree:Build a phylogenetic tree using iqtree and'
-            'align-to-tree-mafft-raxml:Build a phylogenetic tree using raxml and'
+            'align-to-tree-mafft-fasttree:Build a phylogenetic tree using fasttree and mafft alignment'
+            'align-to-tree-mafft-iqtree:Build a phylogenetic tree using iqtree and mafft alignment'
+            'align-to-tree-mafft-raxml:Build a phylogenetic tree using raxml and mafft alignment'
             'fasttree:Construct a phylogenetic tree with FastTree.'
-            'filter-table:Remove features from table if they'\''re not'
+            'filter-table:Remove features from table if they'\''re not present in tree.'
             'filter-tree:Remove features from tree based on metadata'
             'iqtree:Construct a phylogenetic tree with IQ-TREE.'
-            'iqtree-ultrafast-bootstrap:Construct a phylogenetic tree with IQ-TREE'
+            'iqtree-ultrafast-bootstrap:Construct a phylogenetic tree with IQ-TREE with bootstrap supports.'
             'midpoint-root:Midpoint root an unrooted phylogenetic tree.'
             'raxml:Construct a phylogenetic tree with RAxML.'
-            'raxml-rapid-bootstrap:Construct a phylogenetic tree with bootstrap'
-            'robinson-foulds:Calculate Robinson-Foulds distance between'
+            'raxml-rapid-bootstrap:Construct a phylogenetic tree with bootstrap supports using RAxML.'
+            'robinson-foulds:Calculate Robinson-Foulds distance between phylogenetic trees.'
         )
         _describe 'command' commands
     }
@@ -3648,6 +3813,11 @@ function _qiime_phylogeny_align-to-tree-mafft-fasttree {
         '--o-rooted-tree[Phylogeny\[Rooted\] The rooted phylogenetic tree. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -3671,6 +3841,11 @@ function _qiime_phylogeny_align-to-tree-mafft-iqtree {
         '--o-rooted-tree[Phylogeny\[Rooted\] The rooted phylogenetic tree. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -3692,6 +3867,11 @@ function _qiime_phylogeny_align-to-tree-mafft-raxml {
         '--o-rooted-tree[Phylogeny\[Rooted\] The rooted phylogenetic tree. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -3871,11 +4051,14 @@ function _qiime_quality-control {
         local -a commands
         commands=(
             'bowtie2-build:Build bowtie2 index from reference sequences.'
-            'evaluate-composition:Evaluate expected vs. observed taxonomic composition'
-            'evaluate-seqs:Compare query (observed) vs. reference (expected)'
+            'decontam-identify:Identify contaminants'
+            'decontam-remove:Removes contaminant'
+            'decontam-score-viz:Generate a histogram representation of the scores'
+            'evaluate-composition:Evaluate expected vs. observed taxonomic composition of samples'
+            'evaluate-seqs:Compare query (observed) vs. reference (expected) sequences.'
             'evaluate-taxonomy:Evaluate expected vs. observed taxonomic assignments'
             'exclude-seqs:Exclude sequences by alignment'
-            'filter-reads:Filter demultiplexed sequences by alignment to'
+            'filter-reads:Filter demultiplexed sequences by alignment to reference database.'
         )
         _describe 'command' commands
     }
@@ -3897,6 +4080,18 @@ function _qiime_quality-control {
         case $line[1] in
         (bowtie2-build)
             _qiime_quality-control_bowtie2-build
+            ;;
+
+        (decontam-identify)
+            _qiime_quality-control_decontam-identify
+            ;;
+
+        (decontam-remove)
+            _qiime_quality-control_decontam-remove
+            ;;
+
+        (decontam-score-viz)
+            _qiime_quality-control_decontam-score-viz
             ;;
 
         (evaluate-composition)
@@ -3930,6 +4125,56 @@ function _qiime_quality-control_bowtie2-build {
         '--i-sequences[Reference sequences used to build bowtie2 index.]' \
         '--p-n-threads[Number of threads to launch]' \
         '--o-database[Bowtie2 index.]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_quality-control_decontam-identify {
+    _arguments \
+        '--i-table[ASV or OTU table which contaminate sequences will be identified from \[required\]]' \
+        '--p-method[Select how to which method to id contaminants with; Prevalence: Utilizes control ASVs/OTUs to identify contaminants, Frequency: Utilizes sample concentration information to identify contaminants, Combined: Utilizes both Prevalence and Frequency methods when identifying contaminants \[default: '\''prevalence'\''\]]' \
+        '--p-freq-concentration-column[Input column name that has concentration information for the samples \[optional\]]' \
+        '--p-prev-control-column[Input column name containing experimental or control sample metadata \[optional\]]' \
+        '--p-prev-control-indicator[indicate the control sample identifier (e.g. "control" or "blank") \[optional\]]' \
+        '--m-metadata-file[(multiple metadata file indicating which samples in the]' \
+        '--o-decontam-scores[The resulting table of scores from the decontam algorithm which scores each ASV or OTU on how likely they are to be a contaminant sequence \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_quality-control_decontam-remove {
+    _arguments \
+        '--i-decontam-scores[Output table from decontam identify \[required\]]' \
+        '--i-table[ASV or OTU table which contaminate sequences will be identified from \[required\]]' \
+        '--p-threshold[Select threshold cutoff for decontam algorithm scores   \[default: 0.1\]]' \
+        '--o-filtered-table[The resulting feature table of scores once contaminants are removed \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_quality-control_decontam-score-viz {
+    _arguments \
+        '--i-decontam-scores[Output from decontam identify to be visualized]' \
+        '--i-table[Raw OTU/ASV table that was used as input to decontam-identify \[required\]]' \
+        '--p-threshold[Select threshold cutoff for decontam algorithm scores]' \
+        {--p-weighted,--p-no-weighted}'[weight the decontam scores by their associated read]' \
+        '--p-bin-size[Select bin size for the histogram \[default: 0.02\]]' \
+        '--o-visualization[\[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
@@ -4033,9 +4278,54 @@ function _qiime_quality-control_filter-reads {
 
 }
 
+
 function _qiime_quality-filter {
-    _arguments \
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'q-score:Quality filter based on sequence quality scores.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
         '--version[Show the version and exit.]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (q-score)
+            _qiime_quality-filter_q-score
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _qiime_quality-filter_q-score {
+    _arguments \
+        '--i-demux[The demultiplexed sequence data to be quality filtered. \[required\]]' \
+        '--p-min-quality[The minimum acceptable PHRED score. All PHRED scores less that this value are considered to be low PHRED scores. \[default: 4\]]' \
+        '--p-quality-window[The maximum number of low PHRED scores that can be observed in direct succession before truncating a sequence read. \[default: 3\]]' \
+        '--p-min-length-fraction[The minimum length that a sequence read can be following truncation and still be retained. This length should be provided as a fraction of the input sequence length. \[default: 0.75\]]' \
+        '--p-max-ambiguous[The maximum number of ambiguous (i.e., N) base calls. This is applied after trimming sequences based on `min-length-fraction`. \[default: 0\]]' \
+        '--o-filtered-sequences[The resulting quality-filtered sequences. \[required\]]' \
+        '--o-filter-stats[Summary statistics of the filtering process. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -4050,21 +4340,21 @@ function _qiime_sample-classifier {
     function _commands {
         local -a commands
         commands=(
-            'classify-samples:Train and test a cross-validated supervised'
-            'classify-samples-from-dist:Run k-nearest-neighbors on a labeled distance'
-            'classify-samples-ncv:Nested cross-validated supervised learning'
-            'confusion-matrix:Make a confusion matrix from sample classifier'
+            'classify-samples:Train and test a cross-validated supervised learning classifier.'
+            'classify-samples-from-dist:Run k-nearest-neighbors on a labeled distance matrix.'
+            'classify-samples-ncv:Nested cross-validated supervised learning classifier.'
+            'confusion-matrix:Make a confusion matrix from sample classifier predictions.'
             'fit-classifier:Fit a supervised learning classifier.'
             'fit-regressor:Fit a supervised learning regressor.'
             'heatmap:Generate heatmap of important features.'
-            'metatable:Convert (and merge) positive numeric metadata'
-            'predict-classification:Use trained classifier to predict target values'
-            'predict-regression:Use trained regressor to predict target values'
-            'regress-samples:Train and test a cross-validated supervised'
-            'regress-samples-ncv:Nested cross-validated supervised learning'
-            'scatterplot:Make 2D scatterplot and linear regression of'
-            'split-table:Split a feature table into training and testing'
-            'summarize:Summarize parameter and feature extraction'
+            'metatable:Convert (and merge) positive numeric metadata (in)to feature table.'
+            'predict-classification:Use trained classifier to predict target values for new samples.'
+            'predict-regression:Use trained regressor to predict target values for new samples.'
+            'regress-samples:Train and test a cross-validated supervised learning regressor.'
+            'regress-samples-ncv:Nested cross-validated supervised learning regressor.'
+            'scatterplot:Make 2D scatterplot and linear regression of regressor predictions.'
+            'split-table:Split a feature table into training and testing sets.'
+            'summarize:Summarize parameter and feature extraction information for a trained estimator.'
         )
         _describe 'command' commands
     }
@@ -4158,22 +4448,27 @@ function _qiime_sample-classifier_classify-samples {
         '--p-cv[Number of k-fold cross-validations to perform.]' \
         '--p-random-state[Seed used by random number generator. \[optional\]]' \
         '--p-n-jobs[Number of jobs to run in parallel. \[default: 1\]]' \
-        {--p-optimize-feature-selection,--p-no-optimize-feature-selection}'[Automatically optimize input feature selection using recursive feature elimination. \[default: False\]]' \
+        {--p-optimize-feature-selection,--p-no-optimize-feature-selection}'[Automatically optimize input feature selection using recursive feature elimination.]' \
         {--p-parameter-tuning,--p-no-parameter-tuning}'[Automatically tune hyperparameters using random grid search. \[default: False\]]' \
         '--p-missing-samples[How to handle missing samples in metadata. "error" will fail if missing samples are detected. "ignore" will cause the feature table and metadata to be filtered, so that only samples found in both files are retained. \[default: '\''error'\''\]]' \
-        '--p-test-size[Range(0.0, 1.0) Fraction of input samples to exclude from training set]' \
+        '--p-test-size[Range(0.0, 1.0) Fraction of input samples to exclude from training]' \
         '--p-n-estimators[Range(1, None) Number of trees to grow for estimation. More trees]' \
         '--o-sample-estimator[Trained sample estimator. \[required\]]' \
         '--o-feature-importance[Importance of each input feature to model accuracy.]' \
         '--o-predictions[Predicted target values for each input sample.]' \
         '--o-model-summary[Summarized parameter and (if enabled) feature selection information for the trained estimator.]' \
         '--o-accuracy-results[Accuracy results visualization. \[required\]]' \
-        '--o-probabilities[Predicted class probabilities for each input sample.]' \
+        '--o-probabilities[Predicted class probabilities for each input sample. \[required\]]' \
         '--o-heatmap[A heatmap of the top 50 most important features from the table. \[required\]]' \
-        '--o-training-targets[Series containing true target values of train samples]' \
-        '--o-test-targets[Series containing true target values of test samples]' \
+        '--o-training-targets[Series containing true target values of train samples \[required\]]' \
+        '--o-test-targets[Series containing true target values of test samples \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -4186,13 +4481,19 @@ function _qiime_sample-classifier_classify-samples-from-dist {
         '--i-distance-matrix[DistanceMatrix a distance matrix \[required\]]' \
         '--p-k[Number of nearest neighbors \[default: 1\]]' \
         '--p-cv[Number of k-fold cross-validations to perform.   Range(1, None) \[default: 5\]]' \
-        '--p-n-jobs[Number of jobs to run in parallel.         \[default: 1\],--p-palette TEXT Choices('\''YellowOrangeBrown'\'', '\''YellowOrangeRed'\'',   '\''OrangeRed'\'', '\''PurpleRed'\'', '\''RedPurple'\'', '\''BluePurple'\'', '\''GreenBlue'\'', '\''PurpleBlue'\'', '\''YellowGreen'\'', '\''summer'\'', '\''copper'\'', '\''viridis'\'', '\''cividis'\'', '\''plasma'\'', '\''inferno'\'', '\''magma'\'', '\''sirocco'\'', '\''drifting'\'', '\''melancholy'\'', '\''enigma'\'', '\''eros'\'', '\''spectre'\'', '\''ambition'\'', '\''mysteriousstains'\'', '\''daydream'\'', '\''solano'\'', '\''navarro'\'', '\''dandelions'\'', '\''deepblue'\'', '\''verve'\'', '\''greyscale'\'')]' \
+        '--p-n-jobs[Number of jobs to run in parallel. \[default: 1\]]' \
+        '--p-palette[Choose color palette]' \
         {--m-metadata-file,--m-metadata-column}'[Categorical metadata column to use as prediction target. \[required\]]' \
         '--p-random-state[Seed used by random number generator. \[optional\]]' \
         '--o-predictions[leave one out predictions for each sample \[required\]]' \
         '--o-accuracy-results[Accuracy results visualization. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -4288,8 +4589,7 @@ function _qiime_sample-classifier_heatmap {
     _arguments \
         '--i-table[Feature table containing all features that should be used for target prediction. \[required\]]' \
         '--i-importance[Feature importances. \[required\]]' \
-        '--m-sample-metadata-file[METADATA]' \
-        '--m-sample-metadata-column[Sample metadata column to use for sample labeling or grouping. \[optional\]]' \
+        {--m-sample-metadata-file,--m-sample-metadata-column}'[Sample metadata column to use for sample labeling or grouping. \[optional\]]' \
         '--m-feature-metadata-file[METADATA]' \
         '--m-feature-metadata-column[Feature metadata (e.g., taxonomy) to use for labeling features in the heatmap. \[optional\]]' \
         '--p-importance-threshold[NUMBER]' \
@@ -4297,11 +4597,16 @@ function _qiime_sample-classifier_heatmap {
         {--p-normalize,--p-no-normalize}'[Normalize the feature table by adding a psuedocount of 1 and then taking the log10 of the table.]' \
         '--p-missing-samples[How to handle missing samples in metadata. "error" will fail if missing samples are detected. "ignore" will cause the feature table and metadata to be filtered, so that only samples found in both files are retained. \[default: '\''ignore'\''\]]' \
         '--p-cluster[Specify which axes to cluster. \[default: '\''features'\''\]]' \
-        '--p-feature-count[Range(0, None) Filter feature table to include top N most important]' \
+        '--p-feature-count[Range(0, None) Filter feature table to include top N most]' \
         '--o-heatmap[Heatmap of important features. \[required\]]' \
         '--o-filtered-table[Filtered feature table containing data displayed in heatmap. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -4313,11 +4618,17 @@ function _qiime_sample-classifier_metatable {
     _arguments \
         '--i-table[Feature table containing all features that should be used for target prediction. \[optional\]]' \
         '--p-missing-samples[How to handle missing samples in metadata. "error" will fail if missing samples are detected. "ignore" will cause the feature table and metadata to be filtered, so that only samples found in both files are retained. \[default: '\''ignore'\''\]]' \
+        '--p-missing-values[Choices('\''drop_samples'\'', '\''drop_features'\'', '\''error'\'',]' \
         {--p-drop-all-unique,--p-no-drop-all-unique}'[If True, columns that contain a unique value for every ID will be dropped. \[default: False\]]' \
-        '--m-metadata-file[(multiple Metadata file to convert to feature table.]' \
+        '--m-metadata-file[(multiple arguments Metadata file to convert to feature table.]' \
         '--o-converted-table[Converted feature table \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -4359,16 +4670,16 @@ function _qiime_sample-classifier_predict-regression {
 function _qiime_sample-classifier_regress-samples {
     _arguments \
         '--i-table[Feature table containing all features that should be used for target prediction. \[required\]]' \
-        {--m-metadata-file,--m-metadata-column}'[Numeric metadata column to use as prediction target.]' \
+        {--m-metadata-file,--m-metadata-column}'[Numeric metadata column to use as prediction target. \[required\]]' \
         '--p-step[If optimize-feature-selection is True, step is the percentage of features to remove at each iteration.]' \
         '--p-cv[Number of k-fold cross-validations to perform.]' \
         '--p-random-state[Seed used by random number generator. \[optional\]]' \
         '--p-n-jobs[Number of jobs to run in parallel. \[default: 1\]]' \
-        {--p-optimize-feature-selection,--p-no-optimize-feature-selection}'[Automatically optimize input feature selection using recursive feature elimination. \[default: False\]]' \
+        {--p-optimize-feature-selection,--p-no-optimize-feature-selection}'[Automatically optimize input feature selection using recursive feature elimination.]' \
         {--p-stratify,--p-no-stratify}'[Evenly stratify training and test data among metadata categories. If True, all values in column must match at least two samples. \[default: False\]]' \
         {--p-parameter-tuning,--p-no-parameter-tuning}'[Automatically tune hyperparameters using random grid search. \[default: False\]]' \
         '--p-missing-samples[How to handle missing samples in metadata. "error" will fail if missing samples are detected. "ignore" will cause the feature table and metadata to be filtered, so that only samples found in both files are retained. \[default: '\''error'\''\]]' \
-        '--p-test-size[Range(0.0, 1.0) Fraction of input samples to exclude from training set]' \
+        '--p-test-size[Range(0.0, 1.0) Fraction of input samples to exclude from training]' \
         '--p-n-estimators[Range(1, None) Number of trees to grow for estimation. More trees]' \
         '--o-sample-estimator[Trained sample estimator. \[required\]]' \
         '--o-feature-importance[Importance of each input feature to model accuracy.]' \
@@ -4377,6 +4688,11 @@ function _qiime_sample-classifier_regress-samples {
         '--o-accuracy-results[Accuracy results visualization. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
         '--example-data[Write example data and exit.]':file:_files \
         '--citations[Show citations and exit.]' \
         '--help[Show this message and exit.]' \
@@ -4507,7 +4823,8 @@ function _qiime_taxa {
 function _qiime_taxa_barplot {
     _arguments \
         '--i-table[Feature table to visualize at various taxonomic levels. \[required\]]' \
-        '--i-taxonomy[Taxonomic annotations for features in the provided feature table. All features in the feature table must have a corresponding taxonomic annotation. Taxonomic annotations that are not present in the feature table will be ignored. \[required\]]' \
+        '--i-taxonomy[Taxonomic annotations for features in the provided feature table. All features in the feature table must have a corresponding taxonomic annotation. Taxonomic annotations that are not present in the feature table will be ignored. If no taxonomy is provided, the feature IDs will be used as labels. \[optional\]]' \
+        '--p-level-delimiter[Attempt to parse hierarchical taxonomic information from feature IDs by separating levels with this character. This parameter is ignored if a taxonomy is provided as input. \[optional\]]' \
         '--m-metadata-file[(multiple The sample metadata.]' \
         '--o-visualization[\[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
@@ -4577,7 +4894,9 @@ function _qiime_vsearch {
     function _commands {
         local -a commands
         commands=(
+            'cluster-features-closed-reference:Closed-reference clustering of features.'
             'cluster-features-de-novo:De novo clustering of features.'
+            'cluster-features-open-reference:Open-reference clustering of features.'
             'dereplicate-sequences:Dereplicate sequences.'
             'fastq-stats:Fastq stats with vsearch.'
             'merge-pairs:Merge paired-end reads.'
@@ -4602,8 +4921,16 @@ function _qiime_vsearch {
         ;;
     (subcmd)
         case $line[1] in
+        (cluster-features-closed-reference)
+            _qiime_vsearch_cluster-features-closed-reference
+            ;;
+
         (cluster-features-de-novo)
             _qiime_vsearch_cluster-features-de-novo
+            ;;
+
+        (cluster-features-open-reference)
+            _qiime_vsearch_cluster-features-open-reference
             ;;
 
         (dereplicate-sequences)
@@ -4632,6 +4959,26 @@ function _qiime_vsearch {
 
 }
 
+function _qiime_vsearch_cluster-features-closed-reference {
+    _arguments \
+        '--i-sequences[The sequences corresponding to the features in table. \[required\]]' \
+        '--i-table[The feature table to be clustered. \[required\]]' \
+        '--i-reference-sequences[The sequences to use as cluster centroids. \[required\]]' \
+        '--p-perc-identity[The percent identity at which clustering should be performed. This parameter maps to vsearch'\''s --id parameter. \[required\]]' \
+        '--p-strand[Search plus (i.e., forward) or both (i.e., forward and reverse complement) strands. \[default: '\''plus'\''\]]' \
+        '--p-threads[The number of threads to use for computation. Passing 0 will launch one thread per CPU core. \[default: 1\]]' \
+        '--o-clustered-table[The table following clustering of features. \[required\]]' \
+        '--o-clustered-sequences[The sequences representing clustered features, relabeled by the reference IDs. \[required\]]' \
+        '--o-unmatched-sequences[The sequences which failed to match any reference sequences. This output maps to vsearch'\''s --notmatched parameter. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
 function _qiime_vsearch_cluster-features-de-novo {
     _arguments \
         '--i-sequences[The sequences corresponding to the features in table. \[required\]]' \
@@ -4648,13 +4995,37 @@ function _qiime_vsearch_cluster-features-de-novo {
 
 }
 
+function _qiime_vsearch_cluster-features-open-reference {
+    _arguments \
+        '--i-sequences[The sequences corresponding to the features in table. \[required\]]' \
+        '--i-table[The feature table to be clustered. \[required\]]' \
+        '--i-reference-sequences[The sequences to use as cluster centroids. \[required\]]' \
+        '--p-perc-identity[The percent identity at which clustering should be performed. This parameter maps to vsearch'\''s --id parameter. \[required\]]' \
+        '--p-strand[Search plus (i.e., forward) or both (i.e., forward and reverse complement) strands. \[default: '\''plus'\''\]]' \
+        '--p-threads[The number of threads to use for computation. Passing 0 will launch one thread per CPU core. \[default: 1\]]' \
+        '--o-clustered-table[The table following clustering of features. \[required\]]' \
+        '--o-clustered-sequences[Sequences representing clustered features. \[required\]]' \
+        '--o-new-reference-sequences[The new reference sequences. This can be used for subsequent runs of open-reference clustering for consistent definitions of features across open-reference feature tables. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
 function _qiime_vsearch_dereplicate-sequences {
     _arguments \
-        '--i-sequences[|   SampleData\[SequencesWithQuality\] | SampleData\[JoinedSequencesWithQuality\]]' \
-        '--i-sequences[|   SampleData\[SequencesWithQuality\] | SampleData\[JoinedSequencesWithQuality\]]' \
+        '--i-sequences[The sequences to be dereplicated. \[required\]]' \
         {--p-derep-prefix,--p-no-derep-prefix}'[Merge sequences with identical prefixes. If a sequence is identical to the prefix of two or more longer sequences, it is clustered with the shortest of them. If they are equally long, it is clustered with the most abundant. \[default: False\]]' \
-        '--p-min-seq-length[Range(1, None) Discard sequences shorter than this integer.]' \
-        '--p-min-unique-size[Range(1, None) Discard sequences with a post-dereplication]' \
+        '--p-min-seq-length[Discard sequences shorter than this integer.]' \
+        '--p-min-unique-size[Discard sequences with a post-dereplication]' \
         '--o-dereplicated-table[The table of dereplicated sequences. \[required\]]' \
         '--o-dereplicated-sequences[The dereplicated sequences. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
@@ -4680,15 +5051,15 @@ function _qiime_vsearch_fastq-stats {
 
 function _qiime_vsearch_merge-pairs {
     _arguments \
-        '--i-demultiplexed-seqs[ARTIFACT SampleData\[PairedEndSequencesWithQuality\] The demultiplexed paired-end sequences to be merged.]' \
-        '--p-truncqual[Truncate sequences at the first base with the]' \
-        '--p-minlen[Sequences shorter than minlen after truncation are]' \
-        '--p-maxns[Sequences with more than maxns N characters are]' \
+        '--i-demultiplexed-seqs[The demultiplexed paired-end sequences to be merged. \[required\]]' \
+        '--p-truncqual[Truncate sequences at the first base with the specified quality score value or lower. \[optional\]]' \
+        '--p-minlen[Sequences shorter than minlen after truncation are discarded.]' \
+        '--p-maxns[Sequences with more than maxns N characters are discarded.]' \
         {--p-allowmergestagger,--p-no-allowmergestagger}'[Allow merging of staggered read pairs.]' \
-        '--p-minovlen[Minimum length of the area of overlap between reads]' \
-        '--p-maxdiffs[Maximum number of mismatches in the area of overlap]' \
-        '--p-minmergelen[Range(0, None) Minimum length of the merged read to be retained.]' \
-        '--p-maxmergelen[Range(0, None) Maximum length of the merged read to be retained.]' \
+        '--p-minovlen[Minimum length of the area of overlap between reads during merging. \[default: 10\]]' \
+        '--p-maxdiffs[Maximum number of mismatches in the area of overlap during merging. \[default: 10\]]' \
+        '--p-minmergelen[Minimum length of the merged read to be retained.]' \
+        '--p-maxmergelen[Maximum length of the merged read to be retained.]' \
         '--p-maxee[Maximum number of expected errors in the merged read]' \
         '--p-threads[The number of threads to use for computation. Does]' \
         '--o-merged-sequences[The merged sequences. \[required\]]' \
@@ -4703,11 +5074,11 @@ function _qiime_vsearch_merge-pairs {
 
 function _qiime_vsearch_uchime-denovo {
     _arguments \
-        '--i-sequences[The feature sequences to be chimera-checked.]' \
+        '--i-sequences[The feature sequences to be chimera-checked. \[required\]]' \
         '--i-table[Feature table (used for computing total feature abundances). \[required\]]' \
-        '--p-dn[No vote pseudo-count, corresponding to the]' \
-        '--p-mindiffs[Minimum number of differences per segment.]' \
-        '--p-mindiv[Minimum divergence from closest parent.]' \
+        '--p-dn[No vote pseudo-count, corresponding to thep arameter n in the chimera scoring function. \[default: 1.4\]]' \
+        '--p-mindiffs[Minimum number of differences per segment. \[default: 3\]]' \
+        '--p-mindiv[Minimum divergence from closest parent. \[default: 0.8\]]' \
         '--p-minh[Minimum score (h). Increasing this value tends to reduce the number of false positives and to decrease sensitivity. \[default: 0.28\]]' \
         '--p-xn[No vote weight, corresponding to the parameter beta in the scoring function. \[default: 8.0\]]' \
         '--o-chimeras[The chimeric sequences. \[required\]]' \
