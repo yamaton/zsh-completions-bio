@@ -55,6 +55,7 @@ function _seqkit {
 
     _arguments -C \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         {-h,--help}'[help for seqkit]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
@@ -237,6 +238,7 @@ function _seqkit {
 
 function _seqkit_amplicon {
     _arguments \
+        '-5-3-1[x/y]' \
         '--bed[output in BED6+1 format with amplicon as the 7th column]' \
         {-f,--flanking-region}'[region is flanking region]' \
         {-F,--forward}'[forward primer (5'\''-primer-3'\''), degenerate bases allowed]' \
@@ -251,6 +253,7 @@ function _seqkit_amplicon {
         {-u,--save-unmatched}'[also save records that do not match any primer]' \
         {-s,--strict-mode}'[strict mode, i.e., discarding seqs not fully matching (shorter) given region range]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -296,6 +299,7 @@ function _seqkit_bam {
         {-@,--top-bam}'[save the top -? records to this bam file]' \
         {-?,--top-size}'[size of the top-mode buffer (default 100)]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -316,6 +320,7 @@ function _seqkit_common {
         {-i,--ignore-case}'[ignore case]' \
         {-P,--only-positive-strand}'[only considering positive strand when comparing by sequence]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -334,6 +339,7 @@ function _seqkit_concat {
         {-h,--help}'[help for concat]' \
         {-s,--separator}'[separator for descriptions of records with the same ID (default "|")]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -357,6 +363,7 @@ function _seqkit_convert {
         {-F,--thresh-illumina1.5-frac}'[threshold of faction of Illumina 1.5 in the leading N records (default 0.1)]' \
         '--to[target quality encoding (default "Sanger")]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -374,6 +381,7 @@ function _seqkit_duplicate {
         {-h,--help}'[help for duplicate]' \
         {-n,--times}'[duplication number (default 1)]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -392,6 +400,7 @@ function _seqkit_fa2fq {
         {-h,--help}'[help for fa2fq]' \
         {-P,--only-positive-strand}'[only search on positive strand]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -411,8 +420,10 @@ function _seqkit_faidx {
         {-i,--ignore-case}'[ignore case]' \
         {-I,--immediate-output}'[print output immediately, do not use write buffer]' \
         {-l,--region-file}'[file containing a list of regions]' \
+        {-U,--update-faidx}'[update the fasta index file if it exists. Use this if you are not sure whether the fasta file changed]' \
         {-r,--use-regexp}'[IDs are regular expression. But subseq region is not supported here.]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -443,6 +454,7 @@ function _seqkit_fish {
         {-v,--validate-seq}'[validate bases according to the alphabet]' \
         {-V,--validate-seq-length}'[length of sequence to validate (0 for whole seq) (default 10000)]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -459,6 +471,7 @@ function _seqkit_fq2fa {
     _arguments \
         {-h,--help}'[help for fq2fa]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -489,6 +502,7 @@ function _seqkit_fx2tab {
         {-b,--qual-ascii-base}'[ASCII BASE, 33 for Phred+33 (default 33)]' \
         {-s,--seq-hash}'[print hash (MD5) of sequence]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -507,6 +521,7 @@ function _seqkit_genautocomplete {
         {-h,--help}'[help for genautocomplete]' \
         '--shell[autocompletion type (bash|zsh|fish|powershell) (default "bash")]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -533,11 +548,12 @@ function _seqkit_grep {
         {-v,--invert-match}'[invert the sense of matching, to select non-matching records]' \
         {-m,--max-mismatch}'[max mismatch when matching by seq. For large genomes like human genome, using mapping/alignment tools would be faster]' \
         {-P,--only-positive-strand}'[only search on positive strand]' \
-        {-p,--pattern}'[search pattern (multiple values supported. Attention: use double quotation marks for patterns containing comma, e.g., -p '\''"A{2,}"'\''))]' \
+        {-p,--pattern}'[search pattern (multiple values supported. Attention: use double quotation marks for patterns containing comma, e.g., -p '\''"A{2,}"'\'')]' \
         {-f,--pattern-file}'[pattern file (one record per line)]' \
         {-R,--region}'[specify sequence region for searching. e.g 1:12 for first 12 bases, -12:-1 for last 12 bases]' \
         {-r,--use-regexp}'[patterns are regular expression]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -555,6 +571,7 @@ function _seqkit_head {
         {-h,--help}'[help for head]' \
         {-n,--number}'[print first N FASTA/Q records (default 10)]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -572,6 +589,7 @@ function _seqkit_head-genome {
         {-h,--help}'[help for head-genome]' \
         {-m,--mini-common-words}'[minimal shared prefix words (default 1)]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -603,6 +621,7 @@ function _seqkit_locate {
         {-r,--use-regexp}'[patterns/motifs are regular expression]' \
         {-V,--validate-seq-length}'[length of sequence to validate (0 for whole seq) (default 10000)]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -628,6 +647,7 @@ function _seqkit_mutate {
         {-p,--point}'[point mutation: changing base at given position. e.g., -p 2:C for setting 2nd base as C, -p -1:A for change last base as A]' \
         {-r,--use-regexp}'[\[match seqs to mutate\] search patterns are regular expression]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -649,6 +669,7 @@ function _seqkit_pair {
         {-2,--read2}'[(gzipped) read2 file]' \
         {-u,--save-unpaired}'[save unpaired reads if there are]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -666,6 +687,7 @@ function _seqkit_range {
         {-h,--help}'[help for range]' \
         {-r,--range}'[range. e.g., 1:12 for first 12 records (head -n 12), -12:-1 for last 12 records (tail -n 12)]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -685,7 +707,11 @@ function _seqkit_rename {
         {-h,--help}'[help for rename]' \
         {-m,--multiple-outfiles}'[write results into separated files for multiple input files]' \
         {-O,--out-dir}'[output directory (default "renamed")]' \
+        {-1,--rename-1st-rec}'[rename the first record as well]' \
+        {-s,--separator}'[separator between original ID/name and the counter (default "_")]' \
+        {-N,--start-num}'[starting count number for *duplicated* IDs/names, should be greater than zero (default 2)]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -701,6 +727,14 @@ function _seqkit_rename {
 function _seqkit_replace {
     _arguments \
         {-s,--by-seq}'[replace seq (only FASTA)]' \
+        '--f-by-name[\[target filter\] match by full name instead of just ID]' \
+        '--f-by-seq[\[target filter\] search subseq on seq, both positive and negative strand are searched, and mismatch allowed using flag -m/--max-mismatch]' \
+        '--f-ignore-case[\[target filter\] ignore case]' \
+        '--f-invert-match[\[target filter\] invert the sense of matching, to select non-matching records]' \
+        '--f-only-positive-strand[\[target filter\] only search on positive strand]' \
+        '--f-pattern[\[target filter\] search pattern (multiple values supported. Attention: use double quotation marks for patterns containing comma, e.g., -p '\''"A{2,}"'\'')]' \
+        '--f-pattern-file[\[target filter\] pattern file (one record per line)]' \
+        '--f-use-regexp[\[target filter\] patterns are regular expression]' \
         {-h,--help}'[help for replace]' \
         {-i,--ignore-case}'[ignore case]' \
         {-K,--keep-key}'[keep the key as value when no value found for the key (only for sequence name)]' \
@@ -712,6 +746,7 @@ function _seqkit_replace {
         {-p,--pattern}'[search regular expression]' \
         {-r,--replacement}'[replacement. supporting capture variables. e.g. $1 represents the text of the first submatch. ATTENTION: for *nix OS, use SINGLE quote NOT double quotes or use the \ escape character. Record number is also supported by "{nr}".use ${1} instead of $1 when {kv} given!]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -729,6 +764,7 @@ function _seqkit_restart {
         {-h,--help}'[help for restart]' \
         {-i,--new-start}'[new start position (1-base, supporting negative value counting from the end) (default 1)]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -751,6 +787,7 @@ function _seqkit_rmdup {
         {-i,--ignore-case}'[ignore case]' \
         {-P,--only-positive-strand}'[only considering positive strand when comparing by sequence]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -771,6 +808,7 @@ function _seqkit_sample {
         {-s,--rand-seed}'[rand seed (default 11)]' \
         {-2,--two-pass}'[2-pass mode read files twice to lower memory usage. Not allowed when reading from stdin]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -792,6 +830,7 @@ function _seqkit_sana {
         {-O,--out-format}'[output format: fastq or fasta]' \
         {-b,--qual-ascii-base}'[ASCII BASE, 33 for Phred+33 (default 33)]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -820,6 +859,7 @@ function _seqkit_scat {
         {-T,--time-limit}'[quit after inactive for this time period]' \
         {-p,--wait-pid}'[after process with this PID exited (default -1)]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -840,9 +880,9 @@ function _seqkit_seq {
         {-G,--gap-letters}'[gap letters (default "- \t.")]' \
         {-h,--help}'[help for seq]' \
         {-l,--lower-case}'[print sequences in lower case]' \
-        {-M,--max-len}'[only print sequences shorter than the maximum length (-1 for no limit) (default -1)]' \
+        {-M,--max-len}'[only print sequences shorter than or equal to the maximum length (-1 for no limit) (default -1)]' \
         {-R,--max-qual}'[only print sequences with average quality less than this limit (-1 for no limit) (default -1)]' \
-        {-m,--min-len}'[only print sequences longer than the minimum length (-1 for no limit) (default -1)]' \
+        {-m,--min-len}'[only print sequences longer than or equal to the minimum length (-1 for no limit) (default -1)]' \
         {-Q,--min-qual}'[only print sequences with average quality qreater or equal than this limit (-1 for no limit) (default -1)]' \
         {-n,--name}'[only print names]' \
         {-i,--only-id}'[print ID instead of full head]' \
@@ -856,6 +896,7 @@ function _seqkit_seq {
         {-v,--validate-seq}'[validate bases according to the alphabet]' \
         {-V,--validate-seq-length}'[length of sequence to validate (0 for whole seq) (default 10000)]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -874,7 +915,9 @@ function _seqkit_shuffle {
         {-k,--keep-temp}'[keep temporary FASTA and .fai file when using 2-pass mode]' \
         {-s,--rand-seed}'[rand seed for shuffle (default 23)]' \
         {-2,--two-pass}'[two-pass mode read files twice to lower memory usage. (only for FASTA format)]' \
+        {-U,--update-faidx}'[update the fasta index file if it exists. Use this if you are not sure whether the fasta file changed]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -894,8 +937,10 @@ function _seqkit_sliding {
         {-g,--greedy}'[greedy mode, i.e., exporting last subsequences even shorter than windows size]' \
         {-h,--help}'[help for sliding]' \
         {-s,--step}'[step size]' \
+        {-S,--suffix}'[suffix added to the sequence ID (default "_sliding")]' \
         {-W,--window}'[window size]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -922,7 +967,9 @@ function _seqkit_sort {
         {-r,--reverse}'[reverse the result]' \
         {-L,--seq-prefix-length}'[length of sequence prefix on which seqkit sorts by sequences (0 for whole sequence) (default 10000)]' \
         {-2,--two-pass}'[two-pass mode read files twice to lower memory usage. (only for FASTA format)]' \
+        {-U,--update-faidx}'[update the fasta index file if it exists. Use this if you are not sure whether the fasta file changed]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -952,7 +999,9 @@ function _seqkit_split {
         {-k,--keep-temp}'[keep temporary FASTA and .fai file when using 2-pass mode]' \
         {-O,--out-dir}'[output directory (default value is $infile.split)]' \
         {-2,--two-pass}'[two-pass mode read files twice to lower memory usage. (only for FASTA format)]' \
+        {-U,--update-faidx}'[update the fasta index file if it exists. Use this if you are not sure whether the fasta file changed]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -980,6 +1029,7 @@ function _seqkit_split2 {
         {-1,--read1}'[(gzipped) read1 file]' \
         {-2,--read2}'[(gzipped) read2 file]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -1003,6 +1053,7 @@ function _seqkit_stats {
         {-i,--stdin-label}'[label for replacing default "-" for stdin (default "-")]' \
         {-T,--tabular}'[output in machine-friendly tabular format]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -1027,7 +1078,9 @@ function _seqkit_subseq {
         {-f,--only-flank}'[only return up/down stream sequence]' \
         {-r,--region}'[by region. e.g 1:12 for first 12 bases, -12:-1 for last 12 bases, 13:-1 for cutting first 12 bases. type "seqkit subseq -h" for more examples]' \
         {-u,--up-stream}'[up stream length]' \
+        {-U,--update-faidx}'[update the fasta index file if it exists. Use this if you are not sure whether the fasta file changed]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -1054,6 +1107,7 @@ function _seqkit_sum {
         '--rna2dna[convert RNA to DNA]' \
         {-s,--single-strand}'[only consider the positive strand of a circular genome, e.g., ssRNA virus genomes]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -1072,6 +1126,7 @@ function _seqkit_tab2fx {
         {-p,--comment-line-prefix}'[comment line prefix (default \[#,//\])]' \
         {-h,--help}'[help for tab2fx]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -1097,6 +1152,7 @@ function _seqkit_translate {
         {-T,--transl-table}'[translate table/genetic code, type '\''seqkit translate --help'\'' for more details (default 1)]' \
         '--trim[remove all '\''X'\'' and '\''*'\'' characters from the right end of the translation]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -1114,6 +1170,7 @@ function _seqkit_version {
         {-u,--check-update}'[check update]' \
         {-h,--help}'[help for version]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
@@ -1144,6 +1201,7 @@ function _seqkit_watch {
         {-v,--validate-seq}'[validate bases according to the alphabet]' \
         {-V,--validate-seq-length}'[length of sequence to validate (0 for whole seq) (default 10000)]' \
         '--alphabet-guess-seq-length[length of sequence prefix of the first FASTA record based on which seqkit guesses the sequence type (0 for whole seq) (default 10000)]' \
+        '--compress-level[compression level for gzip, zstd, xz and bzip2. type "seqkit -h" for the range and default value for each format (default -1)]' \
         '--id-ncbi[FASTA head is NCBI-style, e.g. >gi|110645304|ref|NC_002516.2| Pseud...]' \
         '--id-regexp[regular expression for parsing ID (default "^(\\S+)\\s?")]' \
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \

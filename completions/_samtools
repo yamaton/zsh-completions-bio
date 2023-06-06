@@ -32,11 +32,13 @@ function _samtools {
             'fasta:converts a BAM to a FASTA'
             'import:Converts FASTA or FASTQ files to SAM/BAM/CRAM'
             'reference:Generates a reference from aligned data'
+            'reset:Reverts aligner changes in reads'
             'bedcov:read depth per BED region'
             'coverage:alignment depth and percent coverage'
             'depth:compute the depth'
             'flagstat:simple stats'
             'idxstats:BAM index stats'
+            'cram-size:list CRAM Content-ID and Data-Series sizes'
             'phase:phase heterozygotes'
             'stats:generate stats (former bamcheck)'
             'ampliconstats:generate amplicon specific stats'
@@ -153,6 +155,10 @@ function _samtools {
             _samtools_reference
             ;;
 
+        (reset)
+            _samtools_reset
+            ;;
+
         (bedcov)
             _samtools_bedcov
             ;;
@@ -171,6 +177,10 @@ function _samtools {
 
         (idxstats)
             _samtools_idxstats
+            ;;
+
+        (cram-size)
+            _samtools_cram-size
             ;;
 
         (phase)
@@ -348,6 +358,7 @@ function _samtools_markdup {
         '-d[The optical duplicate distance. Suggested settings of 100 for HiSeq style platforms or about 2500 for NovaSeq ones. Default is 0 to not look for optical duplicates. When set, duplicate reads are tagged with dt:Z:SQ for optical duplicates and dt:Z:LB otherwise. Calculation of distance depends on coordinate data embedded in the read names produced by the Illumina sequencing machines. Optical duplicate detection will not work on non standard names without the use of --read-coords.]' \
         '-c[Clear previous duplicate settings and tags.]' \
         '-t[Mark duplicates with the name of the original in a do tag.]' \
+        '--duplicate-count[Record the original primary read duplication count(include itself) in a dc tag.]' \
         {-m,--mode}'[Duplicate decision method for paired reads. Values are t or s. Mode t measures positions based on template start/end (default). Mode s measures positions based on sequence start. While the two methods identify mostly the same reads as duplicates, mode s tends to return more results. Unpaired reads are treated identically by both modes.]' \
         '-u[Output uncompressed SAM, BAM or CRAM.]' \
         '--include-fails[Include quality checked failed reads.]' \
@@ -392,8 +403,9 @@ function _samtools_ampliconclip {
 
 function _samtools_collate {
     _arguments \
-        '-O[Output to stdout. This option cannot be used with '\''-o'\''.]' \
-        '-o[Write output to FILE. This option cannot be used with '\''-O'\''.]':file:_files \
+        '-O[Output to stdout. This option cannot be used with -o.]' \
+        '-o[Write output to FILE. This option cannot be used with -O. If unspecified and -O is not set, the temporary file <prefix> is used, appended by the the appropriate file-format suffix.]':file:_files \
+        '-T[Use PREFIX for temporary files. This is the same as specifying PREFIX as the last argument on the command line. This option is included for consistency with samtools sort.]' \
         '-u[Write uncompressed BAM output]' \
         '-l[Compression level. \[1\]]' \
         '-n[Number of temporary files to use. \[64\]]' \
@@ -422,7 +434,7 @@ function _samtools_consensus {
         {-f,--format}'[Produce format FMT, with "fastq", "fasta" and "pileup" as permitted options.]' \
         {-l,--line-len}'[Sets the maximum line length of line-wrapped fasta and fastq formats to N.]' \
         {-o,--output}'[Output consensus to FILE instead of stdout.]':file:_files \
-        {-m,--mode}'[Select the consensus algorithm. Valid modes are "simple" frequency counting and the "bayesian" (Gap5) method, with Bayesian being the default. (Note case does not matter, so "Bayesian" is accepted too.)]' \
+        {-m,--mode}'[Select the consensus algorithm. Valid modes are "simple" frequency counting and the "bayesian" (Gap5) methods, with Bayesian being the default. (Note case does not matter, so "Bayesian" is accepted too.) There are a variety of bayesian methods. Straight "bayesian" is the best set suitable for the other parameters selected. The choice of internal parameters may change depending on the "--P-indel" score. This method distinguishes between substitution and indel error rates. The old Samtools consensus in version 1.16 did not distinguish types of errors, but for compatibility the "bayesian_116" mode may be selected to replicate this.]' \
         '-a[Outputs all bases, from start to end of reference, even when the aligned data does not extend to the ends. This is most useful for construction of a full length reference sequence.]' \
         {--rf,--incl-flags}'[Only include reads with at least one FLAG bit set. Defaults to zero, which filters no reads.]' \
         {--ff,--excl-flags}'[Exclude reads with any FLAG bit set. Defaults to "UNMAP,SECONDARY,QCFAIL,DUP".]' \
@@ -430,6 +442,7 @@ function _samtools_consensus {
         '--min-BQ[Filters out bases with a base quality below INT. This defaults to zero.]' \
         '--show-del[Whether to show deletions as "*" (no) or to omit from the output (yes). Defaults to no.]' \
         '--show-ins[Whether to show insertions in the consensus. Defaults to yes.]' \
+        '--mark-ins[Insertions, when shown, are normally recorded in the consensus with plain 7-bit ASCII (ACGT, or acgt if heterozygous). However this makes it impossible to identify the mapping between consensus coordinates and the original reference coordinates. If fasta output is selected then the option adds an underscore before every inserted base, plus a corresponding character in the quality for fastq format. When used in conjunction with -a --show-del yes, this permits an easy derivation of the consensus to reference coordinate mapping.]' \
         {-A,--ambig}'[Enables IUPAC ambiguity codes in the consensus output. Without this the output will be limited to A, C, G, T, N and *.]' \
         {-q,--use-qual}'[For the simple consensus algorithm, this enables use of base quality values. Instead of summing 1 per base called, it sums the base quality instead. These sums are also used in the --call-fract and --het-fract parameters too. Quality values are always used for the "Gap5" consensus method and this option has no affect. Note currently quality values only affect SNPs and not inserted sequences, which still get scores with a fixed +1 per base type occurrence.]' \
         {-d,--min-depth}'[The minimum depth required to make a call. Defaults to 1. Failing this depth check will produce consensus "N", or absent if it is an insertion. Note this check is performed after filtering by flags and mapping/base quality.]' \
@@ -442,8 +455,12 @@ function _samtools_consensus {
         '--NM-halo[Specifies the distance either side of the base call being considered for computing the number of local mismatches.]' \
         {--low-MQ,--high-MQ}'[Specifies a minimum and maximum value of the mapping quality. These are not filters and instead simply put upper and lower caps on the values. The defaults are 0 and 60.]' \
         '--scale-MQ[This is a general multiplicative mapping quality scaling factor. The effect is to globally raise or lower the quality values used in the consensus algorithm. Defaults to 1.0, which leaves the values unchanged.]' \
-        '--P-het[Controls the likelihood of any position being a heterozygous site. Defaults to 1e-4. Smaller numbers makes the algorithm more likely to call a pure base type. Note the algorithm will always compute the probability of the base being homozygous vs heterozygous, irrespective of whether the output is reported as ambiguous (it will be "N" if deemed to be heterozygous without --ambig mode enabled).]' \
+        '--P-het[Controls the likelihood of any position being a heterozygous site. This is used in the priors for the Bayesian calculations, and has little difference on deep data. Defaults to 1e-3. Smaller numbers makes the algorithm more likely to call a pure base type. Note the algorithm will always compute the probability of the base being homozygous vs heterozygous, irrespective of whether the output is reported as ambiguous (it will be "N" if deemed to be heterozygous without --ambig mode enabled).]' \
+        '--P-indel[Controls the likelihood of small indels. This is used in the priors for the Bayesian calculations, and has little difference on deep data. Defaults to 2e-4.]' \
+        '--het-scale[This is a multiplicative correction applied per base quality before adding to the heterozygous hypotheses. Reducing it means fewer heterozygous calls are made. This oftens leads a significant reduction in false positive het calls, for some increase in false negatives (mislabelling real heterozygous sites as homozygous). It is usually beneficial to reduce this on instruments where a significant proportion of bases may be aligned in the wrong column due to insertions and deletions leading to alignment errors and reference bias. It can be considered as a het sensitivity tuning parameter. Defaults to 1.0 (nop).]' \
         {-p,--homopoly-fix}'[Some technologies that call runs of the same base type together always put the lowest quality calls at one end. This can cause problems when reverse complementing and comparing alignments with indels. This option averages the qualities at both ends to avoid orientation biases. Recommended for old 454 or PacBio HiFi data sets.]' \
+        '--homopoly-score[The -p option also reduces confidence values within homopolymers due to an additional likelihood of sequence specific errors. The quality values are multiplied by FLOAT. This defaults to 0.5, but is not used if -p was not specified. Adjusting this score also automatically enables -p.]' \
+        {-X,--config}'[Specifies predefined sets of configuration parameters. Acceptable values for STR are defined below, along with the list of parameters they are equivalent to.]' \
         '-[Create a FASTQ file for the contigs with aligned data, including insertions.]' \
         "*: :_files"
 
@@ -487,8 +504,8 @@ function _samtools_mpileup {
         {-Q,--min-BQ}'[Minimum base quality for a base to be considered. \[13\]]' \
         {-r,--region}'[Only generate pileup in region. Requires the BAM files to be indexed. If used in conjunction with -l then considers the intersection of the two requests. STR \[all sites\]]' \
         {-R,--ignore-RG}'[Ignore RG tags. Treat all reads in one BAM as one sample.]' \
-        {--rf,--incl-flags}'[Required flags: include reads with any of the mask bits set \[null\]]' \
-        {--ff,--excl-flags}'[Filter flags: skip reads with any of the mask bits set \[UNMAP,SECONDARY,QCFAIL,DUP\]]' \
+        {--rf,--incl-flags}'[Required flags: only include reads with any of the mask bits set \[null\]. Note this is implemented as a filter-out rule, rejecting reads that have none of the mask bits set. Hence this does not override the --excl-flags option.]' \
+        {--ff,--excl-flags}'[Filter flags: skip reads with any of the mask bits set. This defaults to UNMAP,SECONDARY,QCFAIL,DUP. The option is not accumulative, so specifying e.g. --ff UNMAP,QCFAIL will reenable output of secondary and duplicate alignments. Note this does not override the --incl-flags option.]' \
         {-x,--ignore-overlaps-removal,--disable-overlap-removal}'[Overlap detection and removal is enabled by default. This option turns it off.]' \
         '-X[Include customized index file as a part of arguments. See EXAMPLES section for sample of usage.]' \
         {-o,--output}'[Write pileup output to FILE, rather than the default of standard output.]':file:_files \
@@ -513,13 +530,17 @@ function _samtools_mpileup {
 
 function _samtools_sort {
     _arguments \
-        '-K[Sets the kmer size to be used in the -M option. \[20\]]' \
         '-l[Set the desired compression level for the final output file, ranging from 0 (uncompressed) or 1 (fastest but minimal compression) to 9 (best compression but slowest to write), similarly to gzip(1)'\''s compression level setting.]' \
         '-u[Set the compression level to 0, for uncompressed output. This is a synonym for -l 0.]' \
         '-m[Approximately the maximum required memory per thread, specified either in bytes or with a K, M, or G suffix. \[768 MiB\]]' \
-        '-M[Sort unmapped reads (those in chromosome "*") by their sequence minimiser (Schleimer et al., 2003; Roberts et al., 2004), also reverse complementing as appropriate. This has the effect of collating some similar data together, improving the compressibility of the unmapped sequence. The minimiser kmer size is adjusted using the -K option. Note data compressed in this manner may need to be name collated prior to conversion back to fastq.]' \
         '-n[Sort by read names (i.e., the QNAME field) rather than by chromosomal coordinates.]' \
         '-t[Sort first by the value in the alignment tag TAG, then by position or name (if also using -n).]' \
+        '-M[Sort unmapped reads (those in chromosome "*") by their sequence minimiser (Schleimer et al., 2003; Roberts et al., 2004), also reverse complementing as appropriate. This has the effect of collating some similar data together, improving the compressibility of the unmapped sequence. The minimiser kmer size is adjusted using the -K option. Note data compressed in this manner may need to be name collated prior to conversion back to fastq.]' \
+        '-R[Do not use reverse strand with minimiser sort (only compatible with -M).]' \
+        '-K[Sets the kmer size to be used in the -M option. \[20\]]' \
+        '-I[Build a minimiser index over FILE. The per-read minimisers produced by -M are no longer sorted by their numeric value, but by the reference coordinate this minimiser was found to come from (if found in the index). This further improves compression due to improved sequence similarity between sequences, albeit with a small CPU cost of building and querying the index. Specifying -I automatically implies -M.]':file:_files \
+        '-w[Specifies the window size for building the minimiser index on the file specified in -I. This defaults to 100. It may be better to set this closer to 50 for short-read data sets (at a higher CPU and memory cost), or for more speed up to 1000 for long-read data sets.]' \
+        '-H[Squashes base homopolymers down to a single base pair before constructing the minimiser. This is useful for instruments where the primary source of error is in the length of homopolymer.]' \
         '-o[Write the final sorted output to FILE, rather than to standard output.]':file:_files \
         '-O[Write the final output as sam, bam, or cram.]' \
         '-T[Write temporary files to PREFIX.nnnn.bam, or if the specified PREFIX is an existing directory, to PREFIX/samtools.mmm.mmm.tmp.nnnn.bam, where mmm is unique to this invocation of the sort command.]' \
@@ -564,7 +585,7 @@ function _samtools_fastq {
         '-o[Write reads with either READ1 FLAG or READ2 flag set to FILE instead of outputting them to stdout. This is equivalent to -1 FILE -2 FILE.]':file:_files \
         '-0[Write reads where the READ1 and READ2 FLAG bits set are either both set or both unset to FILE instead of outputting them.]':file:_files \
         '-f[Only output alignments with all bits set in INT present in the FLAG field. INT can be specified in hex by beginning with `0x'\'' (i.e. /^0x\[0-9A-F\]+/) or in octal by beginning with `0'\'' (i.e. /^0\[0-7\]+/) \[0\].]' \
-        '-F[Do not output alignments with any bits set in INT present in the FLAG field. INT can be specified in hex by beginning with `0x'\'' (i.e. /^0x\[0-9A-F\]+/) or in octal by beginning with `0'\'' (i.e. /^0\[0-7\]+/) \[0x900\]. This defaults to 0x900 representing filtering of secondary and supplementary alignments.]' \
+        {--rf,--incl-flags,--include-flags}'[Only output alignments with any bits set in INT present in the FLAG field. INT can be specified in hex by beginning with `0x'\'' (i.e. /^0x\[0-9A-F\]+/), in octal by beginning with `0'\'' (i.e. /^0\[0-7\]+/), as a decimal number not beginning with '\''0'\'' or as a comma-separated list of flag names \[0\].]' \
         '-G[Only EXCLUDE reads with all of the bits set in INT present in the FLAG field. INT can be specified in hex by beginning with `0x'\'' (i.e. /^0x\[0-9A-F\]+/) or in octal by beginning with `0'\'' (i.e. /^0\[0-7\]+/) \[0\].]' \
         '-i[add Illumina Casava 1.8 format entry to header (eg 1:N:0:ATCACG)]' \
         '-c[set compression level when writing gz or bgzf fastq files.]' \
@@ -591,7 +612,7 @@ function _samtools_fasta {
         '-o[Write reads with either READ1 FLAG or READ2 flag set to FILE instead of outputting them to stdout. This is equivalent to -1 FILE -2 FILE.]':file:_files \
         '-0[Write reads where the READ1 and READ2 FLAG bits set are either both set or both unset to FILE instead of outputting them.]':file:_files \
         '-f[Only output alignments with all bits set in INT present in the FLAG field. INT can be specified in hex by beginning with `0x'\'' (i.e. /^0x\[0-9A-F\]+/) or in octal by beginning with `0'\'' (i.e. /^0\[0-7\]+/) \[0\].]' \
-        '-F[Do not output alignments with any bits set in INT present in the FLAG field. INT can be specified in hex by beginning with `0x'\'' (i.e. /^0x\[0-9A-F\]+/) or in octal by beginning with `0'\'' (i.e. /^0\[0-7\]+/) \[0x900\]. This defaults to 0x900 representing filtering of secondary and supplementary alignments.]' \
+        {--rf,--incl-flags,--include-flags}'[Only output alignments with any bits set in INT present in the FLAG field. INT can be specified in hex by beginning with `0x'\'' (i.e. /^0x\[0-9A-F\]+/), in octal by beginning with `0'\'' (i.e. /^0\[0-7\]+/), as a decimal number not beginning with '\''0'\'' or as a comma-separated list of flag names \[0\].]' \
         '-G[Only EXCLUDE reads with all of the bits set in INT present in the FLAG field. INT can be specified in hex by beginning with `0x'\'' (i.e. /^0x\[0-9A-F\]+/) or in octal by beginning with `0'\'' (i.e. /^0\[0-7\]+/) \[0\].]' \
         '-i[add Illumina Casava 1.8 format entry to header (eg 1:N:0:ATCACG)]' \
         '-c[set compression level when writing gz or bgzf fastq files.]' \
@@ -632,6 +653,20 @@ function _samtools_reference {
         '-r[Specifies a single region to produce the reference from. If specified, an index file must be present.]' \
         '-o[Write the FASTA records to FILE. By default this is sent to stdout.]':file:_files \
         '-@[The number of BAM/CRAM decompression threads to use in addition to the main thread \[0\].]' \
+        "*: :_files"
+
+}
+
+function _samtools_reset {
+    _arguments \
+        '-o[Output file to which reset data is to be written. If not given, standard output will be used.]':file:_files \
+        {-x,--remove-tag}'[Read tag(s) to exclude from output (repeatable) \[null\]. This can be a single tag or a comma separated list. Alternatively the option itself can be repeated multiple times.]' \
+        '--keep-tag[This keeps only tags listed in STR and is directly equivalent to --remove-tag ^STR. Specifying an empty list will remove all tags. If both --keep-tag and --remove-tag are specified then --keep-tag has precedence.]' \
+        '--reject-PG[The PG line which has the ID matching pgid and all subsequent PG lines will be removed. If the option itself is absent, the default, all PG entries will be in output.]' \
+        '--no-RG[RG lines in input will be discarded with this option. By default, RG lines will be present in ouput.]' \
+        '--no-PG[Do not add a @PG line to the header of the output file listing the reset command. By default the PG entry for reset will be present in the output.]' \
+        {-@,--thread}'[This gives the number of worker threads to be used.]' \
+        {-O,--output-fmt}'[Sets the format of the output file and any associated format-specific options. If this option is not present, the format is identified from the output file name extension.]' \
         "*: :_files"
 
 }
@@ -702,6 +737,16 @@ function _samtools_flagstat {
 
 function _samtools_idxstats {
     _arguments \
+        "*: :_files"
+
+}
+
+function _samtools_cram-size {
+    _arguments \
+        '-o[Output size information to FILE.]':file:_files \
+        '-v[Verbose mode. This shows one line per combination of Content ID and compression method.]' \
+        {-e,--encodings}'[CRAM uses an Encoding, which describes how the data is serialised into a data block. This is distinct from the CRAM compression method, which is then applied to the block post-encoding. The encoding methods are stored per CRAM Container.]' \
+        '-[List encoding methods per CRAM Data Series. The two letter series are the standard CRAM Data Series and the three letter ones are the optional auxiliary tags with the tag name and type combined.]' \
         "*: :_files"
 
 }
@@ -783,7 +828,8 @@ function _samtools_tview {
     _arguments \
         '-d[Output as (H)tml, (C)urses or (T)ext.]' \
         '-p[Go directly to this position]' \
-        '-s[Display only alignments from this sample or read group]' \
+        '-s[Display only alignments from this sample or read group. STR must match either an ID or SM field in an @RG header record. For example]' \
+        '-w[Specifies the display width when using the HTML or Text output modes.]' \
         '-X[If this option is set, it will allows user to specify customized index file location(s) if the data folder does not contain any index file. Example usage: samtools tview \[options\] -X </data_folder/data.bam> \[/index_folder/index.bai\] \[ref.fasta\]]' \
         "*: :_files"
 

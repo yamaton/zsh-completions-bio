@@ -20,9 +20,11 @@ function _bio {
             'explain:explain biological terms'
             'meta:download metadata by taxonomy ID'
             'mygene:connect to mygene interface'
+            'gprofiler:submits genes from a count file to g:Profiler'
+            'enrichr:submits genes from a count file to Enrichr'
+            'code:downloads the Biostar Handbook code'
             'comm:find common elements'
             'uniq:find unique elements'
-            'code:downloads the Biostar Handbook code'
         )
         _describe 'command' commands
     }
@@ -82,16 +84,24 @@ function _bio {
             _bio_mygene
             ;;
 
+        (gprofiler)
+            _bio_gprofiler
+            ;;
+
+        (enrichr)
+            _bio_enrichr
+            ;;
+
+        (code)
+            _bio_code
+            ;;
+
         (comm)
             _bio_comm
             ;;
 
         (uniq)
             _bio_uniq
-            ;;
-
-        (code)
-            _bio_code
             ;;
 
         esac
@@ -265,6 +275,40 @@ function _bio_mygene {
 
 }
 
+function _bio_gprofiler {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-c,--counts}'[input counts]' \
+        {-d,--organism}'[input counts]' \
+        {-n,--colname}'[gene id column name]' \
+        {-t,--pval-cutoff}'[pvalue cutoff]' \
+        {-p,--pval-column}'[pvalue column name]' \
+        {-o,--output}'[pvalue column name]':file:_files \
+        "*: :_files"
+
+}
+
+function _bio_enrichr {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-c,--counts}'[input counts]' \
+        {-d,--organism}'[input counts]' \
+        {-n,--colname}'[gene id column name]' \
+        {-t,--pval-cutoff}'[pvalue cutoff]' \
+        {-p,--pval-column}'[pvalue column name]' \
+        {-o,--output}'[pvalue column name]' \
+        "*: :_files"
+
+}
+
+function _bio_code {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-u,--update}'[update existing files]' \
+        "*: :_files"
+
+}
+
 function _bio_comm {
     _arguments \
         {-h,--help}'[show this help message and exit]' \
@@ -284,14 +328,6 @@ function _bio_uniq {
         {-f,--field}'[field index (1 by default)]' \
         {-c,--count}'[produce counts]' \
         {-t,--tab}'[tab delimited (default is csv)]' \
-        "*: :_files"
-
-}
-
-function _bio_code {
-    _arguments \
-        {-h,--help}'[show this help message and exit]' \
-        {-u,--update}'[update existing files]' \
         "*: :_files"
 
 }
