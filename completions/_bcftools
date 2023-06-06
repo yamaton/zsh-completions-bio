@@ -313,6 +313,7 @@ function _bcftools_norm {
         '--force[Try to proceed even if malformed tags are encountered. Experimental, use at your own risk]' \
         '--keep-sum[Keep vector sum constant when splitting multiallelics (see github issue #360)]' \
         {-m,--multiallelics}'[Split multiallelics (-) or join biallelics (+), type: snps|indels|both|any \[both\]]' \
+        '--multi-overlaps[Fill in the reference (0) or missing (.) allele when splitting multiallelics \[0\]]' \
         '--no-version[Do not append version and command line to the header]' \
         {-N,--do-not-normalize}'[Do not normalize indels (with -m or -c s)]' \
         '--old-rec-tag[Annotate modified records with INFO/STR indicating the original variant]' \
@@ -465,24 +466,23 @@ function _bcftools_call {
 
 function _bcftools_consensus {
     _arguments \
-        '--sample[option will apply genotype]' \
-        '--sample[option will apply genotype   (or haplotype) calls from FORMAT/GT. The program ignores allelic depth]' \
-        {-c,--chain}'[write a chain file for liftover]':file:_files \
-        {-a,--absent}'[replace positions absent from VCF with CHAR]' \
-        {-e,--exclude}'[exclude sites for which the expression is true (see man page for details)]' \
-        {-f,--fasta-ref}'[reference sequence in fasta format]':file:_files \
-        {-H,--haplotype}'[choose which allele to use from the FORMAT/GT field, note the codes are case-insensitive:]' \
-        {-i,--include}'[select sites for which the expression is true (see man page for details)]' \
-        {-I,--iupac-codes}'[output variants in the form of IUPAC ambiguity codes]' \
-        '--mark-del[instead of removing sequence, insert CHAR for deletions]' \
-        '--mark-ins[highlight insertions in uppercase (uc) or lowercase (lc), leaving the rest as is]' \
-        '--mark-snv[highlight substitutions in uppercase (uc) or lowercase (lc), leaving the rest as is]' \
-        {-m,--mask}'[replace regions according to the next --mask-with option. The default is --mask-with N]':file:_files \
-        '--mask-with[replace with CHAR (skips overlapping variants); change to uppercase (uc) or lowercase (lc)]' \
-        {-M,--missing}'[output CHAR instead of skipping a missing genotype "./."]' \
-        {-o,--output}'[write output to a file \[standard output\]]':file:_files \
-        {-p,--prefix}'[prefix to add to output sequence names]' \
-        {-s,--sample}'[apply variants of the given sample]' \
+        {-c,--chain}'[Write a chain file for liftover]':file:_files \
+        {-a,--absent}'[Replace positions absent from VCF with CHAR]' \
+        {-e,--exclude}'[Exclude sites for which the expression is true (see man page for details)]' \
+        {-f,--fasta-ref}'[Reference sequence in fasta format]':file:_files \
+        {-H,--haplotype}'[Choose which allele to use from the FORMAT/GT field, note the codes are case-insensitive:]' \
+        {-i,--include}'[Select sites for which the expression is true (see man page for details)]' \
+        {-I,--iupac-codes}'[Output IUPAC codes based on FORMAT/GT, use -s/-S to subset samples]' \
+        '--mark-del[Instead of removing sequence, insert CHAR for deletions]' \
+        '--mark-ins[Highlight insertions in uppercase (uc) or lowercase (lc), leaving the rest as is]' \
+        '--mark-snv[Highlight substitutions in uppercase (uc) or lowercase (lc), leaving the rest as is]' \
+        {-m,--mask}'[Replace regions according to the next --mask-with option. The default is --mask-with N]':file:_files \
+        '--mask-with[Replace with CHAR (skips overlapping variants); change to uppercase (uc) or lowercase (lc)]' \
+        {-M,--missing}'[Output CHAR instead of skipping a missing genotype "./."]' \
+        {-o,--output}'[Write output to a file \[standard output\]]':file:_files \
+        {-p,--prefix}'[Prefix to add to output sequence names]' \
+        {-s,--samples}'[Comma-separated list of samples to include, "-" to ignore samples and use REF,ALT]' \
+        {-S,--samples-file}'[File of samples to include]':file:_files \
         "*: :_files"
 
 }
@@ -627,7 +627,6 @@ function _bcftools_mpileup {
         '--no-version[Do not append version and command line to the header]' \
         {-o,--output}'[Write output to FILE \[standard output\]]':file:_files \
         {-O,--output-type}'['\''b'\'' compressed BCF; '\''u'\'' uncompressed BCF; '\''z'\'' compressed VCF; '\''v'\'' uncompressed VCF; 0-9 compression level \[v\]]' \
-        {-U,--mwu-u}'[Use older probability scale for Mann-Whitney U test]' \
         '--threads[Use multithreading with INT worker threads \[0\]]' \
         {-X,--config}'[Specify platform specific profiles (see below)]' \
         {-e,--ext-prob}'[Phred-scaled gap extension seq error probability \[20\]]' \
@@ -643,6 +642,7 @@ function _bcftools_mpileup {
         {--ar,--ambig-reads}'[What to do with ambiguous indel reads: drop,incAD,incAD0 \[drop\]]' \
         '--indel-bias[Raise to favour recall over precision \[1.00\]]' \
         '--indel-size[Approximate maximum indel size considered \[110\]]' \
+        '--indels-2.0[New EXPERIMENTAL indel calling model (diploid reference consensus)]' \
         "*: :_files"
 
 }
