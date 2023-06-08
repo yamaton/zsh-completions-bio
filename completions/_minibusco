@@ -1,0 +1,135 @@
+#compdef minibusco
+
+# Auto-generated with h2o
+
+
+function _minibusco {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'download:Download specified BUSCO lineages'
+            'list:List local or remote BUSCO lineages'
+            'miniprot:Run miniprot alignment'
+            'analyze:Evaluate genome completeness from provided miniprot alignment'
+            'run:Run minibusco including miniprot alignment and completeness evaluation'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (download)
+            _minibusco_download
+            ;;
+
+        (list)
+            _minibusco_list
+            ;;
+
+        (miniprot)
+            _minibusco_miniprot
+            ;;
+
+        (analyze)
+            _minibusco_analyze
+            ;;
+
+        (run)
+            _minibusco_run
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _minibusco_download {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-L,--library_path}'[The destination folder to store the downloaded lineage files.If not specified, a folder named "mb_downloads" will be created on the current running path.]':file:_files \
+        "*: :_files"
+
+}
+
+function _minibusco_list {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--remote[List remote BUSCO lineages]' \
+        '--local[List local BUSCO lineages]' \
+        {-L,--library_path}'[Folder path to stored lineages.]':file:_files \
+        "*: :_files"
+
+}
+
+function _minibusco_miniprot {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-a,--assembly}'[Input genome file in FASTA format]' \
+        {-p,--protein}'[Input protein file]' \
+        {-o,--outdir}'[Miniprot alignment output directory]':file:_files \
+        {-t,--threads}'[Number of threads to use]' \
+        '--outs[output if score at least FLOAT*bestScore \[0.95\]]' \
+        '--miniprot_execute_path[Path to miniprot executable]':file:_files \
+        "*: :_files"
+
+}
+
+function _minibusco_analyze {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-g,--gff}'[Miniprot output gff file]' \
+        {-l,--lineage}'[BUSCO lineage name]' \
+        {-o,--output_dir}'[Output analysis folder]':file:_files \
+        {-t,--threads}'[Number of threads to use]' \
+        {-L,--library_path}'[Folder path to stored lineages.]':file:_files \
+        {-m,--mode}'[The mode of evaluation. dafault mode: busco. lite: Without using hmmsearch to filtering protein alignment. busco: Using hmmsearch on all candidate protein alignment to purify the miniprot alignment to imporve accuracy.]' \
+        '--hmmsearch_execute_path[Path to hmmsearch executable]':file:_files \
+        '--specified_contigs[Specify the contigs to be evaluated, e.g. chr1 chr2 chr3. If not specified, all contigs will be evaluated.]' \
+        '--min_diff[The thresholds for the best matching and second best matching.]' \
+        '--min_identity[The identity threshold for valid mapping results. \[0, 1\]]' \
+        '--min_length_percent[The fraction of protein for valid mapping results.]' \
+        '--min_complete[The length threshold for complete gene.]' \
+        '--min_rise[Minimum length threshold to make dupicate take precedence over single or fragmented over single/duplicate.]' \
+        "*: :_files"
+
+}
+
+function _minibusco_run {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-a,--assembly_path}'[Input genome file in FASTA format.]':file:_files \
+        {-o,--output_dir}'[The output folder.]':file:_files \
+        {-t,--threads}'[Number of threads to use]' \
+        {-l,--lineage}'[Specify the name of the BUSCO lineage to be used. (e.g. eukaryota, primates, saccharomycetes etc.)]' \
+        {-L,--library_path}'[Folder path to download lineages or already downloaded lineages. If not specified, a folder named "mb_downloads" will be created on the current running path by default to store the downloaded lineage files.]':file:_files \
+        {-m,--mode}'[The mode of evaluation. dafault mode: busco. lite: Without using hmmsearch to filtering protein alignment. busco: Using hmmsearch on all candidate protein alignment to purify the miniprot alignment to imporve accuracy.]' \
+        '--specified_contigs[Specify the contigs to be evaluated, e.g. chr1 chr2 chr3. If not specified, all contigs will be evaluated.]' \
+        '--outs[output if score at least FLOAT*bestScore \[0.99\]]' \
+        '--miniprot_execute_path[Path to miniprot executable]':file:_files \
+        '--hmmsearch_execute_path[Path to hmmsearch executable]':file:_files \
+        '--autolineage[Automatically search for the best matching lineage without specifying lineage file.]' \
+        '--sepp_execute_path[Path to run_sepp.py executable]':file:_files \
+        '--min_diff[The thresholds for the best matching and second best matching.]' \
+        '--min_identity[The identity threshold for valid mapping results.]' \
+        '--min_length_percent[The fraction of protein for valid mapping results.]' \
+        '--min_complete[The length threshold for complete gene.]' \
+        '--min_rise[Minimum length threshold to make dupicate take precedence over single or fragmented over single/duplicate.]' \
+        "*: :_files"
+
+}
+
+_minibusco "$@"
+
