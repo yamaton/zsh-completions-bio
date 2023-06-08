@@ -834,7 +834,7 @@ function _qiime_cutadapt_demux-paired {
         '--p-batch-size[The number of samples cutadapt demultiplexes]' \
         {--p-mixed-orientation,--p-no-mixed-orientation}'[Handle demultiplexing of mixed orientation reads (i.e. when forward and reverse reads coexist in the same file). \[default: False\]]' \
         '--p-cores[Number of CPU cores to use.]' \
-        '--p-minimum-length[Range(1, None) Discard reads shorter than specified value. Note,]' \
+        '--p-minimum-length[Discard reads shorter than specified value. Note,]' \
         '--o-per-sample-sequences[ARTIFACT]' \
         '--o-untrimmed-sequences[ARTIFACT MultiplexedPairedEndBarcodeInSequence The sequences that were unmatched to barcodes.]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
@@ -853,7 +853,7 @@ function _qiime_cutadapt_demux-single {
         '--p-error-rate[The level of error tolerance, specified as the maximum allowable error rate. The default value specified by cutadapt is 0.1 (=10%), which is greater than `demux emp-*`, which is 0.0 (=0%).]' \
         '--p-batch-size[The number of samples cutadapt demultiplexes]' \
         '--p-cores[Number of CPU cores to use.]' \
-        '--p-minimum-length[Range(1, None) Discard reads shorter than specified value. Note,]' \
+        '--p-minimum-length[Discard reads shorter than specified value. Note,]' \
         '--o-per-sample-sequences[ARTIFACT SampleData\[SequencesWithQuality\] The resulting demultiplexed sequences. \[required\]]' \
         '--o-untrimmed-sequences[ARTIFACT MultiplexedSingleEndBarcodeInSequence The sequences that were unmatched to barcodes.]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
@@ -881,7 +881,7 @@ function _qiime_cutadapt_trim-paired {
         '--p-overlap[Require at least `overlap` bases of overlap between]' \
         {--p-match-read-wildcards,--p-no-match-read-wildcards}'[Interpret IUPAC wildcards (e.g., N) in reads.]' \
         {--p-match-adapter-wildcards,--p-no-match-adapter-wildcards}'[Interpret IUPAC wildcards (e.g., N) in adapters.]' \
-        '--p-minimum-length[Range(1, None) Discard reads shorter than specified value. Note,]' \
+        '--p-minimum-length[Discard reads shorter than specified value. Note,]' \
         {--p-discard-untrimmed,--p-no-discard-untrimmed}'[Discard reads in which no adapter was found.]' \
         '--p-max-expected-errors[Range(0, None) Discard reads that exceed maximum expected]' \
         '--p-max-n[Discard reads with more than COUNT N bases. If]' \
@@ -911,7 +911,7 @@ function _qiime_cutadapt_trim-single {
         '--p-overlap[Require at least `overlap` bases of overlap between]' \
         {--p-match-read-wildcards,--p-no-match-read-wildcards}'[Interpret IUPAC wildcards (e.g., N) in reads.]' \
         {--p-match-adapter-wildcards,--p-no-match-adapter-wildcards}'[Interpret IUPAC wildcards (e.g., N) in adapters.]' \
-        '--p-minimum-length[Range(1, None) Discard reads shorter than specified value. Note, the]' \
+        '--p-minimum-length[Discard reads shorter than specified value. Note, the]' \
         {--p-discard-untrimmed,--p-no-discard-untrimmed}'[Discard reads in which no adapter was found.]' \
         '--p-max-expected-errors[Range(0, None) Discard reads that exceed maximum expected erroneous]' \
         '--p-max-n[Discard reads with more than COUNT N bases. If]' \
@@ -1500,7 +1500,7 @@ function _qiime_diversity_adonis {
         '--p-formula[Model formula containing only independent terms contained in the sample metadata. These can be continuous variables or factors, and they can have interactions as in a typical R formula. E.g., the formula "treatment+block" would test whether the input distance matrix partitions based on "treatment" and "block" sample metadata. The formula "treatment*block" would test both of those effects as well as their interaction. Enclose formulae in quotes to avoid unpleasant surprises. \[required\]]' \
         '--p-n-jobs[Number of parallel processes to run.]' \
         '--m-metadata-file[(multiple Sample metadata containing formula terms.]' \
-        '--p-permutations[Range(1, None) The number of permutations to be run when computing]' \
+        '--p-permutations[The number of permutations to be run when computing]' \
         '--o-visualization[\[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
@@ -1586,7 +1586,7 @@ function _qiime_diversity_alpha-rarefaction {
         '--i-table[Feature table to compute rarefaction curves from.]' \
         '--i-phylogeny[Optional phylogeny for phylogenetic metrics.]' \
         '--p-max-depth[The maximum rarefaction depth. Must be greater than   Range(1, None) min-depth. \[required\]]' \
-        '--m-metadata-file[(multiple arguments The sample metadata.]' \
+        '--m-metadata-file[The sample metadata.]' \
         '--p-min-depth[The minimum rarefaction depth.   Range(1, None) \[default: 1\]]' \
         '--p-steps[The number of rarefaction depths to include between   Range(2, None) min-depth and max-depth. \[default: 10\]]' \
         '--p-iterations[The number of rarefied feature tables to compute at   Range(1, None) each step. \[default: 10\]]' \
@@ -1692,7 +1692,7 @@ function _qiime_diversity_beta-rarefaction {
         '--i-phylogeny[Phylogenetic tree containing tip identifiers that correspond to the feature identifiers in the table. This tree can contain tip ids that are not present in the table, but all feature ids in the table must be present in this tree. \[required for phylogenetic metrics\] \[optional\]]' \
         '--p-metric[The beta diversity metric to be computed. \[required\]]' \
         '--p-clustering-method[Samples can be clustered with neighbor joining or UPGMA. An arbitrary rarefaction trial will be used for the tree, and the remaining trials are used to calculate the support of the internal nodes of that tree. \[required\]]' \
-        '--m-metadata-file[(multiple arguments The sample metadata used for the Emperor jackknifed PCoA plot. \[required\]]' \
+        '--m-metadata-file[The sample metadata used for the Emperor jackknifed PCoA plot. \[required\]]' \
         '--p-sampling-depth[The total frequency that each sample should be rarefied to prior to computing the diversity metric. \[required\]]' \
         '--p-iterations[Number of times to rarefy the feature table at a   Range(2, None) given sampling depth. \[default: 10\]]' \
         '--p-clustering-method[Samples can be clustered with neighbor joining or UPGMA. An arbitrary rarefaction trial will be used for the tree, and the remaining trials are used to calculate the support of the internal nodes of that tree. \[required\]]' \
@@ -2896,7 +2896,7 @@ function _qiime_feature-table_rarefy {
     _arguments \
         '--i-table[The feature table to be rarefied. \[required\]]' \
         {--p-with-replacement,--p-no-with-replacement}'[Rarefy with replacement by sampling from the multinomial distribution instead of rarefying without replacement. \[default: False\]]' \
-        '--p-sampling-depth[Range(1, None) The total frequency that each sample should be]' \
+        '--p-sampling-depth[The total frequency that each sample should be]' \
         '--o-rarefied-table[The resulting rarefied feature table. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
@@ -3399,7 +3399,7 @@ function _qiime_longitudinal_feature-volatility {
         '--p-missing-samples[How to handle missing samples in metadata. "error" will fail if missing samples are detected. "ignore" will cause the feature table and metadata to be filtered, so that only samples found in both files are retained. \[default: '\''error'\''\]]' \
         '--p-importance-threshold[VALUE Float % Range(0, None,]' \
         '--m-metadata-file[Sample metadata file containing]' \
-        '--p-n-estimators[Range(1, None) Number of trees to grow for estimation. More trees]' \
+        '--p-n-estimators[Number of trees to grow for estimation. More trees]' \
         '--o-filtered-table[Feature table containing only important features.]' \
         '--o-feature-importance[Importance of each input feature to model accuracy.]' \
         '--o-volatility-plot[Interactive volatility plot visualization. \[required\]]' \
@@ -3467,7 +3467,7 @@ function _qiime_longitudinal_linear-mixed-effects {
         {--p-lowess,--p-no-lowess}'[Estimate locally weighted scatterplot smoothing. Note that this will eliminate confidence interval plotting. \[default: False\]]' \
         '--p-ci[Size of the confidence interval for the regression]' \
         '--p-formula[R-style formula to use for model specification. A formula must be used if the "metric" parameter is None. Note that the metric and group columns specified in the formula will override metric and group columns that are passed separately as parameters to this method. Formulae will be in the format "a ~ b + c", where "a" is the metric (dependent variable) and "b" and "c" are independent covariates. Use "+" to add a variable; "+ a:b" to add an interaction between variables a and b; "*" to include a variable and all interactions; and "-" to subtract a particular term (e.g., an interaction term). See https://patsy.readthedocs.io/en/latest/formulas.html for full documentation of valid formula operators. Always enclose formulae in quotes to avoid unpleasant surprises. \[optional\]]' \
-        '--m-metadata-file[(multiple arguments Sample metadata file containing]' \
+        '--m-metadata-file[Sample metadata file containing]' \
         '--o-visualization[\[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
@@ -3494,7 +3494,7 @@ function _qiime_longitudinal_maturity-index {
         {--p-stratify,--p-no-stratify}'[Evenly stratify training and test data among metadata categories. If True, all values in column must match at least two samples. \[default: False\]]' \
         '--p-missing-samples[How to handle missing samples in metadata. "error" will fail if missing samples are detected. "ignore" will cause the feature table and metadata to be filtered, so that only samples found in both files are retained. \[default: '\''error'\''\]]' \
         '--m-metadata-file[(multiple arguments]' \
-        '--p-n-estimators[Range(1, None) Number of trees to grow for estimation. More trees]' \
+        '--p-n-estimators[Number of trees to grow for estimation. More trees]' \
         '--p-test-size[Range(0.0, 1.0) Fraction of input samples to exclude from training]' \
         '--p-feature-count[Range(0, None) Filter feature table to include top N most]' \
         '--o-sample-estimator[Trained sample estimator. \[required\]]' \
@@ -3925,9 +3925,9 @@ function _qiime_phylogeny_iqtree {
         '--i-alignment[Aligned sequences to be used for phylogenetic reconstruction. \[required\]]' \
         '--p-seed[Random number seed. If not set, program defaults]' \
         '--p-n-runs[Number of indepedent runs. Multiple independent]' \
-        '--p-n-init-pars-trees[Range(1, None) Number of initial parsimony trees. If not set,]' \
-        '--p-n-top-init-trees[Range(1, None) Number of top initial trees. If not set, program]' \
-        '--p-n-best-retain-trees[Range(1, None) Number of best trees retained during search. If not]' \
+        '--p-n-init-pars-trees[Number of initial parsimony trees. If not set,]' \
+        '--p-n-top-init-trees[Number of top initial trees. If not set, program]' \
+        '--p-n-best-retain-trees[Number of best trees retained during search. If not]' \
         '--p-n-iter[Fix number of iterations to stop. If not set,]' \
         '--p-stop-iter[Number of unsuccessful iterations to stop. If not]' \
         '--p-perturb-nni-strength[Range(0.01, 1.0) Perturbation strength for randomized NNI. If not]' \
@@ -3954,14 +3954,14 @@ function _qiime_phylogeny_iqtree-ultrafast-bootstrap {
         '--p-seed[Random number seed. If not set, program defaults]' \
         '--p-n-runs[Number of indepedent runs. Multiple independent]' \
         '--p-bootstrap-replicates[Range(1000, None) The number of bootstrap searches to perform.]' \
-        '--p-n-init-pars-trees[Range(1, None) Number of initial parsimony trees. If not set,]' \
-        '--p-n-top-init-trees[Range(1, None) Number of top initial trees. If not set, program]' \
-        '--p-n-best-retain-trees[Range(1, None) Number of best trees retained during search. If not]' \
+        '--p-n-init-pars-trees[Number of initial parsimony trees. If not set,]' \
+        '--p-n-top-init-trees[Number of top initial trees. If not set, program]' \
+        '--p-n-best-retain-trees[Number of best trees retained during search. If not]' \
         '--p-stop-iter[Number of unsuccessful iterations to stop. If not]' \
         '--p-perturb-nni-strength[Range(0.01, 1.0) Perturbation strength for randomized NNI. If not]' \
         '--p-spr-radius[Radius for parsimony SPR search. If not set,]' \
-        '--p-n-max-ufboot-iter[Range(1, None) Maximum number of iterations. If not set, program]' \
-        '--p-n-ufboot-steps[Range(1, None) Number of iterations for UFBoot stopping rule. If]' \
+        '--p-n-max-ufboot-iter[Maximum number of iterations. If not set, program]' \
+        '--p-n-ufboot-steps[Number of iterations for UFBoot stopping rule. If]' \
         '--p-min-cor-ufboot[Range(0.51, 0.99) Minimum correlation coefficient. If not set,]' \
         '--p-ep-break-ufboot[Range(0.01, 0.99) Epsilon value to break tie. If not set, program]' \
         {--p-allnni,--p-no-allnni}'[Perform more thorough NNI search. \[default: False\]]' \
@@ -4452,7 +4452,7 @@ function _qiime_sample-classifier_classify-samples {
         {--p-parameter-tuning,--p-no-parameter-tuning}'[Automatically tune hyperparameters using random grid search. \[default: False\]]' \
         '--p-missing-samples[How to handle missing samples in metadata. "error" will fail if missing samples are detected. "ignore" will cause the feature table and metadata to be filtered, so that only samples found in both files are retained. \[default: '\''error'\''\]]' \
         '--p-test-size[Range(0.0, 1.0) Fraction of input samples to exclude from training]' \
-        '--p-n-estimators[Range(1, None) Number of trees to grow for estimation. More trees]' \
+        '--p-n-estimators[Number of trees to grow for estimation. More trees]' \
         '--o-sample-estimator[Trained sample estimator. \[required\]]' \
         '--o-feature-importance[Importance of each input feature to model accuracy.]' \
         '--o-predictions[Predicted target values for each input sample.]' \
@@ -4510,7 +4510,7 @@ function _qiime_sample-classifier_classify-samples-ncv {
         '--p-n-jobs[Number of jobs to run in parallel. \[default: 1\]]' \
         {--p-parameter-tuning,--p-no-parameter-tuning}'[Automatically tune hyperparameters using random grid search. \[default: False\]]' \
         '--p-missing-samples[How to handle missing samples in metadata. "error" will fail if missing samples are detected. "ignore" will cause the feature table and metadata to be filtered, so that only samples found in both files are retained. \[default: '\''error'\''\]]' \
-        '--p-n-estimators[Range(1, None) Number of trees to grow for estimation. More trees]' \
+        '--p-n-estimators[Number of trees to grow for estimation. More trees]' \
         '--o-predictions[Predicted target values for each input sample.]' \
         '--o-feature-importance[Importance of each input feature to model accuracy.]' \
         '--o-probabilities[Predicted class probabilities for each input sample.]' \
@@ -4550,7 +4550,7 @@ function _qiime_sample-classifier_fit-classifier {
         {--p-optimize-feature-selection,--p-no-optimize-feature-selection}'[Automatically optimize input feature selection using recursive feature elimination. \[default: False\]]' \
         {--p-parameter-tuning,--p-no-parameter-tuning}'[Automatically tune hyperparameters using random grid search. \[default: False\]]' \
         '--p-missing-samples[How to handle missing samples in metadata. "error" will fail if missing samples are detected. "ignore" will cause the feature table and metadata to be filtered, so that only samples found in both files are retained. \[default: '\''error'\''\]]' \
-        '--p-n-estimators[Range(1, None) Number of trees to grow for estimation. More trees]' \
+        '--p-n-estimators[Number of trees to grow for estimation. More trees]' \
         '--o-sample-estimator[Trained sample classifier. \[required\]]' \
         '--o-feature-importance[Importance of each input feature to model accuracy.]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
@@ -4573,7 +4573,7 @@ function _qiime_sample-classifier_fit-regressor {
         {--p-optimize-feature-selection,--p-no-optimize-feature-selection}'[Automatically optimize input feature selection using recursive feature elimination. \[default: False\]]' \
         {--p-parameter-tuning,--p-no-parameter-tuning}'[Automatically tune hyperparameters using random grid search. \[default: False\]]' \
         '--p-missing-samples[How to handle missing samples in metadata. "error" will fail if missing samples are detected. "ignore" will cause the feature table and metadata to be filtered, so that only samples found in both files are retained. \[default: '\''error'\''\]]' \
-        '--p-n-estimators[Range(1, None) Number of trees to grow for estimation. More trees]' \
+        '--p-n-estimators[Number of trees to grow for estimation. More trees]' \
         '--o-sample-estimator[\[required\]]' \
         '--o-feature-importance[Importance of each input feature to model accuracy.]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
@@ -4620,7 +4620,7 @@ function _qiime_sample-classifier_metatable {
         '--p-missing-samples[How to handle missing samples in metadata. "error" will fail if missing samples are detected. "ignore" will cause the feature table and metadata to be filtered, so that only samples found in both files are retained. \[default: '\''ignore'\''\]]' \
         '--p-missing-values[Choices('\''drop_samples'\'', '\''drop_features'\'', '\''error'\'',]' \
         {--p-drop-all-unique,--p-no-drop-all-unique}'[If True, columns that contain a unique value for every ID will be dropped. \[default: False\]]' \
-        '--m-metadata-file[(multiple arguments Metadata file to convert to feature table.]' \
+        '--m-metadata-file[Metadata file to convert to feature table.]' \
         '--o-converted-table[Converted feature table \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
@@ -4680,7 +4680,7 @@ function _qiime_sample-classifier_regress-samples {
         {--p-parameter-tuning,--p-no-parameter-tuning}'[Automatically tune hyperparameters using random grid search. \[default: False\]]' \
         '--p-missing-samples[How to handle missing samples in metadata. "error" will fail if missing samples are detected. "ignore" will cause the feature table and metadata to be filtered, so that only samples found in both files are retained. \[default: '\''error'\''\]]' \
         '--p-test-size[Range(0.0, 1.0) Fraction of input samples to exclude from training]' \
-        '--p-n-estimators[Range(1, None) Number of trees to grow for estimation. More trees]' \
+        '--p-n-estimators[Number of trees to grow for estimation. More trees]' \
         '--o-sample-estimator[Trained sample estimator. \[required\]]' \
         '--o-feature-importance[Importance of each input feature to model accuracy.]' \
         '--o-predictions[Predicted target values for each input sample.]' \
@@ -4710,7 +4710,7 @@ function _qiime_sample-classifier_regress-samples-ncv {
         {--p-stratify,--p-no-stratify}'[Evenly stratify training and test data among metadata categories. If True, all values in column must match at least two samples. \[default: False\]]' \
         {--p-parameter-tuning,--p-no-parameter-tuning}'[Automatically tune hyperparameters using random grid search. \[default: False\]]' \
         '--p-missing-samples[How to handle missing samples in metadata. "error" will fail if missing samples are detected. "ignore" will cause the feature table and metadata to be filtered, so that only samples found in both files are retained. \[default: '\''error'\''\]]' \
-        '--p-n-estimators[Range(1, None) Number of trees to grow for estimation. More trees]' \
+        '--p-n-estimators[Number of trees to grow for estimation. More trees]' \
         '--o-predictions[Predicted target values for each input sample.]' \
         '--o-feature-importance[Importance of each input feature to model accuracy.]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
