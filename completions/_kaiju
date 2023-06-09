@@ -1,0 +1,27 @@
+#compdef kaiju
+
+# Auto-generated with h2o
+
+function _kaiju {
+    _arguments \
+        '-t[Name of nodes.dmp file]':file:_files \
+        '-f[Name of database (.fmi) file]':file:_files \
+        '-i[Name of input file containing reads in FASTA or FASTQ format]':file:_files \
+        '-j[Name of second input file for paired-end reads]':file:_files \
+        '-o[Name of output file. If not specified, output will be printed to STDOUT]':file:_files \
+        '-z[Number of parallel threads for classification (default: 1)]' \
+        '-a[Run mode, either "mem" or "greedy" (default: greedy)]' \
+        '-e[Number of mismatches allowed in Greedy mode (default: 3)]' \
+        '-m[Minimum match length (default: 11)]' \
+        '-s[Minimum match score in Greedy mode (default: 65)]' \
+        '-E[Minimum E-value in Greedy mode (default: 0.01)]' \
+        '-x[Enable SEG low complexity filter (enabled by default)]' \
+        '-X[Disable SEG low complexity filter]' \
+        '-p[Input sequences are protein sequences]' \
+        '-v[Enable verbose output]' \
+        "*: :_files"
+
+}
+
+_kaiju "$@"
+
