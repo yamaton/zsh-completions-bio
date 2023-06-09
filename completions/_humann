@@ -1,0 +1,61 @@
+#compdef humann
+
+# Auto-generated with h2o
+
+function _humann {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-i,--input}'[input file of type {fastq,fastq.gz,fasta,fasta.gz,sam,bam,blastm8,genetable,biom} \[REQUIRED\]]' \
+        {-o,--output}'[directory to write output files \[REQUIRED\]]' \
+        '--threads[number of threads/processes \[DEFAULT: 1\]]' \
+        '--version[show program'\''s version number and exit]' \
+        {-r,--resume}'[bypass commands if the output files exist]' \
+        '--bypass-nucleotide-index[bypass the nucleotide index step and run on the indexed ChocoPhlAn database]' \
+        '--bypass-nucleotide-search[bypass the nucleotide search steps]' \
+        '--bypass-prescreen[bypass the prescreen step and run on the full ChocoPhlAn database]' \
+        '--bypass-translated-search[bypass the translated search step]' \
+        '--taxonomic-profile[a taxonomic profile (the output file created by metaphlan) \[DEFAULT: file will be created\]]':file:_files \
+        '--memory-use[the amount of memory to use \[DEFAULT: minimum\]]' \
+        '--input-format[the format of the input file \[DEFAULT: format identified by software\]]' \
+        '--search-mode[search for uniref50 or uniref90 gene families \[DEFAULT: based on translated database selected\]]' \
+        {-v,--verbose}'[additional output is printed]' \
+        '--metaphlan[directory containing the MetaPhlAn software \[DEFAULT: $PATH\]]' \
+        '--metaphlan-options[options to be provided to the MetaPhlAn software \[DEFAULT: "-t rel_ab"\]]' \
+        '--prescreen-threshold[minimum percentage of reads matching a species \[DEFAULT: 0.01\]]' \
+        '--bowtie2[directory containing the bowtie2 executable \[DEFAULT: $PATH\]]' \
+        '--bowtie-options[options to be provided to the bowtie software \[DEFAULT: "--very-sensitive"\]]' \
+        '--nucleotide-database[directory containing the nucleotide database]' \
+        '--nucleotide-identity-threshold[identity threshold for nuclotide alignments \[DEFAULT: 0.0\]]' \
+        '--nucleotide-query-coverage-threshold[query coverage threshold for nucleotide alignments \[DEFAULT: 90.0\]]' \
+        '--nucleotide-subject-coverage-threshold[subject coverage threshold for nucleotide alignments \[DEFAULT: 50.0\]]' \
+        '--diamond[directory containing the diamond executable \[DEFAULT: $PATH\]]' \
+        '--diamond-options[options to be provided to the diamond software \[DEFAULT: "--top 1 --outfmt 6"\]]' \
+        '--evalue[the evalue threshold to use with the translated search \[DEFAULT: 1.0\]]' \
+        '--protein-database[directory containing the protein database]' \
+        '--rapsearch[directory containing the rapsearch executable \[DEFAULT: $PATH\]]' \
+        '--translated-alignment[software to use for translated alignment \[DEFAULT: diamond\]]' \
+        '--translated-identity-threshold[identity threshold for translated alignments \[DEFAULT: Tuned automatically (based on uniref mode) unless a custom value is specified\]]' \
+        '--translated-query-coverage-threshold[query coverage threshold for translated alignments \[DEFAULT: 90.0\]]' \
+        '--translated-subject-coverage-threshold[subject coverage threshold for translated alignments \[DEFAULT: 50.0\]]' \
+        '--usearch[directory containing the usearch executable \[DEFAULT: $PATH\]]' \
+        '--gap-fill[turn on/off the gap fill computation \[DEFAULT: on\]]' \
+        '--minpath[turn on/off the minpath computation \[DEFAULT: on\]]' \
+        '--pathways[the database to use for pathway computations \[DEFAULT: metacyc\]]':file:_files \
+        '--pathways-database[mapping file (or files, at most two in a comma-delimited list) to use for pathway computations \[DEFAULT: metacyc database \]]':file:_files \
+        '--xipe[turn on/off the xipe computation \[DEFAULT: off\]]' \
+        '--annotation-gene-index[the index of the gene in the sequence annotation \[DEFAULT: 3\]]' \
+        '--id-mapping[id mapping file for alignments \[DEFAULT: alignment reference used\]]' \
+        '--remove-temp-output[remove temp output files \[DEFAULT: temp files are not removed\]]' \
+        '--log-level[level of messages to display in log \[DEFAULT: DEBUG\]]' \
+        '--o-log[\[DEFAULT: temp/sample.log\]]':file:_files \
+        '--output-basename[the basename for the output files \[DEFAULT: input file basename\]]' \
+        '--output-format[the format of the output files \[DEFAULT: tsv\]]' \
+        '--output-max-decimals[the number of decimals to output \[DEFAULT: 10\]]' \
+        '--remove-column-description-output[remove the description in the output column \[DEFAULT: output column includes description\]]' \
+        '--remove-stratified-output[remove stratification from output \[DEFAULT: output is stratified\]]' \
+        "*: :_files"
+
+}
+
+_humann "$@"
+
