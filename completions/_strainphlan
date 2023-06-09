@@ -1,0 +1,39 @@
+#compdef strainphlan
+
+# Auto-generated with h2o
+
+function _strainphlan {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-d,--database}'[The input MetaPhlAn 4.0.6 database (default: latest)]' \
+        {-m,--clade_markers}'[The clade markers as FASTA file (default: None)]' \
+        {-s,--samples}'[The reconstructed markers for each sample (default: \[\])]' \
+        {-r,--references}'[The reference genomes (default: \[\])]' \
+        {-c,--clade}'[The clade to investigate (default: None)]' \
+        {-o,--output_dir}'[The output directory (default: None)]':file:_files \
+        {-n,--nprocs}'[The number of threads to use (default: 1)]' \
+        '--secondary_samples[The reconstructed markers for each secondary sample (default: \[\])]' \
+        '--secondary_references[The secondary reference genomes (default: \[\])]' \
+        '--trim_sequences[The number of bases to remove from both ends when trimming markers (default: 50)]' \
+        '--marker_in_n_samples[Theshold defining the minimum percentage of samples to keep a marker (default: 80)]' \
+        '--sample_with_n_markers[Threshold defining the minimun percentage of markers to keep a sample (default: 80)]' \
+        '--secondary_sample_with_n_markers[Threshold defining the minimun percentage of markers to keep a secondary sample (default: 80)]' \
+        '--sample_with_n_markers_after_filt[Threshold defining the minimun percentage of markers to keep a sample after filtering the markers \[only for dev\] (default: None)]' \
+        '--abs_n_markers_thres[If specified, the *sample_with_n_markers* thresholds will be specified as absolute numbers (default: False)]' \
+        '--abs_n_samples_thres[If specified, the marker_in_n_samples threshold will be specified as absolute numbers (default: False)]' \
+        '--breadth_thres[Threshold defining the minimum breadth of coverage for the markers (default: 80)]' \
+        '--phylophlan_mode[The presets for fast or accurate phylogenetic analysis (default: fast)]' \
+        '--phylophlan_configuration[The PhyloPhlAn configuration file (default: None)]' \
+        '--tmp[If specified, the directory where to store the temporal files. (default: None)]' \
+        '--mutation_rates[If specified, StrainPhlAn will produce a mutation rates table for each of the aligned markers and a summary table for the concatenated MSA. This operation can take long time to finish (default: False)]' \
+        '--print_clades_only[If specified, StrainPhlAn will only print the potential clades and stop the execution (default: False)]' \
+        '--non_interactive[If specified, StrainPhlAn will select the first SGB available when the clade is specified at the species level (default: False)]' \
+        '--treeshrink[If specified, StrainPhlAn will execute TreeShrink after building the tree (default: False)]' \
+        '--debug[If specified, StrainPhlAn will not remove the temporal folders (default: False)]' \
+        {-v,--version}'[Shows this help message and exit (default: False)]' \
+        "*: :_files"
+
+}
+
+_strainphlan "$@"
+
