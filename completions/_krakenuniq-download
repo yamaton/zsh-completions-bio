@@ -1,0 +1,29 @@
+#compdef krakenuniq-download
+
+# Auto-generated with h2o
+
+function _krakenuniq-download {
+    _arguments \
+        '-o[Folder to which the files are downloaded. Default: '\''.'\'']':file:_files \
+        '--db[Alternative to -o: Download to <directory>/{library,taxonomy}.]':file:_files \
+        '--threads[Number of processes when downloading (uses xargs). Default: '\''5'\'']' \
+        {--rsync,-R}'[Download using rsync.]' \
+        '--overwrite[Redownload and overwrite files with the same name.]' \
+        '--verbose[Be verbose.]' \
+        {--dust,-D}'[Mask low-complexity regions using dustmasker.]' \
+        '--min-seq-len[Filter all sequences from the FASTA files that have less than X bp.]' \
+        '--search[Download all sequences returned from a NCBI nucleotide search. When used with viral-neighbors, it subsets the viral genomes by the search. E.g. "txid1570291\[Organism\]" for Ebola virus sequences (taxonomy ID 1570291).]' \
+        '--ac[Alternative to --search. Download specified ACs of nucleotide database.]' \
+        '--mapping-file[Map accessions using the specified mapping file(s) (comma-separated). Possible values: nucl_est, nucl_gb, nucl_gss, nucl_wgs. For viral-neighbors, the default is nucl_gb. Unset by giving it an empty string. Downloaded from ftp://ftp.ncbi.nlm.nih.gov/pub/taxonomy/accession2taxid/.]' \
+        '--retmode[Specify return mode. Possible options: text (default), asn.1, xml.]' \
+        '--rettype[Specify return type for download. Note that no mapping files are generated when rettype is specified. Possible options: fasta (default), gb, gbc, native, acc, seqid, ft, gbwithparts, fasta_cds_na, fasta_cds_aa. Note that only gb and fasta files are split, while the other formats stay in chunks. The resulting files will have the rettype as extension.]' \
+        '--taxa[Provide a list of taxa that are kept in the nt database. Comma separated, supply either taxIDs in the format taxIDXXXX, where XXXX is the NCBI taxonomy ID, or one of the following division names: archaea, bacteria, fungi, parasitic_worms, protozoa, viral. Default: "bacteria,archaea,viral,fungi,protozoa"]' \
+        '--exclude-environmental-taxa[Exclude taxa that are named '\''environmental samples'\''.]' \
+        '--fna[Comma-separated list of sequence types, including genomic, rna, rna_from_genomic, cds_from_genomic. Default: genomic. See the assembly project FTP site for available sequences]' \
+        '-u[Filter unplaced sequences.]' \
+        "*: :_files"
+
+}
+
+_krakenuniq-download "$@"
+

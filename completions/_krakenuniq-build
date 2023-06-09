@@ -1,0 +1,41 @@
+#compdef krakenuniq-build
+
+# Auto-generated with h2o
+
+function _krakenuniq-build {
+    _arguments \
+        '--download-taxonomy[Download NCBI taxonomic information]' \
+        '--download-library[Download partial library (TYPE = one of "refseq/bacteria", "refseq/archaea", "refseq/viral"). Use krakenuniq-download for more options.]' \
+        '--add-to-library[Add FILE to library]':file:_files \
+        '--build[Create DB from library (requires taxonomy d/l'\''ed and at least one file in library)]' \
+        '--rebuild[Create DB from library like --build, but remove existing non-library/taxonomy files before build]' \
+        '--clean[Remove unneeded files from a built database]' \
+        '--shrink[Shrink an existing DB to have only NEW_CT k-mers]' \
+        '--standard[Download and create default database, which contains complete genomes for archaea, bacteria and viruses from RefSeq, as well as viral strains from NCBI. Specify --taxids-for-genomes and --taxids-for-sequences separately, if desired.]' \
+        '--help[Print this message]' \
+        '--version[Print version information]' \
+        '--db[Kraken DB directory (mandatory except for --help/--version)]':file:_files \
+        '--threads[Number of threads (def: 1)]' \
+        '--new-db[New Kraken DB name (shrink task only; mandatory for shrink task)]' \
+        '--kmer-len[K-mer length in bp (build/shrink tasks only; def: 31)]' \
+        '--minimizer-len[Minimizer length in bp (build/shrink tasks only; def: 15)]' \
+        '--jellyfish-hash-size[Pass a specific hash size argument to jellyfish when building database (build task only)]' \
+        '--jellyfish-bin[Use STR as Jellyfish 1 binary.]' \
+        '--max-db-size[Shrink the DB before full build, making sure database and index together use <= SIZE gigabytes (build task only)]' \
+        '--shrink-block-offset[When shrinking, select the k-mer that is NUM positions from the end of a block of k-mers (default: 1)]' \
+        '--work-on-disk[Perform most operations on disk rather than in RAM (will slow down build in most cases)]' \
+        '--taxids-for-genomes[Add taxonomy IDs (starting with 1 billion) for genomes. Only works with 3-column seqid2taxid map with third column being the name]' \
+        '--taxids-for-sequences[Add taxonomy IDs for sequences, starting with 1 billion. Can be useful to resolve classifications with multiple genomes for one taxonomy ID.]' \
+        '--min-contig-size[Minimum contig size for inclusion in database. Use with draft genomes to reduce contamination, e.g. with values between 1000 and 10000.]' \
+        '--library-dir[Use DIR for reference sequences instead of DBDIR/library.]':file:_files \
+        '--taxonomy-dir[Use DIR for taxonomy instead of DBDIR/taxonomy.]':file:_files \
+        '--uid-database[Build a UID database (default no)]' \
+        '--lca-database[Build a LCA database (default yes)]' \
+        '--no-lca-database[Do not build a LCA database]' \
+        '--lca-order[Impose a hierarchical order for setting LCAs.]':file:_files \
+        "*: :_files"
+
+}
+
+_krakenuniq-build "$@"
+

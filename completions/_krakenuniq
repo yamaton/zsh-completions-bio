@@ -1,0 +1,30 @@
+#compdef krakenuniq
+
+# Auto-generated with h2o
+
+function _krakenuniq {
+    _arguments \
+        '--report-file[Report file]':file:_files \
+        '--db[Name for Kraken DB (default: none)]' \
+        '--threads[Number of threads (default: 1)]' \
+        '--hll-precision[Precision for HyperLogLog k-mer cardinality estimation, between 10 and 18 (default: 12)]' \
+        '--exact[Compute exact cardinality instead of estimate (slower, requires memory proportional to cardinality!)]' \
+        '--quick[Quick operation (use first hit or hits)]' \
+        '--min-hits[In quick op., number of hits req'\''d for classification NOTE: this is ignored if --quick is not specified]' \
+        '--unclassified-out[Print unclassified sequences to filename]':file:_files \
+        '--classified-out[Print classified sequences to filename]':file:_files \
+        '--output[Print output to filename (default: stdout); "off" will suppress normal output]':file:_files \
+        '--only-classified-output[Print no Kraken output for unclassified sequences]' \
+        '--preload[Loads the entire DB into memory before classification]' \
+        '--preload-size[Loads DB into memory in chunks of SIZE, e.g. 500M or 7G (if RAM is small), overrides --preload flag]' \
+        '--paired[The two filenames provided are paired-end reads]' \
+        '--check-names[Ensure each pair of reads have names that agree with each other; ignored if --paired is not specified]' \
+        '--help[Print this message]' \
+        '--version[Print version information]' \
+        '--uid-mapping[Map using UID database]' \
+        "*: :_files"
+
+}
+
+_krakenuniq "$@"
+
