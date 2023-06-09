@@ -6,7 +6,7 @@ function _metaphlan {
     _arguments \
         '--input_type[set whether the input is the FASTA file of metagenomic reads or the SAM file of the mapping of the reads against the MetaPhlAn db.]' \
         '--force[Force profiling of the input file by removing the bowtie2out file]' \
-        '--bowtie2db[Folder containing the MetaPhlAn database. You can specify the location by exporting the DEFAULT_DB_FOLDER variable in the shell.\[default ~/.local/share/condax/envs/metaphlan/lib/python3.10/site-packages/metaphlan/metaphlan_databases\]]' \
+        '--bowtie2db[Folder containing the MetaPhlAn database. You can specify the location by exporting the DEFAULT_DB_FOLDER variable in the shell.]' \
         {-x,--index}'[Specify the id of the database version to use. If "latest", MetaPhlAn will get the latest version. If an index name is provided, MetaPhlAn will try to use it, if available, and skip the online check. If the database files are not found on the local MetaPhlAn installation they will be automatically downloaded \[default latest\]]' \
         '--bt2_ps[Presets options for BowTie2 (applied only when a FASTA file is provided) The choices enabled in MetaPhlAn are:]' \
         '--bowtie2_exe[Full path and name of the BowTie2 executable. This option allowsMetaPhlAn to reach the executable even when it is not in the system PATH or the system PATH is unreachable]' \
