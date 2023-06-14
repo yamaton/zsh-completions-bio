@@ -1,9 +1,9 @@
-#compdef minibusco
+#compdef compleasm
 
 # Auto-generated with h2o
 
 
-function _minibusco {
+function _compleasm {
     local line state
 
     function _commands {
@@ -13,7 +13,7 @@ function _minibusco {
             'list:List local or remote BUSCO lineages'
             'miniprot:Run miniprot alignment'
             'analyze:Evaluate genome completeness from provided miniprot alignment'
-            'run:Run minibusco including miniprot alignment and completeness evaluation'
+            'run:Run compleasm including miniprot alignment and completeness evaluation'
         )
         _describe 'command' commands
     }
@@ -31,23 +31,23 @@ function _minibusco {
     (subcmd)
         case $line[1] in
         (download)
-            _minibusco_download
+            _compleasm_download
             ;;
 
         (list)
-            _minibusco_list
+            _compleasm_list
             ;;
 
         (miniprot)
-            _minibusco_miniprot
+            _compleasm_miniprot
             ;;
 
         (analyze)
-            _minibusco_analyze
+            _compleasm_analyze
             ;;
 
         (run)
-            _minibusco_run
+            _compleasm_run
             ;;
 
         esac
@@ -56,7 +56,7 @@ function _minibusco {
 
 }
 
-function _minibusco_download {
+function _compleasm_download {
     _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-L,--library_path}'[The destination folder to store the downloaded lineage files.If not specified, a folder named "mb_downloads" will be created on the current running path.]':file:_files \
@@ -64,7 +64,7 @@ function _minibusco_download {
 
 }
 
-function _minibusco_list {
+function _compleasm_list {
     _arguments \
         {-h,--help}'[show this help message and exit]' \
         '--remote[List remote BUSCO lineages]' \
@@ -74,7 +74,7 @@ function _minibusco_list {
 
 }
 
-function _minibusco_miniprot {
+function _compleasm_miniprot {
     _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-a,--assembly}'[Input genome file in FASTA format]' \
@@ -87,7 +87,7 @@ function _minibusco_miniprot {
 
 }
 
-function _minibusco_analyze {
+function _compleasm_analyze {
     _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-g,--gff}'[Miniprot output gff file]' \
@@ -107,7 +107,7 @@ function _minibusco_analyze {
 
 }
 
-function _minibusco_run {
+function _compleasm_run {
     _arguments \
         {-h,--help}'[show this help message and exit]' \
         {-a,--assembly_path}'[Input genome file in FASTA format.]':file:_files \
@@ -131,5 +131,5 @@ function _minibusco_run {
 
 }
 
-_minibusco "$@"
+_compleasm "$@"
 
