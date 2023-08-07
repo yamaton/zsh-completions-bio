@@ -24,6 +24,7 @@ function _csvtk {
             'dim:dimensions of CSV file'
             'filter:filter rows by values of selected fields with arithmetic expression'
             'filter2:filter rows by awk-like arithmetic/string expressions'
+            'fix:fix CSV/TSV with different numbers of columns in rows'
             'fmtdate:format date of selected fields'
             'fold:fold multiple values of a field into cells of groups'
             'freq:frequencies of selected fields'
@@ -39,7 +40,7 @@ function _csvtk {
             'ncol:print number of columns'
             'nrow:print number of records'
             'plot:plot common figures'
-            'pretty:convert CSV to readable aligned table'
+            'pretty:convert CSV to a readable aligned table'
             'rename:rename column names with new names'
             'rename2:rename column names by regular expression'
             'replace:replace data of selected fields by regular expression'
@@ -47,7 +48,7 @@ function _csvtk {
             'sample:sampling by proportion'
             'sep:separate column into multiple columns'
             'sort:sort by selected fields'
-            'space2tab:convert space delimited format to CSV'
+            'space2tab:convert space delimited format to TSV'
             'split:split CSV/TSV into multiple files according to column values'
             'splitxlsx:split XLSX sheet into multiple sheets according to column values'
             'summary:summary statistics of selected numeric or text fields (groupby group fields)'
@@ -73,7 +74,7 @@ function _csvtk {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -145,6 +146,10 @@ function _csvtk {
 
         (filter2)
             _csvtk_filter2
+            ;;
+
+        (fix)
+            _csvtk_fix
             ;;
 
         (fmtdate)
@@ -301,7 +306,7 @@ function _csvtk_add-header {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -325,7 +330,7 @@ function _csvtk_cat {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -337,7 +342,8 @@ function _csvtk_cat {
 function _csvtk_comb {
     _arguments \
         {-h,--help}'[help for comb]' \
-        {-i,--ignore-case,-S,--nat-sort}'[sort items in natural order]' \
+        {-i,--ignore-case}'[ignore-case]' \
+        {-S,--nat-sort}'[sort items in natural order]' \
         {-n,--number}'[number of items in a combination, 0 for no limit, i.e., return all combinations (default 2)]' \
         {-s,--sort}'[sort items in a combination]' \
         {-c,--chunk-size}'[chunk size of CSV reader (default 50)]' \
@@ -348,7 +354,7 @@ function _csvtk_comb {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -371,7 +377,7 @@ function _csvtk_concat {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -395,7 +401,7 @@ function _csvtk_corr {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -419,7 +425,7 @@ function _csvtk_csv2json {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -441,7 +447,7 @@ function _csvtk_csv2md {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -466,7 +472,7 @@ function _csvtk_csv2rst {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -486,7 +492,7 @@ function _csvtk_csv2tab {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -497,6 +503,7 @@ function _csvtk_csv2tab {
 
 function _csvtk_csv2xlsx {
     _arguments \
+        {-f,--format-numbers}'[save numbers in number format, instead of text]' \
         {-h,--help}'[help for csv2xlsx]' \
         {-c,--chunk-size}'[chunk size of CSV reader (default 50)]' \
         {-C,--comment-char}'[lines starting with commment-character will be ignored. if your header row starts with '\''#'\'', please assign "-C" another rare symbol, e.g. '\''$'\'' (default "#")]' \
@@ -506,7 +513,7 @@ function _csvtk_csv2xlsx {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -532,7 +539,7 @@ function _csvtk_cut {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -552,7 +559,7 @@ function _csvtk_del-header {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -576,7 +583,7 @@ function _csvtk_dim {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -600,7 +607,7 @@ function _csvtk_filter {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -611,6 +618,8 @@ function _csvtk_filter {
 
 function _csvtk_filter2 {
     _arguments \
+        '-[len(), length of strings, e.g., len($1), len($a), len($1, $2)]' \
+        '-[ulen(), length of unicode strings/width of unicode strings rendered to a terminal, e.g., len("沈伟")==6, ulen("沈伟")==4]' \
         {-f,--filter}'[awk-like filter condition. e.g. '\''$age>12'\'' or '\''$1 > $3'\'' or '\''$name=="abc"'\'' or '\''$1 % 2 == 0'\'']' \
         {-h,--help}'[help for filter2]' \
         {-n,--line-number}'[print line number as the first column ("n")]' \
@@ -623,7 +632,28 @@ function _csvtk_filter2 {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
+        {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
+        {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
+        {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
+        {-t,--tabs}'[specifies that the input CSV file is delimited with tabs. Overrides "-d"]' \
+        "*: :_files"
+
+}
+
+function _csvtk_fix {
+    _arguments \
+        {-n,--buf-rows}'[the number of rows to determine the maximum number of columns. 0 for all rows.]' \
+        {-h,--help}'[help for fix]' \
+        {-c,--chunk-size}'[chunk size of CSV reader (default 50)]' \
+        {-C,--comment-char}'[lines starting with commment-character will be ignored. if your header row starts with '\''#'\'', please assign "-C" another rare symbol, e.g. '\''$'\'' (default "#")]' \
+        {-d,--delimiter}'[delimiting character of the input CSV file (default ",")]' \
+        {-E,--ignore-empty-row}'[ignore empty rows]' \
+        {-I,--ignore-illegal-row}'[ignore illegal rows]' \
+        '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
+        {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
+        {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -648,7 +678,7 @@ function _csvtk_fmtdate {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -673,7 +703,7 @@ function _csvtk_fold {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -699,7 +729,7 @@ function _csvtk_freq {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -723,7 +753,7 @@ function _csvtk_gather {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -745,7 +775,7 @@ function _csvtk_genautocomplete {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -777,7 +807,7 @@ function _csvtk_grep {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -798,7 +828,7 @@ function _csvtk_head {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -819,7 +849,7 @@ function _csvtk_headers {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -842,7 +872,7 @@ function _csvtk_inter {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -862,6 +892,8 @@ function _csvtk_join {
         {-L,--left-join}'[left join, equals to -k/--keep-unmatched, exclusive with --outer-join]' \
         '--na[content for filling NA data]' \
         {-O,--outer-join}'[outer join, exclusive with --left-join]' \
+        {-p,--prefix-filename}'[add each filename as a prefix to each colname. if there'\''s no header row, we'\''ll add one]' \
+        {-e,--prefix-trim-ext}'[trim extension when adding filename as colname prefix]' \
         {-c,--chunk-size}'[chunk size of CSV reader (default 50)]' \
         {-C,--comment-char}'[lines starting with commment-character will be ignored. if your header row starts with '\''#'\'', please assign "-C" another rare symbol, e.g. '\''$'\'' (default "#")]' \
         {-d,--delimiter}'[delimiting character of the input CSV file (default ",")]' \
@@ -870,7 +902,7 @@ function _csvtk_join {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -896,7 +928,7 @@ function _csvtk_mutate {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -907,6 +939,8 @@ function _csvtk_mutate {
 
 function _csvtk_mutate2 {
     _arguments \
+        '-[len(), length of strings, e.g., len($1), len($a), len($1, $2)]' \
+        '-[ulen(), length of unicode strings/width of unicode strings rendered to a terminal, e.g., len("沈伟")==6, ulen("沈伟")==4]' \
         {-w,--decimal-width}'[limit floats to N decimal points (default 2)]' \
         {-e,--expression}'[arithmetic/string expressions. e.g. "'\''string'\''", '\''"abc"'\'', '\'' $a + "-" + $b '\'', '\''$1 + $2'\'', '\''$a / $b'\'', '\'' $1 > 100 ? "big" : "small" '\'']' \
         {-h,--help}'[help for mutate2]' \
@@ -920,7 +954,7 @@ function _csvtk_mutate2 {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -941,7 +975,7 @@ function _csvtk_ncol {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -962,7 +996,7 @@ function _csvtk_nrow {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1014,7 +1048,7 @@ function _csvtk_plot {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1066,7 +1100,7 @@ function _csvtk_plot_box {
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         '--na-values[NA values, case ignored (default \[,NA,N/A\])]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1107,7 +1141,7 @@ function _csvtk_plot_hist {
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         '--na-values[NA values, case ignored (default \[,NA,N/A\])]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1153,7 +1187,7 @@ function _csvtk_plot_line {
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         '--na-values[NA values, case ignored (default \[,NA,N/A\])]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1175,11 +1209,18 @@ function _csvtk_plot_line {
 
 function _csvtk_pretty {
     _arguments \
+        '--[----]' \
+        {-m,--align-center}'[align center/middle]' \
         {-r,--align-right}'[align right]' \
+        {-n,--buf-rows}'[the number of rows to determine the min and max widths (default 128)]' \
+        '--clip[clip longer cell instead of wrapping]' \
+        '--clip-mark[clip mark (default "...")]' \
         {-h,--help}'[help for pretty]' \
         {-W,--max-width}'[max width]' \
         {-w,--min-width}'[min width]' \
         {-s,--separator}'[fields/columns separator (default " ")]' \
+        {-S,--style}'[output syle. available vaules: default, plain, simple, grid, light, bold, double. check https://github.com/shenwei356/stable]' \
+        {-x,--wrap-delimiter}'[delimiter for wrapping cells (default " ")]' \
         {-c,--chunk-size}'[chunk size of CSV reader (default 50)]' \
         {-C,--comment-char}'[lines starting with commment-character will be ignored. if your header row starts with '\''#'\'', please assign "-C" another rare symbol, e.g. '\''$'\'' (default "#")]' \
         {-d,--delimiter}'[delimiting character of the input CSV file (default ",")]' \
@@ -1188,7 +1229,7 @@ function _csvtk_pretty {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1211,7 +1252,7 @@ function _csvtk_rename {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1242,7 +1283,7 @@ function _csvtk_rename2 {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1273,7 +1314,7 @@ function _csvtk_replace {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1297,7 +1338,7 @@ function _csvtk_round {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1320,7 +1361,7 @@ function _csvtk_sample {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1340,7 +1381,8 @@ function _csvtk_sep {
         {-n,--names}'[new column names]' \
         {-N,--num-cols}'[preset number of new created columns]' \
         {-R,--remove}'[remove input column]' \
-        {-s,--sep,-r,--use-regexp}'[separator is a regular expression]' \
+        {-s,--sep}'[separator]' \
+        {-r,--use-regexp}'[separator is a regular expression]' \
         {-c,--chunk-size}'[chunk size of CSV reader (default 50)]' \
         {-C,--comment-char}'[lines starting with commment-character will be ignored. if your header row starts with '\''#'\'', please assign "-C" another rare symbol, e.g. '\''$'\'' (default "#")]' \
         {-d,--delimiter}'[delimiting character of the input CSV file (default ",")]' \
@@ -1349,7 +1391,7 @@ function _csvtk_sep {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1361,7 +1403,8 @@ function _csvtk_sep {
 function _csvtk_sort {
     _arguments \
         {-h,--help}'[help for sort]' \
-        {-i,--ignore-case,-k,--keys}'[keys (multiple values supported). sort type supported, "N" for natural order, "n" for number, "u" for user-defined order and "r" for reverse. e.g., "-k 1" or "-k A:r" or ""-k 1:nr -k 2" (default \[1\])]' \
+        {-i,--ignore-case}'[ignore-case]' \
+        {-k,--keys}'[keys (multiple values supported). sort type supported, "N" for natural order, "n" for number, "u" for user-defined order and "r" for reverse. e.g., "-k 1" or "-k A:r" or ""-k 1:nr -k 2" (default \[1\])]' \
         {-L,--levels}'[user-defined level file (one level per line, multiple values supported). format: <field>:<level-file>. e.g., "-k name:u -L name:level.txt"]' \
         {-c,--chunk-size}'[chunk size of CSV reader (default 50)]' \
         {-C,--comment-char}'[lines starting with commment-character will be ignored. if your header row starts with '\''#'\'', please assign "-C" another rare symbol, e.g. '\''$'\'' (default "#")]' \
@@ -1371,7 +1414,7 @@ function _csvtk_sort {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1382,6 +1425,7 @@ function _csvtk_sort {
 
 function _csvtk_space2tab {
     _arguments \
+        {-b,--buffer-size}'[size of buffer, supported unit: K, M, G. You need increase the value when "bufio.Scanner: token too long" error reported (default "1G")]' \
         {-h,--help}'[help for space2tab]' \
         {-c,--chunk-size}'[chunk size of CSV reader (default 50)]' \
         {-C,--comment-char}'[lines starting with commment-character will be ignored. if your header row starts with '\''#'\'', please assign "-C" another rare symbol, e.g. '\''$'\'' (default "#")]' \
@@ -1391,7 +1435,7 @@ function _csvtk_space2tab {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1417,7 +1461,7 @@ function _csvtk_split {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1443,7 +1487,7 @@ function _csvtk_splitxlsx {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1469,7 +1513,7 @@ function _csvtk_summary {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1489,7 +1533,7 @@ function _csvtk_tab2csv {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1509,7 +1553,7 @@ function _csvtk_transpose {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1531,7 +1575,7 @@ function _csvtk_unfold {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1555,7 +1599,7 @@ function _csvtk_uniq {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1576,7 +1620,7 @@ function _csvtk_version {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1606,7 +1650,7 @@ function _csvtk_watch {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \
@@ -1629,7 +1673,7 @@ function _csvtk_xlsx2csv {
         '--infile-list[file of input files list (one file per line), if given, they are appended to files from cli arguments]' \
         {-l,--lazy-quotes}'[if given, a quote may appear in an unquoted field and a non-doubled quote may appear in a quoted field]' \
         {-H,--no-header-row}'[specifies that the input CSV file does not have header row]' \
-        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 12)]' \
+        {-j,--num-cpus}'[number of CPUs to use (default value depends on your computer) (default 8)]' \
         {-D,--out-delimiter}'[delimiting character of the output CSV file, e.g., -D $'\''\t'\'' for tab (default ",")]' \
         {-o,--out-file}'[out file ("-" for stdout, suffix .gz for gzipped out) (default "-")]' \
         {-T,--out-tabs}'[specifies that the output is delimited with tabs. Overrides "-D"]' \

@@ -14,6 +14,7 @@ function _featureCounts {
         '-f[Perform read counting at feature level (eg. counting reads for exons rather than genes).]' \
         '-O[Assign reads to all their overlapping meta-features (or features if -f is specified).]' \
         '--minOverlap[Minimum number of overlapping bases in a read that is required for read assignment. 1 by default. Number of overlapping bases is counted from both reads if paired end. If a negative value is provided, then a gap of up to specified size will be allowed between read and the feature that the read is assigned to.]' \
+        '--fracOverlap[Minimum fraction of overlapping bases in a read that is required for read assignment. Value should be within range \[0,1\]. 0 by default. Number of overlapping bases is counted from both reads if paired end. Both this option and '\''--minOverlap'\'' option need to be satisfied for read assignment.]' \
         '--fracOverlapFeature[<float> Minimum fraction of overlapping bases in a feature that is required for read assignment. Value should be within range \[0,1\]. 0 by default.]' \
         '--largestOverlap[Assign reads to a meta-feature/feature that has the largest number of overlapping bases.]' \
         '--nonOverlap[Maximum number of non-overlapping bases in a read (or a read pair) that is allowed when being assigned to a feature. No limit is set by default.]' \
@@ -31,7 +32,8 @@ function _featureCounts {
         '-s[Perform strand-specific read counting. A single integer value (applied to all input files) or a string of commaseparated values (applied to each corresponding input file) should be provided. Possible values include: 0 (unstranded), 1 (stranded) and 2 (reversely stranded). Default value is 0 (ie. unstranded read counting carried out for all input files).]' \
         '-J[Count number of reads supporting each exon-exon junction. Junctions were identified from those exon-spanning reads in the input (containing '\''N'\'' in CIGAR string). Counting results are saved to a file named '\''<output_file>.jcounts'\'']' \
         '-G[Provide the name of a FASTA-format file that contains the reference sequences used in read mapping that produced the provided SAM/BAM files. This optional argument can be used with '\''-J'\'' option to improve read counting for junctions.]' \
-        '-p[If specified, fragments (or templates) will be counted instead of reads. This option is only applicable for paired-end reads; single-end reads are always counted as reads.]' \
+        '-p[Specify that input data contain paired-end reads. To perform fragment counting (ie. counting read pairs), the '\''--countReadPairs'\'' parameter should also be specified in addition to this parameter.]' \
+        '--countReadPairs[Count read pairs (fragments) instead of reads. This option is only applicable for paired-end reads.]' \
         '-B[Only count read pairs that have both ends aligned.]' \
         '-P[Check validity of paired-end distance when counting read pairs. Use -d and -D to set thresholds.]' \
         '-d[Minimum fragment/template length, 50 by default.]' \
