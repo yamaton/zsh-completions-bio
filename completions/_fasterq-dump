@@ -4,48 +4,51 @@
 
 function _fasterq-dump {
     _arguments \
-        {-o,--outfile}'[full path of outputfile (overrides usage of current directory and given accession)]':file:_files \
-        {-O,--outdir}'[path for outputfile (overrides usage of current directory, but uses given accession)]':file:_files \
-        {-b,--bufsize}'[size of file-buffer (dflt=1MB, takes number or number and unit where unit is one of (K|M|G) case-insensitive)]' \
-        {-c,--curcache}'[size of cursor-cache (dflt=10MB, takes number or number and unit where unit is one of (K|M|G) case-insensitive)]' \
-        {-m,--mem}'[memory limit for sorting (dflt=100MB, takes number or number and unit where unit is one of (K|M|G) case-insensitive)]' \
-        {-t,--temp}'[path to directory for temp. files (dflt=current dir.)]':file:_files \
-        {-e,--threads}'[how many threads to use (dflt=6)]' \
-        {-p,--progress}'[show progress (not possible if stdout used)]' \
-        {-x,--details}'[print details of all options selected]' \
+        {-F,--format}'[format (special, fastq, default=fastq)]' \
+        {-o,--outfile}'[output-file]':file:_files \
+        {-O,--outdir}'[output-dir]':file:_files \
+        {-b,--bufsize}'[size of file-buffer dflt=1MB]' \
+        {-c,--curcache}'[size of cursor-cache dflt=10MB]' \
+        {-m,--mem}'[memory limit for sorting dflt=100MB]' \
+        {-t,--temp}'[where to put temp. files dflt=curr dir]':file:_files \
+        {-e,--threads}'[how many thread dflt=6]' \
+        {-p,--progress}'[show progress]' \
+        {-x,--details}'[print details]' \
         {-s,--split-spot}'[split spots into reads]' \
         {-S,--split-files}'[write reads into different files]' \
-        {-3,--split-3}'[writes single reads into special file]' \
+        {-3,--split-3}'[writes single reads in special file]' \
         '--concatenate-reads[writes whole spots into one file]' \
         {-Z,--stdout}'[print output to stdout]' \
-        {-f,--force}'[force overwrite of existing file(s)]' \
-        {-N,--rowid-as-name}'[use rowid as name (avoids using the name column)]' \
+        {-f,--force}'[force to overwrite existing file(s)]' \
         '--skip-technical[skip technical reads]' \
-        '--include-technical[explicitly include technical reads]' \
-        {-P,--print-read-nr}'[include read-number in defline]' \
-        {-M,--min-read-len}'[filter by sequence-lenght]' \
+        '--include-technical[include technical reads]' \
+        {-M,--min-read-len}'[filter by sequence-len]' \
         '--table[which seq-table to use in case of pacbio]' \
-        '--strict[terminate on invalid read]' \
-        {-B,--bases}'[filter output by matching against given bases]' \
-        {-A,--append}'[append to output-file, instead of overwriting it]' \
+        {-B,--bases}'[filter by bases]' \
+        {-A,--append}'[append to output-file]' \
         '--fasta[produce FASTA output]' \
         '--fasta-unsorted[produce FASTA output, unsorted]' \
+        '--fasta-ref-tbl[produce FASTA output from REFERENCE tbl]' \
+        '--fasta-concat-all[concatenate all rows and produce FASTA]' \
+        '--internal-ref[extract only internal REFERENCEs]' \
+        '--external-ref[extract only external REFERENCEs]' \
+        '--ref-name[extract only these REFERENCEs]' \
+        '--ref-report[enumerate references]' \
+        '--use-name[print name instead of seq-id]' \
         '--seq-defline[custom defline for sequence: $ac=accession, $sn=spot-name, $sg=spot-group, $si=spot-id, $ri=read-id, $rl=read-length]' \
-        '--qual-defline[custom defline for qualities (see seq-defline)]' \
+        '--qual-defline[custom defline for qualities: same as seq-defline]' \
         {-U,--only-unaligned}'[process only unaligned reads]' \
         {-a,--only-aligned}'[process only aligned reads]' \
+        '--disk-limit[explicitly set disk-limit]' \
+        '--disk-limit-tmp[explicitly set disk-limit for temp. files]' \
         '--size-check[switch to control: on=perform size-check (default), off=do not perform size-check, only=perform size-check only]' \
-        '--disk-limit[explicitly set disk limit]' \
-        '--disk-limit-tmp[explicitly set disk limit for temp. files]' \
-        '--ngc[<path> to ngc file]':file:_files \
-        '--perm[<path> to permission file]':file:_files \
-        '--location[location in cloud]' \
-        '--cart[<path> to cart file]':file:_files \
-        {-V,--version}'[Display the version of the program]' \
-        {-v,--verbose}'[Increase the verbosity of the program status messages. Use multiple times for more verbosity.]' \
-        {-L,--log-level}'[Logging level as number or enum string. One of (fatal|sys|int|err|warn|info|debug) or (0-6) Current/default is warn]' \
+        '--ngc[PATH to ngc file]':file:_files \
+        {-h,--help}'[Output brief explanation for the program.]' \
+        {-V,--version}'[Display the version of the program then quit.]' \
+        {-L,--log-level}'[Logging level as number or enum string. One of (fatal|sys|int|err|warn|info|debug) or (0-6) Current/default is warn.]' \
+        {-v,--verbose}'[Increase the verbosity of the program status messages. Use multiple times for more verbosity. Negates quiet.]' \
+        {-q,--quiet}'[Turn off all status messages for the program. Negated by verbose.]' \
         '--option-file[Read more options and parameters from the file.]':file:_files \
-        {-h,--help}'[print this message]' \
         "*: :_files"
 
 }
