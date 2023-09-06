@@ -1,0 +1,49 @@
+#compdef mashmap
+
+# Auto-generated with h2o
+
+function _mashmap {
+    _arguments \
+        {-h,--help}'[Print this help page]' \
+        {-v,--version}'[Print MashMap version]' \
+        {-r,--ref}'[an input reference file (fasta/fastq)\[.gz\]]' \
+        {--refList,--rl}'[a file containing list of reference files, one per line]' \
+        {-q,--query}'[an input query file (fasta/fastq)\[.gz\]]' \
+        {--ql,--queryList}'[a file containing list of query files, one per line]' \
+        {-s,--segLength}'[mapping segment length \[default : 5,000\] sequences shorter than segment length will be ignored]' \
+        {-J,--sketchSize}'[Number of sketch elements]' \
+        '--dense[Use dense sketching to yield higher ANI estimation accuracy. \[disabled by default\]]' \
+        {--blockLength,-l}'[keep merged mappings supported by homologies of at least this length \[default: segmentLength\]]' \
+        {-c,--chainGap}'[chain mappings closer than this distance in query and target, retaining mappings in best chain \[default: segmentLength\]]' \
+        {-n,--numMappingsForSegment}'[number of mappings to retain for each segment \[default: 1\]]' \
+        '--numMappingsForShortSeq[number of mappings to retain for each sequence shorter than segment length \[default: 1\]]' \
+        '--saveIndex[Prefix of index files to save. PREFIX.map and PREFIX.index files will be created]' \
+        '--loadIndex[Prefix of index files to load, where PREFIX.map and PREFIX.index are the files to be loaded]' \
+        '--noSplit[disable splitting of input sequences during mapping \[enabled by default\]]' \
+        {--perc_identity,--pi}'[threshold for identity \[default : 85\]]' \
+        {-K,--dropLowMapId}'[drop mappings with estimated identity below --perc_identity=%]' \
+        {-t,--threads}'[count of threads for parallel execution \[default : 1\]]' \
+        {-o,--output}'[output file name \[default : mashmap.out \]]' \
+        {-k,--kmer}'[kmer size \[default : 19\]]' \
+        '--kmerThreshold[ignore the top % most-frequent kmer window \[default: 0.001\]]' \
+        '--kmerComplexity[threshold for kmer complexity \[0, 1\] \[default : 0.0\]]' \
+        '--noHgFilter[Don'\''t use the hypergeometric filtering and instead use the MashMap2 first pass filtering.]' \
+        '--hgFilterAniDiff[Filter out mappings unlikely to be this ANI less than the best mapping \[default: 0.0\]]' \
+        '--hgFilterConf[Confidence value for the hypergeometric filtering \[default: 99.9%\]]' \
+        '--filterLengthMismatches[Filter mappings where the ratio of reference/query mapped lengths disagrees with the ANI threshold]' \
+        '--lowerTriangular[Only map sequence i to sequence j if i > j.]' \
+        {-X,--skipSelf}'[skip self mappings when the query and target name is the same (for all-vs-all mode)]' \
+        {-Y,--skipPrefix}'[skip mappings when the query and target have the same prefix before the last occurrence of the given character C]' \
+        '--targetPrefix[Only index reference sequences beginning with this prefix]' \
+        '--targetList[file containing list of target sequence names]' \
+        {--sparsifyMappings,-x}'[keep this fraction of mappings]' \
+        {-M,--noMerge}'[don'\''t merge consecutive segment-level mappings]' \
+        {-f,--filter_mode}'[filter modes in mashmap: '\''map'\'', '\''one-to-one'\'' or '\''none'\'' \[default: map\] '\''map'\'' computes best mappings for each query sequence '\''one-to-one'\'' computes best mappings for query as well as reference sequence '\''none'\'' disables filtering]' \
+        '--legacy[MashMap2 output format]' \
+        '--reportPercentage[Report predicted ANI values in \[0, 100\] instead of \[0,1\] (necessary for use with wfmash)]' \
+        "*: :_files"
+
+}
+
+_mashmap "$@"
+

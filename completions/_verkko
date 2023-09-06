@@ -1,0 +1,82 @@
+#compdef verkko
+
+# Auto-generated with h2o
+
+function _verkko {
+    _arguments \
+        '-d[Directory to use for verkko intermediate and final results. Will be created if needed.]':file:_files \
+        '--hifi[List of files containing PacBio HiFi reads.]':file:_files \
+        '--nano[List of files containing Oxford Nanopore reads.]':file:_files \
+        '--no-correction[Do not perform Canu correction on the HiFi reads.]' \
+        '--no-nano[Assemble without ONT data.]' \
+        '--hap-kmers[Use rukki to assign paths to haplotypes. '\''h1'\'' and '\''h2 must be Meryl databases of homopolymer-compressed parental kmers. '\''type'\'' must be '\''trio'\'', '\''hic'\'' or '\''strandseq'\''.]' \
+        '--hic1[List of files containing left hic reads.]':file:_files \
+        '--hic2[List of files containing right hic reads. Order of left and right files should be same, no interlaced files allowed. Input reads can be any combination of FASTA/FASTQ, uncompressed or gzip/bzip2/xz compressed. Any number of files can be supplied; *.gz works.]':file:_files \
+        '--no-rdna-tangle[Switch off option that helps to proceed large rDNA tangles which may connect multiple chromosomes.]' \
+        '--uneven-depth[Disable coverage-based heuristics in homozygous nodes detection for phasing.]' \
+        '--haplo-divergence[Estimation on maximum divergence between haplotypes. Should be increased for species with divergence significantly higher than in human. Default: 0.05, min 0, max 0.2]' \
+        '--screen[Identify common contaminants and remove from the assembly, saving 1 (circularized) exemplar. For human, '\''--screen human'\'' will attempt to remove rDNA, mitochondria, and EBV. Arbitrary contaminants are supported by supplying a name and fasta: '\''screen contaminant /full/path/to/contaminant.fasta'\'' Multiple screen commands are allowed and are additive.]' \
+        '--paths[No assembly, generate consensus given paths and an existing assembly. The gaf file must be formatted as follows: '\''name >utig4-1<utig4-2 HAPLOTYPE1'\''. One per line. where utig4-1 is in fwd orientation and utig4-2 is in reverse complement. Requires '\''--assembly'\''.]':file:_files \
+        '--assembly[Existing verkko assembly where the nodes given to --paths are defined. The nodes should come from assembly.homopolymer-compressed.gfa Provide -d for the output of new consensus, as well as the hifi and nano reads from previous run.]':file:_files \
+        '--python[Path or name of a python interpreter. Default: '\''python'\''.]' \
+        '--perl[Path of name of a perl interpreter. Default: '\''perl'\''.]' \
+        '--mbg[Path to MBG. Default for all three]':file:_files \
+        '--graphaligner[Path to GraphAligner. one packaged with verkko.]':file:_files \
+        '--mashmap[Path to MashMap.]':file:_files \
+        '--winnowmap[Path to Winnowmap.]':file:_files \
+        '--bwa[Path to BWA.]':file:_files \
+        '--samtools[Path to Samtools.]':file:_files \
+        '--cleanup[Remove intermediate results.]' \
+        '--no-cleanup[Retain intermediate results (default).]' \
+        '--local[Run on the local machine (default).]' \
+        '--local-memory[Specify the upper limit on memory to use, in GB, default 64]' \
+        '--local-cpus[Specify the number of CPUs to use, default '\''all'\'']' \
+        '--sge[Enable Sun Grid Engine support.]' \
+        '--slurm[Enable Slurm support.]' \
+        '--lsf[Enable IBM Spectrum LSF support.]' \
+        '--snakeopts[Append snakemake options in "string" to the snakemake command. Options MUST be quoted.]' \
+        '--sto-run[Set resource limits for various stages.]' \
+        '--mer-run[Format: number-of-cpus memory-in-gb time-in-hours]' \
+        '--ovb-run[--cns-run 8 32 2]' \
+        '--ovs-run[]' \
+        '--red-run[]' \
+        '--mbg-run[]' \
+        '--utg-run[]' \
+        '--spl-run[]' \
+        '--ali-run[]' \
+        '--pop-run[]' \
+        '--utp-run[]' \
+        '--lay-run[]' \
+        '--sub-run[]' \
+        '--par-run[]' \
+        '--cns-run[]' \
+        '--correct-k-mer-size[]' \
+        '--correct-mer-threshold[]' \
+        '--correct-mer-filter[]' \
+        '--correct-min-read-length[]' \
+        '--correct-min-overlap-length[]' \
+        '--correct-hash-bits[]' \
+        '--base-k[MBG: k-mer size]' \
+        '--max-k[MBG: maximum k-mer size]' \
+        '--window[MBG: window size]' \
+        '--threads[MBG: number of threads]' \
+        '--unitig-abundance[MBG: ]' \
+        '--hifi-coverage[MBG: ]' \
+        '--split-bases[]' \
+        '--split-reads[]' \
+        '--min-ont-length[]' \
+        '--seed-min-length[]' \
+        '--seed-max-length[]' \
+        '--align-bandwidth[]' \
+        '--score-fraction[]' \
+        '--min-identity[]' \
+        '--min-score[]' \
+        '--end-clipping[]' \
+        '--incompatible-cutoff[]' \
+        '--max-trace[]' \
+        "*: :_files"
+
+}
+
+_verkko "$@"
+
