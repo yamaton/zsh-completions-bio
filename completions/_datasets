@@ -111,15 +111,16 @@ function _datasets_summary_gene {
             'gene-id:Print a data report containing gene metadata by NCBI Gene ID'
             'symbol:Print a data report containing gene metadata by gene symbol'
             'accession:Print a data report containing gene metadata by RefSeq nucleotide or protein accession'
-            'taxon:Print a data report containing gene metadata by taxon'
+            'taxon:Print a data report containing gene metadata by taxon (NCBI Taxonomy ID, scientific or common name at any tax rank)'
         )
         _describe 'command' commands
     }
  
 
     _arguments -C \
-        '--as-json-lines[Stream results as newline delimited JSON-Lines,--limit string    Limit the number of gene summaries returned   * all: returns all matching gene summaries * a number: returns the specified number of matching gene summaries]' \
-        '--report[Choose the output type:   * gene: Retrieve the primary gene report * product: Retrieve product data report * ids_only: Only retrieve gene-ids]' \
+        '--as-json-lines[Stream results as newline delimited JSON-Lines]' \
+        '--limit[Limit the number of gene summaries returned (default "all")]' \
+        '--report[Choose the output type]' \
         '--api-key[Specify an NCBI API key]' \
         '--debug[Emit debugging info]' \
         '--help[Print detailed help about a datasets command]' \
@@ -235,6 +236,7 @@ function _datasets_summary_genome {
         '--assembly-source[Limit to '\''RefSeq'\'' (GCF_) or '\''GenBank'\'' (GCA_) genomes (default "all")]' \
         '--exclude-atypical[Exclude atypical assemblies]' \
         '--limit[Limit the number of genome summaries returned]' \
+        '--mag[Limit to metagenome assembled genomes (only) or remove them from the results (exclude) (default "all")]' \
         '--reference[Limit to reference genomes]' \
         '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
         '--released-before[Limit to genomes released on or before a specified date (MM/DD/YYYY)]' \
@@ -280,6 +282,7 @@ function _datasets_summary_genome_accession {
         '--exclude-atypical[Exclude atypical assemblies]' \
         '--help[Print detailed help about a datasets command]' \
         '--limit[Limit the number of genome summaries returned]' \
+        '--mag[Limit to metagenome assembled genomes (only) or remove them from the results (exclude) (default "all")]' \
         '--reference[Limit to reference genomes]' \
         '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
         '--released-before[Limit to genomes released on or before a specified date (MM/DD/YYYY)]' \
@@ -302,6 +305,7 @@ function _datasets_summary_genome_taxon {
         '--exclude-atypical[Exclude atypical assemblies]' \
         '--help[Print detailed help about a datasets command]' \
         '--limit[Limit the number of genome summaries returned]' \
+        '--mag[Limit to metagenome assembled genomes (only) or remove them from the results (exclude) (default "all")]' \
         '--reference[Limit to reference genomes]' \
         '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
         '--released-before[Limit to genomes released on or before a specified date (MM/DD/YYYY)]' \
@@ -356,7 +360,7 @@ function _datasets_summary_virus_genome {
     function _commands {
         local -a commands
         commands=(
-            'taxon:Print a data report containing virus genome metadata by taxa'
+            'taxon:Print a data report containing virus genome metadata by taxon (NCBI Taxonomy ID, scientific or common name for any virus at any tax rank)'
             'accession:Print a data report containing virus genome metadata by accession'
         )
         _describe 'command' commands
@@ -504,7 +508,7 @@ function _datasets_download_gene {
             'gene-id:Download a gene data package by NCBI Gene ID'
             'symbol:Download a gene data package by gene symbol'
             'accession:Download a gene data package by RefSeq nucleotide or protein accession'
-            'taxon:Download a gene data package by taxon'
+            'taxon:Download a gene data package by taxon (NCBI Taxonomy ID, scientific or common name at any tax rank)'
         )
         _describe 'command' commands
     }
@@ -553,7 +557,7 @@ function _datasets_download_gene {
 
 function _datasets_download_gene_gene-id {
     _arguments \
-        '--include[Specify the data files to include (comma-separated).   * gene: gene sequence * rna: transcript * protein: amino acid sequences * cds: nucleotide coding sequences * 5p-utr: 5'\''-UTR * 3p-utr: 3'\''-UTR * product-report: gene transcript and protein locations and metadata * none: do not retrieve any sequence files]' \
+        '--include[Specify the data files to include (comma-separated). {gene, rna, protein, cds, 5p-utr, 3p-utr, product-report, none}. (default \[rna,protein\])]' \
         '--inputfile[Read a list of NCBI Gene IDs from a file to use as input]' \
         '--ortholog[Retrieves data for an ortholog set. Provide one or more taxa (any rank) to filter results or '\''all'\'' for the complete set.]' \
         '--api-key[Specify an NCBI API key]' \
@@ -571,7 +575,7 @@ function _datasets_download_gene_gene-id {
 
 function _datasets_download_gene_symbol {
     _arguments \
-        '--include[Specify the data files to include (comma-separated).]' \
+        '--include[Specify the data files to include (comma-separated). {gene, rna, protein, cds, 5p-utr, 3p-utr, product-report, none}. (default \[rna,protein\])]' \
         '--inputfile[Read a list of NCBI Gene Symbols from a file to use as input]' \
         '--ortholog[Retrieves data for an ortholog set. Provide one or more taxa (any rank) to filter results or '\''all'\'' for the complete set.]' \
         '--taxon[Define species (NCBI taxid, common or scientific name) for gene symbol (default "human")]' \
@@ -590,7 +594,7 @@ function _datasets_download_gene_symbol {
 
 function _datasets_download_gene_accession {
     _arguments \
-        '--include[Specify the data files to include (comma-separated).]' \
+        '--include[Specify the data files to include (comma-separated). {gene, rna, protein, cds, 5p-utr, 3p-utr, product-report, none}. (default \[\])]' \
         '--include-flanks-bp[Specify the length of flanking nucleotides (WP accessions only)]' \
         '--inputfile[Read a list of NCBI Gene Accessions from a file to use as input]' \
         '--ortholog[Retrieves data for an ortholog set. Provide one or more taxa (any rank) to filter results or '\''all'\'' for the complete set.]' \
@@ -610,7 +614,7 @@ function _datasets_download_gene_accession {
 
 function _datasets_download_gene_taxon {
     _arguments \
-        '--include[Specify the data files to include (comma-separated).   * gene: gene sequence * rna: transcript * protein: amino acid sequences * cds: nucleotide coding sequences * 5p-utr: 5'\''-UTR * 3p-utr: 3'\''-UTR * product-report: gene transcript and protein locations and metadata * none: do not retrieve any sequence files]' \
+        '--include[Specify the data files to include (comma-separated). {gene, rna, protein, cds, 5p-utr, 3p-utr, product-report, none}. (default \[rna,protein\])]' \
         '--api-key[Specify an NCBI API key]' \
         '--debug[Emit debugging info]' \
         '--fasta-filter[Limit protein and RNA sequence files to the specified RefSeq nucleotide and protein accessions]' \
@@ -631,8 +635,8 @@ function _datasets_download_genome {
     function _commands {
         local -a commands
         commands=(
-            'taxon:Print a data report containing virus genome metadata by taxa'
-            'accession:Print a data report containing virus genome metadata by accession'
+            'accession:Download a genome data package by Assembly or BioProject accession'
+            'taxon:Download a genome data package by taxon (NCBI Taxonomy ID, scientific or common name at any tax rank)'
         )
         _describe 'command' commands
     }
@@ -640,11 +644,12 @@ function _datasets_download_genome {
 
     _arguments -C \
         '--annotated[Limit to annotated genomes]' \
-        '--assembly-level[Limit to genomes at one or more assembly levels (comma-separated):]' \
+        '--assembly-level[Limit to genomes at one or more assembly levels (comma-separated): {chromosome,complete,contig,scaffold} (default "\[\]")]' \
         '--assembly-source[Limit to '\''RefSeq'\'' (GCF_) or '\''GenBank'\'' (GCA_) genomes (default "all")]' \
         '--chromosomes[Limit to a specified, comma-delimited list of chromosomes, or '\''all'\'' for all chromosomes]' \
         '--dehydrated[Download a dehydrated zip archive including the data report and locations of data files (use the rehydrate command to retrieve data files).]' \
         '--exclude-atypical[Exclude atypical assemblies]' \
+        '--mag[Limit to metagenome assembled genomes (only) or remove them from the results (exclude) (default "all")]' \
         '--preview[Show information about the requested data package]' \
         '--reference[Limit to reference genomes]' \
         '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
@@ -665,12 +670,12 @@ function _datasets_download_genome {
         ;;
     (subcmd)
         case $line[1] in
-        (taxon)
-            _datasets_download_genome_taxon
-            ;;
-
         (accession)
             _datasets_download_genome_accession
+            ;;
+
+        (taxon)
+            _datasets_download_genome_taxon
             ;;
 
         esac
@@ -679,44 +684,55 @@ function _datasets_download_genome {
 
 }
 
-function _datasets_download_genome_taxon {
+function _datasets_download_genome_accession {
     _arguments \
+        '--assembly-version[Limit to '\''latest'\'' assembly accession version or include '\''all'\'' (latest + previous versions)]' \
+        '--include[Specify the data files to include (comma-separated). {genome, rna, protein, cds, gff3, gtf, gbff, seq-report, none}. (default \[genome\])]' \
+        '--inputfile[Read a list of NCBI Assembly or BioProject accessions from a file to use as input]' \
         '--annotated[Limit to annotated genomes]' \
         '--api-key[Specify an NCBI API key]' \
-        '--as-json-lines[Output results in JSON Lines format]' \
-        '--complete-only[Limit to complete genomes]' \
+        '--assembly-level[Limit to genomes at one or more assembly levels (comma-separated): {chromosome,complete,contig,scaffold} (default "\[\]")]' \
+        '--assembly-source[Limit to '\''RefSeq'\'' (GCF_) or '\''GenBank'\'' (GCA_) genomes (default "all")]' \
+        '--chromosomes[Limit to a specified, comma-delimited list of chromosomes, or '\''all'\'' for all chromosomes]' \
         '--debug[Emit debugging info]' \
-        '--geo-location[Limit to genomes isolated from a specified geographic location (continent, country or U.S. state)]' \
+        '--dehydrated[Download a dehydrated zip archive including the data report and locations of data files (use the rehydrate command to retrieve data files).]' \
+        '--exclude-atypical[Exclude atypical assemblies]' \
+        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
         '--help[Print detailed help about a datasets command]' \
-        '--host[Limit to virus genomes isolated from a specified host species]' \
-        '--limit[Limit the number of virus summaries returned]' \
-        '--lineage[Limit results by Pango lineage (only SARS-CoV-2)]' \
-        '--refseq[Limit to RefSeq genomes]' \
+        '--mag[Limit to metagenome assembled genomes (only) or remove them from the results (exclude) (default "all")]' \
+        '--no-progressbar[Hide progress bar]' \
+        '--preview[Show information about the requested data package]' \
+        '--reference[Limit to reference genomes]' \
         '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
-        '--report[Specify report virus genome report summary type]' \
-        '--updated-after[Limit to genomes updated on or after a specified date (MM/DD/YYYY)]' \
+        '--released-before[Limit to genomes released on or before a specified date (MM/DD/YYYY)]' \
+        '--search[Limit results to genomes with specified text in the searchable fields: species and infraspecies, assembly name and submitter. To search multiple strings, use the flag multiple times.]' \
         '--version[Print version of datasets]' \
         "*: :_files"
 
 }
 
-function _datasets_download_genome_accession {
+function _datasets_download_genome_taxon {
     _arguments \
-        '--inputfile[Read a list of nucleotide accessions from a file to use as input]' \
+        '--assembly-version[Limit to '\''latest'\'' assembly accession version or include '\''all'\'' (latest + previous versions) (default "latest")]' \
+        '--include[Specify the data files to include (comma-separated). {genome, rna, protein, cds, gff3, gtf, gbff, seq-report, none}. (default \[genome\])]' \
+        '--reference[Limit to reference genomes]' \
+        '--tax-exact-match[Exclude sub-species when a species-level taxon is specified]' \
         '--annotated[Limit to annotated genomes]' \
         '--api-key[Specify an NCBI API key]' \
-        '--as-json-lines[Output results in JSON Lines format]' \
-        '--complete-only[Limit to complete genomes]' \
+        '--assembly-level[Limit to genomes at one or more assembly levels (comma-separated):]' \
+        '--assembly-source[Limit to '\''RefSeq'\'' (GCF_) or '\''GenBank'\'' (GCA_) genomes (default "all")]' \
+        '--chromosomes[Limit to a specified, comma-delimited list of chromosomes, or '\''all'\'' for all chromosomes]' \
         '--debug[Emit debugging info]' \
-        '--geo-location[Limit to genomes isolated from a specified geographic location (continent, country or U.S. state)]' \
+        '--dehydrated[Download a dehydrated zip archive including the data report and locations of data files (use the rehydrate command to retrieve data files).]' \
+        '--exclude-atypical[Exclude atypical assemblies]' \
+        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
         '--help[Print detailed help about a datasets command]' \
-        '--host[Limit to virus genomes isolated from a specified host species]' \
-        '--limit[Limit the number of virus summaries returned]' \
-        '--lineage[Limit results by Pango lineage (only SARS-CoV-2)]' \
-        '--refseq[Limit to RefSeq genomes]' \
+        '--mag[Limit to metagenome assembled genomes (only) or remove them from the results (exclude) (default "all")]' \
+        '--no-progressbar[Hide progress bar]' \
+        '--preview[Show information about the requested data package]' \
         '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
-        '--report[Specify report virus genome report summary type]' \
-        '--updated-after[Limit to genomes updated on or after a specified date (MM/DD/YYYY)]' \
+        '--released-before[Limit to genomes released on or before a specified date (MM/DD/YYYY)]' \
+        '--search[Limit results to genomes with specified text in the searchable fields: species and infraspecies, assembly name and submitter. To search multiple strings, use the flag multiple times.]' \
         '--version[Print version of datasets]' \
         "*: :_files"
 
@@ -766,13 +782,26 @@ function _datasets_download_virus {
 
 }
 
+
 function _datasets_download_virus_genome {
-    _arguments \
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'accession:Download a virus genome data package by accession.'
+            'taxon:Download a virus genome data package by taxon (NCBI Taxonomy ID, scientific or common name for any virus at any tax rank)'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
         '--annotated[Limit to annotated genomes]' \
         '--complete-only[Limit to complete genomes]' \
         '--geo-location[Limit to genomes isolated from a specified geographic location (continent, country or U.S. state)]' \
         '--host[Limit to virus genomes isolated from a specified host species]' \
-        '--include[Specify virus genome sequence types to download]' \
+        '--include[Specify the data files to include (comma-separated). {genome, cds, protein, annotation, biosample, none}. (default \[genome\])]' \
         '--lineage[Limit results by Pango lineage (only SARS-CoV-2)]' \
         '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
         '--updated-after[Limit to genomes updated on or after a specified date (MM/DD/YYYY)]' \
@@ -782,26 +811,403 @@ function _datasets_download_virus_genome {
         '--help[Print detailed help about a datasets command]' \
         '--no-progressbar[Hide progress bar]' \
         '--version[Print version of datasets]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (accession)
+            _datasets_download_virus_genome_accession
+            ;;
+
+        (taxon)
+            _datasets_download_virus_genome_taxon
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _datasets_download_virus_genome_accession {
+    _arguments \
+        '--inputfile[Read a list of nucleotide accessions from a file to use as input]' \
+        '--annotated[Limit to annotated genomes]' \
+        '--api-key[Specify an NCBI API key]' \
+        '--complete-only[Limit to complete genomes]' \
+        '--debug[Emit debugging info]' \
+        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
+        '--geo-location[Limit to genomes isolated from a specified geographic location (continent, country or U.S. state)]' \
+        '--help[Print detailed help about a datasets command]' \
+        '--host[Limit to virus genomes isolated from a specified host species]' \
+        '--include[Specify the data files to include (comma-separated). {genome, cds, protein, annotation, biosample, none}. (default \[genome\])]' \
+        '--lineage[Limit results by Pango lineage (only SARS-CoV-2)]' \
+        '--no-progressbar[Hide progress bar]' \
+        '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
+        '--updated-after[Limit to genomes updated on or after a specified date (MM/DD/YYYY)]' \
+        '--version[Print version of datasets]' \
         "*: :_files"
 
 }
 
-function _datasets_download_virus_protein {
+function _datasets_download_virus_genome_taxon {
     _arguments \
+        '--refseq[Limit to RefSeq genomes]' \
         '--annotated[Limit to annotated genomes]' \
-        '--complete-only[Limit to complete genomes]' \
-        '--geo-location[Limit to coronavirus genomes isolated from a specified geographic location (continent, country or U.S. state)]' \
-        '--host[Limit to virus genomes isolated from a specified host species]' \
-        '--include[Specify virus genome sequence types to download]' \
-        '--refseq[Limit to RefSeq coronavirus genomes]' \
-        '--released-after[Limit to coronavirus genomes released on or after a specified date (MM/DD/YYYY)]' \
-        '--updated-after[Limit to coronavirus genomes updated on or after a specified date (MM/DD/YYYY)]' \
         '--api-key[Specify an NCBI API key]' \
+        '--complete-only[Limit to complete genomes]' \
         '--debug[Emit debugging info]' \
         '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
+        '--geo-location[Limit to genomes isolated from a specified geographic location (continent, country or U.S. state)]' \
         '--help[Print detailed help about a datasets command]' \
+        '--host[Limit to virus genomes isolated from a specified host species]' \
+        '--include[Specify the data files to include (comma-separated). {genome, cds, protein, annotation, biosample, none}. (default \[genome\])]' \
+        '--lineage[Limit results by Pango lineage (only SARS-CoV-2)]' \
         '--no-progressbar[Hide progress bar]' \
+        '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
+        '--updated-after[Limit to genomes updated on or after a specified date (MM/DD/YYYY)]' \
         '--version[Print version of datasets]' \
+        "*: :_files"
+
+}
+
+
+function _datasets_download_virus_protein {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'ORF1ab:ORF1ab protein'
+            'ORF1a:ORF1a protein'
+            'nsp1:nsp1 protein'
+            'nsp2:nsp2 protein'
+            'nsp3:nsp3 protein'
+            'nsp4:nsp4 protein'
+            'nsp5:nsp5 protein'
+            'nsp6:nsp6 protein'
+            'nsp7:nsp7 protein'
+            'nsp8:nsp8 protein'
+            'nsp9:nsp9 protein'
+            'nsp10:nsp10 protein'
+            'rdrp:rdrp protein'
+            'nsp11:nsp11 protein'
+            'nsp13:nsp13 protein'
+            'nsp14:nsp14 protein'
+            'nsp15:nsp15 protein'
+            'nsp16:nsp16 protein'
+            'S:S protein'
+            'ORF3a:ORF3a protein'
+            'E:E protein'
+            'M:M protein'
+            'ORF6:ORF6 protein'
+            'ORF7a:ORF7a protein'
+            'ORF7b:ORF7b protein'
+            'ORF8:ORF8 protein'
+            'N:N protein'
+            'ORF10:ORF10 protein'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (ORF1ab)
+            _datasets_download_virus_protein_ORF1ab
+            ;;
+
+        (ORF1a)
+            _datasets_download_virus_protein_ORF1a
+            ;;
+
+        (nsp1)
+            _datasets_download_virus_protein_nsp1
+            ;;
+
+        (nsp2)
+            _datasets_download_virus_protein_nsp2
+            ;;
+
+        (nsp3)
+            _datasets_download_virus_protein_nsp3
+            ;;
+
+        (nsp4)
+            _datasets_download_virus_protein_nsp4
+            ;;
+
+        (nsp5)
+            _datasets_download_virus_protein_nsp5
+            ;;
+
+        (nsp6)
+            _datasets_download_virus_protein_nsp6
+            ;;
+
+        (nsp7)
+            _datasets_download_virus_protein_nsp7
+            ;;
+
+        (nsp8)
+            _datasets_download_virus_protein_nsp8
+            ;;
+
+        (nsp9)
+            _datasets_download_virus_protein_nsp9
+            ;;
+
+        (nsp10)
+            _datasets_download_virus_protein_nsp10
+            ;;
+
+        (rdrp)
+            _datasets_download_virus_protein_rdrp
+            ;;
+
+        (nsp11)
+            _datasets_download_virus_protein_nsp11
+            ;;
+
+        (nsp13)
+            _datasets_download_virus_protein_nsp13
+            ;;
+
+        (nsp14)
+            _datasets_download_virus_protein_nsp14
+            ;;
+
+        (nsp15)
+            _datasets_download_virus_protein_nsp15
+            ;;
+
+        (nsp16)
+            _datasets_download_virus_protein_nsp16
+            ;;
+
+        (S)
+            _datasets_download_virus_protein_S
+            ;;
+
+        (ORF3a)
+            _datasets_download_virus_protein_ORF3a
+            ;;
+
+        (E)
+            _datasets_download_virus_protein_E
+            ;;
+
+        (M)
+            _datasets_download_virus_protein_M
+            ;;
+
+        (ORF6)
+            _datasets_download_virus_protein_ORF6
+            ;;
+
+        (ORF7a)
+            _datasets_download_virus_protein_ORF7a
+            ;;
+
+        (ORF7b)
+            _datasets_download_virus_protein_ORF7b
+            ;;
+
+        (ORF8)
+            _datasets_download_virus_protein_ORF8
+            ;;
+
+        (N)
+            _datasets_download_virus_protein_N
+            ;;
+
+        (ORF10)
+            _datasets_download_virus_protein_ORF10
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _datasets_download_virus_protein_ORF1ab {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_ORF1a {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_nsp1 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_nsp2 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_nsp3 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_nsp4 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_nsp5 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_nsp6 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_nsp7 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_nsp8 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_nsp9 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_nsp10 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_rdrp {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_nsp11 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_nsp13 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_nsp14 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_nsp15 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_nsp16 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_S {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_ORF3a {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_E {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_M {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_ORF6 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_ORF7a {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_ORF7b {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_ORF8 {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_N {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _datasets_download_virus_protein_ORF10 {
+    _arguments \
         "*: :_files"
 
 }
@@ -813,6 +1219,7 @@ function _datasets_rehydrate {
         '--list[List files that would be downloaded during rehydration]' \
         '--match[Specify substring that matches files for rehydration]' \
         '--max-workers[Limit the maximum number of concurrent download workers (allowed range is 1-30) (default 10)]' \
+        '--no-progressbar[Hide progress bar]' \
         '--api-key[Specify an NCBI API key]' \
         '--debug[Emit debugging info]' \
         '--help[Print detailed help about a datasets command]' \

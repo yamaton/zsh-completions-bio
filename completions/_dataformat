@@ -78,6 +78,7 @@ function _dataformat_tsv {
             'microbigge:Convert MicroBIGG-E Data Report into TSV format'
             'prok-gene:Convert Prokaryote Gene Report into TSV format'
             'prok-gene-location:Convert Prokaryote Gene Location Report into TSV format'
+            'genome-annotations:Convert Genome Annotation Report into TSV format'
         )
         _describe 'command' commands
     }
@@ -130,6 +131,10 @@ function _dataformat_tsv {
 
         (prok-gene-location)
             _dataformat_tsv_prok-gene-location
+            ;;
+
+        (genome-annotations)
+            _dataformat_tsv_genome-annotations
             ;;
 
         esac
@@ -246,6 +251,18 @@ function _dataformat_tsv_prok-gene-location {
 
 }
 
+function _dataformat_tsv_genome-annotations {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for genome-annotations]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--elide-header[Do not output header]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        "*: :_files"
+
+}
+
 
 function _dataformat_excel {
     local line state
@@ -262,6 +279,7 @@ function _dataformat_excel {
             'microbigge:Convert MicroBIGG-E Data Report into an Excel workbook'
             'prok-gene:Convert Prokaryote Gene Report into an Excel workbook'
             'prok-gene-location:Convert Prokaryote Gene Location Report into an Excel workbook'
+            'genome-annotations:Convert Genome Annotation Report into an Excel workbook'
         )
         _describe 'command' commands
     }
@@ -314,6 +332,10 @@ function _dataformat_excel {
 
         (prok-gene-location)
             _dataformat_excel_prok-gene-location
+            ;;
+
+        (genome-annotations)
+            _dataformat_excel_genome-annotations
             ;;
 
         esac
@@ -422,6 +444,18 @@ function _dataformat_excel_prok-gene-location {
     _arguments \
         '--fields[Comma-separated list of fields]' \
         {-h,--help}'[help for prok-gene-location]' \
+        '--inputfile[Input file]' \
+        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
+        '--force[Force dataformat to run without type check prompt]' \
+        '--outputfile[Excel workbook file]' \
+        "*: :_files"
+
+}
+
+function _dataformat_excel_genome-annotations {
+    _arguments \
+        '--fields[Comma-separated list of fields]' \
+        {-h,--help}'[help for genome-annotations]' \
         '--inputfile[Input file]' \
         '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
         '--force[Force dataformat to run without type check prompt]' \
