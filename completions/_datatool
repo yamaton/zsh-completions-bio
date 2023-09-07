@@ -4,6 +4,66 @@
 
 function _datatool {
     _arguments \
+        '-m[module file(s)]' \
+        '-h[Print USAGE and DESCRIPTION; ignore all other parameters]' \
+        '-help[Print USAGE, DESCRIPTION and ARGUMENTS; ignore all other parameters]' \
+        '-xmlhelp[Print USAGE, DESCRIPTION and ARGUMENTS in XML format; ignore all other]' \
+        '-M[external module file(s)]' \
+        '-i[ignore unresolved symbols]' \
+        '-f[write ASN.1 module file]':file:_files \
+        '-fx[write DTD file ("-fx m" writes modular DTD file)]':file:_files \
+        '-fxs[write XML Schema file ("-fxs m" writes modular Schema file)]':file:_files \
+        '-fjs[write JSON Schema file]':file:_files \
+        '-fd[write specification dump file (datatool internal format)]':file:_files \
+        '-ms[suffix of modular DTD or Schema file name]' \
+        '-v[read value in ASN.1 text format]':file:_files \
+        '-vx[read value in XML format]':file:_files \
+        '-vj[read value in JSON format]':file:_files \
+        '-d[read value in ASN.1 binary format (-t is required)]':file:_files \
+        '-tvs[read traversal specification file]':file:_files \
+        '-t[binary value type (see "-d" argument)]' \
+        '-dn[DTD module name in XML header (no extension). If empty, omit DOCTYPE line.]' \
+        '-F[read value completely into memory]' \
+        '-p[write value in ASN.1 text format]':file:_files \
+        '-px[write value in XML format]':file:_files \
+        '-pj[write value in JSON format]':file:_files \
+        '-xmlns[XML namespace name]' \
+        '-e[write value in ASN.1 binary format]':file:_files \
+        '-sxo[no scope prefixes in XML output]' \
+        '-sxi[no scope prefixes in XML input]' \
+        '-oex[class export specifier for MSVC]' \
+        '-od[code definition file]':file:_files \
+        '-odi[silently ignore absent code definition file]' \
+        '-odw[issue a warning about absent code definition file]' \
+        '-ods[generate sample definition file]' \
+        '-of[write list of generated C++ files]':file:_files \
+        '-oc[write combining C++ files]' \
+        '-oA[generate C++ files for all types]' \
+        '-ot[generate C++ files for listed types]' \
+        '-ox[exclude listed types from generation]' \
+        '-oX[turn off recursive type generation]' \
+        '-on[default namespace]' \
+        '-opm[directory for searching source modules]' \
+        '-oph[directory for generated *.hpp files]' \
+        '-opc[directory for generated *.cpp files]' \
+        '-or[add prefix to generated file names]' \
+        '-orq[use quoted syntax form for generated include files]' \
+        '-ors[add source file dir to generated file names]' \
+        '-orm[add module name to generated file names]' \
+        '-orA[combine all -or* prefixes]' \
+        '-ocvs[create ".cvsignore" files]' \
+        '-oR[set "-o*" arguments for NCBI directory tree]' \
+        '-oDc[turn on generation of DOXYGEN-style comments]' \
+        '-odx[URL of documentation root folder (for DOXYGEN)]' \
+        '-lax_syntax[allow non-standard ASN.1 syntax accepted by asntool]' \
+        '-pch[name of the precompiled header to include in all *.cpp files]' \
+        '-logfile[File to which the program log should be redirected]':file:_files \
+        '-conffile[Program'\''s configuration (registry) data file]':file:_files \
+        '-version[Print version number; ignore other arguments]' \
+        '-version-full[Print extended version data; ignore other arguments]' \
+        '-version-full-xml[Print extended version data in XML format; ignore other arguments]' \
+        '-version-full-json[Print extended version data in JSON format; ignore other arguments]' \
+        '-dryrun[Dry run the application: do nothing, only test all preconditions]' \
         "*: :_files"
 
 }
