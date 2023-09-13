@@ -1,0 +1,211 @@
+#compdef dnaapler
+
+# Auto-generated with h2o
+
+
+function _dnaapler {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'all:Reorients multiple contigs to begin with any of dnaA, repA...'
+            'bulk:Reorients multiple genomes to begin with the same gene'
+            'chromosome:Reorients your genome to begin with the dnaA chromosomal...'
+            'citation:Print the citation(s) for this tool'
+            'custom:Reorients your genome with a custom database'
+            'mystery:Reorients your genome with a random CDS'
+            'nearest:Reorients your genome the begin with the first CDS as...'
+            'phage:Reorients your genome to begin with the terL large...'
+            'plasmid:Reorients your genome to begin with the repA replication...'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[Show this message and exit.]' \
+        {-V,--version}'[Show the version and exit.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (all)
+            _dnaapler_all
+            ;;
+
+        (bulk)
+            _dnaapler_bulk
+            ;;
+
+        (chromosome)
+            _dnaapler_chromosome
+            ;;
+
+        (citation)
+            _dnaapler_citation
+            ;;
+
+        (custom)
+            _dnaapler_custom
+            ;;
+
+        (mystery)
+            _dnaapler_mystery
+            ;;
+
+        (nearest)
+            _dnaapler_nearest
+            ;;
+
+        (phage)
+            _dnaapler_phage
+            ;;
+
+        (plasmid)
+            _dnaapler_plasmid
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _dnaapler_all {
+    _arguments \
+        {-h,--help}'[Show this message and exit.]' \
+        {-V,--version}'[Show the version and exit.]' \
+        {-i,--input}'[Path to input file in FASTA format \[required\]]':file:_files \
+        {-o,--output}'[Output directory \[default: output.dnaapler\]]':file:_files \
+        {-t,--threads}'[Number of threads to use with BLAST \[default: 1\]]' \
+        {-p,--prefix}'[Prefix for output files \[default: dnaapler\]]' \
+        {-f,--force}'[Force overwrites the output directory]' \
+        {-e,--evalue}'[e value for blastx \[default: 1e-10\]]' \
+        '--ignore[Text file listing contigs (one per row) that are to be ignored]':file:_files \
+        "*: :_files"
+
+}
+
+function _dnaapler_bulk {
+    _arguments \
+        {-h,--help}'[Show this message and exit.]' \
+        {-V,--version}'[Show the version and exit.]' \
+        {-i,--input}'[Path to input file in FASTA format \[required\]]':file:_files \
+        {-o,--output}'[Output directory \[default: output.dnaapler\]]':file:_files \
+        {-t,--threads}'[Number of threads to use with BLAST \[default: 1\]]' \
+        {-p,--prefix}'[Prefix for output files \[default: dnaapler\]]' \
+        {-f,--force}'[Force overwrites the output directory]' \
+        {-e,--evalue}'[e value for blastx \[default: 1e-10\]]' \
+        {-m,--mode}'[Choose an mode to reorient in bulk. Must be one of: chromosome, plasmid, phage or custom \[default: chromosome\]]' \
+        {-c,--custom_db}'[FASTA file with amino acids that will be used as a custom blast database to reorient your sequence however you want. Must be specified if -m custom is specified.]':file:_files \
+        "*: :_files"
+
+}
+
+function _dnaapler_chromosome {
+    _arguments \
+        {-h,--help}'[Show this message and exit.]' \
+        {-V,--version}'[Show the version and exit.]' \
+        {-i,--input}'[Path to input file in FASTA format \[required\]]':file:_files \
+        {-o,--output}'[Output directory \[default: output.dnaapler\]]':file:_files \
+        {-t,--threads}'[Number of threads to use with BLAST \[default: 1\]]' \
+        {-p,--prefix}'[Prefix for output files \[default: dnaapler\]]' \
+        {-f,--force}'[Force overwrites the output directory]' \
+        {-e,--evalue}'[e value for blastx \[default: 1e-10\]]' \
+        {-a,--autocomplete}'[Choose an option to autocomplete reorientation if BLAST based approach fails. Must be one of: none, mystery or nearest \[default: none\]]' \
+        '--seed_value[Random seed to ensure reproducibility. \[default: 13\]]' \
+        "*: :_files"
+
+}
+
+function _dnaapler_citation {
+    _arguments \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _dnaapler_custom {
+    _arguments \
+        {-h,--help}'[Show this message and exit.]' \
+        {-V,--version}'[Show the version and exit.]' \
+        {-i,--input}'[Path to input file in FASTA format \[required\]]':file:_files \
+        {-o,--output}'[Output directory \[default: output.dnaapler\]]':file:_files \
+        {-t,--threads}'[Number of threads to use with BLAST \[default: 1\]]' \
+        {-p,--prefix}'[Prefix for output files \[default: dnaapler\]]' \
+        {-f,--force}'[Force overwrites the output directory]' \
+        {-e,--evalue}'[e value for blastx \[default: 1e-10\]]' \
+        {-c,--custom_db}'[FASTA file with amino acids that will be used as a custom blast database to reorient your sequence however you want. \[required\]]':file:_files \
+        {-a,--autocomplete}'[Choose an option to autocomplete reorientation if BLAST based approach fails. Must be one of: none, mystery or nearest \[default: none\]]' \
+        '--seed_value[Random seed to ensure reproducibility. \[default: 13\]]' \
+        "*: :_files"
+
+}
+
+function _dnaapler_mystery {
+    _arguments \
+        {-h,--help}'[Show this message and exit.]' \
+        {-V,--version}'[Show the version and exit.]' \
+        {-i,--input}'[Path to input file in FASTA format \[required\]]':file:_files \
+        {-o,--output}'[Output directory \[default: output.dnaapler\]]':file:_files \
+        {-t,--threads}'[Number of threads to use with BLAST \[default: 1\]]' \
+        {-p,--prefix}'[Prefix for output files \[default: dnaapler\]]' \
+        {-f,--force}'[Force overwrites the output directory]' \
+        '--seed_value[Random seed to ensure reproducibility. \[default: 13\]]' \
+        "*: :_files"
+
+}
+
+function _dnaapler_nearest {
+    _arguments \
+        {-h,--help}'[Show this message and exit.]' \
+        {-V,--version}'[Show the version and exit.]' \
+        {-i,--input}'[Path to input file in FASTA format \[required\]]':file:_files \
+        {-o,--output}'[Output directory \[default: output.dnaapler\]]':file:_files \
+        {-t,--threads}'[Number of threads to use with BLAST \[default: 1\]]' \
+        {-p,--prefix}'[Prefix for output files \[default: dnaapler\]]' \
+        {-f,--force}'[Force overwrites the output directory]' \
+        "*: :_files"
+
+}
+
+function _dnaapler_phage {
+    _arguments \
+        {-h,--help}'[Show this message and exit.]' \
+        {-V,--version}'[Show the version and exit.]' \
+        {-i,--input}'[Path to input file in FASTA format \[required\]]':file:_files \
+        {-o,--output}'[Output directory \[default: output.dnaapler\]]':file:_files \
+        {-t,--threads}'[Number of threads to use with BLAST \[default: 1\]]' \
+        {-p,--prefix}'[Prefix for output files \[default: dnaapler\]]' \
+        {-f,--force}'[Force overwrites the output directory]' \
+        {-e,--evalue}'[e value for blastx \[default: 1e-10\]]' \
+        {-a,--autocomplete}'[Choose an option to autocomplete reorientation if BLAST based approach fails. Must be one of: none, mystery or nearest \[default: none\]]' \
+        '--seed_value[Random seed to ensure reproducibility. \[default: 13\]]' \
+        "*: :_files"
+
+}
+
+function _dnaapler_plasmid {
+    _arguments \
+        {-h,--help}'[Show this message and exit.]' \
+        {-V,--version}'[Show the version and exit.]' \
+        {-i,--input}'[Path to input file in FASTA format \[required\]]':file:_files \
+        {-o,--output}'[Output directory \[default: output.dnaapler\]]':file:_files \
+        {-t,--threads}'[Number of threads to use with BLAST \[default: 1\]]' \
+        {-p,--prefix}'[Prefix for output files \[default: dnaapler\]]' \
+        {-f,--force}'[Force overwrites the output directory]' \
+        {-e,--evalue}'[e value for blastx \[default: 1e-10\]]' \
+        {-a,--autocomplete}'[Choose an option to autocomplete reorientation if BLAST based approach fails. be one of: none, mystery or nearest \[default: none\]]' \
+        '--seed_value[Random seed to ensure reproducibility. \[default: 13\]]' \
+        "*: :_files"
+
+}
+
+_dnaapler "$@"
+
