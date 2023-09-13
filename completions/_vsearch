@@ -1,0 +1,296 @@
+#compdef vsearch
+
+# Auto-generated with h2o
+
+function _vsearch {
+    _arguments \
+        '--bzip2_decompress[decompress input with bzip2 (required if pipe)]' \
+        '--fasta_width[width of FASTA seq lines, 0 for no wrap (80)]' \
+        '--gzip_decompress[decompress input with gzip (required if pipe)]' \
+        {--help,-h}'[display help information]' \
+        '--log[write messages, timing and memory info to file]':file:_files \
+        '--maxseqlength[maximum sequence length (50000)]' \
+        '--minseqlength[min seq length (clust/derep/search: 32, other:1)]' \
+        '--no_progress[do not show progress indicator]' \
+        '--notrunclabels[do not truncate labels at first space]' \
+        '--quiet[output just warnings and fatal errors to stderr]' \
+        '--threads[number of threads to use, zero for all cores (0)]' \
+        {--version,-v}'[display version information]' \
+        '--chimeras_denovo[detect chimeras de novo in long exact sequences]':file:_files \
+        '--abskew[minimum abundance ratio (1.0)]' \
+        '--chimeras_length_min[minimum length of each chimeric region (10)]' \
+        '--chimeras_parents_max[maximum number of parent sequences (3)]' \
+        '--chimeras_parts[number of parts to divide sequences (length/100)]' \
+        '--sizein[propagate abundance annotation from input]' \
+        '--alignwidth[width of alignments in alignment output file (60)]' \
+        '--alnout[output chimera alignments to file]':file:_files \
+        '--chimeras[output chimeric sequences to file]':file:_files \
+        '--nonchimeras[output non-chimeric sequences to file]':file:_files \
+        '--relabel[relabel nonchimeras with this prefix string]' \
+        '--relabel_keep[keep the old label after the new when relabelling]' \
+        '--relabel_md5[relabel with md5 digest of normalized sequence]' \
+        '--relabel_self[relabel with the sequence itself as label]' \
+        '--relabel_sha1[relabel with sha1 digest of normalized sequence]' \
+        '--sizeout[include abundance information when relabelling]' \
+        '--tabbedout[output chimera info to tab-separated file]':file:_files \
+        '--xsize[strip abundance information in output]' \
+        '--uchime_denovo[detect chimeras de novo]':file:_files \
+        '--uchime2_denovo[detect chimeras de novo in denoised amplicons]':file:_files \
+        '--uchime3_denovo[detect chimeras de novo in denoised amplicons]':file:_files \
+        '--uchime_ref[detect chimeras using a reference database]':file:_files \
+        '--db[reference database for --uchime_ref]':file:_files \
+        '--abskew[minimum abundance ratio (2.0, 16.0 for uchime3)]' \
+        '--dn['\''no'\'' vote pseudo-count (1.4)]' \
+        '--mindiffs[minimum number of differences in segment (3) *]' \
+        '--mindiv[minimum divergence from closest parent (0.8) *]' \
+        '--minh[minimum score (0.28) * ignored in uchime2/3]' \
+        '--self[exclude identical labels for --uchime_ref]' \
+        '--selfid[exclude identical sequences for --uchime_ref]' \
+        '--xn['\''no'\'' vote weight (8.0)]' \
+        '--alignwidth[width of alignment in uchimealn output (80)]' \
+        '--borderline[output borderline chimeric sequences to file]':file:_files \
+        '--fasta_score[include chimera score in FASTA output]' \
+        '--uchimealns[output chimera alignments to file]':file:_files \
+        '--uchimeout[output to chimera info to tab-separated file]':file:_files \
+        '--uchimeout5[make output compatible with uchime version 5]' \
+        '--cluster_fast[cluster sequences after sorting by length]':file:_files \
+        '--cluster_size[cluster sequences after sorting by abundance]':file:_files \
+        '--cluster_smallmem[cluster already sorted sequences (see -usersort)]':file:_files \
+        '--cluster_unoise[denoise Illumina amplicon reads]':file:_files \
+        '--cons_truncate[do not ignore terminal gaps in MSA for consensus]' \
+        '--id[reject if identity lower, accepted values: 0-1.0]' \
+        '--iddef[id definition, 0-4=CD-HIT,all,int,MBL,BLAST (2)]' \
+        '--qmask[mask seqs with dust, soft or no method (dust)]' \
+        '--strand[cluster using plus or both strands (plus)]' \
+        '--usersort[indicate sequences not pre-sorted by length]' \
+        '--minsize[minimum abundance (unoise only) (8)]' \
+        '--unoise_alpha[alpha parameter (unoise only) (2.0)]' \
+        '--biomout[filename for OTU table output in biom 1.0 format]':file:_files \
+        '--centroids[output centroid sequences to FASTA file]':file:_files \
+        '--clusterout_id[add cluster id info to consout and profile files]' \
+        '--clusterout_sort[order msaout, consout, profile by decr abundance]' \
+        '--clusters[output each cluster to a separate FASTA file]' \
+        '--consout[output cluster consensus sequences to FASTA file]':file:_files \
+        '--mothur_shared_out[filename for OTU table output in mothur format]' \
+        '--msaout[output multiple seq. alignments to FASTA file]':file:_files \
+        '--otutabout[filename for OTU table output in classic format]':file:_files \
+        '--profile[output sequence profile of each cluster to file]':file:_files \
+        '--relabel[relabel centroids with this prefix string]' \
+        '--sizeorder[sort accepted centroids by abundance, AGC]' \
+        '--sizeout[write cluster abundances to centroid file]' \
+        '--uc[specify filename for UCLUST-like output]':file:_files \
+        '--sff_convert[convert given SFF file to FASTQ format]':file:_files \
+        '--sff_clip[clip ends of sequences as indicated in file (no)]' \
+        '--fastq_asciiout[FASTQ output quality score ASCII base char (33)]' \
+        '--fastq_qmaxout[maximum base quality value for FASTQ output (41)]' \
+        '--fastq_qminout[minimum base quality value for FASTQ output (0)]' \
+        '--fastqout[output converted sequences to given FASTQ file]':file:_files \
+        '--derep_fulllength[dereplicate sequences in the given FASTA file]':file:_files \
+        '--derep_id[dereplicate using both identifiers and sequences]':file:_files \
+        '--derep_prefix[dereplicate sequences in file based on prefixes]':file:_files \
+        '--derep_smallmem[dereplicate sequences in file using less memory]':file:_files \
+        '--fastx_uniques[dereplicate sequences in the FASTA/FASTQ file]':file:_files \
+        '--rereplicate[rereplicate sequences in the given FASTA file]':file:_files \
+        '--maxuniquesize[maximum abundance for output from dereplication]' \
+        '--minuniquesize[minimum abundance for output from dereplication]' \
+        '--strand[dereplicate plus or both strands (plus)]' \
+        '--fastq_ascii[FASTQ input quality score ASCII base char (33)]' \
+        '--fastq_qmax[maximum base quality value for FASTQ input (41)]' \
+        '--fastq_qmin[minimum base quality value for FASTQ input (0)]' \
+        '--fastaout[output FASTA file (for fastx_uniques)]':file:_files \
+        '--fastqout[output FASTQ file (for fastx_uniques)]':file:_files \
+        '--output[output FASTA file (not for fastx_uniques)]':file:_files \
+        '--relabel[relabel with this prefix string]' \
+        '--sizeout[write abundance annotation to output]' \
+        '--tabbedout[write cluster info to tsv file for fastx_uniques]':file:_files \
+        '--topn[output only n most abundant sequences after derep]' \
+        '--uc[filename for UCLUST-like dereplication output]':file:_files \
+        '--xsize[strip abundance information in derep output]' \
+        '--fasta2fastq[convert from FASTA to FASTQ, fake quality scores]':file:_files \
+        '--fastq_qmaxout[fake quality score for FASTQ output (41)]' \
+        '--fastqout[FASTQ output filename for converted sequences]':file:_files \
+        '--fastq_convert[convert between FASTQ file formats]':file:_files \
+        '--fastq_chars[analyse FASTQ file for version and quality range]':file:_files \
+        '--fastq_tail[min length of tails to count for fastq_chars (4)]' \
+        '--fastq_stats[report statistics on FASTQ file]':file:_files \
+        '--fastq_eestats[quality score and expected error statistics]':file:_files \
+        '--fastq_eestats2[expected error and length cutoff statistics]':file:_files \
+        '--ee_cutoffs[fastq_eestats2 expected error cutoffs (0.5,1,2)]' \
+        '--log[output file for fastq_stats statistics]':file:_files \
+        '--output[output file for fastq_eestats(2) statistics]':file:_files \
+        '--fastx_mask[mask sequences in the given FASTA or FASTQ file]':file:_files \
+        '--hardmask[mask by replacing with N instead of lower case]' \
+        '--max_unmasked_pct[max unmasked % of sequences to keep (100.0)]' \
+        '--min_unmasked_pct[min unmasked % of sequences to keep (0.0)]' \
+        '--fastaout[output to specified FASTA file]':file:_files \
+        '--fastqout[output to specified FASTQ file]':file:_files \
+        '--maskfasta[mask sequences in the given FASTA file]':file:_files \
+        '--output[output to specified FASTA file]':file:_files \
+        '--orient[orient sequences in given FASTA/FASTQ file]':file:_files \
+        '--db[database of sequences in correct orientation]':file:_files \
+        '--dbmask[mask db seqs with dust, soft or no method (dust)]' \
+        '--qmask[mask query with dust, soft or no method (dust)]' \
+        '--wordlength[length of words used for matching 3-15 (12)]' \
+        '--fastaout[FASTA output filename for oriented sequences]':file:_files \
+        '--fastqout[FASTQ output filenamr for oriented sequences]':file:_files \
+        '--notmatched[output filename for undetermined sequences]':file:_files \
+        '--tabbedout[output filename for result information]':file:_files \
+        '--fastq_join[join paired-end reads into one sequence with gap]':file:_files \
+        '--reverse[specify FASTQ file with reverse reads]':file:_files \
+        '--join_padgap[sequence string used for padding (NNNNNNNN)]' \
+        '--join_padgapq[quality string used for padding (IIIIIIII)]' \
+        '--fastaout[FASTA output filename for joined sequences]':file:_files \
+        '--fastqout[FASTQ output filename for joined sequences]':file:_files \
+        '--fastq_mergepairs[merge paired-end reads into one sequence]':file:_files \
+        '--fastq_allowmergestagger[allow merging of staggered reads]' \
+        '--fastq_maxdiffpct[maximum percentage diff. bases in overlap (100.0)]' \
+        '--fastq_maxdiffs[maximum number of different bases in overlap (10)]' \
+        '--fastq_maxee[maximum expected error value for merged sequence]' \
+        '--fastq_maxmergelen[maximum length of entire merged sequence]' \
+        '--fastq_maxns[maximum number of N'\''s]' \
+        '--fastq_minlen[minimum input read length after truncation (1)]' \
+        '--fastq_minmergelen[minimum length of entire merged sequence]' \
+        '--fastq_minovlen[minimum length of overlap between reads (10)]' \
+        '--fastq_nostagger[disallow merging of staggered reads (default)]' \
+        '--fastq_truncqual[base quality value for truncation]' \
+        '--eetabbedout[output error statistics to specified file]':file:_files \
+        '--fastaout[FASTA output filename for merged sequences]':file:_files \
+        '--fastaout_notmerged_fwd[FASTA filename for non-merged forward sequences]' \
+        '--fastaout_notmerged_rev[FASTA filename for non-merged reverse sequences]' \
+        '--fastq_eeout[include expected errors (ee) in FASTQ output]' \
+        '--fastqout[FASTQ output filename for merged sequences]':file:_files \
+        '--fastqout_notmerged_fwd[FASTQ filename for non-merged forward sequences]' \
+        '--fastqout_notmerged_rev[FASTQ filename for non-merged reverse sequences]' \
+        '--label_suffix[suffix to append to label of merged sequences]' \
+        '--xee[remove expected errors (ee) info from output]' \
+        '--allpairs_global[perform global alignment of all sequence pairs]':file:_files \
+        '--alnout[filename for human-readable alignment output]':file:_files \
+        '--acceptall[output all pairwise alignments]' \
+        '--cut[filename of FASTA formatted input sequences]':file:_files \
+        '--cut_pattern[pattern to match with ^ and _ at cut sites]' \
+        '--fastaout[FASTA filename for fragments on forward strand]':file:_files \
+        '--fastaout_rev[FASTA filename for fragments on reverse strand]':file:_files \
+        '--fastaout_discarded[FASTA filename for non-matching sequences]' \
+        '--fastaout_discarded_rev[FASTA filename for non-matching, reverse compl.]' \
+        '--fastx_revcomp[reverse-complement seqs in FASTA or FASTQ file]':file:_files \
+        '--fastaout[FASTA output filename]':file:_files \
+        '--fastqout[FASTQ output filename]':file:_files \
+        '--label_suffix[label to append to identifier in the output]' \
+        '--search_exact[filename of queries for exact match search]':file:_files \
+        '--usearch_global[filename of queries for global alignment search]':file:_files \
+        '--db[name of UDB or FASTA database for search]':file:_files \
+        '--dbmask[mask db with dust, soft or no method (dust)]' \
+        '--fulldp[full dynamic programming alignment (always on)]' \
+        '--gapext[penalties for gap extension (2I/1E)]' \
+        '--gapopen[penalties for gap opening (20I/2E)]' \
+        '--id[reject if identity lower]' \
+        '--idprefix[reject if first n nucleotides do not match]' \
+        '--idsuffix[reject if last n nucleotides do not match]' \
+        '--lca_cutoff[fraction of matching hits required for LCA (1.0)]' \
+        '--leftjust[reject if terminal gaps at alignment left end]' \
+        '--match[score for match (2)]' \
+        '--maxaccepts[number of hits to accept and show per strand (1)]' \
+        '--maxdiffs[reject if more substitutions or indels]' \
+        '--maxgaps[reject if more indels]' \
+        '--maxhits[maximum number of hits to show (unlimited)]' \
+        '--maxid[reject if identity higher]' \
+        '--maxqsize[reject if query abundance larger]' \
+        '--maxqt[reject if query/target length ratio higher]' \
+        '--maxrejects[number of non-matching hits to consider (32)]' \
+        '--maxsizeratio[reject if query/target abundance ratio higher]' \
+        '--maxsl[reject if shorter/longer length ratio higher]' \
+        '--maxsubs[reject if more substitutions]' \
+        '--mid[reject if percent identity lower, ignoring gaps]' \
+        '--mincols[reject if alignment length shorter]' \
+        '--minqt[reject if query/target length ratio lower]' \
+        '--minsizeratio[reject if query/target abundance ratio lower]' \
+        '--minsl[reject if shorter/longer length ratio lower]' \
+        '--mintsize[reject if target abundance lower]' \
+        '--minwordmatches[minimum number of word matches required (12)]' \
+        '--mismatch[score for mismatch (-4)]' \
+        '--pattern[option is ignored]' \
+        '--query_cov[reject if fraction of query seq. aligned lower]' \
+        '--rightjust[reject if terminal gaps at alignment right end]' \
+        '--self[reject if labels identical]' \
+        '--selfid[reject if sequences identical]' \
+        '--slots[option is ignored]' \
+        '--strand[search plus or both strands (plus)]' \
+        '--target_cov[reject if fraction of target seq. aligned lower]' \
+        '--weak_id[include aligned hits with >= id; continue search]' \
+        '--wordlength[length of words for database index 3-15 (8)]' \
+        '--blast6out[filename for blast-like tab-separated output]':file:_files \
+        '--dbmatched[FASTA file for matching database sequences]':file:_files \
+        '--dbnotmatched[FASTA file for non-matching database sequences]':file:_files \
+        '--fastapairs[FASTA file with pairs of query and target]':file:_files \
+        '--lcaout[output LCA of matching sequences to file]':file:_files \
+        '--matched[FASTA file for matching query sequences]':file:_files \
+        '--notmatched[FASTA file for non-matching query sequences]':file:_files \
+        '--output_no_hits[output non-matching queries to output files]' \
+        '--rowlen[width of alignment lines in alnout output (64)]' \
+        '--samheader[include a header in the SAM output file]' \
+        '--samout[filename for SAM format output]':file:_files \
+        '--sizeout[write abundance annotation to dbmatched file]' \
+        '--top_hits_only[output only hits with identity equal to the best]' \
+        '--uc[filename for UCLUST-like output]':file:_files \
+        '--uc_allhits[show all, not just top hit with uc output]' \
+        '--userfields[fields to output in userout file]' \
+        '--userout[filename for user-defined tab-separated output]':file:_files \
+        '--shuffle[shuffle order of sequences in FASTA file randomly]':file:_files \
+        '--sortbylength[sort sequences by length in given FASTA file]':file:_files \
+        '--sortbysize[abundance sort sequences in given FASTA file]':file:_files \
+        '--maxsize[maximum abundance for sortbysize]' \
+        '--minsize[minimum abundance for sortbysize]' \
+        '--randseed[seed for PRNG, zero to use random data source (0)]' \
+        '--relabel[relabel sequences with this prefix string]' \
+        '--topn[output just first n sequences]' \
+        '--fastx_subsample[subsample sequences from given FASTA/FASTQ file]':file:_files \
+        '--sample_pct[sampling percentage between 0.0 and 100.0]' \
+        '--sample_size[sampling size]' \
+        '--sizein[consider abundance info from input, do not ignore]' \
+        '--fastaout[output subsampled sequences to FASTA file]':file:_files \
+        '--fastaout_discarded[output non-subsampled sequences to FASTA file]':file:_files \
+        '--fastqout[output subsampled sequences to FASTQ file]':file:_files \
+        '--sizeout[update abundance information in output]' \
+        '--sintax[classify sequences in given FASTA/FASTQ file]':file:_files \
+        '--db[taxonomic reference db in given FASTA or UDB file]':file:_files \
+        '--sintax_cutoff[confidence value cutoff level (0.0)]' \
+        '--tabbedout[write results to given tab-delimited file]':file:_files \
+        '--fastx_filter[trim and filter sequences in FASTA/FASTQ file]':file:_files \
+        '--fastq_filter[trim and filter sequences in FASTQ file]':file:_files \
+        '--reverse[FASTQ file with other end of paired-end reads]':file:_files \
+        '--fastq_maxee[discard if expected error value is higher]' \
+        '--fastq_maxee_rate[discard if expected error rate is higher]' \
+        '--fastq_maxlen[discard if length of sequence is longer]' \
+        '--fastq_maxns[discard if number of N'\''s is higher]' \
+        '--fastq_minlen[discard if length of sequence is shorter]' \
+        '--fastq_stripleft[delete given number of bases from the 5'\'' end]' \
+        '--fastq_stripright[delete given number of bases from the 3'\'' end]' \
+        '--fastq_truncee[truncate to given maximum expected error]' \
+        '--fastq_trunclen[truncate to given length (discard if shorter)]' \
+        '--fastq_trunclen_keep[truncate to given length (keep if shorter)]' \
+        '--fastq_truncqual[truncate to given minimum base quality]' \
+        '--maxsize[discard if abundance of sequence is above]' \
+        '--minsize[discard if abundance of sequence is below]' \
+        '--eeout[include expected errors in output]' \
+        '--fastaout[FASTA filename for passed sequences]' \
+        '--fastaout_discarded[FASTA filename for discarded sequences]' \
+        '--fastaout_discarded_rev[FASTA filename for discarded reverse sequences]' \
+        '--fastaout_rev[FASTA filename for passed reverse sequences]' \
+        '--fastqout[FASTQ filename for passed sequences]' \
+        '--fastqout_discarded[FASTQ filename for discarded sequences]' \
+        '--fastqout_discarded_rev[FASTQ filename for discarded reverse sequences]' \
+        '--fastqout_rev[FASTQ filename for passed reverse sequences]' \
+        '--relabel[relabel filtered sequences with given prefix]' \
+        '--relabel_md5[relabel filtered sequences with md5 digest]' \
+        '--relabel_sha1[relabel filtered sequences with sha1 digest]' \
+        '--makeudb_usearch[make UDB file from given FASTA file]':file:_files \
+        '--udb2fasta[output FASTA file from given UDB file]':file:_files \
+        '--udbinfo[show information about UDB file]':file:_files \
+        '--udbstats[report statistics about indexed words in UDB file]':file:_files \
+        '--output[UDB or FASTA output file]':file:_files \
+        "*: :_files"
+
+}
+
+_vsearch "$@"
+
