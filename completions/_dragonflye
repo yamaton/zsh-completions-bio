@@ -1,0 +1,113 @@
+#compdef dragonflye
+
+# Auto-generated with h2o
+
+
+function _dragonflye {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'https://github.com/rpetit3/dragonflye - Robert A Petit III'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--help[This help]' \
+        '--version[Print version and exit]' \
+        '--check[Check dependencies are installed]' \
+        '--seed[Random seed to use (default: 42)]' \
+        '--reads[Input Nanopore FASTQ (default: '\'''\'')]' \
+        '--depth[Sub-sample --reads to this depth. Disable with --depth 0 (default: 150)]' \
+        '--minreadlen[Minimum read length. Disable with --minreadlength 0 (default: 1000)]' \
+        '--minquality[Minimum average sequence quality. (default: OFF) (default: 0)]' \
+        '--gsize[Estimated genome size eg. 3.2M <blank=AUTODETECT> (default: '\'''\'')]' \
+        '--outdir[Output folder (default: '\'''\'')]' \
+        '--prefix[Prefix to use for final assembly FASTA (default: '\''contigs'\'')]' \
+        '--force[Force overwite of existing output folder (default: OFF)]' \
+        '--minlen[Minimum contig length <0=AUTO> (default: 500)]' \
+        '--mincov[Minimum contig coverage <0=AUTO> (default: 2)]' \
+        '--namefmt[Format of contig FASTA IDs in '\''printf'\'' style (default: '\''contig%05d'\'')]' \
+        '--keepfiles[Keep intermediate files (default: OFF)]' \
+        '--tmpdir[Fast temporary directory (default: '\'''\'')]' \
+        '--cpus[Number of CPUs to use (0=ALL) (default: 8)]' \
+        '--ram[Try to keep RAM usage below this many GB, for java programs this the maximum (default: 16)]' \
+        '--assembler[Assembler: flye raven miniasm (default: '\''flye'\'')]' \
+        '--opts[Extra assembler options in quotes eg. flye: '\''--interations'\'' (default: '\'''\'')]' \
+        '--nanohq[For Flye, use '\''--nano-hq'\'' instead of --nano-raw (default: OFF)]' \
+        '--racon[Number of polishing rounds to conduct with Racon (default: 1)]' \
+        '--medaka[Number of polishing rounds to conduct with Medaka (requires --model) (default: 0)]' \
+        '--model[The model to be used by Medaka, (Assumes 1 polishing round, if --medaka not used) (default: '\'''\'')]' \
+        '--list_models[List the models available to Medaka (default: OFF)]' \
+        '--polypolish[Number of polishing rounds to conduct with Polypolish (requires --R1 and --R2) (default: 1)]' \
+        '--pilon[Number of polishing rounds to conduct with Pilon (requires --R1 and --R2) (default: 0)]' \
+        '--R1[Read 1 FASTQ to use for polishing (default: '\'''\'')]' \
+        '--R2[Read 2 FASTQ to use for polishing (default: '\'''\'')]' \
+        '--trim[Enable adaptor trimming (default: OFF)]' \
+        '--trimopts[Extra porechop options in quotes eg. '\''--adapter_threshold 80'\'' (default: '\'''\'')]' \
+        '--nofilter[Disable read length filtering (default: OFF)]' \
+        '--nopolish[Disable assembly polishing (default: OFF)]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (https)
+            _dragonflye_https
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _dragonflye_https {
+    _arguments \
+        '--help[This help]' \
+        '--version[Print version and exit]' \
+        '--check[Check dependencies are installed]' \
+        '--seed[Random seed to use (default: 42)]' \
+        '--reads[Input Nanopore FASTQ (default: '\'''\'')]' \
+        '--depth[Sub-sample --reads to this depth. Disable with --depth 0 (default: 150)]' \
+        '--minreadlen[Minimum read length. Disable with --minreadlength 0 (default: 1000)]' \
+        '--minquality[Minimum average sequence quality. (default: OFF) (default: 0)]' \
+        '--gsize[Estimated genome size eg. 3.2M <blank=AUTODETECT> (default: '\'''\'')]' \
+        '--outdir[Output folder (default: '\'''\'')]' \
+        '--prefix[Prefix to use for final assembly FASTA (default: '\''contigs'\'')]' \
+        '--force[Force overwite of existing output folder (default: OFF)]' \
+        '--minlen[Minimum contig length <0=AUTO> (default: 500)]' \
+        '--mincov[Minimum contig coverage <0=AUTO> (default: 2)]' \
+        '--namefmt[Format of contig FASTA IDs in '\''printf'\'' style (default: '\''contig%05d'\'')]' \
+        '--keepfiles[Keep intermediate files (default: OFF)]' \
+        '--tmpdir[Fast temporary directory (default: '\'''\'')]' \
+        '--cpus[Number of CPUs to use (0=ALL) (default: 8)]' \
+        '--ram[Try to keep RAM usage below this many GB, for java programs this the maximum (default: 16)]' \
+        '--assembler[miniasm raven flye (default: '\''flye'\'')]' \
+        '--opts[Extra assembler options in quotes eg. flye: '\''--interations'\'' (default: '\'''\'')]' \
+        '--nanohq[For Flye, use '\''--nano-hq'\'' instead of --nano-raw (default: OFF)]' \
+        '--racon[Number of polishing rounds to conduct with Racon (default: 1)]' \
+        '--medaka[Number of polishing rounds to conduct with Medaka (requires --model) (default: 0)]' \
+        '--model[The model to be used by Medaka, (Assumes 1 polishing round, if --medaka not used) (default: '\'''\'')]' \
+        '--list_models[List the models available to Medaka (default: OFF)]' \
+        '--polypolish[Number of polishing rounds to conduct with Polypolish (requires --R1 and --R2) (default: 1)]' \
+        '--pilon[Number of polishing rounds to conduct with Pilon (requires --R1 and --R2) (default: 0)]' \
+        '--R1[Read 1 FASTQ to use for polishing (default: '\'''\'')]' \
+        '--R2[Read 2 FASTQ to use for polishing (default: '\'''\'')]' \
+        '--trim[Enable adaptor trimming (default: OFF)]' \
+        '--trimopts[Extra porechop options in quotes eg. '\''--adapter_threshold 80'\'' (default: '\'''\'')]' \
+        '--nofilter[Disable read length filtering (default: OFF)]' \
+        '--nopolish[Disable assembly polishing (default: OFF)]' \
+        "*: :_files"
+
+}
+
+_dragonflye "$@"
+

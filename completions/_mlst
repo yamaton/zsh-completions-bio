@@ -1,0 +1,33 @@
+#compdef mlst
+
+# Auto-generated with h2o
+
+function _mlst {
+    _arguments \
+        '--help[This help]' \
+        '--version[Print version and exit(default ON)]' \
+        '--check[Just check dependencies and exit (default OFF)]' \
+        '--quiet[Quiet - no stderr output (default OFF)]' \
+        '--threads[Number of BLAST threads (suggest GNU Parallel instead) (default '\''1'\'')]' \
+        '--debug[Verbose debug output to stderr (default OFF)]' \
+        '--scheme[Don'\''t autodetect, force this scheme on all inputs (default '\'''\'')]' \
+        '--list[List available MLST scheme names (default OFF)]' \
+        '--longlist[List allelles for all MLST schemes (default OFF)]' \
+        '--exclude[Ignore these schemes (comma sep. list) (default '\''ecoli,abaumannii,vcholerae_2'\'')]' \
+        '--csv[Output CSV instead of TSV (default OFF)]' \
+        '--json[Also write results to this file in JSON format (default '\'''\'')]' \
+        '--label[Replace FILE with this name instead (default '\'''\'')]' \
+        '--nopath[Strip filename paths from FILE column (default OFF)]' \
+        '--novel[Save novel alleles to this FASTA file (default '\'''\'')]' \
+        '--legacy[Use old legacy output with allele header row (requires --scheme) (default OFF)]' \
+        '--minid[DNA %identity of full allelle to consider '\''similar'\'' \[~\] (default '\''95'\'')]' \
+        '--mincov[DNA %cov to report partial allele at all \[?\] (default '\''10'\'')]' \
+        '--minscore[Minumum score out of 100 to match a scheme (when auto --scheme) (default '\''50'\'')]' \
+        '--blastdb[BLAST database (default '\''~/.local/share/condax/envs/mlst/db/blast/mlst.fa'\'')]' \
+        '--datadir[PubMLST data (default '\''~/.local/share/condax/envs/mlst/db/pubmlst'\'')]' \
+        "*: :_files"
+
+}
+
+_mlst "$@"
+
