@@ -1,0 +1,33 @@
+#compdef ntedit
+
+# Auto-generated with h2o
+
+function _ntedit {
+    _arguments \
+        '-t[number of threads \[default=1\]]' \
+        '-f[draft genome assembly (FASTA, Multi-FASTA, and/or gzipped compatible), REQUIRED]':file:_files \
+        '-r[Bloom filter file (generated from ntHits), REQUIRED]':file:_files \
+        '-e[secondary Bloom filter with k-mers to reject (generated from ntHits), OPTIONAL]':file:_files \
+        '-b[output file prefix, OPTIONAL]' \
+        '-z[minimum contig length \[default=100\]]' \
+        '-i[maximum number of insertion bases to try, range 0-5, \[default=5\]]' \
+        '-d[maximum number of deletions bases to try, range 0-10, \[default=5\]]' \
+        '-x[k/x ratio for the number of k-mers that should be missing, \[default=5.000\]]' \
+        '-y[k/y ratio for the number of edited k-mers that should be present, \[default=9.000\]]' \
+        '-X[ratio of number of k-mers in the k subset that should be missing in order to attempt fix (higher=stringent), \[default=0.5\]]' \
+        '-Y[ratio of number of k-mers in the k subset that should be present to accept an edit (higher=stringent), \[default=0.5\]]' \
+        '-c[cap for the number of base insertions that can be made at one position, \[default=k*1.5\]]' \
+        '-j[controls size of k-mer subset. When checking subset of k-mers, check every jth k-mer, \[default=3\]]' \
+        '-m[mode of editing, range 0-2, \[default=0\] 0: best substitution, or first good indel 1: best substitution, or best indel 2: best edit overall (suggestion that you reduce i and d for performance)]' \
+        '-s[SNV mode. Overrides draft k-mer checks, forcing reassessment at each position (-s 1 = yes, default = 0, no)]' \
+        '-l[input VCF file with annotated variants (e.g., clinvar.vcf), OPTIONAL]':file:_files \
+        '-a[soft masks missing k-mer positions having no fix (-v 1 = yes, default = 0, no)]' \
+        '-v[verbose mode (-v 1 = yes, default = 0, no)]' \
+        '--help[display this message and exit]' \
+        '--version[output version information and exit]' \
+        "*: :_files"
+
+}
+
+_ntedit "$@"
+
