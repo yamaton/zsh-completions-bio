@@ -1,0 +1,124 @@
+#compdef badread
+
+# Auto-generated with h2o
+
+
+function _badread {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'simulate:generate fake long reads'
+            'error_model:build a Badread error model'
+            'qscore_model:build a Badread qscore model'
+            'plot:view read identities over a sliding window'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[Show this help message and exit]' \
+        '--version[Show program'\''s version number and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (simulate)
+            _badread_simulate
+            ;;
+
+        (error_model)
+            _badread_error_model
+            ;;
+
+        (qscore_model)
+            _badread_qscore_model
+            ;;
+
+        (plot)
+            _badread_plot
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _badread_simulate {
+    _arguments \
+        '--reference[Reference FASTA file (can be gzipped)]' \
+        '--quantity[Either an absolute value (e.g. 250M) or a relative depth (e.g. 25x)]' \
+        '--length[Fragment length distribution (mean and stdev, default: 15000,13000)]' \
+        '--identity[Sequencing identity distribution (mean,max,stdev for beta distribution, or mean,stdev for normal qscore distribution, default: 95,99,2.5)]' \
+        '--error_model[Can be "nanopore2018", "nanopore2020", "nanopore2023", "pacbio2016", "random" or a model filename (default: nanopore2023)]' \
+        '--qscore_model[Can be "nanopore2018", "nanopore2020", "nanopore2023", "pacbio2016", "random", "ideal" or a model filename (default: nanopore2023)]' \
+        '--seed[Random number generator seed for deterministic output (default: different output each time)]' \
+        '--start_adapter[Adapter parameters for read starts (rate and amount, default: 90,60)]' \
+        '--end_adapter[Adapter parameters for read ends (rate and amount, default: 50,20)]' \
+        '--start_adapter_seq[Adapter sequence for read starts (default: AATGTACTTCGTTCAGTTACGTATTGCT)]' \
+        '--end_adapter_seq[Adapter sequence for read ends (default: GCAATACGTAACTGAACGAAGT)]' \
+        '--junk_reads[This percentage of reads will be low-complexity junk (default: 1)]' \
+        '--random_reads[This percentage of reads will be random sequence (default: 1)]' \
+        '--chimeras[Percentage at which separate fragments join together (default: 1)]' \
+        '--glitches[Read glitch parameters (rate, size and skip, default: 10000,25,25)]' \
+        '--small_plasmid_bias[If set, then small circular plasmids are lost when the fragment length is too high (default: small plasmids are included regardless of fragment length)]' \
+        {-h,--help}'[Show this help message and exit]' \
+        '--version[Show program'\''s version number and exit]' \
+        "*: :_files"
+
+}
+
+function _badread_error_model {
+    _arguments \
+        '--reference[Reference FASTA file]' \
+        '--reads[FASTQ of real reads]' \
+        '--alignment[PAF alignment of reads aligned to reference]' \
+        '--k_size[Error model k-mer size (default: 7)]' \
+        '--max_alignments[Only use this many alignments when generating error model (default: use all alignments)]' \
+        '--max_alt[Only save up to this many alternatives to each k-mer (default: 25)]' \
+        {-h,--help}'[Show this help message and exit]' \
+        '--version[Show program'\''s version number and exit]' \
+        "*: :_files"
+
+}
+
+function _badread_qscore_model {
+    _arguments \
+        '--reference[Reference FASTA file]' \
+        '--reads[FASTQ of real reads]' \
+        '--alignment[PAF alignment of reads aligned to reference]' \
+        '--k_size[Qscore model k-mer size (must be odd, default: 9)]' \
+        '--max_alignments[Only use this many alignments when generating qscore model (default: use all alignments)]' \
+        '--max_del[Deletion runs longer than this will be collapsed to reduce the number of possible alignments (default: 6)]' \
+        '--min_occur[CIGARs which occur less than this many times will not be included in the model (default: 100)]' \
+        '--max_output[The outputted model will be limited to this many lines (default: 10000)]' \
+        {-h,--help}'[Show this help message and exit]' \
+        '--version[Show program'\''s version number and exit]' \
+        "*: :_files"
+
+}
+
+function _badread_plot {
+    _arguments \
+        '--reference[Reference FASTA file]' \
+        '--reads[FASTQ of real reads]' \
+        '--alignment[PAF alignment of reads aligned to reference]' \
+        '--window[Window size in bp (default: 100)]' \
+        '--qual[Include qscores in plot (default: only show identity)]' \
+        '--no_plot[Do not display plots (for testing purposes) (default: False)]' \
+        {-h,--help}'[Show this help message and exit]' \
+        '--version[Show program'\''s version number and exit]' \
+        "*: :_files"
+
+}
+
+_badread "$@"
+
