@@ -133,6 +133,7 @@ function _bio_fetch {
         {-t,--type}'[get CDS/CDNA (Ensembl only)]' \
         {-f,--format}'[return format]' \
         {-l,--limit}'[limit results]' \
+        {-o,--out}'[output file (used as prefix in for FASTQ)]' \
         "*: :_files"
 
 }

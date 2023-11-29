@@ -1,0 +1,22 @@
+#compdef glnexus_cli
+
+# Auto-generated with h2o
+
+function _glnexus_cli {
+    _arguments \
+        {--dir,-d}'[scratch directory path (mustn'\''t already exist; default: ./GLnexus.DB)]':file:_files \
+        {--config,-c}'[configuration preset name or .yml filename (default: gatk)]' \
+        {--bed,-b}'[three-column BED file with ranges to analyze (if neither --range nor --bed: use full length of all contigs)]':file:_files \
+        {--list,-l}'[expect given files to contain lists of gVCF filenames, one per line]' \
+        {--more-PL,-P}'[include PL from reference bands and other cases omitted by default]' \
+        {--squeeze,-S}'[reduce pVCF size by suppressing detail in cells derived from reference bands]' \
+        {--trim-uncalled-alleles,-a}'[remove alleles with no output GT calls in postprocessing]' \
+        {--mem-gbytes,-m}'[memory budget, in gbytes (default: most of system memory)]' \
+        {--threads,-t}'[thread budget (default: all hardware threads)]' \
+        {--help,-h}'[print this help message]' \
+        "*: :_files"
+
+}
+
+_glnexus_cli "$@"
+

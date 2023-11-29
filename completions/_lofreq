@@ -1,0 +1,343 @@
+#compdef lofreq
+
+# Auto-generated with h2o
+
+
+function _lofreq {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'call:Call variants'
+            'call-parallel:Call variants in parallel'
+            'somatic:Call somatic variants'
+            'viterbi:Viterbi realignment'
+            'indelqual:Insert indel qualities'
+            'alnqual:Insert base and indel alignment qualities'
+            'checkref:Check that reference fasta and BAM file match'
+            'filter:Filter variants in VCF file'
+            'uniq:Test whether variants predicted in only one sample really are unique'
+            'plpsummary:Print pileup summary per position'
+            'vcfset:VCF set operations'
+            'version:Print version info'
+            'idxstats:Print stats for indexed BAM file'
+            'vcfplot:Plot VCF statistics'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (call)
+            _lofreq_call
+            ;;
+
+        (call-parallel)
+            _lofreq_call-parallel
+            ;;
+
+        (somatic)
+            _lofreq_somatic
+            ;;
+
+        (viterbi)
+            _lofreq_viterbi
+            ;;
+
+        (indelqual)
+            _lofreq_indelqual
+            ;;
+
+        (alnqual)
+            _lofreq_alnqual
+            ;;
+
+        (checkref)
+            _lofreq_checkref
+            ;;
+
+        (filter)
+            _lofreq_filter
+            ;;
+
+        (uniq)
+            _lofreq_uniq
+            ;;
+
+        (plpsummary)
+            _lofreq_plpsummary
+            ;;
+
+        (vcfset)
+            _lofreq_vcfset
+            ;;
+
+        (version)
+            _lofreq_version
+            ;;
+
+        (idxstats)
+            _lofreq_idxstats
+            ;;
+
+        (vcfplot)
+            _lofreq_vcfplot
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _lofreq_call {
+    _arguments \
+        {-f,--ref}'[Indexed reference fasta file (gzip supported) \[null\]]':file:_files \
+        {-o,--out}'[Vcf output file \[- = stdout\]]':file:_files \
+        {-r,--region}'[Limit calls to this region (chrom:start-end) \[null\]]' \
+        {-l,--bed}'[List of positions (chr pos) or regions (BED) \[null\]]':file:_files \
+        {-q,--min-bq}'[Skip any base with baseQ smaller than INT \[6\]]' \
+        {-Q,--min-alt-bq}'[Skip alternate bases with baseQ smaller than INT \[6\]]' \
+        {-R,--def-alt-bq}'[Overwrite baseQs of alternate bases (that passed bq filter) with this value (-1: use median ref-bq; 0: keep) \[0\]]' \
+        {-j,--min-jq}'[Skip any base with joinedQ smaller than INT \[0\]]' \
+        {-J,--min-alt-jq}'[Skip alternate bases with joinedQ smaller than INT \[0\]]' \
+        {-K,--def-alt-jq}'[Overwrite joinedQs of alternate bases (that passed jq filter) with this value (-1: use median ref-bq; 0: keep) \[0\]]' \
+        {-B,--no-baq}'[Disable use of base-alignment quality (BAQ)]' \
+        {-A,--no-idaq}'[Don'\''t use IDAQ values (NOT recommended under ANY circumstances other than debugging)]' \
+        {-D,--del-baq}'[Delete pre-existing BAQ values, i.e. compute even if already present in BAM]' \
+        {-e,--no-ext-baq}'[Use '\''normal'\'' BAQ (samtools default) instead of extended BAQ (both computed on the fly if not already present in lb tag)]' \
+        {-m,--min-mq}'[Skip reads with mapping quality smaller than INT \[0\]]' \
+        {-M,--max-mq}'[Cap mapping quality at INT \[255\]]' \
+        {-N,--no-mq}'[Don'\''t merge mapping quality in LoFreq'\''s model]' \
+        '--call-indels[Enable indel calls (note: preprocess your file to include indel alignment qualities!)]' \
+        '--only-indels[Only call indels; no SNVs]' \
+        {-s,--src-qual}'[Enable computation of source quality]' \
+        {-S,--ign-vcf}'[Ignore variants in this vcf file for source quality computation. Multiple files can be given separated by commas]':file:_files \
+        {-T,--def-nm-q}'[If >= 0, then replace non-match base qualities with this default value \[-1\]]' \
+        {-a,--sig}'[P-Value cutoff / significance level \[0.010000\]]' \
+        {-b,--bonf}'[Bonferroni factor. '\''dynamic'\'' (increase per actually performed test) or INT \['\''dynamic'\''\]]' \
+        {-C,--min-cov}'[Test only positions having at least this coverage \[1\] (note: without --no-default-filter default filters (incl. coverage) kick in after predictions are done)]' \
+        {-d,--max-depth}'[Cap coverage at this depth \[1000000\]]' \
+        '--illumina-1.3[Assume the quality is Illumina-1.3-1.7/ASCII+64 encoded]' \
+        '--use-orphan[Count anomalous read pairs (i.e. where mate is not aligned properly)]' \
+        '--plp-summary-only[No variant calling. Just output pileup summary per column]' \
+        '--no-default-filter[Don'\''t run default '\''lofreq filter'\'' automatically after calling variants]' \
+        '--force-overwrite[Overwrite any existing output]' \
+        '--verbose[Be verbose]' \
+        '--debug[Enable debugging]' \
+        "*: :_files"
+
+}
+
+function _lofreq_call-parallel {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _lofreq_somatic {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-v,--verbose}'[Be verbose]' \
+        {-n,--normal}'[Normal BAM file]' \
+        {-t,--tumor}'[Tumor BAM file]' \
+        {-o,--outprefix}'[Prefix for output files]' \
+        {-f,--ref}'[Reference fasta file]' \
+        {-l,--bed}'[BED file listing regions to restrict analysis to]' \
+        {-d,--dbsnp}'[vcf-file (bgzipped and index with tabix) containing known germline variants (e.g. dbsnp for human]' \
+        '--threads[Use this many threads for each call]' \
+        '--tumor-mtc[Type of multiple testing correction for tumor (default: bonf)]' \
+        '--tumor-mtc-alpha[Multiple testing correction alpha for tumor (default: 1.000000)]' \
+        '--indel-tumor-mtc[Type of multiple testing correction for tumor (default: bonf)]' \
+        '--indel-tumor-mtc-alpha[Multiple testing correction alpha for tumor (default: 0.010000)]' \
+        '--call-indels[Also call indels (see documentation on how to preprocess your BAM files)]' \
+        '--min-cov[Minimum coverage for somatic calls (default: 7)]' \
+        '--germline[Also list germline calls in separate file]' \
+        {-S,--ign-vcf}'[Ignore variants in this vcf-file for source quality computation in tumor (collides with --no-src-qual). Default is to use (stringently filtered) predictions in normal sample]' \
+        '--use-orphan[Use orphaned/anomalous reads from pairs in all samples]' \
+        '--baq-off[Switch use of BAQ off in all samples]' \
+        '--call-rlx-extra-args[Extra arguments to call_rlx (replace dashes with @)]' \
+        '--no-src-qual[Disable use of source quality in tumor (see also -V)]' \
+        '--debug[Enable debugging]' \
+        '--continue[continue interrupted run. Will reuse existing files, assuming they are complete and created with identical options!]' \
+        "*: :_files"
+
+}
+
+function _lofreq_viterbi {
+    _arguments \
+        {-f,--ref}'[Indexed reference fasta file \[null\]]':file:_files \
+        {-k,--keepflags}'[Don'\''t delete flags MC, MD, NM and A, which are all prone to change during realignment.]' \
+        {-q,--defqual}'[Assume INT as quality for all bases with BQ2. Default (=-1) is to use median quality of bases in read.]' \
+        {-o,--out}'[Output BAM file \[- = stdout = default\]]':file:_files \
+        '--verbose[Be verbose]' \
+        "*: :_files"
+
+}
+
+function _lofreq_indelqual {
+    _arguments \
+        {-u,--uniform}'[Add this indel quality uniformly to all bases. Use two comma separated values to specify insertion and deletion quality separately. (clashes with --dindel)]' \
+        '--dindel[Add Dindel'\''s indel qualities (Illumina specific) (clashes with -u; needs --ref)]' \
+        {-f,--ref}'[Reference sequence used for mapping (Only required for --dindel)]' \
+        {-o,--out}'[Output BAM file \[- = stdout = default\]]':file:_files \
+        '--verbose[Be verbose]' \
+        "*: :_files"
+
+}
+
+function _lofreq_alnqual {
+    _arguments \
+        '-b[BAM output (instead of SAM)]' \
+        '-u[Uncompressed BAM output (for piping)]' \
+        '-S[The input is SAM with header]' \
+        '-e[Use default instead of extended BAQ (the latter gives better sensitivity but lower specificity)]' \
+        '-B[Don'\''t compute base alignment qualities]' \
+        '-A[Don'\''t compute indel alignment qualities]' \
+        '-r[Recompute i.e. overwrite existing values]' \
+        "*: :_files"
+
+}
+
+function _lofreq_checkref {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _lofreq_filter {
+    _arguments \
+        {-i,--in}'[VCF input file (no streaming supported; gzip supported)]':file:_files \
+        {-o,--out}'[VCF output file (default: - for stdout; gzip supported).]':file:_files \
+        {-v,--cov-min}'[Minimum coverage allowed (<1=off)]' \
+        {-V,--cov-max}'[Maximum coverage allowed (<1=off)]' \
+        {-a,--af-min}'[Minimum allele freq allowed (<1=off)]' \
+        {-A,--af-max}'[Maximum allele freq allowed (<1=off)]' \
+        {-B,--sb-thresh}'[Maximum phred-value allowed. Conflicts with -b.]' \
+        {-b,--sb-mtc}'[Multiple testing correction type. One of '\''bonf'\'', '\''holm'\'' or '\''fdr'\''. Conflicts with -B]' \
+        {-c,--sb-alpha}'[Multiple testing correction pvalue threshold]' \
+        '--sb-no-compound[Don'\''t use compound filter]' \
+        '--sb-incl-indels[Apply SB filter to indels as well]' \
+        {-Q,--snvqual-thresh}'[Minimum phred-value allowed. Conflicts with -q]' \
+        {-q,--snvqual-mtc}'[Multiple testing correction type. One of '\''bonf'\'', '\''holm'\'' or '\''fdr'\''. Conflicts with -Q]' \
+        {-r,--snvqual-alpha}'[Multiple testing correction pvalue threshold]' \
+        {-s,--snvqual-ntests}'[Number of performed SNV tests for multiple testing correction]' \
+        {-K,--indelqual-thresh}'[Minimum phred-value allowed. Conflicts with -q]' \
+        {-k,--indelqual-mtc}'[Multiple testing correction type. One of '\''bonf'\'', '\''holm'\'' or '\''fdr'\''. Conflicts with -Q]' \
+        {-l,--indelqual-alpha}'[Multiple testing correction pvalue threshold]' \
+        {-m,--indelqual-ntests}'[Number of performed indel tests for multiple testing correction]' \
+        '--only-indels[Keep InDels only]' \
+        '--only-snvs[Keep SNVs only]' \
+        '--print-all[Print all, not just passed variants]' \
+        '--no-defaults[Remove all default filter settings]' \
+        '--verbose[Be verbose]' \
+        '--debug[Enable debugging]' \
+        "*: :_files"
+
+}
+
+function _lofreq_uniq {
+    _arguments \
+        {-v,--vcf-in}'[Input vcf file listing variants \[- = stdin; gzip supported\]]':file:_files \
+        {-o,--vcf-out}'[Output vcf file \[- = stdout; gzip supported\]]':file:_files \
+        {-f,--uni-freq}'[Assume variants have uniform test frequency of this value (unused if <=0) \[-1.000000\]]' \
+        {-t,--uniq-thresh}'[Minimum uniq phred-value required. Conflicts with -m. 0 for off (default=0)]' \
+        {-m,--uniq-mtc}'[Uniq multiple testing correction type. One of '\''bonf'\'', '\''holm'\'' or '\''fdr'\''. (default=MTC_FDR)]' \
+        {-a,--uniq-alpha}'[Uniq Multiple testing correction p-value threshold (default=0.001000)]' \
+        {-n,--uniq-ntests}'[Uniq multiple testing correction p-value threshold (default=#vars)]' \
+        '--output-all[Report all variants instead of only the ones, marked unique. Note, that variants already filtered in input will not be printed.]' \
+        '--use-det-lim[Report variants if they are above implied detection limit Default is to use binomial test to check for frequency differences]' \
+        '--use-orphan[Don'\''t ignore anomalous read pairs / orphan reads]' \
+        '--verbose[Be verbose]' \
+        '--debug[Enable debugging]' \
+        "*: :_files"
+
+}
+
+function _lofreq_plpsummary {
+    _arguments \
+        {-f,--ref}'[Indexed reference fasta file (gzip supported) \[null\]]':file:_files \
+        {-o,--out}'[Vcf output file \[- = stdout\]]':file:_files \
+        {-r,--region}'[Limit calls to this region (chrom:start-end) \[null\]]' \
+        {-l,--bed}'[List of positions (chr pos) or regions (BED) \[null\]]':file:_files \
+        {-q,--min-bq}'[Skip any base with baseQ smaller than INT \[6\]]' \
+        {-Q,--min-alt-bq}'[Skip alternate bases with baseQ smaller than INT \[6\]]' \
+        {-R,--def-alt-bq}'[Overwrite baseQs of alternate bases (that passed bq filter) with this value (-1: use median ref-bq; 0: keep) \[0\]]' \
+        {-j,--min-jq}'[Skip any base with joinedQ smaller than INT \[0\]]' \
+        {-J,--min-alt-jq}'[Skip alternate bases with joinedQ smaller than INT \[0\]]' \
+        {-K,--def-alt-jq}'[Overwrite joinedQs of alternate bases (that passed jq filter) with this value (-1: use median ref-bq; 0: keep) \[0\]]' \
+        {-B,--no-baq}'[Disable use of base-alignment quality (BAQ)]' \
+        {-A,--no-idaq}'[Don'\''t use IDAQ values (NOT recommended under ANY circumstances other than debugging)]' \
+        {-D,--del-baq}'[Delete pre-existing BAQ values, i.e. compute even if already present in BAM]' \
+        {-e,--no-ext-baq}'[Use '\''normal'\'' BAQ (samtools default) instead of extended BAQ (both computed on the fly if not already present in lb tag)]' \
+        {-m,--min-mq}'[Skip reads with mapping quality smaller than INT \[0\]]' \
+        {-M,--max-mq}'[Cap mapping quality at INT \[255\]]' \
+        {-N,--no-mq}'[Don'\''t merge mapping quality in LoFreq'\''s model]' \
+        '--call-indels[Enable indel calls (note: preprocess your file to include indel alignment qualities!)]' \
+        '--only-indels[Only call indels; no SNVs]' \
+        {-s,--src-qual}'[Enable computation of source quality]' \
+        {-S,--ign-vcf}'[Ignore variants in this vcf file for source quality computation. Multiple files can be given separated by commas]':file:_files \
+        {-T,--def-nm-q}'[If >= 0, then replace non-match base qualities with this default value \[-1\]]' \
+        {-a,--sig}'[P-Value cutoff / significance level \[0.010000\]]' \
+        {-b,--bonf}'[Bonferroni factor. '\''dynamic'\'' (increase per actually performed test) or INT \['\''dynamic'\''\]]' \
+        {-C,--min-cov}'[Test only positions having at least this coverage \[1\] (note: without --no-default-filter default filters (incl. coverage) kick in after predictions are done)]' \
+        {-d,--max-depth}'[Cap coverage at this depth \[1000000\]]' \
+        '--illumina-1.3[Assume the quality is Illumina-1.3-1.7/ASCII+64 encoded]' \
+        '--use-orphan[Count anomalous read pairs (i.e. where mate is not aligned properly)]' \
+        '--plp-summary-only[No variant calling. Just output pileup summary per column]' \
+        '--no-default-filter[Don'\''t run default '\''lofreq filter'\'' automatically after calling variants]' \
+        '--force-overwrite[Overwrite any existing output]' \
+        '--verbose[Be verbose]' \
+        '--debug[Enable debugging]' \
+        "*: :_files"
+
+}
+
+function _lofreq_vcfset {
+    _arguments \
+        {-1,--vcf1}'[1st VCF input file (bgzip supported)]':file:_files \
+        {-2,--vcf2}'[2nd VCF input file (mandatory - except for concat - and needs to be tabix indexed)]':file:_files \
+        {-o,--vcfout}'[VCF output file (default: - for stdout; gzip supported).]' \
+        {-a,--action}'[Set operation to perform: intersect, complement or concat. - intersect = vcf1 AND vcf2. - complement = vcf1 \ vcf2. - concat = vcf1 + vcf2 ... vcfn (output as in file order, i.e. output not necessarily sorted!)]' \
+        {-I,--add-info}'[Add info field, e.g. '\''SOMATIC'\'']' \
+        '--count-only[Don'\''t print bases, just numbers]' \
+        '--only-pos[Disable allele-awareness by using position only (ignoring bases) as key for storing and comparison]' \
+        '--only-passed[Ignore variants marked as filtered]' \
+        '--only-snvs[Ignore anything but SNVs in both input files]' \
+        '--only-indels[Ignore anything but indels in both input files]' \
+        '--verbose[Be verbose]' \
+        '--debug[Enable debugging]' \
+        "*: :_files"
+
+}
+
+function _lofreq_version {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _lofreq_idxstats {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _lofreq_vcfplot {
+    _arguments \
+        "*: :_files"
+
+}
+
+_lofreq "$@"
+
