@@ -1,0 +1,268 @@
+#compdef circlator
+
+# Auto-generated with h2o
+
+
+function _circlator {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'all:Run mapreads, bam2reads, assemble, merge, clean, fixstart'
+            'mapreads:Map reads to assembly'
+            'bam2reads:Make reads from mapping to be reassembled'
+            'assemble:Run assembly using reads from bam2reads'
+            'merge:Merge original assembly and new assembly made by assemble'
+            'clean:Remove small and completely contained contigs from assembly'
+            'fixstart:Change start position of circular sequences'
+            'minimus2:Run the minimus2 based circularisation pipeline'
+            'get_dnaa:Download file of dnaA (or other of user'\''s choice) genes'
+            'progcheck:Checks dependencies are installed'
+            'test:Run Circlator on a small test set'
+            'version:Print version and exit'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (all)
+            _circlator_all
+            ;;
+
+        (mapreads)
+            _circlator_mapreads
+            ;;
+
+        (bam2reads)
+            _circlator_bam2reads
+            ;;
+
+        (assemble)
+            _circlator_assemble
+            ;;
+
+        (merge)
+            _circlator_merge
+            ;;
+
+        (clean)
+            _circlator_clean
+            ;;
+
+        (fixstart)
+            _circlator_fixstart
+            ;;
+
+        (minimus2)
+            _circlator_minimus2
+            ;;
+
+        (get_dnaa)
+            _circlator_get_dnaa
+            ;;
+
+        (progcheck)
+            _circlator_progcheck
+            ;;
+
+        (test)
+            _circlator_test
+            ;;
+
+        (version)
+            _circlator_version
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _circlator_all {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--threads[Number of threads \[1\]]' \
+        '--verbose[Be verbose]' \
+        '--unchanged_code[Code to return when the input assembly is not changed \[0\]]' \
+        '--assembler[Assembler to use for reassemblies \[spades\]]' \
+        '--split_all_reads[By default, reads mapped to shorter contigs are left unchanged. This option splits them into two, broken at the middle of the contig to try to force circularization. May help if the assembler does not detect circular contigs (eg canu)]' \
+        '--data_type[String representing one of the 4 type of data analysed (only used for Canu) \[pacbio-corrected\]]' \
+        '--assemble_spades_k[Comma separated list of kmers to use when running SPAdes. Max kmer is 127 and each kmer should be an odd integer \[127,117,107,97,87,77\]]' \
+        '--assemble_spades_use_first[Use the first successful SPAdes assembly. Default is to try all kmers and use the assembly with the largest N50]' \
+        '--assemble_not_careful[Do not use the --careful option with SPAdes (used by default)]' \
+        '--assemble_not_only_assembler[Do not use the --assemble-only option with SPAdes (used by default). Important: with this option, the input reads must be in FASTQ format, otherwise SPAdes will crash because it needs quality scores to correct the reads.]' \
+        '--bwa_opts[BWA options, in quotes \[-x pacbio\]]' \
+        '--b2r_discard_unmapped[Use this to not keep unmapped reads]' \
+        '--b2r_only_contigs[File of contig names (one per line). Only reads that map to these contigs are kept (and unmapped reads, unless --b2r_discard_unmapped is used). Note: the whole assembly is still used as a reference when mapping]':file:_files \
+        '--b2r_length_cutoff[All reads mapped to contigs shorter than this will be kept \[100000\]]' \
+        '--b2r_min_read_length[Minimum length of read to output \[250\]]' \
+        '--merge_diagdiff[Nucmer diagdiff option \[25\]]' \
+        '--merge_min_id[Nucmer minimum percent identity \[95\]]' \
+        '--merge_min_length[Minimum length of hit for nucmer to report \[500\]]' \
+        '--merge_min_length_merge[Minimum length of nucmer hit to use when merging \[4000\]]' \
+        '--merge_min_spades_circ_pc[Min percent of contigs needed to be covered by nucmer hits to spades circular contigs \[95\]]' \
+        '--merge_breaklen[breaklen option used by nucmer \[500\]]' \
+        '--merge_ref_end[max distance allowed between nucmer hit and end of input assembly contig \[15000\]]' \
+        '--merge_reassemble_end[max distance allowed between nucmer hit and end of reassembly contig \[1000\]]' \
+        '--no_pair_merge[Do not merge pairs of contigs when running merge task]' \
+        '--clean_min_contig_length[Contigs shorter than this are discarded (unless specified using --keep) \[2000\]]' \
+        '--clean_min_contig_percent[If length of nucmer hit is at least this percentage of length of contig, then contig is removed. (unless specified using --keep) \[95\]]' \
+        '--clean_diagdiff[Nucmer diagdiff option \[25\]]' \
+        '--clean_min_nucmer_id[Nucmer minimum percent identity \[95\]]' \
+        '--clean_min_nucmer_length[Minimum length of hit for nucmer to report \[500\]]' \
+        '--clean_breaklen[breaklen option used by nucmer \[500\]]' \
+        '--genes_fa[FASTA file of genes to search for to use as start point. If this option is not used, a built-in set of dnaA genes is used]':file:_files \
+        '--fixstart_mincluster[The -c|mincluster option of promer. If this option is used, it overrides promer'\''s default value]' \
+        '--fixstart_min_id[Minimum percent identity of promer match between contigs and gene(s) to use as start point \[70\]]' \
+        "*: :_files"
+
+}
+
+function _circlator_mapreads {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--bwa_opts[BWA options, in quotes \[-x pacbio\]]' \
+        '--threads[Number of threads \[1\]]' \
+        '--verbose[Be verbose]' \
+        "*: :_files"
+
+}
+
+function _circlator_bam2reads {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--discard_unmapped[Use this to not keep unmapped reads]' \
+        '--fastq[Write fastq output (if quality scores are present in input BAM file)]' \
+        '--only_contigs[File of contig names (one per line). Only reads that map to these contigs are kept (and unmapped reads, unless --discard_unmapped is used).]':file:_files \
+        '--length_cutoff[All reads mapped to contigs shorter than this will be kept \[100000\]]' \
+        '--min_read_length[Minimum length of read to output \[250\]]' \
+        '--split_all_reads[By default, reads mapped to shorter contigs are left unchanged. This option splits them into two, broken at the middle of the contig to try to force circularization. May help if the assembler does not detect circular contigs (eg canu)]' \
+        '--verbose[Be verbose]' \
+        "*: :_files"
+
+}
+
+function _circlator_assemble {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--not_careful[Do not use the --careful option with SPAdes (used by default)]' \
+        '--not_only_assembler[Do not use the --assemble-only option with SPAdes (used by default)]' \
+        '--threads[Number of threads \[1\]]' \
+        '--verbose[Be verbose]' \
+        '--spades_k[Comma separated list of kmers to use when running SPAdes. Max kmer is 127 and each kmer should be an odd integer \[127,117,107,97,87,77\]]' \
+        '--spades_use_first[Use the first successful SPAdes assembly. Default is to try all kmers and use the assembly with the largest N50]' \
+        '--assembler[Assembler to use for reassemblies \[spades\]]' \
+        '--data_type[String representing one of the 4 type of data analysed (only used for Canu) \[pacbio-corrected\]]' \
+        "*: :_files"
+
+}
+
+function _circlator_merge {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--diagdiff[Nucmer diagdiff option \[25\]]' \
+        '--min_id[Nucmer minimum percent identity \[95\]]' \
+        '--min_length[Minimum length of hit for nucmer to report \[500\]]' \
+        '--min_length_merge[Minimum length of nucmer hit to use when merging \[4000\]]' \
+        '--breaklen[breaklen option used by nucmer \[500\]]' \
+        '--min_spades_circ_pc[Min percent of contigs needed to be covered by nucmer hits to spades circular contigs \[95\]]' \
+        '--assemble_not_careful[Do not use the --careful option with SPAdes (used by default)]' \
+        '--assemble_not_only_assembler[Do not use the --assemble-only option with SPAdes (used by default)]' \
+        '--spades_k[Comma separated list of kmers to use when running SPAdes. Max kmer is 127 and each kmer should be an odd integer \[127,117,107,97,87,77\]]' \
+        '--spades_use_first[Use the first successful SPAdes assembly. Default is to try all kmers and use the assembly with the largest N50]' \
+        '--assembler[Assembler to use for reassemblies \[spades\]]' \
+        '--data_type[String representing one of the 4 type of data analysed (only used for Canu) \[pacbio-corrected\]]' \
+        '--b2r_length_cutoff[All reads mapped to contigs shorter than this will be kept \[100000\]]' \
+        '--b2r_split_all_reads[By default, reads mapped to shorter contigs are left unchanged. This option splits them into two, broken at the middle of the contig to try to force circularization. May help if the assembler does not detect circular contigs (eg canu)]' \
+        '--ref_end[max distance allowed between nucmer hit and end of input assembly contig \[15000\]]' \
+        '--reassemble_end[max distance allowed between nucmer hit and end of reassembly contig \[1000\]]' \
+        '--threads[Number of threads for remapping/assembly (only applies if --reads is used) \[1\]]' \
+        '--reads[FASTA file of corrected reads that made the new assembly. Using this triggers iterative contig pair merging]':file:_files \
+        '--verbose[Be verbose]' \
+        "*: :_files"
+
+}
+
+function _circlator_clean {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--min_contig_length[Contigs shorter than this are discarded (unless specified using --keep) \[2000\]]' \
+        '--min_contig_percent[If length of nucmer hit is at least this percentage of length of contig, then contig is removed. (unless specified using --keep) \[95\]]' \
+        '--diagdiff[Nucmer diagdiff option \[25\]]' \
+        '--min_nucmer_id[Nucmer minimum percent identity \[95\]]' \
+        '--min_nucmer_length[Minimum length of hit for nucmer to report \[500\]]' \
+        '--breaklen[breaklen option used by nucmer \[500\]]' \
+        '--keep[File of contig names to keep in output file]':file:_files \
+        '--verbose[Be verbose]' \
+        "*: :_files"
+
+}
+
+function _circlator_fixstart {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--genes_fa[FASTA file of genes to search for to use as start point. If this option is not used, a built-in set of dnaA genes is used]':file:_files \
+        '--ignore[Absolute path to file of IDs of contigs to not change]':file:_files \
+        '--mincluster[The -c|mincluster option of promer. If this option is used, it overrides promer'\''s default value]' \
+        '--min_id[Minimum percent identity of promer match between contigs and gene(s) to use as start point \[70\]]' \
+        '--verbose[Be verbose]' \
+        "*: :_files"
+
+}
+
+function _circlator_minimus2 {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--no_pre_merge[Do not do initial minimus2 run before trying to circularise each contig]' \
+        "*: :_files"
+
+}
+
+function _circlator_get_dnaa {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--min_length[Minimum length in amino acids \[333\]]' \
+        '--max_length[Maximum length in amino acids \[500\]]' \
+        '--uniprot_search[Uniprot search term \[dnaa\]]' \
+        '--name_re[Each sequence name must match this regular expression \[Chromosomal replication initiat(or|ion) protein.*dnaa\]]' \
+        '--name_re_case_sensitive[Do a case-sensitive match to regular expression given by --name_re. Default is to ignore case.]' \
+        "*: :_files"
+
+}
+
+function _circlator_progcheck {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--debug[Debug mode with very verbose output]' \
+        "*: :_files"
+
+}
+
+function _circlator_test {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--threads[Number of threads \[1\]]' \
+        "*: :_files"
+
+}
+
+function _circlator_version {
+    _arguments \
+        "*: :_files"
+
+}
+
+_circlator "$@"
+
