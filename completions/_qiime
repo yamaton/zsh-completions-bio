@@ -13,6 +13,7 @@ function _qiime {
             'tools:Tools for working with QIIME 2 files.'
             'dev:Utilities for developers and advanced users.'
             'alignment:Plugin for generating and manipulating alignments.'
+            'assembly:QIIME 2 plugin for (meta)genome assembly.'
             'composition:Plugin for compositional data analysis.'
             'cutadapt:Plugin for removing adapter sequences, primers, and other unwanted sequence from sequence data.'
             'dada2:Plugin for sequence quality control with DADA2.'
@@ -23,14 +24,17 @@ function _qiime {
             'emperor:Plugin for ordination plotting with Emperor.'
             'feature-classifier:Plugin for taxonomic classification.'
             'feature-table:Plugin for working with sample by feature tables.'
+            'fondue:Plugin for fetching sequences and metadata.'
             'fragment-insertion:Plugin for extending phylogenies.'
             'longitudinal:Plugin for paired sample and time series analyses.'
             'metadata:Plugin for working with Metadata.'
+            'moshpit:QIIME 2 plugin for metagenome analysis.'
             'phylogeny:Plugin for generating and manipulating phylogenies.'
             'quality-control:Plugin for quality control of feature and sequence data.'
             'quality-filter:Plugin for PHRED-based filtering and trimming.'
             'rescript:Pipeline for reference sequence annotation and curation.'
             'sample-classifier:Plugin for machine learning prediction of sample'
+            'moshpit:QIIME 2 plugin for metagenome analysis.'
             'taxa:Plugin for working with feature taxonomy annotations.'
             'vsearch:Plugin for clustering and dereplicating with vsearch.'
         )
@@ -64,6 +68,10 @@ function _qiime {
 
         (alignment)
             _qiime_alignment
+            ;;
+
+        (assembly)
+            _qiime_assembly
             ;;
 
         (composition)
@@ -106,6 +114,10 @@ function _qiime {
             _qiime_feature-table
             ;;
 
+        (fondue)
+            _qiime_fondue
+            ;;
+
         (fragment-insertion)
             _qiime_fragment-insertion
             ;;
@@ -116,6 +128,10 @@ function _qiime {
 
         (metadata)
             _qiime_metadata
+            ;;
+
+        (moshpit)
+            _qiime_moshpit
             ;;
 
         (phylogeny)
@@ -136,6 +152,10 @@ function _qiime {
 
         (sample-classifier)
             _qiime_sample-classifier
+            ;;
+
+        (moshpit)
+            _qiime_moshpit
             ;;
 
         (taxa)
@@ -699,6 +719,398 @@ function _qiime_alignment_mask {
         '--p-max-gap-frequency[The maximum relative frequency of gap characters in a column for the column to be retained. This relative frequency must be a number between 0.0 and 1.0 (inclusive), where 0.0 retains only those columns without gap characters, and 1.0 retains all columns regardless of gap character frequency.]' \
         '--p-min-conservation[The minimum relative frequency of at least one non-gap character in a column for that column to be retained. This relative frequency must be a number between 0.0 and 1.0 (inclusive). For example, if a value of 0.4 is provided, a column will only be retained if it contains at least one character that is present in at least 40% of the sequences.]' \
         '--o-masked-alignment[The masked alignment. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+
+function _qiime_assembly {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'assemble-megahit:Assemble contigs using MEGAHIT.'
+            'assemble-spades:Assemble contigs using SPAdes.'
+            'collate-alignments:Map reads to contigs helper.'
+            'collate-contigs:Collate contigs'
+            'collate-indices:Collate indices'
+            'evaluate-contigs:Evaluate quality of the assembled contigs using metaQUAST.'
+            'generate-reads:Simulate NGS reads using InSilicoSeq.'
+            'index-contigs:Index contigs using Bowtie2.'
+            'index-mags:Index MAGs using Bowtie2.'
+            'map-reads-to-contigs:Map reads to contigs using Bowtie2.'
+            'partition-contigs:Partition contigs'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--version[Show the version and exit.]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--show-hidden-actions[This plugin has hidden actions with names starting with '\''_'\''. These are generally called internally by pipelines. Passing this flag will display those actions.]' \
+        '--help[Show this message and exit.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (assemble-megahit)
+            _qiime_assembly_assemble-megahit
+            ;;
+
+        (assemble-spades)
+            _qiime_assembly_assemble-spades
+            ;;
+
+        (collate-alignments)
+            _qiime_assembly_collate-alignments
+            ;;
+
+        (collate-contigs)
+            _qiime_assembly_collate-contigs
+            ;;
+
+        (collate-indices)
+            _qiime_assembly_collate-indices
+            ;;
+
+        (evaluate-contigs)
+            _qiime_assembly_evaluate-contigs
+            ;;
+
+        (generate-reads)
+            _qiime_assembly_generate-reads
+            ;;
+
+        (index-contigs)
+            _qiime_assembly_index-contigs
+            ;;
+
+        (index-mags)
+            _qiime_assembly_index-mags
+            ;;
+
+        (map-reads-to-contigs)
+            _qiime_assembly_map-reads-to-contigs
+            ;;
+
+        (partition-contigs)
+            _qiime_assembly_partition-contigs
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _qiime_assembly_assemble-megahit {
+    _arguments \
+        '--i-seqs[The paired- or single-end sequences to be assembled. \[required\]]' \
+        '--p-presets[Override a group of parameters. See the megahit documentation for details.]' \
+        '--p-min-count[Minimum multiplicity for filtering (k_min+1)-mers.]' \
+        '--p-k-list[List of kmer size - all must be odd with an increment <= 28.]' \
+        '--p-k-min[Minimum kmer size (<= 255), must be odd number. Overrides k-list. \[optional\]]' \
+        '--p-k-max[Maximum kmer size (<= 255), must be odd number. Overrides k-list. \[optional\]]' \
+        '--p-k-step[Increment of kmer size of each iteration (<= 28), must be even number. Overrides k-list. \[optional\]]' \
+        {--p-no-mercy,--p-no-no-mercy}'[Do not add mercy kmers. \[default: False\]]' \
+        '--p-bubble-level[Intensity of bubble merging, 0 to disable.]' \
+        '--p-prune-level[Strength of low depth pruning. \[default: 2\]]' \
+        '--p-prune-depth[Remove unitigs with avg kmer depth less than this value.]' \
+        '--p-disconnect-ratio[Disconnect unitigs if its depth is less than this ratio times the total depth of itself and its siblings. \[default: 0.1\]]' \
+        '--p-low-local-ratio[Remove unitigs if its depth is less than this ratio times the average depth of the neighborhoods.]' \
+        '--p-max-tip-len[Remove tips less than this value.]' \
+        '--p-cleaning-rounds[Number of rounds for graph cleanning. \[default: 5\]]' \
+        {--p-no-local,--p-no-no-local}'[Disable local assembly. \[default: False\]]' \
+        {--p-kmin-1pass,--p-no-kmin-1pass}'[Use 1pass mode to build SdBG of k-min.]' \
+        '--p-memory[Max memory in byte to be used in SdBG construction]' \
+        '--p-mem-flag[SdBG builder memory mode. 0: minimum; 1: moderate; others: use all memory specified by '\''-m/--memory'\''.]' \
+        '--p-num-cpu-threads[Number of CPU threads. \[default: 1\]]' \
+        {--p-no-hw-accel,--p-no-no-hw-accel}'[Run MEGAHIT without BMI2 and POPCNT hardware instructions. \[default: False\]]' \
+        '--p-min-contig-len[Minimum length of contigs to output. \[default: 200\]]' \
+        '--p-num-partitions[The number of partitions to split the contigs into.]' \
+        '--p-coassemble[Co-assemble reads into contigs from all samples.]' \
+        '--o-contigs[The resulting assembled contigs. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_assembly_assemble-spades {
+    _arguments \
+        '--i-seqs[The paired- or single-end sequences to be assembled. \[required\]]' \
+        {--p-isolate,--p-no-isolate}'[This flag is highly recommended for high-coverage isolate and multi-cell data. \[default: False\]]' \
+        {--p-sc,--p-no-sc}'[This flag is required for MDA (single-cell) data.]' \
+        {--p-meta,--p-no-meta}'[This flag is required for metagenomic data. This option is only supported in combination with paired-end reads. \[default: False\]]' \
+        {--p-bio,--p-no-bio}'[This flag is required for biosyntheticSPAdes mode.]' \
+        {--p-corona,--p-no-corona}'[This flag is required for coronaSPAdes mode.]' \
+        {--p-plasmid,--p-no-plasmid}'[Runs plasmidSPAdes pipeline for plasmid detection.]' \
+        {--p-metaviral,--p-no-metaviral}'[Runs metaviralSPAdes pipeline for virus detection.]' \
+        {--p-metaplasmid,--p-no-metaplasmid}'[Runs metaplasmidSPAdes pipeline for plasmid detection in metagenomic datasets (equivalent for --meta --plasmid). \[default: False\]]' \
+        {--p-only-assembler,--p-no-only-assembler}'[Runs only assembling (without read error correction). \[default: False\]]' \
+        {--p-careful,--p-no-careful}'[Tries to reduce number of mismatches and short indels. \[default: False\]]' \
+        {--p-disable-rr,--p-no-disable-rr}'[Disables repeat resolution stage of assembling.]' \
+        '--p-threads[Number of threads.]' \
+        '--p-memory[RAM limit for SPAdes in Gb.]' \
+        '--p-k[List of k-mer sizes (must be odd and less than 128). \[default: \['\''auto'\''\]\]]' \
+        '--p-cov-cutoff[Coverage cutoff value (a positive float number, or '\''auto'\'', or '\''off'\'').]' \
+        '--p-phred-offset[PHRED quality offset in the input reads (33 or 64).]' \
+        {--p-debug,--p-no-debug}'[Runs SPAdes in debug mode. \[default: False\]]' \
+        '--p-coassemble[Co-assemble reads into contigs from all samples.]' \
+        '--o-contigs[The resulting assembled contigs. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_assembly_collate-alignments {
+    _arguments \
+        '--i-alignments[A collection of alignments to be collated. \[required\]]' \
+        '--o-collated-alignments[The alignemnts collated into oine artifact \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_assembly_collate-contigs {
+    _arguments \
+        '--i-contigs[A collection of contigs to be collated. \[required\]]' \
+        '--o-collated-contigs[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_assembly_collate-indices {
+    _arguments \
+        '--i-indices[A collection of indices to be collated. \[required\]]' \
+        '--o-collated-indices[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_assembly_evaluate-contigs {
+    _arguments \
+        '--i-contigs[Assembled contigs to be analyzed. \[required\]]' \
+        '--i-reads[Original single- or paired-end reads.]' \
+        '--i-references[Reference genomes to align the assembled contigs against. \[optional\]]' \
+        '--i-mapped-reads[Reads-to-contigs alignment maps (alternative to '\''reads'\'').directly. \[optional\]]' \
+        '--p-min-contig[Lower threshold for contig length.]' \
+        '--p-threads[Maximum number of parallel jobs.]' \
+        {--p-k-mer-stats,--p-no-k-mer-stats}'[Compute k-mer-based quality metrics (recommended for large genomes). This may significantly increase memory and time consumption on large genomes.]' \
+        '--p-k-mer-size[Size of k used in k-mer-stats.]' \
+        {--p-memory-efficient,--p-no-memory-efficient}'[Significantly reduce memory consumption for large genomes. Forces one separate thread per each assembly and each chromosome. \[default: False\]]' \
+        '--p-min-alignment[Minimum length of alignment (in bp).]' \
+        '--p-min-identity[Minimum percent identity considered as proper alignment.]' \
+        '--p-ambiguity-usage[Way of processing equally good alignments of a contig that are likely repeats. '\''none'\'', skips these alignments. '\''one'\'', takes the very best alignment. '\''all'\'', uses all alignments, but san cause a significant increase of # mismatches.]' \
+        {--p-no-icarus,--p-no-no-icarus}'[Do not draw Icarus visualizations. This option is useful when evaluating large genomes across multiple samples, as this step can be very time-consuming.]' \
+        '--p-contig-thresholds[Range(0, None) List of contig length thresholds.]' \
+        '--p-ambiguity-score[Range(0.8, 1.0) Score for defining equally good alignments of a]' \
+        '--o-visualization[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_assembly_generate-reads {
+    _arguments \
+        '--i-genomes[Input genome(s) from which the reads will originate. If the genomes are not provided, they will be fetched from NCBI based on the "ncbi" and "n-genomes-ncbi" parameters. \[optional\]]' \
+        '--p-sample-names[List of sample names that should be generated.]' \
+        '--p-n-genomes[How many genomes will be used for the simulation.]' \
+        '--p-ncbi[Download input genomes from NCBI. Can be bacteria, viruses, archaea or a combination of the three.]' \
+        '--p-n-genomes-ncbi[How many genomes will be downloaded from NCBI.]' \
+        '--p-abundance[Abundance distribution.]' \
+        '--p-coverage[Coverage distribution.]' \
+        '--p-n-reads[Number of reads to generate.]' \
+        '--p-mode[Error model. If not specified, using kernel density estimation. \[default: '\''kde'\''\]]' \
+        '--p-model[Error model. Use either of the precomputed models when --mode set to '\''kde'\''. \[default: '\''HiSeq'\''\]]' \
+        {--p-gc-bias,--p-no-gc-bias}'[If set, may fail to sequence reads with abnormal GC content. \[default: False\]]' \
+        '--p-cpus[Number of cpus to use.]' \
+        {--p-debug,--p-no-debug}'[Enable debug logging. \[default: False\]]' \
+        '--p-seed[Seed for all the random number generators.]' \
+        '--o-reads[Simulated paired-end reads. \[required\]]' \
+        '--o-template-genomes[Genome sequences from which the reads were generated. \[required\]]' \
+        '--o-abundances[Abundances of genomes from which thereads were generated. If "coverage" parameter was set, this table becomes coverage distribution per sample.]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_assembly_index-contigs {
+    _arguments \
+        '--i-contigs[Contigs to be indexed. \[required\]]' \
+        {--p-large-index,--p-no-large-index}'[Force generated index to be '\''large'\'', even if ref has fewer than 4 billion nucleotides.]' \
+        {--p-debug,--p-no-debug}'[Use the debug binary; slower, assertions enabled.]' \
+        {--p-sanitized,--p-no-sanitized}'[Use sanitized binary; slower, uses ASan and/or UBSan. \[default: False\]]' \
+        {--p-verbose,--p-no-verbose}'[Log the issued command. \[default: False\]]' \
+        {--p-noauto,--p-no-noauto}'[Disable automatic -p/--bmax/--dcv memory-fitting.]' \
+        {--p-packed,--p-no-packed}'[Use packed strings internally; slower, less memory.]' \
+        '--p-bmax[Max bucket sz for blockwise suffix-array builder.]' \
+        '--p-bmaxdivn[Max bucket sz as divisor of ref len.]' \
+        '--p-dcv[Diff-cover period for blockwise.]' \
+        {--p-nodc,--p-no-nodc}'[Disable diff-cover (algorithm becomes quadratic).]' \
+        '--p-offrate[SA is sampled every 2^<int> BWT chars.]' \
+        '--p-ftabchars[# of chars consumed in initial lookup.]' \
+        '--p-threads[# of CPUs.]' \
+        '--p-seed[Seed for random number generator.]' \
+        '--p-num-partitions[Range(1, None) The number of partitions to split the contigs into.]' \
+        '--o-index[Bowtie2 indices generated for input sequences. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_assembly_index-mags {
+    _arguments \
+        '--i-mags[MAGs to be indexed. \[required\]]' \
+        {--p-large-index,--p-no-large-index}'[Force generated index to be '\''large'\'', even if ref has fewer than 4 billion nucleotides.]' \
+        {--p-debug,--p-no-debug}'[Use the debug binary; slower, assertions enabled.]' \
+        {--p-sanitized,--p-no-sanitized}'[Use sanitized binary; slower, uses ASan and/or UBSan. \[default: False\]]' \
+        {--p-verbose,--p-no-verbose}'[Log the issued command. \[default: False\]]' \
+        {--p-noauto,--p-no-noauto}'[Disable automatic -p/--bmax/--dcv memory-fitting.]' \
+        {--p-packed,--p-no-packed}'[Use packed strings internally; slower, less memory.]' \
+        '--p-bmax[Max bucket sz for blockwise suffix-array builder.]' \
+        '--p-bmaxdivn[Max bucket sz as divisor of ref len.]' \
+        '--p-dcv[Diff-cover period for blockwise.]' \
+        {--p-nodc,--p-no-nodc}'[Disable diff-cover (algorithm becomes quadratic).]' \
+        '--p-offrate[SA is sampled every 2^<int> BWT chars.]' \
+        '--p-ftabchars[# of chars consumed in initial lookup.]' \
+        '--p-threads[# of CPUs.]' \
+        '--p-seed[Seed for random number generator.]' \
+        '--o-index[Bowtie2 indices generated for input sequences. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_assembly_map-reads-to-contigs {
+    _arguments \
+        '--i-indexed-contigs[Bowtie 2 indices generated for contigs of interest.]' \
+        '--i-reads[The paired- or single-end reads from which the contigs were assembled.]' \
+        '--p-skip[Skip (i.e. do not align) the first <int> reads or pairs in the input.]' \
+        '--p-qupto[Align the first <int> reads or read pairs from the input (after the -s/--skip reads or pairs have been skipped), then stop.]' \
+        '--p-trim5[Trim <int> bases from 5'\'' (left) end of each read before alignment.]' \
+        '--p-trim3[Trim <int> bases from 3'\'' (right) end of each read before alignment.]' \
+        '--p-trim-to[Trim reads exceeding <int> bases.]' \
+        {--p-phred33,--p-no-phred33}'[Input qualities are ASCII chars equal to the Phred]' \
+        {--p-phred64,--p-no-phred64}'[Input qualities are ASCII chars equal to the Phred]' \
+        '--p-mode[bowtie2 alignment settings.]' \
+        '--p-sensitivity[bowtie2 alignment sensitivity.]' \
+        '--p-n[Sets the number of mismatches to allowed in a seed alignment during multiseed alignment.]' \
+        '--p-len[Sets the length of the seed substrings to align]' \
+        '--p-i[Sets a function governing the interval between seed]' \
+        '--p-n-ceil[Sets a function governing the maximum number of]' \
+        '--p-dpad[Pads dynamic programming problems by <int> columns on either side to allow gaps.]' \
+        '--p-gbar[Disallow gaps within <int> positions of the beginning or end of the read.]' \
+        {--p-ignore-quals,--p-no-ignore-quals}'[When calculating a mismatch penalty, always]' \
+        {--p-nofw,--p-no-nofw}'[If --nofw is specified, bowtie2 will not attempt to]' \
+        {--p-norc,--p-no-norc}'[If --norc is specified, bowtie2 will not attempt to]' \
+        {--p-no-1mm-upfront,--p-no-no-1mm-upfront}'[By default, Bowtie 2 will attempt to find either an]' \
+        {--p-end-to-end,--p-no-end-to-end}'[In this mode, Bowtie 2 requires that the entire]' \
+        {--p-local,--p-no-local}'[In this mode, bowtie2 does not require that the]' \
+        '--p-ma[Sets the match bonus.]' \
+        '--p-mp[max penalty for mismatch]' \
+        '--p-np[Sets penalty for positions where the read, reference, or both, contain an ambiguous character such as N.]' \
+        '--p-rdg[Sets the read gap open (<int1>) and extend (<int2>) penalties.]' \
+        '--p-rfg[Sets the reference gap open (<int1>) and extend (<int2>) penalties.]' \
+        '--p-k[Report up to <int> alns per read.]' \
+        {--p-a,--p-no-a}'[Report all alignments. Like -k but with no upper]' \
+        '--p-d[Up to <int> consecutive seed extension attempts can "fail" before bowtie2 moves on, using the alignments found so far.]' \
+        '--p-r[<int> is the maximum number of times Bowtie 2 will "re-seed" reads with repetitive seeds.]' \
+        '--p-minins[The minimum fragment length for valid paired-end alignments.]' \
+        '--p-maxins[The maximum fragment length for valid paired-end alignments.]' \
+        '--p-valid-mate-orientations[The upstream/downstream mate orientations for a valid paired-end alignment against the forward reference strand.]' \
+        {--p-no-mixed,--p-no-no-mixed}'[By default, when bowtie2 cannot find a concordant]' \
+        {--p-no-discordant,--p-no-no-discordant}'[By default, bowtie2 looks for discordant alignments]' \
+        {--p-dovetail,--p-no-dovetail}'[If the mates "dovetail", that is if one mate]' \
+        {--p-no-contain,--p-no-no-contain}'[If one mate alignment contains the other, consider]' \
+        {--p-no-overlap,--p-no-no-overlap}'[If one mate alignment overlaps the other at all, consider that to be non-concordant.]' \
+        '--p-offrate[Override the offrate of the index with <int>.]' \
+        '--p-threads[Launch <int>> parallel search threads.]' \
+        {--p-reorder,--p-no-reorder}'[Guarantees that output SAM records are printed in an order corresponding to the order of the reads in the original input file, even when --threads is set greater than 1.]' \
+        {--p-mm,--p-no-mm}'[Use memory-mapped I/O to load the index, rather than typical file I/O.]' \
+        '--p-seed[Use <int> as the seed for pseudo-random number generator.]' \
+        {--p-non-deterministic,--p-no-non-deterministic}'[If specified, Bowtie 2 re-initializes its]' \
+        '--p-num-partitions[The number of partitions to split the contigs into.]' \
+        '--o-alignment-map[Reads-to-contigs mapping. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_assembly_partition-contigs {
+    _arguments \
+        '--i-contigs[The contigs to partition. \[required\]]' \
+        '--p-num-partitions[The number of partitions to split the contigs into.]' \
+        '--o-partitioned-contigs[\[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
@@ -3294,6 +3706,199 @@ function _qiime_feature-table_transpose {
 }
 
 
+function _qiime_fondue {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'combine-seqs:Combine sequences from multiple artifacts.'
+            'get-all:Fetch sequence-related metadata and sequences of all run, study, BioProject, experiment or sample IDs.'
+            'get-ids-from-query:Find SRA run accession IDs based on a search query.'
+            'get-metadata:Fetch sequence-related metadata based on run, study, BioProject, experiment or sample ID.'
+            'get-sequences:Fetch sequences based on run ID.'
+            'merge-metadata:Merge several metadata files into a single metadata object.'
+            'scrape-collection:Scrape Zotero collection for run, study, BioProject, experiment and sample IDs, and associated DOI names.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--version[Show the version and exit.]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (combine-seqs)
+            _qiime_fondue_combine-seqs
+            ;;
+
+        (get-all)
+            _qiime_fondue_get-all
+            ;;
+
+        (get-ids-from-query)
+            _qiime_fondue_get-ids-from-query
+            ;;
+
+        (get-metadata)
+            _qiime_fondue_get-metadata
+            ;;
+
+        (get-sequences)
+            _qiime_fondue_get-sequences
+            ;;
+
+        (merge-metadata)
+            _qiime_fondue_merge-metadata
+            ;;
+
+        (scrape-collection)
+            _qiime_fondue_scrape-collection
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _qiime_fondue_combine-seqs {
+    _arguments \
+        '--i-seqs[Sequence artifacts to be combined together. \[required\]]' \
+        '--p-on-duplicates[Preferred behaviour when duplicated sequence IDs are encountered: "warn" displays a warning and continues to combining deduplicated samples while "error" raises an error and aborts further execution. \[default: '\''error'\''\]]' \
+        '--o-combined-seqs[Sequences combined from all input artifacts. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_fondue_get-all {
+    _arguments \
+        '--i-accession-ids[Artifact containing run, study, BioProject, experiment or sample IDs for which the metadata and/or sequences should be fetched. Associated DOI names can be providedin an optional column and are preserved in get-alland get-metadata actions. \[required\]]' \
+        '--i-linked-doi[Optional table containing linked DOI names that is only used if accession-ids does not contain any DOI names.]' \
+        '--p-email[Your e-mail address (required by NCBI). \[required\]]' \
+        '--p-n-jobs[Number of concurrent download jobs.]' \
+        '--p-retries[Number of retries to fetch sequences.]' \
+        '--p-log-level[Logging level. \[default: '\''INFO'\''\]]' \
+        '--o-metadata[Table containing metadata for all the requested]' \
+        '--o-single-reads[Artifact containing single-read fastq.gz files for all the requested IDs. \[required\]]' \
+        '--o-paired-reads[Artifact containing paired-end fastq.gz files for all the requested IDs. \[required\]]' \
+        '--o-failed-runs[List of all run IDs for which fetching sequences and/or metadata  failed, with their corresponding error messages. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_fondue_get-ids-from-query {
+    _arguments \
+        '--p-query[Search query to retrieve SRA run IDs from the BioSample database. \[required\]]' \
+        '--p-email[Your e-mail address (required by NCBI). \[required\]]' \
+        '--p-n-jobs[Number of concurrent download jobs.]' \
+        '--p-log-level[Logging level. \[default: '\''INFO'\''\]]' \
+        '--o-ids[Table containing metadata for all the requested IDs.  \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_fondue_get-metadata {
+    _arguments \
+        '--i-accession-ids[Artifact containing run, study, BioProject, experiment or sample IDs for which the metadata and/or sequences should be fetched. Associated DOI names can be providedin an optional column and are preserved in get-alland get-metadata actions.]' \
+        '--i-linked-doi[Optional table containing linked DOI names that is only used if accession-ids does not contain any DOI names.]' \
+        '--p-email[Your e-mail address (required by NCBI). \[required\]]' \
+        '--p-n-jobs[Number of concurrent download jobs.]' \
+        '--p-log-level[Logging level. \[default: '\''INFO'\''\]]' \
+        '--o-metadata[Table containing metadata for all the requested IDs. \[required\]]' \
+        '--o-failed-runs[List of all run IDs for which fetching metadata failed, with their corresponding error messages. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_fondue_get-sequences {
+    _arguments \
+        '--i-accession-ids[Artifact containing run, study, BioProject, experiment or sample IDs for which the metadata and/or sequences should be fetched. Associated DOI names can be providedin an optional column and are preserved in get-alland get-metadata actions.]' \
+        '--p-email[Your e-mail address (required by NCBI). \[required\]]' \
+        '--p-retries[Number of retries to fetch sequences.]' \
+        '--p-n-jobs[Number of concurrent download jobs.]' \
+        '--p-log-level[Logging level. \[default: '\''INFO'\''\]]' \
+        {--p-restricted-access,--p-no-restricted-access}'[If sequence fetch requires dbGaP repository key.]' \
+        '--o-single-reads[Artifact containing single-read fastq.gz files for all the requested IDs. \[required\]]' \
+        '--o-paired-reads[Artifact containing paired-end fastq.gz files for all the requested IDs. \[required\]]' \
+        '--o-failed-runs[List of all run IDs for which fetching sequences failed, with their corresponding error messages. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_fondue_merge-metadata {
+    _arguments \
+        '--i-metadata[Metadata files to be merged together. \[required\]]' \
+        '--o-merged-metadata[Merged metadata containing all rows and columns (without duplicates). \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_fondue_scrape-collection {
+    _arguments \
+        '--p-collection-name[Name of the collection to be scraped. \[required\]]' \
+        '--p-on-no-dois[Behavior if no DOIs were found. \[default: '\''ignore'\''\]]' \
+        '--p-log-level[Logging level. \[default: '\''INFO'\''\]]' \
+        '--o-run-ids[Artifact containing all run IDs scraped from a Zotero collection and associated DOI names. \[required\]]' \
+        '--o-study-ids[Artifact containing all study IDs scraped from a Zotero collection and associated DOI names. \[required\]]' \
+        '--o-bioproject-ids[Artifact containing all BioProject IDs scraped from a Zotero collection and associated DOI names. \[required\]]' \
+        '--o-experiment-ids[Artifact containing all experiment IDs scraped from a Zotero collection and associated DOI names. \[required\]]' \
+        '--o-sample-ids[Artifact containing all experiment IDs scraped from a Zotero collection and associated DOI names. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+
 function _qiime_fragment-insertion {
     local line state
 
@@ -3831,6 +4436,763 @@ function _qiime_metadata_tabulate {
         '--m-input-file[The metadata to tabulate. \[required\]]' \
         '--p-page-size[The maximum number of Metadata records to display per page \[default: 100\]]' \
         '--o-visualization[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+
+function _qiime_moshpit {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'bin-contigs-metabat:Bin contigs into MAGs using MetaBAT 2.'
+            'build-custom-diamond-db:Create a DIAMOND formatted reference database from a FASTA input file.'
+            'build-eggnog-diamond-db:Create a DIAMOND formatted reference database for the specified taxon.'
+            'build-kraken-db:Build Kraken 2 database.'
+            'classify-kaiju:Classify reads using Kaiju.'
+            'classify-kraken2:Perform taxonomic classification of reads or MAGs using Kraken 2.'
+            'collate-annotations:Collate ortholog annotations.'
+            'collate-busco-results:Collate BUSCO results.'
+            'collate-feature-data-mags:Collate mags'
+            'collate-kraken2-outputs:Collate kraken2 outputs'
+            'collate-kraken2-reports:Collate kraken2 reports'
+            'collate-orthologs:Collate Orthologs'
+            'collate-sample-data-mags:Collate mags'
+            'dereplicate-mags:Dereplicate MAGs from multiple samples.'
+            'eggnog-annotate:Annotate orthologs against eggNOG database'
+            'eggnog-diamond-search:Run eggNOG search using diamond aligner'
+            'estimate-bracken:Perform read abundance re-estimation using Bracken.'
+            'evaluate-busco:Evaluate quality of the generated MAGs using BUSCO.'
+            'fetch-diamond-db:Fetch the complete Diamond database necessary to run the eggnog-diamond-search action.'
+            'fetch-eggnog-db:Fetch the databases necessary to run the eggnog-annotate action.'
+            'fetch-eggnog-proteins:Fetch the databases necessary to run the build-eggnog-diamond-db action.'
+            'fetch-kaiju-db:Fetch Kaiju database.'
+            'fetch-ncbi-taxonomy:Fetch NCBI reference taxonomy'
+            'filter-derep-mags:Filter dereplicated MAGs.'
+            'filter-mags:Filter MAGs.'
+            'get-feature-lengths:Get feature lengths.'
+            'inspect-kraken2-db:Inspect a Kraken 2 database.'
+            'kraken2-to-features:Select downstream features from Kraken 2'
+            'kraken2-to-mag-features:Select downstream MAG features from Kraken 2'
+            'partition-feature-data-mags:Partition MAGs'
+            'partition-orthologs:Partition orthologs'
+            'partition-sample-data-mags:Partition MAGs'
+            'predict-genes-prodigal:Predict gene sequences from MAGs using Prodigal.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--version[Show the version and exit.]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--show-hidden-actions[This plugin has hidden actions with names starting with '\''_'\''. These are generally called internally by pipelines. Passing this flag will display those actions.]' \
+        '--help[Show this message and exit.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (bin-contigs-metabat)
+            _qiime_moshpit_bin-contigs-metabat
+            ;;
+
+        (build-custom-diamond-db)
+            _qiime_moshpit_build-custom-diamond-db
+            ;;
+
+        (build-eggnog-diamond-db)
+            _qiime_moshpit_build-eggnog-diamond-db
+            ;;
+
+        (build-kraken-db)
+            _qiime_moshpit_build-kraken-db
+            ;;
+
+        (classify-kaiju)
+            _qiime_moshpit_classify-kaiju
+            ;;
+
+        (classify-kraken2)
+            _qiime_moshpit_classify-kraken2
+            ;;
+
+        (collate-annotations)
+            _qiime_moshpit_collate-annotations
+            ;;
+
+        (collate-busco-results)
+            _qiime_moshpit_collate-busco-results
+            ;;
+
+        (collate-feature-data-mags)
+            _qiime_moshpit_collate-feature-data-mags
+            ;;
+
+        (collate-kraken2-outputs)
+            _qiime_moshpit_collate-kraken2-outputs
+            ;;
+
+        (collate-kraken2-reports)
+            _qiime_moshpit_collate-kraken2-reports
+            ;;
+
+        (collate-orthologs)
+            _qiime_moshpit_collate-orthologs
+            ;;
+
+        (collate-sample-data-mags)
+            _qiime_moshpit_collate-sample-data-mags
+            ;;
+
+        (dereplicate-mags)
+            _qiime_moshpit_dereplicate-mags
+            ;;
+
+        (eggnog-annotate)
+            _qiime_moshpit_eggnog-annotate
+            ;;
+
+        (eggnog-diamond-search)
+            _qiime_moshpit_eggnog-diamond-search
+            ;;
+
+        (estimate-bracken)
+            _qiime_moshpit_estimate-bracken
+            ;;
+
+        (evaluate-busco)
+            _qiime_moshpit_evaluate-busco
+            ;;
+
+        (fetch-diamond-db)
+            _qiime_moshpit_fetch-diamond-db
+            ;;
+
+        (fetch-eggnog-db)
+            _qiime_moshpit_fetch-eggnog-db
+            ;;
+
+        (fetch-eggnog-proteins)
+            _qiime_moshpit_fetch-eggnog-proteins
+            ;;
+
+        (fetch-kaiju-db)
+            _qiime_moshpit_fetch-kaiju-db
+            ;;
+
+        (fetch-ncbi-taxonomy)
+            _qiime_moshpit_fetch-ncbi-taxonomy
+            ;;
+
+        (filter-derep-mags)
+            _qiime_moshpit_filter-derep-mags
+            ;;
+
+        (filter-mags)
+            _qiime_moshpit_filter-mags
+            ;;
+
+        (get-feature-lengths)
+            _qiime_moshpit_get-feature-lengths
+            ;;
+
+        (inspect-kraken2-db)
+            _qiime_moshpit_inspect-kraken2-db
+            ;;
+
+        (kraken2-to-features)
+            _qiime_moshpit_kraken2-to-features
+            ;;
+
+        (kraken2-to-mag-features)
+            _qiime_moshpit_kraken2-to-mag-features
+            ;;
+
+        (partition-feature-data-mags)
+            _qiime_moshpit_partition-feature-data-mags
+            ;;
+
+        (partition-orthologs)
+            _qiime_moshpit_partition-orthologs
+            ;;
+
+        (partition-sample-data-mags)
+            _qiime_moshpit_partition-sample-data-mags
+            ;;
+
+        (predict-genes-prodigal)
+            _qiime_moshpit_predict-genes-prodigal
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _qiime_moshpit_bin-contigs-metabat {
+    _arguments \
+        '--i-contigs[Contigs to be binned. \[required\]]' \
+        '--i-alignment-maps[Reads-to-contig alignment maps. \[required\]]' \
+        '--p-min-contig[Minimum size of a contig for binning.]' \
+        '--p-max-p[Percentage of "good" contigs considered for binning decided by connection among contigs.]' \
+        '--p-min-s[Minimum score of a edge for binning.]' \
+        '--p-max-edges[Maximum number of edges per node.]' \
+        '--p-p-tnf[TNF probability cutoff for building TNF graph.]' \
+        {--p-no-add,--p-no-no-add}'[Turning off additional binning for lost or small contigs.]' \
+        '--p-min-cv[Minimum mean coverage of a contig in each library for binning.]' \
+        '--p-min-cv-sum[Minimum total effective mean coverage of a contig (sum of depth over minCV) for binning.]' \
+        '--p-min-cls-size[Minimum size of a bin as the output. \[optional\]]' \
+        '--p-seed[For exact reproducibility. (0: use random seed)]' \
+        {--p-debug,--p-no-debug}'[Debug output. \[optional\]]' \
+        {--p-verbose,--p-no-verbose}'[Verbose output. \[optional\]]' \
+        '--o-mags[The resulting MAGs. \[required\]]' \
+        '--o-contig-map[Mapping of MAG identifiers to the contig identifiers contained in each MAG. \[required\]]' \
+        '--o-unbinned-contigs[Contigs that were not binned into any MAG. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_build-custom-diamond-db {
+    _arguments \
+        '--i-seqs[Protein reference database. \[required\]]' \
+        '--i-taxonomy[Reference taxonomy, needed to provide taxonomy features. \[optional\]]' \
+        '--p-threads[Number of CPU threads.]' \
+        {--p-ignore-warnings,--p-no-ignore-warnings}'[Ignore warnings. \[default: False\]]' \
+        {--p-no-parse-seqids,--p-no-no-parse-seqids}'[Print raw seqids without parsing. \[default: False\]]' \
+        '--p-file-buffer-size[Range(1, None) File buffer size in bytes. \[default: 67108864\]]' \
+        '--o-diamond-db[DIAMOND database. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_build-eggnog-diamond-db {
+    _arguments \
+        '--i-eggnog-proteins[eggNOG database of protein sequences and their corresponding taxonomy information (generated through the `fetch-eggnog-proteins` action). \[required\]]' \
+        '--p-taxon[Taxon ID number. \[required\]]' \
+        '--o-diamond-db[Complete Diamond reference database for thespecified taxon. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_build-kraken-db {
+    _arguments \
+        '--i-seqs[Sequences to be added to the Kraken 2 database.]' \
+        '--p-collection[Name of the database collection to be fetched.]':file:_files \
+        '--p-threads[Number of threads. Only applicable when building a custom database. \[default: 1\]]' \
+        '--p-kmer-len[K-mer length in bp/aa. \[default: 35\]]' \
+        '--p-minimizer-len[Minimizer length in bp/aa. \[default: 31\]]' \
+        '--p-minimizer-spaces[Number of characters in minimizer that are ignored]' \
+        '--p-max-db-size[Maximum number of bytes for Kraken 2 hash table]' \
+        '--p-load-factor[Proportion of the hash table to be populated.]' \
+        '--p-read-len[Ideal read lengths to be used while building the Bracken database.]' \
+        {--p-no-masking,--p-no-no-masking}'[Avoid masking low-complexity sequences prior to building; masking requires dustmasker or segmasker to be installed in PATH \[default: False\]]' \
+        {--p-use-ftp,--p-no-use-ftp}'[Use FTP for downloading instead of RSYNC.]' \
+        {--p-fast-build,--p-no-fast-build}'[Do not require database to be deterministically built when using multiple threads. This is faster, but does introduce variability in minimizer/LCA pairs. \[default: False\]]' \
+        '--o-kraken2-database[Kraken2DB Kraken2 database. \[required\]]' \
+        '--o-bracken-database[BrackenDB Bracken database. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_classify-kaiju {
+    _arguments \
+        '--i-seqs[Sequences to be classified. \[required\]]' \
+        '--i-db[Kaiju database. \[required\]]' \
+        '--p-z[Number of threads.]' \
+        '--p-a[Run mode. \[default: '\''greedy'\''\]]' \
+        '--p-e[Number of mismatches allowed in Greedy mode.]' \
+        '--p-m[Minimum match length.]' \
+        '--p-s[Minimum match score in Greedy mode.]' \
+        '--p-evalue[Minimum E-value in Greedy mode.]' \
+        {--p-x,--p-no-x}'[Enable SEG low complexity filter. \[default: True\]]' \
+        '--p-r[Taxonomic rank.]' \
+        '--p-c[Minimum required number or fraction of reads for the taxon  (except viruses) to be reported.]' \
+        {--p-exp,--p-no-exp}'[Expand viruses, which are always shown as full taxon]' \
+        {--p-u,--p-no-u}'[Do not count unclassified reads for the total reads]' \
+        '--o-abundances[Read abundances. \[required\]]' \
+        '--o-taxonomy[Linked taxonomy. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_classify-kraken2 {
+    _arguments \
+        '--i-seqs[Sequences to be classified. \[required\]]' \
+        '--i-kraken2-db[Kraken2DB \[required\]]' \
+        '--p-threads[Number of threads.]' \
+        '--p-confidence[Confidence score threshold. \[default: 0.0\]]' \
+        '--p-minimum-base-quality[Minimum base quality used in classification.]' \
+        {--p-memory-mapping,--p-no-memory-mapping}'[Avoids loading the database into RAM.]' \
+        {--p-quick,--p-no-quick}'[Quick operation (use first hit or hits).]' \
+        {--p-report-minimizer-data,--p-no-report-minimizer-data}'[Include number of read-minimizers per-taxon and unique read-minimizers per-taxon in the repot.]' \
+        '--p-minimum-hit-groups[Minimum number of hit groups (overlapping k-mers sharing the same minimizer).]' \
+        '--p-num-partitions[The number of partitions to split the contigs into.]' \
+        '--o-reports[Reports produced by Kraken2. \[required\]]' \
+        '--o-hits[Output files produced by Kraken2. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_collate-annotations {
+    _arguments \
+        '--i-ortholog-annotations[Collection of ortholog annotations. \[required\]]' \
+        '--o-collated-annotations[FeatureData\[NOG\] Collated ortholog annotations. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_collate-busco-results {
+    _arguments \
+        '--i-busco-results[\[required\]]' \
+        '--o-collated-busco-results[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_collate-feature-data-mags {
+    _arguments \
+        '--i-mags[A collection of MAGs to be collated. \[required\]]' \
+        '--o-collated-mags[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_collate-kraken2-outputs {
+    _arguments \
+        '--i-kraken2-outputs[\[required\]]' \
+        '--o-collated-kraken2-outputs[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_collate-kraken2-reports {
+    _arguments \
+        '--i-kraken2-reports[\[required\]]' \
+        '--o-collated-kraken2-reports[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_collate-orthologs {
+    _arguments \
+        '--i-orthologs[Orthologs to collate \[required\]]' \
+        '--o-collated-orthologs[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_collate-sample-data-mags {
+    _arguments \
+        '--i-mags[A collection of MAGs to be collated. \[required\]]' \
+        '--o-collated-mags[SampleData\[MAGs\] \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_dereplicate-mags {
+    _arguments \
+        '--i-mags[MAGs to be dereplicated. \[required\]]' \
+        '--i-distance-matrix[Matrix of distances between MAGs. \[required\]]' \
+        '--p-threshold[Similarity threshold required to consider two bins identical. \[default: 0.99\]]' \
+        '--o-dereplicated-mags[Dereplicated MAGs. \[required\]]' \
+        '--o-feature-table[Mapping between MAGs and samples. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_eggnog-annotate {
+    _arguments \
+        '--i-eggnog-hits[SampleData\[BLAST6\] BLAST6-like table(s) describing the identified orthologs. \[required\]]' \
+        '--i-eggnog-db[eggNOG annotation database. \[required\]]' \
+        {--p-db-in-memory,--p-no-db-in-memory}'[Read eggnog database into memory. The eggnog database is very large(>44GB), so this option should only be used on clusters or other machines with enough memory. \[default: False\]]' \
+        '--p-num-cpus[Number of CPUs to utilize. '\''0'\'' will use all available.]' \
+        '--p-num-partitions[Range(1, None) The number of partitions to split the contigs into.]' \
+        '--o-ortholog-annotations[Annotated hits. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_eggnog-diamond-search {
+    _arguments \
+        '--i-sequences[Sequence data of the contigs we want to search for hits using the Diamond Database \[required\]]' \
+        '--i-diamond-db[The filepath to an artifact containing the Diamond database \[required\]]' \
+        '--p-num-cpus[Number of CPUs to utilize. '\''0'\'' will use all available. \[default: 1\]]' \
+        {--p-db-in-memory,--p-no-db-in-memory}'[Read database into memory. The database can be very large, so this option should only be used on clusters or other machines with enough memory.]' \
+        '--p-num-partitions[The number of partitions to split the contigs into.]' \
+        '--o-table[\[required\]]' \
+        '--o-eggnog-hits[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_estimate-bracken {
+    _arguments \
+        '--i-kraken-reports[Reports produced by Kraken2. \[required\]]' \
+        '--i-bracken-db[BrackenDB Bracken database. \[required\]]' \
+        '--p-threshold[Bracken: number of reads required PRIOR to abundance estimation to perform re-estimation.]' \
+        '--p-read-len[Bracken: read length to get all classifications for.]' \
+        '--p-level[Bracken: taxonomic level to estimate abundance at.]' \
+        '--o-taxonomy[\[required\]]' \
+        '--o-table[\[required\]]' \
+        '--o-reports[Reports modified by Bracken. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_evaluate-busco {
+    _arguments \
+        '--i-bins[MAGs to be analyzed. \[required\]]' \
+        '--p-mode[Specify which BUSCO analysis mode to run.]' \
+        '--p-lineage-dataset[Specify the name of the BUSCO lineage to be used. To see all possible options run `busco --list-datasets`. \[optional\]]' \
+        {--p-augustus,--p-no-augustus}'[Use augustus gene predictor for eukaryote runs.]' \
+        '--p-augustus-parameters[Pass additional arguments to Augustus. All arguments should be contained within a single string with no white space, with each argument separated by a comma. Example: '\''--PARAM1=VALUE1,--PARAM2=VALUE2'\''.]' \
+        '--p-augustus-species[Specify a species for Augustus training. \[optional\]]' \
+        {--p-auto-lineage,--p-no-auto-lineage}'[Run auto-lineage to find optimum lineage path.]' \
+        {--p-auto-lineage-euk,--p-no-auto-lineage-euk}'[Run auto-placement just on eukaryote tree to find optimum lineage path. \[default: False\]]' \
+        {--p-auto-lineage-prok,--p-no-auto-lineage-prok}'[Run auto-lineage just on non-eukaryote trees to find optimum lineage path. \[default: False\]]' \
+        '--p-cpu[Specify the number (N=integer) of threads/cores to use.]' \
+        '--p-config[Provide a config file. \[optional\]]' \
+        '--p-contig-break[Number of contiguous Ns to signify a break between contigs.]' \
+        '--p-evalue[E-value cutoff for BLAST searches. Allowed formats, 0.001 or 1e-03, Default: 1e-03. \[default: 0.001\]]' \
+        {--p-force,--p-no-force}'[Force rewriting of existing files. Must be used when output files with the provided name already exist. \[default: False\]]' \
+        '--p-limit[How many candidate regions (contig or transcript) to consider per BUSCO.]' \
+        {--p-long,--p-no-long}'[Optimization Augustus self-training mode (Default: Off); adds considerably to the run time, but can improve results for some non-model organisms.]' \
+        '--p-metaeuk-parameters[Pass additional arguments to Metaeuk for the first run. All arguments should be contained within a single string with no white space, with each argument separated by a comma. Example: `--PARAM1=VALUE1,--PARAM2=VALUE2`. \[optional\]]' \
+        '--p-metaeuk-rerun-parameters[Pass additional arguments to Metaeuk for the second run. All arguments should be contained within a single string with no white space, with each argument separated by a comma. Example: `--PARAM1=VALUE1,--PARAM2=VALUE2`. \[optional\]]' \
+        {--p-miniprot,--p-no-miniprot}'[Use miniprot gene predictor for eukaryote runs.]' \
+        {--p-scaffold-composition,--p-no-scaffold-composition}'[Writes ACGTN content per scaffold to a file `scaffold_composition.txt`. \[default: False\]]' \
+        '--p-num-partitions[The number of partitions to split the contigs into.]' \
+        '--o-results-table[BUSCO result table. \[required\]]' \
+        '--o-visualization[Visualization of the BUSCO results. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_fetch-diamond-db {
+    _arguments \
+        '--o-diamond-db[Complete Diamond reference database. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_fetch-eggnog-db {
+    _arguments \
+        '--o-eggnog-db[Artifact containing the eggNOG annotation database. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_fetch-eggnog-proteins {
+    _arguments \
+        '--o-eggnog-proteins[eggNOG database of protein sequences and their corresponding taxonomy information. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_fetch-kaiju-db {
+    _arguments \
+        '--p-database-type[Type of database to be downloaded. \[required\]]' \
+        '--o-database[Kaiju database. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_fetch-ncbi-taxonomy {
+    _arguments \
+        '--o-taxonomy[NCBI reference taxonomy. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_filter-derep-mags {
+    _arguments \
+        '--i-mags[Dereplicated MAGs to filter. \[required\]]' \
+        '--m-metadata-file[Sample metadata indicating which MAG ids to filter. \[required\]]' \
+        '--p-where[Optional SQLite WHERE clause specifying MAG metadata criteria that must be met to be included in the filtered data. If not provided, all MAGs in `metadata` that are also in the MAG data will be retained.]' \
+        {--p-exclude-ids,--p-no-exclude-ids}'[Defaults to False. If True, the MAGs selected by the `metadata` and optional `where` parameter will be excluded from the filtered data. \[default: False\]]' \
+        '--o-filtered-mags[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_filter-mags {
+    _arguments \
+        '--i-mags[MAGs to filter. \[required\]]' \
+        '--m-metadata-file[Sample metadata indicating which MAG ids to filter. \[required\]]' \
+        '--p-where[Optional SQLite WHERE clause specifying MAG metadata criteria that must be met to be included in the filtered data. If not provided, all MAGs in `metadata` that are also in the MAG data will be retained.]' \
+        {--p-exclude-ids,--p-no-exclude-ids}'[Defaults to False. If True, the MAGs selected by the `metadata` and optional `where` parameter will be excluded from the filtered data. \[default: False\]]' \
+        '--p-on[Whether to filter based on sample or MAG metadata.]' \
+        '--m-metadata-file[(multiple Sample metadata indicating which MAG ids to filter.]' \
+        '--o-filtered-mags[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_get-feature-lengths {
+    _arguments \
+        '--i-features[Features to get lengths for. \[required\]]' \
+        '--o-lengths[Feature lengths. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_inspect-kraken2-db {
+    _arguments \
+        '--i-db[The Kraken 2 database for which to generate the report. \[required\]]' \
+        '--p-threads[The number of threads to use.   Range(1, None) \[default: 1\]]' \
+        '--o-report[The report of the supplied database. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_kraken2-to-features {
+    _arguments \
+        '--i-reports[Per-sample Kraken 2 reports. \[required\]]' \
+        '--p-coverage-threshold[The minimum percent coverage required to produce a feature. \[default: 0.1\]]' \
+        '--o-table[A presence/absence table of selected features. The features are not of even ranks, but will be the most specific rank available. \[required\]]' \
+        '--o-taxonomy[Infra-clade ranks are ignored unless they are strain-level. Missing internal ranks are annotated by their next most specific rank, with the exception of k__Bacteria and k__Archaea which match their domain'\''s name. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_kraken2-to-mag-features {
+    _arguments \
+        '--i-reports[Per-sample Kraken 2 reports. \[required\]]' \
+        '--i-hits[Per-sample Kraken 2 output files. \[required\]]' \
+        '--p-coverage-threshold[The minimum percent coverage required to produce a feature. \[default: 0.1\]]' \
+        '--o-taxonomy[Infra-clade ranks are ignored unless they are strain-level. Missing internal ranks are annotated by their next most specific rank, with the exception of k__Bacteria and k__Archaea which match their domain'\''s name. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_partition-feature-data-mags {
+    _arguments \
+        '--i-mags[MAGs to partition. \[required\]]' \
+        '--p-num-partitions[The number of partitions to split the MAGs into.]' \
+        '--o-partitioned-mags[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_partition-orthologs {
+    _arguments \
+        '--i-orthologs[The orthologs to partition. \[required\]]' \
+        '--p-num-partitions[The number of partitions to split the MAGs into.]' \
+        '--o-partitioned-orthologs[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_partition-sample-data-mags {
+    _arguments \
+        '--i-mags[The MAGs to partition. \[required\]]' \
+        '--p-num-partitions[Range(1, None) The number of partitions to split the MAGs into.]' \
+        '--o-partitioned-mags[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_predict-genes-prodigal {
+    _arguments \
+        '--i-mags[MAGs for which one wishes to predict genes. \[required\]]' \
+        '--p-translation-table-number[Translation table to be used to translate genes into a sequence of amino acids..]' \
+        '--o-loci[Gene coordinates files (one per MAG) listing the location of each predicted gene as well as some additional scoring information. \[required\]]' \
+        '--o-genes[Fasta files (one per MAG) with the nucleotide sequences of the predicted genes. \[required\]]' \
+        '--o-proteins[Fasta files (one per MAG) with the protein translation of the predicted genes. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
@@ -5526,6 +6888,763 @@ function _qiime_sample-classifier_summarize {
     _arguments \
         '--i-sample-estimator[ARTIFACT SampleEstimator\[Classifier | Regressor\] Sample estimator trained with fit_classifier or fit_regressor. \[required\]]' \
         '--o-visualization[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+
+function _qiime_moshpit {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'bin-contigs-metabat:Bin contigs into MAGs using MetaBAT 2.'
+            'build-custom-diamond-db:Create a DIAMOND formatted reference database from a FASTA input file.'
+            'build-eggnog-diamond-db:Create a DIAMOND formatted reference database for the specified taxon.'
+            'build-kraken-db:Build Kraken 2 database.'
+            'classify-kaiju:Classify reads using Kaiju.'
+            'classify-kraken2:Perform taxonomic classification of reads or MAGs using Kraken 2.'
+            'collate-annotations:Collate ortholog annotations.'
+            'collate-busco-results:Collate BUSCO results.'
+            'collate-feature-data-mags:Collate mags'
+            'collate-kraken2-outputs:Collate kraken2 outputs'
+            'collate-kraken2-reports:Collate kraken2 reports'
+            'collate-orthologs:Collate Orthologs'
+            'collate-sample-data-mags:Collate mags'
+            'dereplicate-mags:Dereplicate MAGs from multiple samples.'
+            'eggnog-annotate:Annotate orthologs against eggNOG database'
+            'eggnog-diamond-search:Run eggNOG search using diamond aligner'
+            'estimate-bracken:Perform read abundance re-estimation using Bracken.'
+            'evaluate-busco:Evaluate quality of the generated MAGs using BUSCO.'
+            'fetch-diamond-db:Fetch the complete Diamond database necessary to run the eggnog-diamond-search action.'
+            'fetch-eggnog-db:Fetch the databases necessary to run the eggnog-annotate action.'
+            'fetch-eggnog-proteins:Fetch the databases necessary to run the build-eggnog-diamond-db action.'
+            'fetch-kaiju-db:Fetch Kaiju database.'
+            'fetch-ncbi-taxonomy:Fetch NCBI reference taxonomy'
+            'filter-derep-mags:Filter dereplicated MAGs.'
+            'filter-mags:Filter MAGs.'
+            'get-feature-lengths:Get feature lengths.'
+            'inspect-kraken2-db:Inspect a Kraken 2 database.'
+            'kraken2-to-features:Select downstream features from Kraken 2'
+            'kraken2-to-mag-features:Select downstream MAG features from Kraken 2'
+            'partition-feature-data-mags:Partition MAGs'
+            'partition-orthologs:Partition orthologs'
+            'partition-sample-data-mags:Partition MAGs'
+            'predict-genes-prodigal:Predict gene sequences from MAGs using Prodigal.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '--version[Show the version and exit.]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--show-hidden-actions[This plugin has hidden actions with names starting with '\''_'\''. These are generally called internally by pipelines. Passing this flag will display those actions.]' \
+        '--help[Show this message and exit.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (bin-contigs-metabat)
+            _qiime_moshpit_bin-contigs-metabat
+            ;;
+
+        (build-custom-diamond-db)
+            _qiime_moshpit_build-custom-diamond-db
+            ;;
+
+        (build-eggnog-diamond-db)
+            _qiime_moshpit_build-eggnog-diamond-db
+            ;;
+
+        (build-kraken-db)
+            _qiime_moshpit_build-kraken-db
+            ;;
+
+        (classify-kaiju)
+            _qiime_moshpit_classify-kaiju
+            ;;
+
+        (classify-kraken2)
+            _qiime_moshpit_classify-kraken2
+            ;;
+
+        (collate-annotations)
+            _qiime_moshpit_collate-annotations
+            ;;
+
+        (collate-busco-results)
+            _qiime_moshpit_collate-busco-results
+            ;;
+
+        (collate-feature-data-mags)
+            _qiime_moshpit_collate-feature-data-mags
+            ;;
+
+        (collate-kraken2-outputs)
+            _qiime_moshpit_collate-kraken2-outputs
+            ;;
+
+        (collate-kraken2-reports)
+            _qiime_moshpit_collate-kraken2-reports
+            ;;
+
+        (collate-orthologs)
+            _qiime_moshpit_collate-orthologs
+            ;;
+
+        (collate-sample-data-mags)
+            _qiime_moshpit_collate-sample-data-mags
+            ;;
+
+        (dereplicate-mags)
+            _qiime_moshpit_dereplicate-mags
+            ;;
+
+        (eggnog-annotate)
+            _qiime_moshpit_eggnog-annotate
+            ;;
+
+        (eggnog-diamond-search)
+            _qiime_moshpit_eggnog-diamond-search
+            ;;
+
+        (estimate-bracken)
+            _qiime_moshpit_estimate-bracken
+            ;;
+
+        (evaluate-busco)
+            _qiime_moshpit_evaluate-busco
+            ;;
+
+        (fetch-diamond-db)
+            _qiime_moshpit_fetch-diamond-db
+            ;;
+
+        (fetch-eggnog-db)
+            _qiime_moshpit_fetch-eggnog-db
+            ;;
+
+        (fetch-eggnog-proteins)
+            _qiime_moshpit_fetch-eggnog-proteins
+            ;;
+
+        (fetch-kaiju-db)
+            _qiime_moshpit_fetch-kaiju-db
+            ;;
+
+        (fetch-ncbi-taxonomy)
+            _qiime_moshpit_fetch-ncbi-taxonomy
+            ;;
+
+        (filter-derep-mags)
+            _qiime_moshpit_filter-derep-mags
+            ;;
+
+        (filter-mags)
+            _qiime_moshpit_filter-mags
+            ;;
+
+        (get-feature-lengths)
+            _qiime_moshpit_get-feature-lengths
+            ;;
+
+        (inspect-kraken2-db)
+            _qiime_moshpit_inspect-kraken2-db
+            ;;
+
+        (kraken2-to-features)
+            _qiime_moshpit_kraken2-to-features
+            ;;
+
+        (kraken2-to-mag-features)
+            _qiime_moshpit_kraken2-to-mag-features
+            ;;
+
+        (partition-feature-data-mags)
+            _qiime_moshpit_partition-feature-data-mags
+            ;;
+
+        (partition-orthologs)
+            _qiime_moshpit_partition-orthologs
+            ;;
+
+        (partition-sample-data-mags)
+            _qiime_moshpit_partition-sample-data-mags
+            ;;
+
+        (predict-genes-prodigal)
+            _qiime_moshpit_predict-genes-prodigal
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _qiime_moshpit_bin-contigs-metabat {
+    _arguments \
+        '--i-contigs[Contigs to be binned. \[required\]]' \
+        '--i-alignment-maps[Reads-to-contig alignment maps. \[required\]]' \
+        '--p-min-contig[Minimum size of a contig for binning.]' \
+        '--p-max-p[Percentage of "good" contigs considered for binning decided by connection among contigs.]' \
+        '--p-min-s[Minimum score of a edge for binning.]' \
+        '--p-max-edges[Maximum number of edges per node.]' \
+        '--p-p-tnf[TNF probability cutoff for building TNF graph.]' \
+        {--p-no-add,--p-no-no-add}'[Turning off additional binning for lost or small contigs.]' \
+        '--p-min-cv[Minimum mean coverage of a contig in each library for binning.]' \
+        '--p-min-cv-sum[Minimum total effective mean coverage of a contig (sum of depth over minCV) for binning.]' \
+        '--p-min-cls-size[Minimum size of a bin as the output. \[optional\]]' \
+        '--p-seed[For exact reproducibility. (0: use random seed)]' \
+        {--p-debug,--p-no-debug}'[Debug output. \[optional\]]' \
+        {--p-verbose,--p-no-verbose}'[Verbose output. \[optional\]]' \
+        '--o-mags[The resulting MAGs. \[required\]]' \
+        '--o-contig-map[Mapping of MAG identifiers to the contig identifiers contained in each MAG. \[required\]]' \
+        '--o-unbinned-contigs[Contigs that were not binned into any MAG. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_build-custom-diamond-db {
+    _arguments \
+        '--i-seqs[Protein reference database. \[required\]]' \
+        '--i-taxonomy[Reference taxonomy, needed to provide taxonomy features. \[optional\]]' \
+        '--p-threads[Number of CPU threads.]' \
+        {--p-ignore-warnings,--p-no-ignore-warnings}'[Ignore warnings. \[default: False\]]' \
+        {--p-no-parse-seqids,--p-no-no-parse-seqids}'[Print raw seqids without parsing. \[default: False\]]' \
+        '--p-file-buffer-size[Range(1, None) File buffer size in bytes. \[default: 67108864\]]' \
+        '--o-diamond-db[DIAMOND database. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_build-eggnog-diamond-db {
+    _arguments \
+        '--i-eggnog-proteins[eggNOG database of protein sequences and their corresponding taxonomy information (generated through the `fetch-eggnog-proteins` action). \[required\]]' \
+        '--p-taxon[Taxon ID number. \[required\]]' \
+        '--o-diamond-db[Complete Diamond reference database for thespecified taxon. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_build-kraken-db {
+    _arguments \
+        '--i-seqs[Sequences to be added to the Kraken 2 database.]' \
+        '--p-collection[Name of the database collection to be fetched.]':file:_files \
+        '--p-threads[Number of threads. Only applicable when building a custom database. \[default: 1\]]' \
+        '--p-kmer-len[K-mer length in bp/aa. \[default: 35\]]' \
+        '--p-minimizer-len[Minimizer length in bp/aa. \[default: 31\]]' \
+        '--p-minimizer-spaces[Number of characters in minimizer that are ignored]' \
+        '--p-max-db-size[Maximum number of bytes for Kraken 2 hash table]' \
+        '--p-load-factor[Proportion of the hash table to be populated.]' \
+        '--p-read-len[Ideal read lengths to be used while building the Bracken database.]' \
+        {--p-no-masking,--p-no-no-masking}'[Avoid masking low-complexity sequences prior to building; masking requires dustmasker or segmasker to be installed in PATH \[default: False\]]' \
+        {--p-use-ftp,--p-no-use-ftp}'[Use FTP for downloading instead of RSYNC.]' \
+        {--p-fast-build,--p-no-fast-build}'[Do not require database to be deterministically built when using multiple threads. This is faster, but does introduce variability in minimizer/LCA pairs. \[default: False\]]' \
+        '--o-kraken2-database[Kraken2DB Kraken2 database. \[required\]]' \
+        '--o-bracken-database[BrackenDB Bracken database. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_classify-kaiju {
+    _arguments \
+        '--i-seqs[Sequences to be classified. \[required\]]' \
+        '--i-db[Kaiju database. \[required\]]' \
+        '--p-z[Number of threads.]' \
+        '--p-a[Run mode. \[default: '\''greedy'\''\]]' \
+        '--p-e[Number of mismatches allowed in Greedy mode.]' \
+        '--p-m[Minimum match length.]' \
+        '--p-s[Minimum match score in Greedy mode.]' \
+        '--p-evalue[Minimum E-value in Greedy mode.]' \
+        {--p-x,--p-no-x}'[Enable SEG low complexity filter. \[default: True\]]' \
+        '--p-r[Taxonomic rank.]' \
+        '--p-c[Minimum required number or fraction of reads for the taxon  (except viruses) to be reported.]' \
+        {--p-exp,--p-no-exp}'[Expand viruses, which are always shown as full taxon]' \
+        {--p-u,--p-no-u}'[Do not count unclassified reads for the total reads]' \
+        '--o-abundances[Read abundances. \[required\]]' \
+        '--o-taxonomy[Linked taxonomy. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_classify-kraken2 {
+    _arguments \
+        '--i-seqs[Sequences to be classified. \[required\]]' \
+        '--i-kraken2-db[Kraken2DB \[required\]]' \
+        '--p-threads[Number of threads.]' \
+        '--p-confidence[Confidence score threshold. \[default: 0.0\]]' \
+        '--p-minimum-base-quality[Minimum base quality used in classification.]' \
+        {--p-memory-mapping,--p-no-memory-mapping}'[Avoids loading the database into RAM.]' \
+        {--p-quick,--p-no-quick}'[Quick operation (use first hit or hits).]' \
+        {--p-report-minimizer-data,--p-no-report-minimizer-data}'[Include number of read-minimizers per-taxon and unique read-minimizers per-taxon in the repot.]' \
+        '--p-minimum-hit-groups[Minimum number of hit groups (overlapping k-mers sharing the same minimizer).]' \
+        '--p-num-partitions[The number of partitions to split the contigs into.]' \
+        '--o-reports[Reports produced by Kraken2. \[required\]]' \
+        '--o-hits[Output files produced by Kraken2. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_collate-annotations {
+    _arguments \
+        '--i-ortholog-annotations[Collection of ortholog annotations. \[required\]]' \
+        '--o-collated-annotations[FeatureData\[NOG\] Collated ortholog annotations. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_collate-busco-results {
+    _arguments \
+        '--i-busco-results[\[required\]]' \
+        '--o-collated-busco-results[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_collate-feature-data-mags {
+    _arguments \
+        '--i-mags[A collection of MAGs to be collated. \[required\]]' \
+        '--o-collated-mags[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_collate-kraken2-outputs {
+    _arguments \
+        '--i-kraken2-outputs[\[required\]]' \
+        '--o-collated-kraken2-outputs[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_collate-kraken2-reports {
+    _arguments \
+        '--i-kraken2-reports[\[required\]]' \
+        '--o-collated-kraken2-reports[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_collate-orthologs {
+    _arguments \
+        '--i-orthologs[Orthologs to collate \[required\]]' \
+        '--o-collated-orthologs[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_collate-sample-data-mags {
+    _arguments \
+        '--i-mags[A collection of MAGs to be collated. \[required\]]' \
+        '--o-collated-mags[SampleData\[MAGs\] \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_dereplicate-mags {
+    _arguments \
+        '--i-mags[MAGs to be dereplicated. \[required\]]' \
+        '--i-distance-matrix[Matrix of distances between MAGs. \[required\]]' \
+        '--p-threshold[Similarity threshold required to consider two bins identical. \[default: 0.99\]]' \
+        '--o-dereplicated-mags[Dereplicated MAGs. \[required\]]' \
+        '--o-feature-table[Mapping between MAGs and samples. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_eggnog-annotate {
+    _arguments \
+        '--i-eggnog-hits[SampleData\[BLAST6\] BLAST6-like table(s) describing the identified orthologs. \[required\]]' \
+        '--i-eggnog-db[eggNOG annotation database. \[required\]]' \
+        {--p-db-in-memory,--p-no-db-in-memory}'[Read eggnog database into memory. The eggnog database is very large(>44GB), so this option should only be used on clusters or other machines with enough memory. \[default: False\]]' \
+        '--p-num-cpus[Number of CPUs to utilize. '\''0'\'' will use all available.]' \
+        '--p-num-partitions[Range(1, None) The number of partitions to split the contigs into.]' \
+        '--o-ortholog-annotations[Annotated hits. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_eggnog-diamond-search {
+    _arguments \
+        '--i-sequences[Sequence data of the contigs we want to search for hits using the Diamond Database \[required\]]' \
+        '--i-diamond-db[The filepath to an artifact containing the Diamond database \[required\]]' \
+        '--p-num-cpus[Number of CPUs to utilize. '\''0'\'' will use all available. \[default: 1\]]' \
+        {--p-db-in-memory,--p-no-db-in-memory}'[Read database into memory. The database can be very large, so this option should only be used on clusters or other machines with enough memory.]' \
+        '--p-num-partitions[The number of partitions to split the contigs into.]' \
+        '--o-table[\[required\]]' \
+        '--o-eggnog-hits[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_estimate-bracken {
+    _arguments \
+        '--i-kraken-reports[Reports produced by Kraken2. \[required\]]' \
+        '--i-bracken-db[BrackenDB Bracken database. \[required\]]' \
+        '--p-threshold[Bracken: number of reads required PRIOR to abundance estimation to perform re-estimation.]' \
+        '--p-read-len[Bracken: read length to get all classifications for.]' \
+        '--p-level[Bracken: taxonomic level to estimate abundance at.]' \
+        '--o-taxonomy[\[required\]]' \
+        '--o-table[\[required\]]' \
+        '--o-reports[Reports modified by Bracken. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_evaluate-busco {
+    _arguments \
+        '--i-bins[MAGs to be analyzed. \[required\]]' \
+        '--p-mode[Specify which BUSCO analysis mode to run.]' \
+        '--p-lineage-dataset[Specify the name of the BUSCO lineage to be used. To see all possible options run `busco --list-datasets`. \[optional\]]' \
+        {--p-augustus,--p-no-augustus}'[Use augustus gene predictor for eukaryote runs.]' \
+        '--p-augustus-parameters[Pass additional arguments to Augustus. All arguments should be contained within a single string with no white space, with each argument separated by a comma. Example: '\''--PARAM1=VALUE1,--PARAM2=VALUE2'\''.]' \
+        '--p-augustus-species[Specify a species for Augustus training. \[optional\]]' \
+        {--p-auto-lineage,--p-no-auto-lineage}'[Run auto-lineage to find optimum lineage path.]' \
+        {--p-auto-lineage-euk,--p-no-auto-lineage-euk}'[Run auto-placement just on eukaryote tree to find optimum lineage path. \[default: False\]]' \
+        {--p-auto-lineage-prok,--p-no-auto-lineage-prok}'[Run auto-lineage just on non-eukaryote trees to find optimum lineage path. \[default: False\]]' \
+        '--p-cpu[Specify the number (N=integer) of threads/cores to use.]' \
+        '--p-config[Provide a config file. \[optional\]]' \
+        '--p-contig-break[Number of contiguous Ns to signify a break between contigs.]' \
+        '--p-evalue[E-value cutoff for BLAST searches. Allowed formats, 0.001 or 1e-03, Default: 1e-03. \[default: 0.001\]]' \
+        {--p-force,--p-no-force}'[Force rewriting of existing files. Must be used when output files with the provided name already exist. \[default: False\]]' \
+        '--p-limit[How many candidate regions (contig or transcript) to consider per BUSCO.]' \
+        {--p-long,--p-no-long}'[Optimization Augustus self-training mode (Default: Off); adds considerably to the run time, but can improve results for some non-model organisms.]' \
+        '--p-metaeuk-parameters[Pass additional arguments to Metaeuk for the first run. All arguments should be contained within a single string with no white space, with each argument separated by a comma. Example: `--PARAM1=VALUE1,--PARAM2=VALUE2`. \[optional\]]' \
+        '--p-metaeuk-rerun-parameters[Pass additional arguments to Metaeuk for the second run. All arguments should be contained within a single string with no white space, with each argument separated by a comma. Example: `--PARAM1=VALUE1,--PARAM2=VALUE2`. \[optional\]]' \
+        {--p-miniprot,--p-no-miniprot}'[Use miniprot gene predictor for eukaryote runs.]' \
+        {--p-scaffold-composition,--p-no-scaffold-composition}'[Writes ACGTN content per scaffold to a file `scaffold_composition.txt`. \[default: False\]]' \
+        '--p-num-partitions[The number of partitions to split the contigs into.]' \
+        '--o-results-table[BUSCO result table. \[required\]]' \
+        '--o-visualization[Visualization of the BUSCO results. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--recycle-pool[Use a cache pool for pipeline resumption. QIIME 2 will cache your results in this pool for reuse by future invocations. These pool are retained until deleted by the user. If not provided, QIIME 2 will create a pool which is automatically reused by invocations of the same action and removed if the action is successful. Note: these pools are local to the cache you are using.]' \
+        '--no-recycle[Do not recycle results from a previous failed pipeline run or save the results from this run for future recycling.]' \
+        '--parallel[Execute your action in parallel. This flag will use your default parallel config.]' \
+        '--parallel-config[Execute your action in parallel using a config at the indicated path.]':file:_files \
+        '--use-cache[Specify the cache to be used for the intermediate work of this pipeline. If not provided, the default cache under $TMP/qiime2/<uname> will be used. IMPORTANT FOR HPC USERS: If you are on an HPC system and are using parallel execution it is important to set this to a location that is globally accessible to all nodes in the cluster.]':file:_files \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_fetch-diamond-db {
+    _arguments \
+        '--o-diamond-db[Complete Diamond reference database. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_fetch-eggnog-db {
+    _arguments \
+        '--o-eggnog-db[Artifact containing the eggNOG annotation database. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_fetch-eggnog-proteins {
+    _arguments \
+        '--o-eggnog-proteins[eggNOG database of protein sequences and their corresponding taxonomy information. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_fetch-kaiju-db {
+    _arguments \
+        '--p-database-type[Type of database to be downloaded. \[required\]]' \
+        '--o-database[Kaiju database. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_fetch-ncbi-taxonomy {
+    _arguments \
+        '--o-taxonomy[NCBI reference taxonomy. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_filter-derep-mags {
+    _arguments \
+        '--i-mags[Dereplicated MAGs to filter. \[required\]]' \
+        '--m-metadata-file[Sample metadata indicating which MAG ids to filter. \[required\]]' \
+        '--p-where[Optional SQLite WHERE clause specifying MAG metadata criteria that must be met to be included in the filtered data. If not provided, all MAGs in `metadata` that are also in the MAG data will be retained.]' \
+        {--p-exclude-ids,--p-no-exclude-ids}'[Defaults to False. If True, the MAGs selected by the `metadata` and optional `where` parameter will be excluded from the filtered data. \[default: False\]]' \
+        '--o-filtered-mags[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_filter-mags {
+    _arguments \
+        '--i-mags[MAGs to filter. \[required\]]' \
+        '--m-metadata-file[Sample metadata indicating which MAG ids to filter. \[required\]]' \
+        '--p-where[Optional SQLite WHERE clause specifying MAG metadata criteria that must be met to be included in the filtered data. If not provided, all MAGs in `metadata` that are also in the MAG data will be retained.]' \
+        {--p-exclude-ids,--p-no-exclude-ids}'[Defaults to False. If True, the MAGs selected by the `metadata` and optional `where` parameter will be excluded from the filtered data. \[default: False\]]' \
+        '--p-on[Whether to filter based on sample or MAG metadata.]' \
+        '--m-metadata-file[(multiple Sample metadata indicating which MAG ids to filter.]' \
+        '--o-filtered-mags[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_get-feature-lengths {
+    _arguments \
+        '--i-features[Features to get lengths for. \[required\]]' \
+        '--o-lengths[Feature lengths. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_inspect-kraken2-db {
+    _arguments \
+        '--i-db[The Kraken 2 database for which to generate the report. \[required\]]' \
+        '--p-threads[The number of threads to use.   Range(1, None) \[default: 1\]]' \
+        '--o-report[The report of the supplied database. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_kraken2-to-features {
+    _arguments \
+        '--i-reports[Per-sample Kraken 2 reports. \[required\]]' \
+        '--p-coverage-threshold[The minimum percent coverage required to produce a feature. \[default: 0.1\]]' \
+        '--o-table[A presence/absence table of selected features. The features are not of even ranks, but will be the most specific rank available. \[required\]]' \
+        '--o-taxonomy[Infra-clade ranks are ignored unless they are strain-level. Missing internal ranks are annotated by their next most specific rank, with the exception of k__Bacteria and k__Archaea which match their domain'\''s name. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_kraken2-to-mag-features {
+    _arguments \
+        '--i-reports[Per-sample Kraken 2 reports. \[required\]]' \
+        '--i-hits[Per-sample Kraken 2 output files. \[required\]]' \
+        '--p-coverage-threshold[The minimum percent coverage required to produce a feature. \[default: 0.1\]]' \
+        '--o-taxonomy[Infra-clade ranks are ignored unless they are strain-level. Missing internal ranks are annotated by their next most specific rank, with the exception of k__Bacteria and k__Archaea which match their domain'\''s name. \[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_partition-feature-data-mags {
+    _arguments \
+        '--i-mags[MAGs to partition. \[required\]]' \
+        '--p-num-partitions[The number of partitions to split the MAGs into.]' \
+        '--o-partitioned-mags[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_partition-orthologs {
+    _arguments \
+        '--i-orthologs[The orthologs to partition. \[required\]]' \
+        '--p-num-partitions[The number of partitions to split the MAGs into.]' \
+        '--o-partitioned-orthologs[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_partition-sample-data-mags {
+    _arguments \
+        '--i-mags[The MAGs to partition. \[required\]]' \
+        '--p-num-partitions[Range(1, None) The number of partitions to split the MAGs into.]' \
+        '--o-partitioned-mags[\[required\]]' \
+        '--output-dir[Output unspecified results to a directory]':file:_files \
+        {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
+        '--example-data[Write example data and exit.]':file:_files \
+        '--citations[Show citations and exit.]' \
+        '--help[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _qiime_moshpit_predict-genes-prodigal {
+    _arguments \
+        '--i-mags[MAGs for which one wishes to predict genes. \[required\]]' \
+        '--p-translation-table-number[Translation table to be used to translate genes into a sequence of amino acids..]' \
+        '--o-loci[Gene coordinates files (one per MAG) listing the location of each predicted gene as well as some additional scoring information. \[required\]]' \
+        '--o-genes[Fasta files (one per MAG) with the nucleotide sequences of the predicted genes. \[required\]]' \
+        '--o-proteins[Fasta files (one per MAG) with the protein translation of the predicted genes. \[required\]]' \
         '--output-dir[Output unspecified results to a directory]':file:_files \
         {--verbose,--quiet}'[Display verbose output to stdout and/or stderr during execution of this action. Or silence output if execution is successful (silence is golden).]' \
         '--example-data[Write example data and exit.]':file:_files \
