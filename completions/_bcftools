@@ -13,6 +13,7 @@ function _bcftools {
             'annotate:annotate and edit VCF/BCF files'
             'concat:concatenate VCF/BCF files from the same set of samples'
             'convert:convert VCF/BCF files to different formats and back'
+            'head:view VCF/BCF file headers'
             'isec:intersections of VCF/BCF files'
             'merge:merge VCF/BCF files files from non-overlapping sample sets'
             'norm:left-align and normalize indels'
@@ -60,6 +61,10 @@ function _bcftools {
 
         (convert)
             _bcftools_convert
+            ;;
+
+        (head)
+            _bcftools_head
             ;;
 
         (isec)
@@ -184,17 +189,31 @@ function _bcftools_annotate {
         '--single-overlaps[Keep memory low by avoiding complexities arising from handling multiple overlapping intervals]' \
         {-x,--remove}'[List of annotations (e.g. ID,INFO/DP,FORMAT/DP,FILTER) to remove (or keep with "^" prefix). See man page for details]' \
         '--threads[Number of extra output compression threads \[0\]]' \
+        {-W,--write-index}'[Automatically index the output files \[off\]]' \
         "*: :_files"
 
 }
 
+
 function _bcftools_concat {
-    _arguments \
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'concatenate:chromosome VCFs into one VCF, or combine a SNP VCF and an indel'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
         {-a,--allow-overlaps}'[First coordinate of the next file can precede last record of the current file.]' \
         {-c,--compact-PS}'[Do not output PS tag at each site, only at the start of a new phase set block.]' \
         {-d,--rm-dups}'[Output duplicate records present in multiple files only once: <snps|indels|both|all|exact>]' \
         {-D,--remove-duplicates}'[Alias for -d exact]' \
         {-f,--file-list}'[Read the list of files from a file.]':file:_files \
+        {-G,--drop-genotypes}'[Drop individual genotype information.]' \
         {-l,--ligate}'[Ligate phased VCFs by matching phase at overlapping haplotypes]' \
         '--ligate-force[Ligate even non-overlapping chunks, keep all sites]' \
         '--ligate-warn[Drop sites in imperfect overlaps]' \
@@ -209,12 +228,46 @@ function _bcftools_concat {
         '--regions-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[1\]]' \
         '--threads[Use multithreading with <int> worker threads \[0\]]' \
         {-v,--verbose}'[Set verbosity level \[1\]]' \
+        {-W,--write-index}'[Automatically index the output files \[off\]]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (concatenate)
+            _bcftools_concat_concatenate
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _bcftools_concat_concatenate {
+    _arguments \
         "*: :_files"
 
 }
 
+
 function _bcftools_convert {
-    _arguments \
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'formats:details. When specifying output files explicitly instead'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
         {-e,--exclude}'[Exclude sites for which the expression is true]' \
         {-i,--include}'[Select sites for which the expression is true]' \
         {-r,--regions}'[Restrict to comma-separated list of regions]' \
@@ -229,6 +282,7 @@ function _bcftools_convert {
         {-o,--output}'[Output file name \[stdout\]]':file:_files \
         {-O,--output-type}'[u/b: un/compressed BCF, v/z: un/compressed VCF, 0-9: compression level \[v\]]' \
         '--threads[Use multithreading with INT worker threads \[0\]]' \
+        {-W,--write-index}'[Automatically index the output files \[off\]]' \
         {-G,--gensample2vcf}'[<PREFIX>|<GEN-FILE>,<SAMPLE-FILE>]' \
         {-g,--gensample}'[<PREFIX>|<GEN-FILE>,<SAMPLE-FILE>]' \
         '--3N6[Use 3*N+6 column format instead of the old 3*N+5 column format]' \
@@ -245,10 +299,73 @@ function _bcftools_convert {
         '--vcf-ids[Output VCF IDs instead of CHROM:POS_REF_ALT]' \
         {-H,--haplegendsample2vcf}'[<PREFIX>|<HAP-FILE>,<LEGEND-FILE>,<SAMPLE-FILE>]' \
         {-h,--haplegendsample}'[<PREFIX>|<HAP-FILE>,<LEGEND-FILE>,<SAMPLE-FILE>]' \
-        '--tsv2vcf[Convert TSV to VCF.]':file:_files \
-        {-c,--columns}'[Columns of the input tsv file \[ID,CHROM,POS,AA\]]' \
+        {--tsv2vcf,-c,--columns}'[Columns of the input tsv file, see man page for details \[ID,CHROM,POS,AA\]]':file:_files \
         {-s,--samples}'[List of sample names]' \
         {-S,--samples-file}'[File of sample names]':file:_files \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (formats)
+            _bcftools_convert_formats
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _bcftools_convert_formats {
+    _arguments \
+        {-e,--exclude}'[Exclude sites for which the expression is true]' \
+        {-i,--include}'[Select sites for which the expression is true]' \
+        {-r,--regions}'[Restrict to comma-separated list of regions]' \
+        {-R,--regions-file}'[Restrict to regions listed in a file]':file:_files \
+        '--regions-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[1\]]' \
+        {-s,--samples}'[List of samples to include]' \
+        {-S,--samples-file}'[File of samples to include]':file:_files \
+        {-t,--targets}'[Similar to -r but streams rather than index-jumps]' \
+        {-T,--targets-file}'[Similar to -R but streams rather than index-jumps]':file:_files \
+        '--targets-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[0\]]' \
+        '--no-version[Do not append version and command line to the header]' \
+        {-o,--output}'[Output file name \[stdout\]]':file:_files \
+        {-O,--output-type}'[u/b: un/compressed BCF, v/z: un/compressed VCF, 0-9: compression level \[v\]]' \
+        '--threads[Use multithreading with INT worker threads \[0\]]' \
+        {-W,--write-index}'[Automatically index the output files \[off\]]' \
+        {-G,--gensample2vcf}'[<PREFIX>|<GEN-FILE>,<SAMPLE-FILE>]' \
+        {-g,--gensample}'[<PREFIX>|<GEN-FILE>,<SAMPLE-FILE>]' \
+        '--3N6[Use 3*N+6 column format instead of the old 3*N+5 column format]' \
+        '--tag[Tag to take values for .gen file: GT,PL,GL,GP \[GT\]]' \
+        '--chrom[Output chromosome in first column instead of CHROM:POS_REF_ALT]' \
+        '--keep-duplicates[Keep duplicate positions]' \
+        '--sex[Output sex column in the sample-file, input format is: Sample\t\[MF\]]':file:_files \
+        '--vcf-ids[Output VCF IDs in second column instead of CHROM:POS_REF_ALT]' \
+        '--gvcf2vcf[Expand gVCF reference blocks]' \
+        {-f,--fasta-ref}'[Reference sequence in fasta format]':file:_files \
+        '--hapsample2vcf[<PREFIX>|<HAP-FILE>,<SAMPLE-FILE>]' \
+        '--hapsample[<PREFIX>|<HAP-FILE>,<SAMPLE-FILE>]' \
+        '--haploid2diploid[Convert haploid genotypes to diploid homozygotes]' \
+        '--vcf-ids[Output VCF IDs instead of CHROM:POS_REF_ALT]' \
+        {-H,--haplegendsample2vcf}'[<PREFIX>|<HAP-FILE>,<LEGEND-FILE>,<SAMPLE-FILE>]' \
+        {-h,--haplegendsample}'[<PREFIX>|<HAP-FILE>,<LEGEND-FILE>,<SAMPLE-FILE>]' \
+        {--tsv2vcf,-c,--columns}'[Columns of the input tsv file, see man page for details \[ID,CHROM,POS,AA\]]':file:_files \
+        {-s,--samples}'[List of sample names]' \
+        {-S,--samples-file}'[File of sample names]':file:_files \
+        "*: :_files"
+
+}
+
+function _bcftools_head {
+    _arguments \
+        {-h,--headers}'[Display INT header lines \[all\]]' \
+        {-n,--records}'[Display INT variant record lines \[none\]]' \
+        {-s,--samples}'[Display INT records starting with the #CHROM header line \[none\]]' \
         "*: :_files"
 
 }
@@ -260,6 +377,7 @@ function _bcftools_isec {
         {-e,--exclude}'[Exclude sites for which the expression is true]' \
         {-f,--apply-filters}'[Require at least one of the listed FILTER strings (e.g. "PASS,.")]' \
         {-i,--include}'[Include only sites for which the expression is true]' \
+        {-l,--file-list}'[Read the input file names from the file]':file:_files \
         '--no-version[Do not append version and command line to the header]' \
         {-n,--nfiles}'[Output positions present in this many (=), this many or more (+), this many or fewer (-), the exact (~) files]' \
         {-o,--output}'[Write output to a file \[standard output\]]':file:_files \
@@ -273,23 +391,26 @@ function _bcftools_isec {
         '--targets-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[0\]]' \
         '--threads[Use multithreading with <int> worker threads \[0\]]' \
         {-w,--write}'[List of files to write with -p given as 1-based indexes. By default, all files are written]' \
+        {-W,--write-index}'[Automatically index the output files \[off\]]' \
         "*: :_files"
 
 }
 
 function _bcftools_merge {
     _arguments \
+        '--force-no-index[Merge unindexed files, synonymous to --no-index]' \
         '--force-samples[Resolve duplicate sample names]' \
+        '--force-single[Run even if there is only one file on input]' \
         '--print-header[Print only the merged header and exit]' \
         '--use-header[Use the provided header]':file:_files \
         {-0,--missing-to-ref}'[Assume genotypes at missing sites are 0/0]' \
         {-f,--apply-filters}'[Require at least one of the listed FILTER strings (e.g. "PASS,.")]' \
         {-F,--filter-logic}'[Remove filters if some input is PASS ("x"), or apply all filters ("+") \[+\]]' \
-        {-g,--gvcf}'[Merge gVCF blocks, INFO/END tag is expected. Implies -i QS:sum,MinDP:min,I16:sum,IDV:max,IMF:max]' \
         {-i,--info-rules}'[Rules for merging INFO fields (method is one of sum,avg,min,max,join) or "-" to turn off the default \[DP:sum,DP4:sum\]]' \
         {-l,--file-list}'[Read file names from the file]':file:_files \
-        {-L,--local-alleles}'[EXPERIMENTAL: if more than <int> ALT alleles are encountered, drop FMT/PL and output LAA+LPL instead; 0=unlimited \[0\]]' \
-        {-m,--merge}'[Allow multiallelic records for <snps|indels|both|snp-ins-del|all|none|id>, see man page for details \[both\]]' \
+        {-L,--local-alleles}'[If more than INT alt alleles are encountered, drop FMT/PL and output LAA+LPL instead; 0=unlimited \[0\]]' \
+        {-m,--merge}'[Allow multiallelic records for snps,indels,both,snp-ins-del,all,none,id,*,**; see man page for details \[both\]]' \
+        {-M,--missing-rules}'[Rules for replacing missing values in numeric vectors (.,0,max) when unknown allele <*> is not present \[.\]]' \
         '--no-index[Merge unindexed files, the same chromosomal order is required and -r/-R are not allowed]' \
         '--no-version[Do not append version and command line to the header]' \
         {-o,--output}'[Write output to a file \[standard output\]]':file:_files \
@@ -297,7 +418,8 @@ function _bcftools_merge {
         {-r,--regions}'[Restrict to comma-separated list of regions]' \
         {-R,--regions-file}'[Restrict to regions listed in a file]':file:_files \
         '--regions-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[1\]]' \
-        '--threads[Use multithreading with <int> worker threads \[0\]]' \
+        '--threads[Use multithreading with INT worker threads \[0\]]' \
+        {-W,--write-index}'[Automatically index the output files \[off\]]' \
         "*: :_files"
 
 }
@@ -309,10 +431,12 @@ function _bcftools_norm {
         {-c,--check-ref}'[Check REF alleles and exit (e), warn (w), exclude (x), or set (s) bad sites \[e\]]' \
         {-D,--remove-duplicates}'[Remove duplicate lines of the same type.]' \
         {-d,--rm-dup}'[Remove duplicate snps|indels|both|all|exact]' \
+        {-e,--exclude}'[Do not normalize records for which the expression is true (see man page for details)]' \
         {-f,--fasta-ref}'[Reference sequence]':file:_files \
         '--force[Try to proceed even if malformed tags are encountered. Experimental, use at your own risk]' \
+        {-g,--gff-annot}'[Follow HGVS 3'\''rule and right-align variants in transcripts on the forward strand]':file:_files \
+        {-i,--include}'[Normalize only records for which the expression is true (see man page for details)]' \
         '--keep-sum[Keep vector sum constant when splitting multiallelics (see github issue #360)]' \
-        {-m,--multiallelics}'[Split multiallelics (-) or join biallelics (+), type: snps|indels|both|any \[both\]]' \
         '--multi-overlaps[Fill in the reference (0) or missing (.) allele when splitting multiallelics \[0\]]' \
         '--no-version[Do not append version and command line to the header]' \
         {-N,--do-not-normalize}'[Do not normalize indels (with -m or -c s)]' \
@@ -323,11 +447,14 @@ function _bcftools_norm {
         {-R,--regions-file}'[Restrict to regions listed in a file]':file:_files \
         '--regions-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[1\]]' \
         {-s,--strict-filter}'[When merging (-m+), merged site is PASS only if all sites being merged PASS]' \
+        {-S,--sort}'[Sort order: chr_pos,lex \[chr_pos\]]' \
         {-t,--targets}'[Similar to -r but streams rather than index-jumps]' \
         {-T,--targets-file}'[Similar to -R but streams rather than index-jumps]':file:_files \
         '--targets-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[0\]]' \
-        '--threads[Use multithreading with <int> worker threads \[0\]]' \
+        '--threads[Use multithreading with INT worker threads \[0\]]' \
+        {-v,--verbose}'[Verbosity level (0-2) of GFF parsing \[1\]]' \
         {-w,--site-win}'[Buffer for sorting lines which changed position during realignment \[1000\]]' \
+        {-W,--write-index}'[Automatically index the output files \[off\]]' \
         "*: :_files"
 
 }
@@ -350,6 +477,7 @@ function _bcftools_plugin {
         {-l,--list-plugins}'[List available plugins. See BCFTOOLS_PLUGINS environment variable and man page for details]' \
         {-v,--verbose}'[Print verbose information, -vv increases verbosity]' \
         {-V,--version}'[Print version string and exit]' \
+        {-W,--write-index}'[Automatically index the output files \[off\]]' \
         "*: :_files"
 
 }
@@ -358,10 +486,12 @@ function _bcftools_query {
     _arguments \
         {-e,--exclude}'[Exclude sites for which the expression is true (see man page for details)]' \
         '--force-samples[Only warn about unknown subset samples]' \
+        {-F,--print-filtered}'[Output STR for samples failing the -i/-e filtering expression]' \
         {-f,--format}'[See man page for details]' \
-        {-H,--print-header}'[Print header]' \
+        {-H,--print-header}'[Print header, -HH to omit column indices]' \
         {-i,--include}'[Select sites for which the expression is true (see man page for details)]' \
         {-l,--list-samples}'[Print the list of samples and exit]' \
+        {-N,--disable-automatic-newline}'[Disable automatic addition of newline character when not present]' \
         {-o,--output}'[Output file name \[stdout\]]':file:_files \
         {-r,--regions}'[Restrict to comma-separated list of regions]' \
         {-R,--regions-file}'[Restrict to regions listed in a file]':file:_files \
@@ -383,7 +513,7 @@ function _bcftools_reheader {
         {-h,--header}'[new header]':file:_files \
         {-o,--output}'[write output to a file \[standard output\]]':file:_files \
         {-s,--samples}'[new sample names]':file:_files \
-        {-T,--temp-prefix}'[template for temporary file name \[/tmp/bcftools.XXXXXX\]]':file:_files \
+        {-T,--temp-prefix}'[ignored; was template for temporary file name]':file:_files \
         '--threads[use multithreading with <int> worker threads (BCF only) \[0\]]' \
         "*: :_files"
 
@@ -393,9 +523,9 @@ function _bcftools_sort {
     _arguments \
         {-m,--max-mem}'[maximum memory to use \[768M\]]' \
         {-o,--output}'[output file name \[stdout\]]':file:_files \
-        {-O,--output-type}'[b: compressed BCF, u: uncompressed BCF, z: compressed VCF, v: uncompressed VCF \[v\]]' \
         {-O,--output-type}'[u/b: un/compressed BCF, v/z: un/compressed VCF, 0-9: compression level \[v\]]' \
         {-T,--temp-dir}'[temporary files \[/tmp/bcftools.XXXXXX\]]':file:_files \
+        {-W,--write-index}'[Automatically index the output files \[off\]]' \
         "*: :_files"
 
 }
@@ -417,13 +547,15 @@ function _bcftools_view {
         {-T,--targets-file}'[Similar to -R but streams rather than index-jumps. Exclude regions with "^" prefix]':file:_files \
         '--targets-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[0\]]' \
         '--threads[Use multithreading with INT worker threads \[0\]]' \
+        {-A,--trim-unseen-allele}'[Remove '\''<*>'\'' or '\''<NON_REF>'\'' at variant (-A) or at all (-AA) sites]' \
         {-a,--trim-alt-alleles}'[Trim ALT alleles not seen in the genotype fields (or their subset with -s/-S)]' \
         {-I,--no-update}'[Do not (re)calculate INFO fields for the subset (currently INFO/AC and INFO/AN)]' \
-        {-s,--samples}'[Comma separated list of samples to include (or exclude with "^" prefix)]' \
+        {-s,--samples}'[Comma separated list of samples to include (or exclude with "^" prefix). Be careful]' \
         {-S,--samples-file}'[File of samples to include (or exclude with "^" prefix)]':file:_files \
         '--force-samples[Only warn about unknown subset samples]' \
         {-f,--apply-filters}'[Require at least one of the listed FILTER strings (e.g. "PASS,.")]' \
         {-g,--genotype}'[Require one or more hom/het/missing genotype or, if prefixed with "^", exclude such sites]' \
+        {-W,--write-index}'[Automatically index the output files \[off\]]' \
         "*: :_files"
 
 }
@@ -454,6 +586,7 @@ function _bcftools_call {
         {-M,--keep-masked-ref}'[Keep sites with masked reference allele (REF=N)]' \
         {-V,--skip-variants}'[Skip indels/snps]' \
         {-v,--variants-only}'[Output variant sites only]' \
+        {-W,--write-index}'[Automatically index the output files \[off\]]' \
         {-c,--consensus-caller}'[The original calling method (conflicts with -m)]' \
         {-C,--constrain}'[One of: alleles, trio (see manual)]' \
         {-m,--multiallelic-caller}'[Alternative model for multiallelic and rare-variant calling (conflicts with -c)]' \
@@ -466,6 +599,8 @@ function _bcftools_call {
 
 function _bcftools_consensus {
     _arguments \
+        '--samples[option will apply genotype]' \
+        '--samples[option will apply genotype   (or haplotype) calls from FORMAT/GT. The program ignores allelic depth]' \
         {-c,--chain}'[Write a chain file for liftover]':file:_files \
         {-a,--absent}'[Replace positions absent from VCF with CHAR]' \
         {-e,--exclude}'[Exclude sites for which the expression is true (see man page for details)]' \
@@ -473,14 +608,15 @@ function _bcftools_consensus {
         {-H,--haplotype}'[Choose which allele to use from the FORMAT/GT field, note the codes are case-insensitive:]' \
         {-i,--include}'[Select sites for which the expression is true (see man page for details)]' \
         {-I,--iupac-codes}'[Output IUPAC codes based on FORMAT/GT, use -s/-S to subset samples]' \
-        '--mark-del[Instead of removing sequence, insert CHAR for deletions]' \
-        '--mark-ins[Highlight insertions in uppercase (uc) or lowercase (lc), leaving the rest as is]' \
-        '--mark-snv[Highlight substitutions in uppercase (uc) or lowercase (lc), leaving the rest as is]' \
+        '--mark-del[Instead of removing sequence, insert character CHAR for deletions]' \
+        '--mark-ins[Highlight insertions in uppercase (uc), lowercase (lc), or use CHAR, leaving the rest as is]' \
+        '--mark-snv[Highlight substitutions in uppercase (uc), lowercase (lc), or use CHAR, leaving the rest as is]' \
         {-m,--mask}'[Replace regions according to the next --mask-with option. The default is --mask-with N]':file:_files \
         '--mask-with[Replace with CHAR (skips overlapping variants); change to uppercase (uc) or lowercase (lc)]' \
         {-M,--missing}'[Output CHAR instead of skipping a missing genotype "./."]' \
         {-o,--output}'[Write output to a file \[standard output\]]':file:_files \
         {-p,--prefix}'[Prefix to add to output sequence names]' \
+        '--regions-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[1\]]' \
         {-s,--samples}'[Comma-separated list of samples to include, "-" to ignore samples and use REF,ALT]' \
         {-S,--samples-file}'[File of samples to include]':file:_files \
         "*: :_files"
@@ -522,8 +658,10 @@ function _bcftools_csq {
         {-l,--local-csq}'[Localized predictions, consider only one VCF record at a time]' \
         {-n,--ncsq}'[Maximum number of per-haplotype consequences to consider for each site \[15\]]' \
         {-p,--phase}'[How to handle unphased heterozygous genotypes: \[r\]]' \
-        {-e,--exclude}'[Exclude sites for which the expression is true]' \
+        '--dump-gff[Dump the parsed GFF file (for debugging purposes)]':file:_files \
         '--force[Run even if some sanity checks fail]' \
+        '--unify-chr-names[Automatically unify chromosome naming (e.g. chrX vs X) in GFF, fasta, and VCF \[1\]]' \
+        {-e,--exclude}'[Exclude sites for which the expression is true]' \
         {-i,--include}'[Select sites for which the expression is true]' \
         '--no-version[Do not append version and command line to the header]' \
         {-o,--output}'[Write output to a file \[standard output\]]':file:_files \
@@ -538,6 +676,7 @@ function _bcftools_csq {
         '--targets-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[0\]]' \
         '--threads[Use multithreading with <int> worker threads \[0\]]' \
         {-v,--verbose}'[Verbosity level 0-2 \[1\]]' \
+        {-W,--write-index}'[Automatically index the output files \[off\]]' \
         "*: :_files"
 
 }
@@ -564,6 +703,7 @@ function _bcftools_filter {
         {-T,--targets-file}'[Similar to -R but streams rather than index-jumps]':file:_files \
         '--targets-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[0\]]' \
         '--threads[Use multithreading with <int> worker threads \[0\]]' \
+        {-W,--write-index}'[Automatically index the output files \[off\]]' \
         "*: :_files"
 
 }
@@ -572,11 +712,15 @@ function _bcftools_gtcheck {
     _arguments \
         '--distinctive-sites[Find sites that can distinguish between at least NUM sample pairs.]' \
         '--dry-run[Stop after first record to estimate required time]' \
-        {-e,--error-probability}'[Phred-scaled probability of genotyping error, 0 for faster but less accurate results \[40\]]' \
+        {-E,--error-probability}'[Phred-scaled probability of genotyping error, 0 for faster but less accurate results \[40\]]' \
+        {-e,--exclude}'[Exclude sites for which the expression is true]' \
         {-g,--genotypes}'[Genotypes to compare against]':file:_files \
         {-H,--homs-only}'[Homozygous genotypes only, useful with low coverage data (requires -g)]' \
+        {-i,--include}'[Include sites for which the expression is true]' \
         '--n-matches[Print only top INT matches for each sample (sorted by average score), 0 for unlimited.]' \
         '--no-HWE-prob[Disable calculation of HWE probability]' \
+        {-o,--output}'[Write output to a file \[standard output\]]':file:_files \
+        {-O,--output-type}'[t: plain tab-delimited text output, z: compressed \[t\]]' \
         {-p,--pairs}'[Comma-separated sample pairs to compare (qry,gt\[,qry,gt..\] with -g or qry,qry\[,qry,qry..\] w/o)]' \
         {-P,--pairs-file}'[File with tab-delimited sample pairs to compare (qry,gt with -g or qry,qry w/o)]':file:_files \
         {-r,--regions}'[Restrict to comma-separated list of regions]' \
@@ -595,7 +739,7 @@ function _bcftools_gtcheck {
 function _bcftools_mpileup {
     _arguments \
         {-6,--illumina1.3+}'[Quality is in the Illumina-1.3+ encoding]' \
-        {-A,--count-orphans}'[Do not discard anomalous read pairs]' \
+        {-A,--count-orphans}'[Include anomalous read pairs, with flag PAIRED but not PROPER_PAIR set]' \
         {-b,--bam-list}'[List of input BAM filenames, one per line]':file:_files \
         {-B,--no-BAQ}'[Disable BAQ (per-Base Alignment Quality)]' \
         {-C,--adjust-MQ}'[Adjust mapping quality \[0\]]' \
@@ -610,17 +754,12 @@ function _bcftools_mpileup {
         '--max-BQ[Limit baseQ/BAQ to no more than INT \[60\]]' \
         '--delta-BQ[Use neighbour_qual + INT if less than qual \[30\]]' \
         {-r,--regions}'[Comma separated list of regions in which pileup is generated]' \
-        {-R,--regions-file}'[Restrict to regions listed in a file]':file:_files \
-        '--ignore-RG[Ignore RG tags (one BAM = one sample)]' \
+        {-r,--regions}'[Comma separated list of regions in which pileup is generated]' \
         {--ls,--skip-all-set}'[Skip reads with all of the bits set \[\]]' \
         {--ns,--skip-any-set}'[Skip reads with any of the bits set \[UNMAP,SECONDARY,QCFAIL,DUP\]]' \
         {--lu,--skip-all-unset}'[Skip reads with all of the bits unset \[\]]' \
         {--nu,--skip-any-unset}'[Skip reads with any of the bits unset \[\]]' \
         {-s,--samples}'[Comma separated list of samples to include]' \
-        {-S,--samples-file}'[File of samples to include]':file:_files \
-        {-t,--targets}'[Similar to -r but streams rather than index-jumps]' \
-        {-T,--targets-file}'[Similar to -R but streams rather than index-jumps]':file:_files \
-        {-x,--ignore-overlaps}'[Disable read-pair overlap detection]' \
         '--seed[Random number seed used for sampling deep regions \[0\]]' \
         {-a,--annotate}'[Optional tags to output; '\''\?'\'' to list available tags \[\]]' \
         {-g,--gvcf}'[Group non-variant sites into gVCF blocks according To minimum per-sample DP]' \
@@ -628,7 +767,8 @@ function _bcftools_mpileup {
         {-o,--output}'[Write output to FILE \[standard output\]]':file:_files \
         {-O,--output-type}'['\''b'\'' compressed BCF; '\''u'\'' uncompressed BCF; '\''z'\'' compressed VCF; '\''v'\'' uncompressed VCF; 0-9 compression level \[v\]]' \
         '--threads[Use multithreading with INT worker threads \[0\]]' \
-        {-X,--config}'[Specify platform specific profiles (see below)]' \
+        {-W,--write-index}'[Automatically index the output files \[off\]]' \
+        {-X,--config}'[Specify platform profile (use "-X list" for details)]' \
         {-e,--ext-prob}'[Phred-scaled gap extension seq error probability \[20\]]' \
         {-F,--gap-frac}'[Minimum fraction of gapped reads \[0.05\]]' \
         {-h,--tandem-qual}'[Coefficient for homopolymer errors \[500\]]' \
@@ -641,16 +781,21 @@ function _bcftools_mpileup {
         {-P,--platforms}'[Comma separated list of platforms for indels \[all\]]' \
         {--ar,--ambig-reads}'[What to do with ambiguous indel reads: drop,incAD,incAD0 \[drop\]]' \
         '--indel-bias[Raise to favour recall over precision \[1.00\]]' \
+        '--del-bias[Relative likelihood of insertion to deletion \[0.00\]]' \
+        '--score-vs-ref[Ratio of score vs ref (1) or 2nd-best allele (0) \[0.00\]]' \
         '--indel-size[Approximate maximum indel size considered \[110\]]' \
         '--indels-2.0[New EXPERIMENTAL indel calling model (diploid reference consensus)]' \
+        '--indels-cns[New EXPERIMENTAL indel calling model with edlib]' \
+        '--seqq-offset[Indel-cns tuning for indel seq-qual scores \[120\]]' \
+        '--no-indels-cns[Disable CNS mode, to use after a -X profile]' \
+        '--poly-mqual[(Edlib mode) Use minimum quality within homopolymers]' \
         "*: :_files"
 
 }
 
 function _bcftools_polysomy {
     _arguments \
-        {-o,--output-dir}'[Output directory]':file:_files \
-        {-r,--regions}'[Restrict to comma-separated list of regions]' \
+        {-o,--output-dir,-r,--regions}'[Restrict to comma-separated list of regions]':file:_files \
         {-R,--regions-file}'[Restrict to regions listed in a file]':file:_files \
         '--regions-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[1\]]' \
         {-s,--sample}'[Sample to analyze]' \
@@ -673,14 +818,14 @@ function _bcftools_roh {
         '--AF-tag[use TAG for allele frequency]' \
         '--AF-file[read allele frequencies from file (CHR\tPOS\tREF,ALT\tAF)]':file:_files \
         {-b,--buffer-size}'[buffer size and the number of overlapping sites, 0 for unlimited \[0\]]' \
-        {-e,--estimate-AF}'[estimate AF from FORMAT/TAG (GT or PL) of all samples ("-") or samples listed in <file>.]':file:_files \
+        {-e,--estimate-AF}'[estimate AF from FORMAT/TAG (GT or PL) of all samples ("-") or samples listed]':file:_files \
         '--exclude[exclude sites for which the expression is true]' \
         {-G,--GTs-only}'[use GTs and ignore PLs, instead using <float> for PL of the two least likely genotypes.]' \
         '--include[select sites for which the expression is true]' \
         {-i,--ignore-homref}'[skip hom-ref genotypes (0/0)]' \
         '--include-noalt[include sites with no ALT allele (ignored by default)]' \
         {-I,--skip-indels}'[skip indels as their genotypes are enriched for errors]' \
-        {-m,--genetic-map}'[genetic map in IMPUTE2 format, single file or mask, where string "{CHROM}" is replaced with chromosome name]':file:_files \
+        {-m,--genetic-map}'[genetic map in IMPUTE2 format, single file or mask, where string "{CHROM}"]':file:_files \
         {-M,--rec-rate}'[constant recombination rate per bp]' \
         {-o,--output}'[write output to a file \[standard output\]]':file:_files \
         {-O,--output-type}'[output s:per-site, r:regions, z:compressed \[sr\]]' \
