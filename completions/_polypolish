@@ -2,15 +2,71 @@
 
 # Auto-generated with h2o
 
+
 function _polypolish {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'filter:filter paired-end alignments based on insert size'
+            'polish:polish a long-read assembly using short-read alignments'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (filter)
+            _polypolish_filter
+            ;;
+
+        (polish)
+            _polypolish_polish
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _polypolish_filter {
     _arguments \
-        {-d,--min_depth}'[A base must occur at least this many times in the pileup to be considered valid \[default: 5\]]' \
+        '--in1[Input SAM file - first read in pairs]' \
+        '--in2[Input SAM file - first second in pairs]' \
+        '--out1[Output SAM file - first read in pairs]' \
+        '--out2[Output SAM file - first second in pairs]' \
+        '--orientation[Expected pair orientation \[default: auto\]]' \
+        '--low[Low percentile threshold \[default: 0.1\]]' \
+        '--high[High percentile threshold \[default: 99.9\]]' \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+function _polypolish_polish {
+    _arguments \
         '--debug[Optional file to store per-base information for debugging purposes]' \
-        {-h,--help}'[Print help information]' \
         {-i,--fraction_invalid}'[A base must make up less than this fraction of the read depth to be considered invalid \[default: 0.2\]]' \
-        {-m,--max_errors}'[Ignore alignments with more than this many mismatches and indels \[default: 10\]]' \
         {-v,--fraction_valid}'[A base must make up at least this fraction of the read depth to be considered valid \[default: 0.5\]]' \
-        {-V,--version}'[Print version information]' \
+        {-m,--max_errors}'[Ignore alignments with more than this many mismatches and indels \[default: 10\]]' \
+        {-d,--min_depth}'[A base must occur at least this many times in the pileup to be considered valid \[default: 5\]]' \
+        '--careful[Ignore any reads with multiple alignments]' \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
         "*: :_files"
 
 }
