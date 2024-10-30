@@ -8,7 +8,7 @@ function _minimap2 {
         '-H[use homopolymer-compressed k-mer (preferrable for PacBio)]' \
         '-k[k-mer size (no larger than 28) \[15\]]' \
         '-w[minimizer window size \[10\]]' \
-        '-I[split index for every ~NUM input bases \[4G\]]' \
+        '-I[split index for every ~NUM input bases \[8G\]]' \
         '-d[dump index to FILE \[\]]':file:_files \
         '-f[filter out top FLOAT fraction of repetitive minimizers \[0.0002\]]' \
         '-g[stop chain enlongation if there are no minimizers in INT-bp \[5000\]]' \
@@ -21,18 +21,20 @@ function _minimap2 {
         '-p[min secondary-to-primary score ratio \[0.8\]]' \
         '-N[retain at most INT secondary alignments \[5\]]' \
         '-A[matching score \[2\]]' \
-        '-B[mismatch penalty \[4\]]' \
+        '-B[mismatch penalty (larger value for lower divergence) \[4\]]' \
         '-O[gap open penalty \[4,24\]]' \
         '-E[gap extension penalty; a k-long gap costs min{O1+k*E1,O2+k*E2} \[2,1\]]' \
         '-z[Z-drop score and inversion Z-drop score \[400,200\]]' \
         '-s[minimal peak DP alignment score \[80\]]' \
         '-u[how to find GT-AG. f:transcript strand, b:both strands, n:don'\''t match GT-AG \[n\]]' \
+        '-J[splice mode. 0: original minimap2 model; 1: miniprot model \[1\]]' \
         '-a[output in the SAM format (PAF by default)]' \
         '-o[output alignments to FILE \[stdout\]]':file:_files \
         '-L[write CIGAR with >65535 ops at the CG tag]' \
         '-R[SAM read group line in a format like '\''@RG\tID:foo\tSM:bar'\'' \[\]]' \
         '-c[output CIGAR in PAF]' \
         '--cs[output the cs tag; STR is '\''short'\'' (if absent) or '\''long'\'' \[none\]]' \
+        '--ds[output the ds tag, which is an extension to cs]' \
         '--MD[output the MD tag]' \
         '--eqx[write =/X CIGAR operators]' \
         '-Y[use soft clipping for supplementary alignments]' \
