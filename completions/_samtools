@@ -928,8 +928,10 @@ function _samtools_samples {
         '-h[print a header]' \
         '-i[test if the file is indexed. Add an extra column to the output with a single character value (Y/N).]' \
         '-T[provide the sample tag name from the @RG line \[SM\].]' \
-        '-o[-f FILE load an indexed fasta file in the collection of references. Can be used multiple times. Add an extra column with the path to the reference file.]':file:_files \
-        '-o[-f FILE load an indexed fasta file in the collection of references. Can be used multiple times. Add an extra column with the path to the reference file.]':file:_files \
+        '-o[output file \[stdout\].]':file:_files \
+        '-f[load an indexed fasta file in the collection of references. Can be used multiple times. Add an extra column with the path to the reference file.]':file:_files \
+        '-F[read a file containing the paths to indexed fasta files. One path per line.]':file:_files \
+        '-X[use a custom index file.]' \
         "*: :_files"
 
 }
