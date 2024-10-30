@@ -17,7 +17,7 @@ function _bowtie2 {
         '--qseq[query input files are in Illumina'\''s qseq format]' \
         '-f[query input files are (multi-)FASTA .fa/.mfa]' \
         '-r[query input files are raw one-sequence-per-line]' \
-        '-F[query input files are continuous FASTA where reads are substrings (k-mers) extracted from a FASTA file <s> and aligned at offsets 1, 1+i, 1+2i ... end of reference]' \
+        '-F[query input files are continuous FASTA where reads are substrings (k-mers) extracted from the FASTA file and aligned at offsets 1, 1+i, 1+2i ... end of reference]' \
         '-c[<m1>, <m2>, <r> are sequences themselves, not files]' \
         {-s,--skip}'[skip the first <int> reads/pairs in the input (none)]' \
         {-u,--upto}'[stop after first <int> reads/pairs (no limit)]' \
@@ -84,8 +84,9 @@ function _bowtie2 {
         '--omit-sec-seq[put '\''*'\'' in SEQ and QUAL fields for secondary alignments.]' \
         '--sam-no-qname-trunc[Suppress standard behavior of truncating readname at first whitespace at the expense of generating non-standard SAM.]' \
         '--xeq[Use '\''='\''/'\''X'\'', instead of '\''M,'\'' to specify matches/mismatches in SAM record.]' \
-        '--soft-clipped-unmapped-tlen[Exclude soft-clipped bases when reporting TLEN]' \
-        '--sam-append-comment[Append FASTA/FASTQ comment to SAM record]' \
+        '--soft-clipped-unmapped-tlen[Exclude soft-clipped bases when reporting TLEN.]' \
+        '--sam-append-comment[Append FASTA/FASTQ comment to SAM record.]' \
+        '--sam-opt-config[Use <config>, example '\''-MD,YP,-AS'\'', to toggle SAM Optional fields.]' \
         {-p,--threads}'[number of alignment threads to launch (1)]' \
         '--reorder[force SAM output order to match order of input reads]' \
         '--mm[use memory-mapped I/O for index; many '\''bowtie'\''s can share]' \
