@@ -1,0 +1,337 @@
+#compdef hybracter
+
+# Auto-generated with h2o
+
+
+function _hybracter {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'install:Downloads and installs the plassembler database'
+            'hybrid:Run hybracter with hybrid long and paired end short reads'
+            'hybrid-single:Run hybracter hybrid on 1 isolate'
+            'long:Run hybracter with only long reads'
+            'long-single:Run hybracter long on 1 isolate'
+            'test-hybrid:Test hybracter hybrid'
+            'test-long:Test hybracter long'
+            'config:Copy the system default config file'
+            'citation:Print the citation(s) for hybracter'
+            'version:Print the version for hybracter'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[Show this message and exit.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (install)
+            _hybracter_install
+            ;;
+
+        (hybrid)
+            _hybracter_hybrid
+            ;;
+
+        (hybrid-single)
+            _hybracter_hybrid-single
+            ;;
+
+        (long)
+            _hybracter_long
+            ;;
+
+        (long-single)
+            _hybracter_long-single
+            ;;
+
+        (test-hybrid)
+            _hybracter_test-hybrid
+            ;;
+
+        (test-long)
+            _hybracter_test-long
+            ;;
+
+        (config)
+            _hybracter_config
+            ;;
+
+        (citation)
+            _hybracter_citation
+            ;;
+
+        (version)
+            _hybracter_version
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _hybracter_install {
+    _arguments \
+        {--use-conda,--no-use-conda}'[Use conda for Snakemake rules \[default: useconda\]]' \
+        '--snake-default[Customise Snakemake runtime args \[default: --rerun-incomplete, --printshellcmds, --nolock, --show-failed-logs, --conda-frontend conda\]]' \
+        {-d,--databases}'[Directory where the Plassembler Database will be installed to (optional).]' \
+        {-m,--medaka}'[Download medaka models.]' \
+        '--mac[If you are running Hybracter on Mac - installs v1.8.0 of Medaka as higher versions break.]' \
+        {-o,--output}'[Temporary directory where intermediate files will be stored for hybracter install. This will be deleted. \[default: hybracter_install_intermediate_files\]]':file:_files \
+        '--configfile[Custom config file \[default: (outputDir)/config.yaml\]]' \
+        {-h,--help}'[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _hybracter_hybrid {
+    _arguments \
+        {-i,--input}'[Input csv \[required\]]' \
+        '--datadir[Directory/ies where FASTQs are. Can specify 1 directory (long and short FASTQs in the same directory) or 2 (long and short FASTQs in separate directories). If you specify 2, they must be separated by a comma e.g. dirlong,dirshort. Will be added to the filenames in the input csv.]' \
+        '--no_pypolca[Do not use pypolca to polish assemblies with short reads]' \
+        '--logic[Hybracter logic to select best assembly. Use --last to pick the last polishing round. Use --best to pick best assembly based on ALE (hybrid). \[default: last\]]' \
+        {-o,--output}'[Output directory \[default: hybracter_out\]]':file:_files \
+        '--configfile[Custom config file \[default: config.yaml\]]' \
+        {-t,--threads}'[Number of threads to use \[default: 1\]]' \
+        '--min_length[min read length for long reads \[default: 1000\]]' \
+        '--min_quality[min read quality score for long reads in bp. \[default: 9\]]' \
+        '--skip_qc[Do not run porechop_abi, filtlong and fastp to QC the reads]' \
+        {-d,--databases}'[Plassembler Databases directory.]':file:_files \
+        '--subsample_depth[subsampled long read depth to subsample with Filtlong. By default is 100x. \[default: 100\]]' \
+        '--min_depth[minimum long read depth to continue the run. By default is 0x. Hybracter will error and exit if a sample has less than min_depth*chromosome_size bases of longreads left AFTER filtlong and porechop-ABI steps are run. \[default: 0\]]' \
+        '--medakaModel[Medaka Model. \[default: r1041_e82_400bps_sup_v5.0.0\]]' \
+        '--flyeModel[Flye Assembly Parameter \[default: --nanohq\]]' \
+        '--contaminants[Contaminants FASTA file to map long readsagainst to filter out. Choose --contaminants lambda to filter out phage lambda long reads.]':file:_files \
+        '--dnaapler_custom_db[Custom amino acid FASTA file of sequences to be used as a database with dnaapler custom.]':file:_files \
+        '--no_medaka[Do not polish the long read assembly with Medaka.]' \
+        '--auto[Automatically estimate the chromosome size using KMC.]' \
+        '--depth_filter[Depth filter to pass to Plassembler. Filters out all putative plasmid contigs below this fraction of the chromosome read depth (needs to be below in both long and short read sets for hybrid).]' \
+        '--mac[If you are running Hybracter on Mac - installs v1.8.0 of Medaka as higher versions break.]' \
+        '--medaka_override[Use this if you do NOT want to use the --bacteria option with Medaka. Instead your specified --medakaModel will be used.]' \
+        '--extra_params_flye[Use this if want to add extra parameters to Flye.]' \
+        {--use-conda,--no-use-conda}'[Use conda for Snakemake rules \[default: use-conda\]]' \
+        '--conda-prefix[Custom conda env directory]':file:_files \
+        '--snake-default[Customise Snakemake runtime args \[default: --rerun-incomplete, --printshellcmds, --nolock, --show-failed-logs, --condafrontend conda\]]' \
+        {-h,--help}'[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _hybracter_hybrid-single {
+    _arguments \
+        {-l,--longreads}'[FASTQ file of longreads \[required\]]' \
+        {-1,--short_one}'[R1 FASTQ file of paired end short reads \[required\]]' \
+        {-2,--short_two}'[R2 FASTQ file of paired end short reads \[required\]]' \
+        {-s,--sample}'[Sample name. \[default: sample\]]' \
+        {-c,--chromosome}'[Approximate lower-bound chromosome length (in base pairs). \[default: 1000000\]]' \
+        '--no_pypolca[Do not use pypolca to polish assemblies with short reads]' \
+        '--logic[Hybracter logic to select best assembly. Use --best to pick best assembly based on ALE (hybrid) or pyrodigal mean length (long). Use --last to pick the last polishing round regardless. \[default: last\]]' \
+        {-o,--output}'[Output directory \[default: hybracter_out\]]':file:_files \
+        '--configfile[Custom config file \[default: config.yaml\]]' \
+        {-t,--threads}'[Number of threads to use \[default: 1\]]' \
+        '--min_length[min read length for long reads \[default: 1000\]]' \
+        '--min_quality[min read quality score for long reads in bp. \[default: 9\]]' \
+        '--skip_qc[Do not run porechop_abi, filtlong and fastp to QC the reads]' \
+        {-d,--databases}'[Plassembler Databases directory.]':file:_files \
+        '--subsample_depth[subsampled long read depth to subsample with Filtlong. By default is 100x. \[default: 100\]]' \
+        '--min_depth[minimum long read depth to continue the run. By default is 0x. Hybracter will error and exit if a sample has less than min_depth*chromosome_size bases of longreads left AFTER filtlong and porechop-ABI steps are run. \[default: 0\]]' \
+        '--medakaModel[Medaka Model. \[default: r1041_e82_400bps_sup_v5.0.0\]]' \
+        '--flyeModel[Flye Assembly Parameter \[default: --nanohq\]]' \
+        '--contaminants[Contaminants FASTA file to map long readsagainst to filter out. Choose --contaminants lambda to filter out phage lambda long reads.]':file:_files \
+        '--dnaapler_custom_db[Custom amino acid FASTA file of sequences to be used as a database with dnaapler custom.]':file:_files \
+        '--no_medaka[Do not polish the long read assembly with Medaka.]' \
+        '--auto[Automatically estimate the chromosome size using KMC.]' \
+        '--depth_filter[Depth filter to pass to Plassembler. Filters out all putative plasmid contigs below this fraction of the chromosome read depth (needs to be below in both long and short read sets for hybrid).]' \
+        '--mac[If you are running Hybracter on Mac - installs v1.8.0 of Medaka as higher versions break.]' \
+        '--medaka_override[Use this if you do NOT want to use the --bacteria option with Medaka. Instead your specified --medakaModel will be used.]' \
+        '--extra_params_flye[Use this if want to add extra parameters to Flye.]' \
+        {--use-conda,--no-use-conda}'[Use conda for Snakemake rules \[default: use-conda\]]' \
+        '--conda-prefix[Custom conda env directory]':file:_files \
+        '--snake-default[Customise Snakemake runtime args \[default: --rerun-incomplete, --printshellcmds, --nolock, --show-failed-logs, --condafrontend conda\]]' \
+        {-h,--help}'[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _hybracter_long {
+    _arguments \
+        {-i,--input}'[Input csv \[required\]]' \
+        '--datadir[Directory where FASTQs are. Will be added to the filenames in the input csv.]' \
+        {-o,--output}'[Output directory \[default: hybracter_out\]]':file:_files \
+        '--configfile[Custom config file \[default: config.yaml\]]' \
+        {-t,--threads}'[Number of threads to use \[default: 1\]]' \
+        '--min_length[min read length for long reads \[default: 1000\]]' \
+        '--min_quality[min read quality score for long reads in bp. \[default: 9\]]' \
+        '--skip_qc[Do not run porechop_abi, filtlong and fastp to QC the reads]' \
+        {-d,--databases}'[Plassembler Databases directory.]':file:_files \
+        '--subsample_depth[subsampled long read depth to subsample with Filtlong. By default is 100x. \[default: 100\]]' \
+        '--min_depth[minimum long read depth to continue the run. By default is 0x. Hybracter will error and exit if a sample has less than min_depth*chromosome_size bases of longreads left AFTER filtlong and porechop-ABI steps are run. \[default: 0\]]' \
+        '--medakaModel[Medaka Model. \[default: r1041_e82_400bps_sup_v5.0.0\]]' \
+        '--flyeModel[Flye Assembly Parameter \[default: --nanohq\]]' \
+        '--contaminants[Contaminants FASTA file to map long readsagainst to filter out. Choose --contaminants lambda to filter out phage lambda long reads.]':file:_files \
+        '--dnaapler_custom_db[Custom amino acid FASTA file of sequences to be used as a database with dnaapler custom.]':file:_files \
+        '--no_medaka[Do not polish the long read assembly with Medaka.]' \
+        '--auto[Automatically estimate the chromosome size using KMC.]' \
+        '--depth_filter[Depth filter to pass to Plassembler. Filters out all putative plasmid contigs below this fraction of the chromosome read depth (needs to be below in both long and short read sets for hybrid).]' \
+        '--mac[If you are running Hybracter on Mac - installs v1.8.0 of Medaka as higher versions break.]' \
+        '--medaka_override[Use this if you do NOT want to use the --bacteria option with Medaka. Instead your specified --medakaModel will be used.]' \
+        '--extra_params_flye[Use this if want to add extra parameters to Flye.]' \
+        {--use-conda,--no-use-conda}'[Use conda for Snakemake rules \[default: use-conda\]]' \
+        '--conda-prefix[Custom conda env directory]':file:_files \
+        '--snake-default[Customise Snakemake runtime args \[default: --rerun-incomplete, --printshellcmds, --nolock, --show-failed-logs, --condafrontend conda\]]' \
+        '--logic[Hybracter logic to select best assembly. Use --best to pick best assembly based on ALE (hybrid) or pyrodigal mean length (long). Use --last to pick the last polishing round regardless. \[default: best\]]' \
+        {-h,--help}'[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _hybracter_long-single {
+    _arguments \
+        {-l,--longreads}'[FASTQ file of longreads \[required\]]' \
+        {-s,--sample}'[Sample name. \[default: sample\]]' \
+        {-c,--chromosome}'[FApproximate lower-bound chromosome length (in base pairs). \[default: 1000000\]]' \
+        {-o,--output}'[Output directory \[default: hybracter_out\]]':file:_files \
+        '--configfile[Custom config file \[default: config.yaml\]]' \
+        {-t,--threads}'[Number of threads to use \[default: 1\]]' \
+        '--min_length[min read length for long reads \[default: 1000\]]' \
+        '--min_quality[min read quality score for long reads in bp. \[default: 9\]]' \
+        '--skip_qc[Do not run porechop_abi, filtlong and fastp to QC the reads]' \
+        {-d,--databases}'[Plassembler Databases directory.]':file:_files \
+        '--subsample_depth[subsampled long read depth to subsample with Filtlong. By default is 100x. \[default: 100\]]' \
+        '--min_depth[minimum long read depth to continue the run. By default is 0x. Hybracter will error and exit if a sample has less than min_depth*chromosome_size bases of longreads left AFTER filtlong and porechop-ABI steps are run. \[default: 0\]]' \
+        '--medakaModel[Medaka Model. \[default: r1041_e82_400bps_sup_v5.0.0\]]' \
+        '--flyeModel[Flye Assembly Parameter \[default: --nanohq\]]' \
+        '--contaminants[Contaminants FASTA file to map long readsagainst to filter out. Choose --contaminants lambda to filter out phage lambda long reads.]':file:_files \
+        '--dnaapler_custom_db[Custom amino acid FASTA file of sequences to be used as a database with dnaapler custom.]':file:_files \
+        '--no_medaka[Do not polish the long read assembly with Medaka.]' \
+        '--auto[Automatically estimate the chromosome size using KMC.]' \
+        '--depth_filter[Depth filter to pass to Plassembler. Filters out all putative plasmid contigs below this fraction of the chromosome read depth (needs to be below in both long and short read sets for hybrid).]' \
+        '--mac[If you are running Hybracter on Mac - installs v1.8.0 of Medaka as higher versions break.]' \
+        '--medaka_override[Use this if you do NOT want to use the --bacteria option with Medaka. Instead your specified --medakaModel will be used.]' \
+        '--extra_params_flye[Use this if want to add extra parameters to Flye.]' \
+        {--use-conda,--no-use-conda}'[Use conda for Snakemake rules \[default: use-conda\]]' \
+        '--conda-prefix[Custom conda env directory]':file:_files \
+        '--snake-default[Customise Snakemake runtime args \[default: --rerun-incomplete, --printshellcmds, --nolock, --show-failed-logs, --condafrontend conda\]]' \
+        '--logic[Hybracter logic to select best assembly. Use --best to pick best assembly based on ALE (hybrid) or pyrodigal mean length (long). Use --last to pick the last polishing round regardless. \[default: best\]]' \
+        {-h,--help}'[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _hybracter_test-hybrid {
+    _arguments \
+        {-o,--output}'[Output directory \[default: hybracter_out\]]':file:_files \
+        '--configfile[Custom config file \[default: config.yaml\]]' \
+        {-t,--threads}'[Number of threads to use \[default: 1\]]' \
+        '--min_length[min read length for long reads \[default: 1000\]]' \
+        '--min_quality[min read quality score for long reads in bp. \[default: 9\]]' \
+        '--skip_qc[Do not run porechop_abi, filtlong and fastp to QC the reads]' \
+        {-d,--databases}'[Plassembler Databases directory.]':file:_files \
+        '--subsample_depth[subsampled long read depth to subsample with Filtlong. By default is 100x. \[default: 100\]]' \
+        '--min_depth[minimum long read depth to continue the run. By default is 0x. Hybracter will error and exit if a sample has less than min_depth*chromosome_size bases of longreads left AFTER filtlong and porechop-ABI steps are run. \[default: 0\]]' \
+        '--medakaModel[Medaka Model. \[default: r1041_e82_400bps_sup_v5.0.0\]]' \
+        '--flyeModel[Flye Assembly Parameter \[default: --nanohq\]]' \
+        '--contaminants[Contaminants FASTA file to map long readsagainst to filter out. Choose --contaminants lambda to filter out phage lambda long reads.]':file:_files \
+        '--dnaapler_custom_db[Custom amino acid FASTA file of sequences to be used as a database with dnaapler custom.]':file:_files \
+        '--no_medaka[Do not polish the long read assembly with Medaka.]' \
+        '--auto[Automatically estimate the chromosome size using KMC.]' \
+        '--depth_filter[Depth filter to pass to Plassembler. Filters out all putative plasmid contigs below this fraction of the chromosome read depth (needs to be below in both long and short read sets for hybrid).]' \
+        '--mac[If you are running Hybracter on Mac - installs v1.8.0 of Medaka as higher versions break.]' \
+        '--medaka_override[Use this if you do NOT want to use the --bacteria option with Medaka. Instead your specified --medakaModel will be used.]' \
+        '--extra_params_flye[Use this if want to add extra parameters to Flye.]' \
+        {--use-conda,--no-use-conda}'[Use conda for Snakemake rules \[default: use-conda\]]' \
+        '--conda-prefix[Custom conda env directory]':file:_files \
+        '--snake-default[Customise Snakemake runtime args \[default: --rerun-incomplete, --printshellcmds, --nolock, --show-failed-logs, --condafrontend conda\]]' \
+        '--no_pypolca[Do not use pypolca to polish assemblies with short reads]' \
+        '--logic[Hybracter logic to select best assembly. Use --best to pick best assembly based on ALE (hybrid) or pyrodigal mean length (long). Use --last to pick the last polishing round regardless. \[default: last\]]' \
+        {-h,--help}'[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _hybracter_test-long {
+    _arguments \
+        '--logic[Hybracter logic to select best assembly. Use --best to pick best assembly based on ALE (hybrid) or pyrodigal mean length (long). Use --last to pick the last polishing round regardless. \[default: best\]]' \
+        {-o,--output}'[Output directory \[default: hybracter_out\]]':file:_files \
+        '--configfile[Custom config file \[default: config.yaml\]]' \
+        {-t,--threads}'[Number of threads to use \[default: 1\]]' \
+        '--min_length[min read length for long reads \[default: 1000\]]' \
+        '--min_quality[min read quality score for long reads in bp. \[default: 9\]]' \
+        '--skip_qc[Do not run porechop_abi, filtlong and fastp to QC the reads]' \
+        {-d,--databases}'[Plassembler Databases directory.]':file:_files \
+        '--subsample_depth[subsampled long read depth to subsample with Filtlong. By default is 100x. \[default: 100\]]' \
+        '--min_depth[minimum long read depth to continue the run. By default is 0x. Hybracter will error and exit if a sample has less than min_depth*chromosome_size bases of longreads left AFTER filtlong and porechop-ABI steps are run. \[default: 0\]]' \
+        '--medakaModel[Medaka Model. \[default: r1041_e82_400bps_sup_v5.0.0\]]' \
+        '--flyeModel[Flye Assembly Parameter \[default: --nanohq\]]' \
+        '--contaminants[Contaminants FASTA file to map long readsagainst to filter out. Choose --contaminants lambda to filter out phage lambda long reads.]':file:_files \
+        '--dnaapler_custom_db[Custom amino acid FASTA file of sequences to be used as a database with dnaapler custom.]':file:_files \
+        '--no_medaka[Do not polish the long read assembly with Medaka.]' \
+        '--auto[Automatically estimate the chromosome size using KMC.]' \
+        '--depth_filter[Depth filter to pass to Plassembler. Filters out all putative plasmid contigs below this fraction of the chromosome read depth (needs to be below in both long and short read sets for hybrid).]' \
+        '--mac[If you are running Hybracter on Mac - installs v1.8.0 of Medaka as higher versions break.]' \
+        '--medaka_override[Use this if you do NOT want to use the --bacteria option with Medaka. Instead your specified --medakaModel will be used.]' \
+        '--extra_params_flye[Use this if want to add extra parameters to Flye.]' \
+        {--use-conda,--no-use-conda}'[Use conda for Snakemake rules \[default: use-conda\]]' \
+        '--conda-prefix[Custom conda env directory]':file:_files \
+        '--snake-default[Customise Snakemake runtime args \[default: --rerun-incomplete, --printshellcmds, --nolock, --show-failed-logs, --condafrontend conda\]]' \
+        {-h,--help}'[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _hybracter_config {
+    _arguments \
+        {-o,--output}'[Output directory \[default: hybracter_out\]]':file:_files \
+        '--configfile[Custom config file \[default: config.yaml\]]' \
+        {-t,--threads}'[Number of threads to use \[default: 1\]]' \
+        '--min_length[min read length for long reads \[default: 1000\]]' \
+        '--min_quality[min read quality score for long reads in bp. \[default: 9\]]' \
+        '--skip_qc[Do not run porechop_abi, filtlong and fastp to QC the reads]' \
+        {-d,--databases}'[Plassembler Databases directory.]':file:_files \
+        '--subsample_depth[subsampled long read depth to subsample with Filtlong. By default is 100x. \[default: 100\]]' \
+        '--min_depth[minimum long read depth to continue the run. By default is 0x. Hybracter will error and exit if a sample has less than min_depth*chromosome_size bases of longreads left AFTER filtlong and porechop-ABI steps are run. \[default: 0\]]' \
+        '--medakaModel[Medaka Model. \[default: r1041_e82_400bps_sup_v5.0.0\]]' \
+        '--flyeModel[Flye Assembly Parameter \[default: --nanohq\]]' \
+        '--contaminants[Contaminants FASTA file to map long readsagainst to filter out. Choose --contaminants lambda to filter out phage lambda long reads.]':file:_files \
+        '--dnaapler_custom_db[Custom amino acid FASTA file of sequences to be used as a database with dnaapler custom.]':file:_files \
+        '--no_medaka[Do not polish the long read assembly with Medaka.]' \
+        '--auto[Automatically estimate the chromosome size using KMC.]' \
+        '--depth_filter[Depth filter to pass to Plassembler. Filters out all putative plasmid contigs below this fraction of the chromosome read depth (needs to be below in both long and short read sets for hybrid).]' \
+        '--mac[If you are running Hybracter on Mac - installs v1.8.0 of Medaka as higher versions break.]' \
+        '--medaka_override[Use this if you do NOT want to use the --bacteria option with Medaka. Instead your specified --medakaModel will be used.]' \
+        '--extra_params_flye[Use this if want to add extra parameters to Flye.]' \
+        {--use-conda,--no-use-conda}'[Use conda for Snakemake rules \[default: use-conda\]]' \
+        '--conda-prefix[Custom conda env directory]':file:_files \
+        '--snake-default[Customise Snakemake runtime args \[default: --rerun-incomplete, --printshellcmds, --nolock, --show-failed-logs, --condafrontend conda\]]' \
+        {-h,--help}'[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _hybracter_citation {
+    _arguments \
+        {-h,--help}'[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+function _hybracter_version {
+    _arguments \
+        {-h,--help}'[Show this message and exit.]' \
+        "*: :_files"
+
+}
+
+_hybracter "$@"
+

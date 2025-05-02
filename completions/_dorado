@@ -1,0 +1,280 @@
+#compdef dorado
+
+# Auto-generated with h2o
+
+
+function _dorado {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'aligner:Alignment using minimap2'
+            'basecaller:Basecaller'
+            'correct:Dorado read correction tool'
+            'demux:Barcode demultiplexing tool'
+            'download:Download models'
+            'duplex:Duplex basecalling'
+            'polish:Consensus tool for polishing draft assemblies'
+            'summary:Summary of basecaller outputs'
+            'trim:Adapter/primer trimming tool'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[shows help message and exits]' \
+        {-v,--version}'[prints version information and exits]' \
+        '-vv[prints verbose version information and exits]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (aligner)
+            _dorado_aligner
+            ;;
+
+        (basecaller)
+            _dorado_basecaller
+            ;;
+
+        (correct)
+            _dorado_correct
+            ;;
+
+        (demux)
+            _dorado_demux
+            ;;
+
+        (download)
+            _dorado_download
+            ;;
+
+        (duplex)
+            _dorado_duplex
+            ;;
+
+        (polish)
+            _dorado_polish
+            ;;
+
+        (summary)
+            _dorado_summary
+            ;;
+
+        (trim)
+            _dorado_trim
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _dorado_aligner {
+    _arguments \
+        {-h,--help}'[shows help message and exits]' \
+        {-r,--recursive}'[If the '\''reads'\'' positional argument is a folder any subfolders will also be searched for input files.]' \
+        {-o,--output-dir}'[If specified output files will be written to the given folder, otherwise output is to stdout. Required if the '\''reads'\'' positional argument is a folder. \[nargs=0..1\] \[default: ""\]]' \
+        '--emit-summary[If specified, a summary file containing the details of the primary alignments for each read will be emitted to the root of the output folder. This option requires that the '\''--output-dir'\'' option is also set.]' \
+        '--bed-file[Optional bed-file. If specified, overlaps between the alignments and bed-file entries will be counted, and recorded in BAM output using the '\''bh'\'' read tag. \[nargs=0..1\] \[default: ""\]]' \
+        {-t,--threads}'[number of threads for alignment and BAM writing (0=unlimited). \[nargs=0..1\] \[default: 0\]]' \
+        {-n,--max-reads}'[maximum number of reads to process (for debugging, 0=unlimited). \[nargs=0..1\] \[default: 0\]]' \
+        {-v,--verbose}'[\[may be repeated\]]' \
+        '--mm2-opts[Optional minimap2 options string. For multiple arguments surround with double quotes.]' \
+        "*: :_files"
+
+}
+
+function _dorado_basecaller {
+    _arguments \
+        {-h,--help}'[shows help message and exits]' \
+        {-v,--verbose}'[\[may be repeated\]]' \
+        {-x,--device}'[Specify CPU or GPU device: '\''auto'\'', '\''cpu'\'', '\''cuda:all'\'' or '\''cuda:<device_id>\[,<device_id>...\]'\''. Specifying '\''auto'\'' will choose either '\''cpu'\'', '\''metal'\'' or '\''cuda:all'\'' depending on the presence of a GPU device. \[nargs=0..1\] \[default: "auto"\]]' \
+        '--models-directory[Optional directory to search for existing models or download new models into. \[nargs=0..1\] \[default: "."\]]' \
+        '--bed-file[Optional bed-file. If specified, overlaps between the alignments and bed-file entries will be counted, and recorded in BAM output using the '\''bh'\'' read tag. \[nargs=0..1\] \[default: ""\]]' \
+        {-r,--recursive}'[Recursively scan through directories to load FAST5 and POD5 files.]' \
+        {-l,--read-ids}'[A file with a newline-delimited list of reads to basecall. If not provided, all reads will be basecalled. \[nargs=0..1\] \[default: ""\]]' \
+        {-n,--max-reads}'[Limit the number of reads to be basecalled. \[nargs=0..1\] \[default: 0\]]' \
+        '--resume-from[Resume basecalling from the given HTS file. Fully written read records are not processed again. \[nargs=0..1\] \[default: ""\]]' \
+        '--min-qscore[Discard reads with mean Q-score below this threshold. \[nargs=0..1\] \[default: 0\]]' \
+        '--emit-moves[Write the move table to the '\''mv'\'' tag.]' \
+        '--emit-fastq[Output in fastq format.]' \
+        '--emit-sam[Output in SAM format.]' \
+        {-o,--output-dir}'[Optional output folder, if specified output will be written to a calls file (calls_<timestamp>.sam|.bam|.fastq) in the given folder.]' \
+        '--reference[Path to reference for alignment. \[nargs=0..1\] \[default: ""\]]' \
+        '--mm2-opts[Optional minimap2 options string. For multiple arguments surround with double quotes.]' \
+        '--modified-bases[A space separated list of modified base codes. Choose from: pseU, m6A_DRACH, m6A, 6mA, m5C, 5mC, 5mCG_5hmCG, 5mCG, 5mC_5hmC, inosine_m6A, 4mC_5mC. \[nargs: 1 or more\]]' \
+        '--modified-bases-models[A comma separated list of modified base model paths. \[nargs=0..1\] \[default: ""\]]' \
+        '--modified-bases-threshold[The minimum predicted methylation probability for a modified base to be emitted in an all-context model, \[0, 1\].]' \
+        '--modified-bases-batchsize[The modified base models batch size.]' \
+        '--kit-name[Enable barcoding with the provided kit name. Choose from: EXP-NBD103 EXP-NBD104 EXP-NBD114 EXP-NBD114-24 EXP-NBD196 EXP-PBC001 EXP-PBC096 SQK-16S024 SQK-16S114-24 SQK-LWB001 SQK-MAB114-24 SQK-MLK111-96-XL SQK-MLK114-96-XL SQK-NBD111-24 SQK-NBD111-96 SQK-NBD114-24 SQK-NBD114-96 SQK-PBK004 SQK-PCB109 SQK-PCB110 SQK-PCB111-24 SQK-PCB114-24 SQK-RAB201 SQK-RAB204 SQK-RBK001 SQK-RBK004 SQK-RBK110-96 SQK-RBK111-24 SQK-RBK111-96 SQK-RBK114-24 SQK-RBK114-96 SQK-RLB001 SQK-RPB004 SQK-RPB114-24 TWIST-16-UDI TWIST-96A-UDI VSK-PTC001 VSK-VMK001 VSK-VMK004 VSK-VPS001. \[nargs=0..1\] \[default: ""\]]' \
+        '--sample-sheet[Path to the sample sheet to use. \[nargs=0..1\] \[default: ""\]]' \
+        '--barcode-both-ends[Require both ends of a read to be barcoded for a double ended barcode.]' \
+        '--barcode-arrangement[Path to file with custom barcode arrangement. Requires --kit-name.]' \
+        '--barcode-sequences[Path to file with custom barcode sequences. Requires --kit-name and --barcode-arrangement.]' \
+        '--primer-sequences[Path to file with custom primer sequences.]' \
+        '--no-trim[Skip trimming of barcodes, adapters, and primers. If option is not chosen, trimming of all three is enabled.]' \
+        '--trim[Specify what to trim. Options are '\''none'\'', '\''all'\'', and '\''adapters'\''. The default behaviour is to trim all detected adapters, primers, and barcodes. Choose '\''adapters'\'' to just trim adapters. The '\''none'\'' choice is equivelent to using --no-trim. Note that this only applies to DNA. RNA adapters are always trimmed. \[nargs=0..1\] \[default: ""\]]' \
+        '--estimate-poly-a[Estimate poly(A)/poly(T) tail lengths (beta feature). Primarily meant for cDNA and dRNA use cases.]' \
+        '--poly-a-config[Configuration file for poly(A) estimation to change default behaviours \[nargs=0..1\] \[default: ""\]]' \
+        {-b,--batchsize}'[The number of chunks in a batch. If 0 an optimal batchsize will be selected. \[nargs=0..1\] \[default: 0\]]' \
+        {-c,--chunksize}'[The number of samples in a chunk. \[nargs=0..1\] \[default: 10000\]]' \
+        '--overlap[The number of samples overlapping neighbouring chunks. \[nargs=0..1\] \[default: 500\]]' \
+        "*: :_files"
+
+}
+
+function _dorado_correct {
+    _arguments \
+        {-h,--help}'[shows help message and exits]' \
+        {-t,--threads}'[Number of threads for processing. Default uses all available threads. \[nargs=0..1\] \[default: 0\]]' \
+        '--infer-threads[Number of threads per device. \[nargs=0..1\] \[default: 3\]]' \
+        {-x,--device}'[Specify CPU or GPU device: '\''auto'\'', '\''cpu'\'', '\''cuda:all'\'' or '\''cuda:<device_id>\[,<device_id>...\]'\''. Specifying '\''auto'\'' will choose either '\''cpu'\'', '\''metal'\'' or '\''cuda:all'\'' depending on the presence of a GPU device. \[nargs=0..1\] \[default: "auto"\]]' \
+        {-v,--verbose}'[\[may be repeated\]]' \
+        {-m,--model-path}'[Path to correction model folder.]' \
+        {-p,--from-paf}'[Path to a PAF file with alignments. Skips alignment computation.]' \
+        '--to-paf[Generate PAF alignments and skip consensus.]' \
+        '--resume-from[Resume a previously interrupted run. Requires a path to a file where sequence headers are stored in the first column (whitespace delimited), one per row. The header can also occupy a full row with no other columns. For example, a .fai index generated from the previously corrected output FASTA file is a valid input here. \[nargs=0..1\] \[default: ""\]]' \
+        {-b,--batch-size}'[Batch size for inference. Default: 0 for auto batch size detection. \[nargs=0..1\] \[default: 0\]]' \
+        {-i,--index-size}'[Size of index for mapping and alignment. Default 8G. Decrease index size to lower memory footprint. \[nargs=0..1\] \[default: "8G"\]]' \
+        '--compute-num-blocks[Computes and returns one number: the number of index blocks which would be processed on a normal run.]' \
+        '--run-block-id[ID of the index block to run. If specified, only this block will be run.]' \
+        "*: :_files"
+
+}
+
+function _dorado_demux {
+    _arguments \
+        {-h,--help}'[shows help message and exits]' \
+        {-r,--recursive}'[If the '\''reads'\'' positional argument is a folder any subfolders will also be searched for input files.]' \
+        {-o,--output-dir}'[Output folder for demultiplexed reads. \[required\]]' \
+        '--kit-name[Barcoding kit name. Cannot be used with --no-classify. Choose from: EXP-NBD103 EXP-NBD104 EXP-NBD114 EXP-NBD114-24 EXP-NBD196 EXP-PBC001 EXP-PBC096 SQK-16S024 SQK-16S114-24 SQK-LWB001 SQK-MAB114-24 SQK-MLK111-96-XL SQK-MLK114-96-XL SQK-NBD111-24 SQK-NBD111-96 SQK-NBD114-24 SQK-NBD114-96 SQK-PBK004 SQK-PCB109 SQK-PCB110 SQK-PCB111-24 SQK-PCB114-24 SQK-RAB201 SQK-RAB204 SQK-RBK001 SQK-RBK004 SQK-RBK110-96 SQK-RBK111-24 SQK-RBK111-96 SQK-RBK114-24 SQK-RBK114-96 SQK-RLB001 SQK-RPB004 SQK-RPB114-24 TWIST-16-UDI TWIST-96A-UDI VSK-PTC001 VSK-VMK001 VSK-VMK004 VSK-VPS001.]' \
+        '--sample-sheet[Path to the sample sheet to use. \[nargs=0..1\] \[default: ""\]]' \
+        '--no-classify[Skip barcode classification. Only demux based on existing classification in reads. Cannot be used with --kit-name or --sample-sheet.]' \
+        {-t,--threads}'[Combined number of threads for barcoding and output generation. Default uses all available threads. \[nargs=0..1\] \[default: 0\]]' \
+        {-n,--max-reads}'[Maximum number of reads to process. Mainly for debugging. Process all reads by default. \[nargs=0..1\] \[default: 0\]]' \
+        {-l,--read-ids}'[A file with a newline-delimited list of reads to demux. \[nargs=0..1\] \[default: ""\]]' \
+        {-v,--verbose}'[\[may be repeated\]]' \
+        '--emit-fastq[Output in fastq format. Default is BAM.]' \
+        '--emit-summary[If specified, a summary file containing the details of the primary alignments for each read will be emitted to the root of the output folder.]' \
+        '--barcode-both-ends[Require both ends of a read to be barcoded for a double ended barcode.]' \
+        '--no-trim[Skip barcode trimming. If this option is not chosen, trimming is enabled. Note that you should use this option if your input data is mapped and you want to preserve the mapping in the output files, as trimming will result in any mapping information from the input file(s) being discarded.]' \
+        '--sort-bam[Sort any BAM output files that contain mapped reads. Using this option requires that the --no-trim option is also set.]' \
+        '--barcode-arrangement[Path to file with custom barcode arrangement.]' \
+        '--barcode-sequences[Path to file with custom barcode sequences.]' \
+        "*: :_files"
+
+}
+
+function _dorado_download {
+    _arguments \
+        {-h,--help}'[shows help message and exits]' \
+        '--model[the model to download \[nargs=0..1\] \[default: "all"\]]' \
+        '--models-directory[the directory to download the models into \[nargs=0..1\] \[default: "."\]]' \
+        '--list[list the available models for download]' \
+        '--list-yaml[list the available models for download, as yaml, to stdout]' \
+        '--list-structured[list the available models in a structured format, as yaml, to stdout]' \
+        '--data[path to POD5 data used to automatically select models \[nargs=0..1\] \[default: ""\]]' \
+        {-r,--recursive}'[recursively scan through directories to load POD5 files]' \
+        '--overwrite[overwrite existing models if they already exist]' \
+        {-v,--verbose}'[\[may be repeated\]]' \
+        "*: :_files"
+
+}
+
+function _dorado_duplex {
+    _arguments \
+        {-h,--help}'[shows help message and exits]' \
+        {-v,--verbose}'[\[may be repeated\]]' \
+        {-x,--device}'[Specify CPU or GPU device: '\''auto'\'', '\''cpu'\'', '\''cuda:all'\'' or '\''cuda:<device_id>\[,<device_id>...\]'\''. Specifying '\''auto'\'' will choose either '\''cpu'\'', '\''metal'\'' or '\''cuda:all'\'' depending on the presence of a GPU device. \[nargs=0..1\] \[default: "auto"\]]' \
+        '--models-directory[Optional directory to search for existing models or download new models into. \[nargs=0..1\] \[default: "."\]]' \
+        {-r,--recursive}'[Recursively scan through directories to load FAST5 and POD5 files.]' \
+        {-l,--read-ids}'[A file with a newline-delimited list of reads to basecall. If not provided, all reads will be basecalled. \[nargs=0..1\] \[default: ""\]]' \
+        '--pairs[Space-delimited csv containing read ID pairs. If not provided, pairing will be performed automatically. \[nargs=0..1\] \[default: ""\]]' \
+        '--min-qscore[Discard reads with mean Q-score below this threshold. \[nargs=0..1\] \[default: 0\]]' \
+        '--emit-fastq[Output in fastq format.]' \
+        '--emit-sam[Output in SAM format.]' \
+        {-o,--output-dir}'[Optional output folder, if specified output will be written to a calls file (calls_<timestamp>.sam|.bam|.fastq) in the given folder.]' \
+        '--reference[Path to reference for alignment. \[nargs=0..1\] \[default: ""\]]' \
+        '--mm2-opts[Optional minimap2 options string. For multiple arguments surround with double quotes.]' \
+        '--bed-file[Optional bed-file. If specified, overlaps between the alignments and bed-file entries will be counted, and recorded in BAM output using the '\''bh'\'' read tag. \[nargs=0..1\] \[default: ""\]]' \
+        '--modified-bases[A space separated list of modified base codes. Choose from: pseU, m6A_DRACH, m6A, 6mA, m5C, 5mC, 5mCG_5hmCG, 5mCG, 5mC_5hmC, inosine_m6A, 4mC_5mC. \[nargs: 1 or more\]]' \
+        '--modified-bases-models[A comma separated list of modified base models \[nargs=0..1\] \[default: ""\]]' \
+        '--modified-bases-threshold[The minimum predicted methylation probability for a modified base to be emitted in an all-context model, \[0, 1\].]' \
+        '--modified-bases-batchsize[The modified base models batch size.]' \
+        {-t,--threads}'[\[nargs=0..1\] \[default: 0\]]' \
+        {-b,--batchsize}'[The number of chunks in a batch. If 0 an optimal batchsize will be selected. \[nargs=0..1\] \[default: 0\]]' \
+        {-c,--chunksize}'[The number of samples in a chunk. \[nargs=0..1\] \[default: 10000\]]' \
+        '--overlap[The number of samples overlapping neighbouring chunks. \[nargs=0..1\] \[default: 500\]]' \
+        "*: :_files"
+
+}
+
+function _dorado_polish {
+    _arguments \
+        {-h,--help}'[shows help message and exits]' \
+        {-t,--threads}'[Number of threads for processing (0=unlimited). \[nargs=0..1\] \[default: 0\]]' \
+        '--infer-threads[Number of threads for inference \[nargs=0..1\] \[default: 2\]]' \
+        {-x,--device}'[Specify CPU or GPU device: '\''auto'\'', '\''cpu'\'', '\''cuda:all'\'' or '\''cuda:<device_id>\[,<device_id>...\]'\''. Specifying '\''auto'\'' will choose either '\''cpu'\'' or '\''cuda:all'\'' depending on the presence of a GPU device. \[nargs=0..1\] \[default: "auto"\]]' \
+        {-v,--verbose}'[\[may be repeated\]]' \
+        {-o,--output-dir}'[If specified, output files will be written to the given folder. Otherwise, output is to stdout. \[nargs=0..1\] \[default: ""\]]' \
+        {-m,--model}'[Path to correction model folder. \[nargs=0..1\] \[default: "auto"\]]' \
+        '--bacteria[Optimise polishing for plasmids and bacterial genomes.]' \
+        {-q,--qualities}'[Output with per-base quality scores (FASTQ).]' \
+        '--vcf[Output a VCF file with variant calls to --output-dir if specified, otherwise to stdout.]' \
+        '--gvcf[Output a gVCF file to --output-dir if specified, otherwise to stdout.]' \
+        '--ambig-ref[Decode variants at ambiguous reference positions.]' \
+        {-b,--batchsize}'[Batch size for inference. \[nargs=0..1\] \[default: 16\]]' \
+        '--draft-batchsize[Approximate batch size for processing input draft sequences. \[nargs=0..1\] \[default: "200M"\]]' \
+        '--window-len[Window size for calling consensus. \[nargs=0..1\] \[default: 10000\]]' \
+        '--window-overlap[Overlap length between windows. \[nargs=0..1\] \[default: 1000\]]' \
+        '--bam-chunk[Size of draft chunks to parse from the input BAM at a time. \[nargs=0..1\] \[default: 1000000\]]' \
+        '--bam-subchunk[Size of regions to split the bam_chunk in to for parallel processing \[nargs=0..1\] \[default: 100000\]]' \
+        '--no-fill-gaps[Do not fill gaps in consensus sequence with draft sequence.]' \
+        '--fill-char[Use a designated character to fill gaps.]' \
+        '--regions[Process only these regions of the input. Can be either a path to a BED file or a list of comma-separated Htslib-formatted regions (start is 1-based, end is inclusive).]' \
+        '--RG[Read group to select. \[nargs=0..1\] \[default: ""\]]' \
+        '--ignore-read-groups[Ignore read groups in bam file.]' \
+        '--tag-name[Two-letter BAM tag name for filtering the alignments during feature generation \[nargs=0..1\] \[default: ""\]]' \
+        '--tag-value[Value of the tag for filtering the alignments during feature generation \[nargs=0..1\] \[default: 0\]]' \
+        '--tag-keep-missing[Keep alignments when tag is missing. If specified, overrides the same option in the model config.]' \
+        '--min-mapq[Minimum mapping quality of the input alignments. If specified, overrides the same option in the model config.]' \
+        '--min-depth[Sites with depth lower than this value will not be polished. \[nargs=0..1\] \[default: 0\]]' \
+        "*: :_files"
+
+}
+
+function _dorado_summary {
+    _arguments \
+        {-h,--help}'[shows help message and exits]' \
+        {-s,--separator}'[\[nargs=0..1\] \[default: " "\]]' \
+        {-v,--verbose}'[\[may be repeated\]]' \
+        "*: :_files"
+
+}
+
+function _dorado_trim {
+    _arguments \
+        {-h,--help}'[shows help message and exits]' \
+        {-t,--threads}'[Combined number of threads for adapter/primer detection and output generation. Default uses all available threads. \[nargs=0..1\] \[default: 0\]]' \
+        {-n,--max-reads}'[Maximum number of reads to process. Mainly for debugging. Process all reads by default. \[nargs=0..1\] \[default: 0\]]' \
+        {-k,--sequencing-kit}'[Sequencing kit name to use for selecting adapters and primers to trim.]' \
+        {-l,--read-ids}'[A file with a newline-delimited list of reads to trim. \[nargs=0..1\] \[default: ""\]]' \
+        {-v,--verbose}'[\[may be repeated\]]' \
+        '--emit-fastq[Output in fastq format. Default is BAM.]' \
+        '--no-trim-primers[Skip primer detection and trimming. Only adapters will be detected and trimmed.]' \
+        '--primer-sequences[Path to file with custom primer sequences.]' \
+        "*: :_files"
+
+}
+
+_dorado "$@"
+
