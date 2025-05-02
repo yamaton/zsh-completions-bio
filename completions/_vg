@@ -1291,7 +1291,7 @@ function _vg_mcmc {
 
 function _vg_test {
     _arguments \
-        {-?,-h,--help}'[display usage information]' \
+        {-\?,-h,--help}'[display usage information]' \
         {-l,--list-tests}'[list all/matching test cases]' \
         {-t,--list-tags}'[list all/matching tags]' \
         {-s,--success}'[include successful tests in output]' \
@@ -1307,7 +1307,7 @@ function _vg_test {
         {-d,--durations}'[show test durations]' \
         {-D,--min-duration}'[show test durations for tests taking at least the given number of seconds]' \
         {-f,--input-file}'[load test names to run from a file]':file:_files \
-        {-#,--filenames-as-tags}'[adds a tag for the filename]' \
+        {-\#,--filenames-as-tags}'[adds a tag for the filename]' \
         {-c,--section}'[specify section to run]' \
         {-v,--verbosity}'[set output verbosity]' \
         '--list-test-names-only[list all/matching test cases names only]' \

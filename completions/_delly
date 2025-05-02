@@ -62,7 +62,7 @@ function _delly {
 
 function _delly_call {
     _arguments \
-        {-?,--help}'[show help message]' \
+        {-\?,--help}'[show help message]' \
         {-t,--svtype}'[SV type to compute \[DEL, INS, DUP, INV, BND, ALL\]]' \
         {-g,--genome}'[genome fasta file]' \
         {-x,--exclude}'[file with regions to exclude]' \
@@ -83,7 +83,7 @@ function _delly_call {
 
 function _delly_merge {
     _arguments \
-        {-?,--help}'[show help message]' \
+        {-\?,--help}'[show help message]' \
         {-o,--outfile}'[Merged SV BCF output file]' \
         {-u,--chunks}'[max. chunk size to merge groups of BCF files]' \
         {-a,--vaf}'[min. fractional ALT support]' \
@@ -101,7 +101,7 @@ function _delly_merge {
 
 function _delly_filter {
     _arguments \
-        {-?,--help}'[show help message]' \
+        {-\?,--help}'[show help message]' \
         {-f,--filter}'[Filter mode (somatic, germline)]' \
         {-o,--outfile}'[Filtered SV BCF output file]' \
         {-y,--quality}'[min. SV site quality]' \
@@ -122,7 +122,7 @@ function _delly_filter {
 
 function _delly_lr {
     _arguments \
-        {-?,--help}'[show help message]' \
+        {-\?,--help}'[show help message]' \
         {-t,--svtype}'[SV type to compute \[DEL, INS, DUP, INV, BND, ALL\]]' \
         {-y,--technology}'[seq. technology \[pb, ont\]]' \
         {-g,--genome}'[genome fasta file]' \
@@ -147,7 +147,7 @@ function _delly_lr {
 
 function _delly_cnv {
     _arguments \
-        {-?,--help}'[show help message]' \
+        {-\?,--help}'[show help message]' \
         {-g,--genome}'[genome file]' \
         {-q,--quality}'[min. mapping quality]' \
         {-m,--mappability}'[input mappability map]' \
@@ -177,7 +177,7 @@ function _delly_cnv {
 
 function _delly_classify {
     _arguments \
-        {-?,--help}'[show help message]' \
+        {-\?,--help}'[show help message]' \
         {-f,--filter}'[Filter mode (somatic, germline)]' \
         {-o,--outfile}'[Filtered CNV BCF output file]' \
         {-m,--minsize}'[min. CNV size]' \

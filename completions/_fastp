@@ -89,7 +89,7 @@ function _fastp {
         '--cut_by_quality3[DEPRECATED, use --cut_tail instead.]' \
         '--cut_by_quality_aggressive[DEPRECATED, use --cut_right instead.]' \
         '--discard_unmerged[DEPRECATED, no effect now, see the introduction for merging.]' \
-        {-?,--help}'[print this message]' \
+        {-\?,--help}'[print this message]' \
         "*: :_files"
 
 }

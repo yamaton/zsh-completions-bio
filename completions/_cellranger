@@ -9,21 +9,22 @@ function _cellranger {
     function _commands {
         local -a commands
         commands=(
-            'count:Count gene expression (targeted or whole-transcriptome) and/or feature'
-            'multi:Analyze multiplexed data or combined gene expression/immune'
-            'vdj:Assembles single-cell VDJ receptor sequences from 10x Immune Profiling'
+            'count:Count gene expression (targeted or whole-transcriptome) and/or feature barcode reads from a single sample and GEM well'
+            'multi:Analyze multiplexed data or combined gene expression/immune profiling/feature barcode data'
+            'vdj:Assembles single-cell VDJ receptor sequences from 10x Immune Profiling libraries'
             'aggr:Aggregate data from multiple Cell Ranger runs'
             'reanalyze:Re-run secondary analysis (dimensionality reduction, clustering, etc)'
-            'targeted-compare:Analyze targeted enrichment performance by comparing a targeted sample'
-            'targeted-depth:Estimate targeted read depth values (mean reads per cell) for a'
+            'targeted-compare:Analyze targeted enrichment performance by comparing a targeted sample to its cognate parent WTA sample (used as input for targeted gene expression)'
+            'targeted-depth:Estimate targeted read depth values (mean reads per cell) for a specified input parent WTA sample and a target panel CSV file'
             'mkvdjref:Prepare a reference for use with CellRanger VDJ'
-            'mkfastq:Run Illumina demultiplexer on sample sheets that contain 10x-specific'
+            'mkfastq:Run Illumina demultiplexer on sample sheets that contain 10x-specific sample index sets'
             'testrun:Execute the '\''count'\'' pipeline on a small test dataset'
             'mat2csv:Convert a gene count matrix to CSV format'
-            'mkref:Prepare a reference for use with 10x analysis software. Requires a GTF'
+            'mkref:Prepare a reference for use with 10x analysis software. Requires a GTF and FASTA'
             'mkgtf:Filter a GTF file by attribute prior to creating a 10x reference'
             'upload:Upload analysis logs to 10x Genomics support'
             'sitecheck:Collect linux system configuration information'
+            'help:Print this message or the help of the given subcommand(s)'
         )
         _describe 'command' commands
     }
@@ -99,6 +100,10 @@ function _cellranger {
 
         (sitecheck)
             _cellranger_sitecheck
+            ;;
+
+        (help)
+            _cellranger_help
             ;;
 
         esac
@@ -364,11 +369,586 @@ function _cellranger_mat2csv {
 
 }
 
+
 function _cellranger_mkref {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'genome:Unique genome name(s), used to name output folder'
+            'fasta:Path(s) to FASTA file containing your genome reference.'
+            'genes:Path(s) to genes GTF file(S) containing annotated genes'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (genome)
+            _cellranger_mkref_genome
+            ;;
+
+        (fasta)
+            _cellranger_mkref_fasta
+            ;;
+
+        (genes)
+            _cellranger_mkref_genes
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+
+function _cellranger_mkref_genome {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'fasta:Path(s) to FASTA file containing your genome reference.'
+            'genes:Path(s) to genes GTF file(S) containing annotated genes'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (fasta)
+            _cellranger_mkref_genome_fasta
+            ;;
+
+        (genes)
+            _cellranger_mkref_genome_genes
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+
+function _cellranger_mkref_genome_fasta {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'genome:Unique genome name(s), used to name output folder'
+            'genes:Path(s) to genes GTF file(S) containing annotated genes'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (genome)
+            _cellranger_mkref_genome_fasta_genome
+            ;;
+
+        (genes)
+            _cellranger_mkref_genome_fasta_genes
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _cellranger_mkref_genome_fasta_genome {
     _arguments \
-        '--genome[Unique genome name(s), used to name output folder \[a-zA-Z0-9_-\]+. Specify multiple genomes by specifying the --genome argument multiple times; the output folder will be <name1>_and_<name2>.]' \
-        '--fasta[Path(s) to FASTA file containing your genome reference.]':file:_files \
-        '--genes[Path(s) to genes GTF file(S) containing annotated genes for your genome reference. Specify multiple genomes by specifying the --genes argument multiple times.]':file:_files \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+function _cellranger_mkref_genome_fasta_genes {
+    _arguments \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+
+function _cellranger_mkref_genome_genes {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'genome:Unique genome name(s), used to name output folder'
+            'fasta:Path(s) to FASTA file containing your genome reference.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (genome)
+            _cellranger_mkref_genome_genes_genome
+            ;;
+
+        (fasta)
+            _cellranger_mkref_genome_genes_fasta
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _cellranger_mkref_genome_genes_genome {
+    _arguments \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+function _cellranger_mkref_genome_genes_fasta {
+    _arguments \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+
+function _cellranger_mkref_fasta {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'genome:Unique genome name(s), used to name output folder'
+            'genes:Path(s) to genes GTF file(S) containing annotated genes'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (genome)
+            _cellranger_mkref_fasta_genome
+            ;;
+
+        (genes)
+            _cellranger_mkref_fasta_genes
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+
+function _cellranger_mkref_fasta_genome {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'fasta:Path(s) to FASTA file containing your genome reference.'
+            'genes:Path(s) to genes GTF file(S) containing annotated genes'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (fasta)
+            _cellranger_mkref_fasta_genome_fasta
+            ;;
+
+        (genes)
+            _cellranger_mkref_fasta_genome_genes
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _cellranger_mkref_fasta_genome_fasta {
+    _arguments \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+function _cellranger_mkref_fasta_genome_genes {
+    _arguments \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+
+function _cellranger_mkref_fasta_genes {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'genome:Unique genome name(s), used to name output folder'
+            'fasta:Path(s) to FASTA file containing your genome reference.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (genome)
+            _cellranger_mkref_fasta_genes_genome
+            ;;
+
+        (fasta)
+            _cellranger_mkref_fasta_genes_fasta
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _cellranger_mkref_fasta_genes_genome {
+    _arguments \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+function _cellranger_mkref_fasta_genes_fasta {
+    _arguments \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+
+function _cellranger_mkref_genes {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'genome:Unique genome name(s), used to name output folder'
+            'fasta:Path(s) to FASTA file containing your genome reference.'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (genome)
+            _cellranger_mkref_genes_genome
+            ;;
+
+        (fasta)
+            _cellranger_mkref_genes_fasta
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+
+function _cellranger_mkref_genes_genome {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'fasta:Path(s) to FASTA file containing your genome reference.'
+            'genes:Path(s) to genes GTF file(S) containing annotated genes'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (fasta)
+            _cellranger_mkref_genes_genome_fasta
+            ;;
+
+        (genes)
+            _cellranger_mkref_genes_genome_genes
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _cellranger_mkref_genes_genome_fasta {
+    _arguments \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+function _cellranger_mkref_genes_genome_genes {
+    _arguments \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+
+function _cellranger_mkref_genes_fasta {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'genome:Unique genome name(s), used to name output folder'
+            'genes:Path(s) to genes GTF file(S) containing annotated genes'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (genome)
+            _cellranger_mkref_genes_fasta_genome
+            ;;
+
+        (genes)
+            _cellranger_mkref_genes_fasta_genes
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _cellranger_mkref_genes_fasta_genome {
+    _arguments \
+        {--genome,--fasta,--genes}'[\[options\]]' \
+        '--nthreads[Number of threads used during STAR genome index]' \
+        '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
+        '--ref-version[Optional reference version string to include with]' \
+        {-h,--help}'[Show this message.]' \
+        '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+function _cellranger_mkref_genes_fasta_genes {
+    _arguments \
+        {--genome,--fasta,--genes}'[\[options\]]' \
         '--nthreads[Number of threads used during STAR genome index]' \
         '--memgb[Maximum memory (GB) used when aligning reads with STAR.]' \
         '--ref-version[Optional reference version string to include with]' \
@@ -397,6 +977,12 @@ function _cellranger_sitecheck {
     _arguments \
         {-h,--help}'[Show this message.]' \
         '--version[Show version.]' \
+        "*: :_files"
+
+}
+
+function _cellranger_help {
+    _arguments \
         "*: :_files"
 
 }

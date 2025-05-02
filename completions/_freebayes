@@ -20,7 +20,7 @@ function _freebayes {
         {-v,--vcf}'[Output VCF-format results to FILE. (default: stdout)]':file:_files \
         '--gvcf[Write gVCF output, which indicates coverage in uncalled regions.]' \
         '--gvcf-chunk[When writing gVCF output emit a record for every NUM bases.]' \
-        {-&,--gvcf-dont-use-chunk}'[When writing the gVCF output emit a record for all bases if set to "true" , will also route an int to --gvcf-chunk similar to --output-mode EMIT_ALL_SITES from GATK]' \
+        {-\&,--gvcf-dont-use-chunk}'[When writing the gVCF output emit a record for all bases if set to "true" , will also route an int to --gvcf-chunk similar to --output-mode EMIT_ALL_SITES from GATK]' \
         {-@,--variant-input}'[Use variants reported in VCF file as input to the algorithm. Variants in this file will included in the output even if there is not enough support in the data to pass input filters.]' \
         {-l,--only-use-input-alleles}'[Only provide variant calls and genotype likelihoods for sites and alleles which are provided in the VCF input, and provide output in the VCF for all input alleles, not just those which have support in the data.]' \
         '--haplotype-basis-alleles[When specified, only variant alleles provided in this input VCF will be used for the construction of complex or haplotype alleles.]' \
@@ -51,7 +51,7 @@ function _freebayes {
         {-Q,--mismatch-base-quality-threshold}'[Count mismatches toward --read-mismatch-limit if the base quality of the mismatch is >= Q. default: 10]' \
         {-U,--read-mismatch-limit}'[Exclude reads with more than N mismatches where each mismatch has base quality >= mismatch-base-quality-threshold. default: ~unbounded]' \
         {-z,--read-max-mismatch-fraction}'[Exclude reads with more than N \[0,1\] fraction of mismatches where each mismatch has base quality >= mismatch-base-quality-threshold default: 1.0]' \
-        {-$,--read-snp-limit}'[Exclude reads with more than N base mismatches, ignoring gaps with quality >= mismatch-base-quality-threshold. default: ~unbounded]' \
+        {-\$,--read-snp-limit}'[Exclude reads with more than N base mismatches, ignoring gaps with quality >= mismatch-base-quality-threshold. default: ~unbounded]' \
         {-e,--read-indel-limit}'[Exclude reads with more than N separate gaps. default: ~unbounded]' \
         {-0,--standard-filters}'[Use stringent input base and mapping quality filters   Equivalent to -m 30 -q 20 -R 0 -S 0]' \
         {-F,--min-alternate-fraction}'[Require at least this fraction of observations supporting an alternate allele within a single individual in the in order to evaluate the position. default: 0.05]' \
