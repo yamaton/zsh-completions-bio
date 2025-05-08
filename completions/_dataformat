@@ -1,576 +1,212 @@
 #compdef dataformat
+compdef _dataformat dataformat
 
-# Auto-generated with h2o
+# zsh completion for dataformat                           -*- shell-script -*-
 
-
-function _dataformat {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'tsv:Convert data into TSV format'
-            'excel:Convert data into an Excel workbook'
-            'catalog:Print the package catalog'
-            'completion:Generate autocompletion scripts'
-            'version:Print the version of this client and exit'
-            'help:Help about any command'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        '--force[Force dataformat to run without type check prompt]' \
-        {-h,--help}'[help for dataformat]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (tsv)
-            _dataformat_tsv
-            ;;
-
-        (excel)
-            _dataformat_excel
-            ;;
-
-        (catalog)
-            _dataformat_catalog
-            ;;
-
-        (completion)
-            _dataformat_completion
-            ;;
-
-        (version)
-            _dataformat_version
-            ;;
-
-        (help)
-            _dataformat_help
-            ;;
-
-        esac
-        ;;
-     esac
-
+__dataformat_debug()
+{
+    local file="$BASH_COMP_DEBUG_FILE"
+    if [[ -n ${file} ]]; then
+        echo "$*" >> "${file}"
+    fi
 }
 
+_dataformat()
+{
+    local shellCompDirectiveError=1
+    local shellCompDirectiveNoSpace=2
+    local shellCompDirectiveNoFileComp=4
+    local shellCompDirectiveFilterFileExt=8
+    local shellCompDirectiveFilterDirs=16
+    local shellCompDirectiveKeepOrder=32
 
-function _dataformat_tsv {
-    local line state
+    local lastParam lastChar flagPrefix requestComp out directive comp lastComp noSpace keepOrder
+    local -a completions
 
-    function _commands {
-        local -a commands
-        commands=(
-            'genome:Convert Genome Assembly Data Report into TSV format'
-            'genome-seq:Convert Genome Assembly Sequence Report into TSV format'
-            'gene:Convert Gene Report into TSV format'
-            'gene-product:Convert Gene Product Report into TSV format'
-            'virus-genome:Convert Virus Data Report into TSV format'
-            'virus-annotation:Convert Virus Annotation Report into TSV format'
-            'microbigge:Convert MicroBIGG-E Data Report into TSV format'
-            'prok-gene:Convert Prokaryote Gene Report into TSV format'
-            'prok-gene-location:Convert Prokaryote Gene Location Report into TSV format'
-            'genome-annotations:Convert Genome Annotation Report into TSV format'
-        )
-        _describe 'command' commands
-    }
- 
+    __dataformat_debug "\n========= starting completion logic =========="
+    __dataformat_debug "CURRENT: ${CURRENT}, words[*]: ${words[*]}"
 
-    _arguments -C \
-        '--elide-header[Do not output header]' \
-        {-h,--help}'[help for tsv]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
+    # The user could have moved the cursor backwards on the command-line.
+    # We need to trigger completion from the $CURRENT location, so we need
+    # to truncate the command-line ($words) up to the $CURRENT location.
+    # (We cannot use $CURSOR as its value does not work when a command is an alias.)
+    words=("${=words[1,CURRENT]}")
+    __dataformat_debug "Truncated words[*]: ${words[*]},"
 
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (genome)
-            _dataformat_tsv_genome
-            ;;
+    lastParam=${words[-1]}
+    lastChar=${lastParam[-1]}
+    __dataformat_debug "lastParam: ${lastParam}, lastChar: ${lastChar}"
 
-        (genome-seq)
-            _dataformat_tsv_genome-seq
-            ;;
+    # For zsh, when completing a flag with an = (e.g., dataformat -n=<TAB>)
+    # completions must be prefixed with the flag
+    setopt local_options BASH_REMATCH
+    if [[ "${lastParam}" =~ '-.*=' ]]; then
+        # We are dealing with a flag with an =
+        flagPrefix="-P ${BASH_REMATCH}"
+    fi
 
-        (gene)
-            _dataformat_tsv_gene
-            ;;
+    # Prepare the command to obtain completions
+    requestComp="${words[1]} __complete ${words[2,-1]}"
+    if [ "${lastChar}" = "" ]; then
+        # If the last parameter is complete (there is a space following it)
+        # We add an extra empty parameter so we can indicate this to the go completion code.
+        __dataformat_debug "Adding extra empty parameter"
+        requestComp="${requestComp} \"\""
+    fi
 
-        (gene-product)
-            _dataformat_tsv_gene-product
-            ;;
+    __dataformat_debug "About to call: eval ${requestComp}"
 
-        (virus-genome)
-            _dataformat_tsv_virus-genome
-            ;;
+    # Use eval to handle any environment variables and such
+    out=$(eval ${requestComp} 2>/dev/null)
+    __dataformat_debug "completion output: ${out}"
 
-        (virus-annotation)
-            _dataformat_tsv_virus-annotation
-            ;;
+    # Extract the directive integer following a : from the last line
+    local lastLine
+    while IFS='\n' read -r line; do
+        lastLine=${line}
+    done < <(printf "%s\n" "${out[@]}")
+    __dataformat_debug "last line: ${lastLine}"
 
-        (microbigge)
-            _dataformat_tsv_microbigge
-            ;;
+    if [ "${lastLine[1]}" = : ]; then
+        directive=${lastLine[2,-1]}
+        # Remove the directive including the : and the newline
+        local suffix
+        (( suffix=${#lastLine}+2))
+        out=${out[1,-$suffix]}
+    else
+        # There is no directive specified.  Leave $out as is.
+        __dataformat_debug "No directive found.  Setting do default"
+        directive=0
+    fi
 
-        (prok-gene)
-            _dataformat_tsv_prok-gene
-            ;;
+    __dataformat_debug "directive: ${directive}"
+    __dataformat_debug "completions: ${out}"
+    __dataformat_debug "flagPrefix: ${flagPrefix}"
 
-        (prok-gene-location)
-            _dataformat_tsv_prok-gene-location
-            ;;
+    if [ $((directive & shellCompDirectiveError)) -ne 0 ]; then
+        __dataformat_debug "Completion received error. Ignoring completions."
+        return
+    fi
 
-        (genome-annotations)
-            _dataformat_tsv_genome-annotations
-            ;;
+    local activeHelpMarker="_activeHelp_ "
+    local endIndex=${#activeHelpMarker}
+    local startIndex=$((${#activeHelpMarker}+1))
+    local hasActiveHelp=0
+    while IFS='\n' read -r comp; do
+        # Check if this is an activeHelp statement (i.e., prefixed with $activeHelpMarker)
+        if [ "${comp[1,$endIndex]}" = "$activeHelpMarker" ];then
+            __dataformat_debug "ActiveHelp found: $comp"
+            comp="${comp[$startIndex,-1]}"
+            if [ -n "$comp" ]; then
+                compadd -x "${comp}"
+                __dataformat_debug "ActiveHelp will need delimiter"
+                hasActiveHelp=1
+            fi
 
-        esac
-        ;;
-     esac
+            continue
+        fi
 
+        if [ -n "$comp" ]; then
+            # If requested, completions are returned with a description.
+            # The description is preceded by a TAB character.
+            # For zsh's _describe, we need to use a : instead of a TAB.
+            # We first need to escape any : as part of the completion itself.
+            comp=${comp//:/\\:}
+
+            local tab="$(printf '\t')"
+            comp=${comp//$tab/:}
+
+            __dataformat_debug "Adding completion: ${comp}"
+            completions+=${comp}
+            lastComp=$comp
+        fi
+    done < <(printf "%s\n" "${out[@]}")
+
+    # Add a delimiter after the activeHelp statements, but only if:
+    # - there are completions following the activeHelp statements, or
+    # - file completion will be performed (so there will be choices after the activeHelp)
+    if [ $hasActiveHelp -eq 1 ]; then
+        if [ ${#completions} -ne 0 ] || [ $((directive & shellCompDirectiveNoFileComp)) -eq 0 ]; then
+            __dataformat_debug "Adding activeHelp delimiter"
+            compadd -x "--"
+            hasActiveHelp=0
+        fi
+    fi
+
+    if [ $((directive & shellCompDirectiveNoSpace)) -ne 0 ]; then
+        __dataformat_debug "Activating nospace."
+        noSpace="-S ''"
+    fi
+
+    if [ $((directive & shellCompDirectiveKeepOrder)) -ne 0 ]; then
+        __dataformat_debug "Activating keep order."
+        keepOrder="-V"
+    fi
+
+    if [ $((directive & shellCompDirectiveFilterFileExt)) -ne 0 ]; then
+        # File extension filtering
+        local filteringCmd
+        filteringCmd='_files'
+        for filter in ${completions[@]}; do
+            if [ ${filter[1]} != '*' ]; then
+                # zsh requires a glob pattern to do file filtering
+                filter="\*.$filter"
+            fi
+            filteringCmd+=" -g $filter"
+        done
+        filteringCmd+=" ${flagPrefix}"
+
+        __dataformat_debug "File filtering command: $filteringCmd"
+        _arguments '*:filename:'"$filteringCmd"
+    elif [ $((directive & shellCompDirectiveFilterDirs)) -ne 0 ]; then
+        # File completion for directories only
+        local subdir
+        subdir="${completions[1]}"
+        if [ -n "$subdir" ]; then
+            __dataformat_debug "Listing directories in $subdir"
+            pushd "${subdir}" >/dev/null 2>&1
+        else
+            __dataformat_debug "Listing directories in ."
+        fi
+
+        local result
+        _arguments '*:dirname:_files -/'" ${flagPrefix}"
+        result=$?
+        if [ -n "$subdir" ]; then
+            popd >/dev/null 2>&1
+        fi
+        return $result
+    else
+        __dataformat_debug "Calling _describe"
+        if eval _describe $keepOrder "completions" completions $flagPrefix $noSpace; then
+            __dataformat_debug "_describe found some completions"
+
+            # Return the success of having called _describe
+            return 0
+        else
+            __dataformat_debug "_describe did not find completions."
+            __dataformat_debug "Checking if we should do file completion."
+            if [ $((directive & shellCompDirectiveNoFileComp)) -ne 0 ]; then
+                __dataformat_debug "deactivating file completion"
+
+                # We must return an error code here to let zsh know that there were no
+                # completions found by _describe; this is what will trigger other
+                # matching algorithms to attempt to find completions.
+                # For example zsh can match letters in the middle of words.
+                return 1
+            else
+                # Perform file completion
+                __dataformat_debug "Activating file completion"
+
+                # We must return the result of this command, so it must be the
+                # last command, or else we must store its result to return it.
+                _arguments '*:filename:_files'" ${flagPrefix}"
+            fi
+        fi
+    fi
 }
 
-function _dataformat_tsv_genome {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for genome]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--elide-header[Do not output header]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-function _dataformat_tsv_genome-seq {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for genome-seq]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--elide-header[Do not output header]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-function _dataformat_tsv_gene {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for gene]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--elide-header[Do not output header]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-function _dataformat_tsv_gene-product {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for gene-product]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--elide-header[Do not output header]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-function _dataformat_tsv_virus-genome {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for virus-genome]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--elide-header[Do not output header]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-function _dataformat_tsv_virus-annotation {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for virus-annotation]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--elide-header[Do not output header]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-function _dataformat_tsv_microbigge {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for microbigge]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--elide-header[Do not output header]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-function _dataformat_tsv_prok-gene {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for prok-gene]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--elide-header[Do not output header]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-function _dataformat_tsv_prok-gene-location {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for prok-gene-location]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--elide-header[Do not output header]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-function _dataformat_tsv_genome-annotations {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for genome-annotations]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--elide-header[Do not output header]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-
-function _dataformat_excel {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'genome:Convert Genome Assembly Data Report into an Excel workbook'
-            'genome-seq:Convert Genome Assembly Sequence Report into an Excel workbook'
-            'gene:Convert Gene Report into an Excel workbook'
-            'gene-product:Convert Gene Product Report into an Excel workbook'
-            'virus-genome:Convert Virus Data Report into an Excel workbook'
-            'virus-annotation:Convert Virus Annotation Report into an Excel workbook'
-            'microbigge:Convert MicroBIGG-E Data Report into an Excel workbook'
-            'prok-gene:Convert Prokaryote Gene Report into an Excel workbook'
-            'prok-gene-location:Convert Prokaryote Gene Location Report into an Excel workbook'
-            'genome-annotations:Convert Genome Annotation Report into an Excel workbook'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        {-h,--help}'[help for excel]' \
-        '--outputfile[Excel workbook file]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (genome)
-            _dataformat_excel_genome
-            ;;
-
-        (genome-seq)
-            _dataformat_excel_genome-seq
-            ;;
-
-        (gene)
-            _dataformat_excel_gene
-            ;;
-
-        (gene-product)
-            _dataformat_excel_gene-product
-            ;;
-
-        (virus-genome)
-            _dataformat_excel_virus-genome
-            ;;
-
-        (virus-annotation)
-            _dataformat_excel_virus-annotation
-            ;;
-
-        (microbigge)
-            _dataformat_excel_microbigge
-            ;;
-
-        (prok-gene)
-            _dataformat_excel_prok-gene
-            ;;
-
-        (prok-gene-location)
-            _dataformat_excel_prok-gene-location
-            ;;
-
-        (genome-annotations)
-            _dataformat_excel_genome-annotations
-            ;;
-
-        esac
-        ;;
-     esac
-
-}
-
-function _dataformat_excel_genome {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for genome]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        '--outputfile[Excel workbook file]' \
-        "*: :_files"
-
-}
-
-function _dataformat_excel_genome-seq {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for genome-seq]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        '--outputfile[Excel workbook file]' \
-        "*: :_files"
-
-}
-
-function _dataformat_excel_gene {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for gene]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        '--outputfile[Excel workbook file]' \
-        "*: :_files"
-
-}
-
-function _dataformat_excel_gene-product {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for gene-product]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        '--outputfile[Excel workbook file]' \
-        "*: :_files"
-
-}
-
-function _dataformat_excel_virus-genome {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for virus-genome]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        '--outputfile[Excel workbook file]' \
-        "*: :_files"
-
-}
-
-function _dataformat_excel_virus-annotation {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for virus-annotation]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        '--outputfile[Excel workbook file]' \
-        "*: :_files"
-
-}
-
-function _dataformat_excel_microbigge {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for microbigge]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        '--outputfile[Excel workbook file]' \
-        "*: :_files"
-
-}
-
-function _dataformat_excel_prok-gene {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for prok-gene]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        '--outputfile[Excel workbook file]' \
-        "*: :_files"
-
-}
-
-function _dataformat_excel_prok-gene-location {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for prok-gene-location]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        '--outputfile[Excel workbook file]' \
-        "*: :_files"
-
-}
-
-function _dataformat_excel_genome-annotations {
-    _arguments \
-        '--fields[Comma-separated list of fields]' \
-        {-h,--help}'[help for genome-annotations]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        '--outputfile[Excel workbook file]' \
-        "*: :_files"
-
-}
-
-function _dataformat_catalog {
-    _arguments \
-        {-h,--help}'[help for catalog]' \
-        '--inputfile[Input file]' \
-        '--package[Data package (zip archive), inputfile parameter is relative to the root path inside the archive]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-
-function _dataformat_completion {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'bash:Generate bash autocompletion script'
-            'zsh:Generate zsh autocompletion script'
-            'fish:Generate fish autocompletion script'
-            'powershell:Generate powershell autocompletion script'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        {-h,--help}'[help for completion]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (bash)
-            _dataformat_completion_bash
-            ;;
-
-        (zsh)
-            _dataformat_completion_zsh
-            ;;
-
-        (fish)
-            _dataformat_completion_fish
-            ;;
-
-        (powershell)
-            _dataformat_completion_powershell
-            ;;
-
-        esac
-        ;;
-     esac
-
-}
-
-function _dataformat_completion_bash {
-    _arguments \
-        {-h,--help}'[help for bash]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-function _dataformat_completion_zsh {
-    _arguments \
-        {-h,--help}'[help for zsh]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-function _dataformat_completion_fish {
-    _arguments \
-        {-h,--help}'[help for fish]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-function _dataformat_completion_powershell {
-    _arguments \
-        {-h,--help}'[help for powershell]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-function _dataformat_version {
-    _arguments \
-        {-h,--help}'[help for version]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-function _dataformat_help {
-    _arguments \
-        {-h,--help}'[help for help]' \
-        '--force[Force dataformat to run without type check prompt]' \
-        "*: :_files"
-
-}
-
-_dataformat "$@"
-
+# don't run the completion function when being source-ed or eval-ed
+if [ "$funcstack[1]" = "_dataformat" ]; then
+    _dataformat
+fi
