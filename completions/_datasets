@@ -1,1324 +1,212 @@
 #compdef datasets
+compdef _datasets datasets
 
-# Auto-generated with h2o
+# zsh completion for datasets                             -*- shell-script -*-
 
-
-function _datasets {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'summary:Print a data report containing gene, genome or virus metadata'
-            'download:Download a gene, genome or virus dataset as a zip file'
-            'rehydrate:Rehydrate a downloaded, dehydrated dataset'
-            'completion:Generate autocompletion scripts'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--version[Print version of datasets]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (summary)
-            _datasets_summary
-            ;;
-
-        (download)
-            _datasets_download
-            ;;
-
-        (rehydrate)
-            _datasets_rehydrate
-            ;;
-
-        (completion)
-            _datasets_completion
-            ;;
-
-        esac
-        ;;
-     esac
-
+__datasets_debug()
+{
+    local file="$BASH_COMP_DEBUG_FILE"
+    if [[ -n ${file} ]]; then
+        echo "$*" >> "${file}"
+    fi
 }
 
+_datasets()
+{
+    local shellCompDirectiveError=1
+    local shellCompDirectiveNoSpace=2
+    local shellCompDirectiveNoFileComp=4
+    local shellCompDirectiveFilterFileExt=8
+    local shellCompDirectiveFilterDirs=16
+    local shellCompDirectiveKeepOrder=32
 
-function _datasets_summary {
-    local line state
+    local lastParam lastChar flagPrefix requestComp out directive comp lastComp noSpace keepOrder
+    local -a completions
 
-    function _commands {
-        local -a commands
-        commands=(
-            'gene:Print a summary of a gene dataset'
-            'genome:Print a data report containing genome metadata'
-            'virus:Print a data report containing virus genome metadata'
-        )
-        _describe 'command' commands
-    }
- 
+    __datasets_debug "\n========= starting completion logic =========="
+    __datasets_debug "CURRENT: ${CURRENT}, words[*]: ${words[*]}"
 
-    _arguments -C \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--version[Print version of datasets]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
+    # The user could have moved the cursor backwards on the command-line.
+    # We need to trigger completion from the $CURRENT location, so we need
+    # to truncate the command-line ($words) up to the $CURRENT location.
+    # (We cannot use $CURSOR as its value does not work when a command is an alias.)
+    words=("${=words[1,CURRENT]}")
+    __datasets_debug "Truncated words[*]: ${words[*]},"
 
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (gene)
-            _datasets_summary_gene
-            ;;
+    lastParam=${words[-1]}
+    lastChar=${lastParam[-1]}
+    __datasets_debug "lastParam: ${lastParam}, lastChar: ${lastChar}"
 
-        (genome)
-            _datasets_summary_genome
-            ;;
+    # For zsh, when completing a flag with an = (e.g., datasets -n=<TAB>)
+    # completions must be prefixed with the flag
+    setopt local_options BASH_REMATCH
+    if [[ "${lastParam}" =~ '-.*=' ]]; then
+        # We are dealing with a flag with an =
+        flagPrefix="-P ${BASH_REMATCH}"
+    fi
 
-        (virus)
-            _datasets_summary_virus
-            ;;
+    # Prepare the command to obtain completions
+    requestComp="${words[1]} __complete ${words[2,-1]}"
+    if [ "${lastChar}" = "" ]; then
+        # If the last parameter is complete (there is a space following it)
+        # We add an extra empty parameter so we can indicate this to the go completion code.
+        __datasets_debug "Adding extra empty parameter"
+        requestComp="${requestComp} \"\""
+    fi
 
-        esac
-        ;;
-     esac
+    __datasets_debug "About to call: eval ${requestComp}"
 
+    # Use eval to handle any environment variables and such
+    out=$(eval ${requestComp} 2>/dev/null)
+    __datasets_debug "completion output: ${out}"
+
+    # Extract the directive integer following a : from the last line
+    local lastLine
+    while IFS='\n' read -r line; do
+        lastLine=${line}
+    done < <(printf "%s\n" "${out[@]}")
+    __datasets_debug "last line: ${lastLine}"
+
+    if [ "${lastLine[1]}" = : ]; then
+        directive=${lastLine[2,-1]}
+        # Remove the directive including the : and the newline
+        local suffix
+        (( suffix=${#lastLine}+2))
+        out=${out[1,-$suffix]}
+    else
+        # There is no directive specified.  Leave $out as is.
+        __datasets_debug "No directive found.  Setting do default"
+        directive=0
+    fi
+
+    __datasets_debug "directive: ${directive}"
+    __datasets_debug "completions: ${out}"
+    __datasets_debug "flagPrefix: ${flagPrefix}"
+
+    if [ $((directive & shellCompDirectiveError)) -ne 0 ]; then
+        __datasets_debug "Completion received error. Ignoring completions."
+        return
+    fi
+
+    local activeHelpMarker="_activeHelp_ "
+    local endIndex=${#activeHelpMarker}
+    local startIndex=$((${#activeHelpMarker}+1))
+    local hasActiveHelp=0
+    while IFS='\n' read -r comp; do
+        # Check if this is an activeHelp statement (i.e., prefixed with $activeHelpMarker)
+        if [ "${comp[1,$endIndex]}" = "$activeHelpMarker" ];then
+            __datasets_debug "ActiveHelp found: $comp"
+            comp="${comp[$startIndex,-1]}"
+            if [ -n "$comp" ]; then
+                compadd -x "${comp}"
+                __datasets_debug "ActiveHelp will need delimiter"
+                hasActiveHelp=1
+            fi
+
+            continue
+        fi
+
+        if [ -n "$comp" ]; then
+            # If requested, completions are returned with a description.
+            # The description is preceded by a TAB character.
+            # For zsh's _describe, we need to use a : instead of a TAB.
+            # We first need to escape any : as part of the completion itself.
+            comp=${comp//:/\\:}
+
+            local tab="$(printf '\t')"
+            comp=${comp//$tab/:}
+
+            __datasets_debug "Adding completion: ${comp}"
+            completions+=${comp}
+            lastComp=$comp
+        fi
+    done < <(printf "%s\n" "${out[@]}")
+
+    # Add a delimiter after the activeHelp statements, but only if:
+    # - there are completions following the activeHelp statements, or
+    # - file completion will be performed (so there will be choices after the activeHelp)
+    if [ $hasActiveHelp -eq 1 ]; then
+        if [ ${#completions} -ne 0 ] || [ $((directive & shellCompDirectiveNoFileComp)) -eq 0 ]; then
+            __datasets_debug "Adding activeHelp delimiter"
+            compadd -x "--"
+            hasActiveHelp=0
+        fi
+    fi
+
+    if [ $((directive & shellCompDirectiveNoSpace)) -ne 0 ]; then
+        __datasets_debug "Activating nospace."
+        noSpace="-S ''"
+    fi
+
+    if [ $((directive & shellCompDirectiveKeepOrder)) -ne 0 ]; then
+        __datasets_debug "Activating keep order."
+        keepOrder="-V"
+    fi
+
+    if [ $((directive & shellCompDirectiveFilterFileExt)) -ne 0 ]; then
+        # File extension filtering
+        local filteringCmd
+        filteringCmd='_files'
+        for filter in ${completions[@]}; do
+            if [ ${filter[1]} != '*' ]; then
+                # zsh requires a glob pattern to do file filtering
+                filter="\*.$filter"
+            fi
+            filteringCmd+=" -g $filter"
+        done
+        filteringCmd+=" ${flagPrefix}"
+
+        __datasets_debug "File filtering command: $filteringCmd"
+        _arguments '*:filename:'"$filteringCmd"
+    elif [ $((directive & shellCompDirectiveFilterDirs)) -ne 0 ]; then
+        # File completion for directories only
+        local subdir
+        subdir="${completions[1]}"
+        if [ -n "$subdir" ]; then
+            __datasets_debug "Listing directories in $subdir"
+            pushd "${subdir}" >/dev/null 2>&1
+        else
+            __datasets_debug "Listing directories in ."
+        fi
+
+        local result
+        _arguments '*:dirname:_files -/'" ${flagPrefix}"
+        result=$?
+        if [ -n "$subdir" ]; then
+            popd >/dev/null 2>&1
+        fi
+        return $result
+    else
+        __datasets_debug "Calling _describe"
+        if eval _describe $keepOrder "completions" completions $flagPrefix $noSpace; then
+            __datasets_debug "_describe found some completions"
+
+            # Return the success of having called _describe
+            return 0
+        else
+            __datasets_debug "_describe did not find completions."
+            __datasets_debug "Checking if we should do file completion."
+            if [ $((directive & shellCompDirectiveNoFileComp)) -ne 0 ]; then
+                __datasets_debug "deactivating file completion"
+
+                # We must return an error code here to let zsh know that there were no
+                # completions found by _describe; this is what will trigger other
+                # matching algorithms to attempt to find completions.
+                # For example zsh can match letters in the middle of words.
+                return 1
+            else
+                # Perform file completion
+                __datasets_debug "Activating file completion"
+
+                # We must return the result of this command, so it must be the
+                # last command, or else we must store its result to return it.
+                _arguments '*:filename:_files'" ${flagPrefix}"
+            fi
+        fi
+    fi
 }
 
-
-function _datasets_summary_gene {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'gene-id:Print a data report containing gene metadata by NCBI Gene ID'
-            'symbol:Print a data report containing gene metadata by gene symbol'
-            'accession:Print a data report containing gene metadata by RefSeq nucleotide or protein accession'
-            'taxon:Print a data report containing gene metadata by taxon (NCBI Taxonomy ID, scientific or common name at any tax rank)'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        '--as-json-lines[Stream results as newline delimited JSON-Lines]' \
-        '--limit[Limit the number of gene summaries returned (default "all")]' \
-        '--report[Choose the output type]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--version[Print version of datasets]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (gene-id)
-            _datasets_summary_gene_gene-id
-            ;;
-
-        (symbol)
-            _datasets_summary_gene_symbol
-            ;;
-
-        (accession)
-            _datasets_summary_gene_accession
-            ;;
-
-        (taxon)
-            _datasets_summary_gene_taxon
-            ;;
-
-        esac
-        ;;
-     esac
-
-}
-
-function _datasets_summary_gene_gene-id {
-    _arguments \
-        '--inputfile[Read a list of NCBI Gene IDs from a file to use as input]' \
-        '--ortholog[Retrieves data for an ortholog set. Provide one or more taxa (any rank) to filter results or '\''all'\'' for the complete set.]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--as-json-lines[Stream results as newline delimited JSON-Lines]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--limit[Limit the number of gene summaries returned]' \
-        '--report[Choose the output type:]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-function _datasets_summary_gene_symbol {
-    _arguments \
-        '--inputfile[Read a list of NCBI Gene Symbols from a file to use as input]' \
-        '--ortholog[Retrieves data for an ortholog set. Provide one or more taxa (any rank) to filter results or '\''all'\'' for the complete set.]' \
-        '--taxon[Define species (NCBI taxid, common or scientific name) for gene symbol (default "human")]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--as-json-lines[Stream results as newline delimited JSON-Lines]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--limit[Limit the number of gene summaries returned]' \
-        '--report[Choose the output type:]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-function _datasets_summary_gene_accession {
-    _arguments \
-        '--inputfile[Read a list of NCBI Gene Accessions from a file to use as input]' \
-        '--ortholog[Retrieves data for an ortholog set. Provide one or more taxa (any rank) to filter results or '\''all'\'' for the complete set.]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--as-json-lines[Stream results as newline delimited JSON-Lines]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--limit[Limit the number of gene summaries returned]' \
-        '--report[Choose the output type:]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-function _datasets_summary_gene_taxon {
-    _arguments \
-        '--api-key[Specify an NCBI API key]' \
-        '--as-json-lines[Stream results as newline delimited JSON-Lines]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--limit[Limit the number of gene summaries returned]' \
-        '--report[Choose the output type:]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-
-function _datasets_summary_genome {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'accession:Print a data report containing genome metadata by Assembly or BioProject accession'
-            'taxon:Print a data report containing genome metadata by taxon (NCBI Taxonomy ID, scientific or common name at any tax rank)'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        '--annotated[Limit to annotated genomes]' \
-        '--as-json-lines[Output results in JSON Lines format]' \
-        '--assembly-level[Limit to genomes at one or more assembly levels (comma-separated):]' \
-        '--assembly-source[Limit to '\''RefSeq'\'' (GCF_) or '\''GenBank'\'' (GCA_) genomes (default "all")]' \
-        '--exclude-atypical[Exclude atypical assemblies]' \
-        '--limit[Limit the number of genome summaries returned]' \
-        '--mag[Limit to metagenome assembled genomes (only) or remove them from the results (exclude) (default "all")]' \
-        '--reference[Limit to reference genomes]' \
-        '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
-        '--released-before[Limit to genomes released on or before a specified date (MM/DD/YYYY)]' \
-        '--report[Choose the output type:]' \
-        '--search[Limit results to genomes with specified text in the searchable fields: species and infraspecies, assembly name and submitter. To search multiple strings, use the flag multiple times.]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--version[Print version of datasets]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (accession)
-            _datasets_summary_genome_accession
-            ;;
-
-        (taxon)
-            _datasets_summary_genome_taxon
-            ;;
-
-        esac
-        ;;
-     esac
-
-}
-
-function _datasets_summary_genome_accession {
-    _arguments \
-        '--assembly-version[Limit to '\''latest'\'' assembly accession version or include '\''all'\'' (latest + previous versions)]' \
-        '--inputfile[Read a list of NCBI Assembly or BioProject accessions from a file to use as input]' \
-        '--annotated[Limit to annotated genomes]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--as-json-lines[Output results in JSON Lines format]' \
-        '--assembly-level[Limit to genomes at one or more assembly levels (comma-separated):]' \
-        '--assembly-source[Limit to '\''RefSeq'\'' (GCF_) or '\''GenBank'\'' (GCA_) genomes (default "all")]' \
-        '--debug[Emit debugging info]' \
-        '--exclude-atypical[Exclude atypical assemblies]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--limit[Limit the number of genome summaries returned]' \
-        '--mag[Limit to metagenome assembled genomes (only) or remove them from the results (exclude) (default "all")]' \
-        '--reference[Limit to reference genomes]' \
-        '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
-        '--released-before[Limit to genomes released on or before a specified date (MM/DD/YYYY)]' \
-        '--report[Choose the output type:]' \
-        '--search[Limit results to genomes with specified text in the searchable fields: species and infraspecies, assembly name and submitter. To search multiple strings, use the flag multiple times.]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-function _datasets_summary_genome_taxon {
-    _arguments \
-        '--assembly-version[Limit to '\''latest'\'' assembly accession version or include '\''all'\'' (latest + previous versions)]' \
-        '--annotated[Limit to annotated genomes]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--as-json-lines[Output results in JSON Lines format]' \
-        '--assembly-level[Limit to genomes at one or more assembly levels (comma-separated):]' \
-        '--assembly-source[Limit to '\''RefSeq'\'' (GCF_) or '\''GenBank'\'' (GCA_) genomes (default "all")]' \
-        '--debug[Emit debugging info]' \
-        '--exclude-atypical[Exclude atypical assemblies]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--limit[Limit the number of genome summaries returned]' \
-        '--mag[Limit to metagenome assembled genomes (only) or remove them from the results (exclude) (default "all")]' \
-        '--reference[Limit to reference genomes]' \
-        '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
-        '--released-before[Limit to genomes released on or before a specified date (MM/DD/YYYY)]' \
-        '--report[Choose the output type:]' \
-        '--search[Limit results to genomes with specified text in the searchable fields: species and infraspecies, assembly name and submitter. To search multiple strings, use the flag multiple times.]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-
-function _datasets_summary_virus {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'genome:Print a data report containing virus genome metadata by accession or taxon'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--version[Print version of datasets]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (genome)
-            _datasets_summary_virus_genome
-            ;;
-
-        esac
-        ;;
-     esac
-
-}
-
-
-function _datasets_summary_virus_genome {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'taxon:Print a data report containing virus genome metadata by taxon (NCBI Taxonomy ID, scientific or common name for any virus at any tax rank)'
-            'accession:Print a data report containing virus genome metadata by accession'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        '--annotated[Limit to annotated genomes]' \
-        '--as-json-lines[Output results in JSON Lines format]' \
-        '--complete-only[Limit to complete genomes]' \
-        '--geo-location[Limit to genomes isolated from a specified geographic location (continent, country or U.S. state)]' \
-        '--host[Limit to virus genomes isolated from a specified host species]' \
-        '--limit[Limit the number of virus summaries returned (default "all")]' \
-        '--lineage[Limit results by Pango lineage (only SARS-CoV-2)]' \
-        '--refseq[Limit to RefSeq genomes]' \
-        '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
-        '--report[Specify report virus genome report summary type (default "virus")]' \
-        '--updated-after[Limit to genomes updated on or after a specified date (MM/DD/YYYY)]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--version[Print version of datasets]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (taxon)
-            _datasets_summary_virus_genome_taxon
-            ;;
-
-        (accession)
-            _datasets_summary_virus_genome_accession
-            ;;
-
-        esac
-        ;;
-     esac
-
-}
-
-function _datasets_summary_virus_genome_taxon {
-    _arguments \
-        '--annotated[Limit to annotated genomes]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--as-json-lines[Output results in JSON Lines format]' \
-        '--complete-only[Limit to complete genomes]' \
-        '--debug[Emit debugging info]' \
-        '--geo-location[Limit to genomes isolated from a specified geographic location (continent, country or U.S. state)]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--host[Limit to virus genomes isolated from a specified host species]' \
-        '--limit[Limit the number of virus summaries returned]' \
-        '--lineage[Limit results by Pango lineage (only SARS-CoV-2)]' \
-        '--refseq[Limit to RefSeq genomes]' \
-        '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
-        '--report[Specify report virus genome report summary type]' \
-        '--updated-after[Limit to genomes updated on or after a specified date (MM/DD/YYYY)]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-function _datasets_summary_virus_genome_accession {
-    _arguments \
-        '--inputfile[Read a list of nucleotide accessions from a file to use as input]' \
-        '--annotated[Limit to annotated genomes]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--as-json-lines[Output results in JSON Lines format]' \
-        '--complete-only[Limit to complete genomes]' \
-        '--debug[Emit debugging info]' \
-        '--geo-location[Limit to genomes isolated from a specified geographic location (continent, country or U.S. state)]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--host[Limit to virus genomes isolated from a specified host species]' \
-        '--limit[Limit the number of virus summaries returned]' \
-        '--lineage[Limit results by Pango lineage (only SARS-CoV-2)]' \
-        '--refseq[Limit to RefSeq genomes]' \
-        '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
-        '--report[Specify report virus genome report summary type]' \
-        '--updated-after[Limit to genomes updated on or after a specified date (MM/DD/YYYY)]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-
-function _datasets_download {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'gene:Download a gene data package'
-            'genome:Download a genome data package'
-            'virus:Download a virus data package'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
-        '--no-progressbar[Hide progress bar]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--version[Print version of datasets]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (gene)
-            _datasets_download_gene
-            ;;
-
-        (genome)
-            _datasets_download_genome
-            ;;
-
-        (virus)
-            _datasets_download_virus
-            ;;
-
-        esac
-        ;;
-     esac
-
-}
-
-
-function _datasets_download_gene {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'gene-id:Download a gene data package by NCBI Gene ID'
-            'symbol:Download a gene data package by gene symbol'
-            'accession:Download a gene data package by RefSeq nucleotide or protein accession'
-            'taxon:Download a gene data package by taxon (NCBI Taxonomy ID, scientific or common name at any tax rank)'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        '--fasta-filter[Limit protein and RNA sequence files to the specified RefSeq nucleotide and protein accessions]' \
-        '--fasta-filter-file[Limit protein and RNA sequence files to the specified RefSeq nucleotide and protein accessions included in the specified file]' \
-        '--preview[Show information about the requested data package]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--no-progressbar[Hide progress bar]' \
-        '--version[Print version of datasets]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (gene-id)
-            _datasets_download_gene_gene-id
-            ;;
-
-        (symbol)
-            _datasets_download_gene_symbol
-            ;;
-
-        (accession)
-            _datasets_download_gene_accession
-            ;;
-
-        (taxon)
-            _datasets_download_gene_taxon
-            ;;
-
-        esac
-        ;;
-     esac
-
-}
-
-function _datasets_download_gene_gene-id {
-    _arguments \
-        '--include[Specify the data files to include (comma-separated). {gene, rna, protein, cds, 5p-utr, 3p-utr, product-report, none}. (default \[rna,protein\])]' \
-        '--inputfile[Read a list of NCBI Gene IDs from a file to use as input]' \
-        '--ortholog[Retrieves data for an ortholog set. Provide one or more taxa (any rank) to filter results or '\''all'\'' for the complete set.]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--fasta-filter[Limit protein and RNA sequence files to the specified RefSeq nucleotide and protein accessions]' \
-        '--fasta-filter-file[Limit protein and RNA sequence files to the specified RefSeq nucleotide and protein accessions included in the specified file]' \
-        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--no-progressbar[Hide progress bar]' \
-        '--preview[Show information about the requested data package]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-function _datasets_download_gene_symbol {
-    _arguments \
-        '--include[Specify the data files to include (comma-separated). {gene, rna, protein, cds, 5p-utr, 3p-utr, product-report, none}. (default \[rna,protein\])]' \
-        '--inputfile[Read a list of NCBI Gene Symbols from a file to use as input]' \
-        '--ortholog[Retrieves data for an ortholog set. Provide one or more taxa (any rank) to filter results or '\''all'\'' for the complete set.]' \
-        '--taxon[Define species (NCBI taxid, common or scientific name) for gene symbol (default "human")]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--fasta-filter[Limit protein and RNA sequence files to the specified RefSeq nucleotide and protein accessions]' \
-        '--fasta-filter-file[Limit protein and RNA sequence files to the specified RefSeq nucleotide and protein accessions included in the specified file]' \
-        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--no-progressbar[Hide progress bar]' \
-        '--preview[Show information about the requested data package]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-function _datasets_download_gene_accession {
-    _arguments \
-        '--include[Specify the data files to include (comma-separated). {gene, rna, protein, cds, 5p-utr, 3p-utr, product-report, none}. (default \[\])]' \
-        '--include-flanks-bp[Specify the length of flanking nucleotides (WP accessions only)]' \
-        '--inputfile[Read a list of NCBI Gene Accessions from a file to use as input]' \
-        '--ortholog[Retrieves data for an ortholog set. Provide one or more taxa (any rank) to filter results or '\''all'\'' for the complete set.]' \
-        '--taxon-filter[Limit gene sequences and annotation report file to specified taxon (any rank, only available for WP accessions)]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--fasta-filter[Limit protein and RNA sequence files to the specified RefSeq nucleotide and protein accessions]' \
-        '--fasta-filter-file[Limit protein and RNA sequence files to the specified RefSeq nucleotide and protein accessions included in the specified file]' \
-        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--no-progressbar[Hide progress bar]' \
-        '--preview[Show information about the requested data package]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-function _datasets_download_gene_taxon {
-    _arguments \
-        '--include[Specify the data files to include (comma-separated). {gene, rna, protein, cds, 5p-utr, 3p-utr, product-report, none}. (default \[rna,protein\])]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--fasta-filter[Limit protein and RNA sequence files to the specified RefSeq nucleotide and protein accessions]' \
-        '--fasta-filter-file[Limit protein and RNA sequence files to the specified RefSeq nucleotide and protein accessions included in the specified file]' \
-        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--no-progressbar[Hide progress bar]' \
-        '--preview[Show information about the requested data package]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-
-function _datasets_download_genome {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'accession:Download a genome data package by Assembly or BioProject accession'
-            'taxon:Download a genome data package by taxon (NCBI Taxonomy ID, scientific or common name at any tax rank)'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        '--annotated[Limit to annotated genomes]' \
-        '--assembly-level[Limit to genomes at one or more assembly levels (comma-separated): {chromosome,complete,contig,scaffold} (default "\[\]")]' \
-        '--assembly-source[Limit to '\''RefSeq'\'' (GCF_) or '\''GenBank'\'' (GCA_) genomes (default "all")]' \
-        '--chromosomes[Limit to a specified, comma-delimited list of chromosomes, or '\''all'\'' for all chromosomes]' \
-        '--dehydrated[Download a dehydrated zip archive including the data report and locations of data files (use the rehydrate command to retrieve data files).]' \
-        '--exclude-atypical[Exclude atypical assemblies]' \
-        '--mag[Limit to metagenome assembled genomes (only) or remove them from the results (exclude) (default "all")]' \
-        '--preview[Show information about the requested data package]' \
-        '--reference[Limit to reference genomes]' \
-        '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
-        '--released-before[Limit to genomes released on or before a specified date (MM/DD/YYYY)]' \
-        '--search[Limit results to genomes with specified text in the searchable fields: species and infraspecies, assembly name and submitter. To search multiple strings, use the flag multiple times.]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--no-progressbar[Hide progress bar]' \
-        '--version[Print version of datasets]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (accession)
-            _datasets_download_genome_accession
-            ;;
-
-        (taxon)
-            _datasets_download_genome_taxon
-            ;;
-
-        esac
-        ;;
-     esac
-
-}
-
-function _datasets_download_genome_accession {
-    _arguments \
-        '--assembly-version[Limit to '\''latest'\'' assembly accession version or include '\''all'\'' (latest + previous versions)]' \
-        '--include[Specify the data files to include (comma-separated). {genome, rna, protein, cds, gff3, gtf, gbff, seq-report, none}. (default \[genome\])]' \
-        '--inputfile[Read a list of NCBI Assembly or BioProject accessions from a file to use as input]' \
-        '--annotated[Limit to annotated genomes]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--assembly-level[Limit to genomes at one or more assembly levels (comma-separated): {chromosome,complete,contig,scaffold} (default "\[\]")]' \
-        '--assembly-source[Limit to '\''RefSeq'\'' (GCF_) or '\''GenBank'\'' (GCA_) genomes (default "all")]' \
-        '--chromosomes[Limit to a specified, comma-delimited list of chromosomes, or '\''all'\'' for all chromosomes]' \
-        '--debug[Emit debugging info]' \
-        '--dehydrated[Download a dehydrated zip archive including the data report and locations of data files (use the rehydrate command to retrieve data files).]' \
-        '--exclude-atypical[Exclude atypical assemblies]' \
-        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--mag[Limit to metagenome assembled genomes (only) or remove them from the results (exclude) (default "all")]' \
-        '--no-progressbar[Hide progress bar]' \
-        '--preview[Show information about the requested data package]' \
-        '--reference[Limit to reference genomes]' \
-        '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
-        '--released-before[Limit to genomes released on or before a specified date (MM/DD/YYYY)]' \
-        '--search[Limit results to genomes with specified text in the searchable fields: species and infraspecies, assembly name and submitter. To search multiple strings, use the flag multiple times.]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-function _datasets_download_genome_taxon {
-    _arguments \
-        '--assembly-version[Limit to '\''latest'\'' assembly accession version or include '\''all'\'' (latest + previous versions) (default "latest")]' \
-        '--include[Specify the data files to include (comma-separated). {genome, rna, protein, cds, gff3, gtf, gbff, seq-report, none}. (default \[genome\])]' \
-        '--reference[Limit to reference genomes]' \
-        '--tax-exact-match[Exclude sub-species when a species-level taxon is specified]' \
-        '--annotated[Limit to annotated genomes]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--assembly-level[Limit to genomes at one or more assembly levels (comma-separated):]' \
-        '--assembly-source[Limit to '\''RefSeq'\'' (GCF_) or '\''GenBank'\'' (GCA_) genomes (default "all")]' \
-        '--chromosomes[Limit to a specified, comma-delimited list of chromosomes, or '\''all'\'' for all chromosomes]' \
-        '--debug[Emit debugging info]' \
-        '--dehydrated[Download a dehydrated zip archive including the data report and locations of data files (use the rehydrate command to retrieve data files).]' \
-        '--exclude-atypical[Exclude atypical assemblies]' \
-        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--mag[Limit to metagenome assembled genomes (only) or remove them from the results (exclude) (default "all")]' \
-        '--no-progressbar[Hide progress bar]' \
-        '--preview[Show information about the requested data package]' \
-        '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
-        '--released-before[Limit to genomes released on or before a specified date (MM/DD/YYYY)]' \
-        '--search[Limit results to genomes with specified text in the searchable fields: species and infraspecies, assembly name and submitter. To search multiple strings, use the flag multiple times.]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-
-function _datasets_download_virus {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'genome:Download a virus genome dataset by accession or taxon'
-            'protein:Download a SARS-CoV-2 protein dataset by protein name'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--no-progressbar[Hide progress bar]' \
-        '--version[Print version of datasets]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (genome)
-            _datasets_download_virus_genome
-            ;;
-
-        (protein)
-            _datasets_download_virus_protein
-            ;;
-
-        esac
-        ;;
-     esac
-
-}
-
-
-function _datasets_download_virus_genome {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'accession:Download a virus genome data package by accession.'
-            'taxon:Download a virus genome data package by taxon (NCBI Taxonomy ID, scientific or common name for any virus at any tax rank)'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        '--annotated[Limit to annotated genomes]' \
-        '--complete-only[Limit to complete genomes]' \
-        '--geo-location[Limit to genomes isolated from a specified geographic location (continent, country or U.S. state)]' \
-        '--host[Limit to virus genomes isolated from a specified host species]' \
-        '--include[Specify the data files to include (comma-separated). {genome, cds, protein, annotation, biosample, none}. (default \[genome\])]' \
-        '--lineage[Limit results by Pango lineage (only SARS-CoV-2)]' \
-        '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
-        '--updated-after[Limit to genomes updated on or after a specified date (MM/DD/YYYY)]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--no-progressbar[Hide progress bar]' \
-        '--version[Print version of datasets]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (accession)
-            _datasets_download_virus_genome_accession
-            ;;
-
-        (taxon)
-            _datasets_download_virus_genome_taxon
-            ;;
-
-        esac
-        ;;
-     esac
-
-}
-
-function _datasets_download_virus_genome_accession {
-    _arguments \
-        '--inputfile[Read a list of nucleotide accessions from a file to use as input]' \
-        '--annotated[Limit to annotated genomes]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--complete-only[Limit to complete genomes]' \
-        '--debug[Emit debugging info]' \
-        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
-        '--geo-location[Limit to genomes isolated from a specified geographic location (continent, country or U.S. state)]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--host[Limit to virus genomes isolated from a specified host species]' \
-        '--include[Specify the data files to include (comma-separated). {genome, cds, protein, annotation, biosample, none}. (default \[genome\])]' \
-        '--lineage[Limit results by Pango lineage (only SARS-CoV-2)]' \
-        '--no-progressbar[Hide progress bar]' \
-        '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
-        '--updated-after[Limit to genomes updated on or after a specified date (MM/DD/YYYY)]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_genome_taxon {
-    _arguments \
-        '--refseq[Limit to RefSeq genomes]' \
-        '--annotated[Limit to annotated genomes]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--complete-only[Limit to complete genomes]' \
-        '--debug[Emit debugging info]' \
-        '--filename[Specify a custom file name for the downloaded data package (default "ncbi_dataset.zip")]' \
-        '--geo-location[Limit to genomes isolated from a specified geographic location (continent, country or U.S. state)]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--host[Limit to virus genomes isolated from a specified host species]' \
-        '--include[Specify the data files to include (comma-separated). {genome, cds, protein, annotation, biosample, none}. (default \[genome\])]' \
-        '--lineage[Limit results by Pango lineage (only SARS-CoV-2)]' \
-        '--no-progressbar[Hide progress bar]' \
-        '--released-after[Limit to genomes released on or after a specified date (MM/DD/YYYY)]' \
-        '--updated-after[Limit to genomes updated on or after a specified date (MM/DD/YYYY)]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-
-function _datasets_download_virus_protein {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'ORF1ab:ORF1ab protein'
-            'ORF1a:ORF1a protein'
-            'nsp1:nsp1 protein'
-            'nsp2:nsp2 protein'
-            'nsp3:nsp3 protein'
-            'nsp4:nsp4 protein'
-            'nsp5:nsp5 protein'
-            'nsp6:nsp6 protein'
-            'nsp7:nsp7 protein'
-            'nsp8:nsp8 protein'
-            'nsp9:nsp9 protein'
-            'nsp10:nsp10 protein'
-            'rdrp:rdrp protein'
-            'nsp11:nsp11 protein'
-            'nsp13:nsp13 protein'
-            'nsp14:nsp14 protein'
-            'nsp15:nsp15 protein'
-            'nsp16:nsp16 protein'
-            'S:S protein'
-            'ORF3a:ORF3a protein'
-            'E:E protein'
-            'M:M protein'
-            'ORF6:ORF6 protein'
-            'ORF7a:ORF7a protein'
-            'ORF7b:ORF7b protein'
-            'ORF8:ORF8 protein'
-            'N:N protein'
-            'ORF10:ORF10 protein'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (ORF1ab)
-            _datasets_download_virus_protein_ORF1ab
-            ;;
-
-        (ORF1a)
-            _datasets_download_virus_protein_ORF1a
-            ;;
-
-        (nsp1)
-            _datasets_download_virus_protein_nsp1
-            ;;
-
-        (nsp2)
-            _datasets_download_virus_protein_nsp2
-            ;;
-
-        (nsp3)
-            _datasets_download_virus_protein_nsp3
-            ;;
-
-        (nsp4)
-            _datasets_download_virus_protein_nsp4
-            ;;
-
-        (nsp5)
-            _datasets_download_virus_protein_nsp5
-            ;;
-
-        (nsp6)
-            _datasets_download_virus_protein_nsp6
-            ;;
-
-        (nsp7)
-            _datasets_download_virus_protein_nsp7
-            ;;
-
-        (nsp8)
-            _datasets_download_virus_protein_nsp8
-            ;;
-
-        (nsp9)
-            _datasets_download_virus_protein_nsp9
-            ;;
-
-        (nsp10)
-            _datasets_download_virus_protein_nsp10
-            ;;
-
-        (rdrp)
-            _datasets_download_virus_protein_rdrp
-            ;;
-
-        (nsp11)
-            _datasets_download_virus_protein_nsp11
-            ;;
-
-        (nsp13)
-            _datasets_download_virus_protein_nsp13
-            ;;
-
-        (nsp14)
-            _datasets_download_virus_protein_nsp14
-            ;;
-
-        (nsp15)
-            _datasets_download_virus_protein_nsp15
-            ;;
-
-        (nsp16)
-            _datasets_download_virus_protein_nsp16
-            ;;
-
-        (S)
-            _datasets_download_virus_protein_S
-            ;;
-
-        (ORF3a)
-            _datasets_download_virus_protein_ORF3a
-            ;;
-
-        (E)
-            _datasets_download_virus_protein_E
-            ;;
-
-        (M)
-            _datasets_download_virus_protein_M
-            ;;
-
-        (ORF6)
-            _datasets_download_virus_protein_ORF6
-            ;;
-
-        (ORF7a)
-            _datasets_download_virus_protein_ORF7a
-            ;;
-
-        (ORF7b)
-            _datasets_download_virus_protein_ORF7b
-            ;;
-
-        (ORF8)
-            _datasets_download_virus_protein_ORF8
-            ;;
-
-        (N)
-            _datasets_download_virus_protein_N
-            ;;
-
-        (ORF10)
-            _datasets_download_virus_protein_ORF10
-            ;;
-
-        esac
-        ;;
-     esac
-
-}
-
-function _datasets_download_virus_protein_ORF1ab {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_ORF1a {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_nsp1 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_nsp2 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_nsp3 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_nsp4 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_nsp5 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_nsp6 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_nsp7 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_nsp8 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_nsp9 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_nsp10 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_rdrp {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_nsp11 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_nsp13 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_nsp14 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_nsp15 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_nsp16 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_S {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_ORF3a {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_E {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_M {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_ORF6 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_ORF7a {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_ORF7b {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_ORF8 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_N {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_download_virus_protein_ORF10 {
-    _arguments \
-        "*: :_files"
-
-}
-
-function _datasets_rehydrate {
-    _arguments \
-        '--directory[Specify the directory containing the unzipped dehydrated bag]' \
-        '--gzip[rehydrate files to gzip format]' \
-        '--list[List files that would be downloaded during rehydration]' \
-        '--match[Specify substring that matches files for rehydration]' \
-        '--max-workers[Limit the maximum number of concurrent download workers (allowed range is 1-30) (default 10)]' \
-        '--no-progressbar[Hide progress bar]' \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-
-function _datasets_completion {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'bash:Generate bash autocompletion script'
-            'zsh:Generate zsh autocompletion script'
-            'fish:Generate fish autocompletion script'
-            'powershell:Generate powershell autocompletion script'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--version[Print version of datasets]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (bash)
-            _datasets_completion_bash
-            ;;
-
-        (zsh)
-            _datasets_completion_zsh
-            ;;
-
-        (fish)
-            _datasets_completion_fish
-            ;;
-
-        (powershell)
-            _datasets_completion_powershell
-            ;;
-
-        esac
-        ;;
-     esac
-
-}
-
-function _datasets_completion_bash {
-    _arguments \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-function _datasets_completion_zsh {
-    _arguments \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-function _datasets_completion_fish {
-    _arguments \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-function _datasets_completion_powershell {
-    _arguments \
-        '--api-key[Specify an NCBI API key]' \
-        '--debug[Emit debugging info]' \
-        '--help[Print detailed help about a datasets command]' \
-        '--version[Print version of datasets]' \
-        "*: :_files"
-
-}
-
-_datasets "$@"
-
+# don't run the completion function when being source-ed or eval-ed
+if [ "$funcstack[1]" = "_datasets" ]; then
+    _datasets
+fi
