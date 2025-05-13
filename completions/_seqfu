@@ -143,6 +143,7 @@ function _seqfu_bases {
 
 function _seqfu_check {
     _arguments \
+        {-d,--deep}'[Perform a deep check of the file and will not lsupport multiline Sanger FASTQ \[default: false\]]' \
         {-n,--no-paired}'[Disable autodetection of second pair]' \
         {-s,--safe-exit}'[Exit with 0 even if errors are found]' \
         {-q,--quiet}'[Do not print infos, just exit status]' \
@@ -244,16 +245,23 @@ function _seqfu_metadata {
         {-2,--rev-tag}'[String found in filename of forward reads \[default: _R2\]]' \
         {-s,--split}'[Separator used in filename to identify the sample ID \[default: _\]]' \
         '--pos[Which part of the filename is the Sample ID \[default: 1\]]' \
-        {-f,--format}'[Output format: dadaist, irida, manifest, metaphage, qiime1, qiime2 \[default: manifest\]]' \
-        '--pe[Enforce paired-end reads (not supported)]' \
+        {-f,--format}'[Output format: dadaist, irida, manifest,... list to list \[default: manifest\]]' \
         {-p,--add-path}'[Add the reads absolute path as column]' \
-        {-c,--counts}'[Add the number of reads as a property column]' \
-        {-t,--threads}'[Number of simultaneously opened files \[default: 2\]]' \
+        {-c,--counts}'[Add the number of reads as a property column (experimental)]' \
+        {-t,--threads}'[Number of simultaneously opened files (legacy: ignored)]' \
+        '--pe[Enforce paired-end reads (not supported)]' \
+        '--ont[Long reads (Oxford Nanopore) \[default: false\]]' \
+        '--abs[Force absolute path]' \
+        '--basename[Use basename instead of full path]' \
+        '--force-tsv[Force '\''\t'\'' separator, otherwise selected by the format]' \
+        '--force-csv[Force '\'','\'' separator, otherwise selected by the format]' \
+        {-R,--rand-meta}'[Add a random metadata column with INT categories]' \
         {-P,--project}'[Project ID (only for irida)]' \
         '--meta-split[Separator in the SampleID to extract metadata, used in MetaPhage \[default: _\]]' \
         '--meta-part[Which part of the SampleID to extract metadata, used in MetaPhage \[default: 1\]]' \
         '--meta-default[Default value for metadata, used in MetaPhage \[default: Cond\]]' \
         {-v,--verbose}'[Verbose output]' \
+        '--debug[Debug output]' \
         {-h,--help}'[Show this help]' \
         "*: :_files"
 
@@ -293,8 +301,10 @@ function _seqfu_stats {
         {-t,--thousands}'[Add thousands separator (only tabbed/nice output)]' \
         '--csv[Separate output by commas instead of tabs]' \
         '--gc[Also print %GC]' \
+        '--index[Also print contig index (L50, L90)]' \
         '--multiqc[Saves a MultiQC report to FILE (suggested: name_mqc.txt)]':file:_files \
         '--precision[Number of decimal places to round to \[default: 2\]]' \
+        '--noheader[Do not print header]' \
         {-v,--verbose}'[Verbose output]' \
         {-h,--help}'[Show this help]' \
         "*: :_files"
@@ -315,6 +325,7 @@ function _seqfu_cat {
         '--split[Split basename at this char \[default: .\]]' \
         '--part[After splitting the basename, take this part \[default: 1\]]' \
         '--basename-sep[Separate basename from the rest with this \[default: _\]]' \
+        '--zero-pad[Zero pad the counter to INT digits \[default: 0\]]' \
         {-s,--strip-comments}'[Remove original sequence comments]' \
         '--comment-sep[Comment separator \[default: \]]' \
         '--add-len[Add '\''len=LENGTH'\'' to the comments]' \
@@ -334,7 +345,9 @@ function _seqfu_cat {
         '--max-bp[Stop printing after INT bases \[default: 0\]]' \
         '--fasta[Force FASTA output]' \
         '--fastq[Force FASTQ output]' \
+        '--report[Save a report to FILE (original name, new name)]':file:_files \
         '--list[Output a list of sequence names]' \
+        '--anvio[Output in Anvio format (-p c_ -s -z --zeropad 12 --report rename_report.txt)]' \
         {-q,--fastq-qual}'[FASTQ default quality \[default: 33\]]' \
         {-v,--verbose}'[Verbose output]' \
         '--debug[Debug output]' \
