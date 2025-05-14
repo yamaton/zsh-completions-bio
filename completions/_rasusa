@@ -1,0 +1,102 @@
+#compdef rasusa
+
+# Auto-generated with h2o
+
+
+function _rasusa {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'reads:Randomly subsample reads'
+            'aln:Randomly subsample alignments to a specified depth of coverage'
+            'cite:Get a bibtex formatted citation for this package'
+            'help:Print this message or the help of the given subcommand(s)'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        '-v[Switch on verbosity]' \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (reads)
+            _rasusa_reads
+            ;;
+
+        (aln)
+            _rasusa_aln
+            ;;
+
+        (cite)
+            _rasusa_cite
+            ;;
+
+        (help)
+            _rasusa_help
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _rasusa_reads {
+    _arguments \
+        {-o,--output}'[Output filepath(s); stdout if not present.]' \
+        {-g,--genome-size}'[Genome size to calculate coverage with respect to. e.g., 4.3kb, 7Tb, 9000, 4.1MB]' \
+        {-c,--coverage}'[The desired depth of coverage to subsample the reads to]' \
+        {-b,--bases}'[Explicitly set the number of bases required e.g., 4.3kb, 7Tb, 9000, 4.1MB]' \
+        {-n,--num}'[Subsample to a specific number of reads]' \
+        {-f,--frac}'[Subsample to a fraction of the reads - e.g., 0.5 samples half the reads]' \
+        {-s,--seed}'[Random seed to use]' \
+        '-v[Switch on verbosity]' \
+        {-O,--output-type}'[u: uncompressed; b: Bzip2; g: Gzip; l: Lzma; x: Xz (Lzma); z: Zstd]' \
+        {-l,--compress-level}'[Compression level to use if compressing output. Uses the default level for the format if not specified]' \
+        {-h,--help}'[Print help (see a summary with '\''-h'\'')]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+function _rasusa_aln {
+    _arguments \
+        {-o,--output}'[Path to the output subsampled alignment file. Defaults to stdout (same format as input)]':file:_files \
+        {-O,--output-type}'[Output format. Rasusa will attempt to infer the format from the output file extension if not provided]' \
+        {-c,--coverage}'[The desired depth of coverage to subsample the alignment to]' \
+        {-s,--seed}'[Random seed to use]' \
+        '--step-size[When a region has less than the desired coverage, the step size to move along the chromosome to find more reads.]' \
+        {-h,--help}'[Print help (see a summary with '\''-h'\'')]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+function _rasusa_cite {
+    _arguments \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+function _rasusa_help {
+    _arguments \
+        "*: :_files"
+
+}
+
+_rasusa "$@"
+
