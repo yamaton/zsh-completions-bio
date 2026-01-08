@@ -1,0 +1,1519 @@
+#compdef sourmash
+
+# Auto-generated with h2o
+
+
+function _sourmash {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'compare:create a similarity matrix comparing many samples'
+            'compute:compute sequence signatures for inputs'
+            'gather:search a metagenome signature against dbs'
+            'index:index signatures for rapid search'
+            'info:display version and other information'
+            'plot:plot distance matrix made by '\''compare'\'''
+            'prefetch:search a signature against dbs, find all overlaps'
+            'search:search a signature against other signatures'
+            'lca:Taxonomic operations'
+            'signature:Manipulate signature files'
+            'sketch:Create signatures'
+            'storage:Operations on storage'
+            'tax:Integrate taxonomy information'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        {-v,--version}'[show program'\''s version number and exit]' \
+        {-q,--quiet}'[don'\''t print citation information]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (compare)
+            _sourmash_compare
+            ;;
+
+        (compute)
+            _sourmash_compute
+            ;;
+
+        (gather)
+            _sourmash_gather
+            ;;
+
+        (index)
+            _sourmash_index
+            ;;
+
+        (info)
+            _sourmash_info
+            ;;
+
+        (plot)
+            _sourmash_plot
+            ;;
+
+        (prefetch)
+            _sourmash_prefetch
+            ;;
+
+        (search)
+            _sourmash_search
+            ;;
+
+        (lca)
+            _sourmash_lca
+            ;;
+
+        (signature)
+            _sourmash_signature
+            ;;
+
+        (sketch)
+            _sourmash_sketch
+            ;;
+
+        (storage)
+            _sourmash_storage
+            ;;
+
+        (tax)
+            _sourmash_tax
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _sourmash_compare {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-o,--output}'[file to which output will be written; default is terminal (standard output)]' \
+        '--ignore-abundance[do NOT use k-mer abundances even if present]' \
+        '--containment[calculate containment instead of similarity]' \
+        '--max-containment[calculate max containment instead of similarity]' \
+        {--avg-containment,--average-containment}'[calculate average containment instead of similarity]' \
+        {--estimate-ani,--ANI,--ani}'[return ANI estimated from jaccard, containment, average containment, or max containment; see https://doi.org/10.1101/2022.01.11.475870]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        {-f,--force}'[continue past errors in file loading]' \
+        '--csv[write matrix to specified file in CSV format (with column headers)]' \
+        {--labels-to,--labels-save}'[a CSV file containing label information]' \
+        {-p,--processes}'[Number of processes to use to calculate similarity]' \
+        '--distance-matrix[output a distance matrix, instead of a similarity matrix]' \
+        '--similarity-matrix[output a similarity matrix; this is the default]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        '--include-db-pattern[search only signatures that match this pattern in name, filename, or md5]' \
+        '--exclude-db-pattern[search only signatures that do not match this pattern in name, filename, or md5]' \
+        '--scaled[downsample to this scaled; value should be between 100 and 1e6]' \
+        "*: :_files"
+
+}
+
+function _sourmash_compute {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        '--check-sequence[complain if input sequence is invalid]' \
+        '--license[signature license. Currently only CC0 is supported.]' \
+        {-k,--ksizes}'[comma-separated list of k-mer sizes; default=21,31,51]' \
+        '--track-abundance[track k-mer abundances in the generated signature]' \
+        '--scaled[choose number of hashes as 1 in FRACTION of input k-mers]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--input-is-protein[Consume protein sequences - no translation needed.]' \
+        '--seed[seed used by MurmurHash; default=42]' \
+        {-n,--num-hashes,--num}'[num value should be between 50 and 50000]' \
+        {-f,--force}'[recompute signatures even if the file exists]' \
+        {-o,--output}'[output computed signatures to this file]' \
+        {--output-dir,--outdir}'[output computed signatures to this directory]':file:_files \
+        '--singleton[compute a signature for each sequence record individually]' \
+        {--merge,--name}'[merge all input files into one signature file with the specified name]':file:_files \
+        '--name-from-first[name the signature generated from each file after the first record in the file]' \
+        '--randomize[shuffle the list of input filenames randomly]' \
+        "*: :_files"
+
+}
+
+function _sourmash_gather {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug,-n,--num-results}'[number of results to report (default: terminate at --threshold-bp)]' \
+        {-o,--output}'[output CSV containing matches to this file]':file:_files \
+        '--save-matches[save gather matched signatures from the database to the specified file]':file:_files \
+        '--save-prefetch[save all prefetch-matched signatures from the databases to the specified file or directory]':file:_files \
+        '--save-prefetch-csv[save a csv with information from all prefetch-matched signatures to the specified file]':file:_files \
+        '--threshold-bp[reporting threshold (in bp) for estimated overlap with remaining query (default=50kb)]' \
+        '--output-unassigned[output unassigned portions of the query as a signature to the specified file]':file:_files \
+        '--ignore-abundance[do NOT use k-mer abundances if present]' \
+        '--md5[select the signature with this md5 as query]' \
+        '--cache-size[number of internal SBT nodes to cache in memory (default: 0, cache all nodes)]' \
+        '--linear[force a low-memory but maybe slower database search]' \
+        {--no-linear,--no-prefetch}'[do not use prefetch before gather; see documentation]' \
+        '--prefetch[use prefetch before gather; see documentation]' \
+        '--estimate-ani-ci[also output confidence intervals for ANI estimates]' \
+        '--fail-on-empty-database[stop at databases that contain no compatible signatures]' \
+        '--no-fail-on-empty-database[continue past databases that contain no compatible signatures]' \
+        '--create-empty-results[create an empty results file even if no matches.]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        '--include-db-pattern[search only signatures that match this pattern in name, filename, or md5]' \
+        '--exclude-db-pattern[search only signatures that do not match this pattern in name, filename, or md5]' \
+        '--scaled[downsample to this scaled; value should be between 100 and 1e6]' \
+        "*: :_files"
+
+}
+
+function _sourmash_index {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-F,--index-type}'[type of index to build (default: SBT)]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-d,--n_children}'[number of children for internal nodes; default=2]' \
+        '--append[add signatures to an existing SBT]' \
+        {-x,--bf-size}'[Bloom filter size used for internal nodes]' \
+        {-f,--force}'[try loading *all* files in provided subdirectories, not just .sig files"]' \
+        {-s,--sparseness}'[What percentage of internal nodes will not be saved; ranges from 0.0 (save all nodes) to 1.0 (no nodes saved)]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        '--scaled[downsample to this scaled; value should be between 100 and 1e6]' \
+        "*: :_files"
+
+}
+
+function _sourmash_info {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-v,--verbose}'[report versions of khmer and screed]' \
+        "*: :_files"
+
+}
+
+function _sourmash_plot {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--pdf[output PDF; default is PNG]' \
+        '--labels[show sample labels on dendrogram/matrix]' \
+        '--no-labels[do not show sample labels]' \
+        '--labeltext[filename containing list of labels (overrides signature names); implies --labels]' \
+        '--indices[show sample indices but not labels; overridden by --labels]' \
+        '--no-indices[do not show sample indices]' \
+        '--vmin[lower limit of heatmap scale; default=0.000000]' \
+        '--vmax[upper limit of heatmap scale; default=1.000000]' \
+        '--subsample[randomly downsample to this many samples, max]' \
+        '--subsample-seed[random seed for --subsample; default=1]' \
+        {-f,--force}'[forcibly plot non-distance matrices]' \
+        '--output-dir[directory for output plots]':file:_files \
+        '--csv[write clustered matrix and labels out in CSV format (with column headers) to this file]' \
+        {--labels-from,--labels-load}'[a CSV file containing label information to use on plot; implies --labels]' \
+        "*: :_files"
+
+}
+
+function _sourmash_prefetch {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--db-from-file[list of paths containing signatures to search]':file:_files \
+        '--linear[force linear traversal of indexes to minimize loading time and memory use]' \
+        {--no-linear,-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug,-o,--output}'[output CSV containing matches to this file]':file:_files \
+        '--save-matches[save all matching signatures from the databases to the specified file or directory]':file:_files \
+        '--threshold-bp[reporting threshold (in bp) for estimated overlap with remaining query hashes (default=50kb)]' \
+        '--save-unmatched-hashes[output unmatched query hashes as a signature to the specified file]':file:_files \
+        '--save-matching-hashes[output matching query hashes as a signature to the specified file]':file:_files \
+        '--md5[select the signature with this md5 as query]' \
+        '--estimate-ani-ci[also output confidence intervals for ANI estimates]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        '--include-db-pattern[search only signatures that match this pattern in name, filename, or md5]' \
+        '--exclude-db-pattern[search only signatures that do not match this pattern in name, filename, or md5]' \
+        '--scaled[downsample to this scaled; value should be between 100 and 1e6]' \
+        "*: :_files"
+
+}
+
+function _sourmash_search {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug}'[output debug information]' \
+        {-t,--threshold}'[minimum threshold for reporting matches; default=0.08]' \
+        '--save-matches[output matching signatures to the specified file]':file:_files \
+        '--best-only[report only the best match (with greater speed)]' \
+        {-n,--num-results}'[number of results to display to user; 0 to report all]' \
+        '--containment[score based on containment rather than similarity]' \
+        '--max-containment[score based on max containment rather than similarity]' \
+        '--estimate-ani-ci[for containment searches, also output confidence intervals for ANI estimates]' \
+        '--ignore-abundance[do NOT use k-mer abundances if present; note: has no effect if --containment or --max-containment is specified]' \
+        {-o,--output}'[output CSV containing matches to this file]':file:_files \
+        '--md5[select the signature with this md5 as query]' \
+        '--fail-on-empty-database[stop at databases that contain no compatible signatures]' \
+        '--no-fail-on-empty-database[continue past databases that contain no compatible signatures]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        '--include-db-pattern[search only signatures that match this pattern in name, filename, or md5]' \
+        '--exclude-db-pattern[search only signatures that do not match this pattern in name, filename, or md5]' \
+        '--scaled[downsample to this scaled; value should be between 100 and 1e6]' \
+        "*: :_files"
+
+}
+
+
+function _sourmash_lca {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'classify:classify genomes'
+            'compare_csv:compare spreadsheets'
+            'index:create LCA database'
+            'rankinfo:database rank info'
+            'summarize:summarize mixture'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (classify)
+            _sourmash_lca_classify
+            ;;
+
+        (compare_csv)
+            _sourmash_lca_compare_csv
+            ;;
+
+        (index)
+            _sourmash_lca_index
+            ;;
+
+        (rankinfo)
+            _sourmash_lca_rankinfo
+            ;;
+
+        (summarize)
+            _sourmash_lca_summarize
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _sourmash_lca_classify {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--db[databases to use to classify]' \
+        '--query[query signatures to classify]' \
+        '--query-from-file[file containing list of signature files to query]':file:_files \
+        '--threshold[minimum number of hashes needed for a taxonomic classification (default: 5)]' \
+        '--majority[use majority vote classification instead of lca]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug}'[output debugging output]' \
+        {-o,--output}'[output CSV to the specified file; by default output to stdout]':file:_files \
+        '--scaled[]' \
+        "*: :_files"
+
+}
+
+function _sourmash_lca_compare_csv {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug}'[output debugging output]' \
+        {-C,--start-column}'[column at which taxonomic assignments start; default=2]' \
+        '--tabs[input spreadsheet is tab-delimited; default is commas]' \
+        '--no-headers[no headers present in taxonomy spreadsheet]' \
+        "*: :_files"
+
+}
+
+function _sourmash_lca_index {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        {--scaled,-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug}'[output debugging output]' \
+        {-C,--start-column}'[column at which taxonomic assignments start; default=2]' \
+        '--tabs[input spreadsheet is tab-delimited; default is commas]' \
+        '--no-headers[no headers present in taxonomy spreadsheet]' \
+        '--split-identifiers[split names in signatures on whitespace]' \
+        '--keep-identifier-versions[do not remove accession versions]' \
+        {-f,--force,--report}'[output a report on anomalies, if any]' \
+        '--require-taxonomy[ignore signatures with no taxonomy entry]' \
+        '--fail-on-missing-taxonomy[fail quickly if taxonomy is not available for an identifier]' \
+        {-F,--database-format}'[format of output database; default is '\''json'\'')]' \
+        {-k,--ksize}'[k-mer size to select; default=31]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        "*: :_files"
+
+}
+
+function _sourmash_lca_rankinfo {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug}'[output debugging output]' \
+        {--scaled,--minimum-num}'[Minimum number of different lineages a k-mer must be in to be counted]' \
+        "*: :_files"
+
+}
+
+function _sourmash_lca_summarize {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--db[one or more LCA databases to use]' \
+        '--query[one or more signature files to use as queries]' \
+        '--query-from-file[file containing list of signature files to query]':file:_files \
+        '--threshold[minimum number of hashes to require for a match]' \
+        {-o,--output}'[file to which CSV output will be written]':file:_files \
+        '--scaled[scaled value to downsample to]' \
+        '--ignore-abundance[ignore hash abundances in query signatures do not weight results]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug}'[output debugging output]' \
+        "*: :_files"
+
+}
+
+
+function _sourmash_signature {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'cat:concatenate signature files'
+            'check:check signature collections against a picklist'
+            'collect:collect manifest information across many files'
+            'describe:show details of signature'
+            'downsample:downsample one or more signatures'
+            'export:export a signature, e.g. to mash'
+            'extract:extract one or more signatures'
+            'fileinfo:provide summary information on the given file'
+            'filter:filter k-mers on abundance'
+            'flatten:remove abundances'
+            'grep:extract one or more signatures by substr/regex match'
+            'inflate:borrow abundances from one signature => one or more other signatures'
+            'ingest:ingest/import a mash or other signature'
+            'intersect:intersect two or more signatures'
+            'kmers:show k-mers/sequences matching the signature hashes'
+            'manifest:create a manifest for a collection of signatures'
+            'merge:merge one or more signatures'
+            'overlap:see detailed comparison of signatures'
+            'rename:rename signature'
+            'split:split signature files'
+            'subtract:subtract one or more signatures'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (cat)
+            _sourmash_signature_cat
+            ;;
+
+        (check)
+            _sourmash_signature_check
+            ;;
+
+        (collect)
+            _sourmash_signature_collect
+            ;;
+
+        (describe)
+            _sourmash_signature_describe
+            ;;
+
+        (downsample)
+            _sourmash_signature_downsample
+            ;;
+
+        (export)
+            _sourmash_signature_export
+            ;;
+
+        (extract)
+            _sourmash_signature_extract
+            ;;
+
+        (fileinfo)
+            _sourmash_signature_fileinfo
+            ;;
+
+        (filter)
+            _sourmash_signature_filter
+            ;;
+
+        (flatten)
+            _sourmash_signature_flatten
+            ;;
+
+        (grep)
+            _sourmash_signature_grep
+            ;;
+
+        (inflate)
+            _sourmash_signature_inflate
+            ;;
+
+        (ingest)
+            _sourmash_signature_ingest
+            ;;
+
+        (intersect)
+            _sourmash_signature_intersect
+            ;;
+
+        (kmers)
+            _sourmash_signature_kmers
+            ;;
+
+        (manifest)
+            _sourmash_signature_manifest
+            ;;
+
+        (merge)
+            _sourmash_signature_merge
+            ;;
+
+        (overlap)
+            _sourmash_signature_overlap
+            ;;
+
+        (rename)
+            _sourmash_signature_rename
+            ;;
+
+        (split)
+            _sourmash_signature_split
+            ;;
+
+        (subtract)
+            _sourmash_signature_subtract
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _sourmash_signature_cat {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug}'[provide debugging output]' \
+        {-o,--output}'[output signature to this file (default stdout)]':file:_files \
+        {-u,--unique}'[keep only distinct signatures, removing duplicates (based on md5sum)]' \
+        {-f,--force}'[try to load all files as signatures]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--include-db-pattern[search only signatures that match this pattern in name, filename, or md5]' \
+        '--exclude-db-pattern[search only signatures that do not match this pattern in name, filename, or md5]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_check {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug}'[provide debugging output]' \
+        {-o,--output-missing}'[output picklist with remaining unmatched entries to this file]':file:_files \
+        {-f,--force}'[try to load all files as signatures]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        {-m,--save-manifest-matching}'[save a manifest of the matching entries to this file.]' \
+        '--fail-if-missing[exit with an error code (-1) if there are any missing picklist values.]' \
+        '--no-require-manifest[do not require a manifest; generate dynamically if needed]' \
+        {-F,--manifest-format}'[format of manifest output file; default is '\''csv'\'')]' \
+        {--abspath,--use-absolute-paths}'[convert all locations to absolute paths]' \
+        '--no-abspath[do not convert all locations to absolute paths]' \
+        {--relpath,--use-relative-paths}'[convert all locations to paths relative to the output manifest]' \
+        '--no-relpath[do not convert all locations to paths relative to the output manifest]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--include-db-pattern[search only signatures that match this pattern in name, filename, or md5]' \
+        '--exclude-db-pattern[search only signatures that do not match this pattern in name, filename, or md5]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        '--v4[use sourmash v4 command-line behavior (default)]' \
+        '--v5[use sourmash v5 command-line behavior]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_collect {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-o,--output}'[manifest output file]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug}'[provide debugging output]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        '--no-require-manifest[do not require a manifest; generate dynamically if needed]' \
+        {-F,--manifest-format}'[format of manifest output file; default is '\''csv'\'')]' \
+        '--merge-previous[merge new manifests into existing]' \
+        {--abspath,--use-absolute-paths}'[convert all locations to absolute paths]' \
+        '--no-abspath[do not convert all locations to absolute paths]' \
+        {--relpath,--use-relative-paths}'[convert all locations to paths relative to the output manifest]' \
+        '--no-relpath[do not convert all locations to paths relative to the output manifest]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--v4[use sourmash v4 command-line behavior (default)]' \
+        '--v5[use sourmash v5 command-line behavior]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_describe {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug}'[provide debugging output]' \
+        '--csv[output information to a CSV file]':file:_files \
+        {-f,--force}'[try to load all files as signatures]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        '--include-db-pattern[search only signatures that match this pattern in name, filename, or md5]' \
+        '--exclude-db-pattern[search only signatures that do not match this pattern in name, filename, or md5]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_downsample {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--scaled[scaled value to downsample to]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-o,--output}'[output signature to this file (default stdout)]':file:_files \
+        {-f,--force}'[try to load all files as signatures]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        {-n,--num-hashes,--num}'[num value should be between 50 and 50000]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_export {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-o,--output}'[output signature to this file (default stdout)]':file:_files \
+        '--md5[select the signature with this md5 as query]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_extract {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-o,--output}'[output signature to this file (default stdout)]':file:_files \
+        '--md5[select signatures whose md5 contains this substring]' \
+        '--name[select signatures whose name contains this substring]' \
+        {-f,--force}'[try to load all files as signatures]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--include-db-pattern[search only signatures that match this pattern in name, filename, or md5]' \
+        '--exclude-db-pattern[search only signatures that do not match this pattern in name, filename, or md5]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_fileinfo {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug}'[output debug information]' \
+        {-f,--force}'[try to load all files as signatures]' \
+        '--rebuild-manifest[forcibly rebuild the manifest]' \
+        '--json-out[output information in JSON format only]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_filter {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-o,--output}'[output signature to this file (default stdout)]':file:_files \
+        '--md5[select signatures whose md5 contains this substring]' \
+        '--name[select signatures whose name contains this substring]' \
+        {-m,--min-abundance}'[keep hashes >= this minimum abundance]' \
+        {-M,--max-abundance}'[keep hashes <= this maximum abundance]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_flatten {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-o,--output}'[output signature to this file (default stdout)]':file:_files \
+        '--md5[select signatures whose md5 contains this substring]' \
+        '--name[select signatures whose name contains this substring]' \
+        {-f,--force}'[try to load all files as signatures]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_grep {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug}'[output debug information]' \
+        {-o,--output}'[output matching signatures to this file (default stdout)]':file:_files \
+        {-f,--force}'[try to load all files as signatures, independent of filename]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        {-v,--invert-match}'[select non-matching signatures]' \
+        {-i,--ignore-case}'[ignore case distinctions (search lower and upper case both)]' \
+        '--no-require-manifest[do not require a manifest; generate dynamically if needed]' \
+        '--csv[save CSV file containing signature data in manifest format]' \
+        {--silent,--no-signatures-output}'[do not output signatures]' \
+        {-c,--count}'[only output a count of discovered signatures; implies --silent]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_inflate {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-o,--output}'[output signature to this file (default stdout)]':file:_files \
+        {-f,--force}'[try to load all files as signatures]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_ingest {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--csv[import in Mash CSV format]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-o,--output}'[output signature to this file (default stdout)]':file:_files \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_intersect {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-o,--output}'[output signature to this file (default stdout)]':file:_files \
+        {-A,--abundances-from}'[intersect with & take abundances from this signature]':file:_files \
+        '--set-name[set name for output signature]' \
+        {-f,--force}'[try to load all files as signatures]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_kmers {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-f,--force}'[try to load all files as signatures]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        '--sequences[FASTA/FASTQ/bz2/gz files with sequences]' \
+        '--save-kmers[save k-mers and hash values to a CSV file]' \
+        '--save-sequences[save sequences with matching hashes to a FASTA file]' \
+        '--translate[translate DNA k-mers into amino acids (for protein, dayhoff, and hp sketches)]' \
+        '--check-sequence[complain if input sequence is invalid (NOTE: only checks DNA)]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_manifest {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug}'[output debug information]' \
+        {-o,--output,--csv}'[output information to a CSV file]':file:_files \
+        {-f,--force}'[try to load all files as signatures]' \
+        '--rebuild-manifest[force rebuilding manifest if available]' \
+        '--no-rebuild-manifest[use existing manifest if available]' \
+        {-F,--manifest-format}'[format of manifest output file; default is '\''csv'\'')]' \
+        '--v4[use sourmash v4 command-line behavior (default)]' \
+        '--v5[use sourmash v5 command-line behavior]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_merge {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-o,--output}'[output signature to this file (default stdout)]':file:_files \
+        '--flatten[remove abundances from all signatures]' \
+        {--set-name,--name}'[rename merged signature]' \
+        {-f,--force}'[try to load all files as signatures]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_overlap {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_rename {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-d,--debug}'[print debugging output]' \
+        {-o,--output}'[output renamed signature to this file (default stdout)]':file:_files \
+        {-f,--force}'[try to load all files as signatures]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--include-db-pattern[search only signatures that match this pattern in name, filename, or md5]' \
+        '--exclude-db-pattern[search only signatures that do not match this pattern in name, filename, or md5]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_split {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {--output-dir,--outdir}'[output signatures to this directory]':file:_files \
+        {-f,--force}'[try to load all files as signatures]' \
+        '--from-file[a text file containing a list of files to load signatures from]':file:_files \
+        {-E,--extension}'[write files with this extension ('\''.sig'\'' by default)]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        '--picklist[select signatures based on a picklist, i.e. '\''file.csv:colname:coltype'\'']' \
+        '--picklist-require-all[require that all picklist values be found or else fail]' \
+        "*: :_files"
+
+}
+
+function _sourmash_signature_subtract {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-o,--output}'[output signature to this file (default stdout)]':file:_files \
+        '--flatten[remove abundance from signatures before subtracting]' \
+        {-A,--abundances-from}'[intersect with & take abundances from this signature]':file:_files \
+        '--set-name[set name for output signature]' \
+        {-k,--ksize}'[k-mer size to select; no default.]' \
+        '--protein[choose a protein signature; by default, a nucleotide signature is used]' \
+        '--no-protein[do not choose a protein signature]' \
+        '--dayhoff[choose Dayhoff-encoded amino acid signatures]' \
+        '--no-dayhoff[do not choose Dayhoff-encoded amino acid signatures]' \
+        {--hp,--hydrophobic-polar}'[choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--no-hp,--no-hydrophobic-polar}'[do not choose hydrophobic-polar-encoded amino acid signatures]' \
+        {--skipm1n3,--skipmer-m1n3}'[choose skipmer (m1n3) signatures]' \
+        {--no-skipm1n3,--no-skipmer-m1n3}'[do not choose skipmer (m1n3) signatures]' \
+        {--skipm2n3,--skipmer-m2n3}'[choose skipmer (m2n3) signatures]' \
+        {--no-skipm2n3,--no-skipmer-m2n3}'[do not choose skipmer (m2n3) signatures]' \
+        {--dna,--rna,--nucleotide}'[choose a nucleotide signature (default: True)]' \
+        {--no-dna,--no-rna,--no-nucleotide}'[do not choose a nucleotide signature]' \
+        "*: :_files"
+
+}
+
+
+function _sourmash_sketch {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'dna:create DNA signatures'
+            'fromfile:create signatures from a CSV file'
+            'protein:create protein signatures'
+            'translate:create protein signature from DNA/RNA sequence'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (dna)
+            _sourmash_sketch_dna
+            ;;
+
+        (fromfile)
+            _sourmash_sketch_fromfile
+            ;;
+
+        (protein)
+            _sourmash_sketch_protein
+            ;;
+
+        (translate)
+            _sourmash_sketch_translate
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _sourmash_sketch_dna {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--license[signature license. Currently only CC0 is supported.]' \
+        '--check-sequence[complain if input sequence is invalid DNA]' \
+        {-p,--param-string}'[signature parameters to use.]' \
+        '--from-file[a text file containing a list of sequence files to load]':file:_files \
+        {-f,--force}'[recompute signatures even if the file exists]' \
+        {-o,--output}'[output computed signatures to this file]' \
+        {--set-name,--name,--merge}'[name the output sketch as specified; note, merges all input files while sketching]':file:_files \
+        {--output-dir,--outdir}'[output computed signatures to this directory]':file:_files \
+        '--singleton[compute a signature for each sequence record individually]' \
+        '--name-from-first[name the signature generated from each file after the first record in the file]' \
+        '--randomize[shuffle the list of input filenames randomly]' \
+        "*: :_files"
+
+}
+
+function _sourmash_sketch_fromfile {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-p,--param-string}'[signature parameters to use.]' \
+        '--already-done[one or more collections of existing signatures to avoid recalculating]' \
+        '--license[signature license. Currently only CC0 is supported.]' \
+        '--check-sequence[complain if input sequence is invalid (NOTE: only checks DNA)]' \
+        {-o,--output-signatures}'[output computed signatures to this file]' \
+        '--force-output-already-exists[overwrite/append to --output-signatures location]' \
+        '--ignore-missing[proceed with building possible signatures, even if some input files are missing]' \
+        '--output-csv-info[output information about what signatures need to be generated]' \
+        '--output-manifest-matching[output a manifest file of already-existing signatures]' \
+        '--report-duplicated[report duplicated names]' \
+        "*: :_files"
+
+}
+
+function _sourmash_sketch_protein {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--license[signature license. Currently only CC0 is supported.]' \
+        {-p,--param-string}'[signature parameters to use.]' \
+        '--from-file[a text file containing a list of sequence files to load]':file:_files \
+        {-f,--force}'[recompute signatures even if the file exists]' \
+        {-o,--output}'[output computed signatures to this file]' \
+        {--set-name,--name,--merge}'[name the output sketch as specified; note, merges all input files while sketching]':file:_files \
+        {--output-dir,--outdir}'[output computed signatures to this directory]':file:_files \
+        '--singleton[compute a signature for each sequence record individually]' \
+        '--name-from-first[name the signature generated from each file after the first record in the file]' \
+        '--randomize[shuffle the list of input filenames randomly]' \
+        '--dayhoff[compute sketches using the dayhoff alphabet instead]' \
+        '--hp[compute sketches using the dayhoff alphabet instead]' \
+        "*: :_files"
+
+}
+
+function _sourmash_sketch_translate {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        '--license[signature license. Currently only CC0 is supported.]' \
+        '--check-sequence[complain if input sequence is invalid DNA]' \
+        {-p,--param-string}'[signature parameters to use.]' \
+        '--from-file[a text file containing a list of sequence files to load]':file:_files \
+        {-f,--force}'[recompute signatures even if the file exists]' \
+        {-o,--output}'[output computed signatures to this file]' \
+        {--set-name,--name,--merge}'[name the output sketch as specified; note, merges all input files while sketching]':file:_files \
+        {--output-dir,--outdir}'[output computed signatures to this directory]':file:_files \
+        '--singleton[compute a signature for each sequence record individually]' \
+        '--name-from-first[name the signature generated from each file after the first record in the file]' \
+        '--randomize[shuffle the list of input filenames randomly]' \
+        '--dayhoff[compute sketches using the dayhoff alphabet instead]' \
+        '--hp[compute sketches using the dayhoff alphabet instead]' \
+        "*: :_files"
+
+}
+
+
+function _sourmash_storage {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'convert:convert an SBT to use a different back en'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (convert)
+            _sourmash_storage_convert
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _sourmash_storage_convert {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-b,--backend}'[Backend to convert to]' \
+        "*: :_files"
+
+}
+
+
+function _sourmash_tax {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'annotate:annotate gather results with taxonomy information'
+            'genome:classify genomes from gather results'
+            'grep:search taxonomies and output picklists.'
+            'metagenome:summarize metagenome gather results'
+            'prepare:combine multiple taxonomy databases into one.'
+            'summarize:summarize taxonomy/lineage information'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[show this help message and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (annotate)
+            _sourmash_tax_annotate
+            ;;
+
+        (genome)
+            _sourmash_tax_genome
+            ;;
+
+        (grep)
+            _sourmash_tax_grep
+            ;;
+
+        (metagenome)
+            _sourmash_tax_metagenome
+            ;;
+
+        (prepare)
+            _sourmash_tax_prepare
+            ;;
+
+        (summarize)
+            _sourmash_tax_summarize
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _sourmash_tax_annotate {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-g,--gather-csv}'[CSV output files from sourmash gather]' \
+        '--from-file[input many gather results as a text file, with one gather CSV per line]':file:_files \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-t,--taxonomy-csv,--taxonomy}'[database lineages CSV]':file:_files \
+        {-o,--output-dir}'[directory for output files]':file:_files \
+        '--keep-full-identifiers[do not split identifiers on whitespace]' \
+        '--keep-identifier-versions[after splitting identifiers, do not remove accession versions]' \
+        '--fail-on-missing-taxonomy[fail quickly if taxonomy is not available for an identifier]' \
+        {-f,--force}'[continue past errors in file and taxonomy loading]' \
+        {--lins,--lin-taxonomy}'[use LIN taxonomy in place of standard taxonomic ranks. Note that the taxonomy CSV must contain LIN lineage information.]' \
+        {--ictv,--ictv-taxonomy}'[use ICTV taxonomy in place of standard taxonomic ranks. Note that the taxonomy CSV must contain ICTV ranks.]' \
+        "*: :_files"
+
+}
+
+function _sourmash_tax_genome {
+    _arguments \
+        '-[- this query was classified]' \
+        {-h,--help}'[show this help message and exit]' \
+        {-g,--gather-csv}'[CSVs output by sourmash gather for this sample]' \
+        '--from-file[input many gather results as a text file, with one gather CSV per line]':file:_files \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-t,--taxonomy-csv,--taxonomy}'[database lineages CSV]':file:_files \
+        {-o,--output-base}'[base filepath for output file(s) (default stdout)]' \
+        '--output-dir[directory for output files]':file:_files \
+        '--keep-full-identifiers[do not split identifiers on whitespace]' \
+        '--keep-identifier-versions[after splitting identifiers, do not remove accession versions]' \
+        '--fail-on-missing-taxonomy[fail quickly if taxonomy is not available for an identifier]' \
+        {-F,--output-format}'[choose output format(s)]' \
+        {-f,--force}'[continue past survivable errors in loading taxonomy database or gather results]' \
+        {--lins,--lin-taxonomy}'[use LIN taxonomy in place of standard taxonomic ranks. Note that the taxonomy CSV must contain '\''lin'\'' lineage information.]' \
+        {--lingroup,--lingroups}'[CSV containing '\''name'\'', '\''lin'\'' columns, where '\''lin'\'' is the lingroup prefix. Will restrict classification to these groups.]':file:_files \
+        {--ictv,--ictv-taxonomy}'[use ICTV taxonomy in place of standard taxonomic ranks. Note that the taxonomy CSV must contain ICTV ranks.]' \
+        '--containment-threshold[minimum containment threshold for classification; default=0.1]' \
+        {--ani-threshold,--aai-threshold}'[minimum ANI threshold (nucleotide gather) or AAI threshold (protein gather) for classification; default=None]' \
+        {-r,--rank,--position,--lin-position}'[For non-default output formats. Classify to this rank (tax genome) or summarize taxonomy at this rank and above (tax metagenome). Note that the taxonomy CSV must contain lineage information at this rank, and that LIN positions start at 0. Choices: '\''strain'\'', '\''species'\'', '\''genus'\'', '\''family'\'', '\''order'\'', '\''class'\'', '\''phylum'\'', '\''superkingdom'\'' or an integer LIN position]' \
+        '--v4[use sourmash v4 command-line behavior (default)]' \
+        '--v5[use sourmash v5 command-line behavior]' \
+        "*: :_files"
+
+}
+
+function _sourmash_tax_grep {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-r,--rank}'[search only this rank]' \
+        {-v,--invert-match}'[select non-matching lineages]' \
+        {-i,--ignore-case}'[ignore case distinctions (search lower and upper case both)]' \
+        {--silent,--no-picklist-output}'[do not output picklist]' \
+        {-c,--count}'[only output a count of discovered lineages; implies --silent]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-t,--taxonomy-csv,--taxonomy}'[database lineages]':file:_files \
+        {-o,--output}'[output file (defaults to stdout)]' \
+        {-f,--force}'[continue past errors in file and taxonomy loading]' \
+        "*: :_files"
+
+}
+
+function _sourmash_tax_metagenome {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-g,--gather-csv}'[CSVs from sourmash gather]' \
+        '--from-file[input many gather results as a text file, with one gather CSV per line]':file:_files \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-o,--output-base}'[base filepath for output file(s) (default stdout)]' \
+        '--output-dir[directory for output files]':file:_files \
+        {-t,--taxonomy-csv,--taxonomy}'[database lineages CSV]':file:_files \
+        '--keep-full-identifiers[do not split identifiers on whitespace]' \
+        '--keep-identifier-versions[after splitting identifiers, do not remove accession versions]' \
+        '--fail-on-missing-taxonomy[fail quickly if taxonomy is not available for an identifier]' \
+        {-F,--output-format}'[choose output format(s)]' \
+        {-f,--force}'[continue past errors in taxonomy database loading]' \
+        {--lins,--lin-taxonomy}'[use LIN taxonomy in place of standard taxonomic ranks. Note that the taxonomy CSV must contain '\''lin'\'' lineage information.]' \
+        {--lingroup,--lingroups}'[CSV containing '\''name'\'', '\''lin'\'' columns, where '\''lin'\'' is the lingroup prefix. For '\''tax metagenome'\'' runs with a single '\''gather'\'' file (single query), providing this file will allow us to output a '\''lingroup'\'' report containing taxonomic summarization for each group. For multiple queries, we recommend the '\''csv_summary'\'' output format.]':file:_files \
+        {--ictv,--ictv-taxonomy}'[use ICTV taxonomy in place of standard taxonomic ranks. Note that the taxonomy CSV must contain ICTV ranks.]' \
+        {-r,--rank,--position,--lin-position}'[For non-default output formats. Classify to this rank (tax genome) or summarize taxonomy at this rank and above (tax metagenome). Note that the taxonomy CSV must contain lineage information at this rank, and that LIN positions start at 0. Choices: '\''strain'\'', '\''species'\'', '\''genus'\'', '\''family'\'', '\''order'\'', '\''class'\'', '\''phylum'\'', '\''superkingdom'\'' or an integer LIN position]' \
+        '--use-abundances[use abundances from sketches if available (for krona and lineage_summary)]' \
+        {--ignore-abundances,--no-abundances}'[ignore abundances from sketches even if available]' \
+        '--v4[use sourmash v4 command-line behavior (default)]' \
+        '--v5[use sourmash v5 command-line behavior]' \
+        "*: :_files"
+
+}
+
+function _sourmash_tax_prepare {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-t,--taxonomy-csv,--taxonomy}'[database lineages]':file:_files \
+        {-o,--output}'[output file]' \
+        {-F,--database-format}'[format of output file; default is '\''sql'\'')]' \
+        '--keep-full-identifiers[do not split identifiers on whitespace]' \
+        '--keep-identifier-versions[after splitting identifiers, do not remove accession versions]' \
+        '--fail-on-missing-taxonomy[fail quickly if taxonomy is not available for an identifier]' \
+        {-f,--force}'[continue past errors in file and taxonomy loading]' \
+        "*: :_files"
+
+}
+
+function _sourmash_tax_summarize {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-q,--quiet}'[suppress non-error output]' \
+        {-o,--output-lineage-information}'[output a CSV file containing individual lineage counts]' \
+        '--keep-full-identifiers[do not split identifiers on whitespace]' \
+        '--keep-identifier-versions[after splitting identifiers, do not remove accession versions]' \
+        {-f,--force}'[continue past errors in file and taxonomy loading]' \
+        {--lins,--lin-taxonomy}'[use LIN taxonomy in place of standard taxonomic ranks.]' \
+        {--ictv,--ictv-taxonomy}'[use ICTV taxonomy in place of standard taxonomic ranks. Note that the taxonomy CSV must contain ICTV ranks.]' \
+        "*: :_files"
+
+}
+
+_sourmash "$@"
+
