@@ -1,0 +1,178 @@
+#compdef verticall
+
+# Auto-generated with h2o
+
+
+function _verticall {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'pairwise:pairwise analysis of assemblies'
+            'view:view plots for a single assembly pair'
+            'matrix:produce a PHYLIP distance matrix'
+            'mask:mask horizontal regions from a whole-genome pseudo-alignment'
+            'summary:summarise regions for one assembly'
+            'repair:repair assembly for use in Verticall'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[Show this help message and exit]' \
+        '--version[Show program'\''s version number and exit]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (pairwise)
+            _verticall_pairwise
+            ;;
+
+        (view)
+            _verticall_view
+            ;;
+
+        (matrix)
+            _verticall_matrix
+            ;;
+
+        (mask)
+            _verticall_mask
+            ;;
+
+        (summary)
+            _verticall_summary
+            ;;
+
+        (repair)
+            _verticall_repair
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _verticall_pairwise {
+    _arguments \
+        {-i,--in_dir}'[Directory containing assemblies in FASTA format]':file:_files \
+        {-o,--out_file}'[Filename of TSV output]':file:_files \
+        {-r,--reference}'[Reference assembly in FASTA format]' \
+        '--window_count[Aim to have at least this many comparison windows between assemblies (default: 50000)]' \
+        '--window_size[Use this defined window size for all pairwise comparisons (default: dynamically choose window size for each pair)]' \
+        '--ignore_indels[Only use mismatches to determine distance (default: use both mismatches and gap-compressed indels)]' \
+        '--smoothing_factor[Degree to which the distance distribution is smoothed (default: 0.8)]' \
+        '--secondary[Peaks with a mass of at least this fraction of the most massive peak will be used to produce secondary distances (default: 0.7)]' \
+        '--verbose[Output more detail to stderr for debugging (default: only output basic information)]' \
+        '--index_options[Minimap2 options for assembly indexing (default: -k15 -w10)]' \
+        '--align_options[Minimap2 options for assembly-to-assembly alignment (default: -x asm20)]' \
+        '--allowed_overlap[Allow this much overlap between alignments (default: 100)]' \
+        {-t,--threads}'[CPU threads for parallel processing (default: 12)]' \
+        '--part[Fraction of the data to analyse (for parallelisation, default: 1/1)]' \
+        '--index_only[Quit after building indices (default: continue to pairwise analysis)]' \
+        '--skip_check[Do not carry out the assembly check for duplicate contig names and ambiguous bases (default: perform the assembly check)]' \
+        '--existing_tsv[Verticall will skip any assembly pairs present in this existing TSV file (default: do not skip any pairs)]' \
+        {-h,--help}'[Show this help message and exit]' \
+        '--version[Show program'\''s version number and exit]' \
+        "*: :_files"
+
+}
+
+function _verticall_view {
+    _arguments \
+        {-i,--in_dir}'[Directory containing assemblies in FASTA format]':file:_files \
+        {-n,--names}'[Two sample names (comma-delimited) to be viewed]' \
+        '--window_count[Aim to have at least this many comparison windows between assemblies (default: 50000)]' \
+        '--window_size[Use this defined window size for all pairwise comparisons (default: dynamically choose window size for each pair)]' \
+        '--ignore_indels[Only use mismatches to determine distance (default: use both mismatches and gap-compressed indels)]' \
+        '--smoothing_factor[Degree to which the distance distribution is smoothed (default: 0.8)]' \
+        '--secondary[Peaks with a mass of at least this fraction of the most massive peak will be used to produce secondary distances (default: 0.7)]' \
+        '--verbose[Output more detail to stderr for debugging (default: only output basic information)]' \
+        '--index_options[Minimap2 options for assembly indexing (default: -k15 -w10)]' \
+        '--align_options[Minimap2 options for assembly-to-assembly alignment (default: -x asm20)]' \
+        '--allowed_overlap[Allow this much overlap between alignments (default: 100)]' \
+        '--sqrt_distance[Use a square-root transform on the genomic distance axis (default: no distance axis transform)]' \
+        '--sqrt_mass[Use a square-root transform on the probability mass axis (default: no mass axis transform)]' \
+        '--result[Number of result to plot (used when there are multiple possible results for the pair, default: 1)]' \
+        '--vertical_colour[Hex colour for vertical inheritance (default: #4859a0)]' \
+        '--horizontal_colour[Hex colour for horizontal inheritance (default: #c47e7e)]' \
+        '--ambiguous_colour[Hex colour for ambiguous inheritance (default: #c9c9c9)]' \
+        {-h,--help}'[Show this help message and exit]' \
+        '--version[Show program'\''s version number and exit]' \
+        "*: :_files"
+
+}
+
+function _verticall_matrix {
+    _arguments \
+        {-i,--in_file}'[Filename of TSV created by vertical pairwise]':file:_files \
+        {-o,--out_file}'[Filename of PHYLIP matrix output]':file:_files \
+        '--distance_type[Which distance to use in matrix (default: median_vertical_window)]' \
+        '--asymmetrical[Do not average pairs to make symmetrical matrices (default: make matrices symmetrical)]' \
+        '--no_jukes_cantor[Do not apply Jukes-Cantor correction (default: apply Jukes-Cantor correction)]' \
+        '--multi[Behaviour when there are multiple results for a sample pair (default: first)]' \
+        '--include_names[Samples names to include in matrix (comma-delimited, default: include all samples)]' \
+        '--exclude_names[Samples names to exclude from matrix (comma-delimited, default: do not exclude any samples)]' \
+        {-h,--help}'[Show this help message and exit]' \
+        '--version[Show program'\''s version number and exit]' \
+        "*: :_files"
+
+}
+
+function _verticall_mask {
+    _arguments \
+        {-i,--in_tsv}'[Filename of TSV created by vertical pairwise]' \
+        {-a,--in_alignment}'[Filename of whole-genome pseudo-alignment to be masked]' \
+        {-o,--out_alignment}'[Filename of masked whole-genome pseudo-alignment]' \
+        '--image[Filename of SVG illustration of masked regions (optional)]' \
+        '--vertical_colour[Hex colour for vertical inheritance (default: #4859a0)]' \
+        '--horizontal_colour[Hex colour for horizontal inheritance (default: #c47e7e)]' \
+        '--unaligned_colour[Hex colour for unaligned inheritance (default: #c9c9c9)]' \
+        '--reference[Sample name for the reference genome (default: determine automatically if possible from the TSV file)]' \
+        '--multi[Behaviour when there are multiple results for a sample pair (default: first)]' \
+        '--h_char[Character used to mask horizontal regions (default: N, use None to leave horizontal regions unmasked)]' \
+        '--u_char[Character used to mask unaligned regions (default: -, use None to leave unaligned regions unmasked)]' \
+        '--exclude_invariant[Only include variant sites in the output alignment (default: include both variant and invariant sites in the output alignment)]' \
+        '--exclude_reference[Do not include the reference sequence in the output alignment (default: include the reference sequence in the output alignment)]' \
+        {-h,--help}'[Show this help message and exit]' \
+        '--version[Show program'\''s version number and exit]' \
+        "*: :_files"
+
+}
+
+function _verticall_summary {
+    _arguments \
+        {-i,--in_file}'[Filename of TSV created by vertical pairwise]':file:_files \
+        {-a,--assembly}'[Filename of assembly to be summarised]' \
+        '--all[Output one line for all assembly positions (default: omit redundant adjacent lines)]' \
+        '--plot[Instead of outputting a table, display an interactive plot (default: do not display a plot)]' \
+        '--vertical_colour[Hex colour for vertical inheritance (default: #4859a0)]' \
+        '--horizontal_colour[Hex colour for horizontal inheritance (default: #c47e7e)]' \
+        '--unaligned_colour[Hex colour for unaligned inheritance (default: #c9c9c9)]' \
+        {-h,--help}'[Show this help message and exit]' \
+        '--version[Show program'\''s version number and exit]' \
+        "*: :_files"
+
+}
+
+function _verticall_repair {
+    _arguments \
+        {-i,--in_file}'[Filename of assembly in need of repair]':file:_files \
+        {-o,--out_file}'[Filename of repaired assembly output (if the same as -i, the input file will be overwritten)]':file:_files \
+        {-h,--help}'[Show this help message and exit]' \
+        '--version[Show program'\''s version number and exit]' \
+        "*: :_files"
+
+}
+
+_verticall "$@"
+
