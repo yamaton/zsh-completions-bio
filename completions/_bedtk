@@ -1,0 +1,123 @@
+#compdef bedtk
+
+# Auto-generated with h2o
+
+
+function _bedtk {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'isec:intersection (bedtools intersect)'
+            'flt:filter BED/VCF file (bedtools intersect/window)'
+            'cov:breadth of coverage (bedtools coverage)'
+            'sub:subtraction (bedtools subtract)'
+            'merge:merge overlapping regions (bedtools merge)'
+            'sort:sort regions (bedtools sort)'
+            'sum:total region length'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (isec)
+            _bedtk_isec
+            ;;
+
+        (flt)
+            _bedtk_flt
+            ;;
+
+        (cov)
+            _bedtk_cov
+            ;;
+
+        (sub)
+            _bedtk_sub
+            ;;
+
+        (merge)
+            _bedtk_merge
+            ;;
+
+        (sort)
+            _bedtk_sort
+            ;;
+
+        (sum)
+            _bedtk_sum
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _bedtk_isec {
+    _arguments \
+        '-s[list of contig IDs to specify the output order \[\]]':file:_files \
+        "*: :_files"
+
+}
+
+function _bedtk_flt {
+    _arguments \
+        '-c[the second input is VCF]' \
+        '-p[the second input is PAF]' \
+        '-C[print records contained in the union of <loaded.bed>]' \
+        '-v[print non-satisfying records]' \
+        '-w[window size \[0\]]' \
+        '-f[min overlap fraction \[0\]]' \
+        "*: :_files"
+
+}
+
+function _bedtk_cov {
+    _arguments \
+        '-c[only count; no breadth of depth]' \
+        '-C[containment only]' \
+        "*: :_files"
+
+}
+
+function _bedtk_sub {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _bedtk_merge {
+    _arguments \
+        '-s[assume the input is sorted (NOT implemented yet)]' \
+        "*: :_files"
+
+}
+
+function _bedtk_sort {
+    _arguments \
+        '-s[list of contig IDs to specify the order \[\]]':file:_files \
+        "*: :_files"
+
+}
+
+function _bedtk_sum {
+    _arguments \
+        '-m[merge overlapping regions]' \
+        "*: :_files"
+
+}
+
+_bedtk "$@"
+
