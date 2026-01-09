@@ -1,0 +1,202 @@
+#compdef ropebwt3
+
+# Auto-generated with h2o
+
+
+function _ropebwt3 {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'sw:find local alignment'
+            'mem:find maximal exact matches'
+            'hapdiv:haplotype diversity with sliding k-mers'
+            'suffix:find the longest matching suffix'
+            'build:construct a BWT'
+            'merge:merge BWTs'
+            'plain2fmd:convert BWT in plain text to FMD'
+            'ssa:generate sampled suffix array'
+            'get:retrieve the i-th sequence from BWT'
+            'stat:basic statistics of BWT'
+            'kount:count (high-occurrence) k-mers'
+            'fa2line:convert FASTX to lines'
+            'fa2kmer:extract k-mers from FASTX'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (sw)
+            _ropebwt3_sw
+            ;;
+
+        (mem)
+            _ropebwt3_mem
+            ;;
+
+        (hapdiv)
+            _ropebwt3_hapdiv
+            ;;
+
+        (suffix)
+            _ropebwt3_suffix
+            ;;
+
+        (build)
+            _ropebwt3_build
+            ;;
+
+        (merge)
+            _ropebwt3_merge
+            ;;
+
+        (plain2fmd)
+            _ropebwt3_plain2fmd
+            ;;
+
+        (ssa)
+            _ropebwt3_ssa
+            ;;
+
+        (get)
+            _ropebwt3_get
+            ;;
+
+        (stat)
+            _ropebwt3_stat
+            ;;
+
+        (kount)
+            _ropebwt3_kount
+            ;;
+
+        (fa2line)
+            _ropebwt3_fa2line
+            ;;
+
+        (fa2kmer)
+            _ropebwt3_fa2kmer
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _ropebwt3_sw {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _ropebwt3_mem {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _ropebwt3_hapdiv {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _ropebwt3_suffix {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _ropebwt3_build {
+    _arguments \
+        '-m[batch size \[7G\]]' \
+        '-t[total number of threads \[4\]]' \
+        '-p[#threads for sais and run sais and merge together (more RAM) \[0\]]' \
+        '-l[leaf block size in B+-tree \[512\]]' \
+        '-n[max number children per internal node \[64\]]' \
+        '-2[use the ropebwt2 algorithm (libsais by default)]' \
+        '-s[build BWT in the reverse lexicographical order (RLO; force -2)]' \
+        '-r[build BWT in RCLO (force -2)]' \
+        '-i[read existing index from FILE \[\]]':file:_files \
+        '-L[one sequence per line in the input]' \
+        '-F[no forward strand]' \
+        '-R[no reverse strand]' \
+        '-o[output to FILE \[stdout\]]':file:_files \
+        '-d[dump in the fermi-delta format (FMD)]' \
+        '-b[dump in the ropebwt format (FMR)]' \
+        '-e[dump in the BRE format]' \
+        '-T[output the index in the Newick format (for debugging)]' \
+        '-S[save the current index to FILE after each input file \[\]]':file:_files \
+        "*: :_files"
+
+}
+
+function _ropebwt3_merge {
+    _arguments \
+        '-t[number of threads \[1\]]' \
+        '-o[output FMR to FILE \[stdout\]]':file:_files \
+        "*: :_files"
+
+}
+
+function _ropebwt3_plain2fmd {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _ropebwt3_ssa {
+    _arguments \
+        '-t[number of threads \[4\]]' \
+        '-s[sample rate one SA per 2**INT bases \[8\]]' \
+        '-o[output to file \[stdout\]]':file:_files \
+        "*: :_files"
+
+}
+
+function _ropebwt3_get {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _ropebwt3_stat {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _ropebwt3_kount {
+    _arguments \
+        '-k[k-mer length \[51\]]' \
+        '-m[min k-mer occurrence \[100\]]' \
+        "*: :_files"
+
+}
+
+function _ropebwt3_fa2line {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _ropebwt3_fa2kmer {
+    _arguments \
+        "*: :_files"
+
+}
+
+_ropebwt3 "$@"
+
