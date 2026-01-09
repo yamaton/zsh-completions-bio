@@ -5,14 +5,17 @@
 function _miniprot {
     _arguments \
         '-k[k-mer size \[6\]]' \
-        '-s[submer size (density: 1/(2*(k-s)+1)) \[4\]]' \
+        '-M[modimisers bit (sample rate = 1/2**M) \[1\]]' \
+        '-L[min ORF length to index \[30\]]' \
+        '-T[NCBI translation table (1 through 33) \[1\]]' \
         '-b[bits per block \[8\]]' \
         '-d[save index to FILE \[\]]':file:_files \
         '-S[no splicing (applying -G1k -J1k -e1k)]' \
-        '-c[max k-mer occurrence \[50000\]]' \
-        '-G[max intron size \[200k\]]' \
+        '-c[max k-mer occurrence \[20000\]]' \
+        '-G[max intron size; override -I \[200k\]]' \
+        '-I[set max intron size to 3.6*sqrt(refLen)]' \
         '-w[weight of log gap penalty \[0.75\]]' \
-        '-n[minimum number of syncmers in a chain \[5\]]' \
+        '-n[minimum number of syncmers in a chain \[3\]]' \
         '-m[min chaining score \[0\]]' \
         '-l[k-mer size for the second round of chaining \[5\]]' \
         '-e[max extension for 2nd round of chaining and alignment \[10000\]]' \
@@ -21,14 +24,22 @@ function _miniprot {
         '-O[gap open penalty \[11\]]' \
         '-E[gap extension (a k-long gap costs O+k*E) \[1\]]' \
         '-J[intron open penalty \[29\]]' \
-        '-F[penalty for frameshifts or in-frame stop codons \[17\]]' \
+        '-F[penalty for frameshifts or in-frame stop codons \[23\]]' \
         '-C[weight of splice penalty; 0 to ignore splice signals \[1\]]' \
         '-B[bonus score for alignment reaching query ends \[5\]]' \
+        '-j[splice model: 2=vertebrate/insect, 1=general, 0=none (see manual) \[1\]]' \
+        '--spsc[splice score file in format "ctg offset +|- D|A score" \[\]]':file:_files \
+        '--spsc0[splice score for sites not in --spsc \[-7\]]' \
         '-t[number of threads \[4\]]' \
         '--gff[output in the GFF3 format]' \
+        '--gtf[basic GTF output without detailed alignment]' \
+        '--aln[output residue alignment]' \
+        '--trans[output translated protein sequences (skipping frameshift)]' \
         '-P[prefix for IDs in GFF3 \[MP\]]' \
         '-u[print unmapped query proteins in PAF]' \
         '--outn[output up to min{NUM,-N} alignments per query \[1000\]]' \
+        '--outs[output if score at least FLOAT*bestScore \[0.99\]]' \
+        '--outc[output if at least FLOAT fraction of query is aligned \[0.1\]]' \
         '-K[query batch size \[2M\]]' \
         "*: :_files"
 
