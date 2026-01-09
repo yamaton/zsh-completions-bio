@@ -1,0 +1,104 @@
+#compdef minisplice
+
+# Auto-generated with h2o
+
+
+function _minisplice {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'gentrain:generate training data'
+            'train:model training'
+            'inspect:print the model structure'
+            'predict:predict splice sites'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (gentrain)
+            _minisplice_gentrain
+            ;;
+
+        (train)
+            _minisplice_train
+            ;;
+
+        (inspect)
+            _minisplice_inspect
+            ;;
+
+        (predict)
+            _minisplice_predict
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _minisplice_gentrain {
+    _arguments \
+        '-l[length of flanking sequences \[100\]]' \
+        '-p[fraction of positive sites \[0.25\]]' \
+        "*: :_files"
+
+}
+
+function _minisplice_train {
+    _arguments \
+        '-k[1D-CNN kernel size \[5\]]' \
+        '-f[number of features per 1D-CNN layer \[16\]]' \
+        '-F[number of neurons in the dense layer \[16\]]' \
+        '-d[dropout rate (use for large models) \[0\]]' \
+        '-r[learning rate \[0.001\]]' \
+        '-e[min number of epoches \[3\]]' \
+        '-E[max number of epoches \[100\]]' \
+        '-m[minibatch size \[64\]]' \
+        '-s[random seed \[11\]]' \
+        '-t[number of threads \[1\]]' \
+        '-i[input model \[\]]':file:_files \
+        '-o[output model \[\]]':file:_files \
+        "*: :_files"
+
+}
+
+function _minisplice_inspect {
+    _arguments \
+        "*: :_files"
+
+}
+
+function _minisplice_predict {
+    _arguments \
+        '-t[number of threads \[1\]]' \
+        '-m[minibatch size \[128\]]' \
+        '-d[donor only]' \
+        '-a[acceptor only]' \
+        '-E[print calibration data]' \
+        '-c[calibration data \[\]]':file:_files \
+        '-l[min score \[-6\]]' \
+        '-h[max score \[13\]]' \
+        '-p[print values at the last max1d layer]' \
+        '-b[annotated splice sites in BED12 \[\]]':file:_files \
+        '-s[score bin size \[0.02\]]' \
+        '-r[input formatted as training data]' \
+        "*: :_files"
+
+}
+
+_minisplice "$@"
+
