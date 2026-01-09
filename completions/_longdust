@@ -1,0 +1,21 @@
+#compdef longdust
+
+# Auto-generated with h2o
+
+function _longdust {
+    _arguments \
+        '-k[k-mer length \[7\]]' \
+        '-w[window size \[5000\]]' \
+        '-t[score threshold \[0.6\]]' \
+        '-g[genome-wide GC content \[0.5\]]' \
+        '-e[extension X-drop length (0 to disable) \[50\]]' \
+        '-s[min start k-mer count (2 or 3) \[3\]]' \
+        '-f[forward strand only]' \
+        '-a[guaranteed O(Lw) algorithm but with more approximation]' \
+        '-v[version number]' \
+        "*: :_files"
+
+}
+
+_longdust "$@"
+
