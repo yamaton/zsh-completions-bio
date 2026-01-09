@@ -1,0 +1,244 @@
+#compdef autocycler
+
+# Auto-generated with h2o
+
+
+function _autocycler {
+    local line state
+
+    function _commands {
+        local -a commands
+        commands=(
+            'clean:manual manipulation of the final consensus assebly graph'
+            'cluster:cluster contigs in the unitig graph based on similarity'
+            'combine:combine Autocycler GFAs into one assembly'
+            'compress:compress input contigs into a unitig graph'
+            'decompress:decompress contigs from a unitig graph'
+            'dotplot:generate an all-vs-all dotplot from a unitig graph'
+            'gfa2fasta:convert an Autocycler GFA file to FASTA format'
+            'helper:helper commands for long-read assemblers'
+            'resolve:resolve repeats in the the unitig graph'
+            'subsample:subsample a long-read set'
+            'table:create TSV line from YAML files'
+            'trim:trim contigs in a cluster'
+        )
+        _describe 'command' commands
+    }
+ 
+
+    _arguments -C \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        ': :->cmd' \
+        '*:: :->subcmd'
+
+    case $state in
+    (cmd)
+        _commands
+        ;;
+    (subcmd)
+        case $line[1] in
+        (clean)
+            _autocycler_clean
+            ;;
+
+        (cluster)
+            _autocycler_cluster
+            ;;
+
+        (combine)
+            _autocycler_combine
+            ;;
+
+        (compress)
+            _autocycler_compress
+            ;;
+
+        (decompress)
+            _autocycler_decompress
+            ;;
+
+        (dotplot)
+            _autocycler_dotplot
+            ;;
+
+        (gfa2fasta)
+            _autocycler_gfa2fasta
+            ;;
+
+        (helper)
+            _autocycler_helper
+            ;;
+
+        (resolve)
+            _autocycler_resolve
+            ;;
+
+        (subsample)
+            _autocycler_subsample
+            ;;
+
+        (table)
+            _autocycler_table
+            ;;
+
+        (trim)
+            _autocycler_trim
+            ;;
+
+        esac
+        ;;
+     esac
+
+}
+
+function _autocycler_clean {
+    _arguments \
+        {-i,--in_gfa}'[Autocycler GFA file (required)]' \
+        {-o,--out_gfa}'[Output GFA file (required)]' \
+        {-r,--remove}'[Tig numbers to remove from the input graph]' \
+        {-d,--duplicate}'[Tig numbers to duplicate in the input graph]' \
+        {-m,--min_depth}'[Automatically remove tigs up to this depth]' \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+function _autocycler_cluster {
+    _arguments \
+        {-a,--autocycler_dir}'[Autocycler directory containing input_assemblies.gfa file (required)]':file:_files \
+        '--cutoff[cutoff distance threshold for hierarchical clustering \[default: 0.2\]]' \
+        '--min_assemblies[exclude clusters with fewer than this many assemblies \[default: automatic\]]' \
+        '--max_contigs[refuse to run if mean contigs per assembly exceeds this value \[default: 25\]]' \
+        '--manual[manually define clusters using tree node numbers \[default: automatic\]]' \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+function _autocycler_combine {
+    _arguments \
+        {-a,--autocycler_dir}'[Autocycler directory (required)]':file:_files \
+        {-i,--in_gfas}'[Autocycler cluster GFA files (one or more required)]' \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+function _autocycler_compress {
+    _arguments \
+        {-i,--assemblies_dir}'[Directory containing input assemblies (required)]':file:_files \
+        {-a,--autocycler_dir}'[Autocycler directory to be created (required)]':file:_files \
+        '--kmer[K-mer size for De Bruijn graph \[default: 51\]]' \
+        '--max_contigs[refuse to run if mean contigs per assembly exceeds this value \[default: 25\]]' \
+        {-t,--threads}'[Number of CPU threads \[default: 8\]]' \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+function _autocycler_decompress {
+    _arguments \
+        {-i,--in_gfa}'[Autocycler GFA file (required)]' \
+        {-o,--out_dir}'[Directory where decompressed sequences will be saved (either -o or -f is required)]':file:_files \
+        {-f,--out_file}'[FASTA file where decompressed sequences will be saved (either -o or -f is required)]':file:_files \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+function _autocycler_dotplot {
+    _arguments \
+        {-i,--input}'[Input Autocycler GFA file, FASTA file or directory (required)]' \
+        {-o,--out_png}'[File path where dotplot PNG will be saved (required)]' \
+        '--res[Size (in pixels) of dotplot image \[default: 2000\]]' \
+        '--kmer[K-mer size to use in dotplot \[default: 32\]]' \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+function _autocycler_gfa2fasta {
+    _arguments \
+        {-i,--in_gfa}'[Input Autocycler GFA file (required)]' \
+        {-o,--out_fasta}'[Output FASTA file (required)]' \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+function _autocycler_helper {
+    _arguments \
+        {-r,--reads}'[Input long reads in FASTQ format (required)]' \
+        {-o,--out_prefix}'[Output prefix (required for all tasks except genome_size)]' \
+        {-g,--genome_size}'[Estimated genome size (required for some tasks)]' \
+        {-t,--threads}'[Number of CPU threads \[default: 8\]]' \
+        {-d,--dir}'[Working directory \[default: use a temporary directory\]]':file:_files \
+        '--read_type[Read type \[default: ont_r10\] \[possible values: ont_r9, ont_r10, pacbio_clr, pacbio_hifi\]]' \
+        '--min_depth_abs[Exclude contigs with read depth less than this absolute value]' \
+        '--min_depth_rel[Exclude contigs with read depth less than this fraction of the longest contig'\''s depth]' \
+        '--args[Additional arguments for the task]' \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+function _autocycler_resolve {
+    _arguments \
+        {-c,--cluster_dir}'[Autocycler directory (required)]':file:_files \
+        '--verbose[Enable verbose output]' \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+function _autocycler_subsample {
+    _arguments \
+        {-r,--reads}'[Input long reads in FASTQ format (required)]' \
+        {-o,--out_dir}'[Output directory (required)]':file:_files \
+        {-g,--genome_size}'[Estimated genome size (required)]' \
+        {-c,--count}'[Number of subsampled read sets to output \[default: 4\]]' \
+        {-d,--min_read_depth}'[Minimum allowed read depth \[default: 25.0\]]' \
+        {-s,--seed}'[Seed for random number generator \[default: 0\]]' \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+function _autocycler_table {
+    _arguments \
+        {-a,--autocycler_dir}'[Autocycler directory (if absent, a header line will be output)]':file:_files \
+        {-n,--name}'[Sample name \[default: blank\]]' \
+        {-f,--fields}'[Comma-delimited list of YAML fields to include \[default: "input_read_count, input_read_bases, input_read_n50, pass_cluster_count, fail_cluster_count, overall_clustering_score, untrimmed_cluster_size, untrimmed_cluster_distance, trimmed_cluster_size, trimmed_cluster_median, trimmed_cluster_mad, consensus_assembly_bases, consensus_assembly_unitigs, consensus_assembly_fully_resolved"\]]' \
+        {-s,--sigfigs}'[Significant figures to use for floating point numbers \[default: 3\]]' \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+function _autocycler_trim {
+    _arguments \
+        {-c,--cluster_dir}'[Autocycler cluster directory containing 1_untrimmed.gfa file (required)]':file:_files \
+        '--min_identity[Minimum alignment identity for trimming alignments \[default: 0.75\]]' \
+        '--max_unitigs[Maximum unitigs used for overlap alignment, set to 0 to disable trimming \[default: 5000\]]' \
+        '--mad[Allowed variability in cluster length, measured in median absolute deviations, set to 0 to disable exclusion of length outliers \[default: 5.0\]]' \
+        {-t,--threads}'[Number of CPU threads \[default: 8\]]' \
+        {-h,--help}'[Print help]' \
+        {-V,--version}'[Print version]' \
+        "*: :_files"
+
+}
+
+_autocycler "$@"
+
