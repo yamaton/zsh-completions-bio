@@ -1,0 +1,30 @@
+#compdef minipileup
+
+# Auto-generated with h2o
+
+function _minipileup {
+    _arguments \
+        '-f[reference genome \[null\]]':file:_files \
+        '-v[show variants only]' \
+        '-c[output in the VCF format (force -v)]' \
+        '-C[show count of each allele on both strands]' \
+        '-e[use '\''*'\'' to mark deleted bases]' \
+        '-y[variant calling mode (-vcC -a2 -s5 -q30 -Q20)]' \
+        '-V[print version number]' \
+        '-r[region in format of '\''ctg:start-end'\'' \[null\]]' \
+        '-b[BED or position list file to include \[null\]]':file:_files \
+        '-P[only consider properly paired reads for paired-end reads]' \
+        '-q[minimum mapping quality \[0\]]' \
+        '-l[minimum alignment length \[0\]]' \
+        '-S[minimum supplementary alignment length \[0\]]' \
+        '-Q[minimum base quality \[0\]]' \
+        '-T[skip bases within INT-bp from either end of a read \[0\]]' \
+        '-s[drop alleles with depth<INT \[1\]]' \
+        '-a[drop alleles with depth<INT on either strand \[0\]]' \
+        '-p[drop an allele if the allele fraction is below FLOAT \[0\]]' \
+        "*: :_files"
+
+}
+
+_minipileup "$@"
+
