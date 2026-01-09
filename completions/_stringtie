@@ -27,6 +27,8 @@ function _stringtie {
         '-M[fraction of bundle allowed to be covered by multi-hit reads (default:1)]' \
         '-p[number of threads (CPUs) to use (default: 1)]' \
         '-A[gene abundance estimation output file]' \
+        '-N[use with non-polyA RNA-seq]' \
+        '--nasc[output nascent transcripts]' \
         '-E[define window around possibly erroneous splice sites from long reads to look out for correct splice sites (default: 25)]' \
         '-B[enable output of Ballgown table files which will be created in the same directory as the output GTF (requires -G, -o recommended)]':file:_files \
         '-b[enable output of Ballgown table files but these files will be created under the directory path given as <dir_path>]':file:_files \
