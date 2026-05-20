@@ -194,20 +194,8 @@ function _bcftools_annotate {
 
 }
 
-
 function _bcftools_concat {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'concatenate:chromosome VCFs into one VCF, or combine a SNP VCF and an indel'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
+    _arguments \
         {-a,--allow-overlaps}'[First coordinate of the next file can precede last record of the current file.]' \
         {-c,--compact-PS}'[Do not output PS tag at each site, only at the start of a new phase set block.]' \
         {-d,--rm-dups}'[Output duplicate records present in multiple files only once: <snps|indels|both|all|exact>]' \
@@ -229,99 +217,11 @@ function _bcftools_concat {
         '--threads[Use multithreading with <int> worker threads \[0\]]' \
         {-v,--verbose}'[Set verbosity level \[1\]]' \
         {-W,--write-index}'[Automatically index the output files \[off\]]' \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (concatenate)
-            _bcftools_concat_concatenate
-            ;;
-
-        esac
-        ;;
-     esac
-
-}
-
-function _bcftools_concat_concatenate {
-    _arguments \
         "*: :_files"
 
 }
 
-
 function _bcftools_convert {
-    local line state
-
-    function _commands {
-        local -a commands
-        commands=(
-            'formats:details. When specifying output files explicitly instead'
-        )
-        _describe 'command' commands
-    }
- 
-
-    _arguments -C \
-        {-e,--exclude}'[Exclude sites for which the expression is true]' \
-        {-i,--include}'[Select sites for which the expression is true]' \
-        {-r,--regions}'[Restrict to comma-separated list of regions]' \
-        {-R,--regions-file}'[Restrict to regions listed in a file]':file:_files \
-        '--regions-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[1\]]' \
-        {-s,--samples}'[List of samples to include]' \
-        {-S,--samples-file}'[File of samples to include]':file:_files \
-        {-t,--targets}'[Similar to -r but streams rather than index-jumps]' \
-        {-T,--targets-file}'[Similar to -R but streams rather than index-jumps]':file:_files \
-        '--targets-overlap[Include if POS in the region (0), record overlaps (1), variant overlaps (2) \[0\]]' \
-        '--no-version[Do not append version and command line to the header]' \
-        {-o,--output}'[Output file name \[stdout\]]':file:_files \
-        {-O,--output-type}'[u/b: un/compressed BCF, v/z: un/compressed VCF, 0-9: compression level \[v\]]' \
-        '--threads[Use multithreading with INT worker threads \[0\]]' \
-        {-W,--write-index}'[Automatically index the output files \[off\]]' \
-        {-G,--gensample2vcf}'[<PREFIX>|<GEN-FILE>,<SAMPLE-FILE>]' \
-        {-g,--gensample}'[<PREFIX>|<GEN-FILE>,<SAMPLE-FILE>]' \
-        '--3N6[Use 3*N+6 column format instead of the old 3*N+5 column format]' \
-        '--tag[Tag to take values for .gen file: GT,PL,GL,GP \[GT\]]' \
-        '--chrom[Output chromosome in first column instead of CHROM:POS_REF_ALT]' \
-        '--keep-duplicates[Keep duplicate positions]' \
-        '--sex[Output sex column in the sample-file, input format is: Sample\t\[MF\]]':file:_files \
-        '--vcf-ids[Output VCF IDs in second column instead of CHROM:POS_REF_ALT]' \
-        '--gvcf2vcf[Expand gVCF reference blocks]' \
-        {-f,--fasta-ref}'[Reference sequence in fasta format]':file:_files \
-        '--hapsample2vcf[<PREFIX>|<HAP-FILE>,<SAMPLE-FILE>]' \
-        '--hapsample[<PREFIX>|<HAP-FILE>,<SAMPLE-FILE>]' \
-        '--haploid2diploid[Convert haploid genotypes to diploid homozygotes]' \
-        '--vcf-ids[Output VCF IDs instead of CHROM:POS_REF_ALT]' \
-        {-H,--haplegendsample2vcf}'[<PREFIX>|<HAP-FILE>,<LEGEND-FILE>,<SAMPLE-FILE>]' \
-        {-h,--haplegendsample}'[<PREFIX>|<HAP-FILE>,<LEGEND-FILE>,<SAMPLE-FILE>]' \
-        {--tsv2vcf,-c,--columns}'[Columns of the input tsv file, see man page for details \[ID,CHROM,POS,AA\]]':file:_files \
-        {-s,--samples}'[List of sample names]' \
-        {-S,--samples-file}'[File of sample names]':file:_files \
-        ': :->cmd' \
-        '*:: :->subcmd'
-
-    case $state in
-    (cmd)
-        _commands
-        ;;
-    (subcmd)
-        case $line[1] in
-        (formats)
-            _bcftools_convert_formats
-            ;;
-
-        esac
-        ;;
-     esac
-
-}
-
-function _bcftools_convert_formats {
     _arguments \
         {-e,--exclude}'[Exclude sites for which the expression is true]' \
         {-i,--include}'[Select sites for which the expression is true]' \
