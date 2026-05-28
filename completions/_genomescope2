@@ -1,0 +1,35 @@
+#compdef genomescope2
+
+# Auto-generated with h2o
+
+function _genomescope2 {
+    _arguments \
+        {-h,--help}'[show this help message and exit]' \
+        {-v,--version}'[print the version and exit]' \
+        {-i,--input}'[input histogram file]' \
+        {-o,--output}'[output directory name]' \
+        {-p,--ploidy}'[ploidy (1, 2, 3, 4, 5, or 6) for model to use \[default 2\]]' \
+        {-k,--kmer_length}'[kmer length used to calculate kmer spectra \[default 21\]]' \
+        {-n,--name_prefix}'[optional name_prefix for output files]' \
+        {-l,--lambda,--kcov,--kmercov}'[optional initial kmercov estimate for model to use]' \
+        {-m,--max_kmercov}'[optional maximum kmer coverage threshold (kmers with coverage greater than max_kmercov are ignored by the model)]' \
+        '--verbose[optional flag to print messages during execution]' \
+        '--no_unique_sequence[optional flag to turn off yellow unique sequence line in plots]' \
+        '--json_report[write a JSON format report file in addition to the text summary]' \
+        {-t,--topology}'[ADVANCED: flag for topology for model to use]' \
+        '--initial_repetitiveness[ADVANCED: flag to set initial value for repetitiveness]' \
+        '--initial_heterozygosities[ADVANCED: flag to set initial values for nucleotide heterozygosity rates]' \
+        '--transform_exp[ADVANCED: parameter for the exponent when fitting a transformed (x**transform_exp*y vs. x) kmer histogram \[default 1\]]' \
+        '--testing[ADVANCED: flag to create testing.tsv file with model parameters]' \
+        '--true_params[ADVANCED: flag to state true simulated parameters for testing mode]' \
+        '--trace_flag[ADVANCED: flag to turn on printing of iteration progress of nlsLM function]' \
+        '--num_rounds[ADVANCED: parameter for the number of optimization rounds]' \
+        '--fitted_hist[ADVANCED: generates a fitted histogram for kmer multiplicity 0-4 and a lookup table of probabilities]' \
+        '--start_shift[ADVANCED: coverage shifts to exclude between fitting rounds]' \
+        '--typical_error[ADVANCED: typical level of sequencing error]' \
+        "*: :_files"
+
+}
+
+_genomescope2 "$@"
+

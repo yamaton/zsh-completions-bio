@@ -114,7 +114,8 @@ function _jellyfish_count {
         {-L,--lower-count}'[Don'\''t output k-mer with count < lower-count]' \
         {-U,--upper-count}'[Don'\''t output k-mer with count > upper-count]' \
         '--timing[Print timing information]':file:_files \
-        {--usage,-h,--help}'[This message]' \
+        '--usage[Usage]' \
+        {-h,--help}'[This message]' \
         '--full-help[Detailed help]' \
         {-V,--version}'[Version]' \
         "*: :_files"
@@ -134,7 +135,8 @@ function _jellyfish_bc {
         {-G,--Generators}'[Number of generators run simultaneously (1)]' \
         {-S,--shell}'[Shell used to run generator commands ($SHELL or /bin/sh)]' \
         '--timing[Print timing information]':file:_files \
-        {-U,--usage,-h,--help}'[This message]' \
+        {-U,--usage}'[Usage]' \
+        {-h,--help}'[This message]' \
         {-V,--version}'[Version]' \
         "*: :_files"
 
@@ -145,7 +147,8 @@ function _jellyfish_info {
         {-s,--skip}'[Skip header and dump remainder of file (false)]' \
         {-j,--json}'[Dump full header in JSON format (false)]' \
         {-c,--cmd}'[Display only the command line (false)]' \
-        {-U,--usage,-h,--help}'[This message]' \
+        {-U,--usage}'[Usage]' \
+        {-h,--help}'[This message]' \
         {-V,--version}'[Version]' \
         "*: :_files"
 
@@ -157,7 +160,8 @@ function _jellyfish_stats {
         {-U,--upper-count}'[Don'\''t consider k-mer with count > upper-count (2^64)]' \
         {-v,--verbose}'[Verbose (false)]' \
         {-o,--output}'[Output file]' \
-        {--usage,-h,--help}'[This message]' \
+        '--usage[Usage]' \
+        {-h,--help}'[This message]' \
         '--full-help[Detailed help]' \
         {-V,--version}'[Version]' \
         "*: :_files"
@@ -173,7 +177,8 @@ function _jellyfish_histo {
         {-f,--full}'[Full histo. Don'\''t skip count 0. (false)]' \
         {-o,--output}'[Output file]' \
         {-v,--verbose}'[Output information (false)]' \
-        {-U,--usage,--help}'[This message]' \
+        {-U,--usage}'[Usage]' \
+        '--help[This message]' \
         '--full-help[Detailed help]' \
         {-V,--version}'[Version]' \
         "*: :_files"
@@ -187,7 +192,8 @@ function _jellyfish_dump {
         {-L,--lower-count}'[Don'\''t output k-mer with count < lower-count]' \
         {-U,--upper-count}'[Don'\''t output k-mer with count > upper-count]' \
         {-o,--output}'[Output file]' \
-        {--usage,-h,--help}'[This message]' \
+        '--usage[Usage]' \
+        {-h,--help}'[This message]' \
         {-V,--version}'[Version]' \
         "*: :_files"
 
@@ -201,7 +207,8 @@ function _jellyfish_merge {
         {-j,--jaccard}'[Compute the jaccard and weighted jaccard similarities (false)]' \
         {-L,--lower-count}'[Don'\''t output k-mer with count < lower-count]' \
         {-U,--upper-count}'[Don'\''t output k-mer with count > upper-count]' \
-        {--usage,-h,--help}'[This message]' \
+        '--usage[Usage]' \
+        {-h,--help}'[This message]' \
         {-V,--version}'[Version]' \
         "*: :_files"
 
@@ -214,7 +221,8 @@ function _jellyfish_query {
         {-i,--interactive}'[Interactive, queries from stdin (false)]' \
         {-l,--load}'[Force pre-loading of database file into memory (false)]' \
         {-L,--no-load}'[Disable pre-loading of database file into memory (false)]' \
-        {-U,--usage,-h,--help}'[This message]' \
+        {-U,--usage}'[Usage]' \
+        {-h,--help}'[This message]' \
         {-V,--version}'[Version]' \
         "*: :_files"
 
@@ -224,7 +232,8 @@ function _jellyfish_cite {
     _arguments \
         {-b,--bibtex}'[Bibtex format (false)]' \
         {-o,--output}'[Output file]' \
-        {-U,--usage,-h,--help}'[This message]' \
+        {-U,--usage}'[Usage]' \
+        {-h,--help}'[This message]' \
         {-V,--version}'[Version]' \
         "*: :_files"
 
@@ -238,7 +247,8 @@ function _jellyfish_mem {
         {-p,--reprobes}'[Maximum number of reprobes (126)]' \
         '--mem[Return maximum size to fit within that memory]' \
         '--bc[Ignored switch]' \
-        {--usage,-h,--help}'[This message]' \
+        '--usage[Usage]' \
+        {-h,--help}'[This message]' \
         '--full-help[Detailed help]' \
         {-V,--version}'[Version]' \
         "*: :_files"
